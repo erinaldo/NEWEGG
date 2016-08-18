@@ -1,0 +1,44 @@
+﻿INFO  2016/07/21 10:51:40 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/07/21 10:51:40 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/07/21 10:51:43 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/21 10:51:43 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+
+ERROR 2016/07/21 10:51:48 SellerCorrectionPriceService   GetGroupBy                               預覽 Msg: Couldn't find componentID in ServiceMethods.config., Stacktrace:    at TWNewEgg.Framework.ServiceApi.Processor.GetServiceMethodInfo(String componentID, String methodName)
+   at TWNewEgg.Framework.ServiceApi.Processor.Request[TRequest,UResponse](String componentID, String methodName, Object[] requestData)
+   at TWNewEgg.API.Service.SellerCorrectionPriceService.GetGroupBy(Int32 sellerID, String user_name) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.API.Service\SellerCorrectionPriceService.cs:line 34
+
+INFO  2016/07/21 10:55:27 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/07/21 10:55:27 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/07/21 11:03:44 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/07/21 11:03:44 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/07/21 11:03:54 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/21 11:03:55 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/21 11:03:57 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/21 11:03:57 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/21 11:03:58 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/21 11:03:58 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/21 13:03:13 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/07/21 13:03:13 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/07/21 13:03:16 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/21 13:03:16 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/21 13:51:15 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/21 13:51:15 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+

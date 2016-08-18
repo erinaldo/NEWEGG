@@ -1,0 +1,28 @@
+﻿ERROR 2016/08/05 09:18:52 TWService                      TWSeller                                 _ll6b@newegg.comAn error occurred while getting provider information from the database. This can be caused by Entity Framework using an incorrect connection string. Check the inner exceptions for details and ensure that the connection string is correct.   於 System.Data.Entity.ModelConfiguration.Utilities.DbProviderServicesExtensions.GetProviderManifestTokenChecked(DbProviderServices providerServices, DbConnection connection)
+   於 System.Data.Entity.ModelConfiguration.Utilities.DbConnectionExtensions.GetProviderInfo(DbConnection connection, DbProviderManifest& providerManifest)
+   於 System.Data.Entity.DbModelBuilder.Build(DbConnection providerConnection)
+   於 System.Data.Entity.Internal.LazyInternalContext.CreateModel(LazyInternalContext internalContext)
+   於 System.Data.Entity.Internal.RetryLazy`2.GetValue(TInput input)
+   於 System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   於 System.Data.Entity.Internal.InternalContext.Initialize()
+   於 System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   於 System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   於 System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   於 System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   於 System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   於 TWNewEgg.API.Service.TWService.TWSeller(String SellerEmail, String accountType) 於 d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.API.Service\TWService.cs: 行 601
+
+ERROR 2016/08/05 09:18:52 TWService                      UpdateTWSeller                           _ll6b@newegg.comAn error occurred while getting provider information from the database. This can be caused by Entity Framework using an incorrect connection string. Check the inner exceptions for details and ensure that the connection string is correct.   於 System.Data.Entity.ModelConfiguration.Utilities.DbProviderServicesExtensions.GetProviderManifestTokenChecked(DbProviderServices providerServices, DbConnection connection)
+   於 System.Data.Entity.ModelConfiguration.Utilities.DbConnectionExtensions.GetProviderInfo(DbConnection connection, DbProviderManifest& providerManifest)
+   於 System.Data.Entity.DbModelBuilder.Build(DbConnection providerConnection)
+   於 System.Data.Entity.Internal.LazyInternalContext.CreateModel(LazyInternalContext internalContext)
+   於 System.Data.Entity.Internal.RetryLazy`2.GetValue(TInput input)
+   於 System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   於 System.Data.Entity.Internal.InternalContext.Initialize()
+   於 System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   於 System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   於 System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   於 System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   於 System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   於 TWNewEgg.API.Service.TWService.UpdateTWSeller(String SellerEmail, String accountType) 於 d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.API.Service\TWService.cs: 行 493
+

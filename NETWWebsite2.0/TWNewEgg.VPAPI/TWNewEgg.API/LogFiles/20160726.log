@@ -1,0 +1,4 @@
+﻿INFO  2016/07/26 17:28:03 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/07/26 17:28:03 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+

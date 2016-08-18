@@ -1,0 +1,9 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.DataToExcel\bin\Debug\TWNewEgg.DataToExcel.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.DataToExcel\bin\Debug\TWNewEgg.DataToExcel.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.DataToExcel\bin\Debug\NPOI.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.DataToExcel\bin\Debug\NPOI.OOXML.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.DataToExcel\bin\Debug\NPOI.OpenXml4Net.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.DataToExcel\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.DataToExcel\obj\Debug\TWNewEgg.DataToExcel.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.DataToExcel\obj\Debug\TWNewEgg.DataToExcel.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.DataToExcel\obj\Debug\TWNewEgg.DataToExcel.pdb

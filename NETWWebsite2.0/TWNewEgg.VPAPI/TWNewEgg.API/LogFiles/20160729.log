@@ -1,0 +1,32 @@
+﻿INFO  2016/07/29 12:02:29 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:02:29 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:13:01 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:13:01 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:20:31 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:20:31 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:20:32 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:20:32 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:20:35 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:20:35 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 1 筆資料。
+
+INFO  2016/07/29 12:20:40 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:20:40 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/07/29 12:20:42 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:20:42 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:26:57 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 2 筆資料。
+
+INFO  2016/07/29 12:26:57 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 2 筆資料。
+

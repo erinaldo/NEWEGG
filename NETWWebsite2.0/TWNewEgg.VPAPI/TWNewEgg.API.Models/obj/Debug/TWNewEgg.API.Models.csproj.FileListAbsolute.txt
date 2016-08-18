@@ -1,0 +1,5 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.API.Models\TWNewEgg.API.Models.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.API.Models\TWNewEgg.API.Models.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.API.Models\obj\Debug\TWNewEgg.API.Models.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.API.Models\obj\Debug\TWNewEgg.API.Models.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.API.Models\obj\Debug\TWNewEgg.API.Models.pdb

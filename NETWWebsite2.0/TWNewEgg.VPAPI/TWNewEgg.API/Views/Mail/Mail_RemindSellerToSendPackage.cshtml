@@ -1,0 +1,131 @@
+﻿@{
+    //出貨提醒通知信
+    
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+    string CompanyName = System.Configuration.ConfigurationManager.AppSettings["GlobalCompanyName"];
+    string MailEndWords = System.Configuration.ConfigurationManager.AppSettings["MailEndWords"];
+    string APIHost = System.Configuration.ConfigurationManager.AppSettings["TWSPHost"];
+    string CustomerServicePhone = System.Configuration.ConfigurationManager.AppSettings["CustomerServicePhone"];
+    string SupplierPhone = System.Configuration.ConfigurationManager.AppSettings["SupplierPhone"];
+    //var MailLink = "http://sellerpotal.newegg.com.tw/Pages/Account/SetPassword.aspx?UserEmail=" + ViewBag.UserEmail + "&RanNum=" + ViewBag.RanNum;
+    //var MailLink = "http://localhost:6789/Pages/Account/SetPassword.aspx?UserEmail=" + ViewBag.UserEmail + "&RanNum=" + ViewBag.RanNum;       //2014.1.24 寄認證信path改讀AppSettings.Config mark by ice
+    var MailLink = APIHost + "/Pages/Account/SetPassword.aspx?UserEmail=" + ViewBag.UserEmail + "&RanCode=" + ViewBag.RanCode;                    //2014.1.24 寄認證信path改讀AppSettings.Config mark by ice
+}
+<html>
+<head>
+    <title>出貨提醒通知信</title>
+    <style type="text/css">
+        .BlueFont {
+            color:blue;
+        }
+
+        .FontArial {
+            font-family:'Arial Narrow', 'Nimbus Sans L', sans-serif;
+            font-weight:bold;
+            color:blue;
+        }
+
+        .SpecialEmphisize {
+            font-family:'Arial Narrow', 'Nimbus Sans L', sans-serif;
+            font-weight:900;
+        }
+        
+        .tabletextstyle {
+            width : 795px ;
+            border : 0 ;
+            font-weight : bold;
+        }
+    </style>
+</head>
+
+    <body>
+        <table class ="tabletextstyle">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Header" width="795" height="68" />
+                    </div>
+                    
+                        <br />
+                        @string.Format("{0}",ViewBag.UserName)   您好：
+                        <br/><br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日(@string.Format("{0}/{1}",DateTime.Today.Date.Month,DateTime.Today.Date.Day)) 尚有 @(ViewBag.Unshipcount) 筆訂單未出貨，請您儘速安排出貨。
+                        <br/><br/>
+
+                                @if (ViewBag.IsAdmin == true)
+                                {
+                                    <div>
+                                        <table border="1">
+
+                                            <thead>
+                                                <tr>
+                                                    <td>Seller ID
+                                                    </td>
+                                                    <td>Seller Email
+                                                    </td>
+                                                    <td>Seller Name
+                                                    </td>
+                                                    <td>未出貨數量
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                    
+                                            
+                                            @foreach (var preshiporder in ViewBag.unshipList)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @preshiporder.SellerID
+                                                    </td>
+                                                    <td>
+                                                        @preshiporder.SellerEmail
+                                                    </td>
+                                                    <td>
+                                                        @preshiporder.SellerName
+                                                    </td>
+                                                    <td>
+                                                        @preshiporder.Unshipcount
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </table>
+                                    </div>
+                                
+                                <br />
+                                }
+                                @if (ViewBag.IsAdmin == false)
+                                { 
+                                <div>
+                                    請您至@(CompanyName)後台 <span class="BlueFont FontArial"><a href="http://sellerportal.newegg.com.tw">http://sellerportal.newegg.com.tw</a> > 訂單管理 > 訂單清單</span> 查詢尚未出貨的訂單明細。
+                                    <br/><br/>
+                                    新蛋全球生活網也會盡力提供協助，謝謝您！
+                                    <br /><br /><br />
+                                    
+                                </div>
+                                <div>
+                                    <p>
+                                        @(MailEndWords)
+                                        <br /><br />
+                                        電話: <span style="color:blue;font-weight:900;" class="FontArial">@(SupplierPhone) (供應商服務專線)</span>
+                                        <br />
+                                        客服信箱: <a href="mailto:marketplace@newegg.com.tw" target="_self" >marketplace@newegg.com.tw</a>
+                                        <br />
+                                        服務時間: 週一至週五 <span style="color:blue;font-weight:900;" class="FontArial">8:30a.m.~12:00 p.m. 1:00p.m.~5:30 p.m</span>
+                                        <br /><br />
+                                        <span style="color:red">※此信件為系統自動發送，請勿直接回覆。※</span>
+                                        <br />
+                                        <br />
+                                        <br />
+                                    </p>
+                                </div>
+                                }
+                    <div>
+                        <img src="@Fooer" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

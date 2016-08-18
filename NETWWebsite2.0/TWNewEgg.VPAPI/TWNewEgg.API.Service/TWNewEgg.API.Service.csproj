@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CDBBA7F6-004B-46EA-A8C3-A0B22A49A243}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.API.Service</RootNamespace>
+    <AssemblyName>TWNewEgg.API.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\Libraries\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\..\Libraries\EPPlus\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqToExcel">
+      <HintPath>..\..\Libraries\LinqToExcel_x64_1.7.1\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Libraries\Newtonsoft\JSON.NET\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion">
+      <HintPath>..\..\Libraries\LinqToExcel_x64_1.7.1\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq">
+      <HintPath>..\..\Libraries\LinqToExcel_x64_1.7.1\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces">
+      <HintPath>..\..\Libraries\LinqToExcel_x64_1.7.1\Remotion.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\..\Libraries\System.Linq.Dynamic.1.0.0\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TWNewEgg.Framework.AOP">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.AOP.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.Autofac">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.AutoMapper">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.BaseController">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.BaseController.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.Cache">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.Common">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.HttpMethod">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.ServiceApi">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Models.DomainModels">
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.Models.DomainModels.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdditionalPurchaseService.cs" />
+    <Compile Include="APIUserService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BatchItemUpdate.cs" />
+    <Compile Include="CategoryPropertyService.cs" />
+    <Compile Include="AddProductsInfoForVendorService.cs" />
+    <Compile Include="SellerCorrectionPriceService.cs" />
+    <Compile Include="Discard4Service.cs" />
+    <Compile Include="ExamineBatchService.cs" />
+    <Compile Include="ExceptionService.cs" />
+    <Compile Include="FinancialService.cs" />
+    <Compile Include="HiLifePaymentCollectionService.cs" />
+    <Compile Include="ImageService.cs" />
+    <Compile Include="ItemInventoryAlertService.cs" />
+    <Compile Include="ItemSketchPropertyService.cs" />
+    <Compile Include="ItemSketchService.cs" />
+    <Compile Include="LeftMenuService.cs" />
+    <Compile Include="MailService.cs" />
+    <Compile Include="GetCategoryService.cs" />
+    <Compile Include="AddProductsInfoService.cs" />
+    <Compile Include="AesEncryptor.cs" />
+    <Compile Include="CommissionService.cs" />
+    <Compile Include="FindSellerService.cs" />
+    <Compile Include="ItemService.cs" />
+    <Compile Include="ManageAccountService.cs" />
+    <Compile Include="ManufacturerService.cs" />
+    <Compile Include="NavigationMenuService.cs" />
+    <Compile Include="OneDimensionPropertyProcessService.cs" />
+    <Compile Include="PMInfoService.cs" />
+    <Compile Include="ProcessOrderNumService.cs" />
+    <Compile Include="ProductPorpertySketchService.cs" />
+    <Compile Include="ProductPorpertyTempService.cs" />
+    <Compile Include="ProductService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyBatchExamineService.cs" />
+    <Compile Include="PropertyService.cs" />
+    <Compile Include="PurviewService.cs" />
+    <Compile Include="ReturnList.cs" />
+    <Compile Include="ReturnService.cs" />
+    <Compile Include="SalesOrderSearchService.cs" />
+    <Compile Include="SalesOrderService.cs" />
+    <Compile Include="SellerContactInfoService.cs" />
+    <Compile Include="SellerInvitationService.cs" />
+    <Compile Include="SellerItemToVendor.cs" />
+    <Compile Include="SellerNotificationService.cs" />
+    <Compile Include="SellerRelationshipManageService.cs" />
+    <Compile Include="SellerBasicInfoService.cs" />
+    <Compile Include="SellerFinancialService.cs" />
+    <Compile Include="SellerReturnAddressService.cs" />
+    <Compile Include="SellerToVendorService.cs" />
+    <Compile Include="SellerUserGroupRelationshipSearchService.cs" />
+    <Compile Include="SellerUserService.cs" />
+    <Compile Include="SettlementService.cs" />
+    <Compile Include="StandardProductsService.cs" />
+    <Compile Include="StorageDetailService.cs" />
+    <Compile Include="SummaryService.cs" />
+    <Compile Include="TempService.cs" />
+    <Compile Include="TransactionDetailsService.cs" />
+    <Compile Include="TWService.cs" />
+    <Compile Include="UserService.cs" />
+    <Compile Include="XmlServer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\NETWWebsite1.0\01_Branch\Branch_Project16070\Components\TWNewEgg.BackendService\TWNewEgg.BackendService.csproj">
+      <Project>{cb6c0c2c-43a2-4c8c-926a-912a1b411171}</Project>
+      <Name>TWNewEgg.BackendService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.DB\TWNewEgg.DB.csproj">
+      <Project>{a65ac3a0-6a55-433b-adc1-22f8b88a3677}</Project>
+      <Name>TWNewEgg.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.EDI_FunctionCategory_LocalizedResRepoAdapters\TWNewEgg.EDI_FunctionCategory_LocalizedResRepoAdapters.csproj">
+      <Project>{2d5e59ab-aceb-4f84-8181-73f8c5169607}</Project>
+      <Name>TWNewEgg.EDI_FunctionCategory_LocalizedResRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.EDI_Seller_FunctionRepoAdapters\TWNewEgg.EDI_Seller_FunctionRepoAdapters.csproj">
+      <Project>{2e53bbd3-0598-4073-af1c-db9721116888}</Project>
+      <Name>TWNewEgg.EDI_Seller_FunctionRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.EDI_Seller_Function_LocalizedResRepoAdapters\TWNewEgg.EDI_Seller_Function_LocalizedResRepoAdapters.csproj">
+      <Project>{add90eab-8154-4a6d-af94-ac4f4a25f0ca}</Project>
+      <Name>TWNewEgg.EDI_Seller_Function_LocalizedResRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.Group_PurviewRepoAdapters\TWNewEgg.Group_PurviewRepoAdapters.csproj">
+      <Project>{0b861efb-c5ab-46df-bb26-cad9f7acf6b0}</Project>
+      <Name>TWNewEgg.Group_PurviewRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.Seller_ActionRepoAdapters\TWNewEgg.Seller_ActionRepoAdapters.csproj">
+      <Project>{73b67283-8777-4e15-a119-d8fe96bf94ce}</Project>
+      <Name>TWNewEgg.Seller_ActionRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.Seller_BasicInfoRepoAdapters\TWNewEgg.Seller_BasicInfoRepoAdapters.csproj">
+      <Project>{faa68058-9bb4-4ed4-a214-5288ff461150}</Project>
+      <Name>TWNewEgg.Seller_BasicInfoRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.Seller_PurviewRepoAdapters\TWNewEgg.Seller_PurviewRepoAdapters.csproj">
+      <Project>{6be20e27-f224-43bc-ab77-c5ffe717fd4f}</Project>
+      <Name>TWNewEgg.Seller_PurviewRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.Seller_UserRepoAdapters\TWNewEgg.Seller_UserRepoAdapters.csproj">
+      <Project>{a93b3d91-65c5-4c17-af0c-d3f907fee8d2}</Project>
+      <Name>TWNewEgg.Seller_UserRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.User_GroupRepoAdapters\TWNewEgg.User_GroupRepoAdapters.csproj">
+      <Project>{fe51887f-0b58-4a17-801b-434c566532ec}</Project>
+      <Name>TWNewEgg.User_GroupRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.User_PurviewRepoAdapters\TWNewEgg.User_PurviewRepoAdapters.csproj">
+      <Project>{43112dba-3ee3-4099-bb6e-d893fb6a4fa3}</Project>
+      <Name>TWNewEgg.User_PurviewRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.VendorModels.DBModels\TWNewEgg.VendorModels.DBModels.csproj">
+      <Project>{e2956cd8-357a-4b3f-8c9c-58c73e49dcc5}</Project>
+      <Name>TWNewEgg.VendorModels.DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.API.Models\TWNewEgg.API.Models.csproj">
+      <Project>{3bca9c4f-77da-4667-920a-990285b14cb7}</Project>
+      <Name>TWNewEgg.API.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.DataToExcel\TWNewEgg.DataToExcel.csproj">
+      <Project>{aab13950-2ebe-47d8-a3da-a5316b6d7ac2}</Project>
+      <Name>TWNewEgg.DataToExcel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Settings.StyleCop" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

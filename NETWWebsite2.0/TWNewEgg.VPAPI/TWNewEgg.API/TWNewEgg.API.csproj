@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{77FF23B7-E618-4512-AA8B-7CAC5900726B}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.API</RootNamespace>
+    <AssemblyName>TWNewEgg.API</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44301</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\..\Libraries\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\..\Libraries\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi">
+      <HintPath>..\..\Libraries\Autofac.WebApi.3.1.0\lib\net40\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=3.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\Libraries\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\..\Libraries\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.AuthTokenService">
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.AuthTokenService\bin\Debug\TWNewEgg.AuthTokenService.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.BackendService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.BackendService\TWNewEgg.BackendService.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.DAL\TWNewEgg.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.DB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.API.Models\TWNewEgg.DB.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.EDI_FunctionCategory_LocalizedResRepoAdapters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.EDI_FunctionCategory_LocalizedResRepoAdapters\bin\Debug\TWNewEgg.EDI_FunctionCategory_LocalizedResRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.EDI_Seller_FunctionRepoAdapters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.EDI_Seller_FunctionRepoAdapters\bin\Debug\TWNewEgg.EDI_Seller_FunctionRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.EDI_Seller_Function_LocalizedResRepoAdapters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.EDI_Seller_Function_LocalizedResRepoAdapters\bin\Debug\TWNewEgg.EDI_Seller_Function_LocalizedResRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.AOP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.AOP.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.Autofac, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.AutoMapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.BaseController, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.BaseController.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.Cache, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.HttpMethod, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.ServiceApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Group_PurviewRepoAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.Group_PurviewRepoAdapters\bin\Debug\TWNewEgg.Group_PurviewRepoAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Models.DBModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.Models.DBModels.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Models.DomainModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.Models.DomainModels.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Models.ViewModels">
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.Models.ViewModels.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.PurgeQueueAdapters">
+      <HintPath>..\..\Libraries\TWNewEgg.StorageServices\TWNewEgg.PurgeQueueAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Seller_ActionRepoAdapters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.Seller_ActionRepoAdapters\bin\Debug\TWNewEgg.Seller_ActionRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Seller_AuthTokenRepoAdapters">
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.Seller_AuthTokenRepoAdapters\bin\Debug\TWNewEgg.Seller_AuthTokenRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Seller_BasicInfoRepoAdapters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.Seller_BasicInfoRepoAdapters\bin\Debug\TWNewEgg.Seller_BasicInfoRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Seller_PurviewRepoAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.Seller_PurviewRepoAdapters\bin\Debug\TWNewEgg.Seller_PurviewRepoAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Seller_UserRepoAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.Seller_UserRepoAdapters\bin\Debug\TWNewEgg.Seller_UserRepoAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.StorageServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.StorageServices\TWNewEgg.StorageServices.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.User_PurviewRepoAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.User_PurviewRepoAdapters\bin\Debug\TWNewEgg.User_PurviewRepoAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.VendorModels.DBModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.VendorModels.DBModels.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\..\Libraries\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AutofacConfig.cs" />
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\ServiceApiConfig.cs" />
+    <Compile Include="App_Start\ViewModelToDomainModel.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Attributes\ActionDescriptionAttribute.cs" />
+    <Compile Include="Controllers\AdditionalPurchaseController.cs" />
+    <Compile Include="Controllers\APIUserController.cs" />
+    <Compile Include="Controllers\AddProductsInfoController.cs" />
+    <Compile Include="Controllers\api\ServiceApiController.cs" />
+    <Compile Include="Controllers\BulletinsController.cs" />
+    <Compile Include="Controllers\CommissionController.cs" />
+    <Compile Include="Controllers\SellerCorrectionPriceController.cs" />
+    <Compile Include="Controllers\Discard4Controller.cs" />
+    <Compile Include="Controllers\FinancialController.cs" />
+    <Compile Include="Controllers\ItemPreviewController.cs" />
+    <Compile Include="Controllers\ItemSketchController.cs" />
+    <Compile Include="Controllers\ItemTempController.cs" />
+    <Compile Include="Controllers\JobInterFaceController.cs" />
+    <Compile Include="Controllers\LoginAuthorize.cs" />
+    <Compile Include="Controllers\ReturnController.cs" />
+    <Compile Include="Controllers\SalesOrderSearchController.cs" />
+    <Compile Include="Controllers\SellerToVendorController.cs" />
+    <Compile Include="Controllers\HiLifePaymentCollectionController.cs" />
+    <Compile Include="Controllers\ShiftOrderNumController.cs" />
+    <Compile Include="Controllers\QueryWebConfigController.cs" />
+    <Compile Include="Controllers\ItemInventoryAlertController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
+    <Compile Include="Controllers\NavigationMenuController.cs" />
+    <Compile Include="Controllers\PurviewController.cs" />
+    <Compile Include="Controllers\SellerUserGroupRelationshipSearchController.cs" />
+    <Compile Include="Controllers\SketchPropertyController.cs" />
+    <Compile Include="Controllers\TwoDimProductPropertyController.cs" />
+    <Compile Include="Controllers\TwServiceController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\FindSellerController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemListController.cs" />
+    <Compile Include="Controllers\ManageOrderController.cs" />
+    <Compile Include="Controllers\ManufacturerController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SalesOrderController.cs" />
+    <Compile Include="Controllers\SellerBasicInfoController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\SellerContactInfoController.cs" />
+    <Compile Include="Controllers\SellerFinancialController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\SellerInvitationController.cs" />
+    <Compile Include="Controllers\SellerNotificationController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\SellerRelationshipManageController.cs" />
+    <Compile Include="Controllers\SellerReturnAddressController.cs" />
+    <Compile Include="Controllers\SellerUserController.cs" />
+    <Compile Include="Controllers\SettlementController.cs" />
+    <Compile Include="Controllers\StorageDetailController.cs" />
+    <Compile Include="Controllers\SummaryController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TransactionDetailsController.cs" />
+    <Compile Include="Filters\PermissionFilter.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\defautlNoImage.png" />
+    <Content Include="Content\kendo.bootstrap.min.css" />
+    <Content Include="Content\kendo.common-bootstrap.min.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="FileTempLocation\XML\Messageboard.xml" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Configurations\AppSettings.Config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\log4net.config" />
+    <Content Include="Configurations\PublicMethods.config" />
+    <Content Include="Configurations\ServiceApiAddress.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\ServiceApiCacheAppSettings.config" />
+    <Content Include="Configurations\ServiceComponents.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\ServiceMethods.config" />
+    <None Include="Properties\PublishProfiles\API.pubxml" />
+    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\kendo.web.min.js" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Themes\2013\img\footer.png" />
+    <Content Include="Themes\2013\img\header.png" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Mail\Mail_SellerInvitation.cshtml" />
+    <Content Include="Views\Mail\Mail_ManufactureRequestNotification.cshtml" />
+    <Content Include="Views\Mail\Mail_ItemInventoryAlert.cshtml" />
+    <Content Include="Settings.StyleCop" />
+    <Content Include="Views\Mail\Mail_ResetPassword.cshtml" />
+    <Content Include="Views\Mail\Mail_NewManufactureVerify.cshtml" />
+    <Content Include="Views\Mail\Mail_InformSellerNewOrder.cshtml" />
+    <Content Include="Views\Mail\Mail_PriceChanged.cshtml" />
+    <Content Include="Views\Mail\Mail_ItemInfoToPM.cshtml" />
+    <Content Include="Views\Mail\Mail_ErrorInfo.cshtml" />
+    <Content Include="Views\Mail\Mail_InformSellerCancelOrder.cshtml" />
+    <Content Include="Views\Mail\Mail_RemindSellerToSendPackage.cshtml" />
+    <Content Include="Views\Test\testRegular.cshtml" />
+    <Content Include="Views\Mail\Mail_RemindGrossMargin.cshtml" />
+    <Content Include="Views\Mail\Mail_UserResponse.cshtml" />
+    <Content Include="Views\Mail\Mail_InforSellerRMA.cshtml" />
+    <Content Include="Views\Mail\Mail_InforSellerRMASuccess.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="FileTempLocation\XML\XmlFileTemp\" />
+    <Folder Include="Models\" />
+    <Folder Include="obj\Debug\" />
+    <Folder Include="obj\Release\" />
+    <Folder Include="Pic\ItemSketch\" />
+    <Folder Include="Pic\itemtemp\0015\" />
+    <Folder Include="Pic\itemtemp\0017\" />
+    <Folder Include="Pic\itemtemp\0021\" />
+    <Folder Include="Pic\itemtemp\0050\" />
+    <Folder Include="Pic\Item\0000\" />
+    <Folder Include="Pic\Item\0015\" />
+    <Folder Include="Pic\Item\0044\" />
+    <Folder Include="Pic\Pic\ItemSketch\" />
+    <Folder Include="Pic\Pic\itemtemp\0015\" />
+    <Folder Include="Pic\Pic\itemtemp\0017\" />
+    <Folder Include="Pic\Pic\itemtemp\0021\" />
+    <Folder Include="Pic\Pic\itemtemp\0050\" />
+    <Folder Include="Pic\Pic\item\0000\" />
+    <Folder Include="Pic\Pic\item\0015\" />
+    <Folder Include="Pic\Pic\item\0044\" />
+    <Folder Include="Pic\Pic\producttemp\" />
+    <Folder Include="Pic\Pic\product\0000\" />
+    <Folder Include="Pic\Pic\product\0014\" />
+    <Folder Include="Pic\Pic\product\0044\" />
+    <Folder Include="Pic\producttemp\" />
+    <Folder Include="Pic\Product\0014\" />
+    <Folder Include="Pic\SellerLogo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\TWNewEgg.BulletinsMessageService.csproj">
+      <Project>{adcb456b-9a03-438c-97e1-6aafe3774b37}</Project>
+      <Name>TWNewEgg.BulletinsMessageService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.API.Models\TWNewEgg.API.Models.csproj">
+      <Project>{3bca9c4f-77da-4667-920a-990285b14cb7}</Project>
+      <Name>TWNewEgg.API.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.API.Service\TWNewEgg.API.Service.csproj">
+      <Project>{cdbba7f6-004b-46ea-a8c3-a0b22a49a243}</Project>
+      <Name>TWNewEgg.API.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>57035</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

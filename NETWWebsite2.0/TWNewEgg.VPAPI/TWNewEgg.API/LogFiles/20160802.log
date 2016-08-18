@@ -1,0 +1,212 @@
+﻿INFO  2016/08/02 09:34:33 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 09:34:33 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 09:35:00 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 09:35:00 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:39:37 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 13:39:37 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 13:39:44 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:39:44 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:42:44 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 13:42:44 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 13:42:48 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:42:48 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:43:31 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:43:31 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:43:40 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 13:43:40 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 13:43:44 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:43:44 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:44:05 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 13:44:05 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 13:45:03 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 13:45:03 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 13:45:06 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:45:06 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:51:53 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 13:51:53 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 13:51:58 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:51:58 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:52:17 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:52:17 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:52:18 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:52:18 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:52:19 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:52:19 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:52:20 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:52:20 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:57:08 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 13:57:08 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 13:57:13 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:57:13 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:59:26 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 13:59:26 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 13:59:29 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:59:29 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:59:45 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:59:45 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:59:56 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 13:59:56 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:00:00 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:00:00 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:00:03 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:00:03 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:00:41 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:00:41 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:00:46 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:00:46 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:02:05 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:02:05 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:02:10 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:02:10 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:02:13 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:02:13 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:02:51 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:02:51 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:02:55 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:02:55 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:04:28 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:04:28 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:04:32 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:04:32 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:05:46 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:05:46 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:05:59 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:05:59 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:07:02 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:07:02 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:07:05 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:07:05 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:07:46 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:07:46 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:07:49 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:07:49 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:08:14 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:08:14 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:08:18 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:08:18 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:08:51 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:08:51 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:08:54 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:08:54 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:09:31 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:09:31 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:09:34 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:09:34 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:10:10 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:10:10 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:10:13 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:10:13 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:11:02 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:11:02 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:11:04 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:11:04 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:41:55 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查無主單資料。
+
+INFO  2016/08/02 14:41:55 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查無主單資料。
+
+INFO  2016/08/02 14:41:59 FinanDetailService             GetMainStatement                         對帳單主單查詢 BackendService result message : 查詢主單成功，共有 5 筆資料。
+
+INFO  2016/08/02 14:41:59 FinancialService               GetMainStatement                         對帳單主單查詢 API result message : 查詢主單成功，共有 5 筆資料。
+

@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3BCA9C4F-77DA-4667-920A-990285B14CB7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.API.Models</RootNamespace>
+    <AssemblyName>TWNewEgg.API.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Libraries\TWNewEgg.API.Models\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TWNewEgg.Models.DomainModels">
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.Models.DomainModels.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connector2.cs" />
+    <Compile Include="DomainModel\CreateStandardProductSketch.cs" />
+    <Compile Include="DomainModel\SellerAutoComplete.cs" />
+    <Compile Include="DomainModel\StandProductProperty.cs" />
+    <Compile Include="DomainModel\TempList.cs" />
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\ActionResponse.cs" />
+    <Compile Include="Connector.cs" />
+    <Compile Include="Models\AdditionalPurchaseModel.cs" />
+    <Compile Include="Models\APIItemModel.cs" />
+    <Compile Include="Models\AuthToken.cs" />
+    <Compile Include="Models\BatchEditItemSketchModel.cs" />
+    <Compile Include="Models\BatchExamineModel.cs" />
+    <Compile Include="Models\CategoryProperty.cs" />
+    <Compile Include="Models\Cookie.cs" />
+    <Compile Include="Models\FinancialModel.cs" />
+    <Compile Include="Models\HiLifePaymentInfo.cs" />
+    <Compile Include="Models\ItemCreationResult.cs" />
+    <Compile Include="Models\ItemSketch.cs" />
+    <Compile Include="Models\ItemTemp.cs" />
+    <Compile Include="Models\MenuList.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\PropertyExcelModel.cs" />
+    <Compile Include="Models\Regood.cs" />
+    <Compile Include="Models\SalesOrderSearch.cs" />
+    <Compile Include="Models\SPItemCreation.cs" />
+    <Compile Include="Models\TinyCart.cs" />
+    <Compile Include="Models\UnshipList.cs" />
+    <Compile Include="Models\UpdateRetGoodsInfo.cs" />
+    <Compile Include="Models\UpdateTWTrackingNum.cs" />
+    <Compile Include="Models\UserChangeStatus.cs" />
+    <Compile Include="Models\ResetPasswordResult.cs" />
+    <Compile Include="Models\ResetPassword.cs" />
+    <Compile Include="Models\GetFunctionListResult.cs" />
+    <Compile Include="Models\GetUserListResult.cs" />
+    <Compile Include="Models\GetPurviewResult.cs" />
+    <Compile Include="Models\OrderDetailsInfo.cs" />
+    <Compile Include="Models\SaveUserPurview.cs" />
+    <Compile Include="Models\GetCurrencyListResult.cs" />
+    <Compile Include="Models\ItemInventoryAlertModel.cs" />
+    <Compile Include="Models\ProductSpec.cs" />
+    <Compile Include="Models\SellerLogoInfo.cs" />
+    <Compile Include="Models\Seller_ContactInfoData.cs" />
+    <Compile Include="Models\UserCheckStatusResult.cs" />
+    <Compile Include="Models\SearchSellerModel.cs" />
+    <Compile Include="Models\SettlementResult.cs" />
+    <Compile Include="Models\MailTransformation.cs" />
+    <Compile Include="Models\MailResult.cs" />
+    <Compile Include="Models\Mail.cs" />
+    <Compile Include="Models\UserCheckStatus.cs" />
+    <Compile Include="Models\GetSellerChargeResult.cs" />
+    <Compile Include="Models\GetRegionListResult.cs" />
+    <Compile Include="Models\ItemSearchCondition.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
+    <Compile Include="Models\QueryFunctionCondition.cs" />
+    <Compile Include="Models\SellerCreation.cs" />
+    <Compile Include="Models\SellerCreationResult.cs" />
+    <Compile Include="Models\Seller_BasicInfoWithFinancial.cs" />
+    <Compile Include="Models\Seller_FunctionCategoryLocalized.cs" />
+    <Compile Include="Models\Seller_FunctionJoinCategory.cs" />
+    <Compile Include="Models\SettlementSPSearch.cs" />
+    <Compile Include="Models\StorageDetailSPSearch.cs" />
+    <Compile Include="Models\SummarySPSrarch.cs" />
+    <Compile Include="Models\TransactionSPSearch.cs" />
+    <Compile Include="Models\UserCreationResult.cs" />
+    <Compile Include="Models\UserCreation.cs" />
+    <Compile Include="Models\UserChangePassword.cs" />
+    <Compile Include="Models\SendInvitationEmailResult.cs" />
+    <Compile Include="Models\SendInvitationEmail.cs" />
+    <Compile Include="Models\UserLoginResult.cs" />
+    <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\DetailInfoResult.cs" />
+    <Compile Include="Models\ItemInfoResult.cs" />
+    <Compile Include="Models\GetSellerCharge.cs" />
+    <Compile Include="Models\QuerySOCondition.cs" />
+    <Compile Include="Models\Seller_BasicafterInfo.cs" />
+    <Compile Include="Models\Seller_BasicProInfo.cs" />
+    <Compile Include="Models\SellerItemControl.cs" />
+    <Compile Include="Models\LoginInfo.cs" />
+    <Compile Include="Models\LoginResult.cs" />
+    <Compile Include="Models\CategoryResult.cs" />
+    <Compile Include="Models\Manufacturer.cs" />
+    <Compile Include="Models\OtherInfoResult.cs" />
+    <Compile Include="Models\PageInfo.cs" />
+    <Compile Include="Models\ProductsInfoResult.cs" />
+    <Compile Include="Models\SaveSellerCharge.cs" />
+    <Compile Include="Models\SellerInvitationResult.cs" />
+    <Compile Include="Models\SellerRMQuery.cs" />
+    <Compile Include="Models\Seller_BasicInfo.cs" />
+    <Compile Include="Models\SettlementBasicInfo.cs" />
+    <Compile Include="Models\SettlementSPResult.cs" />
+    <Compile Include="Models\StorageDetail.cs" />
+    <Compile Include="Models\StorageDetailSPResult.cs" />
+    <Compile Include="Models\SettlementInfo.cs" />
+    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\TransactionSPResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\ValueTextItem.cs" />
+    <Compile Include="Models\QueryProductCondition.cs" />
+    <Compile Include="Models\SummarySPResult.cs" />
+    <Compile Include="ViewModel\twoDimPropertyValue.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\TWNewEgg.API.Models.csprojResolveAssemblyReference.cache" />
+    <None Include="Settings.StyleCop" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="obj\Release\TWNewEgg.API.Models.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\TWNewEgg.API.Models.dll" />
+    <Content Include="obj\Release\TWNewEgg.API.Models.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\" />
+    <Folder Include="obj\Release\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.DB\TWNewEgg.DB.csproj">
+      <Project>{a65ac3a0-6a55-433b-adc1-22f8b88a3677}</Project>
+      <Name>TWNewEgg.DB</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir D:\CompilerOutput
+copy $(TargetPath) D:\CompilerOutput\$(TargetName)$(TargetExt)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

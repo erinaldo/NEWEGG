@@ -1,0 +1,55 @@
+﻿@{
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+    string APIHost = System.Configuration.ConfigurationManager.AppSettings["TWSPHost"];  //2014.1.24 寄認證信path改讀AppSettings.Config mark by ice    
+    var MailLink = APIHost + "/Pages/Account/SetPassword.aspx?UserEmail=" + ViewBag.UserEmail + "&RanCode=" + ViewBag.RanCode;  //2014.1.24 寄認證信path改讀AppSettings.Config mark by ice
+    var UserName = ViewBag.UserName;
+    var UserMessage = ViewBag.MailMessage;
+}
+<html>
+    <head>
+        <title></title>
+        <style type="text/css">
+            .BlueFont {
+                color:blue;
+            }
+
+            .FontArial {
+                font-family:'Arial Narrow', 'Nimbus Sans L', sans-serif;
+                font-weight:bold;
+                color:blue;
+            }
+
+            .SpecialEmphisize {
+                font-family:'Arial Narrow', 'Nimbus Sans L', sans-serif;
+                font-weight:900;
+            }
+            .tabletextstyle {
+                width : 795px ;
+                border : 0 ;
+                font-weight : bold;
+            }
+        </style>
+    </head>
+    <body>
+        <table class ="tabletextstyle">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Header" width="795" height="68" />
+                    </div>
+                    <div>
+                        <br />
+                        用戶 @(UserName) 反饋如下：
+                        <br/><br/>                        
+                        @(UserMessage)                                                                                               
+                        <br/><br/>                                          
+                    </div>
+                    <div>
+                        <img src="@Fooer" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

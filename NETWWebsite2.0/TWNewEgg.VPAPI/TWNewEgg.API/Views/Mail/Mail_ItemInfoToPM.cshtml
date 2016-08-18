@@ -1,0 +1,155 @@
+﻿@*@model IEnumerable<TWNewEgg.API.Models.ManufacturerListResultModel>*@
+
+
+@{
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+    string APIHost = System.Configuration.ConfigurationManager.AppSettings["TWSPHost"];  //2014.1.24 寄認證信path改讀AppSettings.Config mark by ice
+    //var MailLink = "http://sellerpotal.newegg.com.tw/Pages/Account/SetPassword.aspx?UserEmail=" + ViewBag.UserEmail + "&RanNum=" + ViewBag.RanNum;
+    //var MailLink = "http://localhost:6789/Pages/Account/SetPassword.aspx?UserEmail=" + ViewBag.UserEmail + "&RanNum=" + ViewBag.RanNum;       //2014.1.24 寄認證信path改讀AppSettings.Config mark by ice
+    var MailLink = APIHost + "/Pages/Account/SetPassword.aspx?UserEmail=" + ViewBag.UserEmail + "&RanCode=" + ViewBag.RanCode;                    //2014.1.24 寄認證信path改讀AppSettings.Config mark by ice
+}
+
+@{var data = (List<TWNewEgg.API.Models.ItemInfoList>)Model;}
+<html>
+<head>
+    <style>
+        .itemlist td {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .BlueFont {
+            color:blue;
+        }
+
+        .FontArial {
+            font-family:'Arial Narrow', 'Nimbus Sans L', sans-serif;
+            font-weight:bold;
+            color:blue;
+        }
+
+        .SpecialEmphisize {
+            font-family:'Arial Narrow', 'Nimbus Sans L', sans-serif;
+            font-weight:900;
+        }
+
+        .tabletextstyle {
+            width : 795px ;
+            border : 0 ;
+            font-weight : bold;
+        }
+    </style>
+</head>
+<body>
+    <table class ="tabletextstyle">
+        <tr>
+            <td>
+                <div>
+                        <font face="calibri">Dear PM</font>
+                        <br /><br />
+                        <p class=MsoNormal><span style='font-family:"新細明體","serif"'>請登入</span>
+                        <a href="http://sellerportal.newegg.com.tw">http://sellerportal.newegg.com.tw</a>
+                       ，審核無誤後請變更商品狀態燈號為上架即可開啟賣場，若有其他問題請主動聯絡商家協助完成上架。</span><span lang=EN-US><o:p></o:p></span></p>
+                </div>
+
+                <div>
+                    <table class="itemlist" border="1" style="border:1px solid black;border-collapse:collapse" vertical-align:middle; >
+                        <thead>
+                            <tr>
+                                <td>Seller/Vendor
+                                </td>
+                                <td>Title
+                                </td>
+                                <td>NE Item#
+                                </td>
+                                <td>Date Created
+                                </td>
+                                <td>Industry
+                                </td>
+                                <td>Subcategory
+                                </td>
+                                <td>Variation
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>商家名稱
+                                </td>
+                                <td>商品標題
+                                </td>
+                                <td>新蛋賣場編號
+                                </td>
+                                <td>創建日期
+                                </td>
+                                <td>主類別
+                                </td>
+                                <td>子類別
+                                </td>
+                                <td>分類屬性
+                                </td>
+                            </tr>
+                        </thead> 
+                      
+                        @foreach (var itemInfo in data)
+                        {                          
+                            <tr>
+                                <td>
+                                    @if (string.IsNullOrEmpty(itemInfo.SellerName))
+                                    {
+                                        string SellerID = "SellerID: " + itemInfo.ItemSellerID;
+                                         @SellerID
+                                    }
+                                    else
+                                    {
+                                        string SellerName = itemInfo.SellerName + "(" + itemInfo.ItemSellerID + ")";
+                                        @SellerName
+                                    }                                   
+                                </td>
+                                <td>
+                                   @itemInfo.ItemName                                  
+                                </td>
+                                <td>
+                                    @itemInfo.ItemID
+                                </td>
+                                <td>
+                                    @itemInfo.ItemCreateDate
+                                </td>
+                                <td>
+                                    @itemInfo.IndustryName
+                                </td>
+                                <td>
+                                    @itemInfo.SubcategoryName
+                                </td>
+                                <td>
+                                    @itemInfo.ItemCategoryName
+                                </td>
+                            </tr>                          
+                        }
+                    </table>
+                    <br>
+                </div>
+            </td>
+        </tr>
+        </table>
+        <p><font style='font-size:10.0pt;font-family:"Century Gothic","sans-serif";color:navy;'>-----------------------------------------------------------------------------------------------------------------------------------------------------------</font></p>
+        <span style='font-size:10.0pt;color:red;display:inline'>CONFIDENTIALITY NOTICE:</span>
+        <span style='font-size:10.0pt;color:navy;display:inline'>
+        This email and any files transmitted with it may contain
+        privileged or&nbsp;otherwise confidential information.&nbsp; It is intended
+        only for the person&nbsp;or persons to whom it is addressed. If you received
+        this message in error, you are not authorized to read, print, retain, copy,
+        disclose, disseminate, distribute, or use this message any part thereof or any
+        information contained therein. Please notify the sender immediately and delete
+        all copies of this message. Thank you in advance for your cooperation.
+        </span>
+        <br>
+        <span style='font-size:10.0pt;font-family:"Century Gothic","sans-serif";color:red;display:inline'>保密注意:</span>
+        <span style='font-size:10.0pt;color:navy;display:inline'>
+        此郵件及其附隨檔可能包含了保密資訊。該郵件的目的是發送給指定收件人。
+        如果您非指定收件人而錯誤地收到了本郵件，
+        您將無權閱讀、列印、保存、複製、洩露、傳播、分發或使用此郵件全部或部分內容或者郵件中包含的任何資訊。
+        請立即通知寄件者，並刪除該郵件。感謝您的配合！
+        </span>
+</body>
+</html>

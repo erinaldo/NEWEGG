@@ -1,0 +1,117 @@
+﻿@*@model IEnumerable<TWNewEgg.API.Models.ManufacturerListResultModel>*@
+
+
+@{
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+    string CompanyName = System.Configuration.ConfigurationManager.AppSettings["GlobalCompanyName"];
+    string MailEndWords = System.Configuration.ConfigurationManager.AppSettings["MailEndWords"];
+    string CustomerServicePhone = System.Configuration.ConfigurationManager.AppSettings["CustomerServicePhone"];
+    string SupplierPhone = System.Configuration.ConfigurationManager.AppSettings["SupplierPhone"];
+    string APIHost = System.Configuration.ConfigurationManager.AppSettings["TWSPHost"];  //2014.1.24 寄認證信path改讀AppSettings.Config mark by ice
+    //var MailLink = "http://sellerpotal.newegg.com.tw/Pages/Account/SetPassword.aspx?UserEmail=" + ViewBag.UserEmail + "&RanNum=" + ViewBag.RanNum;
+    //var MailLink = "http://localhost:6789/Pages/Account/SetPassword.aspx?UserEmail=" + ViewBag.UserEmail + "&RanNum=" + ViewBag.RanNum;       //2014.1.24 寄認證信path改讀AppSettings.Config mark by ice
+    var MailLink = APIHost + "/Pages/Account/SetPassword.aspx?UserEmail=" + ViewBag.UserEmail + "&RanCode=" + ViewBag.RanCode;                    //2014.1.24 寄認證信path改讀AppSettings.Config mark by ice
+}
+
+@{var data = (List<TWNewEgg.DB.TWSELLERPORTALDB.Models.Seller_ManufactureInfo_Edit>)Model;}
+<html>
+<body>
+        <head>
+            <title></title>
+            <style type="text/css">
+                .BlueFont {
+                    color:blue;
+                }
+
+                .FontArial {
+                    font-family:'Arial Narrow', 'Nimbus Sans L', sans-serif;
+                    font-weight:bold;
+                    color:blue;
+                }
+
+                .SpecialEmphisize {
+                    font-family:'Arial Narrow', 'Nimbus Sans L', sans-serif;
+                    font-weight:900;
+                }
+
+                .tabletextstyle {
+                    width : 795px ;
+                    border : 0 ;
+                    font-weight : bold;
+                }
+            </style>
+        </head>
+    <table class ="tabletextstyle">
+        <tr>
+            <td>
+                <div>
+                    <img src="@Header" width="795" height="68" />
+                </div>
+                <div>
+                    <br />
+                    <b>@string.Format("{0}", ViewBag.UserName) 您好：
+
+                        <br />
+                        <br />
+                        已收到新製造商申請，目前累積待審核清單如下：
+                        <br />
+                        <br />
+                </div>
+
+                <div align="center">
+
+                    <table border="1">
+
+                        <thead>
+                            <tr>
+                                <td>製造商名稱
+                                </td>
+                                <td>製造商URL
+                                </td>
+                                <td>申請日期
+                                </td>
+                            </tr>
+                        </thead>
+
+                        @foreach (var manufacture in data)
+                        {
+                            
+                            <tr>
+                                <td>
+                                    @manufacture.ManufactureName
+                                </td>
+                                <td>
+                                    @manufacture.ManufactureURL
+                                </td>
+                                <td>
+                                    @manufacture.InDate
+                                </td>
+                            </tr>
+                            
+                        }
+                    </table>
+                    <br />
+                    待審核筆數：@string.Format("{0}", ViewBag.MailMessage)
+
+                </div>
+
+                @*<div>
+                        <p>
+                            @(MailEndWords)<br />
+                            <br/><br/>
+                            電話：@(SupplierPhone)<br/>
+                            客服信箱：<a href="mailto:marketplace@newegg.com.tw" target="_self">marketplace@newegg.com.tw</a><br />
+                            服務時間：週一至週五 8:30AM - 12:00PM; 1:00PM - 5:30PM<br />
+                            <br/><br/>
+                            <FONT COLOR="#FF0000">※此信件為系統自動發送，請勿直接回覆。※</FONT><br/>
+                        </p>
+                    </div>*@
+                <div>
+                    <img src="@Fooer" width="795" height="40" />
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
