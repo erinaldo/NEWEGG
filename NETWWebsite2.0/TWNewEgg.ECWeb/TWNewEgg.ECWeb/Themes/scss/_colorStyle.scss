@@ -1,0 +1,77 @@
+﻿@charset "utf-8";
+@import "compass/css3";
+@import "_base_BAK";
+/*所有顏色統一管理*/
+
+/*全站背景色*/
+$mainColorBg:#fff;
+
+/*深色按鈕文字*/
+$btnDarkBgColor:#fff;
+
+/*a & a:visited*/
+$alinkColor:#688bb5;
+
+/*a:hover*/
+$alinkHover:darken($alinkColor,30%);
+
+/*a:active*/
+$alinkActive:lighten($alinkColor,10%);
+
+/*麵包屑顏色*/
+$pathLinlStyle:#7f7f7f;
+
+/*表單文字顏色*/
+$inputTextColor:#000;
+
+/*表單框框顏色*/
+$inputBorderColor:#808080;
+
+/*禁止使用的灰灰字*/
+$grayDisable:#ccc;
+
+/*淺灰色*/
+$grayStyle:#ccc;
+
+/*深灰色*/
+$darkgrayStyle:#666;
+
+/*杏黃色*/
+$apricotStyle:#ec8b54;
+
+/*淺橘色*/
+$lightorangeStyle:#ec8b54;
+
+/*杏橘色*/
+$apricotorangeStyle:#edad7f;
+
+/*藍靛色*/
+$indigoStyle:#172c47;
+
+/*淺藍色*/
+$babyblueStyle:#7497bd;
+
+/*天藍*/
+$skyBlueStyle:#49639e;
+
+/*鋼青色*/
+$SteelBlueStyle:#8aa7c7;
+
+/*紅色*/
+$redStyle:#f00;
+
+/*頁籤樣式*/
+	/*tab框線*/$serviceTabBorder:#d5d5d5;
+	/*tab文字*/$serviceTabStyle:#bfbfbf;
+	/*tab背景色*/$serviceTabBg:#fff;
+	/*tabHover背景色*/$serviceTabHoverBg:#ec8b54;
+	/*tabHover文字*/$serviceTabHoverStyle:#fff;
+	/*tabHover框線*/$serviceTabHoverBorder:#ec8b54;
+	/*tabActive背景色*/$serviceTabActiveBg:#ec8b54;
+	/*tabActive文字*/$serviceTabActiveStyle:#fff;
+	/*tabActive框線*/$serviceTabActiveBorder:#ec8b54;
+	/*tabActive框線*/$serviceContentTitStyle:#666;
+	/*tabActive框線*/$serviceContentStyle:#666;
+
+/*登入註冊區塊*/
+	/*區塊外框*/$fillFormBorder:#d5d5d5;

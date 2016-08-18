@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "我的回饋金" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/Account")
+}
+@section scripts {
+
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    <script>
+        /*給子選單滑出滑入用的jquery*/
+        TabSelectArea();
+        /*說明顯示開關*/
+        tipsSwitch();
+    </script>
+}
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/MyAccount">我的帳戶</a> >
+    <span>我的回饋金</span>
+</div>
+
+<div class="TopExplanationArea"></div>
+
+<div class="AccountArea">
+    <div class="TabArea Border grayBorder">
+        <ul>
+            <li class="Tab BorderTab" id="WishList"><a href="/Cart/WishCart"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+            <li class="Tab BorderTab TabSelected" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>
+            <li class="Tab BorderTab" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+            <li class="Tab BorderTab" id="Order" onclick="TabOpenClose()">
+                <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                    @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+                </ul>
+            </li>
+            <li class="Tab BorderTab" id="Account">
+                <a href="/MyAccount"><i class="icon ServiceIcon Account"></i>帳戶管理<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                    <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                    @*<li><a href="/MyAccount/AddressBook">紀錄本修改</a></li>*@
+                    <li><a href="/MyAccount/AskQuestion">問答中心</a></li>
+                    <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="serviceContentArea">
+        <div class="serviceContentBox">
+            <div class="Tit ClassTit"><i class="icon ServiceIcon ShoppingCash-2"></i>我的購物金</div>
+            <div class="neweggCashState">
+                <table>
+                    <tr>
+                        <th colspan="3">可用購物金<input type="text" value="300" readonly /></th>
+                    </tr>
+                    <tr>
+                        <td>待生效購物金<input type="text" value="300" readonly /></td>
+                        <td>2016年到期購物金<input type="text" value="300" readonly /></td>
+                        <td>特殊效購物金<input type="text" value="300" readonly /></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="neweggCashSFilterArea">
+                <div class="neweggCashOrderNum">
+                    <input type="text" placeholder="輸入訂單編號查詢" />
+                    <input type="button" value="確定" class="btn btn-submit" />
+                </div>
+                <div class="neweggCashState">
+                    <span class="tit">依照狀態篩選</span>
+                    <select class="select_sm selector-neweggCashState">
+                        <option>使用</option>
+                        <option>獲得</option>
+                        <option>失效</option>
+                    </select>
+                </div>
+                <div class="neweggCashDate">
+                    <span class="tit">依照到期日篩選</span>
+                    <select class="select_sm selector-neweggCashDate">
+                        <option>2015年到期</option>
+                        <option>2016年到期</option>
+                        <option>特殊到期日</option>
+                    </select>
+                </div>
+            </div>
+            <div class="service_contentTable">
+                <table>
+                    <tr>
+                        <th>訂單編號</th>
+                        <th>購物金</th>
+                        <th>紀錄</th>
+                        <th style="width:60px;">金額</th>
+                        <th style="width:300px;">適用範圍</th>
+                        <th style="width:50px;">狀態</th>
+                    </tr>
+                    <tr>
+                        <td>LBO7581151</td>
+                        <td>15</td>
+                        <td>獲得</td>
+                        <td>2015/06/12</td>
+                        <td>2015/07/12</td>
+                        <td><span class="highline">已生效</span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="couponTipsArea">
+                <div class="btn couponTipsTit">回饋金使用說明＜</div>
+                <div class="couponTxt">
+                    <article>
+                        <span class="tit red">一、什麼是回饋金</span>
+                        <ul>
+                            <li>會員於新蛋全球生活網購物消費之金額，即可轉換成回饋金點數，其回饋將依據每個購物活動門檻而有所不同，詳情請參見各活動網頁說明。</li>
+                            <li>回饋金僅供會員本人，依「回饋金使用辦法」於有效期限內，在新蛋全球生活網購物消費商品或相關活動時折抵使用，不得轉讓他人。</li>
+                            <li>每筆回饋金生效日不同，已生效點數才可使用，說明如下：<br />
+                                <ol>
+                                    <li>回饋金採系統自動設定，實際生效日期以出貨日（即發票開立日）+8日為準，確認無退貨或取消訂單才會贈送。</li>
+                                    <li>可使用（已生效）：目前可用的回饋金。</li>
+                                    <li>待生效：尚不可使用的回饋金，待訂單生效且無取消退貨即可使用。</li>
+                                    <li>已失效（過期）：每一筆回饋金會有其設定的到期日，超過到期日後，該筆回饋金即失效，無法使用。（例：2015/12/31  23:59到期之回饋金，於2016/1/1失效）</li>
+                                </ol>
+                            </li>
+                            <li>回饋金使用期限，依照消費期間，系統自動判讀：採消費當年+1。<br />
+                                2015/1/1~2015/12/31所消費累積的點數統一至2016年12月31日止。<br />
+                                2016/1/1~2016/12/31所消費累積的點數統一至2017年12月31日止，依此類推。<br />
+                                但行銷或專案贈點期限則依各活動方案有所不同，詳情請參見各活動網頁說明。
+                            </li>
+                        </ul>
+                        <span class="tit red">二、如何獲得回饋金</span>
+                        <ul>
+                            <li>回饋金並非現金，回饋門檻均以「實際支付金額」計算，每<span class="bold">100元換取1點</span>，無法整除者，一律採無條件捨去，其他優惠贈送將依照各項活動的規定。</li>
+                            <li>所有折扣、滿額折、折價券、回饋金等優惠所折抵之金額不計。</li>
+                            <li>回饋金為贈品，係屬無償取得，不適用商品（服務）禮券記載之規範。</li>
+                        </ul>
+                        <span class="tit red">三、如何使用回饋金</span>
+                        <ul>
+                            <li>回饋金視消費總金額，於消費時折抵使用，採全額折抵。<span class="bold">（1點折抵1元）</span></li>
+                            <li>無使用門檻，可累積抵用，結帳時系統將自動從最近有效期限的回饋金開始逐筆抵用；但單筆最高可折抵上限門檻依照各項活動規定。</li>
+                            <li>在您購物結帳時，如果您的帳戶存有回饋金，且購買適用回饋金折抵的商品，在商品結帳頁會出現「使用回饋金」的圖示，點選「使用回饋金」的圖示，會跳出您的回饋金帳戶視窗，請勾選您欲使用之回饋金，系統將會為您自動換算當次可抵用最高值及計算本次消費需實際支付金額。</li>
+                            <li>回饋金皆有其折抵上限、開始日期、使用效期、適用館別，您可從「我的帳戶>我的回饋金」查詢詳細說明。凡適用回饋金優惠，將在該商品賣場頁標示。 </li>
+                            <li>回饋金僅限原註冊會員使用，恕不可轉讓且不可要求將不同會員帳號的回饋金合併，部分活動或商品無法折抵使用，恕無法轉換成現金、找零或交換其他商品及折換其他贈品；且無法抵扣物流費、安裝費、運費、服務費、稅賦等費用。</li>
+                            <li>回饋金需於使用期限內使用，逾期失效，恕不補發。</li>
+                            <li>專案活動及優惠方案（如其他折扣、滿額折、折價券、回饋金）不可合併同時使用。故會員若同時擁有二種優惠時，只能擇其一種方式進行折抵（如該活動已有滿額折，則折價券／回饋金皆無法使用）。</li>
+                            <li>回饋金折抵部分不再另開立發票，開立發票金額，以該訂單「實際支付金額」來計算。</li>
+                        </ul>
+                        <span class="tit red">四、取消訂單與退貨的處理</span>
+                        <ul>
+                            <li>使用回饋金之訂單，若事後取消訂單或辦理退貨，須將所有訂單之所有商品一併退貨，新蛋全球生活網僅會退還顧客實際所支付的金額，並將該筆訂單所使用的回饋金退回，使用期限比照原到期日，若回補時點數已到期，使用期限為回補日+7日；若超過回饋金之有效期限才取消訂單或退貨，則無法退還。</li>
+                        </ul>
+                        <span class="tit red">五、如何查詢回饋金</span>
+                        <ul>
+                            <li>您可經由「我的帳戶>我的回饋金」查詢個人專屬回饋金。</li>
+                        </ul>
+                        <span class="tit red">六、其他事項</span>
+                        <ul>
+                            <li>會員應妥善保管您的帳號及密碼，避免他人未經您的同意而使用，任何經由輸入正確帳號與密碼所使用之回饋金，本公司均不退還。若由於不可抗力或不可歸責於本站的因素致回饋金帳戶資料流失時，本公司不負賠償或補償之責。會員於參與獲得回饋金活動時，即視為同意活動流程及本公司之回饋金規範，本公司將保有所有發送回饋金之收回／使用權。</li>
+                            <li>新蛋全球生活網將不定期舉辦的各種行銷活動與會員專屬活動，亦可獲得不同的回饋金。詳細活動辦法請詳閱各活動網頁說明。</li>
+                            <li>新蛋全球生活網將保留隨時變更、修改與解釋或終止本「回饋金使用辦法」之權利，若有異動及修改內容將在本網站上公佈，恕不另外個別通知。</li>
+                            <li>若您有任何疑問，歡迎來信（<a href="mailto:service@newegg.com.tw">service@newegg.com.tw</a>），我們將於1～2日內（不含例假日）以E-mail回覆您，或請致電客服人員。(02)-8175-5996   08:30am ~ 17:30pm</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <div class="PageArea">
+            <a href="#" class="arrow arrLeft">&#60;</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">7</a>
+            <a href="#">8</a>
+            <a href="#">15</a>
+            <a href="#" class="arrow arrRight">&#62;</a>
+        </div>
+</div>
+
+</div>

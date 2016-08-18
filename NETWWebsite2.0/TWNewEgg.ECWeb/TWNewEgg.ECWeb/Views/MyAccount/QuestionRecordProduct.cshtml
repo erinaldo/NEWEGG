@@ -1,0 +1,231 @@
+﻿@model TWNewEgg.Models.DomainModels.Answer.AnswerInfo
+@{
+    var dicAboutInfoToShow = ViewBag.dicAboutInfoToShow as Dictionary<string, string>;
+}
+@{
+    ViewBag.Title = "QuestionRecordSelect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/MyAccount")
+}
+@section scripts {
+
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+}
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/MyAccount">我的帳戶</a> >
+    <a href="/MyAccount/AskQuestion">問答中心</a> > 
+    <a href="/MyAccount/QuestionRecord">問答紀錄</a> > 
+    <span>紀錄</span>
+</div>
+<div class="TopExplanationArea"></div>
+
+<div class="AccountArea">
+    <div class="TabArea Border grayBorder">
+        <ul>
+            <li class="Tab BorderTab" id="WishList"><a href="/Cart/WishCart"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+            @*<li class="Tab BorderTab" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>*@
+           <li class="Tab BorderTab" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+            <li class="Tab BorderTab" id="Order" onclick="TabOpenClose()">
+                <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                    @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+                </ul>
+            </li>
+            <li class="Tab BorderTab TabSelected" id="Account">
+                <a href="/MyAccount"><i class="icon ServiceIcon Account"></i>帳戶管理<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                    <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                    @*<li><a href="/MyAccount/RecordBooks">紀錄本修改</a></li>*@
+                    <li><a href="/MyAccount/AskQuestion">問答中心</a></li>
+                    <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="serviceContentArea">
+        <div class="serviceContentBox">
+            <div class="Tit ClassTit"><i class="icon ServiceIcon QuestionCenter-2"></i>問答中心</div>
+            <div style="margin:10px 51px;">
+                <div>
+                    <ul>
+                        <li class="TabNoHover RadiusTab"><a href="/MyAccount/AskQuestion">我要發問</a></li>
+                        <li class="TabNoHover RadiusTab TabSelected"><a href="/MyAccount/QuestionRecord">問答紀錄</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+                <div class="TabArea grayBorder service_contentTable" style="width:900px">
+                <div class="service_contentTable" style="padding-top:40px">
+                    <table>
+                        <tr>
+                            <th style="width:180px;">訂單編號</th>
+                            <th style="width:110px;">訂購日期</th>
+                            <th style="width:470px;">商品名稱</th>
+                            <th style="width:140px;">總價</th>
+                            @*<th style="width:140px;">發票</th>*@
+                        </tr>
+                        <tr>
+                            @if(Model != null)
+                            {
+                                <td>@(Model.Probelm.BlngCode == null? string.Empty : Model.Probelm.BlngCode)</td>
+                                <td>@(dicAboutInfoToShow.ContainsKey("saleOrderDate") == true?dicAboutInfoToShow["saleOrderDate"]: string.Empty ) @*@ViewBag.saleOrderDate*@</td>
+                                <td>@(Model.Probelm.Name == null? string.Empty : Model.Probelm.Name)</td>
+                                <td>@(dicAboutInfoToShow.ContainsKey("totalPrice") == true?dicAboutInfoToShow["totalPrice"]: string.Empty ) @*@ViewBag.totalPrice*@</td>
+                                @*if (dicAboutInfoToShow.ContainsKey("invoiceData") == false)
+                                {
+                                    <td><p class="">-</p></td>
+                                }
+                                else
+                                {
+                                    if (dicAboutInfoToShow["invoiceData"] == "False")
+                                    {
+                                        <td><p class="">-</p></td>
+                                    }
+                                    else
+                                    {
+                                        <td><p class="UnderLine blue" onclick="GetOrderInvoice('@Model.Probelm.BlngCode')">發票內容</p></td>
+                                    }
+                                }*@
+                            }
+                        </tr>
+                    </table>
+                </div>
+                <div class="ClassTit recordsTit">問答紀錄</div>
+                <div class="service_contentTable">
+                    <table>
+                        <tr>
+                            <th style="width:165px;">問題編號</th>
+                            <th>問題與客服回覆</th>
+                            <th style="width:110px;">發問/回覆時間</th>
+                        </tr>
+                        @if (Model != null)
+                        {
+                            int count = 1 + Model.AnswerList.Count;
+
+                            <tr class="cuQuesBox">
+                            <td rowspan="@count">@Model.Probelm.Code</td>
+                            <td>
+                                <div>問題主旨－<span>@ViewBag.ProblemType</span></div>
+                                <div class="tit">問題：</div>
+                                <div class="txt">@Html.Raw(Model.Probelm.Cont)</div>
+                            </td>
+                            <td>
+                                @string.Format("{0: yyyy/MM/dd}", Model.Probelm.CreateDate)
+                                <p style="text-align:center">@string.Format("{0: HH:mm}", Model.Probelm.CreateDate)</p>
+                            </td>
+                            </tr>
+                            foreach (var ansListItem in Model.AnswerList)
+                            {
+                                <tr class="csReplyBox">
+                                    <td>
+                                        <div class="tit">客服回覆：</div>
+                                        <div class="txt">@Html.Raw(ansListItem.Cont)</div>
+                                    </td>
+                                    <td>
+                                        @string.Format("{0: yyyy/MM/dd}", ansListItem.Date.Value)
+                                        <p style="text-align:center">@string.Format("{0: HH:mm}", ansListItem.Date.Value)</p>
+                                    </td>
+                                </tr>
+                            }
+                            
+                        }
+                    </table>
+                </div>
+                    <div class="btmBtnArea" style="margin:20px">
+                        <input type="button" value="回上一頁" class="btn btn-prev" onclick="GoBackPage()"/>
+                        <input type="button" value="再次發問" class="btn btn-submit" onclick="GoAskQuestion()" />
+                    </div>
+                </div>
+
+                <div class="questionTipsArea">
+                    客服問答中心的問題紀錄將保存三個月，三個月以上的訂單問題，請至<a href="/MyAccount/QuestionRecord">問答中心</a>裡查看客服問答紀錄，您的寶貴意見，我們將盡速於1~2日內(不含例假日)E-mail回覆您，並多利用問答中心查詢最新回覆內容，如欲詢問新問題，請點選<a href="/MyAccount/AskQuestion">我要發問</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="LightBoxUnderLay" style="display:none;">
+    @*處理中*@
+    <div class="LightBoxMsg DelayWindow ProcessWindow">
+        <div class="Remindtxt">
+            <span id=""><img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+     </div>
+    @*發票*@
+    <div class="LightBoxMsg Stlye-1 showInvoice">
+        <div class="MsgContent">
+            <div id="MsgInvoice"></div>
+        </div>
+    </div>
+    @*明細*@
+    <div class="LightBoxMsg Stlye-1 showOrder">
+        <div class="MsgContent">
+            <img src="/Themes/img/img_trans.gif" alt="close" class="closeWindowBtn" />
+            <!--<div Detil="SOGroup.Code">ID</div>-->
+            <div id="msgDetail"></div>
+        </div>
+    </div>
+</div>
+<script>
+    function GoAskQuestion() {
+        window.location.href = "../MyAccount/AskQuestion";
+    }
+    function GoBackPage() {
+        window.location.href = "../MyAccount/QuestionRecord?Mouth=24";
+    }
+    function GetOrderInvoice(CartID) {
+        //var CartID = $(obj).attr("CartID");
+
+        clickLightBoxCenter(".LightBoxMsg.showInvoice");
+
+        var msgInvoice = $('.LightBoxMsg.showInvoice .MsgContent #MsgInvoice');
+
+        msgInvoice.html('發票內容載入中…')
+
+        $.ajax({
+            type: "POST",
+            url: "/MyAccount/GetOrderInvoice",
+            dataType: "JSON",
+            data: { "SOCode": CartID },
+            success: function (data) {
+                msgInvoice.html(data);
+            },
+            error: function (jqXHR, ajaxOptions, thrownError) {
+                if (jqXHR.status === 0) {
+                    alert('Not connect.\n Verify Network.');
+                    closePopDialog();
+                }
+                else if (jqXHR.status == 404) {
+                    alert('Requested page not found. [404]');
+                    closePopDialog();
+                }
+                else if (jqXHR.status == 500) {
+                    alert('Internal Server Error [500].');
+                    closePopDialog();
+                }
+                else {
+                    alert('Uncaught Error.\n' + thrownError);
+                    closePopDialog();
+                }
+            },
+            complete: function (data) {
+                //$('html,body').animate({
+                //    scrollTop: 200
+                //}, 500);
+            }
+        });
+    }
+    function closePopDialog() {
+        $(".LightBoxUnderLay").fadeOut();
+        //$(".LightBoxUnderLay .showOrder").fadeOut();
+        $(".LightBoxUnderLay .LightBoxMsg").not('.DelayWindow').fadeOut();
+        //console.log($(".LightBoxUnderLay .LightBoxMsg").not('.DelayWindow').length);
+    }
+</script>

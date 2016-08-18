@@ -1,0 +1,495 @@
+@import "_importSCSS";
+
+//Bread crumbs
+.pathLink{}
+
+//Show item id on top
+.ShowId{
+	text-align:right;
+	width:200px;
+	font-size:12px;
+	float:right;
+	color:#fff;
+}
+
+//Clock countdown
+.countdown{
+	$countdownHeight:50px;
+	margin:15px 20px;
+	height:$countdownHeight;
+	color:#F58E51;
+	line-height:$countdownHeight;
+	font-size:30px;
+	.icon{
+		width:58px;
+		height:$countdownHeight;
+		background:url(/Themes/img/clock.png) no-repeat;
+		margin-right:24px;
+		float:left;
+		vertical-align: sub;
+	}
+	span{
+		margin-left:15px;
+	}
+}
+
+//content outside wrapper
+$productOutwidthWidth:1000px;
+.outwidth{width:$productOutwidthWidth;margin: 0 auto;}
+
+//product top area
+.productTop{
+	@include clearAfter;
+//product left area include produnct's images and share button
+	$productLeftWidth:475px;
+	.productLeft{
+		@include clearAfter;
+		position:relative;
+		float:left;
+		width:$productLeftWidth;
+		.productPic{
+			float:none;
+			margin:0;
+			width:$productLeftWidth;
+			height:$productLeftWidth;
+			border:1px solid #ccc;
+			.pic {
+				margin:0;
+				width:$productLeftWidth;
+				height:$productLeftWidth;
+				text-align:center;
+				img {
+					max-width:$productLeftWidth;
+					max-height:$productLeftWidth;
+					height:auto;
+					display:block;
+					margin:0 auto;
+				}
+			}
+		}
+		.originalPic {
+			display:none;
+			position:absolute;
+			top:0;
+			left:500px;
+			z-index:2;
+			width:$productLeftWidth;
+			height:$productLeftWidth;
+			overflow:hidden;
+			.tit {
+				position:absolute;
+				top:0;
+				left:0;
+				padding:5px 0;
+				width:100%;
+				background:rgba(200, 100, 100, 0.3);
+				text-align:center;
+				letter-spacing:2px;
+				color:#fff;
+			}
+		}
+		.productPics{
+			position:relative;
+			margin:15px auto;
+			width:$productLeftWidth;
+			height:94px;
+			button{
+				position:absolute;
+				top:45px;
+				border:0;
+				width:21px;
+				height:21px;
+				background:url(/Themes/img/LeftRightBtn.jpg) no-repeat;
+				cursor: pointer;
+				&.btnleft{left:0;background-position:10% center;cursor: pointer;}
+				&.btnright{right:0;background-position:90% center;cursor: pointer;}
+			}
+			.showArea{
+				position:relative;
+				width: 395px;
+				margin-left: auto;
+				margin-right: auto;
+				ul{
+					width:395px;
+					height:95px;
+					overflow:hidden;
+					clear:both;
+					li{
+						width:92px;
+						height:92px;
+						border:1px solid #ccc;
+						float:left;
+						cursor:pointer;
+						margin-right:4px;
+						img{
+							max-width:92px;
+							max-height:92px;
+							display:block;
+							margin:0 auto;
+						}
+					}
+					li:first-child{margin-left:0;}
+				}
+			}
+		}
+		.btmShare {
+			@include clearAfter;
+			.shareToFB {
+				float:left;
+				margin-left:34px;
+				color:#5F6465;
+				cursor: pointer;
+				img{vertical-align: text-bottom;margin-right:9px;}
+			}
+			.addToFavorite {
+				float:right;
+				margin-right:34px;
+				color:#5F6465;
+				cursor: pointer;
+				img{vertical-align: text-bottom;margin-right:9px;}
+			}
+		}
+	}
+
+	.shoppingProcess{
+		width:465px;
+		height:84px;
+		margin-top:20px;
+		background:url(/Themes/img/Icon/Overseas_00.jpg) no-repeat center;
+		@include clearAfter;
+		&>p{
+			display: block;
+			width: 255px;
+			padding: 11px 0 0 120px;
+			line-height: 20px;
+			float:left;
+		}
+		&>a,&>a:hover,&>a:visited{
+			float:right;
+			padding:20px;
+			border-bottom:0;
+			color:#f58e51;
+		}
+	}
+
+//product right area include itemName and explanation
+	.productRight{
+		@include clearAfter;
+		float:right;
+		width:($productOutwidthWidth - $productLeftWidth - 40);
+//		.ChooseAnyIcon {
+//			display: block;
+//			width: 46px; 
+//			height: 29px;
+//			position: absolute;
+//			right: 170px;
+//			top: 30px;
+//			background: url("/Themes/img/Icon/ChooseAnyImg.png");
+//			cursor: pointer;
+//		}
+		.productContent{
+			@include clearAfter;
+			position:relative;
+			color:#5F6465;
+			font-size:16px;
+			line-height:20px;
+			margin-bottom:15px;
+			.itemName{
+				font-size: 22px;
+				line-height: 32px;
+				color: #000;
+				margin-bottom: 10px;
+			}
+			.special{margin-bottom: 10px;}
+			.explanation{color: #cb4042;margin-bottom: 10px;}
+			.market{
+				margin-bottom: 10px;
+				.marketPrice{margin-left:3px;text-decoration: line-through;}
+			}
+			.productPrice{
+				font-size: 24px;
+				color: #CB4042;
+				margin-top: 20px;
+				margin-bottom: 20px;
+				.small{margin-right:5px;font-size:16px;font-weight:bold;}
+			}
+			.discountActivity{
+				p{float:left;}
+				span{
+					float:left;
+					display:block;
+					border:1px solid #E75968;
+					height:16px;
+					font-size:12px;
+					line-height:16px;
+					color:#E75968;
+					margin-right:5px;
+					margin-left:5px;
+				}
+			}
+			.activityExplanation{
+				text-align:right;
+				font-size:12px;
+				margin-bottom:15px;
+			}
+			.introduction{
+				margin-bottom: 10px;
+				li {
+					margin-left:5px;
+					list-style:square;
+					list-style-position:inside;
+					line-height:25px;
+					font-size: 15px;
+				}
+			}
+			.color{margin-bottom: 10px;}
+			.size{margin-bottom: 10px;}
+			.Modified{
+				span{
+					&.add{margin-right:10px;}
+				}
+			}
+			.questions {
+				float:right;
+				width:74px;
+				height:68px;
+				text-align: center;
+				font-size: 22px;
+				cursor: pointer;
+				img{width:43px;height:auto;}
+				p{font-size: 18px;border-bottom: 1px solid #5F6465;}
+			}
+			.payType{
+				.InsExp{cursor: pointer;position:relative;display:inline;}
+					.Installment{
+					position:absolute;
+					z-index:1;
+					top:20px;
+					right:-80px;
+					width:241px;
+					border:1px solid #5f6465;
+					background:#fff;
+					font-size: 12px;
+					.Instable{
+						width:230px;
+						left:24px;
+						margin:7px auto;
+						.Instr{border-bottom:1px dashed #b4b4b4;}
+						.Instr:first-child{border-bottom:1px solid #5f6465;}
+						.Instr:last-child{border-bottom:none;}
+						.Insth{
+							height:45px;
+							vertical-align:middle;
+							font-weight:bold;
+							text-align:center;
+							line-height:15px;
+						}
+						.Instd{
+							height:25px;
+							vertical-align:middle;
+							text-align:center;
+							.banks{cursor: pointer;position:relative;display:inline;
+								.BankName{
+									position:absolute;
+									top:20px;
+									right:-50px;
+									z-index:2;
+									background:#fff;
+									width:250px;
+									padding:6px;
+									border:1px solid #5f6465;
+									text-align:left;
+								}
+							}
+						}
+					}
+				}
+				}
+			
+		}
+		.btnArea {
+			@include clearAfter;
+			.OrgBgBtn,.BluBgBtn,.GryBtn {
+				float:left;
+				padding:0;
+				width:230px;
+				height:81px;
+				line-height:81px;
+				font-size:21px;
+				color:#fff;
+				border-bottom:0;
+				&>img{margin-right:8px;vertical-align:text-bottom;}
+			}
+			.putInCart{}
+			.HavenIt, .putInChooseAny{float:right;}
+			.putInChooseAny {padding-left: 15px;} 
+			.NoStock{background:none;background-color:#b4b4b4;} 
+			.OrgBgBtn{margin-left:8px;}
+			.StartSolid{display:block;width:100%;color:#fff;height:81px;line-height:81px;background-color:#b4b4b4;}
+		}
+	}
+}
+
+//product's other detail information with tabs
+.itemdetail{
+	border:1px solid #D5D5D5;
+	margin-top: 22px;
+	.tabs{
+		border-bottom:1px solid #D5D5D5;
+		height:56px;
+		clear: both;
+		.tab{
+			width:20%;
+			float:left;
+			text-align:center;
+			font-size:19px;
+			line-height: 56px;
+			font-weight:bold;
+			cursor: pointer;
+		}
+		.tab.hover{background:#F58E51;color:#fff;}
+	}
+	.detail{
+		padding:60px;
+		overflow:hidden;
+		&.returnSer {
+			line-height:1.5em;
+		}
+		* {
+			max-width:878px;
+		}
+		//h1{font-size:26px;color:#B86B3D;margin-bottom:40px;}
+		//p{font-size:16px;line-height:42px;}
+		//img{display:block;margin:25px auto 25px auto;max-width:876px;}
+		.outer-buying, .inner-buying{
+			li{list-style-type: octal;line-height: 36px;}
+			&>p{margin-top:40px;}
+		}
+	}
+	.ckeditorstyle {
+		line-height:1.5;
+		img {
+			margin:10px 0; 
+		}
+	}
+}
+
+//for all recommend box include NewEgg recommend,  someone also seen, which I seen
+.SkimItemBox{
+	$SkimItemBoxWidth:1000px;
+	position:relative;
+	width:$SkimItemBoxWidth;
+	margin-top:33px;
+	.title{line-height:42px;font-size:21px;height:42px;}
+	.arrow {
+		position:absolute;
+		top:145px;
+		width:25px;
+		height:26px;
+		background-image:url(/Themes/img/LeftRightBtn.jpg);
+		background-repeat:no-repeat; 
+		cursor:pointer;
+		&.prev {
+			left:-37px;
+			background-position:center left;
+		}
+		&.next {
+			right:-37px;
+			background-position:center right;
+		}
+	}
+	.items{
+		//$itemHeight:320px;
+		@include clearAfter;
+		position:relative;
+		padding:17px 0 8px 0;
+		//height:$itemHeight;
+		overflow:hidden;
+		border:1px solid #D5D5D5;
+		.box {
+			border:0;
+			width:($SkimItemBoxWidth - 10 * 4 - 2 * 3) / 4;
+			//height:$itemHeight;
+			border:0 solid #D5D5D5;
+			&+.box {
+				border-left-width:1px;
+			}
+			.pic {
+				margin:20px auto;
+			}
+			.SpecialDeal {
+				height: 18px;
+			}
+		}
+		.productItem{
+			float:left;
+			//box-sizing: border-box;
+			.pic{
+				img{width:100%;height:auto;}
+			}
+			.itemName{
+				margin:5px 13px 5px 13px;
+				color:#808183;
+				font-size:16px;
+				line-height:23px;
+				display: block;
+				height: 45px;
+				text-overflow:ellipsis;
+				overflow:hidden;
+			}
+		}
+	}
+}
+
+//NewEggUS
+.table{
+	margin-top:20px;
+	.tr:last-child{
+		padding:17px 0;
+	}
+	.th{border:1px solid #d5d5d5;}
+	.td{
+		padding:10px 20px 0 20px;
+		border:1px solid #d5d5d5;
+		width:20%;
+		height:290px;
+		vertical-align:top;
+		line-height: 20px;
+		&>img{
+			display:block;
+			margin:0 auto;
+		}
+	}
+}
+
+//jQZoom
+//#BigPic{cursor:crosshair;}
+div.zoomdiv {
+	z-index: 100;
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:100px;
+	height:100px;
+	background:#fff;
+	border:1px solid #d5d5d5;
+	display:none;
+	text-align:center;
+	overflow:hidden;
+}
+div.jqZoomPup {
+	z-index: 10;
+	visibility: hidden;
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:0;
+	height:0;
+	border: 1px solid #aaa;
+	background: #fff url(../images/zoom.gif) 50% top  no-repeat;
+	opacity: 0.5;
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	filter: alpha(Opacity=50);
+}
+

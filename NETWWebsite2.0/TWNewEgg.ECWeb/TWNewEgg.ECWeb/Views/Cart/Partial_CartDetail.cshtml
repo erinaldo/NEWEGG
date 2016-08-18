@@ -1,0 +1,221 @@
+﻿@model TWNewEgg.Models.ViewModels.Cart.CartResults_View
+@{
+    var SalesOrder_ViewList = Model.SalesOrder_ViewList;
+    var CartPayType_View = Model.CartPayType_View;
+    //var SalesOrder_ViewListFirst = Model.SalesOrder_ViewList.FirstOrDefault();
+}
+
+@*↓↓↓↓↓↓付款步驟說明圖示↓↓↓↓↓↓*@
+    <div class="ShoppingProcess_step_1_IMG">
+        <img src="/Themes/img/ShoppingProcess/ShoppingProcess_step_3_IMG.jpg">
+    </div>
+
+    <div class="Remind">
+        <div class="TextRemind">
+            
+            @if (CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.信用卡)
+            {
+                <p>付款成功，感謝您的購買</p><br/>
+                <p>商品將依照賣場所顯示的天數送達您指定的地點！</p>
+            }
+            else if (CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.信用卡紅利折抵)
+            {
+                <p>付款成功，感謝您的購買</p><br/>
+                <p>商品將依照賣場所顯示的天數送達您指定的地點！</p>
+            }
+            else if (CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.貨到付款)
+            {
+                <p>感謝您的購買</p><br/>
+                <p>新蛋全球生活網將委由宅配人員將貨品送到您指定地點，再將現金交予宅配服務人員即可。</p>
+            }
+            else if (CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.超商付款)
+            {
+                <p>感謝您的購買</p><br/>
+                <p>新蛋全球生活網會以手機簡訊或E-mail通知您到店時間，請於收到通知7天內完成取件，</p>
+                <p>攜帶您的身分證至超商門市核對身份，即可輕鬆領取商品喔！</p>
+            }
+            else if (CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.實體ATM)
+            {
+                <p>感謝您的購買</p><br/>
+                <p>提醒您尚未付款。</p>
+                <p>請於指定日期前於銀行完成轉帳，詳見說明與方式如下，付款完成後即可收</p>
+                <p>到簡訊或E-mail告知，商品將於您付款完成後依照賣場所顯示的天數送達您指定的地點！</p>
+            }
+            else if (CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.網路ATM)
+            {
+                <p>付款成功，感謝您的購買</p><br/>
+                <p>商品將依照賣場所顯示的天數送達您指定的地點！</p>
+            }
+            else if (CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.儲值支付)
+            {
+                <p>付款成功，感謝您的購買</p><br/>
+                <p>商品將依照賣場所顯示的天數送達您指定的地點！</p>
+            }
+        </div>
+        @*<div class="ImgRemind">
+            <span>
+                <p>提醒您：</p>
+                <p>還有一台購物車尚未結帳唷！</p>
+            </span>
+        </div>*@
+        <div class="ImgDialogRemind">
+            <div class="ImgRemind"></div>
+            @if (Model.OtherCartNumber != 0)
+            {
+                <div class="DialogRemind">
+                    <div class="NoCheckoutNumber">
+                        <p>提醒您：</p>
+                        <span>還有</span>
+                        <span>@(Model.OtherCartNumber)</span>
+                        <span>台購物車尚未結帳唷！</span>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="clear"></div>
+
+
+        <div class="Printer" onclick="window.print()">
+            <span class="PrinterIMG"></span>
+            <p>列印本頁</p>
+            <div class="clear"></div>
+        </div>
+
+        @*↓↓↓↓↓↓付款狀態↓↓↓↓↓↓*@
+        @* 如果是實體ATM付款 *@
+        @if (Model.CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.實體ATM)
+        {
+            Html.RenderPartial("Partial_ATMPaymentInfo", Model);
+        }
+        @if (Model.CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.信用卡紅利折抵)
+        {
+            <div class="ShoppingProcess darkGray" style="width: 1004px; margin: 0 auto;">
+                <div class="PaymentStatus">
+                    <div class="PaymentStatusTit ColorBarTit">
+                        <div class="icon"></div>
+                        <p>付款狀態</p>
+                        <p>@(string.IsNullOrEmpty(Model.redeemInfo.BankRedeemName) == true ? string.Empty: Model.redeemInfo.BankRedeemName + CartPayType_View.GroupName)：@(Model.Status)</p><p>@(" 本次使用點數: " + Model.redeemInfo.BonusUsed + " 點")</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+
+
+    @*↓↓↓↓↓↓訂單確認明細↓↓↓↓↓↓*@
+    <div class="OrderDetails ColorBarTit"><div class="icon"></div>訂單確認明細</div>
+
+
+    @*↓↓↓↓↓↓商品列表↓↓↓↓↓↓*@
+    <div class="carts">
+        <table class="ItemListTable darkGray">
+            <tr class="ItemListTr">
+                <th class="ItemListTh NoBorder Boldtext BorderRight" style="width:110px;">發貨區域</th>
+                <th class="ItemListTh NoBorder Boldtext BorderRight" style="width:110px;">訂單編號</th>
+                <th class="ItemListTh NoBorder Boldtext" style="width:500px;">商品名稱/配件選購</th>
+                <th class="ItemListTh NoBorder Boldtext" style="width:50px;">規格</th>
+                <th class="ItemListTh NoBorder Boldtext">單價</th>
+                <th class="ItemListTh NoBorder Boldtext" style="width:110px;">數量</th>
+                <th class="ItemListTh NoBorder Boldtext">小計</th>
+            </tr>
+            @foreach (var SalesOrder_ViewListtemp in SalesOrder_ViewList)
+            {
+                var SalesOrderItem_ViewListItemGroup = SalesOrder_ViewListtemp.SalesOrderItem_ViewList.GroupBy(x => x.ItemID).ToList();
+                foreach (var SalesOrderItem_ViewListItemGrouptemp in SalesOrderItem_ViewListItemGroup)
+                {
+                    var SalesOrderItem_ViewListtemp = SalesOrderItem_ViewListItemGrouptemp.FirstOrDefault();
+                    <tr class="ItemListTr">
+                        <td class="ItemListTd BorderRight">
+                            <p class="Area">
+                                @(SalesOrderItem_ViewListtemp.CartItem_View.CountryofOrigin)<br/>
+                                <span>@(SalesOrderItem_ViewListtemp.CartItem_View.CartItemBase.DelvDate)天到貨</span>
+                            </p>
+                        </td>
+                        <td class="ItemListTd BorderRight">
+                            <p class="OrderNumber">@(SalesOrderItem_ViewListtemp.SalesorderCode)</p>
+                        </td>
+                        <td class="ItemListTd">
+              	            <div class="PicArtBox">
+                                @if (SalesOrderItem_ViewListtemp.CartItem_View.ShowOrder == 0 || SalesOrderItem_ViewListtemp.CartItem_View.ShowOrder == -1)
+                                {
+                   	            <a href="~/item?itemid=@(SalesOrderItem_ViewListtemp.ItemID)"><div class="pic ItemListPic"><img src="@(SalesOrderItem_ViewListtemp.CartItem_View.ImagePath)" alt=""></div></a>@*產品圖片*@
+                                <a href="~/item?itemid=@(SalesOrderItem_ViewListtemp.ItemID)"><h3 class="Boldtext">@(SalesOrderItem_ViewListtemp.CartItem_View.CartItemBase.Name)</h3></a>@*產品名稱*@
+                                }
+                                else{
+                                    <a class="AdditionalItem"><div class="pic ItemListPic"><img src="@(SalesOrderItem_ViewListtemp.CartItem_View.ImagePath)" alt=""></div></a>@*產品圖片*@
+                                    <a class="AdditionalItem"><h3 class="Boldtext">@(SalesOrderItem_ViewListtemp.CartItem_View.CartItemBase.Name)</h3></a>@*產品名稱*@
+                                }
+                                <!--<div class="SpecialDeal gray">@*折扣優惠方案放置div*@
+                    	            <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass1-1">折扣</span>5/11~5/31品牌滿額最高折抵1000元</p>            	
+                                </div>-->
+                            </div>
+                        </td>
+                        <td class="ItemListTd">@(SalesOrderItem_ViewListtemp.Attribs)</td>@*產品規格*@
+                        <td class="ItemListTd">@((SalesOrderItem_ViewListtemp.DisplayPrice ?? 0).ToString("#,##0"))</td>@*單價*@
+                        <td class="ItemListTd">
+                            <p @*class="Modified"*@>@*數量*@
+                                <span class="Boldtext" style="float:none;">@(SalesOrderItem_ViewListItemGrouptemp.Sum(x => x.Qty))</span>
+                            </p>
+                        </td>
+                        <td class="ItemListTd Boldtext red">@(((SalesOrderItem_ViewListtemp.DisplayPrice ?? 0) * SalesOrderItem_ViewListItemGrouptemp.Sum(x => x.Qty)).ToString("#,##0"))</td>@*小計*@
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    @*↓↓↓↓↓↓價格總計↓↓↓↓↓↓*@
+    <table class="TotalTable">
+        <tr class="TotalTr">
+            <th class="TotalTh Boldtext">總計：</th>
+            <td class="TotalTd Boldtext red">@((Model.TotalPrice).ToString("#,##0"))</td>
+        </tr>
+        <tr class="TotalTr">
+            <th class="TotalTh Boldtext">滿額折優惠：</th>
+            <td class="TotalTd Boldtext red">@((Model.PromotionPriceSum * -1).ToString("#,##0"))</td>
+        </tr>
+        @if(Model.CouponePriceSum != 0)
+        {
+            <tr class="TotalTr">
+                <th class="TotalTh Boldtext">折價券優惠：</th>
+                <td class="TotalTd Boldtext red">@((Model.CouponePriceSum * -1).ToString("#,##0"))</td>
+            </tr>
+        }
+        @if (Model.InstallmentFeeSum != 0)
+        {
+            <tr class="TotalTr">
+                <th class="TotalTh Boldtext">分期手續費：</th>
+                <td class="TotalTd Boldtext red">@((Model.InstallmentFeeSum).ToString("#,##0"))</td>
+            </tr>
+        }
+    </table>
+    <hr />
+    <p class="needPay Boldtext TextAlign-right">應付金額　新台幣<span class="red">@((Model.NeedPayMoneyPriceSum).ToString("#,##0"))元</span></p>
+    @*↓↓↓↓↓↓信用卡相關資訊↓↓↓↓↓↓*@
+    @if (Model.CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.信用卡紅利折抵)
+    {
+        if (Model.redeemInfo != null)
+        {
+            <table class="TotalTable">
+               <tr class="TotalTr">
+                   <th class="TotalTh Boldtext">原紅利點數</th>
+                   <td class="TotalTd Boldtext red">@(Model.redeemInfo.BonusUsed + Model.redeemInfo.BonusBLN)</td>
+               </tr>
+               <tr class="TotalTr">
+                   <th class="TotalTh Boldtext">本次兌換點數</th>
+                   <td class="TotalTd Boldtext red">@(Model.redeemInfo.BonusUsed)</td>
+               </tr>
+                <tr class="TotalTr">
+                   <th class="TotalTh Boldtext">紅利折抵金額</th>
+                   <td class="TotalTd Boldtext red">@((Model.NeedPayMoneyPriceSum - Model.redeemInfo.AmountSelf))</td>
+               </tr>
+                <tr class="TotalTr">
+                   <th class="TotalTh Boldtext">尚餘紅利點數</th>
+                   <td class="TotalTd Boldtext red">@(Model.redeemInfo.BonusBLN)</td>
+               </tr>
+            </table>
+        }
+    }
+    
+    

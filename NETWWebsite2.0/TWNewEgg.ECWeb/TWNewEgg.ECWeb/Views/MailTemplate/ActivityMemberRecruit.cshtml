@@ -1,0 +1,50 @@
+﻿@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+@{
+    string sslOrder = System.Configuration.ConfigurationManager.AppSettings["SSLOrder"];
+    //string emails = Model;
+    List<string> EmailList = Model[0].Split(',').ToList();
+    string emailPath = sslOrder + "/account/Register_Introduction?oldAccount=" + EmailList[0] + "&newAccount=" + EmailList[1];
+
+    string _SecureNewegg = System.Configuration.ConfigurationManager.AppSettings["SecureNewegg"]; 
+}
+<style>
+</style>
+<html>
+<body>
+     <table width="795" border="0" cellspacing="0" cellpadding="0"  align="center">
+            <tr>
+                <td>
+                    <img src= "@_SecureNewegg/Themes/2013/img/header.png" width="795" height="68" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                            您好，<br />您的朋友 @EmailList[0] 推薦您加入@(WebSiteListWebSiteData.SiteName)會員，<br />
+                            凡在會員揪團活動期間(4/3-4/20)透過下方連結回到@(WebSiteListWebSiteData.SiteName)，<br />
+                            需以您收到此信件的email註冊成為會員，<br />
+                            並於4/20前完成首次購物(不限金額)，<br />
+                            您與您的好友都可以獲得200元折價券！趕快點擊下方連結加入@(WebSiteListWebSiteData.Abbreviation)吧！ <br />
+                            ↓↓↓<br />
+
+                </td>
+            </tr>
+         <tr><td style="height:15px;"></td></tr>
+         <tr><td><a href="@emailPath" target="_self"> @emailPath </a></td></tr>
+            <tr>
+                <td>
+                    更多活動詳情及使用方式，請詳見@(WebSiteListWebSiteData.SiteName)活動頁的說明。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src= "@_SecureNewegg/Themes/2013/img/footer.png" width="795" height="40" />
+                </td>
+            </tr>
+        </table>
+</body>
+</html>
+
+

@@ -1,0 +1,393 @@
+﻿@model TWNewEgg.Models.ViewModels.Store.Breadcrumbs
+@{
+    int ViewCategoryID = ViewBag.CategoryID;
+    string breadString = "";
+    ViewBag.Title = "新蛋全球生活網";
+    if (Model!=null && Model.DropDownItems.Count > 0)
+    {
+        if (Model.DropDownItems.Where(x => x.CategoryID == ViewCategoryID).FirstOrDefault()!=null){
+        ViewBag.Title = Model.DropDownItems.Where(x => x.CategoryID == ViewCategoryID).FirstOrDefault().Title + "-新蛋全球生活網";
+        }
+        else
+        {
+            ViewBag.Title = "新蛋全球生活網";
+        }
+    }
+    else{
+        ViewBag.Title = "新蛋全球生活網";
+    }
+
+    int storeID = 0;
+    if (Model != null && Model.ListParentCategories != null) { 
+        storeID = Model.ListParentCategories.Where(x => x.category_layer == 0).FirstOrDefault() == null ? 0 : Model.ListParentCategories.Where(x => x.category_layer == 0).FirstOrDefault().category_id;
+    }
+    string storeClassNumber = StoreShareFuns.GetCssType(storeID);
+        
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/custom")
+    @Styles.Render("~/content/css/subcategory")
+    @Styles.Render("~/content/css/filterList")
+    @Styles.Render("~/content/css/Style_product")
+    @Styles.Render("~/content/css/CategoryGeneral")
+    @Styles.Render("~/content/css/rwdGeneral")
+}
+@*<script src="~/Scripts/historyjs/jquery.history.js"></script>
+<script src="~/Scripts/historyjs/netw-history-1.0.0.0.js"></script>*@
+@section scripts{
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    @Scripts.Render("~/Scripts/historyjs/jquery.history.js")
+    @Scripts.Render("~/Scripts/historyjs/netw-history-1.0.0.0.js")
+    <script type="text/javascript">
+        InitializationScript();
+        $(window).scrollTop(0);
+        var OrderBytemp = null;
+        var maxPrice = null;
+        var minPrice = null;
+
+        function LightBoxMsgAllHide() {
+            $("div.LightBoxMsg").each(function () {
+                $(this).hide();
+            });
+        }
+
+        function DisplayNoneOrNot(IDName) {
+            if (IDName == "property_head_All") {
+                if ($("#property_head_All").hasClass("close")) {
+                   
+                    $(".filterList .list").each(function (e) {
+                        $(this).show();
+                    });
+
+                    $(".filterList .showArrow").each(function (e) {
+                        $(this).removeClass("down").addClass("top");
+                    });
+                }
+                else {
+                    $(".filterList .list").each(function (e) {
+                        $(this).hide();
+                    });
+
+                    $(".filterList .showArrow").each(function (e) {
+                        $(this).removeClass("top").addClass("down");
+                    });
+                }
+            }
+            else {
+                if ($("#" + IDName + "_li").css("display") == "none") {
+                    $("#" + IDName + "_top").removeClass("down").addClass("top");
+                    $("#" + IDName + "_li").show();
+                }
+                else {
+                    $("#" + IDName + "_top").removeClass("top").addClass("down");
+                    $("#" + IDName + "_li").hide();
+                }
+            }
+
+            CheckPropertyHeadStatus();
+        }
+
+        function CheckPropertyHeadStatus()
+        {
+            @*檢查是進階搜尋的所有分類是否全展開*@
+            if ($(".down").length == 0) {
+                $("#property_head_All").removeClass("close").addClass("open");
+                $("#property_head_All").html("-");
+            }
+            else {
+                $("#property_head_All").removeClass("open").addClass("close");
+                $("#property_head_All").html("+");
+            }
+        }
+
+        function NextPage(PVID, AddNumber, PageNumber, OrderBy, IsHistory) {            
+            var Pricetemp = "#PriceWithQty_ViewList" + maxPrice + "_Input";
+            $(Pricetemp).prop("checked", false);
+
+            if ($(".PriceWithQty_ViewListitem:checked").length > 0) {
+                maxPrice = $(".PriceWithQty_ViewListitem:checked").attr('data-maxprice');
+                minPrice = $(".PriceWithQty_ViewListitem:checked").attr('data-minprice');
+            }
+            
+            $("div.LightBoxUnderLay").slideDown(888).fadeIn();
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            var PVIDtemp = "";
+            $(".property .PropertyID_input:checked").each(function (e) {
+                if (PVIDtemp != "" )
+                {
+                    PVIDtemp = PVIDtemp + ",";
+                }
+                PVIDtemp = PVIDtemp + $(this).val();
+            })
+            if (OrderBy != null) {
+                OrderBytemp = OrderBy;
+            } else {
+                OrderBytemp = $(".orderList.active").attr('type');
+            }
+            $.ajax({
+                url: "/Category/NextPageItemListMenu",
+                type: "GET",
+                dataType: "JSON",
+                data: { "CategoryID": "@ViewCategoryID", "PVID": PVIDtemp, "Page": PageNumber, "ItemsQty": 36, "OrderBy": OrderBytemp, "maxPrice": maxPrice, "minPrice": minPrice },
+                success: function (data) {
+                    $('#subCategoryMenu').css("display", "none");
+                    $('#subCategoryMenu').html(data);
+                    $('#subCategoryMenu').fadeIn(200);
+                    $(window).scrollTop($("#subCategoryMenu").offset().top);
+                    $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                    LightBoxMsgAllHide();
+                    imgVerticalAlignCenter();
+
+                    if (typeof (IsHistory) == "undefined")
+                    {
+                        twNewegg.History.pushState({ "CategoryID": "@ViewCategoryID", "PVID": PVIDtemp, "Page": PageNumber, "ItemsQty": 36, "OrderBy": OrderBytemp, "maxPrice": maxPrice, "minPrice": minPrice, "historyType": "ItemCategory" }, "");
+                    }
+
+                    PropertyCheckboxHistory(PVIDtemp, maxPrice);
+                },
+                error: function () {
+                    $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                    LightBoxMsgAllHide();
+                }
+            });
+        }
+
+        var defaultHisState = history.state;
+        if (defaultHisState != null && defaultHisState.historyType == "ItemCategory") {
+            NextPage(defaultHisState.PVID, -1, defaultHisState.Page, defaultHisState.OrderBy, defaultHisState.maxPrice, defaultHisState.minPrice, true);
+        }
+
+        var objHtml5History = function (event) {
+            var defaultHisState = twNewegg.History.getState();
+            
+            if (defaultHisState != null && defaultHisState.historyType == "ItemCategory") {
+                PropertyCheckboxHistory(defaultHisState.PVID, defaultHisState.maxPrice);
+                NextPage(defaultHisState.PVID, -1, defaultHisState.Page, defaultHisState.OrderBy, defaultHisState.maxPrice, defaultHisState.minPrice, true);
+            } else {
+                //mobile device will reload every time.
+                //window.location.reload();
+            }
+        };
+        
+        var objNonHtml5History = function (event) {            
+            // 利用 Hash 判斷是否上下頁
+            if (window.location.hash == ("#" + twNewegg.History.getState().hash))
+            {
+                var defaultHisState = twNewegg.History.getState().data;
+                if (defaultHisState != null && defaultHisState.historyType == "ItemCategory") {
+                    PropertyCheckboxHistory(defaultHisState.PVID, defaultHisState.maxPrice);
+                    NextPage(defaultHisState.PVID, -1, defaultHisState.Page, defaultHisState.OrderBy, defaultHisState.maxPrice, defaultHisState.minPrice, true);
+                } else {
+
+                }
+            }
+
+            if (window.location.href == twNewegg.History.getState().url)
+            {
+                //mobile device will reload every time.
+                //window.location.reload();
+            }
+        }
+
+        twNewegg.History.onPopState(objHtml5History, objNonHtml5History);
+
+        var changeBread = function (obj) {
+            var isOptionStore = false;
+            var categoryID = -1;
+            if (obj != undefined && obj != null) {
+                isOptionStore = $(obj).children('option:selected').attr('data-is-choose-store');
+                categoryID = $(obj).children('option:selected').val();
+            }
+
+            if (categoryID > -1) {
+                $("div.LightBoxUnderLay").slideDown(888).fadeIn();
+                $("div.LightBoxMsg.DelayWindow").fadeIn();
+                LightBoxCenter("div.LightBoxMsg.DelayWindow");
+                if (isOptionStore) {
+                    window.location.href = "/Category/ChooseAny?CategoryID=" + categoryID;
+                }
+                else {
+                    window.location.href = "/Category?CategoryID=" + categoryID;
+                }
+            }
+        };
+
+        var loadCB = function () {
+            var resultUrl = $("#categoryBanner").data("url");
+            if (resultUrl && resultUrl.length > 0) {
+                $("#categoryBanner").load(resultUrl);
+            }
+        };
+
+        function InitializationScript() {
+            if ($(".filterList .showArrow")[0] != "undefined") {
+                var $elem = $(".filterList .showArrow")[0];
+                $($elem).removeClass("down").addClass("top");
+                $($(".list.PropertyGroupList")[0]).show();
+            }
+        }
+
+        function PropertyCheckboxHistory(historyPVID, historyPrice) {
+            $(".list.PropertyGroupList input[type='checkbox']").prop('checked', false);
+            $(".PriceWithQty_input").prop("checked", false);
+            if (historyPrice != "") {
+                var Pricetemp = "#PriceWithQty_ViewList" + historyPrice + "_Input";
+                $(Pricetemp).prop("checked", true);
+            }
+            if (typeof(historyPVID) != "undefined" && historyPVID != null && historyPVID != "") {
+                var PVID_array = [];
+                console.log("Input PVID: "+ historyPVID);
+                PVID_array = historyPVID.split(',');
+                $.each(PVID_array, function (key, value) {
+                    var PVIDtemp = "#PropertyID_" + value + "_Input";
+                    $(PVIDtemp).prop("checked", true);
+                    PropertyAreaOpen(PVIDtemp);
+                });
+            }
+        }
+
+        function PropertyAreaOpen(PVID) {
+            var PVID_Parent = $(PVID).parents('ul').attr('id').split("_", 2);
+            $("#PropertyID_" + PVID_Parent[1] + "_top").removeClass("down").addClass("top");
+            $("#PropertyID_" + PVID_Parent[1] + "_li").show();
+        }
+    </script>
+
+    <script>
+        $.fn.selectCustom = function () {
+            var _select = this,
+                _selectLength = _select.find("option").length,
+                _orgText = _select.find("option:selected").text();
+
+            _select.hide();
+            _select.parent().append("<div class='selectText'>\
+                <span></span>\
+                <ul class='selectLists'></ul>\
+                </div>");
+
+            var _lists = $("ul.selectLists"),
+                _nowText = $(".selectText");
+
+            _lists.hide();
+            _nowText.find("span").text(_orgText);
+
+            for (i = _selectLength - 1; i >= 0; i--) {
+                var _text = _select.find("option").eq(i).text();
+                _lists.prepend("<li>" + _text + "</li>");
+            }
+
+
+            _nowText.hover(function () {
+                _lists.show();
+            }, function () {
+                _lists.hide();
+            });
+
+
+            _lists.find("li").hover(function () {
+                $(this).addClass("mOver").siblings("li").removeClass("mOver");
+            });
+
+            $(".selectText > span").click(function () {
+                changeBread(_select);
+            });
+
+            _lists.find("li").click(function () {
+                var _index = $(this).index(),
+                    _liText = $(this).text();
+                $(".selectText > span").text(_liText);
+                _select.find("option").eq(_index).attr("selected", true).siblings("option").removeAttr("selected");
+                changeBread(_select);
+            });
+        }
+        $(function () {
+            $(".pathLink select").selectCustom();
+            loadCB();
+        });
+    </script>
+
+
+}
+
+
+@if (Model != null)
+{
+    <div class="pathLink"><a href="/">首頁</a> > 
+        @*<a href="/Store?StoreID=@(Model.CategoryID)">@(Model.Title)</a> *@
+        <div id="storeID" style="display: none;">@(storeClassNumber)</div>
+        <a href="/Store?StoreID=@(Model.ListParentCategories
+                .Where(x => x.category_layer == 0)
+                .FirstOrDefault() == null ? 
+                0 : Model.ListParentCategories.Where(x => x.category_layer == 0).FirstOrDefault().category_id)">
+            @{string layer0CategoryTitle = Model.ListParentCategories
+                .Where(x => x.category_layer == 0)
+                .FirstOrDefault() == null ? 
+                "" : Model.ListParentCategories.Where(x => x.category_layer == 0).FirstOrDefault().category_description;}
+            @layer0CategoryTitle
+        </a> > 
+        <span>@{string layer1CategoryTitle = Model.ListParentCategories
+                .Where(x => x.category_layer == 0)
+                .FirstOrDefault() == null ? 
+                "" : Model.ListParentCategories.Where(x => x.category_layer == 1).FirstOrDefault().category_description;}
+            @layer1CategoryTitle
+        </span> > 
+        @{breadString = layer0CategoryTitle + ">" + layer1CategoryTitle;}
+        <select class="select_other">
+        @foreach (var breadItem in Model.DropDownItems)
+        {
+            if (ViewCategoryID == breadItem.CategoryID)
+            {
+                breadString += ">" + breadItem.Title;
+                <option value="@(breadItem.CategoryID)" data-is-choose-store="@(breadItem.IsOptionStore)" selected="true">@(breadItem.Title)</option>
+            }
+            else
+            {
+                <option value="@(breadItem.CategoryID)" data-is-choose-store="@(breadItem.IsOptionStore)">@(breadItem.Title)</option>
+            }
+        }
+        </select>
+	</div>
+}
+
+
+
+	<div id="bannerhead">
+        @if (Model!=null)
+        {
+        <div class="banner2-head catcolorbottom@(storeClassNumber)">@((Model.DropDownItems.Where(x => x.CategoryID == ViewCategoryID).FirstOrDefault() != null) ? Model.DropDownItems.Where(x => x.CategoryID == ViewCategoryID).FirstOrDefault().Title : "")</div>
+        <div class="categoryBanner banner2" id="categoryBanner" data-url="/Category/CategoryBanner?categoryID=@(ViewCategoryID)"></div>
+  
+                    
+        }
+        else
+        {
+        <div class="banner2-head"></div>
+        <div class="categoryBanner banner2"></div>
+        }
+        
+	</div>
+
+    @* Categoery Top Item 銷售排行 *@
+    @Html.Action("Top10ItemsBanner", "Category", new { CategoryID = ViewCategoryID })
+      
+    
+
+
+
+<div class="CategoryArea">
+    @Html.Action("GetCategoryArea", "Category", new { CategoryID = ViewCategoryID, breadString, ItemsQty = 36, Page = 1 })
+</div>
+
+@**彈出對話視窗*@
+<div class="LightBoxUnderLay" style="display:none;">
+    <div class="LightBoxMsg DelayWindow ProcessWindow">
+        <div class="Remindtxt">
+            <span id=""><img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+    </div>
+</div>
+@**彈出對話視窗*@

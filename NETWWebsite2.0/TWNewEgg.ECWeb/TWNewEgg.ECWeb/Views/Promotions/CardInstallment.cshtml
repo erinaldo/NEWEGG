@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "信用卡分期" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/CardInstallment")
+
+
+@section addToFloatAccount {
+
+}
+
+@section addToTopper {
+
+}
+@section addToBottomer {
+
+}
+@section addToHeader {
+    
+}
+@section addToFloatMenu {
+
+}
+@section addToFooter {
+    @{Html.RenderPartial("_FooterSimple");}
+}
+
+@*↓↓↓↓↓↓↓↓↓↓廣告方塊↓↓↓↓↓↓↓↓↓↓*@
+<div class="grayBorder AdBox" style="background-color:#EA7C01;border-bottom: 3px solid #ec8B54;">
+	<div class="AdImg"><h1><a href="/"><img class="logo" src="/Themes/img/Common/logo.jpg"></a></h1></div>
+</div>
+
+@*↓↓↓↓↓↓↓↓↓↓固定外框值↓↓↓↓↓↓↓↓↓↓*@
+<div style="width:1004px;margin:0 auto;position:relative;">
+
+@*↓↓↓↓↓↓↓↓↓↓頁籤↓↓↓↓↓↓↓↓↓↓*@
+    <div class="TabArea">
+        <ul>
+            <li class="Tab gray"><a href="/Promotions/Card">刷卡優惠</a></li>
+            <li class="Tab gray TabSelected"><a href="/Promotions/CardInstallment">聰明分期</a></li>
+            <li class="Tab gray"><a href="/Promotions/CardRedeem">紅利折抵</a></li>
+            @*<li class="Tab RadiusTab gray"><a href="/Promotions/CardMore">更多回饋</a></li>*@
+        </ul>
+    </div>
+@*↓↓↓↓↓↓↓↓↓↓ 一組分期優惠框 ↓↓↓↓↓↓↓↓↓↓*@
+    <table class="table">
+        <tr>
+            <td class="td NoBorder RightBorder BottomBorder grayBorder">
+            	<span class="Rate">10期0利率</span>
+            </td>
+            <td class="td RightBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_20.jpg"></td>
+            <td class="td"></td>
+            <td class="td"></td>
+            <td class="td"></td>
+        </tr>
+    </table>
+    <hr/>
+    <table class="table">
+        <tr>
+            <td class="td NoBorder RightBorder BottomBorder grayBorder"><span class="Rate">6期0利率</span></td>
+            <td class="td RightBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_23.jpg"></td>@*中信*@
+            <td class="td RightBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_04.jpg"></td>@*富邦*@
+            <td class="td RightBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_09.jpg"></td>@*國泰*@
+            <td class="td"><img src="/Themes/img/CreditCaredProgram/Bank_14.jpg"></td>@*台新*@
+        </tr>
+        <tr>
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_01.jpg"></td>@*合庫*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_02.jpg"></td>@*第一*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_03.jpg"></td>@*彰銀*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_05.jpg"></td>@*永豐*@
+            <td class="td TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_06.jpg"></td>@*遠東*@
+        </tr>
+        <tr>
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_07.jpg"></td>@*兆豐*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_08.jpg"></td>@*新光*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_20.jpg"></td>@*花旗*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_10.jpg"></td>@*台企*@
+            <td class="td TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_21.jpg"></td>@*大眾*@
+        </tr>
+        <tr>
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_11.jpg"></td>@*匯豐*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_12.jpg"></td>@*玉山*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_13.jpg"></td>@*凱基*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_17.jpg"></td>@*台中*@
+            <td class="td TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_15.jpg"></td>@*渣打*@
+        </tr>
+        <tr>
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_18.jpg"></td>@*日盛*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_16.jpg"></td>@*澳盛*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_19.jpg"></td>@*華南*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_22.jpg"></td>@*安泰*@
+            <td class="td TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_25.jpg"></td>@*上海*@
+        </tr>
+        <tr>
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_26.jpg"></td>@*陽信*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_24.jpg"></td>@*聯邦*@
+            <td class="td TopBorder grayBorder"></td>
+            <td class="td TopBorder grayBorder"></td>
+            <td class="td TopBorder grayBorder"></td>
+        </tr>
+   </table>
+    <hr/>
+    <table class="table">
+        <tr>
+            <td class="td NoBorder RightBorder BottomBorder grayBorder"><span class="Rate">3期0利率</span></td>
+            <td class="td RightBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_23.jpg"></td>@*中信*@
+            <td class="td RightBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_04.jpg"></td>@*富邦*@
+            <td class="td RightBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_09.jpg"></td>@*國泰*@
+            <td class="td"><img src="/Themes/img/CreditCaredProgram/Bank_14.jpg"></td>@*台新*@
+        </tr>
+        <tr>
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_01.jpg"></td>@*合庫*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_02.jpg"></td>@*第一*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_03.jpg"></td>@*彰銀*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_05.jpg"></td>@*永豐*@
+            <td class="td TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_06.jpg"></td>@*遠東*@
+        </tr>
+        <tr>
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_07.jpg"></td>@*兆豐*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_08.jpg"></td>@*新光*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_20.jpg"></td>@*花旗*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_10.jpg"></td>@*台企*@
+            <td class="td TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_21.jpg"></td>@*大眾*@
+        </tr>
+        <tr>
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_11.jpg"></td>@*匯豐*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_12.jpg"></td>@*玉山*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_13.jpg"></td>@*凱基*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_17.jpg"></td>@*台中*@
+            <td class="td TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_15.jpg"></td>@*渣打*@
+        </tr>
+        <tr>
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_18.jpg"></td>@*日盛*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_16.jpg"></td>@*澳盛*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_19.jpg"></td>@*華南*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_22.jpg"></td>@*安泰*@
+            <td class="td TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_25.jpg"></td>@*上海*@
+        </tr>
+        <tr>
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_26.jpg"></td>@*陽信*@
+            <td class="td RightBorder TopBorder grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_24.jpg"></td>@*聯邦*@
+            <td class="td TopBorder grayBorder"></td>
+            <td class="td TopBorder grayBorder"></td>
+            <td class="td TopBorder grayBorder"></td>
+        </tr>
+   </table>
+    <hr/>
+
+    <p style="text-align:center;color:#666;">並非所有商品皆可使用分期，請以商品網頁標示為主</p>
+</div>

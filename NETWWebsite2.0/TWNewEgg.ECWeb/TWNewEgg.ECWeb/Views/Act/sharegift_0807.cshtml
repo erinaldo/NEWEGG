@@ -1,0 +1,297 @@
+﻿@{
+    ViewBag.Title = "最美好的禮物";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/Act")
+    @* css style寫這邊 *@
+    <style>
+        body{
+	        background: url("/img/Act/sharegift_0807/Bg.jpg") no-repeat top center;
+	        background-color: #ffedc6;
+	        font-family: arial, "微軟正黑體";
+	        color:#58595b;
+        }
+        a img { border: 0; }
+        .Floor-1,.Floor-2,.Floor-3,.NotesRules,.Inside{
+	        width:1230px;
+	        margin:0 auto; 
+        }
+        /*樓層，包含banner亦為一個樓層*/
+        .Floor-1{
+	        height:515px;
+	        background: url("/img/Act/sharegift_0807/Bg_01.png") no-repeat top center;
+        }
+        .Floor-2{
+	        height:596px; 
+	        background: url("/img/Act/sharegift_0807/Bg_02.png") no-repeat top center;
+        }
+        .Floor-3{
+	        height:908px;
+	        background: url("/img/Act/sharegift_0807/Bg_03.png") no-repeat top center;
+        }
+
+        /*當背景寬100%時，用此來抓內容的1004寬*/
+        .Inside{
+	        position:relative;
+	        clear:both;
+        }
+        /*注意事項與規則*/
+        .NotesRules{
+	        color:#295a95;
+        }
+        .NotesRules p{
+	        margin:10px 0;
+	        font-size:18px;
+	        padding-top:20px;
+        }
+        .NotesRules li{
+	        font-size:15px;
+	        line-height:20px;
+	        list-style-type:decimal;
+	        margin:5px 0;
+        }
+        /*基本商品方框CSS*/
+        .itemBox{
+	        width:225px;
+	        height: 256px;
+	        margin-left:50px;
+	        float: left;
+        }
+        .itemBox .pic{
+	        width: 200px;
+	        height: 135px;
+	        overflow: hidden;
+        }
+        .itemBox .pic img{
+	        width: 100%;
+	        height: auto;
+	        max-width: 200px;
+	        max-height: 135px;
+        }
+        a{
+	        color:inherit;
+	        text-decoration: none;
+        }
+        .txt{
+	        height: 70px;
+        }
+        .txt h3{
+	        font-size: 18px;
+	        line-height: 20px;
+	        color:#595757;
+	        margin:0;
+	        overflow: hidden;
+	        text-overflow: ellipsis;
+	        display: -webkit-box;
+	        -webkit-line-clamp: 1;
+	        -webkit-box-orient: vertical;
+        }
+        hr{
+	        margin:5px 0;
+	        height: 1px;
+	        border: none;
+	        background-color: #58595b;
+
+        }
+        .txt .Quantity{
+	        color:#58595b;
+        }
+        .txt .Vote{
+	        float: right;
+	        width: 94px;
+	        height: 29px;
+	        background: url("/img/Act/sharegift_0807/Vote.png") no-repeat center;
+	        cursor: pointer;
+	        border: none;
+        }
+
+
+        /*文字方塊*/
+        .Word,.Link,.Media{
+	        position: absolute;
+	        display: block;
+        }
+        .Media{
+	        width: 458px;
+	        height: 258px;
+	        top: 174px;
+	        left: 678px;
+        }
+        .GiftBox{
+	        border: 1px solid #58595b;
+	        width: 1123px;
+	        margin: 0 auto;
+        }
+        .FBMsg{
+	        border: 1px dashed #6d6e71;
+	        background-color: #fff;
+	        width: 1123px;
+	        height: 125px;
+	        display: block;
+	        resize: none;
+	        margin: 0 auto; 
+	        margin-top: 10px;
+        }
+    </style>
+}
+@section scripts {
+    @* js寫這邊 *@
+<script type="text/javascript">
+
+    var activity = "activity";
+    var value = "sharegift_0807";
+    var setCookies = function (key, value, expire, path, domain) {
+        jQuery.cookie(key, value, {
+            expires: expire,
+            path: path,
+            domain: domain
+        });
+    };
+    setCookies(activity, value, 1, "/", twNewegg().twNeweggDomain);
+    </script>
+}
+
+<!-- start 活動內容 -->
+<div class="content">
+
+    <!--第一樓層-->
+    <div class="Floor-1">
+        <div class="Inside">
+            <img class="Word" style="top:103px;left:60px;" src="/img/Act/sharegift_0807/Word_01.png">
+            <div class="Media"></div>
+            <img class="Word" style="top:438px;left:618px;" src="/img/Act/sharegift_0807/Word_02.png">
+        </div>
+    </div>
+
+    <!--第二樓層-->
+    <div class="Floor-2">
+        <div class="Inside">
+            <img class="Word" style="top:20px;left:110px;" src="/img/Act/sharegift_0807/Word_03.png">
+            <a class="Link" style="top:210px;left:305px;" href="#"><img src="/img/Act/sharegift_0807/InjoyNewEgg.png"></a>
+            <img class="Word" style="top:130px;left:600px;" src="/img/Act/sharegift_0807/Word_04.png">
+            <a class="Link" style="top:420px;left:870px;" href="#"><img src="/img/Act/sharegift_0807/LeaveMsg.png"></a>
+        </div>
+    </div>
+
+    <!--第三樓層-->
+    <div class="Floor-3">
+        <div class="Inside">
+            <img style="margin-left:40px;" src="/img/Act/sharegift_0807/Word_05.png">
+            <div class="GiftBox">
+                <!--投票格-->
+                <div class="itemBox" itemID="432893">
+                    <p class="NewShare">新的分享</p>
+                    <div class="pic"><a href="/賣場連結"><img class="BigImg" src="/img/Act/sharegift_0807/itemPic.jpg" alt="{{Name}}" title="{{Name}}"/></a></div>
+                    <div class="txt">
+                        <h3 title="{{Name}}">太陽眼鏡</h3>
+                        <hr noshade="noshade"/>
+                        <span class="Quantity">999票</span>
+                        <input type="button" class="Vote">
+                    </div>
+                </div>
+                <!--投票格-->
+                <!--投票格-->
+                <div class="itemBox" itemID="432893">
+                    <p class="NewShare">新的分享</p>
+                    <div class="pic"><a href="/賣場連結"><img class="BigImg" src="/img/Act/sharegift_0807/itemPic.jpg" alt="{{Name}}" title="{{Name}}"/></a></div>
+                    <div class="txt">
+                        <h3 title="{{Name}}">太陽眼鏡</h3>
+                        <hr noshade="noshade"/>
+                        <span class="Quantity">999票</span>
+                        <input type="button" class="Vote">
+                    </div>
+                </div>
+                <!--投票格-->
+                <!--投票格-->
+                <div class="itemBox" itemID="432893">
+                    <p class="NewShare">新的分享</p>
+                    <div class="pic"><a href="/賣場連結"><img class="BigImg" src="/img/Act/sharegift_0807/itemPic.jpg" alt="{{Name}}" title="{{Name}}"/></a></div>
+                    <div class="txt">
+                        <h3 title="{{Name}}">太陽眼鏡</h3>
+                        <hr noshade="noshade"/>
+                        <span class="Quantity">999票</span>
+                        <input type="button" class="Vote">
+                    </div>
+                </div>
+                <!--投票格-->
+                <!--投票格-->
+                <div class="itemBox" itemID="432893">
+                    <p class="NewShare">新的分享</p>
+                    <div class="pic"><a href="/賣場連結"><img class="BigImg" src="/img/Act/sharegift_0807/itemPic.jpg" alt="{{Name}}" title="{{Name}}"/></a></div>
+                    <div class="txt">
+                        <h3 title="{{Name}}">太陽眼鏡</h3>
+                        <hr noshade="noshade"/>
+                        <span class="Quantity">999票</span>
+                        <input type="button" class="Vote">
+                    </div>
+                </div>
+                <!--投票格-->
+                <!--投票格-->
+                <div class="itemBox" itemID="432893">
+                    <p class="NewShare">新的分享</p>
+                    <div class="pic"><a href="/賣場連結"><img class="BigImg" src="/img/Act/sharegift_0807/itemPic.jpg" alt="{{Name}}" title="{{Name}}"/></a></div>
+                    <div class="txt">
+                        <h3 title="{{Name}}">太陽眼鏡</h3>
+                        <hr noshade="noshade"/>
+                        <span class="Quantity">999票</span>
+                        <input type="button" class="Vote">
+                    </div>
+                </div>
+                <!--投票格-->
+                <!--投票格-->
+                <div class="itemBox" itemID="432893">
+                    <p class="NewShare">新的分享</p>
+                    <div class="pic"><a href="/賣場連結"><img class="BigImg" src="/img/Act/sharegift_0807/itemPic.jpg" alt="{{Name}}" title="{{Name}}"/></a></div>
+                    <div class="txt">
+                        <h3 title="{{Name}}">太陽眼鏡</h3>
+                        <hr noshade="noshade"/>
+                        <span class="Quantity">999票</span>
+                        <input type="button" class="Vote">
+                    </div>
+                </div>
+                <!--投票格-->
+                <!--投票格-->
+                <div class="itemBox" itemID="432893">
+                    <p class="NewShare">新的分享</p>
+                    <div class="pic"><a href="/賣場連結"><img class="BigImg" src="/img/Act/sharegift_0807/itemPic.jpg" alt="{{Name}}" title="{{Name}}"/></a></div>
+                    <div class="txt">
+                        <h3 title="{{Name}}">太陽眼鏡</h3>
+                        <hr noshade="noshade"/>
+                        <span class="Quantity">999票</span>
+                        <input type="button" class="Vote">
+                    </div>
+                </div>
+                <!--投票格-->
+                <!--投票格-->
+                <div class="itemBox" itemID="432893">
+                    <p class="NewShare">新的分享</p>
+                    <div class="pic"><a href="/賣場連結"><img class="BigImg" src="/img/Act/sharegift_0807/itemPic.jpg" alt="{{Name}}" title="{{Name}}"/></a></div>
+                    <div class="txt">
+                        <h3 title="{{Name}}">太陽眼鏡</h3>
+                        <hr noshade="noshade"/>
+                        <span class="Quantity">999票</span>
+                        <input type="button" class="Vote">
+                    </div>
+                </div>
+                <!--投票格-->
+                <div style="clear:both;"></div>
+            </div>
+            <textarea class="FBMsg" placeholder="Facebook留言區"></textarea>
+        </div>
+    </div>
+
+    <!--注意事項與規則-->
+    <div class="NotesRules">
+        <div class="Inside">
+            <p>注意事項與規則</p>
+            <ul>
+                <li>等待確認文件</li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+
+<!-- end 活動內容 -->

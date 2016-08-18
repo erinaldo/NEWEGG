@@ -1,0 +1,74 @@
+﻿INFO  2016/05/13 15:37:17 CartController                 OTPCheck                                 [Email] bh96@newegg.com [OTPCheck] start
+
+INFO  2016/05/13 15:37:17 CartController                 OTPCheck                                 [Email] bh96@newegg.com [step1Data] {"SerialNumber":"FVIBVGwtyk8UqlxQj7d/2Y75/hWVBFgFl4Op1abdYGpLKS1pmEYpYHkywsq6R5eGMQP7O4BO9Q+HavKpNl5mvttHQ4ARqce1W0OistAR0Lw=","CartItemDetailList_View":[{"ItemID":483232,"Price":5990,"Category":0,"Qty":2}],"CartPaytype_View":{"PayTypeGroupID":1,"PayType0rateNum":1,"BankID":0},"PromotionPriceSum":0,"CartTypeID":1,"CouponList":[],"AmountsPayable":11980} [Mobile] 0928333444
+
+INFO  2016/05/13 15:37:21 CartController                 Step3                                    [UserEmail] [bh96@newegg.com] Step3 step1Data
+
+INFO  2016/05/13 15:37:25 CartController                 Step3                                    [userEmail] [bh96@newegg.com][_data.buyingcartinfo] [{"buyItemID_DelvType":7,"buyItemID_Seller":560,"buyItemID":483232,"item_AttrID":null,"buyingNumber":2,"buyItemLists":[],"buyItemWeight":0,"buyItemShipping":0,"Coupons":{}}]
+
+INFO  2016/05/13 15:37:25 CartController                 FindBuyingCart                           [userEmail] [bh96@newegg.com]GetBuyingCart [isOverSea] False
+
+INFO  2016/05/13 15:37:25 CartController                 FindBuyingCart                           [userEmail] [bh96@newegg.com][GetBuyingCart] end
+
+INFO  2016/05/13 15:37:25 CartController                 Step3                                    [userEmail] [bh96@newegg.com]SalesOrderDetail sendcheckout非空
+
+INFO  2016/05/13 15:37:25 CartController                 Step3                                    [userEmail] [bh96@newegg.com]sendcheckout info [[{"TrackStatus":0,"ItemID":483232,"ItemSellingQty":10,"ItemSellerID":560,"TrackCreateDate":"2016/05/12\u003cBR\u003e11:07","ItemShowOrder":0,"ItemImage":"","ItemProductType":"主商品","ItemListSelectType":null,"ItemProductLength":3.00,"ItemProductWidth":3.00,"ItemProductHeight":3.00,"ItemProductWeight":1.00,"ItemListProductLength":null,"ItemListProductWidth":null,"ItemlistProductHeight":null,"ItemListProductWeight":null,"ItemPriceCash":5990.00,"ItemName":"【Whirlpool惠而浦】93L單門電冰箱(WMT193DG)","ItemLayout":0,"ItemSaleType":"宅配","ItemListID":null,"ItemListSellingQty":null,"ItemListSellerID":null,"ItemListItemListID":null,"ItemListType":null,"ItemListName":null,"ItemListAttribName":null,"ItemListPrice":null,"ItemListOrder":null}]]
+
+INFO  2016/05/13 15:37:25 CartController                 Step3                                    [userEmail] [bh96@newegg.com]SalesOrderDetail sendcheckout資料取得 end
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail start
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 驗證收件人地址是否包含不在允許範圍內的特殊符號、檢核收件人地址是否不符合設定規則、驗證統一編號是否是被禁止的
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 檢核收件人地址是否不符合設定規則
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 驗證統一編號是否是被禁止的
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 付款方式
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail [zip]110
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail ordernumber_temp
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail get ItemIDList
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail ItemDisplayPriceresult
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 付款方式對錯確認
+
+INFO  2016/05/13 15:37:35 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 簡訊驗證碼驗證
+
+INFO  2016/05/13 15:37:37 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller資料組合
+
+INFO  2016/05/13 15:37:40 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller執行
+
+INFO  2016/05/13 15:37:40 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com][sp]declare @outputstr nvarchar(max) set @outputstr='' exec [dbo].[UP_EC_InsertSalesOrdersBySellerV3] 0,N'483232,483232',N'LBO',N'LBS',11980,4,N'',N'0,0',N'',N'黃耀進',N'',N'',N'台北市',N'11000',N'信義區信義路999號',N'黃耀進',207,1,N'bh96@newegg.com',N'台北市',N'11000',N'信義區信義路999號',N'',N'',N'0928333444',36433,N'黃耀進',N'',N'0928333444',N'','',N'',N'812','','1990/1/1',N'台北市',N'11000',N'信義區信義路999號',99,N',',N'7,7',N',',N'10.16.245.245',N'newegg.com.tw',N'web01',N'','2016/5/13',N'',N'sys_insert',N'【Whirlpool惠而浦】93L單門電冰箱(WMT193DG),【Whirlpool惠而浦】93L單門電冰箱(WMT193DG)',N'0,0',N'1,1',N'不指定</arrive>,不指定</arrive>',N'5990,5990',N'5990.0000,5990.0000',N'0,0',N'0.0000,0.0000',N'0,0',N'0.0000,0.0000',N'5990.0000,5990.0000',N'0,0',N'0,0',N'0,0',N',',N'0,0',N'0,0',N'0,0',N'0,0',N'0,0',N'0,0',N'0,0',N'Y,Y',N'0,0',0,N'',N'',0,0,N',',N',',N',',N',',N',',N',',N',',N',',N',',@outputstr out select @outputstr
+
+INFO  2016/05/13 15:37:40 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller資料取得
+
+INFO  2016/05/13 15:37:45 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(SalesOrder_Coupon金流前修改狀態) : [Email] bh96@newegg.com
+
+INFO  2016/05/13 15:37:45 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(超商取貨驗證) : [Email] bh96@newegg.com
+
+INFO  2016/05/13 15:37:45 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(滿額贈折價加金額與符合滿額贈條件的賣場ID並執行滿額贈金額分攤至SalesOrderItems) : [Email] bh96@newegg.com
+
+INFO  2016/05/13 15:37:45 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(將Product中的SupplyShippingCharge insert 到 SalesOrderItem的SupplyShippingCharge欄位中) : [Email] bh96@newegg.com
+
+INFO  2016/05/13 15:37:46 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(利息分攤) : [Email] bh96@newegg.com
+
+INFO  2016/05/13 15:37:46 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(儲存iChannels通路王需要的訂單資料) : [Email] bh96@newegg.com
+
+INFO  2016/05/13 15:37:46 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(買一送一優惠訊息填入) : [Email] bh96@newegg.com
+
+INFO  2016/05/13 15:37:46 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(金流) : [Email] bh96@newegg.com
+
+INFO  2016/05/13 15:37:46 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(金流) start : [Email] bh96@newegg.com
+
+INFO  2016/05/13 15:37:46 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160513000009) Start
+
+INFO  2016/05/13 15:37:47 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160513000009) End
+
+ERROR 2016/05/13 15:37:47 PlaceOrder                     SendPlaceOrder                           非間配與三角者不進行拋單流程 直接回傳空字串: LBO160513000009
+
+INFO  2016/05/13 15:37:47 CartController                 SalesOrderDetail                         SalesOrderDetail:(End) : [Email] bh96@newegg.com
+

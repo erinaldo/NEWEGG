@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-tw" />
+  @*<meta name="viewport" content="width=device-width, initial-scale=1.0" />*@
+    <meta name="viewport" content="width=1024, user-scalable=yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+    @*Start Each page's meta tags, pass by section metaTags Start*@
+    @RenderSection("metaTags", false)
+    @*End Each page's meta tags, pass by section metaTags End*@
+
+
+    @*Start Each page's title, pass by ViewBag.Title Start*@
+    <title>@ViewBag.Title</title>
+    @*End Each page's title, pass by ViewBag.Title End*@
+
+
+    @*Start Whole site's css Start*@
+    @Styles.Render("~/content/css/common")
+    @Styles.Render("~/content/css/commonGeneral")
+    @Styles.Render("~/content/css/nav")
+    @Styles.Render("~/content/css/mainMenu")
+    @Scripts.Render("~/bundles/modernizr")
+    @*End Whole site's css End*@
+
+
+    @*Start reference css Start, pass by section refCSS Start*@
+    @RenderSection("refCSS", false)
+    @*End reference css, pass by section refCSS End*@
+
+
+    @*Start Each page's css, pass by section styleSheets Start*@
+    @RenderSection("styleSheets", false)
+    @*End Each page's css, pass by section styleSheets End*@
+
+
+    @*Start reference javascripts, pass by section headRefJS Start*@
+    @RenderSection("headRefJS", false)
+    @Scripts.Render("~/bundles/jquery")
+    @{ Html.RenderPartial("_CommonGlobalVariables"); }
+    @Scripts.Render("~/bundles/netw-newegg")
+    @Scripts.Render("~/Scripts/NETW/netw-detectdevice.00000.js")
+    @*End reference javascripts, pass by section headRefJS End*@
+
+
+    @*Start head javascripts, pass by section headScripts Start*@
+    @if (IsSectionDefined("headScripts"))
+    {
+        @RenderSection("headScripts", false)
+    }
+    else
+    {
+        
+    }
+    @*End head javascripts, pass by section headScripts End*@
+
+
+    @*Start Common head tracking scripts, pass by section commonHeadTracking Start*@
+    @if (IsSectionDefined("commonHeadTracking"))
+    {
+        @*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+        @RenderSection("commonHeadTracking", false)
+    }
+    else
+    {
+        Html.RenderPartial("_CommonHeadTracking");
+    }
+    @*End Common head tracking scripts, pass by section commonHeadTracking End*@
+
+
+    @*Start Each page's head tracking scripts, pass by section headJSTracking Start*@
+    @RenderSection("headJSTracking", false)
+    @*End Each page's head tracking scripts, pass by section headJSTracking End*@
+</head>
+<body>
+    @*Start Each page's javascripts at top of body, pass by section bodyStartRefJS and bodyStartScript Start*@
+    @RenderSection("bodyStartRefJS", false)
+    @RenderSection("bodyStartScript", false)
+    @*End Each page's javascripts at top of body, pass by section bodyStartRefJS and bodyStartScript End*@
+
+    @*Start Common tracking scripts at top of body, pass by section commonBodyTracking and trackingScripts Start*@
+    @if (IsSectionDefined("commonBodyTracking"))
+    {
+        @*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+        @RenderSection("commonBodyTracking", false)
+    }
+    else
+    {
+        Html.RenderPartial("_CommonBodyTracking");
+    }
+    @RenderSection("bodyStartJSTracking", false)
+    @*End Common body tracking scripts at top of body, pass by section commonBodyTracking and trackingScripts End*@
+
+    <div class="wrapper">
+        @*Start Header, pass by section addToHeader Start*@
+        @if (IsSectionDefined("addToHeader"))
+        {
+            @*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+            @RenderSection("addToHeader", false)
+        }
+        else
+        {
+            Html.RenderPartial("_Header");
+        }
+        @*End Header, pass by section addToHeader End*@
+    
+
+
+        @*Start Topper, pass by section addToTopper Start*@
+        @if (IsSectionDefined("addToTopper"))
+        {
+            @*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+            @RenderSection("addToTopper", false)
+        }
+        else
+        {
+            Html.RenderPartial("_Topper");
+        }
+        @*End Topper, pass by section addToTopper End*@
+
+        <div class="mainPadding">
+        @*Start FloatMenu, pass by section addToFloatMenu Start*@
+        @if (IsSectionDefined("addToFloatMenu"))
+        {
+            @*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+            @RenderSection("addToFloatMenu", false)
+        }
+        else
+        {
+            Html.RenderPartial("_FloatMenu");
+        }
+        @*End FloatMenu, pass by section addToFloatMenu End*@
+
+        @*Start FloatingAccount, pass by section addToFloatAccount Start*@
+        @if (IsSectionDefined("addToFloatAccount"))
+        {
+            @*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+            @RenderSection("addToFloatAccount", false)
+        }
+        else
+        {
+            Html.RenderPartial("_FloatingAccount");
+        }
+        @*End FloatingAccount, pass by section addToFloatAccount End*@
+
+            @*Start Body Start*@
+            @RenderBody()
+            @*End Body End*@
+        </div>
+
+
+        @*Start Bottomer, pass by section addToBottomer Start*@
+        @if (IsSectionDefined("addToBottomer"))
+        {
+            @*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+            @RenderSection("addToBottomer", false)
+        }
+        else
+        {
+            Html.RenderPartial("_Bottomer");
+        }
+        @*End Bottomer, pass by section addToBottomer End*@
+
+
+    
+        @*Start Footer, pass by section addToFooter Start*@
+        @if (IsSectionDefined("addToFooter"))
+        {
+            @*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+            @RenderSection("addToFooter", false)
+        }
+        else
+        {
+            Html.RenderPartial("_Footer");
+        }
+        @*End Footer, pass by section addToFooter End*@
+    
+    </div>
+
+    @*Start Whole site's javascripts at bottom of body Start*@
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    @*End Whole site's javascripts at bottom of body End*@
+
+    @*Start Each page's javascripts at bottom of body, pass by section refScripts and scripts Start*@
+    @RenderSection("refScripts", false)
+    @Scripts.Render("~/Scripts/NETW/netw-home-1.0.0.0.js")
+    @Scripts.Render("~/Scripts/NETW/netw-itemImageEffect-1.0.0.0.js")
+    @RenderSection("scripts", false)
+    @{ Html.RenderPartial("_CommonBodyScripts"); }
+    @*End Each page's javascripts at bottom of body, pass by section refScripts and scripts End*@
+
+
+    @*Start Common tracking scripts at bottom of body, pass by section trackingScripts Start*@
+    @RenderSection("trackingScripts", false)
+    @*End Common body tracking scripts at bottom of body, pass by section trackingScripts End*@
+
+</body>
+</html>

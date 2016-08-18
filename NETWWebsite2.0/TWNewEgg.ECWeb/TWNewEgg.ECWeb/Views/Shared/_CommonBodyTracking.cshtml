@@ -1,0 +1,35 @@
+﻿@using TWNewEgg.CookiesUtilities
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5793KP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5793KP');</script>
+<!-- End Google Tag Manager -->
+
+@*iprospect feeds start*@
+
+@if (CookiesUtility.ReadCookies("ipwtf") != null && CookiesUtility.ReadCookies("ipwtf") == "true")
+{ 
+    <script>
+        dataLayer.push({
+            'event': 'userLogin',
+            'sitetype': 'd'//,
+            //'emailMD5': '32312c1b6865d1adf04f79e2b731a49e',
+            //'emailSHA': '32312c1b6865d1adf04f79e2b731a49e'
+        });
+    </script>
+    CookiesUtility.RemoveMainCookie("ipwtf", null);
+}
+
+@*iprospect feeds end*@
+
+@*critro feeds start*@
+    <script>
+        dataLayer.push({
+            'email': '' + twNewegg().loginMail()
+        });
+    </script>
+@*critro feeds end*@

@@ -1,0 +1,192 @@
+﻿<div class="I_Tt_i05">
+    <!-- 暫時性全域CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .itemBox, .itemBox * {
+            transition: .5s;
+            font-family: 微軟正黑體,"sans-serif";
+            border: 0;
+        }
+
+            .itemBox a, .itemBox a:hover, .itemBox a:visited {
+                text-decoration: none;
+            }
+    </style>
+
+    <!-- 版型一CSS -->
+    <style>
+        .itemBox {
+            width: 198px;
+            height: 350px;
+            background: #fff;
+            position: relative;
+            padding-top: 20px;
+            margin-right: 5px;
+            float: left;
+            border: 1px solid #7f7f7f;
+        }
+
+            .itemBox .pic {
+                position: relative;
+                overflow: hidden;
+                margin: 10px;
+                margin-top: 0px;
+                width: 178px;
+                height: 178px;
+            }
+
+                .itemBox .pic a {
+                    display: block;
+                    width: 178px;
+                    height: 178px;
+                    text-align: center;
+                    vertical-align: middle;
+                }
+
+                    .itemBox .pic a img {
+                        max-width: 100%;
+                        min-width: 100%; /*加此忽略圖片原尺寸 強制等比模糊放大*/
+                    }
+
+            .itemBox .txt {
+                position: absolute;
+                bottom: 14px;
+                width: 178px;
+                height: 135px;
+                margin: 0 10px;
+            }
+
+                .itemBox .txt a {
+                    display: block;
+                    width: 178px;
+                    height: 135px;
+                }
+
+                .itemBox .txt p,
+                .itemBox .txt h3 {
+                    width: 100%;
+                    overflow: hidden;
+                }
+
+                .itemBox .txt p {
+                    height: 25px;
+                    line-height: 25px;
+                    border-bottom: 1px solid #9b1b4b;
+                    font-size: 16px;
+                    color: #9b1b4b;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    text-overflow: ellipsis;
+                }
+
+                .itemBox .txt h3 {
+                    margin-top: 7px;
+                    height: 40px;
+                    font-size: 16px;
+                    font-weight: lighter;
+                    line-height: 20px;
+                    color: #000;
+                    font-size: 16px;
+                    letter-spacing: 1px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    text-overflow: ellipsis;
+                }
+
+
+                .itemBox .txt span.price {
+                    right: 0px;
+                    bottom: 2px;
+                    position: absolute;
+                    height: 30px;
+                    font-size: 28px;
+                    line-height: 30px;
+                    color: #ff0000;
+                }
+
+                .itemBox .txt span.marketPrice {
+                    right: 0;
+                    bottom: 32px;
+                    position: absolute;
+                    font-size: 16px;
+                    color: #666;
+                    text-decoration: line-through;
+                }
+
+            .itemBox > .txt span.price > span {
+                font-size: 14px;
+            }
+
+            .itemBox .txt span {
+                display: inline-block;
+                width: auto;
+                font-family: arial;
+            }
+
+                .itemBox .txt span.price > span, .itemBox .txt span.marketPrice > span {
+                    position: relative;
+                    display: inline-block;
+                    width: auto;
+                    margin-right: 2px;
+                    font-size: 13px;
+                    line-height: 12px;
+                }
+
+            .itemBox .buyNow {
+                position: absolute;
+                display: block;
+                text-align: center;
+                cursor: pointer;
+                top: auto;
+                bottom: 4px;
+                width: 46px;
+                height: 46px;
+                padding: 0;
+                overflow: inherit;
+                border: 2px solid #666;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 23px;
+                color: #666;
+            }
+
+                .itemBox .buyNow:hover {
+                    background: #666;
+                    color: #fff;
+                }
+    </style>
+
+
+    <!-- 版型一HTML部分5 -->
+    <div class="itemBox">
+        <div class="pic">
+            <a href="/item?itemid={{vModel.ID}}&categoryid={{vModel.CategoryID}}&StoreID={{vModel.StoreID}}" target="_blank">
+                <img src="{{vModel.ImageUrl}}" alt="{{vModel.Title}}" class="ActiveItemImgCen">
+            </a>
+        </div>
+        <div class="txt">
+            <a href="/item?itemid={{vModel.ID}}&categoryid={{vModel.CategoryID}}&StoreID={{vModel.StoreID}}" target="_blank">
+                <p class="SubTitle">{{vModel.SubTitle}}</p>
+                <h3>{{vModel.Title}}</h3>
+                <div ng-if="vModel.DisplayPrice > vModel.MarketPrice">
+                    <!-- code to render a large video block-->
+                </div>
+                <!--<span class="marketPrice"><span>NTD</span>{{vModel.MarketPrice}}</span>-->
+                <!--http://jira/browse/WMTWNOR-3362-->
+                <div ng-if="vModel.DisplayPrice < vModel.MarketPrice">
+                    <span class="marketPrice">
+                    <span>NTD</span>{{vModel.MarketPrice}}</span>
+                </div>
+                <span class="price"><span>NTD</span>{{vModel.DisplayPrice}}</span>
+            </a>
+            <div class="buyNow">立即購買</div>
+        </div>
+    </div>
+
+</div>

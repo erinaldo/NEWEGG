@@ -1,0 +1,17 @@
+﻿<div ng-switch on="Component.ObjectType">
+    <div ng-switch-when="Text">
+        <text-object ng-component="Component" editable="editable"></text-object>
+    </div>
+    <div ng-switch-when="Video">
+        <video-object ng-component="Component"></video-object>
+    </div>
+    <div ng-switch-when="Image">
+        <image-object ng-component="Component"></image-object>
+    </div>
+    <div ng-switch-when="Dynamic">
+        <dynamic-object ng-component="Component"></dynamic-object>
+    </div>
+    <div ng-switch-when="CustomizedObject">
+        <div cus-obj-tab component="Component"></div>
+    </div>
+</div>

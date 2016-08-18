@@ -1,0 +1,189 @@
+﻿@import "_importSCSS";
+
+/*左側篩選列表*/
+.filterList {
+	margin-bottom:10px;
+	/*border:1px solid #d5d5d5;*/
+	word-wrap:break-word;
+	word-break:break-all;
+	.head {
+		background-color:#e6e6e6;
+		border:1px solid #d5d5d5;
+		line-height:46px;
+		text-indent:10px;
+		font-size:22px;
+		color:#5e5e63;
+		margin-top:28px;
+		.headAll {
+			float:right;
+			margin:10px;
+			width:20px;
+			height:20px;
+			border:thin solid #000;
+			line-height:18px;
+			text-indent:0;
+			text-align:center;
+			cursor:pointer;
+			&.open {
+				background-color:#ccc;
+			}
+			&.close {
+				background-color:#fff;
+			}
+		}
+	}
+	.groupList {
+		border:1px solid #d5d5d5;
+		border-top:0;
+	}
+	.groupTit {
+		@include clearAfter;
+		padding:5px 0;
+		cursor:pointer;
+		.tit {
+			@include ellipsis;
+			float:left;
+			width:160px;
+			height:24px;
+			font-size:18px;
+			color:#373D3F;
+			line-height:22px;
+		}
+		.num {
+			float:right;
+			margin:4px 3px 0 0;
+			color:#666;
+			span{
+				width:64px;
+				@include ellipsis;
+			}
+		}
+		.showArrow {
+			float:left;
+			margin:0 5px;
+			padding:12px;
+			&.top, &.open {
+				background:url(/Themes/img/Icon/GrayaArowUpDown.png) no-repeat 0 6px;
+				/*@include rotate(90deg);*/
+			}
+			&.down, &.close {
+				background:url(/Themes/img/Icon/GrayaArowUpDown.png) no-repeat 0 -19px;
+				/*@include rotate(-90deg);*/
+			}
+		}
+	}
+	.list {
+		display:none;
+		li {
+			@include clearAfter;
+			padding:10px 3px;
+			line-height:24px;
+			font-size:16px;
+			color:#373D3F;
+			input[type="checkbox"] {
+				float:left;
+				width:20px;
+				height:20px;
+				margin-right:7px;
+			}
+			.subTit,.subTitNoCut {
+				float:left;
+				width:110px;
+			}
+			.subTitLong{
+				width:160px;
+				float:left;
+				@include ellipsis;
+			}
+			.subTit{
+				@include ellipsis;
+			}
+			.subTitNoCut{
+				word-wrap: break-word; 
+				word-break: normal; 
+			}
+		}
+		li:first-child{border-top:1px solid #d5d5d5;}
+		.subNum {
+			float:right;
+			&>span{
+				@include ellipsis;
+				float:left;
+				display:block;
+			}
+		}
+	}
+}
+
+.subCategory-ad {
+	width:206px;
+	/*max-height:300px;*/ /*不限高度*/
+	margin-bottom:10px;
+	a {border:0;}
+	img {
+		width:206px; /*寬度鎖死*/
+		/*max-height:300px;*/ /*不限高度*/
+	}
+}
+
+/*右側區塊與RWD*/
+$aside2Width:206px;
+.subCategory, .searchListArea {
+	float:right;
+	width:($RWDMaxWidth - $aside2Width - 15);
+	@media screen and (max-width: 1280px) {
+		width:($RWDMinWidth - $aside2Width - 15);
+	}
+}
+/*右側排序圖示*/
+.navOrder {
+	@include clearAfter;
+	float:right;
+	margin-bottom:10px;
+	.orderList {
+		float:left;
+		padding-left:10px;
+		margin-left:10px;
+		height:16px;
+		border-left:0 solid #666;
+		line-height:16px;
+		cursor:pointer;
+		+.orderList {
+			border-width:1px;
+		}
+		&:hover, &.active {
+			color:#f37225;
+			i.icon {
+				background-image:url(/Themes/img/filter-icon-hover.png);
+			}
+		}
+	}
+	i.icon {
+		margin-top:-3px;
+		margin-right:5px;
+		float:left;
+		width:25px;
+		height:25px;
+		background-image:url(/Themes/img/filter-icon.png);
+		background-repeat:no-repeat;
+		&.new {
+			background-position:0 0;
+		}
+		&.hot {
+			background-position:0 -50px;
+		}
+		&.recom {
+			background-position:0 -100px;
+		}
+		&.priceH {
+			background-position:0 -150px;
+		}
+		&.priceL {
+			background-position:0 -200px;
+		}
+	}
+	span {
+		float:left;
+	}
+}
+

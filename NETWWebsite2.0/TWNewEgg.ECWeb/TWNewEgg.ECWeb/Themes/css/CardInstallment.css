@@ -1,0 +1,134 @@
+.clear {
+  clear: both;
+}
+
+.AdBox {
+  height: 613px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  margin: 0;
+  background-color: #0ca39a;
+  position: relative;
+}
+.AdBox .AdImg {
+  width: 100%;
+  height: 613px;
+  margin: 0 auto;
+  background: url(/Themes/img/CreditCaredProgram/CardInstallment_Bg_04.jpg) no-repeat top center;
+  position: relative;
+}
+
+.ShoppingGoBtn {
+  position: absolute;
+  top: 28px;
+  right: 50px;
+}
+
+.logo {
+  position: absolute;
+  display: block;
+  left: 53px;
+}
+
+.mainPadding {
+  min-width: 1004px;
+  width: 100%;
+  padding: 0;
+}
+
+.TabArea {
+  margin-top: -51px;
+  margin-bottom: 50px;
+  border: 0;
+  width: 1004px;
+}
+
+.Tab {
+  width: 200px;
+  border: 0;
+  background: #f0f0f0;
+  margin: 0 2px;
+  font-size: 21px;
+}
+
+.RadiusTab {
+  background-color: #fff;
+  border-bottom: 0;
+}
+.RadiusTab a, .RadiusTab a:visited {
+  color: #8a8a8a;
+}
+.RadiusTab a:hover {
+  color: #fff;
+}
+
+.TabSelected {
+  background: #ec8B54;
+  height: 50px;
+  margin-top: -5px;
+}
+.TabSelected a, .TabSelected a:visited {
+  color: #fff;
+  line-height: 50px;
+}
+
+.table {
+  width: 1004px;
+  margin: 20px 0;
+  border: none;
+}
+
+.td {
+  width: 20%;
+  height: 98px;
+  border-style: dashed;
+  text-align: center;
+}
+.td img {
+  display: block;
+  margin: 0 auto;
+}
+
+.RightBorder {
+  border-right-width: 1px;
+}
+
+.TopBorder {
+  border-top-width: 1px;
+}
+
+.grayBorder {
+  border-color: #d5d5d5;
+}
+
+hr {
+  height: 1px;
+  border: 0;
+  background-color: #d1d1d1;
+}
+
+span {
+  display: block;
+  font-size: 13px;
+  color: #808080;
+}
+
+span.Rate {
+  display: block;
+  width: 90%;
+  font-size: 30px;
+  line-height: 40px;
+  background-color: #eb8654;
+  color: white;
+  margin: 20px auto 5px auto;
+}
+
+/*footer CSS*/
+.simpleFooterArea {
+  text-align: center;
+  padding: 5px auto;
+}
+.simpleFooterArea h2, .simpleFooterArea p {
+  display: inline;
+  margin-right: 10px;
+}

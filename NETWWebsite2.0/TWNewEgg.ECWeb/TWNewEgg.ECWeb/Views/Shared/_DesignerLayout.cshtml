@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-tw" />
+  @*<meta name="viewport" content="width=device-width, initial-scale=1.0" />*@
+    <meta name="viewport" content="width=1024, user-scalable=yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+    @*Start Each page's meta tags, pass by section metaTags Start*@
+    @RenderSection("metaTags", false)
+    @*End Each page's meta tags, pass by section metaTags End*@
+
+
+    @*Start Each page's title, pass by ViewBag.Title Start*@
+    <title>@ViewBag.Title</title>
+    @*End Each page's title, pass by ViewBag.Title End*@
+    
+    
+    @*Start Whole site's css Start*@
+    @Styles.Render("~/content/css/common")
+    @Styles.Render("~/content/css/commonGeneral")
+    @Styles.Render("~/content/css/nav")
+    @Styles.Render("~/content/css/mainMenu")
+    @Scripts.Render("~/bundles/modernizr")
+    @*End Whole site's css End*@
+
+    @*Start Each page's css, pass by section styleSheets Start*@
+    @RenderSection("styleSheets", false)
+    @*End Each page's css, pass by section styleSheets End*@
+
+
+    @*Start reference javascripts, pass by section headRefJS Start*@
+    @RenderSection("headRefJS", false)
+    @Scripts.Render("~/Scripts/jquery-1.8.2.js")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.cookie.js")
+    @{ Html.RenderPartial("_CommonGlobalVariables"); }
+    @Scripts.Render("~/bundles/netw-newegg")
+    @*End reference javascripts, pass by section headRefJS End*@
+
+
+    @*Start head javascripts, pass by section headScripts Start*@
+    @if (IsSectionDefined("headScripts"))
+    {
+        @RenderSection("headScripts", false)
+    }
+    else
+    {
+        
+    }
+    @*End head javascripts, pass by section headScripts End*@
+</head>
+<body>
+    @*Start Each page's javascripts at top of body, pass by section bodyStartRefJS and bodyStartScript Start*@
+    @RenderSection("bodyStartRefJS", false)
+    @RenderSection("bodyStartScript", false)
+    @*End Each page's javascripts at top of body, pass by section bodyStartRefJS and bodyStartScript End*@
+
+    <div class="wrapper">
+        <div class="disableClick">
+            @{Html.RenderPartial("_Header");}
+            @{Html.RenderPartial("_Topper");}
+        </div>
+        <div class="mainPadding">
+            <div class="disableClick">
+                @{Html.RenderPartial("_FloatMenu");}
+                @{Html.RenderPartial("_FloatingAccount");}
+            </div>
+            @RenderBody()
+        </div>
+        <div class="disableClick">
+        @{Html.RenderPartial("_Bottomer");}
+        @{Html.RenderPartial("_Footer");}
+        </div>
+    </div>
+
+    @*Start Each page's javascripts at bottom of body, pass by section refScripts and scripts Start*@
+    @RenderSection("refScripts", false)
+    @Scripts.Render("~/Scripts/NETW/netw-home-1.0.0.0.js")
+    @Scripts.Render("~/Scripts/NETW/netw-itemImageEffect-1.0.0.0.js")
+    @RenderSection("scripts", false)
+    @*End Each page's javascripts at bottom of body, pass by section refScripts and scripts End*@
+
+
+    @*Start Common tracking scripts at bottom of body, pass by section trackingScripts Start*@
+    @RenderSection("trackingScripts", false)
+    @*End Common body tracking scripts at bottom of body, pass by section trackingScripts End*@
+</body>
+</html>

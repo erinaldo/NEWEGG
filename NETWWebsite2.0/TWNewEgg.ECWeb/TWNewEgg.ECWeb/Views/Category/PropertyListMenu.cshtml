@@ -1,0 +1,51 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Property.PropertyGroup_View>
+
+@section scripts{
+    <script>
+
+    </script>
+}
+
+<div class="filterList property">
+    <div class="head">
+        <span>屬性搜尋</span>
+        <div id="property_head_All" class="headAll open" onclick="DisplayNoneOrNot('property_head_All')">-</div>
+    </div>
+    @{
+        foreach (var PropertyGroupitem in Model)
+        {
+            if (PropertyGroupitem.Hide != "T")
+            {
+                foreach (var GroupPropertiesitem in PropertyGroupitem.GroupProperties)
+                {
+                    if (GroupPropertiesitem.Hide != "T")
+                    {
+                <div class="groupList">
+                    <div class="groupTit PropertyGroupName" onclick="DisplayNoneOrNot(@("\"PropertyID_" + GroupPropertiesitem.PNID + "\""))">
+                        <i class="showArrow down" id="@("PropertyID_" + GroupPropertiesitem.PNID + "_top")"></i>
+                        <span class="tit">@GroupPropertiesitem.PNName</span>
+                        <!--<span class="num">(260)</span>-->
+                    </div>
+                    <ul class="list PropertyGroupList" id="@("PropertyID_" + GroupPropertiesitem.PNID + "_li")">
+                        @foreach (var PropertyValuesitem in GroupPropertiesitem.PropertyValues)
+                        {
+                            if (PropertyValuesitem.Hide != "T")
+                            {
+                            <li class="@PropertyValuesitem.PVName PropertyGroupListItem">
+                                <label for="@("PropertyID_" + PropertyValuesitem.PVID + "_Input")" >
+                                    <input type="checkbox" class="PropertyID_input" id="@("PropertyID_" + PropertyValuesitem.PVID + "_Input")" value="@(PropertyValuesitem.PVID.ToString())" onclick="NextPage(@(PropertyValuesitem.PVID.ToString()), 0, 1)"/>
+                                    <span>
+                                        <span class="subTitLong">@PropertyValuesitem.PVName</span>
+                                        <!--<span class="subNum">(260)</span>-->
+                                    </span>
+                                </label>
+                            </li>}
+                        }
+                    </ul>
+                </div>
+                    }
+                }
+            }
+        }
+    }
+</div>

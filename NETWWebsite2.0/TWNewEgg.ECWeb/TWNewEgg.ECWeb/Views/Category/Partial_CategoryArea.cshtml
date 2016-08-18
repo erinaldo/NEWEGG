@@ -1,0 +1,289 @@
+﻿@model TWNewEgg.Models.ViewModels.Category.CategoryArea_View
+@{
+    TWNewEgg.Models.ViewModels.Item.CategoryItemInfoMain_View CategoryItemInfoMain_View = Model.CategoryItemInfoMain_View;
+    List<TWNewEgg.Models.ViewModels.Property.PropertyGroup_View> PropertyGroup_ViewList = Model.PropertyGroup_ViewList;
+    List<TWNewEgg.Models.ViewModels.Property.PriceWithQty_View> PriceWithQty_ViewList = Model.CategoryItemInfoMain_View.PriceWithQty_ViewList.Where(x=>x.Qty!=0).ToList();
+    List<TWNewEgg.Models.ViewModels.Page.ShowPage> ShowPageList = Model.CategoryItemInfoMain_View.ShowPageList;
+    int itemPosition = 1;
+}
+
+@section styleSheets {
+
+}
+
+@*iprospect feeds start*@
+
+<script>
+    var bread = decodeURIComponent('@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.BreadString))');
+    dataLayer.push({
+        'event':'productList',
+        'sitetype':'d',
+        'category': bread,
+        'productids':'@(string.Join("|", CategoryItemInfoMain_View.CategoryItemInfo_ViewList.Select(x => x.ID)))' // 表列所有產品ID
+    });
+</script>
+
+
+@*iprospect feeds end*@
+
+@*criteo feeds start*@
+
+<script>
+    var bread = decodeURIComponent('@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.BreadString))');
+    dataLayer.push({
+        'PageType':'ListingPage',
+        'email': '' + twNewegg().loginMail(),
+        'ProductIDList' : ['@Html.Raw(string.Join("','", CategoryItemInfoMain_View.CategoryItemInfo_ViewList.Select(x => x.ID)))']
+    });
+</script>
+
+
+@*criteo feeds end*@
+
+@section scripts{
+
+}
+
+<div class="CategoryArea">
+    <div class="aside2">
+<div class="filterList property">
+    <div class="head">
+        <span>屬性搜尋</span>
+        <div id="property_head_All" class="headAll open" onclick="DisplayNoneOrNot('property_head_All')">-</div>
+    </div>
+    @{
+        foreach (var PropertyGroupitem in PropertyGroup_ViewList)
+        {
+            if (PropertyGroupitem.Hide != "T")
+            {
+                foreach (var GroupPropertiesitem in PropertyGroupitem.GroupProperties)
+                {
+                    if (GroupPropertiesitem.Hide != "T")
+                    {
+                        <div class="groupList">
+                            <div class="groupTit PropertyGroupName" onclick="DisplayNoneOrNot(@("\"PropertyID_" + GroupPropertiesitem.PNID + "\""))">
+                                <i class="showArrow down" id="@("PropertyID_" + GroupPropertiesitem.PNID + "_top")"></i>
+                                <span class="tit">@GroupPropertiesitem.PNName</span>
+                                <!--<span class="num">(260)</span>-->
+                            </div>
+                            <ul class="list PropertyGroupList" id="@("PropertyID_" + GroupPropertiesitem.PNID + "_li")">
+                                @foreach (var PropertyValuesitem in GroupPropertiesitem.PropertyValues)
+                                {
+                                    if (PropertyValuesitem.Hide != "T")
+                                    {
+                                        <li class="@PropertyValuesitem.PVName PropertyGroupListItem">
+                                            <label for="@("PropertyID_" + PropertyValuesitem.PVID + "_Input")" >
+                                                <input type="checkbox" class="PropertyID_input" id="@("PropertyID_" + PropertyValuesitem.PVID + "_Input")" value="@(PropertyValuesitem.PVID.ToString())" onclick="NextPage(@(PropertyValuesitem.PVID.ToString()), 0, 1)"/>
+                                                <span>
+                                                    <span class="subTitLong">@PropertyValuesitem.PVName</span>
+                                                    <!--<span class="subNum">(260)</span>-->
+                                                </span>
+                                            </label>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    }
+                }
+            }
+        }
+        if(PriceWithQty_ViewList.Count > 0)
+        {
+            <div class="groupList">
+            <div class="groupTit PropertyGroupName" onclick="DisplayNoneOrNot(@("\"PriceWithQty_ViewList\""))">
+                <i class="showArrow down" id="@("PriceWithQty_ViewList_top")"></i>
+                <span class="tit">價格</span>
+                <!--<span class="num">(260)</span>-->
+            </div>
+            <ul class="list PropertyGroupList" id="@("PriceWithQty_ViewList_li")">
+                @foreach (var PriceWithQty_ViewListitem in PriceWithQty_ViewList)
+                {
+                    <li class="@PriceWithQty_ViewListitem.ID">
+                        <label for="@("PriceWithQty_ViewList"+ PriceWithQty_ViewListitem.ID +"_Input")" >
+                            <input type="checkbox" class="PriceWithQty_input PriceWithQty_ViewListitem" id="@("PriceWithQty_ViewList"+ PriceWithQty_ViewListitem.ID +"_Input")" data-minPrice="@(PriceWithQty_ViewListitem.minPrice)" data-maxPrice="@(PriceWithQty_ViewListitem.maxPrice)"/>
+                            <span>
+                                 @*<span class="subTitNoCut">@(PriceWithQty_ViewListitem.Name+" (" + PriceWithQty_ViewListitem.Qty + ")")</span>*@
+                                <span class="subTitLong">@(PriceWithQty_ViewListitem.Name )</span>
+                                @*<span class="subNum">(@(PriceWithQty_ViewListitem.Qty ))</span>*@
+                            </span>
+                        </label>
+                    </li>
+                }
+            </ul>
+        </div>
+        }
+    }
+</div>
+
+        @*↓↓↓廣告區塊，任選館有做↓↓↓*@
+        
+        <div class="subCategory-ad" name="advBannerLeft" data-url="/AdvEvent/Partial_CategoryLeftBanner">
+            
+        </div>
+        
+        @if (Model.PullDownAdvList != null && Model.PullDownAdvList.Any())
+        {
+            foreach (var pullDownAdvItem in Model.PullDownAdvList)
+            {
+                StringWriter sw = new StringWriter();
+                string imageTag = string.Format("<img src=\"{0}\" />", TWNewEgg.ECWeb.Utility.ImageUtility.GetImagePath(pullDownAdvItem.Image));
+                if (!string.IsNullOrEmpty(pullDownAdvItem.Url))
+                {
+                    sw.WriteLine(string.Format("<a href=\"{0}\" target=\"_blank\">{1}</a>", pullDownAdvItem.Url, imageTag));
+                }
+                else
+                {
+                    sw.WriteLine(imageTag);
+                }
+            <div class="subCategory-ad">@(Html.Raw(sw.ToString()))</div>
+            }
+        }
+        @*↑↑↑廣告區塊，任選館有做↑↑↑*@
+
+    </div>
+
+    <div id="subCategoryMenu" class="subCategory">
+    @if (CategoryItemInfoMain_View.TotalPage > 0)
+    {
+        <div class="categoryTopBar">
+            <div class="navOrder categoryOrder">
+                <div class="orderList @if (CategoryItemInfoMain_View.OrderBy == "CreatDate")
+                                      { @("active");
+                                      }" onclick="NextPage(null, 0, 1, 'CreatDate')" type="CreatDate">
+                    <i class="icon new"></i>
+                    <span>最新上架</span>
+                </div>
+                <div class="orderList @if (CategoryItemInfoMain_View.OrderBy == "PopularityIndex")
+                                      { @("active");
+                                      }" onclick="NextPage(null, 0, 1, 'PopularityIndex')" type="PopularityIndex">
+                    <i class="icon hot"></i>
+                    <span>人氣排行榜</span>
+                </div>
+                <div class="orderList @if (CategoryItemInfoMain_View.OrderBy == "Recommended")
+                                      { @("active");
+                                      }" onclick="NextPage(null, 0, 1, 'Recommended')" type="Recommended">
+                    <i class="icon recom"></i>
+                    <span>推薦排行</span>
+                </div>
+                <div class="orderList @if (CategoryItemInfoMain_View.OrderBy == "HighPrice")
+                                      { @("active");
+                                      }" onclick="NextPage(null, 0, 1, 'HighPrice')" type="HighPrice">
+                    <i class="icon priceH"></i>
+                    <span>金額高</span>
+                </div>
+                <div class="orderList @if (CategoryItemInfoMain_View.OrderBy == "LowPrice")
+                                      { @("active");
+                                      }" onclick="NextPage(null, 0, 1, 'LowPrice')" type="LowPrice">
+                    <i class="icon priceL"></i>
+                    <span>金額低</span>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        foreach (var item in CategoryItemInfoMain_View.CategoryItemInfo_ViewList)
+        {
+        <div class="box">
+                <div class="pic">
+                    <a href="/item?itemid=@(item.ID)&categoryid=@(item.CategoryID)&StoreID=@(item.StoreID)">
+                        <img class="itemImgCen" src="@item.imgPath" alt="@item.Name" title="@item.Name" />
+                    </a>
+                </div>
+                <a href="/item?itemid=@(item.ID)&categoryid=@(item.CategoryID)&StoreID=@(item.StoreID)">
+                    <div class="txt">
+                        <div class="SpecialDeal">
+                        @if (item.SellingQty < 1) {
+                            <span class="SpecialDeal SpecialDealClass0">
+                                商品已售完
+                            </span>
+                        }
+                        </div>
+                        <h3 title="@item.Name">@item.Name</h3>
+                        <span class="marketPrice">
+                            @if (item.MarketPrice != null && item.MarketPrice != 0 && (item.MarketPrice > item.PriceCash))
+                            {
+                                @("$" + (item.MarketPrice ?? 0).ToString("#,##0"));
+                            }
+                        </span>
+                        <span class="price">$@(item.PriceCash.ToString("#,##0"))</span>
+                    </div>
+                </a>
+            </div>
+    itemPosition++;
+    }
+    <div class="pagination PageArea">
+    @if (CategoryItemInfoMain_View.Page != 1)
+    {
+        <span class="arrow arrLeft prev" onclick="NextPage(null, 0, @(CategoryItemInfoMain_View.Page - 1), null)"><</span>
+    }
+        @foreach (var temp in ShowPageList)
+        {
+            if (temp.PageNumberString.IndexOf("...") <= 0)
+            {
+            <span class="@if (temp.PageNumber == CategoryItemInfoMain_View.Page)
+                            { @("SelectThePage") }
+                            else
+                            {@("GoToPage")}" 
+                    onclick="@if (temp.PageNumber == CategoryItemInfoMain_View.Page)
+                            { @("") }
+                            else
+                            {@("NextPage(null, 0," + temp.PageNumber + ", null)")}" 
+                    style="@if (temp.PageNumber == CategoryItemInfoMain_View.Page)
+                            { @("color:#EB8A51") }" 
+                    data-Pagevalue="@(temp.PageNumber)">
+            @Html.Raw(temp.PageNumberString)</span>}
+            else
+            {
+                if (temp.PageNumber == ShowPageList.LastOrDefault().PageNumber)
+                { 
+                <span class="default">...</span>
+                }
+                <span class="@if (temp.PageNumber == CategoryItemInfoMain_View.Page)
+                                { @("SelectThePage") }
+                                else
+                                {@("GoToPage")}" 
+                    onclick="@if (temp.PageNumber == CategoryItemInfoMain_View.Page)
+                            { @("") }
+                            else
+                            {@("NextPage(null, 0," + temp.PageNumber + ", null)")}" 
+                    style="@if (temp.PageNumber == CategoryItemInfoMain_View.Page)
+                            { @("color:#EB8A51") }" 
+                    data-Pagevalue="@(temp.PageNumber)">
+                @Html.Raw(temp.PageNumber)</span>
+                            if (temp.PageNumber == ShowPageList.FirstOrDefault().PageNumber)
+                            { 
+                <span class="default">...</span>
+                            }
+            }
+        }
+    @if (CategoryItemInfoMain_View.TotalPage != CategoryItemInfoMain_View.Page)
+    {
+        <span class="arrow arrRight next" onclick="NextPage(null, 0, @(CategoryItemInfoMain_View.Page + 1), null)">></span>
+    }
+    </div>
+    }
+    else
+    {
+        <div><center style="margin-top:250px;font-size:24px;color:#49639e">抱歉，此處建構中，請先逛逛其他地方！</center></div>
+    }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+         CheckPropertyHeadStatus();
+    });
+
+    $(".PriceWithQty_ViewListitem").on("click", function () {
+        NextPage(0, 0, 1);
+    });
+    $("div[name^='advBanner']").each(function (index, item) {
+        var url = $(item).data("url");
+        if (url && url.length > 0) {
+            $(item).load(url);
+        
+        }
+    });
+
+</script>

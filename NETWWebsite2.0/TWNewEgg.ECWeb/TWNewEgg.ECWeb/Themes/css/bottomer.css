@@ -1,0 +1,54 @@
+﻿@charset "utf-8";
+/*Bottomer*/
+.bottomer {
+	margin: 0 auto;
+	clear: both;
+	height: 120px;
+}
+.bottomer a {
+	color: #162D4B;
+	text-decoration: none;
+}
+.bottomer .icon {
+	margin: 0 auto;
+	width: 830px;
+}
+.bottomer .icon .divider {
+	float: left;
+	width: 1px;
+	height: 90px;
+	border-left: thin solid #000;
+	margin-right: 45px;
+	margin-left: 45px;
+}
+.bottomer .icon li {
+	float: left;
+	text-align: center;
+}
+.bottomer .icon li i{
+	display: inline-block;
+	position: relative;
+	width: 60px;
+	height: 60px;
+	background-repeat: no-repeat;
+}
+.bottomer .icon li .text {
+	color: #000;
+	font-size: 21px;
+	margin-top: 5px;
+}
+.bottomer .icon li i.listi1{
+	background-position: 0 0px;
+}
+.bottomer .icon li i.listi2{
+	background-position: 0 -98px;
+}
+.bottomer .icon li i.listi3{
+	background-position: 0 -195px;
+}
+.bottomer .icon li i.listi4{
+	background-position: 0 -298px;
+}
+.bottomer .icon li i.listi5{
+	background-position: 0 -398px;
+}

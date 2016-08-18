@@ -1,0 +1,238 @@
+﻿@{
+    ViewBag.Title = "購物流程step10";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/content/css/ShoppingProcess")
+
+<div class="ShoppingProcessImg">
+    <div class="OrderInformation">
+        <img src="/Themes/img/ShoppingProcess/Top.jpg">
+    </div>
+
+    <div class="SelectDelivery">
+        <div class="SelectDeliveryTit ShoppingProcessTit">@*選擇配送方式*@</div>
+        <div class="DeliveryContent">
+            <form>
+                <input type="radio" name="Delivery" value="Delivery" class="Tick">宅配</br>
+                <input type="radio" name="Delivery" value="StoreReceiving" class="Tick">超商取貨</br>
+            </form>
+        </div>
+
+        <div class="StoreReceiving">
+                <div class="HiLifeStore">
+                      <div class="ReceiveStore StoreReceivingLeftTit">取貨超商：</div>
+                      <div class="HiLifeIMG PurchaserTable">
+                          <img src="/Themes/img/ShoppingProcess/HiLifeIMG.jpg">
+                          <img src="/Themes/img/ShoppingProcess/UsefulAddressesIMG.jpg">
+                      </div>
+
+                </div>
+
+                <div>
+                      <div class="SelectStreetName StoreReceivingLeftTit">選擇街道名稱：</div>
+                      <div class="PurchaserTable">
+                          <form class="SelectAddress">
+                                  <select>
+                                      <option value="">請選擇縣市</option>
+　                                    <option value="">1</option>
+　                                    <option value="">2</option>
+　                                    <option value="">3</option>
+                                  </select>
+                                  <select>
+                                      <option value="">請選擇鄉、鎮、行政區</option>
+　                                    <option value="">1</option>
+　                                    <option value="">2</option>
+　                                    <option value="">3</option>
+                                  </select>
+                                  <select>
+                                      <option value="">請選擇</option>
+　                                    <option value="">1</option>
+　                                    <option value="">2</option>
+　                                    <option value="">3</option>
+                                  </select>
+                          </form>
+                      </div>
+                </div>
+
+                <div>
+                    <div class="SelectStreetName StoreReceivingLeftTit">請選擇門市：</div>
+                    <div class="PurchaserTable">
+                          <form class="SelectAddress">
+                                  <select>
+                                      <option value="">請選擇縣市</option>
+　                                    <option value="">1</option>
+　                                    <option value="">2</option>
+　                                    <option value="">3</option>
+                                  </select>
+                          </form>
+                      </div>
+                </div>
+                <div class="clear"></div>
+
+                <div class="StoreMap">
+                    <div class="StoreShopnameAddress">                  
+                        <div>確定取貨門市</div>
+                        <div>店名</div>
+                        <div>地址</div>
+                        <div><input value="on" type="checkbox" onclick="" class="Tick">本次資料加入超商紀錄本</div>
+                        <div>取貨核對身分:<input type="text" name="" value="請輸入身分證後四碼"></div>
+                        <p class="RedText">※本資料作為日後超商取貨過程，店員將與您進行身分核對，避免其他人包裹錯誤領取。</p>
+                    </div>
+                    <div class="GoogleMap">
+                        <img src="/Themes/img/ShoppingProcess/GoogleMap.jpg">
+                    </div>
+                </div>
+                <div class="clear"></div>
+
+                <div class="StoreReceivingButton">
+                    <div class="OkButton ButtonSpacing">
+                        <a href=""><img src="/Themes/img/ShoppingProcess/OkButton.jpg"></a>
+                    </div>
+                    <div class="CancelButton ButtonSpacing">
+                        <a href=""><img src="/Themes/img/ShoppingProcess/CancelButton.jpg"></a>
+                    </div>
+                </div>
+        </div>
+    </div>
+     <div class="clear"></div>
+
+    <div class="PurchaserInformation">
+        <div class="PurchaserInformationTit ShoppingProcessTit">@*訂購人資訊<span class="Required">*</span>必填*@</div> 
+        <legend class="ShoppingProcessSecondTit">從常用地址挑選 ></legend>
+        <div class="ShoppingAddressContent">
+                <div>
+                    <div class="NameTit LeftTit"><span class="Required">*</span>姓名</div>
+                    <div class="PurchaserTable">
+                        <form class="SelectAppellation">
+                            <select>
+                                <option value="">請選擇稱謂</option>
+　                              <option value="">1</option>
+　                              <option value="">2</option>
+　                              <option value="">3</option>
+                            </select>
+                        </form>
+                        <form class="NameInput">
+                            <input type="text" name="LastName"  value="姓氏"/>
+                            <input type="text" name="FirstName" value="名字"/>
+                        </form>
+                    </div>  
+                </div>
+
+                <div>
+                    <div class="CellphoneTit LeftTit"><span class="Required">*</span>手機</div>
+                    <div class="PurchaserTable">
+                        <form class="CellphoneInput">
+                            <input type="text" name="Cellphone"  value="請輸入手機號碼"/>                            
+                        </form>
+                        <p class="CellphoneRedText RedText">※系統將發送驗證碼至您的手機中，請填寫正確手機號碼，以供傳送認證訊息使用。</p>
+                    </div>  
+                </div>
+
+                <div>
+                    <div class="LocalCallsTit LeftTit">市話</div>
+                    <div class="PurchaserTable">
+                        <form class="LocalCallsInput">
+                            <input type="text" name="ThreeNumber"  value=""/>
+                            <span>-</span>
+                            <input type="text" name="SevenNumber"  value=""/>
+                            <input type="text" name="Extension"  value="分機#"/>
+                        </form>
+                    </div>  
+                </div>
+
+                <div>
+                    <div class="AddressTit LeftTit"><span class="Required">*</span>地址</div>
+                    <div class="PurchaserTable">
+                        <form class="SelectAddress">
+                            <select>
+                                <option value="">請選擇縣市</option>
+　                              <option value="">1</option>
+　                              <option value="">2</option>
+　                              <option value="">3</option>
+                            </select>
+                            <select>
+                                <option value="">請選擇鄉、鎮、行政區</option>
+　                              <option value="">1</option>
+　                              <option value="">2</option>
+　                              <option value="">3</option>
+                            </select>
+                        </form>
+                        <form class="AddressInput">
+                                <input type="text" name="Address"  value="請輸入街道地址"/>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="UpdatesMemberProfile">
+                    <div>
+                         <input value="on" type="checkbox" onclick=""  class="Tick"/>更新至會員基本資料</br>
+                         <input value="on" type="checkbox" onclick=""  class="Tick"/>加入紀錄本</br>
+                    </div>
+                    <p class="RedText">※請正確填寫訂購人姓名、連絡電話及地址，請勿填寫郵政信箱，以便郵寄發票或活動贈品等，若因填寫資料不正確導致無法寄送，恕本公司概不負責，敬請見諒</p>
+                </div>
+                
+        </div>
+    </div>
+
+    <div class="InvoiceInformation">
+        <div class="InvoiceInformationTit ShoppingProcessTit">@*發票資訊*@</div>
+        <legend class="ShoppingProcessSecondTit">從常用統編挑選 ></legend>
+        <div class="ShoppingInvoiceContent">
+                    <div class="InvoiceTit LeftTit"><span class="Required">*</span>發票接收狀態</div>
+                    <div class="PurchaserTable">
+                        <div class="InvoiceInput">
+                             <ul class="ElectronicInvoiceFirst">
+                                 <li><input type="radio" name="Invoice" value="" class="Tick">開立電子發票</li>
+                             </ul>
+                             <p class="RedText">響應發票無紙化，依據「消費通路開立電子發票試辦作業要點」開立電子發票。</p>
+                             <ul class="ElectronicInvoiceSecond">
+                                 <li class="MemberCarrier">
+                                     <input type="radio" name="location" value="" class="Tick">新蛋會員載具
+                                 </li>
+                                 <p class="RedText">由新蛋自動為您兌獎，中獎後主動通知您，可在我的訂單>發票查詢中查詢</p>
+                                 
+                                 <li><input type="radio" name="location" value="" class="Tick">手機載具
+                                     <input type="text" name="MobileCarrier"  value="手機條碼限大寫英數字"/>
+                                     <img src="/Themes/img/ShoppingProcess/ExplainIMG.jpg">
+                                 </li>
+                                 <li>
+                                     <input type="radio" name="location" value="" class="Tick">自然人憑證
+                                     <input type="text" name="NaturalCredentials"  value="限英數字"/>
+                                     <span class="ExplainIMG">
+                                         <img src="/Themes/img/ShoppingProcess/ExplainIMG.jpg">
+                                         <img src="/Themes/img/ShoppingProcess/NaturalCredentialsIMG.jpg" class="NaturalCredentialsIMG"></img>
+                                     </span>
+                                 </li>
+                             </ul>
+                        </div>
+
+                        <div class="InvoiceInput">
+                             <ul class="ElectronicInvoiceFirst">
+                                 <li><input type="radio" name="Invoice" value="" class="Tick">捐贈發票</li>
+                             </ul>
+                             <ul class="ElectronicInvoiceSecond">
+                                 <li class="HopeFoundation"><input type="radio" name="location" value="" class="Tick">勵馨基金會</li><p class="SmallText">由新蛋自動為您兌獎，中獎後主動通知您，可在我的訂單>發票查詢中查詢</p>
+                                 <li><input type="radio" name="location" value="" class="Tick">其他社福基金會<input type="text" name="OtherFoundation"  value="限數字"/></li>
+                             </ul>
+                        </div>
+
+                        <div class="InvoiceInput">
+                             <ul class="ElectronicInvoiceFirst">
+                                 <li><input type="radio" name="Invoice" value="" class="Tick">開立紙本發票<input type="text" name="MobileCarrier"  value="手機條碼限大寫英數字"/><input type="text" name="MobileCarrier"  value="手機條碼限大寫英數字"/></li>
+                             </ul>
+                        </div>
+
+                    </div>
+                    <div class="clear"></div>
+        </div>
+</div>
+
+    <div class="BottomButton">
+        <div class="ContinueButton ButtonSpacing">
+            <a href=""><img src="/Themes/img/ShoppingProcess/ContinueButton.jpg"></a>
+        </div>
+        <div class="CheckoutButton ButtonSpacing">
+            <a href=""><img src="/Themes/img/ShoppingProcess/CheckoutButton.jpg"></a>
+        </div>
+    </div>

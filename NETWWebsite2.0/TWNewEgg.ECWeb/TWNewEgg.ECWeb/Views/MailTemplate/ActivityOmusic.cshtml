@@ -1,0 +1,144 @@
+﻿@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+
+@{
+	string _SecureNewegg = System.Configuration.ConfigurationManager.AppSettings["SecureNewegg"]; 
+}
+
+<style>
+    table {border-collapse: collapse;}
+    table.OrderTable td {padding: 0 5px;border:1px solid #000;}
+    table.OrderTable th {text-align: left;padding: 0 5px;border:1px solid #000;}
+    .auto-style1
+    {
+        color: #0066CC;
+    }
+    .auto-style2
+    {
+        color: #FF0000;
+    }
+    .auto-style3
+    {
+        border:3px solid #8000FF;
+        text-align:center;
+        font-size:20px;
+        font-family:Calibri;
+        letter-spacing:3px;
+        color: #FFFFFF;
+    }
+ p.MsoNormal
+	{margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri","sans-serif";
+	    margin-left: 0cm;
+        margin-right: 0cm;
+        margin-top: 0cm;
+    }
+p.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:24.0pt;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri","sans-serif";
+	}
+    ul.listStyle li
+    {
+        list-style-type:disc;
+        list-style-position:outside;
+    }
+</style>
+<html>
+<body>
+     <table width="795" border="0" cellspacing="0" cellpadding="0"  align="center">
+            <tr>
+                <td>
+                    <img src= "@_SecureNewegg/Themes/2013/img/header.png" width="795" height="68" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                        @(WebSiteListWebSiteData.Address1)會員 您好<br /><br />
+
+                        歡迎您加入@(WebSiteListWebSiteData.SiteName)，@(WebSiteListWebSiteData.Address1)與Omusic合作推出<br />
+                        【Omusic線上音樂帶著走 x Newegg.tw購物全世界】活動<br /><br />
+                    
+                       @* 在 @Model.RegisterActivityStartDate - @Model.RegisterActivityEndDate 加入會員的朋友們<br />*@
+                        在 2015 年 3 月 1 日 - 2015 年 3 月 31 日 加入會員的朋友們<br />
+                        皆可獲贈一組Omusic 月租無限聽30天免費體驗序號<br />
+                </td>
+            </tr>
+         <tr><td style="height:15px;"></td></tr>
+            <tr>
+                <td><table width="100%"><tr><td class="auto-style3" style="width:300px;height:40px; vertical-align:middle;border:1px solid #2A3664;background:#336699;text-align:center;"><span style="color:#fff;">@Model.ActivityNO </span></td><td></td><td></td></tr></table></td><!--請放Omusic 序號-->
+            </tr>
+         <tr><td style="height:15px;"></td></tr>
+            <tr>
+                <td><span class="auto-style1"><b>Omusic 為全台灣首創整合性音樂平台，在這裡您可以找到所有想要的音樂產品，包括線上聽歌、MP3 全曲下載，或是手機原音鈴聲；結合完整的音樂資料庫、便利的手機加值服務、平易近人的單價、簡單易懂的操作介面、強大的技術團隊，提供消費者全方位的音樂需求！</b></span><br /><br />
+                    @*於 @Model.ActivitiesDeadline 前開通序號，即可馬上體驗最完整的音樂服務！<br />*@
+                    於 2015 年 4 月 30 日 前開通序號，即可馬上體驗最完整的音樂服務！<br />
+                    以下為Omusic 月租無限聽30天免費體驗序號開通方式<br /><br />
+                </td>
+            </tr>
+            <tr>
+                <td><img src= "@_SecureNewegg/Themes/2013/img/35.png" />&nbsp;&nbsp;<b>開通流程說明：</b><br />
+                        1.	開通網址：<a href="http://goo.gl/Q8kJLk" target="_self">http://goo.gl/Q8kJLk</a><br />
+                        2.	開通流程：<br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src= "@_SecureNewegg/pic/activity/omusic01.jpg"  width="795" height="224"/><br />
+                    <img src= "@_SecureNewegg/pic/activity/omusic02.jpg"  width="795" height="224" /><br /><br />
+                </td>
+            </tr>
+            <tr>
+                <td><img src= "@_SecureNewegg/Themes/2013/img/35.png" />&nbsp;&nbsp;注意事項：<br />
+                            <table width="100%">
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">1.</td>
+                                    <td>活動期間內，@(WebSiteListWebSiteData.Address1)會員帳號限領一次Omusic月租無限聽30天免費體驗序號。如未能即時開通，恕不另行補發。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">2.</td>
+                                    <td>本序號開通有效期：@Model.ActivitiesDeadline 止，逾期無效。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">3.</td>
+                                    <td>Omusic月租無限聽30天免費，每組會員帳號限兌換一次，領取記錄依Omusic後台資料為準。優惠到期當日起，系統會自動按月自帳單收取149元月租費，若欲取消或有其他問題請電洽Omusic客服中心(02)2356-7572(週一至週五10:00~19:00)，將於24小時內完成退租作業。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">4.</td>
+                                    <td>本優惠方案不得與其他Omusic月租無限聽優惠活動合併使用</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">5.</td>
+                                    <td>透過行動網路連線使用Omusic服務，會有大量資料傳輸(傳輸費另計)，建議搭配優惠上網資費使用本服務。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">6.</td>
+                                    <td>本服務實際支援機款(含平板電腦/iPad )，以Omusic網站<a href="http://www.omusic.com.tw/" target="_self">(www.omusic.com.tw)</a> 公告為準。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">7.</td>
+                                    <td>消費者於參加本活動時，視為同意接受本活動規範，全音樂(股)公司有權決定取消、終止、修改或暫停本活動。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">8.</td>
+                                    <td>除上述注意事項，若有於此會員信上未盡之事宜，全音樂(股)公司擁有保留修改活動內容之權利，修改訊息將於Omusic網站<a href="http://www.omusic.com.tw/" target="_self">(www.omusic.com.tw)</a> 上公佈，不另行通知。</td>
+                                </tr>
+                            </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src= "@_SecureNewegg/Themes/2013/img/footer.png" width="795" height="40" />
+                </td>
+            </tr>
+        </table>
+</body>
+</html>
+

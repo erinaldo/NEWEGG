@@ -1,0 +1,138 @@
+﻿@model List<TWNewEgg.Models.ViewModels.GroupBuy.GroupBuyViewInfo>
+@{ Layout = null; }
+@if (Model != null)
+{
+    decimal sum = 0;
+    string discounts = "";
+    string discount = "100";
+    foreach (var groupBuy in Model)
+    {
+        if (Convert.ToInt32(groupBuy.OriginalPrice) != 0 && Convert.ToInt32(groupBuy.GroupBuyPrice) > 0)
+        {
+
+            sum = Math.Round((decimal)Convert.ToDecimal(groupBuy.GroupBuyPrice) / Convert.ToDecimal(groupBuy.OriginalPrice), 3) * 100;
+            if (sum >= 1)
+            {
+                discount = Math.Round((decimal)sum, 0).ToString("###");            
+            }
+            else
+            {
+                discount = "0";
+            }
+
+            if (sum >= 10)
+            {
+                discounts = (Convert.ToString(Math.Round((decimal)sum, 0))).Substring(0, 2);
+            }
+            else
+            {
+                discounts = (Convert.ToString(sum)).Substring(0, 1);
+            }
+
+        }
+        if (Convert.ToInt32(groupBuy.GroupBuyPrice)>0)
+        {
+            <div class="box" ModelID="@groupBuy.ID" sellingqty="@(groupBuy.SellQuantity)">
+                @*打折數大於95折，原價=0  -[隱藏折數]*@
+                @if (Convert.ToInt32(discount) > 95 || Convert.ToString(groupBuy.OriginalPrice) == "0") 
+                {
+                    @Html.Raw(String.Format(""))      
+                }
+                else if (Convert.ToInt32(discount) < 1)
+	            {
+		            @Html.Raw(String.Format("<div class='discount'><p><span><1</span><br/>折</p></div>"))   
+	            }
+                else
+                {
+                    @Html.Raw(String.Format("<div class='discount'><p><span>{0}</span><br/>折</p></div>", discounts.TrimEnd('0')))   
+                }
+
+             
+                <div class="TimeHeight">
+                @*已結束-[隱藏倒數計時]*@
+                @if (!groupBuy.IsExpired) 
+                {
+                    <div class="Time"><i></i><p class="countdown" name="timeleft" begindate="@groupBuy.BeginDate" enddate="@groupBuy.EndDate"></p></div>@*倒數*@                                
+                }
+              </div>
+                <a linkType="ItemLink" href="@groupBuy.ItemLink">
+                    <div class="pic">@*產品圖*@
+                        <img src="@groupBuy.ImgUrl" alt="@groupBuy.Title">    
+                    </div>
+                </a> 
+                <div class="special">
+                    @if (groupBuy.IsShowNeweggUSASync)
+                    {
+                        <span class="SpecialIcon FourWord">美蛋同步</span>
+                    }
+                    @if (groupBuy.IsShowExclusive)
+                    {
+                        <span class="SpecialIcon TwoWord">獨家</span>
+                    }
+                </div>
+                @Html.Raw(String.Format("<h3 class='itemName'>{0}</h3>",(groupBuy.Title).Length > 40?groupBuy.Title.Substring(0, 40):groupBuy.Title))
+
+                <div class="explanation">@*促銷詞、產品說明*@
+                    @*<p>限時優惠，錯過不再！</p>*@
+                    <ul>
+                         @if (!string.IsNullOrEmpty(groupBuy.Sdesc) && groupBuy.Sdesc.IndexOf("</li>")>0) //控制只顯示兩個<li>
+                        {
+                            string slip = "</li>";
+                            int star_word = 0;
+                            int end_word = 0;
+                            string remain = groupBuy.Sdesc;
+                            for (int i = 0; i < 2 && remain != ""; i++)
+                            {
+                                star_word = remain.IndexOf(slip) + 5;
+                                end_word += remain.IndexOf(slip) + 5;
+                                
+                                remain = remain.Substring(star_word);
+                            }
+                            remain = groupBuy.Sdesc.Substring(0, end_word);
+                            @Html.Raw(String.Format(remain)) 
+                        }
+                    </ul>
+                </div>
+                @*販售狀態：即將開賣、開賣中、售完補貨中、已結束*@
+                <div class="StatusPrice">
+                    @if (groupBuy.IsExpired)
+                    {
+                        <div class="status"><p>已結束</p></div>
+                    }
+                    else if (groupBuy.IsSoldOut)//售完補貨中
+                    {
+                        <div class="countdown" name="timeleft" isSoldOut="1"></div>                                
+                        <div class="status"><p>售完補貨中</p></div><div class="SoldOut"></div>
+                    }
+                    else
+                    {
+                        <div class="countdown" name="timeleft" begindate="@groupBuy.BeginDate" enddate="@groupBuy.EndDate"></div>                                
+                        <div class="status"><p>開賣中</p></div>
+                    }
+
+                <div class="market">
+                    @*原價小於特價 ，原價=0 -[隱藏]*@
+                    @if ((Convert.ToInt32(groupBuy.OriginalPrice) < Convert.ToInt32(groupBuy.GroupBuyPrice)) || (Convert.ToInt32(groupBuy.OriginalPrice) == 0)) 
+                    {
+                        <p></p>                    
+                    }
+                    else
+                    {
+                        <p>$<span>@Html.Raw(String.Format("{0:N0}", Convert.ToInt32(@groupBuy.OriginalPrice)))</span></p>                    
+                    }
+                </div>
+                    @*市價*@
+                <br style="clear:both;"/>
+                       @Html.Raw(String.Format("<div class='remain'><p>剩下<span>{0}</span>個</p></div>",(groupBuy.SellQuantity).Length > 4?groupBuy.SellQuantity.Substring(0, 4):groupBuy.SellQuantity))
+                    
+                <div class="price"><p><span>$ @Html.Raw(String.Format("{0:N0}", Convert.ToInt32(@groupBuy.GroupBuyPrice)))</span></p></div>@*特價*@
+                <br style="clear:both;"/>
+                </div>
+            </div>           
+        }
+        
+    
+    
+@*↑↑↑↑↑↑↑單項產品方格↑↑↑↑↑↑*@
+    }   
+}

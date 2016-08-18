@@ -1,0 +1,337 @@
+﻿@using TWNewEgg.DB.TWSQLDB.Models
+@using TWNewEgg.Website.ECWeb.Models
+@{
+    @model TWNewEgg.Models.ViewModels.MyAccount.ReturnPost
+    }
+
+<script>
+ 
+    $(document).ready(function () {
+
+        backlis();
+
+        $("#sure").on("click", function () {
+
+            if (!checkForm($('.service_contentForm'))) return false;
+
+            if (confirm("確定要取消嗎！")) {
+                $(".LightBoxUnderLay").fadeIn();
+                $("div.LightBoxMsg.DelayWindow").fadeIn();
+                LightBoxCenter("div.LightBoxMsg.DelayWindow");
+
+                var json = JSON.stringify({
+                    return_reasonval: parseInt($("#return_reasonval").val()),
+                    return_reasontext: $("#return_reasontext").val(),
+                    ReturnPostString: JSON.stringify({
+                        "Firstname": $("#Firstname").val(),
+                        "Lastname": $("#Lastname").val(),
+                        "Username": $("#Lastname").val() + $("#Firstname").val(),
+                        "Email": "@Model.Email",
+                        "RecvMobile": "@Model.RecvMobile",
+                        "Phone": "(" + $("#TelZip").val() + ")" + $("#TelDay2").val() + "#" + $("#TelExtension").val(),
+                        "Location": "@Model.Location",
+                        "Zipcode": "@Model.Zipcode",
+                        "ADDR": "@Model.ADDR",
+                        "Code": "@Model.Code",
+                        "bankbranch": $("#Branches").val(),
+                        "bankid": $("#bankidselect").val(),
+                        "Bankaccount": $("#Branchesaccount").val()
+                    })
+                });
+                $.ajax({
+                    url: "/MyAccount/RefundPost",
+                    cache: false,
+                    data: json,
+                    type: 'Post',
+                    dataType: "Json",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+
+                        if (data == '1') {
+                            successornot = 1;
+                        }
+                        else if (data == 'canceled') {
+                            successornot = 2;
+                        }
+                        else if (data == 'AccidError') {
+                            successornot = 3;
+                        }
+                        else if (data == 'error') {
+                            successornot = 4;
+                        }
+
+                        if (successornot == 1) {
+                            alert("我們已收到您取消訂單的消息,如有任何問題客服人員會盡快聯絡您!!");
+                            $("#myOrderArea2").html("");
+                            location.replace("/MyAccount/Order");
+                        }
+                        else if (successornot == 2) {
+                            alert("此訂單已經取消,有問題請聯絡客服人員!!");
+                            $("#myOrderArea2").html("");
+                            location.replace("/MyAccount/Order");
+                        }
+                        else if (successornot == 3) {
+                            alert("您登入帳號與訂單下單帳號不符,有問題請聯絡客服人員!!");
+                            $("#myOrderArea2").html("");
+                            location.replace("/MyAccount/Order");
+                        }
+                        else if (successornot == 4) {
+                            alert("訂單狀態異常,請聯絡客服人員!!");
+                            $("#myOrderArea2").html("");
+                            location.replace("/MyAccount/Order");
+                        }
+                        $(".LightBoxUnderLay").fadeOut();
+                    }
+
+                })
+                .fail(function (xhr, textStatus, err) {
+                    alert("失敗");
+                    $('#state').html('Error: ' + err);
+                    $(".LightBoxUnderLay").fadeOut();
+                    return false;
+                });
+            }
+        });
+    });
+    function backlis() {
+        $.ajax({
+            url: "/MyNewegg/get_bankinfo",
+            cache: false,
+            @*data: json,*@
+            type: 'Post',
+            dataType: "Json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data2) {
+                var banktext = "<select id=\"bankidselect\"><option value=" + "" + ">" + "請選擇" + "</option> ";
+                for (var i = 0; i < data2.length; i++) {
+                    banktext = banktext + "<option value=" + data2[i].Bank_id + data2[i].Bank_name + ">" + data2[i].Bank_id + " - " + data2[i].Bank_name + "</option> ";
+                }
+                banktext = banktext + "</select>";
+                $("#bankid").html(banktext);
+
+                PayTypeName = "@(((TWNewEgg.DB.TWSQLDB.Models.PayType.nPayType)1).ToString())";
+                switch (parseInt(@Model.PayType)) {
+                    case 1:
+                        {
+                            PayTypeName = "信用卡付款 (一次付清)";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 3:
+                        {
+                            PayTypeName = "3 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 6:
+                        {
+                            PayTypeName = "6 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 10:
+                        {
+                            PayTypeName = "10 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 12:
+                        {
+                            PayTypeName = "12 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 18:
+                        {
+                            PayTypeName = "18 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 24:
+                        {
+                            PayTypeName = "24 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 112:
+                        {
+                            PayTypeName = "12 期 分期";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 118:
+                        {
+                            PayTypeName = "18 期 分期";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 124:
+                        {
+                            PayTypeName = "24 期 分期";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 30:
+                        {
+                            PayTypeName = "Web ATM轉帳";
+
+                            credityes = 0;
+                            break;
+                        }
+                    case 31:
+                        {
+                            PayTypeName = "貨到付款";
+
+                            credityes = 0;
+                            break;
+                        }
+                    case 32:
+                        {
+                            PayTypeName = "7-11超商付款 取貨";
+
+                            credityes = 0;
+                            break;
+                        }
+                    case 501:
+                        {
+                            PayTypeName = "歐付寶付款";
+
+                            credityes = 0;
+                            break;
+                        }
+                    default:
+                        {
+
+                            credityes = 0;
+                            break;
+                        }
+                }
+                $("#salesorder_paytypetd").html(PayTypeName);
+            }
+        });
+    };
+
+    function checkForm(form) {
+        var msg = {
+            req: '',
+            result: ''
+        };
+        
+        form.find("textarea[class*='jqv'], select[class*='jqv']").each(function () {
+            var el = $(this);
+
+            if (el.hasClass('jqvRequired') && $.trim(el.val()) == '') {
+                if ($.trim(msg.req) != '') msg.req += '、';
+                msg.req += el.attr('title');
+
+            }
+
+            /* 額外判斷 
+            var tmpValue = el.val();
+            switch (el.attr('id')) {
+                
+            }
+            */
+        });
+
+        /* 必填欄位 */
+        if ($.trim(msg.req) != '') {
+            msg.req = '「' + msg.req + '」';
+            if (msg.req.indexOf('、') == -1)
+                msg.result = msg.req + '資料尚未填寫!';
+            else
+                msg.result = msg.req + '等資料尚未填寫!';
+        }
+
+        /* 錯誤訊息 */
+        if ($.trim(msg.result) != '') {
+            alert(msg.result);
+            return false;
+        }
+
+        return true;
+    };
+</script>
+                <div class="myOrderArea">
+                    <div class="service_contentForm">
+                        <div class="service_contentList">
+                            <div class="tit">訂單編號</div>
+                            <div class="txt">@Model.SalceorderCodeList</div>
+                        </div>
+                        <div class="service_contentList">
+                            <div class="tit"><span class="red">*</span>服務類型</div>
+                            <div class="txt">
+                                 <select class="select_md jqvRequired" id="return_reasonval" title="服務類型">
+                              
+                                	<option value="">請選擇</option>
+                                	@*<option value="1">規格不合</option>
+                                	<option value="2">與想像中不符</option>
+                                	<option value="3">其他原因</option>*@
+                                    <option value="4">商品規格不符</option>
+                                    <option value="5">不想等/等太久</option>
+                                    <option value="6">價格比別家貴</option>
+                                    <option value="7">重複購買</option>
+                                    <option value="8">我要改買其他商品</option>
+                                    <option value="9">接受時間無法配合</option>
+                                    <option value="10">衝動購買</option>
+                                    <option value="11">我要改用其他付款方式</option>
+                                    <option value="12">其他</option>
+                                                      
+                                </select>
+                            </div>
+                        </div>
+                        <div class="service_contentList"">
+                            <div class="tit"><span class="red">*</span>問題描述</div>
+                            <div class="txt" style="width:80%;text-align:left;">
+                                <textarea id="return_reasontext" style="width:70%;" rows="3" maxlength="300" class="jqvRequired" title="問題描述" placeholder="尚可輸入300字"></textarea>
+                            </div>
+                        </div>
+                              <div class="service_contentList"style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }">
+                            <div class="tit"><span class="red">*</span>銀行</div>
+                            <div class="txt">
+                               <div id="bankid" style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }">
+                                  @* <td id="bankid"></td>*@
+                               </div>
+                              
+                            </div>
+                        </div>
+                          <div class="service_contentList"   style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }">
+                            <div class="tit"><span class="red">*</span>分行</div>
+                            <div class="txt">
+                           
+                                   <input id="Branches" style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }"/>
+                                  @* <td id="bankid"></td>*@
+                      
+                              
+                            </div>
+                        </div>
+                            <div class="service_contentList" style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }" >
+                            <div class="tit"><span class="red">*</span>帳號</div>
+                            <div class="txt">
+                                      <input id="Branchesaccount" style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }"/>
+                             
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btmBtnArea">
+                        <input type="button" value="確認" class="btn btn-submit"  id="sure">
+                        <input type="button" value="取消" class="btn btn-cancel" onclick="closeSlideDialog(this);">
+                    </div>
+                </div>

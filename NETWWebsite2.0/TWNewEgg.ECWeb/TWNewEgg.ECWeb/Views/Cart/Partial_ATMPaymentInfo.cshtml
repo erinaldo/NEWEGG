@@ -1,0 +1,38 @@
+﻿@model TWNewEgg.Models.ViewModels.Cart.CartResults_View
+@{
+    var CartPayType_View = Model.CartPayType_View;
+    DateTime expireDate = CartPayType_View.ExpireDate.AddSeconds(-1);
+}
+<div class="ShoppingProcess darkGray" style="width: 1004px; margin: 0 auto;">
+    <div class="PaymentStatus">
+        <div class="PaymentStatusTit ColorBarTit">
+            <div class="icon"></div>
+            <p>付款狀態</p>
+            <p>@(CartPayType_View.GroupName)：@(Model.Status)</p>
+            <div class="clear"></div>
+        </div>
+        <div class="PaymentStatusContent">
+            <div class="ATMAccount">
+                <p>銀行代碼：</p>
+                <span class="ATMNumber">@(CartPayType_View.BankCode)</span><br />
+                <p>匯款帳號：</p>
+                <span class="ATMNumber">@(CartPayType_View.vAccount)</span><br />
+                <p>繳費期限：</p>
+                <span class="ATMNumber">@string.Format("西元 {0:yyyy} 年 {0:MM} 月 {0:dd} 日 {0:HH:mm:ss} 之前", expireDate)</span>
+                <div class="clear"></div>
+            </div>
+            <p>注意事項：</p>
+            <p class="TitNumber">1.</p>
+            <p class="Text">虛擬帳號的繳費期間為2天，請務必於期間內進行繳款。例：2015/02/01的20：15分購買，則須於2015/02/03的23：59分之內完成繳費。</p>
+            <p class="TitNumber">2.</p>
+            <p class="Text">轉帳成功後。系統將於成功後的1至2個小時，發送繳款成功通知。</p>
+            <p class="TitNumber">3.</p>
+            <p class="Text">若您於此段時間未收到「繳款成功通知」，請於上班時間來電或利用官網的線上回報通報客服。</p>
+            <p class="TitNumber">4.</p>
+            <p class="Text">晚上12點至凌晨1點之間為銀行固定維護時間，如於此時間進行轉帳，將於凌晨1點後入帳。</p>
+            <p class="TitNumber">5.</p>
+            <p class="Text">若使用實體ATM，請選擇「轉帳/轉出」功能；若為使用第一銀行實體ATM，請選擇「繳費」按鈕。</p>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

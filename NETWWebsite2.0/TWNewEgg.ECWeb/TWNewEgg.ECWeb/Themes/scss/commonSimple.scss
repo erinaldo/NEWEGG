@@ -1,0 +1,48 @@
+﻿@import "_colorStyle";
+@import "_importSCSS";
+
+/*美好Header*/
+.simpleHeaderArea {
+	margin:0 auto;
+	padding:30px 0;
+	width:$RWDMinWidth;
+	a{border-bottom:0;}
+	/*&::before {
+		display:block;
+		content:" ";
+		height:122px;
+	}*/
+	/*.simpleHead {
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		background:#f0f0f0;
+	}*/
+	.logo {
+		/*margin:0 70px 10px 0;*/
+	}
+	/*p {
+		margin:0 auto;
+		width:1004px;
+	}*/
+}
+
+
+/*單行footer*/
+.simpleFooterArea {
+	margin:10px auto;
+	width:1024px;
+	color:#172c47;
+	@include clearAfter;
+	hr {
+		margin:10px -10px;
+	}
+	h2 {
+		float:left;
+	}
+	p {
+		float:left;
+		margin-left:5px;
+	}
+}

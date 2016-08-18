@@ -1,0 +1,175 @@
+﻿@model TWNewEgg.Models.ViewModels.PromoActive.PromoActiveView
+@{
+    //int pageSelect = ViewBag.selectPage;
+    int pageSelect = ViewBag.selectPage == null ? 0 : ViewBag.selectPage;
+}
+<div id="GridDataArea">
+        <table class="table darkGray">
+            <tr class="tr">
+                <th class="th Boldtext" style="width:89px;">活動狀態</th>
+                <th class="th Boldtext" style="width:106px;">類型</th>
+                <th class="th Boldtext" style="width:89px;">館別</th>
+                <th class="th Boldtext" style="width:243px;">活動名稱</th>
+                <th class="th Boldtext" style="width:94px;">開始時間</th>
+                <th class="th Boldtext" style="width:94px;">結束時間</th>
+                <th class="th Boldtext" colspan="2" style="width:287px;">活動贈品</th>
+            </tr>
+            @if (Model != null)
+            {
+                foreach (var item in Model.listPromoActive)
+                {
+                    <tr class="tr">
+                        <td class="td grayBorder">
+                            @if (item.ActivityOrNot == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityStatus.已結束)
+                            {
+                                <p style="color:#c1272d" class="activityStatus">已結束</p>
+                            }
+                            else if (item.ActivityOrNot == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityStatus.進行中)
+                            {
+                                <p class="activityStatus">進行中</p>
+                                <p class="remaindate">(剩餘 @item.ActivityRemainDate 天)</p>
+                            }
+                            else
+                            {
+                                <p></p>
+                            }
+                        </td>
+                        <td class="td grayBorder">
+                            @if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.滿額折_現折)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass1-1">滿額折(現折)</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.折價券)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass2-1">折價券</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.回饋金)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass3-1">回饋金</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.紅利點數)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass4-1">紅利點數</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.抽獎)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass5-1">抽獎</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.贈品_獎品)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass6-1">贈獎(獎品)</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.銀行)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass7-1">銀行</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.折扣)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass8-1">折扣</span></div>
+                            }
+                            else
+                            {
+                                <div><span></span></div>
+                            }
+                        </td>
+                        <td class="td grayBorder">
+                            @if (string.IsNullOrEmpty(item.CategoryLink) == true)
+                            {
+                                <p>@(string.IsNullOrEmpty(item.CategoryName) == true? string.Empty :item.CategoryName) </p>
+                            }
+                            else
+                            {
+                                <a href="@(string.IsNullOrEmpty(item.CategoryLink) == true ? string.Empty:item.CategoryLink)">@(string.IsNullOrEmpty(item.CategoryName) == true? string.Empty :item.CategoryName)</a>
+                            }
+                        </td>
+                        <td class="td grayBorder">
+                            @if(string.IsNullOrEmpty(item.NameLink) == true)
+                            {
+                                <p class="ActivityName">@Html.Raw(string.IsNullOrEmpty(item.Name) == true ? string.Empty : item.Name)</p>
+                            }
+                            else
+                            {
+                                <p class="ActivityName"><a href="@(string.IsNullOrEmpty(item.NameLink) == true? string.Empty: item.NameLink)">@(string.IsNullOrEmpty(item.Name) == true? string.Empty: item.Name)</a></p>
+                            }
+                        </td>
+                        <td class="td grayBorder">
+                            <p>@string.Format("{0:yyyy/MM/dd}", item.StartDate)</p>
+                            <p>@string.Format("{0: HH: mm}", item.StartDate)</p>
+                        </td>
+                        <td class="td grayBorder">
+                            <p>@string.Format("{0:yyyy/MM/dd}", item.EndDate)</p>
+                            <p>@string.Format("{0: HH: mm}", item.EndDate)</p>
+                        </td>
+                        <td class="td grayBorder" style="width:244px;border-right: none;">
+                            <p class="ActivityName">@Html.Raw(string.IsNullOrEmpty(item.Description) == true ? string.Empty : item.Description)</p>
+                        </td>
+                        <td class="td grayBorder" style="width:42px;border-left: none;">
+                            <img class="more" src="~/Themes/img/PromoActive/icon_PromoActiveOut.png" noteValue="@item.Note" onclick="NoteMsg(this)" 
+                                onmouseover="changePictureOver(this, 'icon_PromoActiveOver.png')" 
+                                onmouseout="changePictureOut(this, 'icon_PromoActiveOut.png')"/>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    @if (Model != null)
+    {
+        if(Model.showPage != null)
+        {
+            <div class="pagination PageArea">
+                    @if (pageSelect > 1)
+                    {
+                        <span id="srPrev" class="arrow arrLeft prev" onclick="NextPage(@(pageSelect - 1), '@Model.searchFrom')"><</span>
+                    }
+                    @foreach(var itempage in Model.showPage)
+                    {
+                        if(itempage.PageNumberString.IndexOf("...") >=0)
+                        {
+                            if(itempage.PageNumber == Model.showPage.FirstOrDefault().PageNumber)
+                            {
+                                if (itempage.PageNumber.ToString() == pageSelect.ToString())
+                                {
+                                    <span class="SelectThePage" style="color:#EB8A51" data-pagevalue="@itempage.PageNumberString" onclick="">@itempage.PageNumber</span>
+                                }
+                                else
+                                {
+                                    <span class="GoToPage" data-pagevalue="@itempage.PageNumberString" onclick="NextPage(@itempage.PageNumber, '@Model.searchFrom')">@itempage.PageNumber</span>
+                                }
+                                <span class="default"> ... </span>
+                            }
+                            else
+                            {
+                                if(itempage.PageNumber == Model.showPage.LastOrDefault().PageNumber)
+                                {
+                                    <span class="default"> ... </span>
+                                    if (itempage.PageNumber.ToString() == pageSelect.ToString())
+                                    {
+                                        <span class="SelectThePage" style="color:#EB8A51" data-pagevalue="@itempage.PageNumberString" onclick="">@itempage.PageNumber</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="GoToPage" data-pagevalue="@itempage.PageNumberString" onclick="NextPage(@itempage.PageNumber, '@Model.searchFrom')">@itempage.PageNumber</span>
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (itempage.PageNumber.ToString() == pageSelect.ToString())
+                            {
+                                <span class="SelectThePage" style="color:#EB8A51" data-pagevalue="@itempage.PageNumberString" onclick="">@itempage.PageNumber</span>
+                            }
+                            else
+                            {
+                                <span class="GoToPage" data-pagevalue="@itempage.PageNumberString" onclick="NextPage(@itempage.PageNumber, '@Model.searchFrom')">@itempage.PageNumber</span>
+                            }
+                        }                    
+                    }
+                    @if (pageSelect < Model.totalPage)
+                    {
+                        <span class="arrow arrRight next" onclick="NextPage(@(pageSelect + 1), '@Model.searchFrom')">></span>
+                    }
+            </div>
+        }
+    }
+    </div>

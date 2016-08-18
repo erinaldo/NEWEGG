@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>新蛋全球生活網招商</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue",Helvetica,Arial,STHeiti,"Microsoft JhengHei","微軟正黑體",sans-serif;
+            font-size: 13px;
+        }
+        table td, table th
+        {
+            height:30px;
+            text-align:left;
+            padding:0px 5px 0px 5px;
+            border: 1px solid #999999;
+
+        }
+        th.tit {
+            background: none repeat scroll 0 0 #DCFFFF;
+        }
+        th.yelo {
+            background: none repeat scroll 0 0 #FFF3B2;
+        }
+        .div_ard {
+            width:795px;
+            vertical-align:middle;
+            border:dotted;
+            border: 0px dotted #6E6A72;
+            border-radius: 4px 4px 4px 4px;
+            padding:0px 0px 0px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div align="center">
+    <div class="div_ard" align="left">
+        <!--<img src="http://images.newegg.com.tw/Themes/2013/img/header.png" style="padding:0px 0px 5px 0px;" />-->
+        <img src="{$imgUrl}Themes/2013/img/header.png" style="padding:0px 0px 5px 0px;" />
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;">
+                        <tr>
+                            <th colspan="2" class="tit">廠商基本資料</th>
+                        </tr>
+                        <tr>
+                            <th width="20%" class="yelo">公司名稱</th>
+                            <td>{$CompanyName}</td>
+                        </tr>
+                        <tr>
+                            <th class="yelo">統一編號</th>
+                            <td>{$CompanyUnifiedNumber}</td>
+                        </tr>
+                        <tr>
+                            <th class="yelo">公司電話</th>
+                            <td>{$CompanyPhone}</td>
+                        </tr>
+                        <tr>
+                            <th class="yelo">公司網址</th>
+                            <td><a href="{$CompanyOfficialSiteUrl}" target="_blank">{$CompanyOfficialSiteUrl}</a></td>
+                        </tr>
+                        <tr>
+                            <th class="yelo">聯絡人　</th>
+                            <td>{$CompanyContact}</td>
+                        </tr>
+                        <tr>
+                            <th class="yelo">連絡電話</th>
+                            <td>{$CompanyContactPhone}</td>
+                        </tr>
+                        <tr>
+                            <th class="yelo">聯絡EMAIL</th>
+                            <td>{$CompanyContactEmail}</td>
+                        </tr>
+                        <tr>
+                            <th class="yelo">希望上架類別</th>
+                            <td>{$Category}</td>
+                        </tr>
+                        <tr>
+                            <th class="yelo">其他說明</th>
+                            <td>{$Remark}
+                            </td>
+                        </tr>
+                    </table>
+            <!--<img src="http://images.newegg.com.tw/Themes/2013/img/footer.png" style="padding:5px 0px 0px 0px;" />-->
+            <img src="{$imgUrl}Themes/2013/img/footer.png" style="padding:5px 0px 0px 0px;" />
+        </div>
+        </div>
+</body>
+</html>

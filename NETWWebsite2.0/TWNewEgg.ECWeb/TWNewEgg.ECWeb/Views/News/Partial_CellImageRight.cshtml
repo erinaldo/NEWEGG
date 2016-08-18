@@ -1,0 +1,18 @@
+﻿@using TWNewEgg.ECWeb.Utility
+@using TWNewEgg.Models.DomainModels.News
+@model NewsInfo
+
+@if(Model != null)
+{
+<div class="TopNews">
+    @if (!string.IsNullOrEmpty(Model.ImagePath))
+    {
+    <div class="ArticPic"><img src="@(ImageUtility.GetImagePath(Model.ImagePath))"></div>
+    }
+    <div class="LeftNewsLayout">
+        <p class="ArticleName"><a href="/News/Content?newsID=@(Model.NewsID)">@(ArticleUtility.LimitDownText(Model.Title, 32))</a></p>
+        <p class="Date blue">@(string.Format("{0}/{1}/{2}", Model.Date.Year, Model.Date.Month, Model.Date.Day))</p>
+        <p class="Article">@(ArticleUtility.LimitDownText(Model.Extract, 118))</p>
+    </div>
+</div>
+}

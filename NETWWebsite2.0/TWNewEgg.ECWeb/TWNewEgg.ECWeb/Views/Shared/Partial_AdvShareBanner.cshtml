@@ -1,0 +1,35 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>
+
+@{
+    string strImageServer = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsImgDomain") ?? string.Empty;
+        if (Model != null)
+        {
+            if (@ViewBag.advEventTypeID == 28) //BottomerBanner
+            {
+             <div class="bottomer">
+                <div class="icon">
+                    <ul>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            string divline = "<div class='divider'></div>"; //每張圖旁邊的線
+                            string displayN = "style='display:none;'";
+
+                            @Html.Raw(String.Format("<li {4}><a class='' href='{0}'><i class='listi'+i><img src='{1}' title='{2}'></i><div class='text'>{2}</div></a></li>{3}",Model[i].LinkUrl, strImageServer + Model[i].ImgUrl, Model[i].Title, i<(Model.Count-1)?divline:"", i<5?"":displayN))                        
+                        }
+                    </ul>
+                </div>
+            </div>    
+            }
+            else if(@ViewBag.advEventTypeID ==31) //IndexRightBanner
+            {
+                @Html.Raw(String.Format("<div class='banner-ad'><a href='{0}' target='_blank'><img src='{1}'></a></div>",Model[0].LinkUrl, strImageServer + Model[0].ImgUrl));
+            }
+            else if (@ViewBag.advEventTypeID ==33) //LoginBanner
+            {
+                @Html.Raw(String.Format("<img src='{0}' alt='{1}' title='{2}' />", strImageServer + Model[0].ImgUrl, Model[0].ImgAlt, Model[0].Title));                
+            }     
+}
+
+}
+    
+    

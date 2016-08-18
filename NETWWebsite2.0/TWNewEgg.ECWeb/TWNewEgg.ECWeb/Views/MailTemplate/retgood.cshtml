@@ -1,0 +1,138 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+
+<style>
+    table {border-collapse: collapse;}
+    table.OrderTable td {padding: 0 5px;border:1px solid #000;}
+    table.OrderTable th {text-align: left;padding: 0 5px;border:1px solid #000;}
+</style>
+<html>
+    <body>
+        <table width="795" border="0" cellspacing="0" cellpadding="0" align="center">
+            <tr>
+                <td>
+                    <img src="@Model.DIC["Header"]" width="795" height="68" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@Model.RetgoodList[0].AccountName 小姐/先生您好：<br /><br />
+                        我們已經收到您的退貨要求如下，宅配公司將在5個工作天內與您聯繫確認取貨事宜。
+                    </p>
+                    <br />
+                    <p style="color:#F00">
+                        <span style="font-weight:bold; letter-spacing:1px; line-height:28px;">請注意！</span><br />
+                        請注意，退貨的商品必須回復原狀，亦即必須回復至您收到商品時的原始狀態 ( 包含主機、附件、內外包裝、隨機文件、贈品等 ) 並且隨貨附上發票等隨附文件。若原紙箱已遺失，請另使用其他紙箱包覆於商品原廠包裝之外，切勿直接於原廠包裝(彩盒)上黏貼紙張或書寫文字，若原廠包裝損毀將無法辦理退貨。
+                    </p><br />
+                    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="OrderTable">
+                        <tr>
+                            <th height="27" colspan="2">訂購資訊</th>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">訂購單編號：</td>
+                            <td width="629" height="27"> @Model.DIC["SalesOrderCodes"] &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">訂購人：</td>
+                            <td height="27">@Model.RetgoodList[0].AccountName &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th height="27" colspan="2">退貨資訊</th>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">登錄日期：</td>
+                            <td height="27">@Model.RetgoodList[0].Date &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">退貨單狀態：</td>
+                            <td height="27">
+                                <span style="font-weight:bold; color:#f00">宅配將在5個工作天內與您聯繫取貨</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">退貨原因：</td>
+                            <td height="27">@Model.DIC["retgood_causenote"] &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">退貨單號：</td>
+                            <td height="27">@Model.RetgoodList[0].Code &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">退貨商品：</td>
+                            <td height="27"> @Model.DIC["Itemname"] &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">退貨數量：</td>
+                            <td height="27">@Model.RetgoodList[0].Qty &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">退貨原因描述：</td>
+                            <td height="27">@Model.RetgoodList[0].CauseNote &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">配件：</td>
+                            <td height="27">@Model.DIC["Itemlist"] &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th height="27" colspan="2">取貨資訊</th>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">連絡人：</td>
+                            <td height="27">@Model.RetgoodList[0].FrmName &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">E-mail：</td>
+                            <td height="27">@Model.RetgoodList[0].FrmEmail &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">地址：</td>
+                            <td height="27"> @Model.DIC["retgood_toaddr"]&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="160" height="27">電話：</td>
+                            <td height="27">@Model.RetgoodList[0].FrmMobile &nbsp;</td>
+                        </tr>                                              
+                        @if (Model.RetgoodList[0].BankName != "" && Model.RetgoodList[0].BankName != null)
+                        {
+                            <tr>
+                                <th height="27" colspan="2">退款資訊</th>
+                            </tr>
+                            <tr>
+                                <td width="160" height="27">退款銀行名稱：</td>
+                                <td height="27">@Model.RetgoodList[0].BankName &nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="160" height="27">退款銀行分行：</td>
+                                <td height="27">@Model.RetgoodList[0].BankBranch &nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="160" height="27">退款銀行帳號：</td>
+                                <td height="27">@Model.RetgoodList[0].AccountNO &nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="160" height="27">戶名：</td>
+                                <td>@Model.RetgoodList[0].AccountName &nbsp;</td>
+                            </tr>
+                        }
+                       
+                    </table>
+                    <br />
+                    <p>收到您的退貨時，在檢查無誤且商品是完善後，我們會開始進行退款作業。當退款完成時，我們也會發送退款完成通知信通知您。</p>
+                    <p style="margin-top:100px;">
+                        若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                        電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                        服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                        請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="@Model.DIC["Fooer"]" width="795" height="40" />
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

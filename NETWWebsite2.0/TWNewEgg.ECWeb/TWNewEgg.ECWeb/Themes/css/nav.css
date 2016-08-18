@@ -1,0 +1,392 @@
+@charset "UTF-8";
+.clear {
+  clear: both;
+}
+
+.pullDownList li span,
+.pullDownList3 li span {
+  position: absolute;
+  top: 12px;
+  right: 8px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
+.pullDownList li a:hover,
+.pullDownList3 li a:hover {
+  color: #fff;
+}
+.pullDownList li.menulihover, .pullDownList li.menuliselected,
+.pullDownList3 li.menulihover,
+.pullDownList3 li.menuliselected {
+  background: #eda16f;
+}
+.pullDownList li.menuliselected span,
+.pullDownList3 li.menuliselected span {
+  position: absolute;
+  z-index: 1;
+}
+
+/*下拉*/
+.pullDown {
+  float: left;
+  position: relative;
+  z-index: 4;
+  width: 206px;
+  height: 486px;
+}
+.pullDown .pullDownList {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background-color: #e6e4e7;
+}
+.pullDown .pullDownList li {
+  position: relative;
+  height: 34.7px;
+  line-height: 34px;
+}
+.pullDown .pullDownList li a {
+  display: block;
+  color: #5E5E63;
+  font-size: 19px;
+  text-decoration: none;
+  border-bottom: 0;
+}
+.pullDown .pullDownList li.menulihover span {
+  top: 10px;
+  right: 10px;
+}
+.pullDown .pullDownList li.menulihover a {
+  color: #fff;
+  border-bottom: 0;
+}
+
+.pullDownList2 {
+  width: 206px;
+  height: 516px;
+  background-color: #e6e4e7;
+  position: relative;
+  z-index: 2;
+  margin-top: -30px;
+}
+
+.pullDownUS .pullDownList3 {
+  width: 204px;
+  background-color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 2;
+  border: 1px solid #b4b4b4;
+}
+.pullDownUS .pullDownList3 li {
+  height: 35px;
+  line-height: 35px;
+  position: relative;
+  text-align: center;
+}
+.pullDownUS .pullDownList3 li a {
+  color: #505050;
+  font-size: 16px;
+  border-bottom: 1px dashed #DCDCDC;
+  width: 170px;
+  margin: 0 auto;
+  display: block;
+}
+.pullDownUS .pullDownList3 li .arrowhover_gray {
+  background-position: 0;
+}
+.pullDownUS .pullDownList3 li.menulihover a {
+  color: #fff;
+  border-bottom: 1px dashed #DCDCDC;
+}
+.pullDownUS .pullDownList3 li.menulihover .arrowhover_gray {
+  top: 8px;
+  right: 25px;
+}
+.pullDownUS .pullDownList3 li.ActivityArea {
+  background: #D25E69;
+}
+.pullDownUS .pullDownList3 li.ActivityArea a {
+  color: #fff;
+}
+.pullDownUS .pullDownList3 li:hover {
+  background: #EDA16F;
+}
+.pullDownUS .pullDownList3 .arrowhover_gray {
+  z-index: 99;
+  top: 8px;
+  right: 30px;
+}
+
+/*子選單第一層*/
+.pullDownListSec {
+  position: absolute;
+  top: 0;
+  left: 206px;
+  width: 175px;
+  height: 484px;
+  overflow: hidden;
+  border-right: 1px solid #dcdcdc;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  background: url(/Themes/img/navcolor.jpg) no-repeat top;
+  font-size: 16px;
+}
+.pullDownListSec .ActivityArea a {
+  color: #fff;
+}
+.pullDownListSec li {
+  height: 35px;
+  line-height: 35px;
+  padding-left: 20px;
+  position: relative;
+  overflow: hidden;
+  /*&.liBG:nth-child(even) { background: #fff; }
+  &.liBG:nth-child(odd) { background-color: #F5F5F5; }*/
+}
+.pullDownListSec li a {
+  border-bottom: 0;
+  width: 135px;
+  display: block;
+  color: #505050;
+}
+.pullDownListSec li.ActivityArea {
+  background: #D25E69;
+}
+.pullDownListSec li.liBG.selected, .pullDownListSec li.ActivityArea.selected {
+  background: #EDA16F;
+}
+.pullDownListSec li.liBG.selected .arrowhover, .pullDownListSec li.ActivityArea.selected .arrowhover {
+  top: 7px;
+  right: 10px;
+}
+.pullDownListSec li.liBG.selected a, .pullDownListSec li.ActivityArea.selected a {
+  color: #fff;
+}
+
+.pullDownList li.menulihover span,
+.pullDownList3 li.menulihover .arrowhover_gray,
+.pullDownList3 .arrowhover_gray,
+.liBG.selected .arrowhover,
+.ActivityArea.selected .arrowhover {
+  position: absolute;
+  display: block;
+  width: 12px;
+  height: 22px;
+  background: url(/Themes/img/Icon/arrow_hover.png) top no-repeat;
+}
+
+.pullDownList3 .arrowhover_gray {
+  background: url(/Themes/img/Icon/arrow_hover_gray.png) top no-repeat;
+}
+
+.pullDownList li i.listi1 {
+  background-position: 0 0px;
+}
+
+.pullDownList li i.listi2 {
+  background-position: 0 -50px;
+}
+
+.pullDownList li i.listi3 {
+  background-position: 0 -96px;
+}
+
+.pullDownList li i.listi4 {
+  background-position: 0 -144px;
+}
+
+.pullDownList li i.listi5 {
+  background-position: 0 -190px;
+}
+
+.pullDownList li i.listi6 {
+  background-position: 0 -240px;
+}
+
+.pullDownList li i.listi7 {
+  background-position: 0 -286px;
+}
+
+.pullDownList li i.listi8 {
+  background-position: 0 -334px;
+}
+
+.pullDownList li i.listi9 {
+  background-position: 0 -382px;
+}
+
+.pullDownList li i.listi10 {
+  background-position: 0 -428px;
+}
+
+.pullDownList li a:hover i.listi1 {
+  background-position: 0 0px;
+  border-bottom: 0;
+}
+
+.pullDownList li a:hover i.listi2 {
+  background-position: 0 -50px;
+  border-bottom: 0;
+}
+
+.pullDownList li a:hover i.listi3 {
+  background-position: 0 -96px;
+  border-bottom: 0;
+}
+
+.pullDownList li a:hover i.listi4 {
+  background-position: 0 -144px;
+  border-bottom: 0;
+}
+
+.pullDownList li a:hover i.listi5 {
+  background-position: 0 -190px;
+  border-bottom: 0;
+}
+
+.pullDownList li a:hover i.listi6 {
+  background-position: 0 -240px;
+  border-bottom: 0;
+}
+
+.pullDownList li a:hover i.listi7 {
+  background-position: 0 -286px;
+  border-bottom: 0;
+}
+
+.pullDownList li a:hover i.listi8 {
+  background-position: 0 -334px;
+  border-bottom: 0;
+}
+
+.pullDownList li a:hover i.listi9 {
+  background-position: 0 -382px;
+  border-bottom: 0;
+}
+
+.pullDownList li a:hover i.listi10 {
+  background-position: 0 -428px;
+  border-bottom: 0;
+}
+
+/*.pullDownList li i:hover{display: inline-block;position:relative;top:4px;margin-right: 15px;margin-left: 35px;left:0;-webkit-transition: margin-left .2s linear;-moz-transition: margin-left .2s linear;-o-transition: margin-left .2s linear; width: 25px;height: 19px;background: url(../img/nav-icon-hover.png) no-repeat;}*/
+/*.pullDownList li.menulihover i{display: inline-block;position:relative;top:4px;margin-right: 15px;margin-left: 35px;left:0;-webkit-transition: margin-left .2s linear;-moz-transition: margin-left .2s linear;-o-transition: margin-left .2s linear; width: 25px;height: 19px;/*background: url(../img/nav-icon-hover.png) no-repeat;}*/
+/*下拉详细列表具体分类*/
+.yMenuListCon {
+  width: 600px;
+  height: 486px;
+  position: absolute;
+  top: 0px;
+  left: 217px;
+}
+
+.yMenuListCon2 {
+  width: 600px;
+  height: 486px;
+  position: absolute;
+  top: -30px;
+  left: 217px;
+  overflow: scroll;
+}
+
+.yMenuListCon p {
+  width: 95%;
+  color: #656565;
+  font-size: 14px;
+  margin: 0;
+  float: left;
+}
+
+.yMenuListCon p a {
+  padding: 0 8px 1px 5px;
+  display: inline-block;
+  float: left;
+  margin-top: 20px;
+  text-decoration: none;
+  border-right: thin solid #7e7e7e;
+  margin-right: 4px;
+  border-bottom: 0;
+  color: #7f7e7e;
+}
+
+.yMenuListCon .MenuListRedtxt {
+  color: #D25E69;
+}
+
+.yMenuListCon p a.ecolor610 {
+  color: #a90000;
+  border-bottom: 0;
+}
+
+.yMenuListCon p a:hover {
+  color: #eda16f;
+  text-decoration: underline;
+  border-bottom: 0;
+}
+
+/*.yMenuListConin{background: #fff;opacity: 0.9; -moz-opacity:0.9;filter: alpha(opacity=90);padding:0 20px;width: 540px;height:auto;position: absolute;left: 0;top: 0;}*/
+.yMenuListConin h2, .yMenuListConin h2 a {
+  width: 550px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  border-bottom: 0;
+  font-size: 24px;
+  color: #8dc88c;
+}
+
+.yMenuLCinList {
+  width: 530px;
+  height: 100%;
+  margin: 0 10px 20px 0;
+  padding: 20px 0 0 20px;
+  overflow: hidden;
+}
+
+/*详细分类标题*/
+.yMenuLCinList h3 {
+  font-size: 19px;
+  color: #444444;
+  position: relative;
+  width: auto;
+  margin: 0 auto 2px;
+  float: left;
+  font-weight: bold;
+  border-left: 5px solid #444444;
+  padding-left: 10px;
+}
+.yMenuLCinList h3 a {
+  position: absolute;
+  display: block;
+  bottom: 0px;
+  border-bottom: 0;
+  font-size: 17px;
+  color: #233223;
+}
+.yMenuLCinList h3 .yListMore {
+  right: 0;
+  width: 40px;
+  height: 20px;
+  color: #666666;
+  font-weight: normal;
+}
+.yMenuLCinList h3 .yListName {
+  left: 0;
+  display: block;
+  width: 90px;
+  height: 20px;
+  padding-top: 17px;
+  padding-left: 30px;
+  background: url(../img/yListNameicon.png) no-repeat 0 5px;
+  -webkit-transition: left .2s linear;
+  -moz-transition: left .2s linear;
+  -o-transition: left .2s linear;
+  line-height: 20px;
+}
+.yMenuLCinList h3 .yListName:hover {
+  left: 6px;
+}
+
+/*导航   end*/
+/*顶部    end*/

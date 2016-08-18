@@ -1,0 +1,102 @@
+﻿@model TWNewEgg.Models.ViewModels.Search.SearchPageView
+
+@if (Model.resultCount > 0)
+{
+    <div class="head">
+        <span>全部分類</span>
+        <div class="headAll close" id="categoryHead">+</div>
+    </div>
+    foreach (var singleCategory in Model.hotCategory)
+    {
+    <div class="groupList srCategoryList open">
+        <!-- open/close -->
+        <div class="groupTit">
+            <i class="showArrow top"></i>
+            <span class="tit">@(singleCategory.Value.categoryDescr)</span>
+            <span class="num"><span>(@(singleCategory.Value.number)</span>)</span>
+            @*<i class="showArrow top"><</i>*@<!-- top/down -->
+        </div>
+        <ul class="list">
+            @foreach (var singleChildCategory in singleCategory.Value.parentCategory)
+            {
+                <li>
+                    <label>
+                        <input type="checkbox" name="filterCats" data-cat="@(singleChildCategory.categoryID)"/>
+                        <span>
+                            <span class="subTit">@(singleChildCategory.categoryDescr)</span>
+                            <span class="subNum">(@(singleChildCategory.number))</span>
+                        </span>
+                    </label>
+                </li>
+@*<li>
+                            <label>
+                                <input type="checkbox" />
+                                <span>
+                                    <span class="subTit">精品鞋包</span>
+                                    <span class="subNum">(260)</span>
+                                </span>
+                            </label>
+                        </li>*@
+            }
+        </ul>
+    </div>
+    }
+    <div class="head">
+        <span>價格</span>
+        <div class="headAll open" id="priceHead">-</div>
+    </div>
+    <div class="groupList srPriceList open">
+        <!-- open/close -->
+        @*<div class="groupTit">
+            <span class="tit">價格</span>
+            <span class="num">(@(Model.searchResultsPrice.Sum(x => x.Value.FirstOrDefault())))</span>
+            <i class="showArrow top"><</i><!-- top/down -->
+        </div>*@
+        <ul class="list" style="display: block;">
+            @foreach (var singlePrice in Model.searchResultsPrice)
+            {
+                <li>
+                    <label>
+                        <input type="checkbox" name="filterPrice" data-minprice="@(singlePrice.Value[1])" data-maxprice="@(singlePrice.Value[2])" />
+                        <span>
+                            @*<span class="subTitNoCut">@(singlePrice.Key)</span>*@
+                            <span class="subTitNoCut">@(string.Format("{0}-{1}", singlePrice.Value[1].ToString("N0"), singlePrice.Value[2].ToString("N0")))</span>
+                            <span class="subNum"><span>(@(singlePrice.Value.FirstOrDefault())</span>)</span>
+                        </span>
+                    </label>
+                </li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <div class="head">
+        <span>價格</span>
+        <div class="headAll open" id="priceHead">-</div>
+    </div>
+    <div class="groupList srPriceList open">
+        <!-- open/close -->
+        @*<div class="groupTit">
+            <span class="tit">價格</span>
+            <span class="num">(@(Model.searchResultsPrice.Sum(x => x.Value.FirstOrDefault())))</span>
+            <i class="showArrow top"><</i><!-- top/down -->
+        </div>*@
+        <ul class="list" style="display: block;">
+            @foreach (var singlePrice in Model.searchResultsPrice)
+            {
+                <li>
+                    <label>
+                        <input type="checkbox" name="filterPrice" data-minprice="@(singlePrice.Value[1])" data-maxprice="@(singlePrice.Value[2])" />
+                        <span>
+                            @*<span class="subTitNoCut">@(singlePrice.Key)</span>*@
+                            <span class="subTitNoCut">@(string.Format("{0}-{1}", singlePrice.Value[1].ToString("N0"), singlePrice.Value[2].ToString("N0")))</span>
+                            <span class="subNum"><span>(@(singlePrice.Value.FirstOrDefault())</span>)</span>
+                        </span>
+                    </label>
+                </li>
+            }
+        </ul>
+    </div>
+}
+

@@ -1,0 +1,234 @@
+﻿INFO  2016/05/17 13:27:56 CartController                 OTPCheck                                 [Email] bh96@newegg.com [OTPCheck] start
+
+INFO  2016/05/17 13:27:56 CartController                 OTPCheck                                 [Email] bh96@newegg.com [step1Data] {"SerialNumber":"FVIBVGwtyk8UqlxQj7d/2Y75/hWVBFgFl4Op1abdYGpLKS1pmEYpYHkywsq6R5eG5WzIi+54sEzy25XmvPnMCq8bfM3Rw0SbQo2VgVrB+cI=","CartItemDetailList_View":[{"ItemID":440402,"Price":7688,"Category":0,"Qty":1},{"ItemID":473107,"Price":5388,"Category":0,"Qty":3}],"CartPaytype_View":{"PayTypeGroupID":1,"PayType0rateNum":1,"BankID":0},"PromotionPriceSum":0,"CartTypeID":1,"CouponList":[],"AmountsPayable":23852,"AgreedDiscard4":"Y"} [Mobile] 0928333444
+
+INFO  2016/05/17 13:27:59 CartController                 Step3                                    [UserEmail] [bh96@newegg.com] Step3 step1Data
+
+INFO  2016/05/17 13:28:21 CartController                 Step3                                    [userEmail] [bh96@newegg.com][_data.buyingcartinfo] [{"buyItemID_DelvType":7,"buyItemID_Seller":357,"buyItemID":440402,"item_AttrID":null,"buyingNumber":1,"buyItemLists":[],"buyItemWeight":0,"buyItemShipping":0,"Coupons":{}},{"buyItemID_DelvType":7,"buyItemID_Seller":411,"buyItemID":473107,"item_AttrID":null,"buyingNumber":3,"buyItemLists":[],"buyItemWeight":0,"buyItemShipping":0,"Coupons":{}}]
+
+INFO  2016/05/17 13:28:21 CartController                 FindBuyingCart                           [userEmail] [bh96@newegg.com]GetBuyingCart [isOverSea] False
+
+INFO  2016/05/17 13:28:21 CartController                 FindBuyingCart                           [userEmail] [bh96@newegg.com][GetBuyingCart] end
+
+INFO  2016/05/17 13:28:21 CartController                 Step3                                    [userEmail] [bh96@newegg.com]SalesOrderDetail sendcheckout非空
+
+INFO  2016/05/17 13:28:21 CartController                 Step3                                    [userEmail] [bh96@newegg.com]sendcheckout info [[{"TrackStatus":0,"ItemID":440402,"ItemSellingQty":4,"ItemSellerID":357,"TrackCreateDate":"2016/05/17\u003cBR\u003e11:36","ItemShowOrder":0,"ItemImage":"","ItemProductType":"主商品","ItemListSelectType":null,"ItemProductLength":3.00,"ItemProductWidth":3.00,"ItemProductHeight":3.00,"ItemProductWeight":1.00,"ItemListProductLength":null,"ItemListProductWidth":null,"ItemlistProductHeight":null,"ItemListProductWeight":null,"ItemPriceCash":7688.00,"ItemName":"【挑戰週年慶 結帳再享優惠】國際牌變頻製麵包機 SD-BMT1000T","ItemLayout":0,"ItemSaleType":"宅配","ItemListID":null,"ItemListSellingQty":null,"ItemListSellerID":null,"ItemListItemListID":null,"ItemListType":null,"ItemListName":null,"ItemListAttribName":null,"ItemListPrice":null,"ItemListOrder":null},{"TrackStatus":0,"ItemID":473107,"ItemSellingQty":10,"ItemSellerID":411,"TrackCreateDate":"2016/05/17\u003cBR\u003e11:35","ItemShowOrder":0,"ItemImage":"","ItemProductType":"主商品","ItemListSelectType":null,"ItemProductLength":3.00,"ItemProductWidth":3.00,"ItemProductHeight":3.00,"ItemProductWeight":1.00,"ItemListProductLength":null,"ItemListProductWidth":null,"ItemlistProductHeight":null,"ItemListProductWeight":null,"ItemPriceCash":5388.00,"ItemName":"【PHILIPS 飛利浦】頂級智慧萬用鍋-按鍵式(HD2172)加贈內鍋1入(HD2775) 共內鍋x2","ItemLayout":0,"ItemSaleType":"宅配","ItemListID":null,"ItemListSellingQty":null,"ItemListSellerID":null,"ItemListItemListID":null,"ItemListType":null,"ItemListName":null,"ItemListAttribName":null,"ItemListPrice":null,"ItemListOrder":null}]]
+
+INFO  2016/05/17 13:28:21 CartController                 Step3                                    [userEmail] [bh96@newegg.com]SalesOrderDetail sendcheckout資料取得 end
+
+INFO  2016/05/17 13:28:21 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail start
+
+INFO  2016/05/17 13:28:21 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 驗證收件人地址是否包含不在允許範圍內的特殊符號、檢核收件人地址是否不符合設定規則、驗證統一編號是否是被禁止的
+
+INFO  2016/05/17 13:28:21 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 檢核收件人地址是否不符合設定規則
+
+INFO  2016/05/17 13:28:21 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 驗證統一編號是否是被禁止的
+
+INFO  2016/05/17 13:28:21 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 付款方式
+
+INFO  2016/05/17 13:28:21 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail [zip]110
+
+INFO  2016/05/17 13:28:21 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail ordernumber_temp
+
+INFO  2016/05/17 13:28:21 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail get ItemIDList
+
+INFO  2016/05/17 13:28:21 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail ItemDisplayPriceresult
+
+INFO  2016/05/17 13:28:22 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 付款方式對錯確認
+
+INFO  2016/05/17 13:28:22 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 簡訊驗證碼驗證
+
+INFO  2016/05/17 13:28:22 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller資料組合
+
+INFO  2016/05/17 13:28:22 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller執行
+
+INFO  2016/05/17 13:28:22 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com][sp]declare @outputstr nvarchar(max) set @outputstr='' exec [dbo].[UP_EC_InsertSalesOrdersBySellerV3] 0,N'440402,473107,473107,473107',N'LBO',N'LBS',23852,5,N'',N'0,0,0,0',N'',N'黃耀進',N'',N'',N'台北市',N'11000',N'信義區信義路999號',N'黃耀進',207,1,N'bh96@newegg.com',N'台北市',N'11000',N'信義區信義路999號',N'',N'',N'0928333444',36433,N'黃耀進',N'',N'0928333444',N'','',N'',N'812','','1990/1/1',N'台北市',N'11000',N'信義區信義路999號',99,N',,,',N'7,7,7,7',N',,,',N'10.16.244.61',N'newegg.com.tw',N'web01',N'','2016/5/17',N'',N'sys_insert',N'【挑戰週年慶 結帳再享優惠】國際牌變頻製麵包機 SD-BMT1000T,【PHILIPS 飛利浦】頂級智慧萬用鍋-按鍵式(HD2172)加贈內鍋1入(HD2775) 共內鍋x2,【PHILIPS 飛利浦】頂級智慧萬用鍋-按鍵式(HD2172)加贈內鍋1入(HD2775) 共內鍋x2,【PHILIPS 飛利浦】頂級智慧萬用鍋-按鍵式(HD2172)加贈內鍋1入(HD2775) 共內鍋x2',N'0,0,0,0',N'1,1,1,1',N'不指定</arrive>,不指定</arrive>,不指定</arrive>,不指定</arrive>',N'7688,5388,5388,5388',N'7688.0000,5388.0000,5388.0000,5388.0000',N'0,0,0,0',N'0.0000,0.0000,0.0000,0.0000',N'0,0,0,0',N'0.0000,0.0000,0.0000,0.0000',N'7688.0000,5388.0000,5388.0000,5388.0000',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N',,,',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N'Y,Y,Y,Y',N'0,0,0,0',0,N'',N'',0,0,N',,,',N',,,',N',,,',N',,,',N',,,',N',,,',N',,,',N',,,',N',,,',@outputstr out select @outputstr
+
+INFO  2016/05/17 13:28:23 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller資料取得
+
+INFO  2016/05/17 13:28:24 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(SalesOrder_Coupon金流前修改狀態) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 13:28:24 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(超商取貨驗證) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 13:28:24 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(滿額贈折價加金額與符合滿額贈條件的賣場ID並執行滿額贈金額分攤至SalesOrderItems) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 13:28:24 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(將Product中的SupplyShippingCharge insert 到 SalesOrderItem的SupplyShippingCharge欄位中) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 13:28:24 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(利息分攤) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 13:28:25 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(儲存iChannels通路王需要的訂單資料) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 13:28:25 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(買一送一優惠訊息填入) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 13:28:25 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(金流) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 13:28:25 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(金流) start : [Email] bh96@newegg.com
+
+INFO  2016/05/17 13:28:25 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160517000008) Start
+
+INFO  2016/05/17 13:28:26 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160517000008) End
+
+ERROR 2016/05/17 13:28:26 PlaceOrder                     SendPlaceOrder                           非間配與三角者不進行拋單流程 直接回傳空字串: LBO160517000008
+
+INFO  2016/05/17 13:28:26 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160517000009) Start
+
+INFO  2016/05/17 13:28:26 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160517000009) End
+
+ERROR 2016/05/17 13:28:26 PlaceOrder                     SendPlaceOrder                           非間配與三角者不進行拋單流程 直接回傳空字串: LBO160517000009
+
+INFO  2016/05/17 13:28:26 CartController                 SalesOrderDetail                         SalesOrderDetail:(End) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 14:44:36 CartController                 OTPCheck                                 [Email] bh96@newegg.com [OTPCheck] start
+
+INFO  2016/05/17 14:44:36 CartController                 OTPCheck                                 [Email] bh96@newegg.com [step1Data] {"SerialNumber":"FVIBVGwtyk8UqlxQj7d/2Y75/hWVBFgFl4Op1abdYGpLKS1pmEYpYHkywsq6R5eGfYPQktdl6AByBA95ObtYJx3gFRWVkUYVnnHyCeX7ltA=","CartItemDetailList_View":[{"ItemID":476343,"Price":3048,"Category":0,"Qty":2},{"ItemID":473107,"Price":5388,"Category":0,"Qty":2}],"CartPaytype_View":{"PayTypeGroupID":1,"PayType0rateNum":1,"BankID":0},"PromotionPriceSum":0,"CartTypeID":1,"CouponList":[],"AmountsPayable":16872,"AgreedDiscard4":"Y"} [Mobile] 0928333444
+
+INFO  2016/05/17 14:44:49 CartController                 Step3                                    [UserEmail] [bh96@newegg.com] Step3 step1Data
+
+INFO  2016/05/17 14:44:55 CartController                 Step3                                    [userEmail] [bh96@newegg.com][_data.buyingcartinfo] [{"buyItemID_DelvType":7,"buyItemID_Seller":600,"buyItemID":476343,"item_AttrID":null,"buyingNumber":2,"buyItemLists":[],"buyItemWeight":0,"buyItemShipping":0,"Coupons":{}},{"buyItemID_DelvType":7,"buyItemID_Seller":411,"buyItemID":473107,"item_AttrID":null,"buyingNumber":2,"buyItemLists":[],"buyItemWeight":0,"buyItemShipping":0,"Coupons":{}}]
+
+INFO  2016/05/17 14:44:55 CartController                 FindBuyingCart                           [userEmail] [bh96@newegg.com]GetBuyingCart [isOverSea] False
+
+INFO  2016/05/17 14:44:55 CartController                 FindBuyingCart                           [userEmail] [bh96@newegg.com][GetBuyingCart] end
+
+INFO  2016/05/17 14:44:55 CartController                 Step3                                    [userEmail] [bh96@newegg.com]SalesOrderDetail sendcheckout非空
+
+INFO  2016/05/17 14:44:55 CartController                 Step3                                    [userEmail] [bh96@newegg.com]sendcheckout info [[{"TrackStatus":0,"ItemID":476343,"ItemSellingQty":17,"ItemSellerID":600,"TrackCreateDate":"2016/05/17\u003cBR\u003e13:43","ItemShowOrder":0,"ItemImage":"","ItemProductType":"主商品","ItemListSelectType":null,"ItemProductLength":3.00,"ItemProductWidth":3.00,"ItemProductHeight":3.00,"ItemProductWeight":1.00,"ItemListProductLength":null,"ItemListProductWidth":null,"ItemlistProductHeight":null,"ItemListProductWeight":null,"ItemPriceCash":3048.00,"ItemName":"ALBION 艾倫比亞 健康化妝水 330ml + 面膜3片","ItemLayout":0,"ItemSaleType":"宅配","ItemListID":null,"ItemListSellingQty":null,"ItemListSellerID":null,"ItemListItemListID":null,"ItemListType":null,"ItemListName":null,"ItemListAttribName":null,"ItemListPrice":null,"ItemListOrder":null},{"TrackStatus":0,"ItemID":473107,"ItemSellingQty":7,"ItemSellerID":411,"TrackCreateDate":"2016/05/17\u003cBR\u003e13:42","ItemShowOrder":0,"ItemImage":"","ItemProductType":"主商品","ItemListSelectType":null,"ItemProductLength":3.00,"ItemProductWidth":3.00,"ItemProductHeight":3.00,"ItemProductWeight":1.00,"ItemListProductLength":null,"ItemListProductWidth":null,"ItemlistProductHeight":null,"ItemListProductWeight":null,"ItemPriceCash":5388.00,"ItemName":"【PHILIPS 飛利浦】頂級智慧萬用鍋-按鍵式(HD2172)加贈內鍋1入(HD2775) 共內鍋x2","ItemLayout":0,"ItemSaleType":"宅配","ItemListID":null,"ItemListSellingQty":null,"ItemListSellerID":null,"ItemListItemListID":null,"ItemListType":null,"ItemListName":null,"ItemListAttribName":null,"ItemListPrice":null,"ItemListOrder":null}]]
+
+INFO  2016/05/17 14:44:55 CartController                 Step3                                    [userEmail] [bh96@newegg.com]SalesOrderDetail sendcheckout資料取得 end
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail start
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 驗證收件人地址是否包含不在允許範圍內的特殊符號、檢核收件人地址是否不符合設定規則、驗證統一編號是否是被禁止的
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 檢核收件人地址是否不符合設定規則
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 驗證統一編號是否是被禁止的
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 付款方式
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail [zip]110
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail ordernumber_temp
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail get ItemIDList
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail ItemDisplayPriceresult
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 付款方式對錯確認
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 簡訊驗證碼驗證
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller資料組合
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller執行
+
+INFO  2016/05/17 14:44:55 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com][sp]declare @outputstr nvarchar(max) set @outputstr='' exec [dbo].[UP_EC_InsertSalesOrdersBySellerV3] 0,N'476343,476343,473107,473107',N'LBO',N'LBS',16872,6,N'',N'0,0,0,0',N'',N'黃耀進',N'',N'',N'台北市',N'11000',N'信義區信義路999號',N'黃耀進',207,1,N'bh96@newegg.com',N'台北市',N'11000',N'信義區信義路999號',N'',N'',N'0928333444',36433,N'黃耀進',N'',N'0928333444',N'','',N'',N'812','','1990/1/1',N'台北市',N'11000',N'信義區信義路999號',99,N',,,',N'7,7,7,7',N',,,',N'10.16.244.61',N'newegg.com.tw',N'web01',N'','2016/5/17',N'',N'sys_insert',N'ALBION 艾倫比亞 健康化妝水 330ml + 面膜3片,ALBION 艾倫比亞 健康化妝水 330ml + 面膜3片,【PHILIPS 飛利浦】頂級智慧萬用鍋-按鍵式(HD2172)加贈內鍋1入(HD2775) 共內鍋x2,【PHILIPS 飛利浦】頂級智慧萬用鍋-按鍵式(HD2172)加贈內鍋1入(HD2775) 共內鍋x2',N'0,0,0,0',N'1,1,1,1',N'不指定</arrive>,不指定</arrive>,不指定</arrive>,不指定</arrive>',N'3048,3048,5388,5388',N'3048.0000,3048.0000,5388.0000,5388.0000',N'0,0,0,0',N'0.0000,0.0000,0.0000,0.0000',N'0,0,0,0',N'0.0000,0.0000,0.0000,0.0000',N'3048.0000,3048.0000,5388.0000,5388.0000',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N',,,',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N'0,0,0,0',N'Y,Y,Y,Y',N'0,0,0,0',0,N'',N'',0,0,N',,,',N',,,',N',,,',N',,,',N',,,',N',,,',N',,,',N',,,',N',,,',@outputstr out select @outputstr
+
+INFO  2016/05/17 14:44:56 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller資料取得
+
+INFO  2016/05/17 14:44:58 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(SalesOrder_Coupon金流前修改狀態) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 14:44:58 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(超商取貨驗證) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 14:44:58 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(滿額贈折價加金額與符合滿額贈條件的賣場ID並執行滿額贈金額分攤至SalesOrderItems) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 14:44:58 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(將Product中的SupplyShippingCharge insert 到 SalesOrderItem的SupplyShippingCharge欄位中) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 14:44:58 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(利息分攤) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 14:44:58 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(儲存iChannels通路王需要的訂單資料) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 14:44:58 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(買一送一優惠訊息填入) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 14:44:58 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(金流) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 14:44:58 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(金流) start : [Email] bh96@newegg.com
+
+INFO  2016/05/17 14:44:59 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160517000010) Start
+
+INFO  2016/05/17 14:44:59 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160517000010) End
+
+ERROR 2016/05/17 14:44:59 PlaceOrder                     SendPlaceOrder                           非間配與三角者不進行拋單流程 直接回傳空字串: LBO160517000010
+
+INFO  2016/05/17 14:44:59 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160517000011) Start
+
+INFO  2016/05/17 14:44:59 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160517000011) End
+
+ERROR 2016/05/17 14:44:59 PlaceOrder                     SendPlaceOrder                           非間配與三角者不進行拋單流程 直接回傳空字串: LBO160517000011
+
+INFO  2016/05/17 14:44:59 CartController                 SalesOrderDetail                         SalesOrderDetail:(End) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 17:22:21 CartController                 OTPCheck                                 [Email] bh96@newegg.com [OTPCheck] start
+
+INFO  2016/05/17 17:22:21 CartController                 OTPCheck                                 [Email] bh96@newegg.com [step1Data] {"SerialNumber":"FVIBVGwtyk8UqlxQj7d/2Y75/hWVBFgFl4Op1abdYGpLKS1pmEYpYHkywsq6R5eGk6fKlLfy49B7X1DHjHUWraUWsTcuhpoXS0qyNmo/m2c=","CartItemDetailList_View":[{"ItemID":473107,"Price":5388,"Category":0,"Qty":1}],"CartPaytype_View":{"PayTypeGroupID":1,"PayType0rateNum":1,"BankID":0},"PromotionPriceSum":0,"CartTypeID":1,"CouponList":[],"AmountsPayable":5388,"AgreedDiscard4":"Y"} [Mobile] 0928333444
+
+INFO  2016/05/17 17:22:22 CartController                 Step3                                    [UserEmail] [bh96@newegg.com] Step3 step1Data
+
+INFO  2016/05/17 17:22:34 CartController                 Step3                                    [userEmail] [bh96@newegg.com][_data.buyingcartinfo] [{"buyItemID_DelvType":7,"buyItemID_Seller":411,"buyItemID":473107,"item_AttrID":null,"buyingNumber":1,"buyItemLists":[],"buyItemWeight":0,"buyItemShipping":0,"Coupons":{}}]
+
+INFO  2016/05/17 17:22:34 CartController                 FindBuyingCart                           [userEmail] [bh96@newegg.com]GetBuyingCart [isOverSea] False
+
+INFO  2016/05/17 17:22:34 CartController                 FindBuyingCart                           [userEmail] [bh96@newegg.com][GetBuyingCart] end
+
+INFO  2016/05/17 17:22:34 CartController                 Step3                                    [userEmail] [bh96@newegg.com]SalesOrderDetail sendcheckout非空
+
+INFO  2016/05/17 17:22:34 CartController                 Step3                                    [userEmail] [bh96@newegg.com]sendcheckout info [[{"TrackStatus":0,"ItemID":473107,"ItemSellingQty":5,"ItemSellerID":411,"TrackCreateDate":"2016/05/17\u003cBR\u003e17:20","ItemShowOrder":0,"ItemImage":"","ItemProductType":"主商品","ItemListSelectType":null,"ItemProductLength":3.00,"ItemProductWidth":3.00,"ItemProductHeight":3.00,"ItemProductWeight":1.00,"ItemListProductLength":null,"ItemListProductWidth":null,"ItemlistProductHeight":null,"ItemListProductWeight":null,"ItemPriceCash":5388.00,"ItemName":"【PHILIPS 飛利浦】頂級智慧萬用鍋-按鍵式(HD2172)加贈內鍋1入(HD2775) 共內鍋x2","ItemLayout":0,"ItemSaleType":"宅配","ItemListID":null,"ItemListSellingQty":null,"ItemListSellerID":null,"ItemListItemListID":null,"ItemListType":null,"ItemListName":null,"ItemListAttribName":null,"ItemListPrice":null,"ItemListOrder":null}]]
+
+INFO  2016/05/17 17:22:34 CartController                 Step3                                    [userEmail] [bh96@newegg.com]SalesOrderDetail sendcheckout資料取得 end
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail start
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 驗證收件人地址是否包含不在允許範圍內的特殊符號、檢核收件人地址是否不符合設定規則、驗證統一編號是否是被禁止的
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 檢核收件人地址是否不符合設定規則
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 驗證統一編號是否是被禁止的
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 付款方式
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail [zip]110
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail ordernumber_temp
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail get ItemIDList
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail ItemDisplayPriceresult
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 付款方式對錯確認
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail 簡訊驗證碼驗證
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller資料組合
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller執行
+
+INFO  2016/05/17 17:22:34 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com][sp]declare @outputstr nvarchar(max) set @outputstr='' exec [dbo].[UP_EC_InsertSalesOrdersBySellerV3] 0,N'473107',N'LBO',N'LBS',5388,7,N'',N'0',N'',N'黃耀進',N'',N'',N'台北市',N'11000',N'信義區信義路999號',N'黃耀進',207,1,N'bh96@newegg.com',N'台北市',N'11000',N'信義區信義路999號',N'',N'',N'0928333444',36433,N'黃耀進',N'',N'0928333444',N'','',N'',N'812','','1990/1/1',N'台北市',N'11000',N'信義區信義路999號',99,N'',N'7',N'',N'10.16.244.61',N'newegg.com.tw',N'web01',N'','2016/5/17',N'',N'sys_insert',N'【PHILIPS 飛利浦】頂級智慧萬用鍋-按鍵式(HD2172)加贈內鍋1入(HD2775) 共內鍋x2',N'0',N'1',N'不指定</arrive>',N'5388',N'5388.0000',N'0',N'0.0000',N'0',N'0.0000',N'5388.0000',N'0',N'0',N'0',N'',N'0',N'0',N'0',N'0',N'0',N'0',N'0',N'Y',N'0',0,N'',N'',0,0,N'',N'',N'',N'',N'',N'',N'',N'',N'',@outputstr out select @outputstr
+
+INFO  2016/05/17 17:22:41 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail SP InsertSalesOrdersBySeller資料取得
+
+INFO  2016/05/17 17:22:41 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(SalesOrder_Coupon金流前修改狀態) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 17:22:41 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(超商取貨驗證) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 17:22:41 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(滿額贈折價加金額與符合滿額贈條件的賣場ID並執行滿額贈金額分攤至SalesOrderItems) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 17:22:41 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(將Product中的SupplyShippingCharge insert 到 SalesOrderItem的SupplyShippingCharge欄位中) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 17:22:41 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(利息分攤) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 17:22:41 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(儲存iChannels通路王需要的訂單資料) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 17:22:41 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(買一送一優惠訊息填入) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 17:22:41 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(金流) : [Email] bh96@newegg.com
+
+INFO  2016/05/17 17:22:42 CartController                 SalesOrderDetail                         [userEmail] [bh96@newegg.com]SalesOrderDetail:(金流) start : [Email] bh96@newegg.com
+
+INFO  2016/05/17 17:22:42 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160517000012) Start
+
+INFO  2016/05/17 17:22:42 PlaceOrder                     GeneratePurchaseOrder                    GeneratePurchaseOrder(LBO160517000012) End
+
+ERROR 2016/05/17 17:22:42 PlaceOrder                     SendPlaceOrder                           非間配與三角者不進行拋單流程 直接回傳空字串: LBO160517000012
+
+INFO  2016/05/17 17:22:43 CartController                 SalesOrderDetail                         SalesOrderDetail:(End) : [Email] bh96@newegg.com
+

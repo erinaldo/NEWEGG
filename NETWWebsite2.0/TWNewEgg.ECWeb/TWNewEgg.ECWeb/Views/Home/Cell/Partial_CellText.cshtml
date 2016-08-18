@@ -1,0 +1,12 @@
+﻿@using System.Collections.Generic
+@using TWNewEgg.ECWeb.Utility
+@using TWNewEgg.Models.DomainModels.Home
+@using TWNewEgg.Models.DomainModels.Store
+@model BlockCell
+
+@if (Model != null && !string.IsNullOrEmpty(Model.Text))
+{
+<div class="caption6">
+    @(Model.Text)
+</div>
+}

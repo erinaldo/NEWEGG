@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "信用卡活動" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/Card")
+
+@section addToTopper {
+
+}
+@section addToBottomer {
+
+}
+@section addToHeader {
+    
+}
+@section addToFloatMenu {
+
+}
+@section addToFooter {
+    @{Html.RenderPartial("_FooterSimple");}
+}
+
+@section scripts {
+
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+}
+
+@*↓↓↓↓↓↓↓↓↓↓廣告方塊↓↓↓↓↓↓↓↓↓↓*@
+<div class="grayBorder AdBox" style="padding-bottom: 47px;background-color:#62a3a0;">
+	<div class="AdImg"><h1><a href="/"><img class="logo" src="/Themes/img/Common/logo.jpg"></a></h1></div>
+</div>
+
+@*↓↓↓↓↓↓↓↓↓↓固定外框值↓↓↓↓↓↓↓↓↓↓*@
+<div style="width:1004px;margin:0 auto;position:relative;">
+
+@*↓↓↓↓↓↓↓↓↓↓頁籤↓↓↓↓↓↓↓↓↓↓*@
+    <div class="TabArea">
+        <ul>
+            <li class="Tab RadiusTab gray"><a href="/Promotions/Card">刷卡優惠</a></li>
+            <li class="Tab RadiusTab gray"><a href="/Promotions/CardInstallment">聰明分期</a></li>
+            <li class="Tab RadiusTab gray"><a href="/Promotions/CardRedeem">紅利折抵</a></li>
+            <li class="Tab RadiusTab gray TabSelected"><a href="/Promotions/CardMore">更多回饋</a></li>
+        </ul>
+    </div>
+
+@*↓↓↓↓↓↓↓↓↓↓ 回饋項目 ↓↓↓↓↓↓↓↓↓↓*@
+    <table class="table">
+        <tr class="tr grayBorder">
+            <td class="td"><img src="/Themes/img/CreditCaredProgram/Bank_01.jpg"></td>
+            <td class="ColoreBgtd grayBorder orange Boldtext TextAlign-left">網路購物2%回饋<div class="ConfirmBtn DetailBtn Btn_radius">詳情</div></td>
+        </tr>
+    </table>
+@*↑↑↑↑↑↑↑ 回饋項目 ↑↑↑↑↑↑↑*@
+</div>
+
+@*↓↓↓↓↓↓↓↓↓↓ LightBox 詳情框 ↓↓↓↓↓↓↓↓↓↓*@
+    <div class="LightBoxUnderLay">
+        <div class="LightBoxMsg Stlye-2">
+            <button class="CloseBtn"></button>
+            <div class="BankName"><img src="/Themes/img/CreditCaredProgram/BankName_01.jpg"></div>
+            <img src="/Themes/img/AboutNewEgg/AboutNewEgg_01.jpg">
+            <ul class="ul">
+                <p class="item">注意事項：</p>
+                <li class="item">參加本活動之持卡人需於活動期間透過電話語音或活動網頁登錄始享有回饋資格，限量回饋名單以優先累積達活動門檻之成功交易訂單時間排序，名額數量有限，額滿即提前關閉。名額贈完將於本活動網頁及momo購物公告；如公告時間有落差，則以本行實際符合回饋資格為準。 </li>
+                <li class="item">消費計算以活動期間內「消費日」內為準，且限於(4月)104/5/10、(5月)104/6/10、(6月)104/7/10前請款之消費。分期消費以分期前總金額計算。本活動以實際成功訂單計算，若付款失敗、訂單取消、退貨，該筆訂單金額將不列入計算範圍。</li>
+                <li class="item">本活動正、附卡消費合併計算，i刷金融卡及商務卡不適用，每月每正卡持卡人(同一身分證字號)限回饋乙次，單月最高回饋上限刷卡金NT$1,500。 </li>
+                <li class="item">本活動金額單位為新臺幣元。</li>
+                <li class="item">刷卡金預計於(4月)104/6、(5月)104/7、(6月)104/8下旬起（實際回饋時間將依本行作業時間為準）依持卡人帳單週期回饋至正卡人信用卡帳戶上，刷卡金相關作業處理、發送方式依國泰世華銀行規定為準。持卡人若於回饋時已停卡、延滯繳款或其他違反本行信用卡契約等情事時，即喪失本活動回饋資格。</li>
+            </ul>
+        </div>
+    </div>
+@*↑↑↑↑↑↑↑↑ LightBox 詳情框 ↑↑↑↑↑↑↑↑*@
+

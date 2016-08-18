@@ -1,0 +1,570 @@
+﻿@using TWNewEgg.DB.TWSQLDB.Models
+@using TWNewEgg.Website.ECWeb.Models
+@{
+    @model TWNewEgg.Models.ViewModels.MyAccount.ReturnPost
+    }
+<script>
+    $(function () {
+        $("#sex").val(@Model.Sex);
+        $("#salesorder_cardloc").change(function () {
+            address();
+        });
+    });
+    $(document).ready(function () {
+        var addressloc = $("#Loc").val();
+        var Zipcode = $("#ZipCode").val();
+        var Invoaddressloc = $("#InvoLoc").val();
+        var InvoZipcode = $("#InvoZipCode").val();
+        var Zipcodelist = [];
+        var InvoZipcodelist = [];
+        var Loclist = [];
+        var InvoLoclist = [];
+        var CartID = [];
+
+
+
+        $("input[code='ZipCode']").each(function () {
+            CartID.push($(this).attr("cartid"));
+            Zipcodelist.push($(this).val());
+        
+        });
+      
+
+        $("input[code='LocList']").each(function () {
+
+            Loclist.push($(this).val());
+     
+
+        });
+    
+
+
+        for (var kk = 0; kk < Zipcodelist.length; kk++) {
+
+
+            address1(Loclist[kk], Zipcodelist[kk], CartID[kk]);
+
+        }
+        backlis();
+
+        $("#sure").on("click", function () {
+            if (!checkForm($('.service_contentForm'))) return false;
+
+            if (confirm("確定要退貨嗎！")) {
+                $(".LightBoxUnderLay").fadeIn();
+                $("div.LightBoxMsg.DelayWindow").fadeIn();
+                LightBoxCenter("div.LightBoxMsg.DelayWindow");
+
+                var json = JSON.stringify({
+                    return_reasonval: parseInt($("#return_reasonval").val()),
+                    return_reasontext: $("#return_reasontext").val(),
+                    ReturnPostString: JSON.stringify({
+                        "Firstname": $("#Firstname").val(),
+                        "Lastname": $("#Lastname").val(),
+                        "Username": $("#Lastname").val() + $("#Firstname").val(),
+                        "Email": "@Model.Email",
+                        "RecvMobile": "@Model.RecvMobile",
+                        "Phone": "(" + $("#TelZip").val() + ")" + $("#TelDay2").val() + "#" + $("#TelExtension").val(),
+                        "Location": "@Model.Location",
+                        "Zipcode": "@Model.Zipcode",
+                        "ADDR": "@Model.ADDR",
+                        "Code": "@Model.Code",
+                        "bankbranch": $("#Branches").val(),
+                        "bankid": $("#bankidselect").val(),
+                        "Bankaccount": $("#Branchesaccount").val()
+                    })
+                });
+
+
+                $.ajax({
+                    url: "/MyAccount/ReturnPost",
+                    cache: false,
+                    data: json,
+                    type: 'Post',
+                    dataType: "Json",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        if (data == "Has_returned") {
+                            alert("此筆訂單已經退訂!!");
+                            $("#myOrderArea2").html("");
+                            location.replace("/MyAccount/Order");
+                        }
+                        else if (data == "AccidError") {
+                            alert("請勿隨意刪除他人訂單!!");
+                            $("#myOrderArea2").html("");
+                            location.replace("/MyAccount/Order");
+                        }
+                        else if (data == "Success") {
+                            alert("我們已收到您的退貨申請,客服人員會盡快答覆您!!");
+                            $("#myOrderArea2").html("");
+                            location.replace("/MyAccount/Order");
+                        }
+                        else {
+                            alert("此訂單取消過程中有錯誤,請聯絡客服人員!!!!");
+                            $("#myOrderArea2").html("");
+                            location.replace("/MyAccount/Order");
+                        }
+                        $(".LightBoxUnderLay").fadeOut();
+                    }
+                })
+                      .fail(
+                      function (xhr, textStatus, err) {
+                          alert("失敗");
+                          $('#state').html('Error: ' + err);
+                          $(".LightBoxUnderLay").fadeOut();
+                          return false;
+                      });
+
+            }
+        });
+    });
+    
+    function backlis() {
+        $.ajax({
+            url: "/MyNewegg/get_bankinfo",
+            cache: false,
+            @*data: json,*@
+            type: 'Post',
+            dataType: "Json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data2) {
+                var banktext = "<select id=\"bankidselect\"><option value=" + "" + ">" + "請選擇" + "</option> ";
+                for (var i = 0; i < data2.length; i++) {
+                    banktext = banktext + "<option value=" + data2[i].Bank_id + data2[i].Bank_name + ">" + data2[i].Bank_id + " - " + data2[i].Bank_name + "</option> ";
+                }
+                banktext = banktext + "</select>";
+                $("#bankid").html(banktext);
+
+                PayTypeName = "@(((TWNewEgg.DB.TWSQLDB.Models.PayType.nPayType)1).ToString())";
+                switch (parseInt(@Model.PayType)) {
+                    case 1:
+                        {
+                            PayTypeName = "信用卡付款 (一次付清)";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 3:
+                        {
+                            PayTypeName = "3 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 6:
+                        {
+                            PayTypeName = "6 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 10:
+                        {
+                            PayTypeName = "10 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 12:
+                        {
+                            PayTypeName = "12 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 18:
+                        {
+                            PayTypeName = "18 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 24:
+                        {
+                            PayTypeName = "24 期 0 利率";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 112:
+                        {
+                            PayTypeName = "12 期 分期";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 118:
+                        {
+                            PayTypeName = "18 期 分期";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 124:
+                        {
+                            PayTypeName = "24 期 分期";
+
+                            $("#returnbanktype").hide();
+                            break;
+                        }
+                    case 30:
+                        {
+                            PayTypeName = "Web ATM轉帳";
+
+                            credityes = 0;
+                            break;
+                        }
+                    case 31:
+                        {
+                            PayTypeName = "貨到付款";
+
+                            credityes = 0;
+                            break;
+                        }
+                    case 32:
+                        {
+                            PayTypeName = "7-11超商付款 取貨";
+
+                            credityes = 0;
+                            break;
+                        }
+                    case 501:
+                        {
+                            PayTypeName = "歐付寶付款";
+
+                            credityes = 0;
+                            break;
+                        }
+                    default:
+                        {
+
+                            credityes = 0;
+                            break;
+                        }
+                }
+                $("#salesorder_paytypetd").html(PayTypeName);
+            }
+        });
+    };
+    
+    function address(obj) {
+
+        var Selecttype = $(obj).attr("type");
+
+        if (Selecttype == "card") {
+
+            var cartIDList = $(obj).attr("cartid");
+
+            var str1 = $("#salesorder_cardloc_" + cartIDList).val();
+            var str2 = "cardCity_" + cartIDList;
+            var str3 = "salesorder_cardzip";
+            CityChoose(str1, str2, str3, 1); @*recv*@
+
+        }
+        else {
+
+            var cartIDList = $(obj).attr("cartid");
+            var str1 = $("#salesorder_Invo_" + cartIDList).val();
+            var str2 = "InvoCity_" + cartIDList;
+            var str3 = "salesorder_Invozip";
+            CityChoose(str1, str2, str3, 0);   @*recv*@
+
+        }
+    };
+
+    function address1(cardloc, Zipcode, CartID) {
+
+        var str1 = cardloc;
+        var str2 = "cardCity_" + CartID;
+        var str3 = "salesorder_cardzip";
+        CityChoose(str1, str2, str3, 1);  @*recv*@
+
+        $("#salesorder_cardloc_" + CartID).val(cardloc);
+        $("#cardCity_" + CartID).val(Zipcode);
+    };
+    function CityChoose(str1, str2, str3, str4) {
+        var Address = new Array(22);
+
+        if (str4) {
+            Address = [
+                ["基隆市", "200 仁愛區", "201 信義區", "202 中正區", "203 中山區", "204 安樂區", "205 暖暖區", "206 七堵區"]
+                , ["台北市", "100 中正區", "103 大同區", "104 中山區", "105 松山區", "106 大安區", "108 萬華區", "110 信義區", "111 士林區", "112 北投區", "114 內湖區", "115 南港區", "116 文山區"]
+                , ["新北市", "207 萬里區", "208 金山區", "220 板橋區", "221 汐止區", "222 深坑區", "223 石碇區", "224 瑞芳區", "226 平溪區", "227 雙溪區", "228 貢寮區", "231 新店區", "232 坪林區", "233 烏來區", "234 永和區", "235 中和區", "236 土城區", "237 三峽區", "238 樹林區", "239 鶯歌區", "241 三重區", "242 新莊區", "243 泰山區", "244 林口區", "247 蘆洲區", "248 五股區", "249 八里區", "251 淡水區", "252 三芝區", "253 石門區"]
+                , ["桃園縣", "320 中壢市", "324 平鎮市", "325 龍潭鄉", "326 楊梅市", "327 新屋鄉", "328 觀音鄉", "330 桃園市", "333 龜山鄉", "334 八德市", "335 大溪鎮", "336 復興鄉", "337 大園鄉", "338 蘆竹鄉"]
+                , ["新竹市", "300 東區", "300 北區", "300 香山區"]
+                , ["新竹縣", "302 竹北市", "303 湖口鄉", "304 新豐鄉", "305 新埔鎮", "306 關西鎮", "307 芎林鄉", "308 寶山鄉", "310 竹東鎮", "311 五峰鄉", "312 橫山鄉", "313 尖石鄉", "314 北埔鄉", "315 峨眉鄉"]
+                , ["苗栗縣", "350 竹南鎮", "351 頭份鎮", "352 三灣鄉", "353 南庄鄉", "354 獅潭鄉", "356 後龍鎮", "357 通霄鎮", "358 苑裡鎮", "360 苗栗市", "361 造橋鄉", "362 頭屋鄉", "363 公館鄉", "364 大湖鄉", "365 泰安鄉", "366 銅鑼鄉", "367 三義鄉", "368 西湖鄉", "369 卓蘭鎮"]
+                , ["台中市", "400 中區", "401 東區", "402 南區", "403 西區", "404 北區", "406 北屯區", "407 西屯區", "408 南屯區", "411 太平區", "412 大里區", "413 霧峰區", "414 烏日區", "420 豐原區", "421 后里區", "422 石岡區", "423 東勢區", "424 和平區", "426 新社區", "427 潭子區", "428 大雅區", "429 神岡區", "432 大肚區", "433 沙鹿區", "434 龍井區", "435 梧棲區", "436 清水區", "437 大甲區", "438 外埔區", "439 大安區"]
+                , ["彰化縣", "500 彰化市", "502 芬園鄉", "503 花壇鄉", "504 秀水鄉", "505 鹿港鎮", "506 福興鄉", "507 線西鄉", "508 和美鎮", "509 伸港鄉", "510 員林鎮", "511 社頭鄉", "512 永靖鄉", "513 埔心鄉", "514 溪湖鎮", "515 大村鄉", "516 埔鹽鄉", "520 田中鎮", "521 北斗鎮", "522 田尾鄉", "523 埤頭鄉", "524 溪州鄉", "525 竹塘鄉", "526 二林鎮", "527 大城鄉", "528 芳苑鄉", "530 二水鄉"]
+                , ["南投縣", "540 南投市", "541 中寮鄉", "542 草屯鎮", "544 國姓鄉", "545 埔里鎮", "546 仁愛鄉", "551 名間鄉", "552 集集鎮", "553 水里鄉", "555 魚池鄉", "556 信義鄉", "557 竹山鎮", "558 鹿谷鄉"]
+                , ["雲林縣", "630 斗南鎮", "631 大埤鄉", "632 虎尾鎮", "633 土庫鎮", "635 東勢鄉", "634 褒忠鄉", "636 台西鄉", "637 崙背鄉", "638 麥寮鄉", "640 斗六市", "643 林內鄉", "646 古坑鄉", "647 莿桐鄉", "648 西螺鎮", "649 二崙鄉", "651 北港鎮", "652 水林鄉", "653 口湖鄉", "654 四湖鄉", "655 元長鄉"]
+                , ["嘉義市", "600 東區", "600 西區"]
+                , ["嘉義縣", "602 番路鄉", "603 梅山鄉", "604 竹崎鄉", "605 阿里山鄉", "606 中埔鄉", "607 大埔鄉", "608 水上鄉", "611 鹿草鄉", "612 太保市", "613 朴子市", "614 東石鄉", "615 六腳鄉", "616 新港鄉", "621 民雄鄉", "622 大林鎮", "623 溪口鄉", "624 義竹鄉", "625 布袋鎮"]
+                , ["台南市", "700 中西區", "701 東區", "702 南區", "704 北區", "708 安平區", "709 安南區", "710 永康區", "711 歸仁區", "712 新化區", "713 左鎮區", "714 玉井區", "715 楠西區", "717 仁德區", "718 關廟區", "716 南化區", "719 龍崎區", "720 官田區", "721 麻豆區", "722 佳里區", "723 西港區", "724 七股區", "725 將軍區", "726 學甲區", "727 北門區", "730 新營區", "731 後壁區", "732 白河區", "733 東山區", "734 六甲區", "735 下營區", "736 柳營區", "737 鹽水區", "741 善化區", "742 大內區", "744 新市區", "745 安定區", "743 山上區"]
+                , ["高雄市", "800 新興區", "801 前金區", "802 苓雅區", "803 鹽埕區", "804 鼓山區", "805 旗津區", "806 前鎮區", "807 三民區", "811 楠梓區", "812 小港區", "813 左營區", "814 仁武區", "815 大社區", "817 東沙群島", "820 岡山區", "821 路竹區", "819 南沙群島", "822 阿蓮區", "823 田寮區", "824 燕巢區", "825 橋頭區", "826 梓官區", "827 彌陀區", "829 湖內區", "828 永安區", "830 鳳山區", "831 大寮區", "832 林園區", "833 鳥松區", "840 大樹區", "842 旗山區", "843 美濃區", "844 六龜區", "845 內門區", "847 甲仙區", "846 杉林區", "848 桃源區", "852 茄萣區", "851 茂林區", "849 那瑪夏區"]
+                , ["屏東縣", "900 屏東市", "901 三地門鄉", "902 霧台鄉", "903 瑪家鄉", "904 九如鄉", "905 里港鄉", "906 高樹鄉", "907 鹽埔鄉", "908 長治鄉", "909 麟洛鄉", "911 竹田鄉", "912 內埔鄉", "913 萬丹鄉", "920 潮州鎮", "921 泰武鄉", "923 萬巒鄉", "922 來義鄉", "924 崁頂鄉", "925 新埤鄉", "926 南州鄉", "927 林邊鄉", "928 東港鎮", "929 琉球鄉", "931 佳冬鄉", "932 新園鄉", "940 枋寮鄉", "941 枋山鄉", "943 獅子鄉", "944 車城鄉", "945 牡丹鄉", "946 恆春鎮", "947 滿州鄉", "942 春日鄉"]
+                , ["台東縣", "950 台東市", "951 綠島鄉", "952 蘭嶼鄉", "954 卑南鄉", "955 鹿野鄉", "956 關山鎮", "957 海端鄉", "958 池上鄉", "953 延平鄉", "959 東河鄉", "961 成功鎮", "962 長濱鄉", "963 太麻里鄉", "965 大武鄉", "966 達仁鄉", "964 金峰鄉"]
+                , ["花蓮縣", "970 花蓮市", "971 新城鄉", "972 秀林鄉", "973 吉安鄉", "974 壽豐鄉", "975 鳳林鎮", "976 光復鄉", "977 豐濱鄉", "978 瑞穗鄉", "981 玉里鎮", "979 萬榮鄉", "983 富里鄉", "982 卓溪鄉"]
+                , ["宜蘭縣", "260 宜蘭市", "261 頭城鎮", "262 礁溪鄉", "263 壯圍鄉", "264 員山鄉", "265 羅東鎮", "266 三星鄉", "267 大同鄉", "268 五結鄉", "269 冬山鄉", "270 蘇澳鎮", "272 南澳鄉", "290 釣魚台"]
+                , ["澎湖縣", "880 馬公市", "881 西嶼鄉", "882 望安鄉", "885 湖西鄉", "883 七美鄉", "884 白沙鄉"]
+                , ["金門縣", "890 金沙鎮", "891 金湖鎮", "892 金寧鄉", "893 金城鎮", "894 烈嶼鄉", "896 烏坵鄉"]
+                , ["連江縣", "209 南竿鄉", "210 北竿鄉", "211 莒光鄉", "212 東引鄉"]
+            ]
+        }
+        else {
+            Address = [
+                ["基隆市", "200 仁愛區", "201 信義區", "202 中正區", "203 中山區", "204 安樂區", "205 暖暖區", "206 七堵區"]
+                , ["台北市", "100 中正區", "103 大同區", "104 中山區", "105 松山區", "106 大安區", "108 萬華區", "110 信義區", "111 士林區", "112 北投區", "114 內湖區", "115 南港區", "116 文山區"]
+                , ["新北市", "207 萬里區", "208 金山區", "220 板橋區", "221 汐止區", "222 深坑區", "223 石碇區", "224 瑞芳區", "226 平溪區", "227 雙溪區", "228 貢寮區", "231 新店區", "232 坪林區", "233 烏來區", "234 永和區", "235 中和區", "236 土城區", "237 三峽區", "238 樹林區", "239 鶯歌區", "241 三重區", "242 新莊區", "243 泰山區", "244 林口區", "247 蘆洲區", "248 五股區", "249 八里區", "251 淡水區", "252 三芝區", "253 石門區"]
+                , ["桃園縣", "320 中壢市", "324 平鎮市", "325 龍潭鄉", "326 楊梅市", "327 新屋鄉", "328 觀音鄉", "330 桃園市", "333 龜山鄉", "334 八德市", "335 大溪鎮", "336 復興鄉", "337 大園鄉", "338 蘆竹鄉"]
+                , ["新竹市", "300 東區", "300 北區", "300 香山區"]
+                , ["新竹縣", "302 竹北市", "303 湖口鄉", "304 新豐鄉", "305 新埔鎮", "306 關西鎮", "307 芎林鄉", "308 寶山鄉", "310 竹東鎮", "311 五峰鄉", "312 橫山鄉", "313 尖石鄉", "314 北埔鄉", "315 峨眉鄉"]
+                , ["苗栗縣", "350 竹南鎮", "351 頭份鎮", "352 三灣鄉", "353 南庄鄉", "354 獅潭鄉", "356 後龍鎮", "357 通霄鎮", "358 苑裡鎮", "360 苗栗市", "361 造橋鄉", "362 頭屋鄉", "363 公館鄉", "364 大湖鄉", "365 泰安鄉", "366 銅鑼鄉", "367 三義鄉", "368 西湖鄉", "369 卓蘭鎮"]
+                , ["台中市", "400 中區", "401 東區", "402 南區", "403 西區", "404 北區", "406 北屯區", "407 西屯區", "408 南屯區", "411 太平區", "412 大里區", "413 霧峰區", "414 烏日區", "420 豐原區", "421 后里區", "422 石岡區", "423 東勢區", "424 和平區", "426 新社區", "427 潭子區", "428 大雅區", "429 神岡區", "432 大肚區", "433 沙鹿區", "434 龍井區", "435 梧棲區", "436 清水區", "437 大甲區", "438 外埔區", "439 大安區"]
+                , ["彰化縣", "500 彰化市", "502 芬園鄉", "503 花壇鄉", "504 秀水鄉", "505 鹿港鎮", "506 福興鄉", "507 線西鄉", "508 和美鎮", "509 伸港鄉", "510 員林鎮", "511 社頭鄉", "512 永靖鄉", "513 埔心鄉", "514 溪湖鎮", "515 大村鄉", "516 埔鹽鄉", "520 田中鎮", "521 北斗鎮", "522 田尾鄉", "523 埤頭鄉", "524 溪州鄉", "525 竹塘鄉", "526 二林鎮", "527 大城鄉", "528 芳苑鄉", "530 二水鄉"]
+                , ["南投縣", "540 南投市", "541 中寮鄉", "542 草屯鎮", "544 國姓鄉", "545 埔里鎮", "546 仁愛鄉", "551 名間鄉", "552 集集鎮", "553 水里鄉", "555 魚池鄉", "556 信義鄉", "557 竹山鎮", "558 鹿谷鄉"]
+                , ["雲林縣", "630 斗南鎮", "631 大埤鄉", "632 虎尾鎮", "633 土庫鎮", "635 東勢鄉", "634 褒忠鄉", "636 台西鄉", "637 崙背鄉", "638 麥寮鄉", "640 斗六市", "643 林內鄉", "646 古坑鄉", "647 莿桐鄉", "648 西螺鎮", "649 二崙鄉", "651 北港鎮", "652 水林鄉", "653 口湖鄉", "654 四湖鄉", "655 元長鄉"]
+                , ["嘉義市", "600 東區", "600 西區"]
+                , ["嘉義縣", "602 番路鄉", "603 梅山鄉", "604 竹崎鄉", "605 阿里山鄉", "606 中埔鄉", "607 大埔鄉", "608 水上鄉", "611 鹿草鄉", "612 太保市", "613 朴子市", "614 東石鄉", "615 六腳鄉", "616 新港鄉", "621 民雄鄉", "622 大林鎮", "623 溪口鄉", "624 義竹鄉", "625 布袋鎮"]
+                , ["台南市", "700 中西區", "701 東區", "702 南區", "704 北區", "708 安平區", "709 安南區", "710 永康區", "711 歸仁區", "712 新化區", "713 左鎮區", "714 玉井區", "715 楠西區", "717 仁德區", "718 關廟區", "716 南化區", "719 龍崎區", "720 官田區", "721 麻豆區", "722 佳里區", "723 西港區", "724 七股區", "725 將軍區", "726 學甲區", "727 北門區", "730 新營區", "731 後壁區", "732 白河區", "733 東山區", "734 六甲區", "735 下營區", "736 柳營區", "737 鹽水區", "741 善化區", "742 大內區", "744 新市區", "745 安定區", "743 山上區"]
+                , ["高雄市", "800 新興區", "801 前金區", "802 苓雅區", "803 鹽埕區", "804 鼓山區", "805 旗津區", "806 前鎮區", "807 三民區", "811 楠梓區", "812 小港區", "813 左營區", "814 仁武區", "815 大社區",/* "817 東沙群島",*/ "820 岡山區", "821 路竹區",/* "819 南沙群島",*/ "822 阿蓮區", "823 田寮區", "824 燕巢區", "825 橋頭區", "826 梓官區", "827 彌陀區", "829 湖內區", "828 永安區", "830 鳳山區", "831 大寮區", "832 林園區", "833 鳥松區", "840 大樹區", "842 旗山區", "843 美濃區", "844 六龜區", "845 內門區", "847 甲仙區", "846 杉林區", "848 桃源區", "852 茄萣區", "851 茂林區", "849 那瑪夏區"]
+                , ["屏東縣", "900 屏東市", "901 三地門鄉", "902 霧台鄉", "903 瑪家鄉", "904 九如鄉", "905 里港鄉", "906 高樹鄉", "907 鹽埔鄉", "908 長治鄉", "909 麟洛鄉", "911 竹田鄉", "912 內埔鄉", "913 萬丹鄉", "920 潮州鎮", "921 泰武鄉", "923 萬巒鄉", "922 來義鄉", "924 崁頂鄉", "925 新埤鄉", "926 南州鄉", "927 林邊鄉", "928 東港鎮",/* "929 琉球鄉",*/ "931 佳冬鄉", "932 新園鄉", "940 枋寮鄉", "941 枋山鄉", "943 獅子鄉", "944 車城鄉", "945 牡丹鄉", "946 恆春鎮", "947 滿州鄉", "942 春日鄉"]
+                , ["台東縣", "950 台東市", /*"951 綠島鄉", "952 蘭嶼鄉",*/ "954 卑南鄉", "955 鹿野鄉", "956 關山鎮", "957 海端鄉", "958 池上鄉", "953 延平鄉", "959 東河鄉", "961 成功鎮", "962 長濱鄉", "963 太麻里鄉", "965 大武鄉", "966 達仁鄉", "964 金峰鄉"]
+                , ["花蓮縣", "970 花蓮市", "971 新城鄉", "972 秀林鄉", "973 吉安鄉", "974 壽豐鄉", "975 鳳林鎮", "976 光復鄉", "977 豐濱鄉", "978 瑞穗鄉", "981 玉里鎮", "979 萬榮鄉", "983 富里鄉", "982 卓溪鄉"]
+                , ["宜蘭縣", "260 宜蘭市", "261 頭城鎮", "262 礁溪鄉", "263 壯圍鄉", "264 員山鄉", "265 羅東鎮", "266 三星鄉", "267 大同鄉", "268 五結鄉", "269 冬山鄉", "270 蘇澳鎮", "272 南澳鄉"/*, "290 釣魚台"*/]
+                , ["澎湖縣", "880 馬公市", "881 西嶼鄉", "882 望安鄉", "885 湖西鄉", "883 七美鄉", "884 白沙鄉"]
+                , ["金門縣", "890 金沙鎮", "891 金湖鎮", "892 金寧鄉", "893 金城鎮", "894 烈嶼鄉", "896 烏坵鄉"]
+                , ["連江縣", "209 南竿鄉", "210 北竿鄉", "211 莒光鄉", "212 東引鄉"]
+            ]
+        }
+        var number = 0;
+        for (var i = 0; i < 22; i++) {
+            if (Address[i][0] == str1) {
+                number = i;
+                break;
+            }
+        }
+        $("#" + str2).find("optgroup").remove();
+        $("#" + str2).find("option").remove();
+        for (var i = 0; i < Address[number].length; i++) {
+            if (i == 0) {
+                $("#" + str2).append('<optgroup id = "' + Address[number][0] + '" label = "' + Address[number][0] + '">');
+            }
+            else {
+                $("#" + str2).append('<option value = "' + Address[number][i] + '">' + Address[number][i] + '</option>');
+            }
+        }
+        $("#" + str2).append('</optgroup>');
+
+        var str = document.getElementById(str2).value;
+
+        var str1_temp = str.toString().substring(0, 3);
+        $("#" + str3).attr("value", str1_temp);
+        $("#" + str3).val(str1_temp);
+    };
+
+    function checkForm(form) {
+        var msg = {
+            req: '',
+            result: ''
+        };
+
+        form.find("input[class*='jqv'], textarea[class*='jqv'], select[class*='jqv']").each(function () {
+            var el = $(this);
+
+            if (el.hasClass('jqvRequired') && $.trim(el.val()) == '') {
+                if ($.trim(msg.req) != '') msg.req += '、';
+                msg.req += el.attr('title');
+
+            }
+
+            /* 額外判斷 */
+            switch (el.attr('id')) {
+                case 'sex':
+                    /*稱謂*/
+                    if ($.trim(el.val()) == '9') {
+                        if ($.trim(msg.req) != '') msg.req += '、';
+                        msg.req += el.attr('title');
+                    }
+                    break;
+                case 'Lastname':
+                    /*姓名*/
+                    var firstName = form.find('#Firstname');
+                    if ($.trim(firstName.val())=='' || $.trim(el.val())==''){
+                        if ($.trim(msg.req) != '') msg.req += '、';
+                        msg.req += '姓名';
+                    }
+                    break;
+                case 'salesorder_cardloc_@Model.Code':
+                    /*地址*/
+                    var cardCity = $('#cardCity_@Model.Code');
+                    var cardAddr = $('#cardaddr_@Model.Code');
+
+                    if ($.trim(el.val()) == '' || $.trim(cardCity.val()) == '' || $.trim(cardAddr.val()) == '') {
+                        if ($.trim(msg.req) != '') msg.req += '、';
+                        msg.req += '地址';
+                    }
+                    break;
+            }            
+        });
+
+        /* 必填欄位 */
+        if ($.trim(msg.req) != '') {
+            msg.req = '「' + msg.req + '」';
+            if (msg.req.indexOf('、') == -1)
+                msg.result = msg.req + '資料尚未填寫!';
+            else
+                msg.result = msg.req + '等資料尚未填寫!';
+        }
+
+        /* 錯誤訊息 */
+        if ($.trim(msg.result) != '') {
+            alert(msg.result);
+            return false;
+        }
+
+        return true;
+    };
+</script>
+
+                @*訂單狀態-我要退貨*@
+                <div class="myOrderArea">
+                    <div class="service_contentForm">
+                        <div class="service_contentList">
+                            <div class="tit"><span class="red">*</span>服務類型</div>
+                            <div class="txt">
+                                <select class="select_md jqvRequired" id="return_reasonval" title="服務類型">                              
+                                	<option value="">請選擇</option>
+                                	@*<option value="1">規格不合</option>
+                                	<option value="2">與想像中不符</option>
+                                	<option value="3">其他原因</option>  
+                                    <option value="4">客戶拒收</option>  
+                                    <option value="5">配達失敗</option>*@
+                                    <option value="6">商品故障/瑕疵</option>  
+                                    <option value="7">商品寄錯/缺件</option>
+                                    <option value="8">商品尺寸或規格與網頁標示不同或不夠完整</option>
+                                    <option value="9">品質不佳(質感、性能等)</option>
+                                    <option value="10">商品不符所需或不適合</option>
+                                    <option value="11">重複購買/不需要了</option>
+                                    <option value="12">重訂(改買別款、改付款方式等)</option>
+                                    <option value="13">價格比別家貴</option>
+                                    <option value="14">同商品降價或有更優惠的活動</option> 
+                                    <option value="15">其他</option>                                                                 
+                                </select>
+                            </div>
+                        </div>
+                        <div class="service_contentList" >
+                            <div class="tit"><span class="red">*</span>問題描述</div>
+                            <div class="txt" style="width:80%;text-align:left;">
+                                <textarea id="return_reasontext" style="width:70%;" rows="3" maxlength="300" class="jqvRequired" title="問題描述" placeholder="尚可輸入300字"></textarea>
+                            </div>
+                        </div>
+                        <div class="service_contentList">
+                            <div class="tit"><span class="red">*</span>姓名</div>
+                            <div class="txt">
+                                <select class="select_sm selector-name jqv" id="sex" title="稱謂">
+                                    <option value="9">稱謂</option>
+                                    <option value="1">先生</option>
+                                    <option value="0">女士</option>
+                                </select>
+                                <input type="text" class="fillSurname" tabindex="4" maxlength="10" placeholder="姓氏" id="Firstname" value="@Model.Firstname"/>
+                                <input type="text" class="fillName jqv" name="Nickname" tabindex="4" maxlength="10" placeholder="名字"  id="Lastname"  value="@Model.Lastname"/>
+                            </div>
+                        </div>
+                        <div class="service_contentList">
+                            <div class="tit"><span class="red">*</span>手機</div>
+                            <div class="txt">
+                                <input type="tel" tabindex="4" maxlength="10" placeholder="請輸入手機號碼" id="RecvMobile" value="@Model.RecvMobile" class="jqvRequired" title="手機"/>
+                            </div>
+                        </div>
+                        <div class="service_contentList">
+                            <div class="tit">市話</div>
+                            <div class="txt">
+                                <input type="text" maxlength="4" placeholder="" id="TelZip"  value="@Model.TelZip"/>
+                                <span>—</span>
+                                @{
+                                  
+                                }
+                                <input type="text" maxlength="8" placeholder=""id="TelDay2" value="@Model.TelDay2"/>
+                                <input type="text" maxlength="6" placeholder="分機#" id="TelExtension" v  value="@Model.TelExtension"/>
+                            </div>
+                        </div>
+                        <div class="service_contentList">
+                            <div class="tit"><span class="red">*</span>地址</div>
+                            <div class="txt">
+                                  <input value=" @Model.Location" id="Loc" code="LocList" CartID="@Model.Code"  style="display:none;"/>
+                                    <input value="@Model.Zipcode.Substring(0, 3) @Model.addr" cartid="@Model.Code" id="ZipCode" code="ZipCode" style="display:none;"/>
+                                <select class="select_sm selector-name jqv" onchange="address(this)" id="salesorder_cardloc_@Model.Code" name="salesorder_cardloc" type="card" cartid="@Model.Code" tabindex="9" style="width:100px;"  >
+                                  <option value="">請選擇縣市</option>
+                                  <option value="基隆市">基隆市</option>
+                                  <option value="台北市">台北市</option>
+                                  <option value="新北市">新北市</option>
+                                  <option value="桃園縣">桃園縣</option>
+                                  <option value="新竹市">新竹市</option>
+                                  <option value="新竹縣">新竹縣</option>
+                                  <option value="苗栗縣">苗栗縣</option>
+                                  <option value="台中市">台中市</option>
+                                  <option value="彰化縣">彰化縣</option>
+                                  <option value="南投縣">南投縣</option>
+                                  <option value="雲林縣">雲林縣</option>
+                                  <option value="嘉義市">嘉義市</option>
+                                  <option value="嘉義縣">嘉義縣</option>
+                                  <option value="台南市">台南市</option>
+                                  <option value="高雄市">高雄市</option>
+                                  <option value="屏東縣">屏東縣</option>
+                                  <option value="台東縣">台東縣</option>
+                                  <option value="花蓮縣">花蓮縣</option>
+                                  <option value="宜蘭縣">宜蘭縣</option>
+                                  <option value="澎湖縣">澎湖縣</option>
+                                  <option value="金門縣">金門縣</option>
+                                  <option value="連江縣">連江縣</option>
+                                </select>
+                                <select class="select_md selector-name" name="cardCity" id="cardCity_@Model.Code" tabindex="10" style="width:120px;" >
+                                    <option>請選擇鄉、鎮、行政區</option>
+                                </select>
+                                <input type="text" placeholder="請輸入街道地址" id="cardaddr_@Model.Code" tabindex="11" size="35" maxlength="120" style="width:180px;" value="@Model.address"/>
+                              <input type="hidden" name="salesorder_cardaddr" id="salesorder_cardaddr" disabled="disabled" />
+                                   <!--郵遞區號:-->
+                                  <input type="hidden" name="salesorder_cardzip" id="salesorder_cardzip" value="" readonly="readonly" style="width: 50px;" />
+                                @*@Model.Zipcode@Model.Location@Model.ADDR*@
+                            </div>
+                        </div>
+                          <div class="service_contentList">
+                            <div class="tit"><span class="red"  style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }">*</span>銀行</div>
+                            <div class="txt">
+                               <div id="bankid" style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }">
+                                  @* <td id="bankid"></td>*@
+                               </div>
+                              
+                            </div>
+                        </div>
+                          <div class="service_contentList" style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }">
+                            <div class="tit"><span class="red">*</span>分行</div>
+                            <div class="txt">
+                           
+                                   <input id="Branches" style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }"/>
+                                  @* <td id="bankid"></td>*@
+                      
+                              
+                            </div>
+                        </div>
+                            <div class="service_contentList" style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }">
+                            <div class="tit"><span class="red">*</span>帳號</div>
+                            <div class="txt">
+                                      <input id="Branchesaccount" style="@if (Model.Paytypeboolen== false)
+                                                                       { @("display:none"); }"/>
+                            </div>
+                        </div>
+                         
+                    </div>
+
+                    <div class="btmBtnArea">
+                        <input type="button" value="確認" class="btn btn-submit" id="sure">
+                        <input type="button" value="取消" class="btn btn-cancel" onclick="closeSlideDialog(this);">
+                    </div>
+                </div>

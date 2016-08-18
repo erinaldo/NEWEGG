@@ -1,0 +1,34 @@
+﻿@functions {
+
+    public static string GenerateBoxStyleClass(string originalClass, string cellType, string cssType)
+    {
+        if (cellType == "GroupList")
+        {
+            return string.Format("{0} colorwinbg{1}", originalClass, cssType);
+        }
+        if (originalClass == "combobox" && cellType == "Item")
+        {
+            int itemCount = int.Parse(cssType);
+            if (itemCount % 2 == 0)
+            {
+                return "box2 none";
+            }
+            else
+            {
+                return "box2";
+            }
+        }
+        else
+        {
+            if (originalClass == "combobox2" && (cellType == "Item" || cellType == "SingleImage"))
+            {
+                return "box2";
+            }
+            else
+            {
+                return originalClass;
+            }
+        }
+    }
+    
+}

@@ -1,0 +1,218 @@
+﻿@import "template";
+@import "_importSCSS";
+
+$chooseAreaWidth:1176px;
+/*@media screen and (max-width: 1024px) {
+		$chooseAreaWidth:1004px;
+}*/
+
+@media screen and (max-width: 1280px) {
+		.caroufredsel_wrapper {width:100%;}
+		.chooseArea {
+			.chooseBox {
+				.box {width:210px;}
+			}
+		}
+}
+
+@media screen and (min-width: 1280px) {
+		.caroufredsel_wrapper {width:100%;}
+		.chooseArea {
+			.chooseBox {
+				.box {width:195px;}
+			}
+		}
+}
+
+.CategoryArea {
+	@include clearAfter;
+	$aside2Width:206px;
+	.aside2 {
+	}
+	$subCategoryWidth:($chooseAreaWidth - $aside2Width - 20);
+	.subCategory {
+		/*@media screen and (max-width: 1024px) {
+				$chooseAreaWidth:1004px;
+				$subCategoryWidth:($chooseAreaWidth - $aside2Width - 20);
+				width:$subCategoryWidth;
+		}*/
+		.box {
+			$chooseAreaWidth:1176px;
+			$subCategoryWidth:($chooseAreaWidth - $aside2Width - 20);
+			/*width:($subCategoryWidth - 4 * ( 2 + 10 ) ) / 4;
+			@media screen and (max-width: 1024px) {
+					$chooseAreaWidth:1004px;
+					$subCategoryWidth:($chooseAreaWidth - $aside2Width - 20);
+					width:($subCategoryWidth - 3 * ( 2 + 10 ) ) / 3;
+			}*/
+			a { border-bottom: 0;}
+			
+			.txt { margin-bottom:10px;}
+
+			.chooseBar {
+				.status {
+					.btn {
+						padding: 3px 10px;
+						font-size: 16px;
+						letter-spacing: 1px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.productListArea {
+	@include clearAfter;
+}
+
+/*任選館Banner廣告*/
+.chooseBN {
+	img {
+		width:100%;
+		max-height:450px;
+	}
+}
+
+/*任選館購物車*/
+.chooseArea {
+	margin:20px 0;
+	.activityNameTit {
+		margin:10px 0;
+		line-height:1.2em;
+		font-size:20px;
+		color:#cb4043;
+	}
+	$titBarHeight:63px;
+	.titBar {
+		padding-left:90px;
+		height:$titBarHeight;
+		background-image:url(/Themes/img/Category/chooseAreaTit.jpg);
+		background-repeat:no-repeat;
+		background-position:left top;
+		background-color:#f2f2f2;
+		border:1px solid #698eb8;
+		line-height:$titBarHeight;
+		font-size:20px;
+		color:#333;
+		.ttIcon {
+			display:none;
+			padding-left:15px;
+			background-color:#698eb8;
+			color:#fff;
+			.solid {
+				display:block;
+				width:20px;
+				background-color:#698eb8;
+			}
+		}
+		.tit {
+			float:left;
+			margin-left:25px;
+			span {
+				margin:0 3px;
+			}
+		}
+		.buyBtn {
+			float:right;
+			margin-top:-2px;
+			margin-right:15px;
+			.btn {    
+				padding: 10px 35px;
+				font-size: 20px;
+				letter-spacing: 1px;
+			}
+		}
+	}
+	$chooseBoxHeight:280px;
+	.chooseBox {
+		@include clearAfter;
+		position:relative;
+		/*width:100%;*/
+		height:$chooseBoxHeight;
+		border:1px solid #698eb8;
+		border-bottom-width:3px;
+		padding: 0 15px;
+		.tipsTxt {
+			text-align:center;
+			line-height:$chooseBoxHeight;
+			font-size:16px;
+			letter-spacing:2px;
+		}
+		.arrow {
+			position:absolute;
+			top:50%;
+			margin-top:-15px;
+			width:30px;
+			height:30px;
+			background-image:url(/Themes/img/icon/chooseArrow.jpg);
+			background-repeat:no-repeat;
+			text-indent:-99999px;
+			*text-indent:0;
+			font-size:0;
+			color:#fff;
+			cursor: pointer;
+			&.prev {
+				left:0px;
+			}
+			&.next {
+				right:0px;
+				background-position:-30px 0; 
+			}
+		}
+		.box {
+			$boxPadding:15px;
+			float:left;
+			margin:20px 5px;
+			padding:0 $boxPadding;
+			/*width:($chooseAreaWidth - 50 - 4 - $boxPadding * 2 * 5) / 5;*/
+			border:0 solid #d5d5d5;
+			+.box {
+				margin-left:0;
+				border-left-width:1px;
+			}
+			$boxImgWidth:160px;
+			.pic {
+				margin:0 auto;
+				width:$boxImgWidth;
+				height:$boxImgWidth;
+				text-align:center;
+				img {
+					max-width:$boxImgWidth;
+					max-height:$boxImgWidth;
+				}
+			}
+			.txt {
+				margin:5px 0;
+				font-size:16px;
+				color:#666;
+				h3 {
+					margin-bottom:3px;
+					height:40px;
+					overflow:hidden;
+					line-height:18px;
+				}
+				/*.marketPrice {
+					
+					font-size:13px;
+					color:#b3b3b3;
+				}*/
+				.price {
+					float:none;
+					color:#c94141;
+				}
+				.buyNum {
+					color:#c94141;
+				}
+				.icon-delete {
+					float:right;
+					margin:0;
+					width:20px;
+					height:23px;
+					background-image:url(/Themes/img/icon/DeleteImg2.jpg);
+				}
+			}
+		}
+	}
+}
+

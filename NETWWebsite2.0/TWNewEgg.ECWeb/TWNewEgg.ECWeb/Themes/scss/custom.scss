@@ -1,0 +1,887 @@
+//compileCompressed: ../css/custom.css, includePath: includes/
+@import "compass";
+@import "_importSCSS";
+
+//writter: [vincent]
+//describe: category section3 new listst settings
+//sampleAddress: NA
+
+$color-lists: 	   #3e3a39 #c07d2e #de7884 #75852e #c03f40 #80b870 #248c6a #e39300 #63b2af #339ecf #0757a2 #162c84 #e95b32 #f44d69 #A43A9D;
+$color-lists-lite: #b2b0b0 #e6cbab #f2c9ce #c8ceab #e6b2b3 #cde3c1 #a7d1c3 #f4d499 #c1e0df #add8ec #9cbcda #a2abce #f6bdad #f894a5 #d598d1;
+//設計風尚.國際名品.美妝保養.保健養生.樂活時尚.運動健身.戶外休旅.親子寵物.居家用品.生活家電.數位3C.電腦周邊.美蛋直購.城市檔(16.1.13).尋找禮品
+
+
+@for $i from 1 through length($color-lists) {
+	.colorbg#{$i} { background-color: nth($color-lists-lite, $i); }
+	.colorwinbg#{$i} { background-color: nth($color-lists, $i); }
+	.colortxt#{$i} { color: nth($color-lists, $i); }
+	.colorline#{$i} { border-bottom: 2px solid nth($color-lists-lite, $i); }
+}
+
+/*Color*/
+.orangetxt {
+	color: #F37225;
+}
+.orangebg {
+	background-color: #F37225;
+}
+
+/*Image*/
+.img {
+	/*width: 150px;
+	height: 150px;
+	margin: 2px auto 0px auto;*/
+}
+.img img {
+	/*max-width: 150px;
+	max-height: 150px;*/
+}
+.img2 {
+	width: 196px;
+	height: 300px;
+}
+.img2 img {
+	max-width: 196px;
+	max-height: 300px;
+}
+.img3 {
+	width: 183px;
+	height: 183px;
+	margin: 2px auto 0px auto;
+}
+.img3 img {
+	max-width: 183px;
+	max-height: 183px;
+	margin: 0 auto;
+}
+.img4 img {
+	max-width: 392px;
+	max-height: 300px;
+	margin: 0 auto;
+}
+.img5 img {
+	max-width: 200px;
+	max-height: 200px;
+	margin: 0 auto;
+}
+.img6 img {
+	max-width: 210px;
+	max-height: 210px;
+	margin: 0 auto;
+}
+.img7 img {
+	max-width: 266px;
+	max-height: 266px;
+	margin: 0 auto;
+}
+.img8 img {
+	max-width: 180px;
+	max-height: 180px;
+	margin: 0 auto;
+}
+.img9 img {
+	max-width: 392px;
+	max-height: 258px;
+	margin: 0 auto;
+}
+.img10 img {
+	max-width: 222px;
+	max-height: 222px;
+	margin: 0 auto;
+}
+.img11 {
+	width: 135px;
+	height: 135px;
+	overflow:hidden;
+	margin: 2px auto 0px auto;
+}
+.img11 img {
+	max-width: 135px;
+	max-height: 135px;
+	margin: 0 auto;
+}
+.img12 img {
+	max-width: 392px;
+	max-height: 192px;
+	margin: 0 auto;
+}
+.img13 img {
+	width: 392px;
+	height: 485px;
+	margin: 0 auto;
+}
+/*Section*/
+.section {
+	float: left;
+	width: 1176px;
+	/*margin-left: 52px;
+	margin-right: 52px;*/
+	margin-bottom: 25px;
+	clear: both;
+}
+.section a{
+	border-bottom:0;
+}
+.section-head .icon { /*首頁館架名稱的icon*/
+	float:left;
+	width: 69px;
+	height: 41px;
+}
+
+$icon-spacing: 60px;
+//@import "Icon/Store/Window/*.png";
+/*$StoreWindowIconList: Design Fashion Living Appliance Sport Outdoor Computer Digital Foods US Beauty Healthcare Lovely;*/
+$StoreWindowIconList: i1 i2 i3 i4 i5 i6 i7 i8 i9 i10 i11 i12 i13 i14 i15;
+.section-head .icon i, .banner-title i {
+	display: inline-block;
+	position: relative;
+	z-index:3;
+	float: left;
+	width: 69px;
+	height: 41px;
+	background: url("/Themes/img/Icon/Store/window.png") no-repeat;
+
+
+
+	@for $i from 1 through length($StoreWindowIconList) {
+		$cats-num: nth($StoreWindowIconList, $i);
+
+		&.list#{$cats-num} {
+			margin:3px 0 0 15px;
+			width:39px;
+			height:34px;
+			overflow: hidden;
+
+			background-position: 0px (($i - 1) * -34)#{px};
+		}
+	}
+
+	// @each $WindowIcon in $StoreWindowIconList {
+	// 	&.list#{$WindowIcon} {
+	// 		$icon-spacing: 60px;
+	// 		@include Window-sprite(#{$WindowIcon});
+	// 		margin:3px 0 0 15px;
+	// 		width:39px;
+	// 		height:34px;
+	// 	}
+	// }
+}
+/*.banner-title i.listi1,
+.section .icon i.listi1 {
+	background-position: 15px 5px;
+}
+.banner-title i.listi2,
+.section .icon i.listi2 {
+	background-position: 15px -65px;
+}
+.banner-title i.listi3,
+.section .icon i.listi3 {
+	background-position: 15px -135px;
+}
+.banner-title i.listi4,
+.section .icon i.listi4 {
+	background-position: 15px -210px;
+}
+.banner-title i.listi5,
+.section .icon i.listi5 {
+	background-position: 15px -280px;
+}
+.banner-title i.listi6,
+.section .icon i.listi6 {
+	background-position: 15px -353px;
+}
+.banner-title i.listi7,
+.section .icon i.listi7 {
+	background-position: 15px -425px;
+}
+.banner-title i.listi8,
+.section .icon i.listi8 {
+	background-position: 15px -500px;
+}
+.banner-title i.listi9,
+.section .icon i.listi9 {
+	background-position: 15px -568px;
+}
+.banner-title i.listi10,
+.section .icon i.listi10 {
+	background-position: 15px -640px;
+}
+.section .icon i.listi11 {
+	background-position: 15px -718px;
+}
+.section .icon i.listi12 {
+	background-position: 15px -866px;
+}
+.section .icon i.listi13 {
+	background-position: 15px -938px;
+}
+.section .icon i.listi14 {
+	background-position: 15px -1078px;
+}
+.section .icon i.listi15 {
+	background-position: 15px -792px;
+}
+.section .icon i.listi16 {
+	background-position: 15px -1004px;
+}*/
+.section-head { /*首頁館架名稱*/
+	width: 100%;
+	height: 41px;
+	text-align: left;
+	margin-bottom: 10px;
+}
+.section-title {
+	font-size: 30px;
+	line-height: 40px;
+	text-indent: 10px;
+}
+.section-banner {
+	width: 1176px;
+	height: 105px;
+	text-align: left;
+	background-repeat: no-repeat;
+	background-image: url(../img/section-head.jpg);
+	margin-bottom: 10px;
+}
+.section2 {
+	float: left;
+	width: 1000px;
+	margin-left: 140px;
+	margin-right: 140px;
+	margin-bottom: 50px;
+	clear: both;
+}
+.section3 { /*分類頁一組館架*/
+	float: left;
+	width: 1000px;
+	margin-left: 140px;
+	/*margin-right: 140px;*/
+	margin-bottom: 70px;
+	clear: both;
+}
+.section3 .group {
+	float: left;
+	width: 414px;
+	margin-left: 93px;
+}
+.section3 .group2 { /*分類頁館架中最左側*/
+	float: left;
+	width: 275px;
+}
+.section3 .group3 { /*分類頁館架中中間*/
+	float: left;
+	width: 502px;
+}
+.section3 .group4 img {
+	margin: 5px 5px;
+}
+.section-divider {
+	float: left;
+	width: 1000px;
+	border: thin solid #999999;
+	margin-top: 20px;
+	clear: both;
+}
+.section-bg {
+	float: left;
+	width: 264px;
+	height: 125px;
+	background-repeat: no-repeat;
+}
+.section-bg-img1 {
+	background-image: url(/Themes/img/section-bg-1.png);
+}
+.section-bg-img2 {
+	background-image: url(/Themes/img/section-bg-2.png);
+}
+.section-bg-img3 {
+	background-image: url(/Themes/img/section-bg-3.png);
+}
+.section-bg-img4 {
+	background-image: url(/Themes/img/section-bg-4.png);
+}
+.section-bg-img5 {
+	background-image: url(/Themes/img/section-bg-5.png);
+}
+.section-bg-img6 {
+	background-image: url(/Themes/img/section-bg-6.png);
+}
+.section-bg-img7 {
+	background-image: url(/Themes/img/section-bg-7.png);
+}
+.section-bg-img8 {
+	background-image: url(/Themes/img/section-bg-8.png);
+}
+.section-bg-img9 {
+	background-image: url(/Themes/img/section-bg-9.png);
+}
+.section-bg-img10 {
+	background-image: url(/Themes/img/ad5.png);
+    margin-left:50px;
+     /* float: left;
+  width: 414px;
+  height: 150px;
+  background-image: url(../img/ad5.png);
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  overflow: hidden;*/
+}
+.section4 {
+	float: left;
+	width: 1000px;
+	margin-left: 140px;
+	margin-right: 140px;
+	margin-bottom: 50px;
+	clear: both;
+}
+
+//writter: [vincent]
+//describe: 修正RWD時，banner2背景會出現白底。
+//sampleAddress: NA
+
+.banner2 {
+	margin-bottom:10px;
+	width: 100%;
+    overflow: hidden;
+}
+
+/*Box*/
+.combobox {
+	float: left;
+	width: 392px;
+    overflow:hidden;
+	background:#fff;
+}
+.combobox2 {
+	float: left;
+	width: 392px;
+    overflow:hidden;
+	background:#fff;
+}
+.combobox3 {
+	float: left;
+	width: 196px;
+	margin-left: -3px;
+    overflow:hidden;
+	background:#fff;
+}
+.box1 {
+	float: left;
+	width: 196px;
+	height: 485px;
+    overflow:hidden;
+}
+.box1 img {
+	width: 196px;
+	height: 485px;
+}
+.box1 .title {
+	height: 12px;
+	padding: 5px;
+	font-size: 16px;
+	white-space: pre-line;
+	overflow: hidden;
+	text-align: left;
+	color: #3F3F3F;
+	font-weight: bold;
+    overflow:hidden;
+}
+.box2 { //首頁館架的itembox
+	@include clearAfter;
+	float: left;
+	width: 196px;
+	height: 205px;
+	white-space: normal;
+    overflow:hidden;
+	.border {
+		border:1px solid #c1c1c1;
+		//修正方框中只有放圖片的情形
+		.cellSingleImage{
+			width:194px;
+			height:203px;
+			img{
+				max-width:194px;
+				max-height:203px;
+				display: block;
+				margin: 0 auto;
+			}
+		}
+	}
+	&+.box2 {
+		.border {
+			border-left-width:0;
+		}
+	}
+	&+.box2+.box2 {
+		.border {
+			border-left-width:1px;
+		}
+	}
+	&+.box2+.box2+.box2 {
+		.border {
+			border-left-width:0;
+		}
+	}
+	.pic {
+		margin:2px auto;
+		width: 115px;
+		height: 115px;
+		overflow:hidden;
+	}
+	img {
+		max-width: 115px;
+		max-height: 115px;
+	}
+	.txt {
+		padding:6px 0;
+		height: auto;
+
+		.subTit {
+			margin-left:3px;
+			height:14px;
+			overflow :hidden;
+			white-space: pre-line;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			line-height:1em;
+			font-size:13px;
+			color:#925e29;
+		}
+
+		& > a {
+			display: block;
+			width: 100%;
+			height: 100%;
+			@include pie-clearfix;
+		}
+
+		.marketPrice,
+		.price {
+			display: inline-block;
+			margin:0 5px;
+		}
+
+		.marketPrice {
+			float:left;
+			text-decoration:line-through;
+			font-size:13px;
+			color:#b3b3b3;
+		}
+		.price {
+			float:right;
+		}
+	}
+}
+.box2Top {
+	height:280px;
+	.border {
+		border-bottom:0;
+		//修正方框中只有放圖片的情形
+		.cellSingleImage{
+			width:194px;
+			height:279px;
+			img{
+				max-width:194px;
+				max-height:279px;
+			}
+		}
+	}
+	.pic {
+		width: 180px;
+		height: 180px;
+	}
+	img {
+		max-width: 180px;
+		max-height: 180px;
+		.combobox & {
+			max-width: 196px;
+			max-height: 280px;
+			width: 196px;
+			height: 280px;
+		}
+	}
+	.txt {
+		margin-top: 13px;
+	}
+}
+
+
+.box2-text {
+	float: left;
+	width: 196px;
+	height: 192px;
+}
+.box3 {
+	float: left;
+	width: 390px;
+	height: 192px;
+    overflow:hidden;
+}
+.box4 { /*首頁個館架最右側大圖*/
+	float: left;
+	width: 392px;
+	height: 485px;
+    overflow:hidden;
+}
+.box4 .title {
+	height: 12px;
+	padding: 5px;
+	font-size: 16px;
+	white-space: pre-line;
+	overflow: hidden;
+	text-align: left;
+	color: #3F3F3F;
+	font-weight: bold;
+}
+.box5 {
+	float: left;
+	width: 194px;
+	height: 258px;
+    overflow:hidden;
+}
+.box6 {
+	float: left;
+	width: 390px;
+	height: 126px;
+    overflow:hidden;
+}
+.box7 {
+	float: left;
+	width: 226px;
+	height: 308px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+    overflow:hidden;
+}
+.box8 {
+	float: left;
+	width: 410px;
+	height: 54px;
+	/*background-image: url(../img/ad5.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0px; */
+    overflow:hidden;
+}
+.box8 .title {
+	/*width: 248px;
+	height: 54px;*/
+	font-size: 36px;
+	text-align: right;
+	color: #C04040;
+	font-weight: bold;
+	/*margin-top: 96px;
+	float: right;*/
+}
+.box9 {
+	float: left;
+	width: 414px;
+	height: 276px;
+    overflow:hidden;
+}
+.box9 img {
+	max-width: 414px;
+	max-height: 276px;
+}
+.box10 {
+	float: left;
+	width: 195px;
+	height: 252px;
+    overflow:hidden;
+	border-bottom: thin solid #FBE3E3;
+	border-left: thin solid #FBE3E3;
+}
+.box11 { /*分類頁館架有色邊線外框(左邊)*/
+	float: left;
+	width: 274px;
+	height: 80px;
+    overflow:hidden;
+	border-right: thin solid;
+}
+.box12 {/*分類頁館架itembox 不含最右側的更多商品itembox*/
+	float: left;
+	width: 222px;
+    overflow:hidden;
+	height: 222px;
+	margin-top: 88px;
+}
+.box13 { /*分類頁館架中上方大圖*/
+	float: left;
+	width: 280px;
+    overflow:hidden;
+	height: 310px;
+	border-bottom: thick solid;
+}
+.box14 {/*分類頁館架最右側的更多商品itembox*/
+	float: left;
+	width: 201px;
+    overflow:hidden;
+	height: 236px;
+}
+.box15 { /*分類頁館架中間條列目錄*/
+	float: left;
+	width: 201px;
+	height: auto;
+	margin-left: 50px;
+}
+.box15 .title {
+	float: left;
+	width: 100px;
+	height: auto;
+	font-size: 48px;
+	text-align: center;
+	margin-left: 50px;
+	margin-bottom: 10px;
+}
+.box16 { /*分類頁中央下方兩個方框*/
+	float: right;
+	width: 225px;
+    overflow:hidden;
+	height: auto;
+	border-top: thin solid;
+}
+
+.box16 .divider {/*目前看不出功用*/
+	float: right;
+	width: 1px;
+	height: 260px;
+	border-left: thin solid;
+}
+.box17 {
+	float: left;
+	width: 390px;
+    overflow:hidden;
+	height: 258px;
+}
+.box-category {
+	float: left;
+	/*width: 170px;
+	height: 152px;*/
+	font-size: 16px;
+	color: #FFF;
+	padding-left: 13px;
+	/*padding-right: 13px;*/
+	padding-top: 24px;/*15px*/
+	/*padding-bottom: 20px;*/
+}
+.box-category a {
+    color:#fff;
+    width:66px;
+    display:block;
+    height:18px;
+    overflow:hidden;
+    word-wrap:break-word;
+    word-break:break-all;
+	border-bottom:0;
+}
+.box-category ul {
+	float: left;
+	margin-left: 10px;
+}
+.box-category ul li {
+	margin-top: 18px;
+}
+.box-category .divider {
+	float: left;
+	width: 1px;
+	height: 140px;/*150px*/
+	border-left: thin dashed #FFF;
+	margin:10px 5px 0 10px;
+}
+.box-category2 {
+	float: left;
+	width: 388px;
+	height: 135px;
+	font-size: 16px;
+	color: #FFF;
+	padding-left: 13px;
+	padding-right: 13px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #EC7375;
+    border-radius: 10px;
+}
+.box-category2 a {
+	color: #fff;
+	border-bottom:0;
+}
+.box-category2 ul {
+	float: left;
+	margin-left: 25px;
+}
+.box-category2 ul li {
+	margin-bottom: 20px;
+}
+.box-category2 .divider {
+	float: left;
+	width: 1px;
+	height: 135px;
+	border-left: thin dashed #FFF;
+	margin-left: 35px;
+	margin-right: 10px;
+}
+.box-category3 {
+	float: left;
+	width: 175px;
+	height: auto;
+	font-size: 16px;
+	color: #FFF;
+	padding-left: 13px;
+	padding-right: 13px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+    border-radius: 10px;
+}
+.box-category3 a {
+	color: #fff;
+	border-bottom:0;
+}
+.box-category3 ul {
+	float: left;
+	margin-left: 35px;
+}
+.box-category3 ul li {
+	margin-bottom: 20px;
+}
+.box-category4 {
+	float: left;
+	width: 366px;
+	height: 86px;
+	font-size: 16px;
+	color: #FFF;
+	padding-left: 13px;
+	padding-right: 13px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.box-category4 a {
+	color: #fff;
+	border-bottom:0;
+}
+.box-category4 ul {
+	float: left;
+	margin-left: 30px;
+}
+.box-category4 ul li {
+	margin-bottom: 20px;
+}
+.box-category4 .divider {
+	float: left;
+	width: 1px;
+	height: 90px;
+	border-left: thin dashed #FFF;
+	margin-left: 40px;
+	margin-right: 15px;
+}
+div.caption {
+	height: 12px;
+	padding: 5px;
+	font-size: 15px;
+	text-align: left;
+	color: #666;
+	line-height: 18px;
+    overflow : hidden;
+	white-space: pre-line;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.box2 .caption  {
+	height: 32px;
+    -webkit-line-clamp: 2;
+}
+.caption2 {
+	height: 35px;
+	padding: 5px;
+	font-size: 16px;
+	white-space: pre-line;
+	text-align: left;
+	color: #666;
+	line-height: 20px;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.caption3 {
+	height: 54px;
+	padding:0 5px;
+	font-size: 14px;
+	white-space: pre-line;
+	text-align: left;
+	color: #666;
+	line-height: 18px;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.caption4 {
+	height: 36px;
+	padding: 5px;
+	font-size: 14px;
+	white-space: pre-line;
+	text-align: right;
+	color: #666;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.caption5 {
+	height: 192px;
+	padding: 5px;
+	font-size: 16px;
+	white-space: pre-line;
+	text-align: right;
+	color: #666;
+	line-height: 18px;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+.caption6 {
+    width: inherit;
+    height: inherit;
+    padding: 5px;
+    font-size: 16px;
+    white-space: pre-line;
+    text-align: left;
+	line-height: 18px;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.price {
+	height: 10px;
+	padding: 5px;
+	font-size:16px;
+	white-space: pre-line;
+	margin-top: 0px;
+	overflow: hidden;
+	text-align: right;
+	color: #e31d35;
+}
+.price2 {
+	height: 10px;
+	padding: 5px;
+	font-size:13px;
+	white-space: pre-line;
+	margin-top: 0px;
+	overflow: hidden;
+	text-align: right;
+	color: #B3B3B3;
+	font-weight: bold;
+	float: right;
+	text-decoration: line-through;
+}

@@ -1,0 +1,59 @@
+﻿@{Layout = "~/Views/Shared/_DesignerLayout.cshtml";}
+@section styleSheets{
+    @Styles.Render("~/content/css/Act")
+    <style>
+
+    </style>
+}
+@section bodyStartRefJS{
+<link rel="stylesheet" href="~/Content/Plupload/css/jquery.plupload.queue.css" />
+<link rel="stylesheet" href="~/Content/PageMgmt/stylesheets/Designer.css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.24/themes/smoothness/jquery-ui.css">
+
+<script src="//code.jquery.com/ui/1.8.24/jquery-ui.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
+<script src="~/Scripts/angular/angular.min.js"></script>
+<script src="~/Scripts/angular/angular-route.min.js"></script>
+<script src="~/Scripts/angular/angular-sanitize.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.js"></script>
+<script src="~/Scripts/tinymce/langs/zh_CN.js"></script>
+<script src="~/Scripts/Plupload/plupload.full.js"></script>
+<script src="~/Scripts/Plupload/jquery.plupload.queue.js"></script>
+
+<script src="~/Scripts/PageMgmt/Designer/DesignerServices.js"></script>
+<script src="~/Scripts/PageMgmt/Designer/EditPageDirective.js"></script>
+<script src="~/Scripts/PageMgmt/Designer/EditObjectModule.js"></script>
+<script src="~/Scripts/PageMgmt/Designer/EditObjectDirective.js"></script>
+<script src="~/Scripts/PageMgmt/Designer/PageDirective.js"></script>
+
+<script src="~/Scripts/PageMgmt/model/Models.js"></script>
+<script src="~/Scripts/PageMgmt/model/Status.js"></script>
+
+<script src="~/Scripts/PageMgmt/Object/tinymceConfig.js"></script>
+<script src="~/Scripts/PageMgmt/Object/ObjectDirective.js"></script>
+<script src="~/Scripts/PageMgmt/model/EntityModel.js"></script>
+
+<script src="~/Scripts/Common/CommonProcess.js"></script>
+<script src="~/Scripts/Common/ArrayExtensions.js"></script>
+<script src="~/Scripts/Common/StringExtensions.js"></script>
+<script src="~/Scripts/Common/ngCusWidgets.js"></script>
+<script src="~/Scripts/Common/ngCusServices.js"></script>
+<script src="~/Scripts/Common/angular-ui-tinymce.js"></script>
+<script src="~/Scripts/Plupload/uploader.js"></script>
+
+<script src="~/Scripts/PageMgmt/app.js"></script>
+}
+<div id="page_designer">
+    <sitemap></sitemap>
+    <page-edit></page-edit>
+    <property></property>
+</div>
+<div id="upload-photo-dialog"></div>
+<div id="msg-dialog"></div>
+@section scripts{
+    <script>
+        $('.disableClick').children().click(function (e) {
+            e.preventDefault();
+        });
+    </script>
+}

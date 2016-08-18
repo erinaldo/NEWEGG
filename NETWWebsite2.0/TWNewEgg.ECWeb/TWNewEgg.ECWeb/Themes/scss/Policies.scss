@@ -1,0 +1,72 @@
+@import "_importSCSS";
+
+h4{
+	font-size:40px;
+	line-height:85px;
+	.Clause{
+		background:url(/Themes/img/Icon/Provision.png) no-repeat;
+		padding:10px 30px;
+	}
+	.Disclaimer{
+		background:url(/Themes/img/Icon/Disclaimer.png) no-repeat;
+		padding:10px 30px;
+	}
+	.Privacy{
+		background:url(/Themes/img/Icon/Privacy.png) no-repeat;
+		padding:10px 25px;
+	}
+}
+
+.Provision{
+	border:2px solid #d5d5d5;
+	padding:11px 25px 20px 18px;
+	margin-bottom:50px;
+	p{
+		font-size:16px;
+		line-height:25px;
+		margin:10px 0;
+	}
+	ul{
+		margin:0 0 20px 28px;
+		li.Point{
+			color:#666;
+			list-style-type:disc;
+		}
+		li.NumLi{color:#666;list-style-type:decimal;}
+		li{
+			list-style-type:inline;
+			line-height:25px;
+			margin:5px 0;
+			color:#f58e51;
+			&.Point{
+				color:#666;
+				list-style-type:disc;
+				margin-bottom:38px;
+			}
+			ul{
+				margin:5px 0;
+				p{color:#666;}
+				li{
+					list-style-type:none;
+					line-height:25px;
+					margin:5px 0;
+					color:#666;
+				}
+			}
+			
+		}
+	}
+}
+table{
+	width:100%;
+	border:1px solid #bbbbbb;
+}
+th{
+	border:1px solid #fff;
+	text-align: center;
+	vertical-align:middle;
+	background-color: #649432;
+	color:#fff;
+	height:30px;
+}
+td{border:1px solid #bbbbbb;padding: 10px;line-height:20px;}

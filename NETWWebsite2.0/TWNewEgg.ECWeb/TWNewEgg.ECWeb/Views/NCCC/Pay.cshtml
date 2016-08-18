@@ -1,0 +1,13 @@
+﻿@{
+    string url = "https://" + System.Configuration.ConfigurationManager.AppSettings["NCCC_domainNAME"] + System.Configuration.ConfigurationManager.AppSettings["NCCC_requestURL"];    
+}
+<div>
+    <form id="hppForm" name="HPP" method="post" action="@url">
+        <input type="hidden" name="KEY" value="@ViewBag.Key" />
+    </form>
+</div>
+<script>
+    $(function () {
+        $('#hppForm').submit();
+    });
+</script>

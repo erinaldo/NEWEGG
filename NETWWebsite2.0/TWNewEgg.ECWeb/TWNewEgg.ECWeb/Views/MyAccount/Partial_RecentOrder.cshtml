@@ -1,0 +1,152 @@
+﻿@using TWNewEgg.DB.TWSQLDB.Models
+@using TWNewEgg.Website.ECWeb.Models
+@using System.Globalization
+@{
+    @model TWNewEgg.Models.ViewModels.MyAccount.OrderHistory
+    }
+
+<!--<div class="clear"></div>-->
+<!--<div class="serviceContentArea">-->
+<div class="serviceContentBox" style="border:0;">
+@*<div class="Tit ClassTit"><i class="icon ServiceIcon Order-2"></i>訂單明細</div>*@
+<div class="service_contentTable" id="orderListBox">
+    @{
+        if (Model!=null&& Model.SalceOrderList != null && Model.SalceOrderList.Count() > 0)
+        {
+        <div class="myOrderArea">
+            <table>
+                <tr>
+                    <th style="width:180px;">發貨區域</th>
+                    <td>@Model.SalceOrderList[0].SalesOrderItemDetil[0].CountryName</td>
+                </tr>
+                <tr>
+                    <th>單價</th>
+                    <td>@Model.SalceOrderList[0].SalesOrderItemDetil[0].DisplayPriceTemp</td>
+                    </tr>
+                <tr>
+                    <th>數量</th>
+                    <td>@Model.SalceOrderList[0].SumQTY</td>
+                </tr>
+                <tr>
+                    <th>小計</th>
+                    <td>@Model.SalceOrderList[0].PiceSum</td>
+                </tr>
+                <tr>
+                    <th>折價券/滿額折價</th>
+                    <td>@Model.SalceOrderList[0].SalesOrderItemDetil[0].ApportionedAmount</td>
+                </tr>
+                <tr>
+
+                    <th>分期利息</th>
+                    <td>@Model.SalceOrderList[0].SalesOrderItemDetil[0].InstallmentFee</td>
+                </tr>
+                <tr>
+                    <th>付款方式</th>
+                    <td>@Model.SalceOrderList[0].PaytypeNmae</td>
+                </tr>
+                @if (Model.SalceOrderList[0].SalesOrderItemDetil[0].PayType == "34")
+                {
+                    string payInfo = "", expLimit = "";
+                    if (!string.IsNullOrWhiteSpace(Model.SalceOrderList[0].CardBank))
+                    {
+                        payInfo = string.Format("({0})", Model.SalceOrderList[0].CardBank);
+                    }
+                    if (!string.IsNullOrWhiteSpace(Model.SalceOrderList[0].CardNo))
+                    {
+                        payInfo += Model.SalceOrderList[0].CardNo;
+                    }
+
+                    DateTime expDate = Model.SalceOrderList[0].Expire;
+                    if (expDate.Year > 1)
+                    {
+                        expLimit = string.Format("西元 {0:yyyy} 年 {0:MM} 月 {0:dd} 日 {0:HH:mm:ss} 之前", expDate.AddSeconds(-1));
+                    }
+                <tr>
+                    <th>繳款資訊</th>
+                    <td>@payInfo</td>
+                </tr>
+                <tr>
+                    <th>繳款期限</th>
+                    <td>@expLimit</td>
+                </tr>
+                }
+            </table>
+            <table>   
+                <tr>
+                    <th style="width:180px;">收件人姓名</th>
+                    <td>@Model.SalceOrderList[0].RecvName</td>
+                </tr>
+                <tr>
+                    <th>送貨地址</th>
+                    <td>@Model.SalceOrderList[0].DelivLOC@Model.SalceOrderList[0].DelivADDR</td>
+                    </tr>
+                <tr>
+                    <th>連絡電話</th>
+                    <td>
+                        <span>手機：</span>
+                        <span>@Model.SalceOrderList[0].RecvMobile</span>
+                        <span>市話：</span>
+                        <span>@Model.SalceOrderList[0].RecvTelDay</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>發票抬頭</th>
+                    <td>@Model.SalceOrderList[0].InvoiceTitle</td>
+                </tr>
+                <tr>
+                    <th>統一編號</th>
+                    <td>@Model.SalceOrderList[0].InvoiceID</td>
+                </tr>        
+            </table>
+            <!--
+            <div class="TopArrow"></div>
+            <div class="clear"></div>
+            -->
+            @*        
+            <div class="DeliveryInformation">
+                <div class="deliverState">
+                    <div class="DeliveryText">配送狀態</div>
+                        <ul>
+                            <li class="@if (Model.SalceOrderList[0].Status == "訂單成立")    { @("active"); }"  >
+                                <img src="/Themes/img/img_trans.gif" class="step01" />訂單成立</li>
+                            <li class="@if (Model.SalceOrderList[0].Status == "付款完成"){ @("active"); }">
+                                <img src="/Themes/img/img_trans.gif" class="step02" />付款完成</li>
+                            <li class= "@if (Model.SalceOrderList[0].Status == "待出貨")
+                                    { @("active"); }">
+                                <img src="/Themes/img/img_trans.gif" class="step03" />待出貨</li>
+                            <li class= "@if (Model.SalceOrderList[0].Status == "海外轉運中")
+                                    { @("active"); }">
+                                <img src="/Themes/img/img_trans.gif" class="step04" />海外轉運中</li>
+                            <li class=" @if (Model.SalceOrderList[0].Status == "空運中")
+                                    { @("active"); }">
+                                <img src="/Themes/img/img_trans.gif" class="step05" />空運中</li>
+                            <li class= "@if (Model.SalceOrderList[0].Status == "清關中")
+                                    { @("active"); }">
+                                <img src="/Themes/img/img_trans.gif" class="step06" />清關中</li>
+                            <li class=" @if (Model.SalceOrderList[0].Status == "配送中")
+                                    { @("active"); }" >
+                                <img src="/Themes/img/img_trans.gif" class="step07" />配送中</li>
+                            <li class=" @if (Model.SalceOrderList[0].Status == "已配達")
+                                    { @("active"); }">
+                                <img src="/Themes/img/img_trans.gif" class="step08" />已送達</li>
+                        </ul>
+                </div>
+                <div class="ShippingInformation">
+                        <span>出貨日期：</span><br />
+                        <span>@Model.SalceOrderList[0].SalesOrderItemDetil[0].ProcOut</span><br/>
+                        <span>配送單號：</span><br />
+                        <span>@Model.SalceOrderList[0].SalesOrderItemDetil[0].DelivNO</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            *@
+        </div>          
+        }
+        else
+        {
+        <div class="txt">您目前無任何訂單紀錄！</div>
+        }
+    }
+</div>
+</div>
+<!--</div>-->

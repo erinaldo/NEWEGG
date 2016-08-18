@@ -1,0 +1,216 @@
+﻿//compileCompressed: ../css/rwd.css,﻿  includePath: includes/﻿
+$rwd-view-w: 1024;
+$rwd-content-w: 994;
+$gutter: 10;
+$box-w: 198.8;
+
+@media screen and (max-width:1280px) {
+    .header,
+    .topper { width: $rwd-view-w#{px}; }
+
+    .header-limiter,
+    .topper-limiter,
+    .footer-limiter {
+        margin-left:15px;
+        padding: 0;
+        width: $rwd-content-w#{px};
+    }
+
+    .banner-bg {
+        width:100%;
+        min-width:$rwd-view-w#{px};
+    }
+
+    .IndexRightBanner {
+        bottom:0;
+        right:-20px;
+    }
+
+    .indexBoxArea,
+    .section {
+        width:$rwd-content-w#{px};
+    }
+
+    .section .banner2 {
+        margin-bottom:$gutter#{px};
+    }
+
+    //combobox rwd settings
+
+    // .combobox,
+    // .combobox2 {
+    //     height:386px;
+    // }
+    //
+    .combobox {
+        //width:$box-w#{px};
+  	    width: 196px;
+  	    float: left;
+    }
+    //
+    // .combobox2 {
+    //     margin-left:0;
+    //
+    //     &,
+    //     & .box4 {
+    //         width:($box-w * 2)#{px};
+    //     }
+    //
+    //     & .box4 > div,
+    //     & .box4 > div img {
+    //         width:100%;
+    //         height:100%;
+    //     }
+    // }
+    //
+    //
+    // .boxArea > ul > li {
+    //     margin-left: 10px;
+    //     width:33.3%;
+    //
+    //     &:first-child { margin-left:0; }
+    // }
+
+
+    //footer
+    .footer-limiter { margin:0 auto; }
+
+
+    //original settings
+    .header .icon {
+  	margin-right: 10px;
+    }
+    .header .fb {
+  	margin-right: 0px;
+    }
+    /*.header .music {
+  	margin-right: -45px;
+    }*/
+    .content {
+  	width: 1060px;
+  	margin-left: -30px;
+    }
+    .topper {
+  	/*margin-left: 22px;*/
+    }
+    .topper .searchbar .input{
+  	width: 415px;
+    }
+    /*.banner2, .banner2-img, .carousel2 {
+  	width: 978px;
+    }*/
+    .header-limiter, .footer-limiter {
+  	/*margin-left: 22px;*/
+    }
+    .section2, .section3 {
+  	margin-left: 42px;
+    }
+
+    .banner-img {
+      width: 538px;
+    }
+    .banner {
+      width: 538px;
+    }
+
+    .banner .tab {
+      width: 543px;
+    }
+    .banner .tab a, .banner .tab a:hover {
+  	width: 16.65%;
+    }
+    .banner .tab a:hover .arrow {
+  	margin-left: 40px;
+    }
+    .slider {
+      width: 764px;
+    }
+    .slider .tab {
+      /*width: 765px;*/
+    }
+    .slider .tab a, .slider .tab a:hover {
+      width: 15.35%;
+    }
+    .banner2 .list ul {
+  	margin-left: 50px;
+    }
+    .slider-img ul {
+  	margin-left: 20px;
+    }
+    .carousel2 ul {
+  	width:850px;
+    }
+    .subCategory {
+      width: 756px;
+    }
+    .box7 {
+  	margin-left: 24px;
+    }
+
+
+    //隱藏屬性
+    .none {
+      display: none;
+    }
+
+
+    .banner .tab {
+        width: 553px;
+
+        & > ul {
+            display:block;
+            width:100%;
+        }
+
+        & > ul > li {
+           width:19.92%;
+        }
+
+        & > ul > li:first-child + li + li + li + li + li { display:none; }
+    }
+}
+
+// @media screen and (max-width: 1280px) {
+//   .topper, .section, .header-limiter, .footer-limiter {
+// 	/*margin-left: 52px;*/
+//   }
+// }
+
+
+@media screen and (min-width: 1281px) {
+  /*.topper, .section, .section-head, .section-banner, .header-limiter, .footer-limiter, .banner2-head, .bread {
+	width: 980px;
+  }*/
+
+  .wrapper {
+      width:100%;
+      min-width:1024px;
+      overflow-x: hidden;
+  }
+
+  .banner-bg {
+    width:100%;
+  }
+
+
+  /*.footer .map {
+	margin-right: 22px;
+  }
+  .footer .code {
+	margin-right: 22px;
+  }*/
+
+  .banner .tab {
+      width: 732px;
+
+      & > ul {
+          display:block;
+          width:100%;
+      }
+
+      & > ul > li {
+         width:16.62%;
+      }
+  }
+
+}

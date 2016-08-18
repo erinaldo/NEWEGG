@@ -1,0 +1,205 @@
+@charset "UTF-8";
+/*指定通用樣式 不需要副檔名 可以逗號串聯多組*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font: inherit; font-size: 100%; vertical-align: baseline; }
+
+html { line-height: 1; }
+
+ol, ul { list-style: none; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+caption, th, td { text-align: left; font-weight: normal; vertical-align: middle; }
+
+q, blockquote { quotes: none; }
+q:before, q:after, blockquote:before, blockquote:after { content: ""; content: none; }
+
+a img { border: none; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary { display: block; }
+
+/*字型*/
+/*Main Width*/
+.clear, .wrapper { /*content: "";
+display:block;
+width:100%;
+height:1px;*/ clear: both; }
+
+/*基本框架*/
+body { font-family: "Microsoft JhengHei", sans-serif; }
+
+.wrapper { margin: 0 auto; width: 1024px; }
+.wrapper::after { content: ""; display: block; width: 100%; height: 1px; clear: both; }
+
+.mainPadding { padding: 0 10px; width: 1004px; }
+.mainPadding::after { content: ""; display: block; width: 100%; height: 1px; clear: both; }
+
+/*水平線*/
+hr { border: 0; border-top-width: 1px; border-style: solid; }
+hr.verticalDir { display: inline-block; position: relative; top: -1px; border-left: 1px solid; vertical-align: middle; width: 0; height: 100%; }
+
+/*ICON*/
+i.icon { display: inline-block; vertical-align: middle; }
+
+/*輸入框*/
+input, input[type="text"], input[type="password"], textarea { padding: 5px 10px; border-width: 1px; border-style: solid; vertical-align: middle; font-family: "Microsoft JhengHei", sans-serif; }
+
+input + input, input + .btn, .selector + input, .selector + .btn, input[type="button"] + input, input[type="button"] + .btn, .btn + input, .btn + .btn { margin-left: 10px; }
+
+input[type="checkbox"] { width: 20px; height: 20px; vertical-align: middle; }
+
+input[type="button"], .btn { margin: 5px 0; padding: 10px; border: 0; font-size: 18px; letter-spacing: 2px; text-align: center; vertical-align: middle; cursor: pointer; -webkit-transition-property: all; -moz-transition-property: all; -o-transition-property: all; transition-property: all; -webkit-transition-duration: 0.2s; -moz-transition-duration: 0.2s; -o-transition-duration: 0.2s; transition-duration: 0.2s; -webkit-transition-timing-function: linear; -moz-transition-timing-function: linear; -o-transition-timing-function: linear; transition-timing-function: linear; /*按鈕並排*/ /*並排按鈕外距*/ /*並排按鈕寬*/ /*$halfWidth:($login_fillForm_innerWidth / 2 - $halfMargin / 2);*/ }
+input[type="button"]:hover, .btn:hover { -webkit-transition-property: all; -moz-transition-property: all; -o-transition-property: all; transition-property: all; -webkit-transition-duration: 0.1s; -moz-transition-duration: 0.1s; -o-transition-duration: 0.1s; transition-duration: 0.1s; -webkit-transition-timing-function: linear; -moz-transition-timing-function: linear; -o-transition-timing-function: linear; transition-timing-function: linear; }
+
+/*超連結*/
+a, a:visited, a:hover, a:active { text-decoration: none; -webkit-transition-property: all; -moz-transition-property: all; -o-transition-property: all; transition-property: all; -webkit-transition-duration: 0.1s; -moz-transition-duration: 0.1s; -o-transition-duration: 0.1s; transition-duration: 0.1s; -webkit-transition-timing-function: linear; -moz-transition-timing-function: linear; -o-transition-timing-function: linear; transition-timing-function: linear; }
+
+/*麵包屑*/
+.pathLink { font-size: 15px; }
+.pathLink span { margin: 0 3px; }
+
+/*頁碼*/
+.btmPageArea { position: relative; text-align: center; }
+.btmPageArea::after { content: ""; display: block; width: 100%; height: 1px; clear: both; }
+.btmPageArea a { display: inline-block; /*float:left;*/ padding: 5px; vertical-align: middle; background: #fff; color: #777; }
+.btmPageArea a:hover { background: #f78d51; color: #fff; }
+.btmPageArea .arrow { position: relative; padding: 0; width: 30px; height: 30px; background: #f78d51; }
+.btmPageArea .arrow:hover { background: #f56d20; color: #fff; }
+.btmPageArea .arrLeft { left: -25px; }
+.btmPageArea .arrRight { right: -25px; }
+
+/*自製select*/
+.selector { position: relative; z-index: 99; cursor: pointer; }
+.selector .default, .selector li { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; width: 100%; *width: 90%; /*height:$fillFormListHeight;*/ position: relative; padding: 5px; border-width: 1px; border-style: solid; /*&.active {
+	display:block;
+	position:absolute;
+	top:-28px;
+	left:0;
+	z-index:2;
+	background:#fff;
+}*/ }
+.selector .default .icon-arrow, .selector li .icon-arrow { position: absolute; top: -1px; right: -1px; width: 33px; height: 100%; border-width: 1px; border-style: solid; }
+.selector:hover { height: 92px; }
+.selector:hover ul { /*overflow:scroll;
+overflow-x:hidden;
+height:50px;*/ }
+.selector:hover ul li { display: block; }
+.selector ul { position: absolute; overflow: scroll; overflow-x: hidden; height: 60px; }
+.selector ul li { /*display:none;*/ }
+
+/*頁籤樣式:我的購物金.我的折價券.我的訂單.我的追蹤清單.我的帳戶*/
+/*頁籤Width*/
+/*頁籤maxWidth*/
+/*頁籤Height*/
+/*頁籤Padding*/
+/*頁籤innerHeight*/
+.serviceTabArea { width: 100%; }
+.serviceTabArea::after { content: ""; display: block; width: 100%; height: 1px; clear: both; }
+.serviceTabArea .tab { -webkit-transition-property: all; -moz-transition-property: all; -o-transition-property: all; transition-property: all; -webkit-transition-duration: 0.2s; -moz-transition-duration: 0.2s; -o-transition-duration: 0.2s; transition-duration: 0.2s; -webkit-transition-timing-function: linear; -moz-transition-timing-function: linear; -o-transition-timing-function: linear; transition-timing-function: linear; float: left; padding: 3px 35px; max-width: 130px; height: 42px; overflow: hidden; border-width: 1px; border-style: solid; line-height: 42px; font-size: 20px; font-weight: bold; cursor: pointer; }
+.serviceTabArea .tab + .tab { margin-left: -1px; }
+.serviceTabArea .tab:hover { -webkit-transition-property: all; -moz-transition-property: all; -o-transition-property: all; transition-property: all; -webkit-transition-duration: 0.1s; -moz-transition-duration: 0.1s; -o-transition-duration: 0.1s; transition-duration: 0.1s; -webkit-transition-timing-function: linear; -moz-transition-timing-function: linear; -o-transition-timing-function: linear; transition-timing-function: linear; }
+.serviceTabArea .tab:hover i.icon { background-position: -10px 0; }
+.serviceTabArea .tab.active { background-image: url(http://goo.gl/xr8Cco); background-repeat: no-repeat; background-position: right; background-size: auto 70%; }
+.serviceTabArea .tab i.icon { margin-right: 10px; background-image: url(/Themes/img/header-icon.png); background-repeat: no-repeat; background-position: 0 0; }
+
+/*頁籤內容*/
+.serviceContentBox { margin-top: -1px; padding: 20px 40px; padding: 20px 0; overflow: hidden; border: 1px solid #d5d5d5; border-top: 0; font-size: 16px; font-weight: bold; }
+.serviceContentBox .mainTit .icon { margin-right: 5px; width: 35px; height: 35px; }
+.serviceContentBox .service_contentForm { margin: 40px 40px; }
+.serviceContentBox .service_contentForm .service_contentList { margin-bottom: 15px; height: 35px; line-height: 35px; }
+.serviceContentBox .service_contentForm .service_contentList::after { content: ""; display: block; width: 100%; height: 1px; clear: both; }
+.serviceContentBox .service_contentForm .service_contentList .tit { float: left; margin-right: 30px; width: 140px; min-height: 35px; line-height: 35px; }
+.serviceContentBox .service_contentForm .service_contentList .txt { float: left; }
+.serviceContentBox .service_contentForm .service_contentList .txt input { margin-right: 15px; height: 20px; }
+.serviceContentBox .service_contentTable { width: 100%; color: #666; }
+.serviceContentBox .service_contentTable table { border-collapse: collapse; width: 100%; }
+.serviceContentBox .service_contentTable th { padding: 10px 30px; border-collapse: collapse; border-width: 1px; border-style: solid; border-color: #d5d5d5; background: #f0f0f0; border-left: 0; border-right: 0; }
+.serviceContentBox .service_contentTable td { padding: 10px 30px; border-collapse: collapse; border-width: 1px; border-style: solid; border-color: #d5d5d5; border-left: 0; }
+.serviceContentBox .service_contentTable .highline { color: #f72; }
+.serviceContentBox .btmBtnArea { text-align: center; }
+.serviceContentBox .btmBtnArea .btn + .btn { margin-left: 50px; }
+
+/*登入註冊區塊*/
+.fillFormArea { border-width: 1px; border-style: solid; /*填表區高&行高*/ /*填表區設定input或select寬度*/ }
+.fillFormArea::after { content: ""; display: block; width: 100%; height: 1px; clear: both; }
+.fillFormArea .mainTitBar { padding: 0 30px; height: 48px; line-height: 50px; font-size: 20px; }
+.fillFormArea .mainTitBar .icon { margin-top: -5px; margin-right: 25px; width: 30px; height: 40px; }
+.fillFormArea .fillFormBox { background: #fff; }
+.fillFormArea .fillFormBox .fillForm_contentList::after { content: ""; display: block; width: 100%; height: 1px; clear: both; }
+.fillFormArea .fillFormBox .fillForm_contentList .tit { float: left; margin-bottom: 20px; overflow: hidden; height: 32px; line-height: 32px; font-weight: bold; }
+.fillFormArea .fillFormBox .fillForm_contentList .txt { float: left; margin-bottom: 20px; height: 100%; overflow: hidden; }
+.fillFormArea .selector { position: relative; z-index: 99; cursor: pointer; }
+.fillFormArea .selector .default, .fillFormArea .selector li { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; width: 100%; *width: 90%; height: 32px; position: relative; padding: 5px; border-width: 1px; border-style: solid; /*&.active {
+	display:block;
+	position:absolute;
+	top:-28px;
+	left:0;
+	z-index:2;
+	background:#fff;
+}*/ }
+.fillFormArea .selector .default .icon-arrow, .fillFormArea .selector li .icon-arrow { position: absolute; top: -1px; right: -1px; width: 33px; height: 100%; border-width: 1px; border-style: solid; }
+.fillFormArea .selector:hover { height: 92px; }
+.fillFormArea .selector:hover ul { /*overflow:scroll;
+overflow-x:hidden;
+height:50px;*/ }
+.fillFormArea .selector:hover ul li { display: block; }
+.fillFormArea .selector ul { position: absolute; overflow: scroll; overflow-x: hidden; height: 60px; }
+.fillFormArea .selector ul li { /*display:none;*/ }
+
+/*所有顏色統一管理*/
+/*全站背景色*/
+/*深色按鈕文字*/
+/*a & a:visited*/
+/*a:hover*/
+/*a:active*/
+/*麵包屑顏色*/
+/*表單文字顏色*/
+/*表單框框顏色*/
+/*禁止使用的灰灰字*/
+/*淺灰色*/
+/*深灰色*/
+/*杏黃色*/
+/*藍靛色*/
+/*淺藍色*/
+/*天藍*/
+/*鋼青色*/
+/*紅色*/
+/*頁籤樣式*/
+/*tab框線*/
+/*tab文字*/
+/*tab背景色*/
+/*tabHover背景色*/
+/*tabHover文字*/
+/*tabHover框線*/
+/*tabActive背景色*/
+/*tabActive文字*/
+/*tabActive框線*/
+/*tabActive框線*/
+/*tabActive框線*/
+/*登入註冊區塊*/
+/*區塊外框*/
+/*@import "_colorStyle", "base";*/
+/*擷取自rwd.css*/
+.bottomer { margin: 0 auto; color: #FFF; clear: both; }
+
+.bottomer ul { /*width: 500px;*/ height: 50px; list-style-type: none; margin: 0 auto; }
+
+.bottomer ul li { float: left; }
+
+.footer { background-color: #F1F1F0; height: 400px; color: #162D4B; clear: both; }
+
+.footer-limiter { width: 1176px; margin: 0 auto; }
+
+.footer-title { color: #698EB8; }
+
+.footer ul { float: left; list-style-type: none; margin-bottom: 10px; }
+
+.footer ul li { margin-right: 70px; margin-bottom: 20px; }
+
+.address { clear: both; color: #162D4B; }
+
+/*單行footer*/
+.simpleFooterArea { margin: 0 auto; width: 1024px; color: #172c47; }
+.simpleFooterArea::after { content: ""; display: block; width: 100%; height: 1px; clear: both; }
+.simpleFooterArea hr { margin: 10px -10px; }
+.simpleFooterArea h2 { float: left; }
+.simpleFooterArea p { float: left; margin-left: 5px; }

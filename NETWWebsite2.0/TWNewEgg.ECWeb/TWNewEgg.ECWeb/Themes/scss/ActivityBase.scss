@@ -1,0 +1,52 @@
+﻿@charset "utf-8";
+@import "compass/css3";
+
+/*所有內容頁總寬度*/
+$RWDMinWidth:1004px;
+
+/*RWD頁面總寬度*/
+$MaxRWDWidth:1176px;
+
+/*清除浮動-前項元素專用，使用方法:@extend .clear;*/
+.clear {
+	clear:both;
+}
+
+/*清除浮動-父層專用，使用方法:@include clearAfter;*/
+@mixin clearAfter {
+	&::after {
+		content: "";
+		display:block;
+		width:100%;
+		height:1px;
+		clear:both;
+	}
+}
+
+/*圓角，使用方法:@include border-radius(5px);*/
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+/*漸變效果，使用方法:@include transition(200);※註數字200的單位是毫秒唷!*/
+@mixin transition($time) {
+	@include transition-property(all);
+	@include transition-duration(.2s);
+	@include transition-timing-function(linear);
+}
+
+/*單行顯示刪節號*/
+@mixin ellipsis {
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+
+/*英文數字強制斷行*/
+@mixin wrapWord {
+	word-wrap:break-word;
+	word-break:break-all;
+}

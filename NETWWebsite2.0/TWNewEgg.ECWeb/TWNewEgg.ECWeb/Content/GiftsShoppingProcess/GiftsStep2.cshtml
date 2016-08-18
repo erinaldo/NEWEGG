@@ -1,0 +1,1607 @@
+﻿@Styles.Render("~/Themes/css/ElementLibrary_Layout.css")
+@Styles.Render("~/Themes/css/ElementLibrary.css")
+@Styles.Render("~/Themes/css/ShoppingProcess.css")
+
+
+@using TWNewEgg.Models.ViewModels.Cart
+@model string
+
+@{
+    string invoidException = System.Configuration.ConfigurationManager.AppSettings["InvoidException"];
+    int AddressbookFlag = 0; // 旗標，若無預設值則自動勾取"本次資料加入收件人紀錄本"
+    if (ViewBag.AddressbookFlag != null)
+    {
+        AddressbookFlag = 1;
+    }
+}
+
+<div class="ShoppingProcess">
+    <div class="OrderInformation">
+        <img src="/Themes/img/ShoppingProcess/ShoppingProcess_step_2_IMG.jpg">
+    </div>
+    <form id="Step2Form" action="/cart/step3" method="post">
+        <div class="SelectDelivery">
+            <div class="SelectDeliveryTit ColorBarTit">
+                <div class="icon"></div>
+                <p>選擇配送方式</p>
+            </div>
+            <div class="DeliveryContent">
+            <div>
+                <label><input type="radio" name="PickupWay" id="Delivery" class="radio" checked><span>宅配</span></label><br/>
+                <label style="display:none;"><input type="radio" name="PickupWay" id="ConvenienceStore" class="radio"><span>超商取貨</span></label><br/>
+            </div>
+        </div>
+    </div>
+
+        <div class="PurchaserInformation">
+            <div class="PurchaserInformationTit ColorBarTit">
+                <div class="icon"></div>
+                <p>訂購人資訊</p>
+                <span class="Required">*</span>
+                <p>必填</p>
+            </div>
+            <div class="ShoppingProcessSecondTit" id="test111">從常用地址挑選 〉</div>
+            <div class="ShoppingAddressContent">
+                  <div class="ContentLeft">
+                       <div class="Name_Left_Tit"><span class="Required">*</span>姓名</div>
+                       <div class="Cellphone_Left_Tit"><span class="Required">*</span>手機</div>
+                       <div class="LocalCalls_Left_Tit"><span class="Required"></span>市話</div>
+                       <div class="Address_Left_Tit"><span class="Required">*</span>地址</div>
+                  </div>  
+                  <div class="ContentRight">
+                       <div class="Name_Right_Content PurchaserContent">
+                            <div class="SelectAppellation">
+                        <select class="select_sm" name="member_sex" id="member_sex" tabindex="1" autofocus>
+                                    <option value="2">請選擇稱謂</option>
+　                                  <option value="1">先生</option>
+　                                  <option value="0">女士</option>
+                                </select>
+                            </div>
+                            <div class="NameInput">
+                        <label><input type="text" placeholder="姓氏" name="member_lastname" tabindex="2" id="member_lastname" maxlength="10" value="" class="input_sm"></label>
+                        <label><input type="text" placeholder="名字" name="member_firstname" tabindex="3" id="member_firstname" maxlength="10" value="" class="input_sm"></label>
+                                <input type="hidden" name="salesorder_name" id="salesorder_name" />
+                            </div>
+                       </div>
+                       <div class="Cellphone_Right_Content PurchaserContent">
+                            <div class="CellphoneInput">
+                        <label><input type="text" placeholder="請輸入手機號碼" name="salesorder_mobile" maxlength="10" tabindex="4" id="salesorder_mobile" value="" class="input_md" numberrule="true"></label>
+                            </div>
+                            @*<div class="CellphoneRedText RedText">
+                                <p>※</p><p style="width: 470px;">系統將發送驗證碼至您的手機中，請填寫正確手機號碼，以供傳送認證訊息使用。</p>
+                            </div>*@
+                            <div class="clear"></div>
+                       </div>
+                       <div class="LocalCalls_Right_Content PurchaserContent">
+                            <div class="LocalCallsInput">
+                        <label><input type="text" placeholder="" id="teldayzip" tabindex="5" name="teldayzip" numberrule="true" maxlength="4" class="input_xs"></label>
+                                <span>───</span>
+                        <label><input type="text" placeholder="" id="teldaynumber" tabindex="6" name="teldaynumber" maxlength="8" numberrule="true" class="input_md"></label>
+                        <label><input type="text" placeholder="分機#" id="teldayext" tabindex="7" name="teldayext" maxlength="10" numberrule="true" class="input_sm"></label>
+                        <input type="hidden" id="salesorder_telday" name="salesorder_telday" value="" />
+                            </div>
+                       </div>
+                       <div class="Address_Right_Content PurchaserContent">
+                            <div class="SelectAddress">
+                                <select id="salesorder_cardloc" name="salesorder_cardloc" class="select_sm" tabindex="8">
+                                    <option value="">請選擇縣市</option>
+　                                  <option value="基隆市">基隆市</option>
+                                    <option value="台北市">台北市</option>
+                                    <option value="新北市">新北市</option>
+                                    <option value="桃園縣">桃園縣</option>
+                                    <option value="新竹市">新竹市</option>
+                                    <option value="新竹縣">新竹縣</option>
+                                    <option value="苗栗縣">苗栗縣</option>
+                                    <option value="台中市">台中市</option>
+                                    <option value="彰化縣">彰化縣</option>
+                                    <option value="南投縣">南投縣</option>
+                                    <option value="雲林縣">雲林縣</option>
+                                    <option value="嘉義市">嘉義市</option>
+                                    <option value="嘉義縣">嘉義縣</option>
+                                    <option value="台南市">台南市</option>
+                                    <option value="高雄市">高雄市</option>
+                                    <option value="屏東縣">屏東縣</option>
+                                    <option value="台東縣">台東縣</option>
+                                    <option value="花蓮縣">花蓮縣</option>
+                                    <option value="宜蘭縣">宜蘭縣</option>
+                                    <option value="澎湖縣">澎湖縣</option>
+                                    <option value="金門縣">金門縣</option>
+                                    <option value="連江縣">連江縣</option>
+                                </select>
+                                <select id="cardCity" name="cardCity" class="select_md" tabindex="9">
+                                    <option value="">請選擇鄉、鎮、行政區</option>
+                                </select>
+                                @*cardCity暫存*@
+                                <input type="hidden" id="cardCityTemp" />
+                                <input type="hidden" name="salesorder_cardzip" id="salesorder_cardzip" />
+                            </div>
+                            <div class="AddressInput">
+                        <label><input type="text" id="cardaddr" tabindex="10" name="cardaddr" placeholder="請輸入街道地址"  maxlength="120" onkeyup="LettersFilter('cardaddr')" onblur="LettersFilter('cardaddr')" class="input_md"></label>
+                                <input type="hidden" name="salesorder_cardaddr" id="salesorder_cardaddr" />
+                            </div>
+                       </div>
+                       <div class="UpdatesMemberProfile">
+                           <div>
+                        <label><input value="on" id="updateToMember" checked="checked" type="checkbox" class="checkbox">更新至會員基本資料</label><br>
+                                 <label><input value="on" type="checkbox" onclick="" class="checkbox">本次資料加入訂購人紀錄本</label><br>
+                           </div>
+                           <div class="RedText">
+                               <p>※</p><p style="width:730px;">請正確填寫訂購人姓名、聯絡電話及地址，請勿填寫郵政信箱，以便郵寄發票或活動贈品等，若因填寫資料不正確導致無法寄送，恕本公司概不負責，敬請見諒。</p>
+                           <div class="clear"></div>
+                           </div>
+                       </div>
+                  </div>
+                  <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="StoreReceiving" style="display:none;">
+             <div class="StoreReceivingTit ColorBarTit">
+                <div class="icon"></div>
+                <p>超商取貨資料</p>
+            </div>
+            <div class="ShoppingProcessSecondTit">從常用地址挑選 〉</div>
+                  <div class="StoreAddressContent">
+                      <div class="ContentLeft">  
+                            <div class="ReceiveStore_Left_Tit"><span class="Required">*</span>取貨超商</div>
+                            <div class="SelectStreetName_Left_Tit"><span class="Required">*</span>選擇街道名稱</div>
+                            <div class="SelectStoretName_Left_Tit"><span class="Required">*</span>請選擇門市</div>
+                            <div class="VerificationIdentity_Left_Tit"><span class="Required">*</span>取貨核對身分</div>
+                      </div>
+
+                      <div class="ContentRight">
+                           <div class="ContentSpacing">    
+                              <div class="ReceiveStore_Right_Content">
+                                    <img src="/Themes/img/ShoppingProcess/HiLifeIMG.jpg">
+                              </div>
+                              <div class="SelectStreetName_Right_Content">
+                                    <div class="SelectAddress">
+                                        <div id="hiLifeCity" class="txt">
+                                            <div class="selOut">
+                                                <select class="select_sm"></select>
+                                                <i class="selArr"></i>
+                                            </div>
+                                        </div>
+                                        <div id="hiLifeCntry" class="txt">
+                                            <div class="selOut">
+                                                <select class="select_md"></select>
+                                                <i class="selArr"></i>
+                                            </div>
+                                        </div>
+                                        <div id="hiLifeBranch" class="txt">
+                                            <div class="selOut">
+                                                <select class="select_sm"></select>
+                                                <i class="selArr"></i>
+                                            </div>
+                                        </div>
+                                        @*<select class="select_sm">
+                                            <option value="">請選擇縣市</option>
+　                                          <option value="">1</option>
+　                                          <option value="">2</option>
+　                                          <option value="">3</option>
+                                        </select>
+                                        <select class="select_md">
+                                            <option value="">請選擇鄉、鎮、行政區</option>
+　                                          <option value="">1</option>
+　                                          <option value="">2</option>
+　                                          <option value="">3</option>
+                                        </select>
+                                        <select class="select_sm">
+                                            <option value="">請選擇</option>
+　                                          <option value="">1</option>
+　                                          <option value="">2</option>
+　                                          <option value="">3</option>
+                                        </select>*@
+                                    </div>
+                              </div>
+
+                              <div class="clear"></div>
+                              <div class="SelectStoretName_Right_Content">
+                                    <div class="SelectAddress">
+                                <div id="showHiLifeStoreName"></div>
+                                <input type="hidden" id="hiLifeStoreName" />
+                                ???
+                                        <select class="select_md">
+                                            <option value="">---請選擇---</option>
+　                                          <option value="">1</option>
+　                                          <option value="">2</option>
+　                                          <option value="">3</option>
+                                        </select>
+                                ???
+                                    </div>
+                                    <div class="StorenameAddress">                  
+                                        <div>確定取貨門市</div>
+                                        <div>店名</div>
+                                        <div>地址</div>
+                                    </div>
+                                    <div class="StoreRecords">
+                                         <label><input value="on" type="checkbox" onclick="" class="checkbox">本次資料加入超商紀錄本</label>
+                                    </div>
+                            <div class="GoogleMap"><div id="storeMap" style="height: 240px; width: 460px;"></div></div>
+                              </div>
+
+                              <div class="VerificationIdentity_Right_Content">                  
+                            <div><input type="text" placeholder="請輸入身分證後四碼" id="salesorder_idno" name="salesorder_idno" maxlength="4" class="input_md" numberrule="true" /></div>
+                                    <div class="RedText">
+                                        <p>※</p><p style="width: 265px;">本資料作為日後超商取貨過程，店員將與您進行身分核對，避免其他人包裹錯誤領取。</p>
+                                    </div>
+                              </div>
+                              <div class="clear"></div>
+                           </div>
+                      </div>
+                      <div class="clear"></div>
+                  </div>
+          </div>
+
+        <div class="RecipientInformation">
+            <div class="RecipientInformationTit ColorBarTit">
+                <div class="icon"></div>
+                <p>收件人資訊</p>
+                <span class="Required">*</span>
+                <p>必填</p>
+            </div>
+            <div class="ShoppingProcessSecondTit" id="AddressBook"@* onclick="SelectRecord(this)"*@>從常用地址挑選 〉</div>
+            <span id="CombineSalesOrderRule" class="red" style="font-size: small"></span>
+            <div class="ShoppingAddressContent">
+                  <div class="ContentLeft">
+                       <div class="Name_Left_Tit"><span class="Required">*</span>姓名</div>
+                       <div class="Cellphone_Left_Tit"><span class="Required">*</span>手機</div>
+                       <div class="LocalCalls_Left_Tit"><span class="Required"></span>市話</div>
+                       <div class="Address_Left_Tit"><span class="Required">*</span>地址</div>
+                       <div class="ReceivingTime_Left_Tit"><span class="Required">*</span>希望收貨時間</div>
+                  </div>  
+
+                  <div class="ContentRight">
+                       <div class="Ditto">
+                           <label><input value="on" type="checkbox" name="CopySalesOrder" id="CopySalesOrder" onclick="CopyToRecipient();"  class="checkbox"/>同訂購人</label>
+                       </div>
+                       <div class="Name_Right_Content PurchaserContent">
+                            <div class="SelectAppellation">
+                            <select name="member_recvsex" id="member_recvsex" tabindex="11" class="select_sm">
+                                    <option value="2">請選擇稱謂</option>
+　                                  <option value="1">先生</option>
+　                                  <option value="0">女士</option>
+                                </select>
+                            </div>
+                            <div class="NameInput">
+                            <label><input type="text" name="member_recvlastname" tabindex="12" id="member_recvlastname" placeholder="姓氏" maxlength="10" value="" class="input_sm"></label>
+                            <label><input type="text" name="member_recvfirstname" tabindex="13" id="member_recvfirstname" placeholder="名字" maxlength="10" value="" class="input_sm"></label>
+                                <input type="hidden" name="salesorder_recvname" id="salesorder_recvname" />
+                            </div>
+                       </div>
+                       <div class="Cellphone_Right_Content PurchaserContent">
+                            <div class="CellphoneInput">
+                            <label><input type="text" placeholder="請輸入手機號碼" tabindex="14" name="salesorder_recvmobile" id="salesorder_recvmobile" maxlength="10" numberrule="true" value="" class="input_md"></label>
+                            </div>
+                       </div>
+                       <div class="LocalCalls_Right_Content PurchaserContent">
+                            <div class="LocalCallsInput">
+                            <label><input type="text" id="recvteldayzip" tabindex="15" name="recvteldayzip" maxlength="4" class="input_xs" numberrule="true"></label>
+                                <span>───</span>
+                            <label><input type="text" id="recvteldaynumber" tabindex="16" name="recvteldaynumber" placeholder="" maxlength="8" class="input_md" numberrule="true"></label>
+                            <label><input type="text" id="recvteldayext" tabindex="17" name="recvteldayext" placeholder="分機#" maxlength="10" class="input_sm" numberrule="true"></label>
+                            <input type="hidden" name="salesorder_recvtelday" id="salesorder_recvtelday" value="" />
+                            </div>
+                       </div>
+                    <div class="Address_Right_Content PurchaserContent" id="PickupWayByDelivery">
+                            <div class="SelectAddress">
+                                <select id="salesorder_delivloc" name="salesorder_delivloc" tabindex="18" class="select_sm">
+                                    <option value="">請選擇縣市</option>
+　                                  <option value="基隆市">基隆市</option>
+                                    <option value="台北市">台北市</option>
+                                    <option value="新北市">新北市</option>
+                                    <option value="桃園縣">桃園縣</option>
+                                    <option value="新竹市">新竹市</option>
+                                    <option value="新竹縣">新竹縣</option>
+                                    <option value="苗栗縣">苗栗縣</option>
+                                    <option value="台中市">台中市</option>
+                                    <option value="彰化縣">彰化縣</option>
+                                    <option value="南投縣">南投縣</option>
+                                    <option value="雲林縣">雲林縣</option>
+                                    <option value="嘉義市">嘉義市</option>
+                                    <option value="嘉義縣">嘉義縣</option>
+                                    <option value="台南市">台南市</option>
+                                    <option value="高雄市">高雄市</option>
+                                    <option value="屏東縣">屏東縣</option>
+                                    <option value="台東縣">台東縣</option>
+                                    <option value="花蓮縣">花蓮縣</option>
+                                    <option value="宜蘭縣">宜蘭縣</option>
+                                </select>
+                                <select name="delivCity" id="delivCity" tabindex="19" class="select_md">
+                                    <option value="">請選擇鄉、鎮、行政區</option>
+                                </select>
+                            <input type="hidden" id="delivCityTemp" />
+                            @*郵遞區號：*@
+                                <input type="hidden" name="salesorder_delivzip" id="salesorder_delivzip" />
+                            </div>
+                            <div class="AddressInput">
+                            <label><input type="text" placeholder="請輸入街道地址" tabindex="20" name="delivaddr" id="delivaddr" value="" class="input_md" maxlength="120" onkeyup="LettersFilter('delivaddr')" onblur="LettersFilter('delivaddr')"></label>
+                                <input type="hidden" name="salesorder_delivaddr" id="salesorder_delivaddr" value="" />
+                            </div>
+                            <p class="AddressRedText RedText">※本地址將作為您日後購物之預設寄送地址，請勿填寫郵政信箱</p>
+                       </div>
+                       <div class="ReceivingTime_Right_Content PurchaserContent"> 
+                           <div class="PurchaserTable">
+                               <div class="SelectReceivingTime">
+                                <label><input name="ArrivalTime" id="AnyTime" value="on" type="radio" onclick="" class="checkbox" checked/>不指定</label>
+                                <label><input name="ArrivalTime" id="Moring" value="on" type="radio" onclick=""  class="checkbox"/>早上(9:00-12:00)</label>
+                                <label><input name="ArrivalTime" id="Afternoon" value="on" type="radio" onclick=""  class="checkbox"/>中午(12:00-17:00)</label>
+                                <label><input name="ArrivalTime" id="Night" type="radio" onclick=""  class="checkbox"/>晚上(17:00-20:00)</label>
+                               </div>
+                           </div>
+                           <div class="RedText ReceivingTimeRedText">
+                               <p>※</p><p style="width: 740px;">實際配送依出貨廠商配合之物流，若遇寄送方式為郵局則無法指定配送時段，謝謝！</p>
+                           </div>          
+                       </div> 
+                  </div>
+                  <div class="Remark">
+                      <div class="ContentLeft">
+                          <div class="Remark_Left_Tit"><span class="Required"></span>配送備註</div>
+                      </div>
+                      <div class="ContentRight">
+                          <div class="Remark_Right_Content PurchaserContent">
+                                <div  class="RemarkInput">    
+                                <label><input type="checkbox" name="addDelivRecords" id="addDelivRecords"value="on" class="checkbox"/>本次資料加入收件人紀錄</label><br/>
+                                <label>
+                                    <textarea name="note" id="txtTest" tabindex="21" onkeyup="changeText(this);" rows="2" cols="20"></textarea>
+                                    <span>尚可輸入: <span id="txtCount">30</span> 個字</span>
+                                    @*<input type="text" placeholder="尚可輸入30個字" name="note" value="" class="input_lg" />*@
+                                </label>
+                                        <input type="hidden" id="delivRecords" name="delivRecords" value="" />
+                                </div>
+                               <p>首次填寫將自動存入會員基本資料並可至會員中心維護</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="CreditCardPayment">
+            <div class="CreditCardPaymentTit ColorBarTit">
+                <div class="icon"></div>
+                <p>信用卡付款</p>
+            </div>
+            <div class="ShoppingCreditCardContent">
+                  <div class="ContentLeft">
+                       <div class="CreditCardNumber_Left_Tit"><span class="Required">*</span>信用卡卡號</div>
+                       <div class="ValidityPeriod_Left_Tit"><span class="Required">*</span>有效期限</div>
+                       <div class="EndThreeNumber_Left_Tit"><span class="Required">*</span>信用卡末三碼</div>
+                  </div>  
+
+                  <div class="ContentRight">
+                      <div class="ContentSpacing">
+                           <div class="DataRetention">
+                               <div>
+                                   <label><input value="on" type="checkbox" onclick=""  class="checkbox"/>信用卡資料存留</label>
+                               </div>
+                               <p class="RedText">※考量消費者於刷卡購物過程提升您購買的效率，新蛋將存留您的信用卡號資料，會全力保護您的信用卡卡號資料，為確保您信用卡卡號資料的機密性，新蛋確保不會將其卡號流於第三者，消費者即可放心使用。</p>
+                               <div class="clear"></div>
+                           </div>
+                           <div class="CreditCardNumber_Right_Content PurchaserContent">
+                                <div>
+                                <label><input type="text" maxlength="4" id="cd01" name="cd01" tabindex="22" onkeyup="checkno('cd01', 0);" numberrule="true" autocomplete="Off" value="" class="input_sm"></label>─
+                                <label><input type="text" maxlength="4" id="cd02" name="cd02" tabindex="23" onkeyup="checkno('cd02', 0);" numberrule="true" autocomplete="Off" value="" class="input_sm"></label>─
+                                <label><input type="text" maxlength="4" id="cd03" name="cd03" tabindex="24" onkeyup="checkno('cd03', 0);" numberrule="true" autocomplete="Off" value="" class="input_sm"></label>─
+                                <label><input type="text" maxlength="4" id="cd04" name="cd04" tabindex="25" onkeyup="checkno('cd04', 0);" numberrule="true" autocomplete="Off" value="" class="input_sm"></label>
+                                    <input type="hidden" name="salesorder_cardno" id="salesorder_cardno" value=""/>
+                                </div>
+                           </div>
+                           <div class="ValidityPeriod_Right_Content PurchaserContent">
+                                <div>
+                                     <select name="expire_month" id="expire_month" tabindex="26" class="select_sm">
+　                                      <option value="1" selected>1月</option>
+                                        <option value="2">2月</option>
+                                        <option value="3">3月</option>
+                                        <option value="4">4月</option>
+                                        <option value="5">5月</option>
+                                        <option value="6">6月</option>
+                                        <option value="7">7月</option>
+                                        <option value="8">8月</option>
+                                        <option value="9">9月</option>
+                                        <option value="10">10月</option>
+                                        <option value="11">11月</option>
+                                        <option value="12">12月</option>
+                                     </select>
+                                <select name="expire_year" id="expire_year" tabindex="27" class="select_sm"></select>
+                                <input type="hidden" id="salesorder_cardexpire" name="salesorder_cardexpire" />
+                                </div>
+                           </div>
+                           <div class="EndThreeNumber_Right_Content PurchaserContent">
+                                <div>
+                                <label><input type="text" placeholder="" name="auth_code_3" id="auth_code_3" tabindex="28" value="" numberrule="true" autocomplete="Off" maxlength="3" class="input_sm"></label>
+                                </div>
+                                <span class="ExplainIMG">
+                                    <img src="/Themes/img/Icon/ExplainIMG.png">
+                                </span>
+                                <p class="RedText">※提醒您，如有冒用他人信用卡或其他個人資料而為交易者，經查獲必移送法辦。</p>
+                           </div>
+                       </div>
+                  </div>
+                  <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="InvoiceInformation">
+            <div class="InvoiceInformationTit ColorBarTit">
+                <div class="icon"></div>
+                <p>發票資訊</p>
+            </div>
+            <div class="ShoppingProcessSecondTit">從常用統編挑選 〉</div>
+            <div class="ShoppingInvoiceContent">
+                        <div class="ContentLeft">
+                            <div class="Invoice_Left_Tit">
+                                <span class="Required">*</span>發票接收狀態
+                            </div>
+                        </div>
+                        <div class="ContentRight">
+                            <div class="Invoice_Right_Content">
+                                 <ul class="ElectronicInvoiceFirst">
+                                     <li>
+                                         <label><input type="radio" name="invore3_2" id="invore2" value="" class="radio" checked>開立電子發票</label>
+                                     <span class="RedText">依據「消費通路開立電子發票試辦作業要點」開立電子發票。</span>
+                            </li>
+                                 </ul>
+                                 <ul class="ElectronicInvoiceSecond">
+                                     <li>
+                                         <label><input type="radio" name="invoreElec" id="invoreElec1" value="" class="radio" checked>新蛋會員載具</label>
+                                         <span class="RedText">新蛋自動為您兌獎，中獎後主動通知您，可在「我的訂單>發票查詢」中查詢。</span>
+                                     </li>
+                                     <li>
+                                         <label><input type="radio" name="invoreElec" id="invoreElec2" value="" class="radio">手機載具</label>
+                                         <label><input type="text" name="invoreElecCell" id="invoreElecCell"  placeholder="手機條碼限大寫英數字" value="" class="input_md input_Spacing"/></label>
+                                         <span class="ExplainIMG">
+                                             <img src="/Themes/img/Icon/ExplainIMG.png">
+                                             <img src="/Themes/img/ShoppingProcess/MobileBarcodeIMG.jpg" class="MobileBarcodeIMG">
+                                         </span>
+                                     </li>
+                                     <li>
+                                         <label><input type="radio" name="invoreElec" id="invoreElec3" value="" class="radio">自然人憑證</label>
+                                         <label><input type="text" name="invoreElecNatu" id="invoreElecNatu"  placeholder="限英數字" value="" class="input_md"/></label>
+                                         <span class="ExplainIMG">
+                                             <img src="/Themes/img/Icon/ExplainIMG.png">
+                                             <img src="/Themes/img/ShoppingProcess/NaturalCredentialsIMG.jpg" class="NaturalCredentialsIMG">
+                                         </span>
+                                     </li>
+                                     <li class="RemindRedTxt">
+                                            <span class="RedText">*</span>
+                                            <p class="RedText">本人同意欲辦理退款/退貨時，由新蛋全球生活網代為處理發票及銷貨退回證明單，以加速退貨/退款作業。</p>
+                                     </li>
+                                 </ul>
+                            </div>
+                            <div class="Invoice_Right_Content">
+                                 <ul class="ElectronicInvoiceFirst">
+                                     <li>
+                                         <label><input type="radio" name="invore3_2" id="invoreDon" value="" class="radio">捐贈發票</label>
+                                     </li>
+                                 </ul>
+                                 <ul class="ElectronicInvoiceSecond">
+                                     <li class="HopeFoundation">
+                                         <label><input type="radio" name="invoreDonate" id="invoreDonate1" value="" class="radio">勵馨基金會</label>
+                                         <span class="SmallText">勵馨基金會幫助受暴者與她/他們的孩子都能遠離任何欺壓害怕驚嚇，恢復上帝賦予生命應有的榮美；期許台灣到亞洲的女性，終生被善待。</span>
+                                         <div class="clear"></div>
+                                     </li>
+                                     <li>
+                                         <label><input type="radio" name="invoreDonate" id="invoreDonate2" value="" class="radio">其他社福基金會</label>
+                                         <label><input type="text" name="OtherFoundation"  placeholder="限數字" value="" class="input_md input_Spacing"/></label>
+                                     </li>
+                                 </ul>
+                            </div>
+
+                            <div class="Invoice_Right_Content">
+                                 <ul class="ElectronicInvoiceFirst">
+                                     <li>
+                                         <label><input type="radio" name="invore3_2" id="invore3" value="" class="radio">開立紙本發票</label>
+                                         <label><input type="text" name="salesorder_invotitle" id="salesorder_invotitle"  placeholder="請輸入公司名稱" maxlength="50" value="" class="input_md input_Spacing"/></label>
+                                         <label><input type="text" name="salesorder_invoid" id="salesorder_invoid"  placeholder="請輸入統一編號" maxlength="8" value="" class="input_md"/></label>
+                                     </li>
+                                     <li>
+                                         <div class="VAT_Number">
+                                             <label><input type="checkbox" name="addInvoRecords" id="addInvoRecords" onclick="" class="checkbox">本次資料加入統編紀錄本</label>
+                                         </div>
+                                     </li>
+                                 </ul>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+            </div>
+        </div>
+
+        @*規範*@
+        <div class="Specification">
+	        <label><input type="checkbox" name="" id="" value="on" class="checkbox">國內部分商品以及海外貨源掌握不易和各國進出口法令限制問題，台灣新蛋保留取消訂單的權益。</label>
+            <div class="RedText">
+                <p>(在按下打勾之前，請先詳閱<a href="" class="ForeignDirectPurchase">海外直購</a>規範。若已了解並同意以上的規定，打勾後則可點擊『訂單確認送出』，進行下一步購物流程。)&nbsp;&nbsp;&nbsp;*如有冒用他人信用卡或其他個人資料而為刷卡交易者，經查獲必移送法辦。</p>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="BottomButton">
+            <a href="#"><label><input id="backStep1Btn" name="" type="button" value="〈&nbsp;上一步" class="PreviousBtn Btn"></label></a>
+            <a id="step2submitBtn" href="javascript:;"><label><input name="" type="button" value="下一步&nbsp;〉" class="CheckoutBtn Btn"></label></a>
+        </div>
+        <input type="hidden" name="step1Data" value="@Model" />
+    </form>
+
+    <div class="LightBoxUnderLay">
+        @*訂購人資訊視窗*@ 
+        <div class="LightBoxMsg Stlye-3 PurchaserDialog">
+            <div class="AddPurchaser">
+                <a href="#">新增訂購人</a>
+            </div>
+            <div class="PurchaserTable">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th colspan="7"></th>
+                        </tr>
+                        <tr class="BgColor BorderLine">
+                            <th class="TitBolder">預設</th>
+                            <th class="TitBolder">姓名</th>
+                            <th colspan="2" class="TitBolder">地址</th>
+                            <th class="TitBolder">市話</th>
+                            <th class="TitBolder">手機</th>
+                            <th class="TitBolder">功能</th>
+                        </tr>
+                        <tr class="BorderLine">
+                            <th class="">
+                                <label><input type="checkbox" name="" value="" class="checkbox"></label>
+                            </th>                     
+                            <th class="">
+                                <span class="Name">王心蛋</span>
+                            </th>
+                            <th colspan="2" class="">台北市中山區民權東路二段158號6樓之一</th>
+                            <th class=""></th>
+                            <th class="">0919123456</th>
+                            <th class="">
+                                <span class="Editor">
+                                    <a href="#">編輯</a>
+                                </span>
+                                <span class="Delete">
+                                    <a href="#"><img src="/Themes/img/Icon/DeleteImg.png"></a>
+                                </span>
+                            </th>
+                        </tr>
+                        <tr class="BorderLine PurchaserInput">
+                            <th rowspan="2">
+                               <label><input type="checkbox" name="" value="" class="checkbox"></label>
+                            </th>
+                            <th>
+                               <select class="select_sm" style="width:150px;">
+                                  <option value="">請選擇稱謂</option>
+　                                <option value="">1</option>
+　                                <option value="">2</option>
+　                                <option value="">3</option>
+                               </select>
+                            </th>
+                            <th colspan="1">
+                               <select class="select_sm" style="width:110px;">
+                                  <option value="">請選擇縣市</option>
+　                                <option value="">1</option>
+　                                <option value="">2</option>
+　                                <option value="">3</option>
+                               </select>
+                               <select class="select_md" style="width:175px;">
+                                  <option value="">請選擇鄉、鎮、行政區</option>
+　                                <option value="">1</option>
+　                                <option value="">2</option>
+　                                <option value="">3</option>
+                               </select>
+                            </th>
+                             <th colspan="2">
+                                 <label><input type="text" name="" placeholder="" value="" class="input_xs input_Spacing" style="width:25px;"></label>─
+                                 <label><input type="text" name="" placeholder="" value="" class="input_xs input_Spacing" style="width:70px;"></label>
+                             </th>
+                             <th>
+                                 <label><input type="text" name="" placeholder="" value="" class="input_sm input_Spacing"></label>
+                             </th>
+                             <th>
+                                 <span class="Stockpile">
+                                    <a href="#">儲存</a>
+                                 </span>
+                             </th>
+                        </tr>
+                        <tr class="PurchaserInput">
+                             <th>
+                                 <label><input type="text" name="" placeholder="姓氏" value="" class="input_xs input_Spacing"></label>
+                                 <label><input type="text" name="" placeholder="名字" value="" class="input_xs input_Spacing"></label>
+                             </th>
+                             <th colspan="2">
+                                 <label><input type="text" name="" placeholder="限台灣本島 , 且不接受郵政信箱" value="" class="input_md input_Spacing" style="width:280px;"></label>
+                             </th>
+                             <th colspan="1">
+                                 <label><input type="text" name="" placeholder="分機#" value="" class="input_xs input_Spacing" style="width:140px;"></label> 
+                             </th>
+                             <th>&nbsp;</th>
+                             <th>
+                                 <span class="Cancel">
+                                   <a href="#">取消</a>
+                                 </span>
+                             </th>
+                        </tr>           
+                    </tbody>
+                </table> 
+                <div class="clear"></div>
+            </div>
+            <div class="DialogBtn">
+                <label><input name="" type="button" value="確認" class="DialogConfirmBtn Btn"></label>
+                <label><input name="" type="button" value="取消" class="DialogCancelBtn Btn"></label>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        @*收件人資訊視窗*@
+        <div class="LightBoxMsg Stlye-3 RecipientDialog">
+            <div class="AddRecipient">
+                <a href="#">新增收件人</a>
+            </div>
+            <div class="RecipientTable">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th colspan="7"></th>
+                        </tr>
+                        <tr class="BgColor BorderLine">
+                            <th class="TitBolder">預設</th>
+                            <th class="TitBolder">姓名</th>
+                            <th colspan="2" class="TitBolder">地址</th>
+                            <th class="TitBolder">市話</th>
+                            <th class="TitBolder">手機</th>
+                            <th class="TitBolder">功能</th>
+                        </tr>
+                        <tr class="BorderLine">
+                            <th class="">
+                                <label><input type="checkbox" name="" value="" class="checkbox"></label>
+                            </th>                     
+                            <th class="">
+                                <span class="Name">王心蛋</span>
+                            </th>
+                            <th colspan="2" class="">台北市中山區民權東路二段158號6樓之一</th>
+                            <th class=""></th>
+                            <th class="">0919123456</th>
+                            <th class="">
+                                <span class="Editor">
+                                    <a href="#">編輯</a>
+                                </span>
+                                <span class="Delete">
+                                    <a href="#"><img src="/Themes/img/Icon/DeleteImg.png"></a>
+                                </span>
+                            </th>
+                        </tr>
+                        <tr class="BorderLine RecipientInput">
+                            <th rowspan="2">
+                               <label><input type="checkbox" name="" value="" class="checkbox"></label>
+                            </th>
+                            <th>
+                               <select class="select_sm" style="width:150px;">
+                                  <option value="">請選擇稱謂</option>
+　                                <option value="">1</option>
+　                                <option value="">2</option>
+　                                <option value="">3</option>
+                               </select>
+                            </th>
+                            <th colspan="1">
+                               <select class="select_sm" style="width:110px;">
+                                  <option value="">請選擇縣市</option>
+　                                <option value="">1</option>
+　                                <option value="">2</option>
+　                                <option value="">3</option>
+                               </select>
+                               <select class="select_md" style="width:175px;">
+                                  <option value="">請選擇鄉、鎮、行政區</option>
+　                                <option value="">1</option>
+　                                <option value="">2</option>
+　                                <option value="">3</option>
+                               </select>
+                            </th>
+                             <th colspan="2">
+                                 <label><input type="text" name="" placeholder="" value="" class="input_xs input_Spacing" style="width:25px;"></label>─
+                                 <label><input type="text" name="" placeholder="" value="" class="input_xs input_Spacing" style="width:70px;"></label>
+                             </th>
+                             <th>
+                                 <label><input type="text" name="" placeholder="" value="" class="input_sm input_Spacing"></label>
+                             </th>
+                             <th>
+                                 <span class="Stockpile">
+                                    <a href="#">儲存</a>
+                                 </span>
+                             </th>
+                        </tr>
+                        <tr class="RecipientInput">
+                             <th>
+                                 <label><input type="text" name="" placeholder="姓氏" value="" class="input_xs input_Spacing"></label>
+                                 <label><input type="text" name="" placeholder="名字" value="" class="input_xs input_Spacing"></label>
+                             </th>
+                             <th colspan="2">
+                                 <label><input type="text" name="" placeholder="限台灣本島 , 且不接受郵政信箱" value="" class="input_md input_Spacing" style="width:280px;"></label>
+                             </th>
+                             <th colspan="1">
+                                 <label><input type="text" name="" placeholder="分機#" value="" class="input_xs input_Spacing" style="width:140px;"></label> 
+                             </th>
+                             <th>&nbsp;</th>
+                             <th>
+                                 <span class="Cancel">
+                                   <a href="#">取消</a>
+                                 </span>
+                             </th>
+                        </tr>           
+                    </tbody>
+                </table> 
+                <div class="clear"></div>
+            </div>
+            <div class="DialogBtn">
+                <label><input name="" type="button" value="確認" class="DialogConfirmBtn Btn"></label>
+                <label><input name="" type="button" value="取消" class="DialogCancelBtn Btn"></label>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        @*OTP簡訊認證視窗*@
+        <div class="LightBoxMsg Stlye-3 CertificationDialog">
+            <p>您好 , 因您購物車已滿一萬元以上(包含一萬) , 所以需在此進行OTP認證 , 為了讓您在購物過程中更安全放心 , 麻煩接著進行以下的步驟流程 , 謝謝 !</p>
+            <div class="NewsletterCertification">
+                <div class="NewsletterCertificationTit">
+                    <div class="icon"></div>
+                    <span>簡訊認證</span>
+                </div>
+                <div class="NewsletterCertificationContent">
+                    <div class="ContentLeft">
+                        <div class="Certification_Left_Tit">
+                            <span class="Required">*</span>請輸入簡訊認證碼
+                        </div>
+                    </div>
+                    <div class="ContentRight">
+                        <div class="Certification_Right_Content">
+                            <div class="SMS">
+                                <img src="/Themes/img/ShoppingProcess/SMS.png">
+                            </div>
+                            <div class="CertificationInput">
+                                <label><input type="text" placeholder="請輸入簡訊認證碼" name="" value="" class="input_radius_md"></label>
+                                <label><input name="" type="button" value="確認" class="ConfirmBtn Btn_radius"/></label>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="CertificationReminder">
+                                <div class="Resend">
+                                    ！提醒您，簡訊認證碼有效時間10：32截止。若超過此時間內尚未完成認證碼，則該認證碼即失效。一分鐘內尚未收到簡訊請按
+                                    <a href="#">重新發送</a>
+                                </div>
+                                <div class="CustomerService">
+                                    注意事項 : 若無法順利完成手機認證請點此處。有任何問題 , 歡迎與<a href="#">客服中心</a>聯絡。 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div> 
+                <div class="clear"></div>
+            </div>
+            <div class="DialogBtn">
+                <label><input name="" type="button" value="確認" class="DialogConfirmBtn Btn"></label>
+                <label><input name="" type="button" value="取消" class="DialogCancelBtn Btn"></label>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        @*超商資訊視窗*@
+        <div class="LightBoxMsg Stlye-3 StoreReceivingDialog">
+            <div class="AddStore">
+                <a href="#">新增超商</a>
+            </div>
+            <div class="StoreReceivingTable">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th colspan="7"></th>
+                        </tr>
+                        <tr class="BgColor BorderLine">
+                            <th class="TitBolder">預設</th>
+                            <th class="TitBolder">超商名稱</th>
+                            <th colspan="3" class="TitBolder">門市地址</th>
+                            <th class="TitBolder">門市</th>
+                            <th class="TitBolder">功能</th>
+                        </tr>
+                        <tr class="BorderLine">
+                            <th class="">
+                                <label><input type="checkbox" name="" value="" class="checkbox"></label>
+                            </th>                     
+                            <th class="">
+                                <span class="SmallHiLifeImg">
+                                    <img src="/Themes/img/ShoppingProcess/HiLifeIMG.jpg">
+                                </span>
+                                <span class="HiLifeText">萊爾富超商</span>
+                            </th>
+                            <th colspan="3" class="">新北市中正東路二段421號</th>
+                            <th class="">中正門市</th>
+                            <th class="">
+                                <span class="Editor">
+                                    <a href="#">編輯</a>
+                                </span>
+                                <span class="Delete">
+                                    <a href="#"><img src="/Themes/img/Icon/DeleteImg.png"></a>
+                                </span>
+                            </th>
+                        </tr>
+                        <tr class="BorderLine">
+                            <th class="">
+                                <label><input type="checkbox" name="" value="" class="checkbox"></label>
+                            </th>                   
+                            <th class="">
+                                <select class="select_sm">
+                                    <option value="">超商名稱</option>
+　                                  <option value="">1</option>
+　                                  <option value="">2</option>
+　                                  <option value="">3</option>
+                                </select>
+                            </th>
+                            <th class="">
+                                <select class="select_sm">
+                                    <option value="">選擇縣市</option>
+　                                  <option value="">1</option>
+　                                  <option value="">2</option>
+　                                  <option value="">3</option>
+                                </select>
+                            </th>
+                            <th class="">
+                                <select class="select_md">
+                                    <option value="">請選擇鄉、鎮、行政區</option>
+　                                  <option value="">1</option>
+　                                  <option value="">2</option>
+　                                  <option value="">3</option>
+                                </select>
+                            </th>
+                            <th class="">
+                                <select class="select_sm">
+                                    <option value="">請選擇路名</option>
+　                                  <option value="">1</option>
+　                                  <option value="">2</option>
+　                                  <option value="">3</option>
+                                </select>
+                            </th>
+                            <th class="">
+                                <select class="select_sm">
+                                    <option value="">門市名稱</option>
+　                                  <option value="">1</option>
+　                                  <option value="">2</option>
+　                                  <option value="">3</option>
+                                </select>
+                            </th>
+                            <th class="">
+                                <span class="Stockpile">
+                                    <a href="#">儲存</a>
+                                </span>
+                            </th>
+                        </tr> 
+                        <tr class="StoreInput">
+                            <th colspan="6"></th>              
+                            <th>
+                              <span class="Cancel">
+                                 <a href="#">取消</a>
+                              </span>
+                            </th>
+                        </tr>              
+                    </tbody>
+                </table> 
+                <div class="clear"></div>
+            </div>
+            <div class="DialogBtn">
+                <label><input name="" type="button" value="確認" class="DialogConfirmBtn Btn"></label>
+                <label><input name="" type="button" value="取消" class="DialogCancelBtn Btn"></label>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        @*發票資訊視窗*@
+        <div class="LightBoxMsg Stlye-3 InvoiceDialog">
+           <div class="AddInvoice">
+              <a href="#">新增統編</a>
+           </div>
+           <div class="InvoiceTable">
+              <table class="table">
+                 <tbody>
+                    <tr>
+                       <th colspan="7"></th>
+                    </tr>
+                    <tr class="BgColor BorderLine">
+                       <th class="TitBolder">預設</th>
+                       <th class="TitBolder">統一編號</th>
+                       <th colspan="2" class="TitBolder">發票抬頭</th>
+                       <th colspan="2" class="TitBolder">發票寄送地址</th>
+                       <th class="TitBolder">功能</th>
+                    </tr>
+                    <tr class="BorderLine InvoiceInput">
+                       <th>
+                          <label><input type="checkbox" name="" value="" class="checkbox"></label>
+                       </th>                     
+                       <th>12345678</th>
+                       <th colspan="2" class="">新蛋股份有限公司</th>
+                       <th colspan="2">台北市松山區民生東路三段113號58</th>            
+                       <th>
+                          <span class="Stockpile">
+                             <a href="#">儲存</a>
+                          </span>
+                       </th>
+                    </tr>
+                    <tr class="InvoiceInput">
+                       <th colspan="6"></th>              
+                       <th>
+                          <span class="Cancel">
+                             <a href="#">取消</a>
+                          </span>
+                       </th>
+                    </tr>
+                    <tr class="BorderLine InvoiceInput">
+                       <th rowspan="2">
+                          <label><input type="checkbox" name="" value="" class="checkbox"></label>
+                       </th>
+                       <th>
+                          <input type="text" name="" placeholder="" value="" class="input_sm input_Spacing">
+                       </th>
+                       <th colspan="2">
+                          <input type="text" name="" placeholder="" value="" class="input_md input_Spacing">             
+                       </th>
+                       <th colspan="2">
+                          <select class="select_sm" style="width:110px;">
+                             <option value="">請選擇縣市</option>
+　                           <option value="">1</option>
+　                           <option value="">2</option>
+　                           <option value="">3</option>
+                          </select>
+                          <select class="select_md" style="width:175px;">
+                             <option value="">請選擇鄉、鎮、行政區</option>
+　                           <option value="">1</option>
+　                           <option value="">2</option>
+　                           <option value="">3</option>
+                          </select>
+                       </th>              
+                       <th>
+                          <span class="Stockpile">
+                             <a href="#">儲存</a>
+                          </span>
+                       </th>
+                    </tr>
+                    <tr class="InvoiceInput">
+                       <th colspan="3"></th>
+                       <th colspan="2">
+                          <label><input type="text" name="" placeholder="限台灣本島 , 且不接受郵政信箱" value="" class="input_md input_Spacing" style="width: 280px;"></label> 
+                       </th>              
+                       <th>
+                          <span class="Cancel">
+                             <a href="#">取消</a>
+                          </span>
+                       </th>
+                    </tr>           
+                 </tbody>
+              </table> 
+              <div class="clear"></div>
+           </div>
+           <div class="DialogBtn">
+              <label><input name="" type="button" value="確認" class="DialogConfirmBtn Btn"></label>
+              <label><input name="" type="button" value="取消" class="DialogCancelBtn Btn"></label>
+              <div class="clear"></div>
+           </div>
+        </div>
+
+        @*提醒視窗*@
+        <div class="LightBoxMsg Stlye-3 RemindDialog">
+           <div id="RemindTxt" class="Remindtxt">
+              <span></span>
+           </div>
+           <div id="RemindBtn" class="DialogBtn">
+              <label><input name="" type="button" value="確認" class="DialogConfirmBtn Btn"></label>
+           </div>
+       </div>
+    </div>
+</div>
+    <!--<script type="text/javascript" src="~/Scripts/TWEC/hiLifeStoreRoute.js"></script>-->
+
+    
+<script type="text/javascript">
+    $("#test111").on("click", function () {
+        //$(".LightBoxUnderLay").fadeIn();
+        //$(".LightBoxMsg.CertificationDialog").fadeIn();
+        //LightBoxCenter(".LightBoxMsg.CertificationDialog");
+    });
+
+    function toResultPage(id) {
+        $.ajax({
+            type: "POST",
+            url: "/cart/Step3PartialView",
+            data: {SalesOrderGroupID:id},
+            success: function (res) {
+                $(".mainPadding").html(res);
+            }
+        });
+    }
+    $(document).ready(function () {
+        $(".pageTop").click();
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+        @*回上一步*@
+        $("#backStep1Btn").click(function () {
+            window.location.href = "/cart";
+        });
+        @*關閉訊息*@
+        $(".DialogConfirmBtn").click(function () {
+            $(".LightBoxUnderLay").hide();
+            $(".LightBoxMsg").hide();
+        });
+        @*開啟訊息*@
+        function Remind(msg) {
+            $("#RemindTxt").find('span').html(msg);
+            LightBoxCenter(".LightBoxMsg.Stlye-3.RemindDialog");
+            $(".LightBoxUnderLay").show();
+            $(".RemindDialog").show();
+        };
+        @*縣市修改*@
+        $("#salesorder_cardloc").change(function ()
+        {
+            var str = $("#salesorder_cardloc").val();
+            var str2 = "cardCity";
+            var str3 = "salesorder_cardzip";
+            $("#salesorder_cardloc").val(str);
+
+            if (str == "") {
+                $("#cardCity").find("optgroup").remove();
+                $("#cardCity").find("option").remove();
+                $("#cardCity").append('<option value = "" selected="selected">請選擇鄉、鎮、行政區</option>');
+                $("#salesorder_cardzip").val("");
+            }
+            else {
+                CityChoose(str, str2, str3, 1);
+            }
+            if (str == "連江縣" || str == "澎湖縣" || str == "金門縣") {
+                Islands();
+            } else {
+                document.getElementById("CombineSalesOrderRule").innerHTML = "";
+            }
+        });
+        $("#salesorder_delivloc").change(function () {
+            var str = $("#salesorder_delivloc").val();
+            var str2 = "delivCity";
+            var str3 = "salesorder_delivzip";
+            $("#salesorder_delivloc").val(str);
+
+            if (str == "") {
+                $("#delivCity").find("optgroup").remove();
+                $("#delivCity").find("option").remove();
+                $("#delivCity").append('<option value = "" selected="selected">請選擇鄉、鎮、行政區</option>');
+                $("#salesorder_delivzip").val("");
+            }
+            else {
+                CityChoose(str, str2, str3, 0); // recv
+            }
+        });
+        
+        @*加入收件人紀錄本是否預先勾選*@
+        var AddrFlag = parseInt("@AddressbookFlag");
+        if (AddrFlag == 1) {
+            $("#addDelivRecords").attr("checked", "checked");
+            $("#delivRecords").val(true);
+        }
+        @*當使用上一頁回到此頁時，動態將鄉鎮市區資料秀出並將該值回填*@
+        var cardCityReWrite = $("#cardCityTemp").val();
+        var delivCityReWrite = $("#delivCityTemp").val();
+
+        $("#step2submitBtn").click(function (event) {
+            $(".LightBoxUnderLay").show();
+            var teldayzip = $("#teldayzip").val(); @*訂購者市話區碼*@
+            var teldaynumber = $("#teldaynumber").val(); @*訂購者市話號碼*@
+            var teldayext = $("#teldayext").val(); @*訂購者市話分機*@
+            var telday = $("#salesorder_telday").val(); @*訂購者市話*@
+
+            var recvteldayzip = $("#recvteldayzip").val(); @*收件者市話區碼*@
+            var recvteldaynumber = $("#recvteldaynumber").val();@*收件者市話號碼*@
+            var recvteldayext = $("#recvteldayext").val(); @*收件者市話分機*@
+            var recvtelday = $("#salesorder_recvtelday").val(); @*收件者市話*@
+            var teldaycombine = "";
+            var recvteldaycombine = "";
+            if (teldayext != "" && teldayext != null) {
+                teldaycombine = "(" + teldayzip + ")" + teldaynumber + "#" + teldayext;
+            }
+            else { teldaycombine = "(" + teldayzip + ")" + teldaynumber; }
+            if (recvteldayext != "" && recvteldayext != null) {
+                recvteldaycombine = "(" + recvteldayzip + ")" + recvteldaynumber + "#" + recvteldayext;
+            }
+            else { recvteldaycombine = "(" + recvteldayzip + ")" + recvteldaynumber; }
+            if (teldaynumber.length > 0) { @*可不填*@
+                $("#salesorder_telday").val(teldaycombine); @*訂購者市話*@
+            }
+            else {
+                $("#salesorder_telday").val(""); @*訂購者市話*@
+            }
+            if (recvteldaynumber.length > 0) { @*可不填*@
+                $("#salesorder_recvtelday").val(recvteldaycombine); @*收件者市話*@
+            }
+            else {
+                $("#salesorder_recvtelday").val(""); @*收件者市話*@
+            }
+
+            // 訂購人姓名
+            var salesordername = $("#member_lastname").val() + $("#member_firstname").val(); // 訂購人姓名
+            $("#salesorder_name").val(salesordername);
+            var salesorderrecvname = $("#member_recvlastname").val() + $("#member_recvfirstname").val(); @*收件人姓名*@
+            $("#salesorder_recvname").val(salesorderrecvname);
+            if (salesordername.search(/^[^\x00-\xff]{0,20}$/gi) < 0 || salesordername == "" || $("#member_lastname").val() == "" || $("#member_firstname").val() == "") {
+                Remind("請輸入中文訂購人姓名");
+                return false;
+            }
+            if (salesorderrecvname.search(/^[^\x00-\xff]{0,20}$/gi) < 0 || salesorderrecvname == "" || $("#member_recvlastname").val() == "" || $("#member_recvfirstname").val() == "") {
+                Remind("請輸入收件人中文姓名");
+                return false;
+            }
+            // 訂購人手機
+            if ($("#salesorder_mobile").val().search(/09[0-9]{8}$/) < 0) {
+                Remind("請輸入完整手機號碼");
+                return false;
+            }
+            if ($("#salesorder_recvmobile").val().search(/09[0-9]{8}$/) < 0) {
+                Remind("請輸入完整收件人手機號碼");
+                return false;
+            }
+            // 訂購人地址
+            var salesordercardaddr = $("#cardaddr").val();
+            var salesordercardloc = $("#salesorder_cardloc").val();
+            var cardCity = $("#cardCity").val();
+            $("#cardCityTemp").val(cardCity);
+            var salesorderdelivaddr = $("#delivaddr").val();
+            var salesorderdelivloc = $("#salesorder_delivloc").val();
+            var delivCity = $("#delivCity").val();
+            $("#delivCityTemp").val(delivCity);
+            if (salesordercardaddr == "" || salesordercardloc == "" || cardCity == "") {
+                Remind("請輸入完整訂購人地址");
+                return false;
+            }
+            else {
+                salesordercardaddr = $("#cardCity").val().toString().split(' ')[1].trim() + $("#cardaddr").val();
+                $("#salesorder_cardaddr").val(salesordercardaddr);
+            }
+            if (salesorderdelivaddr == "" || salesorderdelivloc == "" || delivCity == "") {
+                Remind("請輸入完整收件人地址");
+                return false;
+            }
+            else {
+                salesorderdelivaddr = $("#delivCity").val().toString().split(' ')[1].trim() + $("#delivaddr").val();
+                $("#salesorder_delivzip").val($("#delivCity").val().toString().split(' ')[0].trim());
+                $("#salesorder_delivaddr").val(salesorderdelivaddr);
+            }
+            //卡號
+            var cd01 = $('input[name="cd01"]').val();
+            var cd02 = $('input[name="cd02"]').val();
+            var cd03 = $('input[name="cd03"]').val();
+            var cd04 = $('input[name="cd04"]').val();
+            var cardid = cd01 + cd02 + cd03 + cd04;
+            $("#salesorder_cardno").attr("value", cardid);
+            if (!(checkno("cd01", 1) && checkno("cd02", 1) && checkno("cd03", 1) && checkno("cd04", 1)))
+            { document.getElementById("cardcheck").innerHTML = "*每欄需輸入4碼"; }
+            if (cardid.length == 16 && cardid.search(/[0-9]{16}$/) >= 0) {
+                $("#salesorder_cardno").attr("value", cardid);
+            }
+            else {
+                Remind("請輸入完整信用卡卡號");
+                return false;
+            }
+            // 信用卡期限
+            if ($("#expire_year").val() == 0 || $("#expire_month").val() == 0) {
+                Remind("請選擇信用卡有效期限"); return false;
+            }
+            $("#expireYearTemp").val($("#expire_year").val()); // 暫存信用卡年份
+            var cardexpire_year = parseInt($("#expire_year").val());
+            var cardexpire_month = parseInt($("#expire_month").val());
+            var ThisYear = parseInt(@DateTime.Now.Year);
+            var ThisMonth = parseInt(@DateTime.Now.Month);
+            if (cardexpire_year > ThisYear) { }
+            else if (cardexpire_year == ThisYear) {
+                if (cardexpire_month >= ThisMonth) { }
+                else { Remind("信用卡有效期限逾期，請重新選擇"); return false; }
+            }
+            else { Remind("信用卡有效期限逾期，請重新選擇"); return false; }
+            
+            // 信用卡後3碼
+            var authcode3 = $("#auth_code_3").val();
+            if (authcode3.length < 3) {
+                Remind("請填入信用卡末三碼");
+                return false;
+            }
+            @*二、三聯式發票選擇*@
+            var invoidArray = [@invoidException];
+            if(invoidArray.length > 0 && $("#invore2:checked").length != 1)
+            {
+                for(var i = 0; i < invoidArray.length; i++)
+                {
+                    if($("#salesorder_invoid").val() == invoidArray[i])
+                    {
+                        Remind("此商品不開立三聯式發票，請聯絡客服人員");
+                        return false;
+                    }
+                }
+            }
+            var tbNum = new Array(1, 2, 1, 2, 1, 2, 4, 1);
+            var temp = 0;
+            var total = 0;
+            if ($("#invore3:checked").length == 1) {
+                $('[name="invore3_2"]').val("開立三聯式發票");
+                if ($("#salesorder_invotitle").val() == "" || $("#salesorder_invotitle").val() == "請輸入公司名稱") {
+                    Remind("請輸入公司名稱!!");
+                    return false;
+                }
+                if (!$("#salesorder_invoid").val().match(/^\d{8}$/) || $("#salesorder_invoid").val() == "請輸入統一編號") {
+                    Remind("營利事業統一編號長度不夠或格式有誤!請注意營利事業統一編號格式為八碼數字!");
+                    return false;
+                }
+                else {
+                    for (var i = 0; i < tbNum.length ; i++) {
+                        temp = $("#salesorder_invoid").val().charAt(i) * tbNum[i];
+                        total += Math.floor(temp / 10) + temp % 10;
+                    }
+                    if (parseInt($("#salesorder_invoid").val()) == 0) { Remind("營利事業統一編號錯誤!"); return false; }
+                    if (total % 10 == 0 || (total % 10 == 9 && $("#salesorder_invoid").val().charAt(6) == 7)) { }
+                    else { Remind("營利事業統一編號錯誤!"); return false; }
+                }
+                $('[name="invoiceCarType"]').val("Member");
+                $('[name="invoiceCarCell"]').val("");
+                $('[name="invoiceCarNatu"]').val("");
+                $('[name="invoiceDonCode"]').val("");
+            }
+            else if ($("#invore2:checked").length == 1) {
+                $('[name="invore3_2"]').val("開立二聯式發票");
+                $('[name="salesorder_invotitle"]').val("");
+                $('[name="salesorder_invoid"]').val("");
+
+                if($("#invoreElec1:checked").length == 1){
+                    $('[name="invoiceCarType"]').val("Member");
+                    $('[name="invoiceCarCell"]').val("");
+                    $('[name="invoiceCarNatu"]').val("");
+                }
+                if($("#invoreElec2:checked").length == 1){
+                    $('[name="invoiceCarType"]').val("Cell");
+                    $('[name="invoiceCarCell"]').val($("#invoreElecCell").val());
+                    $('[name="invoiceCarNatu"]').val("");
+                }
+                if($("#invoreElec3:checked").length == 1){
+                    $('[name="invoiceCarType"]').val("Natu");
+                    $('[name="invoiceCarCell"]').val("");
+                    $('[name="invoiceCarNatu"]').val($("#invoreElecNatu").val());
+                }
+
+                $('[name="invoiceDonCode"]').val("");
+            }
+            else if ($("#invoreDon:checked").length == 1) {
+                $('[name="invore3_2"]').val("捐贈二聯式發票");
+                $('[name="salesorder_invotitle"]').val("");
+                $('[name="salesorder_invoid"]').val("");
+
+                $('[name="invoiceCarType"]').val("Member");
+                $('[name="invoiceCarCell"]').val("");
+                $('[name="invoiceCarNatu"]').val("");
+
+                if($("#invoreDonate1:checked").length == 1){
+                    $('[name="invoiceDonCode"]').val("9118595");
+                }
+                if($("#invoreDonate2:checked").length == 1){
+                    if (!$("#invoreDonCode").val().match(/^\d{3,7}$/)) 
+                    { Remind("愛心碼錯誤!"); return false; }
+                    $('[name="invoiceDonCode"]').val($("#invoreDonCode").val());
+                }
+            }
+            else {
+                Remind("請選擇開立發票類型!!");
+                return false;
+            }
+
+            console.log("start to step3");
+            $.ajax({
+                type: "POST",
+                url: "/cart/step3",
+                contentType: "application/json",
+                data: JSON.stringify($("#Step2Form").serializeObject()),
+                success: function (res) {
+                    if (res.Status == 0) {
+                        toResultPage(res.Data);
+                    } else {
+                        Remind(res.Message);
+                    }
+                }
+            });
+        });
+        var expireYearReWrite = $("#expireYearTemp").val();
+        if ($("#salesorder_cardbank").val() != "822") {
+            var thisyear = parseInt(@(DateTime.UtcNow.AddHours(8).Year));
+            var years = 0;
+            $("#expire_year").find("option").remove();
+        $("#expire_year").append('<option value = "0">請選擇</option>');
+        for (var i = 0; i <= 10; i++) {
+            years = thisyear + i;
+            $("#expire_year").append('<option value = "' + years + '">' + years + '</option>');
+        }
+            // 由上一頁返回時，將有效年限重新寫入
+            if (expireYearReWrite != null && expireYearReWrite != "") {
+                $("#expire_year").val(expireYearReWrite);
+            }
+        }
+        
+        @*信用卡卡號*@
+        $("#cd01").blur(function () {
+            checkno("cd01", 1);
+        });
+        $("#cd02").blur(function () {
+            checkno("cd02", 1);
+        });
+        $("#cd03").blur(function () {
+            checkno("cd03", 1);
+        });
+        $("#cd04").blur(function () {
+            checkno("cd04", 1);
+        });
+        @*信用卡後3碼*@
+        $("#auth_code_3").blur(function () {
+            var str = $("#auth_code_3").val();
+            if (str.search(/[0-9]{3}$/) < 0) {
+                Remind("請輸入信用卡末三碼");
+            }
+        });
+        @*更新訂購人資訊*@
+        $("#updateToMember").bind("click", function () {
+            if ($("#updateToMember:checked").length == 1) {
+                $("#memberRecords").val(true);
+            }
+            else {
+                $("#memberRecords").val(false);
+            }
+        });
+        @*加入收件人紀錄本*@
+        $('input[name="addDelivRecords"]').bind("click", function () {
+            if ($("#addDelivRecords:checked").length == 1) {
+                $("#delivRecords").val(true);
+            }
+            else {
+                $("#delivRecords").val(false);
+            }
+        });
+        @*加入統編紀錄本*@
+        $('input[name="addInvoRecords"]').bind("click", function () {
+            if ($("#addInvoRecords:checked").length == 1) {
+                $("#invoRecords").val(true);
+            }
+            else {
+                $("#invoRecords").val(false);
+            }
+        });        
+        @*City修改時執行該動作*@
+        $("#cardCity").change(function () {
+            var str = $("#cardCity").val();
+            var str2 = str.toString().substring(0, 3);
+            var str3 = str.split(" ")[1];
+            var str4 = $("#salesorder_cardloc").val();
+            $("#salesorder_cardzip").val(str2);
+            if (str3 == "東沙群島" || str3 == "南沙群島" || str3 == "釣魚台" || str3 == "蘭嶼鄉" || str3 == "綠島鄉" || str3 == "琉球鄉"
+                || str4 == "澎湖縣" || str4 == "連江縣" || str4 == "金門縣") {
+                Islands();
+            } else {
+                document.getElementById("CombineSalesOrderRule").innerHTML = "";
+            }
+        });
+        $("#delivCity").change(function () {
+            var str = $("#delivCity").val();
+            var str2 = str.toString().substring(0, 3);
+            $("#salesorder_delivzip").val(str2);
+        });
+        
+        @*限定只能填入數字*@
+        $("input[numberrule='true']").keypress(function (e) {
+            if ((e.shiftKey && e.keyCode == 45) || e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+    });
+    @*鄉鎮市區*@
+    function CityChoose(str1, str2, str3, str4) { // str1 縣市，str2 該select的id(在哪個付款選擇中)，str3 郵遞區號, str4 是否啟用非離島陣列
+        var Address = new Array(22);
+        if (str4) {
+            Address = [
+                ["基隆市", "200 仁愛區", "201 信義區", "202 中正區", "203 中山區", "204 安樂區", "205 暖暖區", "206 七堵區"]
+                , ["台北市", "100 中正區", "103 大同區", "104 中山區", "105 松山區", "106 大安區", "108 萬華區", "110 信義區", "111 士林區", "112 北投區", "114 內湖區", "115 南港區", "116 文山區"]
+                , ["新北市", "207 萬里區", "208 金山區", "220 板橋區", "221 汐止區", "222 深坑區", "223 石碇區", "224 瑞芳區", "226 平溪區", "227 雙溪區", "228 貢寮區", "231 新店區", "232 坪林區", "233 烏來區", "234 永和區", "235 中和區", "236 土城區", "237 三峽區", "238 樹林區", "239 鶯歌區", "241 三重區", "242 新莊區", "243 泰山區", "244 林口區", "247 蘆洲區", "248 五股區", "249 八里區", "251 淡水區", "252 三芝區", "253 石門區"]
+                , ["桃園縣", "320 中壢市", "324 平鎮市", "325 龍潭鄉", "326 楊梅市", "327 新屋鄉", "328 觀音鄉", "330 桃園市", "333 龜山鄉", "334 八德市", "335 大溪鎮", "336 復興鄉", "337 大園鄉", "338 蘆竹鄉"]
+                , ["新竹市", "300 東區", "300 北區", "300 香山區"]
+                , ["新竹縣", "302 竹北市", "303 湖口鄉", "304 新豐鄉", "305 新埔鎮", "306 關西鎮", "307 芎林鄉", "308 寶山鄉", "310 竹東鎮", "311 五峰鄉", "312 橫山鄉", "313 尖石鄉", "314 北埔鄉", "315 峨眉鄉"]
+                , ["苗栗縣", "350 竹南鎮", "351 頭份鎮", "352 三灣鄉", "353 南庄鄉", "354 獅潭鄉", "356 後龍鎮", "357 通霄鎮", "358 苑裡鎮", "360 苗栗市", "361 造橋鄉", "362 頭屋鄉", "363 公館鄉", "364 大湖鄉", "365 泰安鄉", "366 銅鑼鄉", "367 三義鄉", "368 西湖鄉", "369 卓蘭鎮"]
+                , ["台中市", "400 中區", "401 東區", "402 南區", "403 西區", "404 北區", "406 北屯區", "407 西屯區", "408 南屯區", "411 太平區", "412 大里區", "413 霧峰區", "414 烏日區", "420 豐原區", "421 后里區", "422 石岡區", "423 東勢區", "424 和平區", "426 新社區", "427 潭子區", "428 大雅區", "429 神岡區", "432 大肚區", "433 沙鹿區", "434 龍井區", "435 梧棲區", "436 清水區", "437 大甲區", "438 外埔區", "439 大安區"]
+                , ["彰化縣", "500 彰化市", "502 芬園鄉", "503 花壇鄉", "504 秀水鄉", "505 鹿港鎮", "506 福興鄉", "507 線西鄉", "508 和美鎮", "509 伸港鄉", "510 員林鎮", "511 社頭鄉", "512 永靖鄉", "513 埔心鄉", "514 溪湖鎮", "515 大村鄉", "516 埔鹽鄉", "520 田中鎮", "521 北斗鎮", "522 田尾鄉", "523 埤頭鄉", "524 溪州鄉", "525 竹塘鄉", "526 二林鎮", "527 大城鄉", "528 芳苑鄉", "530 二水鄉"]
+                , ["南投縣", "540 南投市", "541 中寮鄉", "542 草屯鎮", "544 國姓鄉", "545 埔里鎮", "546 仁愛鄉", "551 名間鄉", "552 集集鎮", "553 水里鄉", "555 魚池鄉", "556 信義鄉", "557 竹山鎮", "558 鹿谷鄉"]
+                , ["雲林縣", "630 斗南鎮", "631 大埤鄉", "632 虎尾鎮", "633 土庫鎮", "635 東勢鄉", "634 褒忠鄉", "636 台西鄉", "637 崙背鄉", "638 麥寮鄉", "640 斗六市", "643 林內鄉", "646 古坑鄉", "647 莿桐鄉", "648 西螺鎮", "649 二崙鄉", "651 北港鎮", "652 水林鄉", "653 口湖鄉", "654 四湖鄉", "655 元長鄉"]
+                , ["嘉義市", "600 東區", "600 西區"]
+                , ["嘉義縣", "602 番路鄉", "603 梅山鄉", "604 竹崎鄉", "605 阿里山鄉", "606 中埔鄉", "607 大埔鄉", "608 水上鄉", "611 鹿草鄉", "612 太保市", "613 朴子市", "614 東石鄉", "615 六腳鄉", "616 新港鄉", "621 民雄鄉", "622 大林鎮", "623 溪口鄉", "624 義竹鄉", "625 布袋鎮"]
+                , ["台南市", "700 中西區", "701 東區", "702 南區", "704 北區", "708 安平區", "709 安南區", "710 永康區", "711 歸仁區", "712 新化區", "713 左鎮區", "714 玉井區", "715 楠西區", "717 仁德區", "718 關廟區", "716 南化區", "719 龍崎區", "720 官田區", "721 麻豆區", "722 佳里區", "723 西港區", "724 七股區", "725 將軍區", "726 學甲區", "727 北門區", "730 新營區", "731 後壁區", "732 白河區", "733 東山區", "734 六甲區", "735 下營區", "736 柳營區", "737 鹽水區", "741 善化區", "742 大內區", "744 新市區", "745 安定區", "743 山上區"]
+                , ["高雄市", "800 新興區", "801 前金區", "802 苓雅區", "803 鹽埕區", "804 鼓山區", "805 旗津區", "806 前鎮區", "807 三民區", "811 楠梓區", "812 小港區", "813 左營區", "814 仁武區", "815 大社區", "817 東沙群島", "820 岡山區", "821 路竹區", "819 南沙群島", "822 阿蓮區", "823 田寮區", "824 燕巢區", "825 橋頭區", "826 梓官區", "827 彌陀區", "829 湖內區", "828 永安區", "830 鳳山區", "831 大寮區", "832 林園區", "833 鳥松區", "840 大樹區", "842 旗山區", "843 美濃區", "844 六龜區", "845 內門區", "847 甲仙區", "846 杉林區", "848 桃源區", "852 茄萣區", "851 茂林區", "849 那瑪夏區"]
+                , ["屏東縣", "900 屏東市", "901 三地門鄉", "902 霧台鄉", "903 瑪家鄉", "904 九如鄉", "905 里港鄉", "906 高樹鄉", "907 鹽埔鄉", "908 長治鄉", "909 麟洛鄉", "911 竹田鄉", "912 內埔鄉", "913 萬丹鄉", "920 潮州鎮", "921 泰武鄉", "923 萬巒鄉", "922 來義鄉", "924 崁頂鄉", "925 新埤鄉", "926 南州鄉", "927 林邊鄉", "928 東港鎮", "929 琉球鄉", "931 佳冬鄉", "932 新園鄉", "940 枋寮鄉", "941 枋山鄉", "943 獅子鄉", "944 車城鄉", "945 牡丹鄉", "946 恆春鎮", "947 滿州鄉", "942 春日鄉"]
+                , ["台東縣", "950 台東市", "951 綠島鄉", "952 蘭嶼鄉", "954 卑南鄉", "955 鹿野鄉", "956 關山鎮", "957 海端鄉", "958 池上鄉", "953 延平鄉", "959 東河鄉", "961 成功鎮", "962 長濱鄉", "963 太麻里鄉", "965 大武鄉", "966 達仁鄉", "964 金峰鄉"]
+                , ["花蓮縣", "970 花蓮市", "971 新城鄉", "972 秀林鄉", "973 吉安鄉", "974 壽豐鄉", "975 鳳林鎮", "976 光復鄉", "977 豐濱鄉", "978 瑞穗鄉", "981 玉里鎮", "979 萬榮鄉", "983 富里鄉", "982 卓溪鄉"]
+                , ["宜蘭縣", "260 宜蘭市", "261 頭城鎮", "262 礁溪鄉", "263 壯圍鄉", "264 員山鄉", "265 羅東鎮", "266 三星鄉", "267 大同鄉", "268 五結鄉", "269 冬山鄉", "270 蘇澳鎮", "272 南澳鄉", "290 釣魚台"]
+                , ["澎湖縣", "880 馬公市", "881 西嶼鄉", "882 望安鄉", "885 湖西鄉", "883 七美鄉", "884 白沙鄉"]
+                , ["金門縣", "890 金沙鎮", "891 金湖鎮", "892 金寧鄉", "893 金城鎮", "894 烈嶼鄉", "896 烏坵鄉"]
+                , ["連江縣", "209 南竿鄉", "210 北竿鄉", "211 莒光鄉", "212 東引鄉"]
+            ]
+        } else {
+            Address = [
+                ["基隆市", "200 仁愛區", "201 信義區", "202 中正區", "203 中山區", "204 安樂區", "205 暖暖區", "206 七堵區"]
+                , ["台北市", "100 中正區", "103 大同區", "104 中山區", "105 松山區", "106 大安區", "108 萬華區", "110 信義區", "111 士林區", "112 北投區", "114 內湖區", "115 南港區", "116 文山區"]
+                , ["新北市", "207 萬里區", "208 金山區", "220 板橋區", "221 汐止區", "222 深坑區", "223 石碇區", "224 瑞芳區", "226 平溪區", "227 雙溪區", "228 貢寮區", "231 新店區", "232 坪林區", "233 烏來區", "234 永和區", "235 中和區", "236 土城區", "237 三峽區", "238 樹林區", "239 鶯歌區", "241 三重區", "242 新莊區", "243 泰山區", "244 林口區", "247 蘆洲區", "248 五股區", "249 八里區", "251 淡水區", "252 三芝區", "253 石門區"]
+                , ["桃園縣", "320 中壢市", "324 平鎮市", "325 龍潭鄉", "326 楊梅市", "327 新屋鄉", "328 觀音鄉", "330 桃園市", "333 龜山鄉", "334 八德市", "335 大溪鎮", "336 復興鄉", "337 大園鄉", "338 蘆竹鄉"]
+                , ["新竹市", "300 東區", "300 北區", "300 香山區"]
+                , ["新竹縣", "302 竹北市", "303 湖口鄉", "304 新豐鄉", "305 新埔鎮", "306 關西鎮", "307 芎林鄉", "308 寶山鄉", "310 竹東鎮", "311 五峰鄉", "312 橫山鄉", "313 尖石鄉", "314 北埔鄉", "315 峨眉鄉"]
+                , ["苗栗縣", "350 竹南鎮", "351 頭份鎮", "352 三灣鄉", "353 南庄鄉", "354 獅潭鄉", "356 後龍鎮", "357 通霄鎮", "358 苑裡鎮", "360 苗栗市", "361 造橋鄉", "362 頭屋鄉", "363 公館鄉", "364 大湖鄉", "365 泰安鄉", "366 銅鑼鄉", "367 三義鄉", "368 西湖鄉", "369 卓蘭鎮"]
+                , ["台中市", "400 中區", "401 東區", "402 南區", "403 西區", "404 北區", "406 北屯區", "407 西屯區", "408 南屯區", "411 太平區", "412 大里區", "413 霧峰區", "414 烏日區", "420 豐原區", "421 后里區", "422 石岡區", "423 東勢區", "424 和平區", "426 新社區", "427 潭子區", "428 大雅區", "429 神岡區", "432 大肚區", "433 沙鹿區", "434 龍井區", "435 梧棲區", "436 清水區", "437 大甲區", "438 外埔區", "439 大安區"]
+                , ["彰化縣", "500 彰化市", "502 芬園鄉", "503 花壇鄉", "504 秀水鄉", "505 鹿港鎮", "506 福興鄉", "507 線西鄉", "508 和美鎮", "509 伸港鄉", "510 員林鎮", "511 社頭鄉", "512 永靖鄉", "513 埔心鄉", "514 溪湖鎮", "515 大村鄉", "516 埔鹽鄉", "520 田中鎮", "521 北斗鎮", "522 田尾鄉", "523 埤頭鄉", "524 溪州鄉", "525 竹塘鄉", "526 二林鎮", "527 大城鄉", "528 芳苑鄉", "530 二水鄉"]
+                , ["南投縣", "540 南投市", "541 中寮鄉", "542 草屯鎮", "544 國姓鄉", "545 埔里鎮", "546 仁愛鄉", "551 名間鄉", "552 集集鎮", "553 水里鄉", "555 魚池鄉", "556 信義鄉", "557 竹山鎮", "558 鹿谷鄉"]
+                , ["雲林縣", "630 斗南鎮", "631 大埤鄉", "632 虎尾鎮", "633 土庫鎮", "635 東勢鄉", "634 褒忠鄉", "636 台西鄉", "637 崙背鄉", "638 麥寮鄉", "640 斗六市", "643 林內鄉", "646 古坑鄉", "647 莿桐鄉", "648 西螺鎮", "649 二崙鄉", "651 北港鎮", "652 水林鄉", "653 口湖鄉", "654 四湖鄉", "655 元長鄉"]
+                , ["嘉義市", "600 東區", "600 西區"]
+                , ["嘉義縣", "602 番路鄉", "603 梅山鄉", "604 竹崎鄉", "605 阿里山鄉", "606 中埔鄉", "607 大埔鄉", "608 水上鄉", "611 鹿草鄉", "612 太保市", "613 朴子市", "614 東石鄉", "615 六腳鄉", "616 新港鄉", "621 民雄鄉", "622 大林鎮", "623 溪口鄉", "624 義竹鄉", "625 布袋鎮"]
+                , ["台南市", "700 中西區", "701 東區", "702 南區", "704 北區", "708 安平區", "709 安南區", "710 永康區", "711 歸仁區", "712 新化區", "713 左鎮區", "714 玉井區", "715 楠西區", "717 仁德區", "718 關廟區", "716 南化區", "719 龍崎區", "720 官田區", "721 麻豆區", "722 佳里區", "723 西港區", "724 七股區", "725 將軍區", "726 學甲區", "727 北門區", "730 新營區", "731 後壁區", "732 白河區", "733 東山區", "734 六甲區", "735 下營區", "736 柳營區", "737 鹽水區", "741 善化區", "742 大內區", "744 新市區", "745 安定區", "743 山上區"]
+                , ["高雄市", "800 新興區", "801 前金區", "802 苓雅區", "803 鹽埕區", "804 鼓山區", "805 旗津區", "806 前鎮區", "807 三民區", "811 楠梓區", "812 小港區", "813 左營區", "814 仁武區", "815 大社區",/* "817 東沙群島",*/ "820 岡山區", "821 路竹區",/* "819 南沙群島",*/ "822 阿蓮區", "823 田寮區", "824 燕巢區", "825 橋頭區", "826 梓官區", "827 彌陀區", "829 湖內區", "828 永安區", "830 鳳山區", "831 大寮區", "832 林園區", "833 鳥松區", "840 大樹區", "842 旗山區", "843 美濃區", "844 六龜區", "845 內門區", "847 甲仙區", "846 杉林區", "848 桃源區", "852 茄萣區", "851 茂林區", "849 那瑪夏區"]
+                , ["屏東縣", "900 屏東市", "901 三地門鄉", "902 霧台鄉", "903 瑪家鄉", "904 九如鄉", "905 里港鄉", "906 高樹鄉", "907 鹽埔鄉", "908 長治鄉", "909 麟洛鄉", "911 竹田鄉", "912 內埔鄉", "913 萬丹鄉", "920 潮州鎮", "921 泰武鄉", "923 萬巒鄉", "922 來義鄉", "924 崁頂鄉", "925 新埤鄉", "926 南州鄉", "927 林邊鄉", "928 東港鎮",/* "929 琉球鄉",*/ "931 佳冬鄉", "932 新園鄉", "940 枋寮鄉", "941 枋山鄉", "943 獅子鄉", "944 車城鄉", "945 牡丹鄉", "946 恆春鎮", "947 滿州鄉", "942 春日鄉"]
+                , ["台東縣", "950 台東市", /*"951 綠島鄉", "952 蘭嶼鄉",*/ "954 卑南鄉", "955 鹿野鄉", "956 關山鎮", "957 海端鄉", "958 池上鄉", "953 延平鄉", "959 東河鄉", "961 成功鎮", "962 長濱鄉", "963 太麻里鄉", "965 大武鄉", "966 達仁鄉", "964 金峰鄉"]
+                , ["花蓮縣", "970 花蓮市", "971 新城鄉", "972 秀林鄉", "973 吉安鄉", "974 壽豐鄉", "975 鳳林鎮", "976 光復鄉", "977 豐濱鄉", "978 瑞穗鄉", "981 玉里鎮", "979 萬榮鄉", "983 富里鄉", "982 卓溪鄉"]
+                , ["宜蘭縣", "260 宜蘭市", "261 頭城鎮", "262 礁溪鄉", "263 壯圍鄉", "264 員山鄉", "265 羅東鎮", "266 三星鄉", "267 大同鄉", "268 五結鄉", "269 冬山鄉", "270 蘇澳鎮", "272 南澳鄉"/*, "290 釣魚台"*/]
+                , ["澎湖縣", "880 馬公市", "881 西嶼鄉", "882 望安鄉", "885 湖西鄉", "883 七美鄉", "884 白沙鄉"]
+                , ["金門縣", "890 金沙鎮", "891 金湖鎮", "892 金寧鄉", "893 金城鎮", "894 烈嶼鄉", "896 烏坵鄉"]
+                , ["連江縣", "209 南竿鄉", "210 北竿鄉", "211 莒光鄉", "212 東引鄉"]
+            ]
+        }
+        var number = 0;
+        for (var i = 0; i < 22; i++) {
+            if (Address[i][0] == str1) {
+                number = i;
+                break;
+            }
+        }
+        $("#" + str2).find("optgroup").remove();
+        $("#" + str2).find("option").remove();
+        for (var i = 0; i < Address[number].length; i++) {
+            if (i == 0) {
+                $("#" + str2).append('<optgroup id = "' + Address[number][0] + '" label = "' + Address[number][0] + '">');
+            }
+            else {
+                $("#" + str2).append('<option value = "' + Address[number][i] + '">' + Address[number][i] + '</option>');
+            }
+        }
+        $("#" + str2).append('</optgroup>');
+
+        var str = document.getElementById(str2).value;
+        var str1_temp = str.toString().substring(0, 3);
+        $("#" + str3).attr("value", str1_temp);
+        $("#" + str3).val(str1_temp);
+    }
+    @*計算備註字數*@
+    function changeText(objElement) {
+        var numChar = 0;
+        var temp_str = "";
+        var err = 0;
+        var str = $("#txtTest").val();
+        for (var i = 0; i < str.length; i++) {
+            if (str.charCodeAt(i) > 256) {
+                numChar += 2;
+                if (numChar > 60) err = 1;
+            }
+            else {
+                numChar++;
+                if (numChar > 60) err = 1;
+            }
+            if (!err) temp_str += str.substr(i, 1);
+        }
+        if (err) $("#txtTest").val(temp_str);
+        var oTextCount = document.getElementById("txtCount");
+        iCount = 30 - parseInt(numChar / 2);
+        if (iCount < 0) iCount = 0;
+        oTextCount.innerHTML = "" + iCount;
+    }
+    @*判斷是否為外島*@
+    function Islands() {
+        document.getElementById("CombineSalesOrderRule").innerHTML = "(商品配送區域僅限於台灣本島(不含離外島), 需請您更改送貨地址, 謝謝!)";
+    }
+    @*收件人紀錄本*@
+    function SelectRecord() {
+        window.open('/Addressbook/RecordReceive', '收件人紀錄本', 'width=810,height=300,directories=no,location=no,menubar=no,scrollbars=yes,status=no,toolbar=no,resizable=yes,left=20,top=350');
+    }
+    @*統編紀錄本*@
+    function CompanyBookOpen() {
+        var id = $.cookie('Accountid');
+        id += "%spl=" + $.cookie('LoginStatus');
+        id = encodeURIComponent(id);
+        window.open('/PayType/Companybook?id=' + id, '統編紀錄本', 'width=800,height=300,directories=no,location=no,menubar=no,scrollbars=yes,status=no,toolbar=no,resizable=yes,left=20,top=350');
+    }
+    @*信用卡輸入欄字數檢查*@
+    function checkno(id, type) {
+        var str = $("#" + id).val();
+        if (type == 1 && str.length < 4) {
+            return false;
+        }
+        if (str.length == 4 && id != 4) {
+            $("#" + id).parent().next('label').find(':input').focus();
+            return true;
+        }
+    }
+    @*排除特殊符號*@
+    function LettersFilter(obj) {
+        str = $("#" + obj).val();
+        if (str.length > 0) {
+            if (str.search(/^[\u2e80-\u33ffh\u4e00-\u9fa5-a-zA-Z0-9]+$/) < 0) {
+                //warnStr = str.substr(str.length-1, 1);
+                //document.getElementById(obj + "Warn").innerHTML = "此為非法字元[ " + warnStr + " ]";
+                str = str.substr(0, str.length - 1);
+                $("#" + obj).val(str);
+                LettersFilter(obj);
+            }
+            else {
+                //document.getElementById(obj + "Warn").innerHTML = "";
+                //$("#" + obj + "Warn").html = "";
+            }
+        }
+    }
+    @*資料複製*@
+    function CopyToRecipient() {
+        var teldayzip = $("#teldayzip").val(); @*訂購者市話區碼*@
+        var teldaynumber = $("#teldaynumber").val(); @*訂購者市話號碼*@
+        var teldayext = $("#teldayext").val(); @*訂購者市話分機*@
+        $("#recvteldayzip").val(teldayzip); @*收件者市話區碼*@
+        $("#recvteldaynumber").val(teldaynumber); @*收件者市話號碼*@
+        $("#recvteldayext").val(teldayext); @*收件者市話分機*@
+        var teldaycombine = "(" + teldayzip + ")" + teldaynumber + "#" + teldayext;
+        $("#salesorder_telday").val(teldaycombine); @*訂購者市話*@
+
+        var sex = $("#member_sex").val(); @*稱謂*@
+        var salesordername = $("#member_lastname").val() + $("#member_firstname").val(); @*姓名*@
+        $("#salesorder_name").val(salesordername);
+        var salesordermobile = $("#salesorder_mobile").val(); @*手機*@
+        $("#salesorder_mobile").val(salesordermobile);
+        var salesordertelday = $("#salesorder_telday").val(); @*市話*@
+        var salesordercardloc = $("#salesorder_cardloc").val(); @*縣市*@
+        var salesordercardcity = $("#cardCity").val(); @*鄉鎮市區*@
+        var salesordercardaddr = $("#cardaddr").val(); @*地址*@
+        var salesordercardzip = $("#salesorder_cardzip").val(); @*郵遞區號*@
+        @*轉填*@
+        var str1 = $("#salesorder_cardloc").val();
+        var str2 = "delivCity";
+        var str3 = "salesorder_delivzip";
+        CityChoose(str1, str2, str3, 0); // recv
+        $("#member_recvsex").val(sex);
+        $("#member_recvfirstname").val($("#member_firstname").val()); // 姓名
+        $("#member_recvlastname").val($("#member_lastname").val());
+        $("#salesorder_recvname").val(salesordername);
+        $("#salesorder_recvmobile").val(salesordermobile);
+        $("#salesorder_recvtelday").val(salesordertelday);
+        $("#salesorder_delivloc").val(salesordercardloc);
+        var IslandRule = document.getElementById("CombineSalesOrderRule").innerHTML;
+        if ($("#salesorder_delivloc").val() != "" && IslandRule == "") {
+            $("#delivCity").val(salesordercardcity);
+            $("#delivaddr").val(salesordercardaddr);
+            $("#salesorder_delivzip").val(salesordercardzip);
+        }
+        else {
+            $("#salesorder_delivloc").val("");
+            $("#delivCity").find("optgroup").remove();
+            $("#delivCity").find("option").remove();
+            $("#delivCity").append('<option value = "" selected="selected">請選擇鄉鎮市區</option>');
+            $("#delivaddr").val("");
+            $("#salesorder_delivzip").val("");
+        }
+    }
+</script>
+
+
+    <script>
+        /*彈跳視窗自動偵測位置*/
+        LightBoxCenter();
+    </script>

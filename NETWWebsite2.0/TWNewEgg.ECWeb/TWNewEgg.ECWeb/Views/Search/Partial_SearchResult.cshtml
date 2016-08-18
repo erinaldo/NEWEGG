@@ -1,0 +1,294 @@
+﻿@model TWNewEgg.Models.ViewModels.Search.SearchPageView
+@{
+    List<TWNewEgg.Models.ViewModels.Page.ShowPage> ShowPageList = ViewBag.ShowingPageList;
+    int pageNow = ViewBag.NowPage;
+    int totalPage = ViewBag.TotalPage;
+}
+
+@*iprospect feeds start*@
+
+<script>
+dataLayer.push({
+     'event':'userSearch',
+     'sitetype':'d',
+     //'productids': 'productid1|productid2|productid3', // 表列所有產品ID
+     'productids': '@(string.Join("|", Model.searchResults.Select(x => x.ID)))', // 表列所有產品ID
+     //'emailSHA':'32312c1b6865d1adf04f79e2b731a49e',  
+     //'emailMD5':'32312c1b6865d1adf04f79e2b731a49e',
+     'kw': '@(ViewBag.KeyWords)'          // User 搜尋字   
+});
+</script>
+
+
+@*iprospect feeds end*@
+
+@if (Model.resultCount > 0)
+{
+    <div class="searchTopBar">
+        <div class="searckKeyBar">
+            <span>搜尋結果：</span>
+            <span>@(ViewBag.KeyWords)</span>
+            <span>(共<span>@(Model.resultCount.ToString("N0"))</span>筆)</span>
+        </div>
+        <div class="searchAgainArea">
+            <span>篩選</span>
+            <input type="text" placeholder="在結果中再搜尋" class="searchAgainBar" id="searchIn" />
+            <input type="button" class="searchAgain" id="searchInButton" />
+        </div>
+    </div>
+    <div class="navOrder searchOrder">
+        <div class="orderList" data-orderc="5">
+            <i class="icon new"></i>
+            <span>最新上架</span>
+        </div>
+        <div class="orderList" data-orderc="3">
+            <i class="icon hot"></i>
+            <span>人氣排行榜</span>
+        </div>
+        <div class="orderList" data-orderc="0">
+            <i class="icon priceH"></i>
+            <span>金額高</span>
+        </div>
+        <div class="orderList" data-orderc="1">
+            <i class="icon priceL"></i>
+            <span>金額低</span>
+        </div>
+    </div>
+    <div class="searchBox">
+        @for (int i = 0; i < Model.searchResults.Count; i++)
+        {
+            var currentCategory = Model.searchResultCategory.Where(x => x.categoryID == Model.searchResults[i].CategoryID.ToString()).FirstOrDefault();
+            string categoryID = currentCategory == null ? 
+                "0" : currentCategory.categoryID;
+            string storeID = currentCategory != null ? (currentCategory.parentCategory.LastOrDefault() != null ? currentCategory.parentCategory.LastOrDefault().categoryID : "0") : "0";
+            <div class="box">
+                <div class="pic">
+                    <a href="/item?itemid=@(Model.searchResults[i].ID)&categoryid=@(categoryID)&StoreID=@(storeID)">
+                        <img src="@(Model.searchResults[i].PhotoName)" alt="@(Model.searchResults[i].Name)" title="@(Model.searchResults[i].Name)" class="itemImgCen" />
+                    </a>
+                </div>
+                <a href="/item?itemid=@(Model.searchResults[i].ID)&categoryid=@(categoryID)&StoreID=@(storeID)">
+                    <div class="txt">
+                        <div class="SpecialDeal">
+                        @if (Model.searchResults[i].SellingQty < 1) { 
+                            <span class="SpecialDeal SpecialDealClass0">
+                                商品已售完
+                            </span>
+                        }
+                        </div>
+                        <h3>@(Model.searchResults[i].Name)</h3>
+                        @if (Model.searchResults[i].Pricecash < Model.searchResults[i].Pricesgst)
+                        {
+                            <span class="marketPrice">@(string.Format("${0:N0}", Model.searchResults[i].Pricesgst))</span>
+                        }
+                        <span class="price">@(string.Format("${0:N0}", Model.searchResults[i].Pricecash))</span>
+                    </div>
+                </a>
+            </div>
+        }
+        @*
+            <div class="box">
+                <div class="pic">
+                    <a href="#">
+                        <img src="/Themes/img/img4.jpg" alt="商品全名" title="商品全名" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="txt">
+                        <h3>商品名稱限制字數</h3>
+                        <span class="marketPrice">$1,999</span>
+                        <span class="price">$999</span>
+                    </div>
+                </a>
+            </div>
+            <div class="box">
+                <div class="pic">
+                    <a href="#">
+                        <img src="/Themes/img/img4.jpg" alt="商品全名" title="商品全名" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="txt">
+                        <h3>商品名稱限制字數</h3>
+                        <span class="marketPrice">$1,999</span>
+                        <span class="price">$999</span>
+                    </div>
+                </a>
+            </div>
+            <div class="box">
+                <div class="pic">
+                    <a href="#">
+                        <img src="/Themes/img/img4.jpg" alt="商品全名" title="商品全名" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="txt">
+                        <h3>商品名稱限制字數</h3>
+                        <span class="marketPrice">$1,999</span>
+                        <span class="price">$999</span>
+                    </div>
+                </a>
+            </div>
+            <div class="box">
+                <div class="pic">
+                    <a href="#">
+                        <img src="/Themes/img/img4.jpg" alt="商品全名" title="商品全名" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="txt">
+                        <h3>商品名稱限制字數</h3>
+                        <span class="marketPrice">$1,999</span>
+                        <span class="price">$999</span>
+                    </div>
+                </a>
+            </div>
+            <div class="box">
+                <div class="pic">
+                    <a href="#">
+                        <img src="/Themes/img/img4.jpg" alt="商品全名" title="商品全名" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="txt">
+                        <h3>商品名稱限制字數</h3>
+                        <span class="marketPrice">$1,999</span>
+                        <span class="price">$999</span>
+                    </div>
+                </a>
+            </div>
+            <div class="box">
+                <div class="pic">
+                    <a href="#">
+                        <img src="/Themes/img/img4.jpg" alt="商品全名" title="商品全名" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="txt">
+                        <h3>商品名稱限制字數</h3>
+                        <span class="marketPrice">$1,999</span>
+                        <span class="price">$999</span>
+                    </div>
+                </a>
+            </div>
+            <div class="box">
+                <div class="pic">
+                    <a href="#">
+                        <img src="/Themes/img/img4.jpg" alt="商品全名" title="商品全名" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="txt">
+                        <h3>商品名稱限制字數</h3>
+                        <span class="marketPrice">$1,999</span>
+                        <span class="price">$999</span>
+                    </div>
+                </a>
+            </div>
+            <div class="box">
+                <div class="pic">
+                    <a href="#">
+                        <img src="/Themes/img/img4.jpg" alt="商品全名" title="商品全名" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="txt">
+                        <h3>商品名稱限制字數</h3>
+                        <span class="marketPrice">$1,999</span>
+                        <span class="price">$999</span>
+                    </div>
+                </a>
+            </div>
+            <div class="box">
+                <div class="pic">
+                    <a href="#">
+                        <img src="/Themes/img/img4.jpg" alt="商品全名" title="商品全名" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="txt">
+                        <h3>商品名稱限制字數</h3>
+                        <span class="marketPrice">$1,999</span>
+                        <span class="price">$999</span>
+                    </div>
+                </a>
+            </div>
+            <div class="box">
+                <div class="pic">
+                    <a href="#">
+                        <img src="/Themes/img/img4.jpg" alt="商品全名" title="商品全名" />
+                    </a>
+                </div>
+                <a href="#">
+                    <div class="txt">
+                        <h3>商品名稱限制字數</h3>
+                        <span class="marketPrice">$1,999</span>
+                        <span class="price">$999</span>
+                    </div>
+                </a>
+            </div>
+            *@
+    </div>
+    <div class="pagination PageArea">
+        @if ((pageNow + 1) > 1)
+        {
+            <span id="srFirstP" style="display: none;" data-value="@(pageNow)" />
+            <span id="srPrev" class="arrow arrLeft prev" data-Pagevalue="@(pageNow)"><</span>
+        }
+@*<div class="pageArea">*@
+        @foreach (var temp in ShowPageList)
+        {
+            if (temp.PageNumberString.IndexOf("...") <= 0)
+            {
+            <span class="@if (temp.PageNumber == (pageNow + 1))
+                         { @("SelectThePage") }
+                         else
+                         {@("GoToPage")}" 
+                   style="@if (temp.PageNumber == (pageNow + 1))
+                          { @("color:#EB8A51") }" 
+                   data-Pagevalue="@(temp.PageNumber)">
+                @Html.Raw(temp.PageNumberString)</span>}
+            else
+            {
+                if (temp.PageNumber == ShowPageList.LastOrDefault().PageNumber)
+                { 
+            <span class="default">...</span>
+                }
+            <span class="@if (temp.PageNumber == (pageNow + 1))
+                         { @("SelectThePage") }
+                         else
+                         {@("GoToPage")}" 
+                  style="@if (temp.PageNumber == (pageNow + 1))
+                         { @("color:#EB8A51") }" 
+                  data-Pagevalue="@(temp.PageNumber)">
+                @Html.Raw(temp.PageNumber)</span>
+                         if (temp.PageNumber == ShowPageList.FirstOrDefault().PageNumber)
+                         { 
+            <span class="default">...</span>
+                         }
+            }
+        }
+        @*</div>*@
+        @if ((pageNow + 1) < totalPage)
+        {
+            <span id="srLastP" style="display: none;" data-value="@(totalPage)" />
+            <span id="srNext" class="arrow arrRight next" data-Pagevalue="@(pageNow + 2)">></span>
+        }
+    </div>
+}
+else
+{
+    <div class="searchTopBar">
+        <div class="searckKeyBar">
+            <span>搜尋結果：</span>
+            <span>@(ViewBag.KeyWords)</span>
+            <span>(共<span>0</span>筆)</span>
+        </div>
+        <div class="searchAgainArea">
+            <span>篩選</span>
+            <input type="text" placeholder="在結果中再搜尋" class="searchAgainBar" id="searchIn" />
+            <input type="button" class="searchAgain" id="searchInButton" />
+        </div>
+    </div>
+}
+

@@ -1,0 +1,296 @@
+﻿@{
+    ViewBag.Title = "我的最愛清單" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/ShoppingCart")
+@Styles.Render("~/content/css/WishList")
+@Styles.Render("~/content/css/ShoppingProcess")
+@section scripts {
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    <script>
+        /*給子選單滑出滑入用的jquery*/
+        TabSelectArea();
+        InitializationScript();
+
+        // GroupBy
+        function GroupBy(xArray) {
+            var x = {};
+
+            for (var i = 0; i < xArray.length; ++i) {
+                var obj = xArray[i];
+
+                //If a property for this DtmStamp does not exist yet, create
+                if (x[obj] === undefined)
+                    x[obj] = [obj]; //Assign a new array with the first element of DtmStamp.
+
+                //x will always be the array corresponding to the current DtmStamp. Push a value the current value to it.
+                x[obj].push(obj);
+            }
+
+            var xArraykeys = $.map(x, function (value, key) {
+                return key;
+            });
+
+            return xArraykeys;
+        }
+
+        function LightBoxMsgAllHide() {
+            $("div.LightBoxMsg").each(function () {
+                $(this).hide();
+            });
+        }
+
+        function OpenErrorAlert(ErrorMessageString) {
+            $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+            $("#ErrorMessages").html(ErrorMessageString);
+            $("div.LightBoxMsg.RemindDialog").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.RemindDialog");
+        }
+
+        function OpenAddtoCartAlert(ErrorMessageString) {
+            $("#AddtoOtherCartAlert").html(ErrorMessageString);
+            $("div.LightBoxMsg.AddtoOtherCart").fadeIn();
+        }
+
+        function OpenDelayWindow() {
+            $("div.LightBoxUnderLay").fadeIn();
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            $("div.LightBoxUnderLay").delay(1888).slideDown(888).fadeOut();
+            LightBoxMsgAllHide();
+        }
+
+        var Reload = function (Message) {           
+            OpenAddtoCartAlert(Message);
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            LightBoxCenter("div.LightBoxMsg.AddtoOtherCart");
+            var TypeID = $('[name=grayBorderName]').attr('data-TypeNamevalue');
+            var ViewPage = parseInt($("#PageArea").attr('data-Pagevalue'));
+            var PageNumber = 10;
+            var OrderBy = $('[name=TabAreaOrderByName].SmallBorderTabSelected').attr('data-OrderByvalue');
+            $.ajax({
+                cache: false,
+                url: "/Cart/NextWishCartListMenu",
+                type: "GET",
+                dataType: "JSON",
+                data: { "TypeID": TypeID, "ViewPage": ViewPage, "PageNumber": PageNumber, "OrderBy": OrderBy },
+                success: function (data) {
+                    $('#WishCartList').css("display", "none");
+                    $('#WishCartList').html(data).slideDown(500).fadeIn("slow");
+                    InitializationScript();
+                    $("div.LightBoxUnderLay").slideDown(600).fadeOut();
+                    LightBoxMsgAllHide();
+                },
+                error: function () {
+                    $("div.LightBoxUnderLay").slideDown(600).fadeOut();
+                    LightBoxMsgAllHide();
+                }
+            });
+            twNewegg().cart().cartMethod("readFromCart", { categoryIds: [], categoryTypes: [], successMethods: [countCartNumber], successParas: [[]] });
+        }
+
+        var ChangePageReload = function (ViewPageTemp, OrderBytemp) {
+            $("div.LightBoxUnderLay").slideDown(888).fadeIn();
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            var TypeID = $('[name=grayBorderName]').attr('data-TypeNamevalue');
+            var ViewPage = ViewPageTemp;
+            var PageNumber = 10;
+            var OrderBy = OrderBytemp;
+            $.ajax({
+                cache: false,
+                url: "/Cart/NextWishCartListMenu",
+                type: "GET",
+                dataType: "JSON",
+                data: { "TypeID": TypeID, "ViewPage": ViewPage, "PageNumber": PageNumber, "OrderBy": OrderBy },
+                success: function (data) {
+                    $('#WishCartList').css("display", "none");
+                    $('#WishCartList').html(data);
+                    $('#WishCartList').slideDown(888).fadeIn("slow");
+                    $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                    InitializationScript();
+                },
+                error: function () {
+                    $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                    LightBoxMsgAllHide();
+                }
+            });
+        }
+
+        function InitializationScript() {
+            $(".AddtoCart").off();
+            $(".CallDelete").off();
+            $("input.SelectAll").off();
+            $('[name=TabAreaOrderByName]').off();
+            $('.GoToPage').off();
+            $('[name=ToNextPage]').off();
+            $("input.DialogBtnFunctionV1").off();
+            $("input.DialogBtnFunctionV2").off();
+
+            $(".AddtoCart").on("click", function () {
+                if (parseInt($(this).attr('data-disabled')) != 0) {
+                    $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+                    $("div.LightBoxMsg.DelayWindow").fadeIn();
+                    LightBoxCenter("div.LightBoxMsg.DelayWindow");
+                    twNewegg().cart().cartMethod("updateToCart", { itemIds: [$(this).attr('data-Itemvalue')], qtys: [1], categoryIds: [], categoryTypes: [], successMethods: [Reload], successParas: [["加入購物車成功!"]] });
+                }
+                else {
+                    OpenErrorAlert("商品無法加入購物車!");
+                }
+            });
+
+            $(".CallDelete").on("click", function () {
+                var itemIds = [];
+                $("input.SelectItem:checked").each(function () {
+                    itemIds.push(parseInt($(this).attr('data-Itemvalue')));
+                });
+
+                var itemIdskeys = GroupBy(itemIds);
+
+                for (var i = 0; i < itemIdskeys.length; i++) {
+                    itemIdskeys[i] = parseInt(itemIdskeys[i]);
+                }
+
+                if (itemIdskeys.length > 0) {
+                    $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+                    $("div.LightBoxMsg.DelayWindow").fadeIn();
+                    LightBoxCenter("div.LightBoxMsg.DelayWindow");
+                    twNewegg().cart().cartMethod("removeFromCart", { itemIds: itemIdskeys, successMethods: [Reload], successParas: [["刪除成功!"]] });
+                }
+                else {
+                    OpenErrorAlert("無選擇刪除商品!");
+                }
+            });
+
+            $("input.SelectAll").on("click", function () {
+                if ($(this).is(':checked')) {
+                    $("input.SelectItem").each(function () {
+                        $(this).prop('checked', true);
+                    });
+                }
+                else {
+                    $("input.SelectItem").each(function () {
+                        $(this).prop('checked', false);
+                    });
+                }
+            });
+
+            $('[name=TabAreaOrderByName]').on("click", function () {
+                var OrderBy = $(this).attr('data-OrderByvalue');
+                ChangePageReload(parseInt($("#PageArea").attr('data-Pagevalue')), OrderBy);
+            });
+
+            $('.GoToPage').on("click", function () {
+                var OrderBy = $('[name=TabAreaOrderByName].SmallBorderTabSelected').attr('data-OrderByvalue');
+                ChangePageReload(parseInt($(this).attr('data-Pagevalue')), OrderBy);
+            });
+
+            $('[name=ToNextPage]').on("click", function () {
+                var OrderBy = $('[name=TabAreaOrderByName].SmallBorderTabSelected').attr('data-OrderByvalue');
+                var JumpPagevalue = parseInt($(this).attr('data-JumpPagevalue'));
+                var CurrentPage = parseInt($('#PageArea').attr('data-Pagevalue'));
+                var TotalPagevalue = parseInt($('#PageArea').attr('data-TotalPagevalue'));
+                var GotoPage = CurrentPage + JumpPagevalue;
+                if (GotoPage < 1) {
+                    GotoPage = 1;
+                }
+                if (GotoPage > TotalPagevalue) {
+                    GotoPage = TotalPagevalue;
+                }
+
+                ChangePageReload(GotoPage, OrderBy);
+            });
+
+            $("input.DialogBtnFunctionV1").on("click", function () {
+                //$("div.LightBoxMsg").each(function () {
+                //    $(this).slideUp(888).fadeOut("slow");
+                //});
+                $("div.LightBoxUnderLay").each(function () {
+                    $(this).slideUp(888).fadeOut("slow");
+                });
+                LightBoxMsgAllHide();
+            });
+
+            $("input.DialogBtnFunctionV2").on("click", function () {
+                $("div.LightBoxMsg.Only").each(function () {
+                    $(this).slideUp(888).fadeOut("slow");
+                });
+            });
+        }
+    </script>
+}
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/MyAccount">我的帳戶</a> >
+    <span>最愛清單</span>
+</div>
+
+<div>
+
+@*↓↓↓↓↓↓項目說明↓↓↓↓↓↓*@
+<div class="TopExplanationArea">
+    <p class="Boldtext">您好，<br />
+        這是您的最愛清單，您可從下方管理功能選單中查看屬於您個人的商品存放紀錄，或是將商品加入至購物車。</p>
+</div>
+
+@*↓↓↓↓↓↓標籤分類↓↓↓↓↓↓*@
+<div class="TabArea Border grayBorder">
+    <ul>
+        <li class="Tab BorderTab TabSelected" id="WishList"><a><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+        @*<li class="Tab BorderTab" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>*@
+        <li class="Tab BorderTab" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+        <li class="Tab BorderTab" id="Order" onclick="TabOpenClose()">
+            <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Up"></i></a>
+            <ul class="SubMenu">
+                @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+            </ul>
+        </li>
+        <li class="Tab BorderTab" id="Account">
+            <a href="/MyAccount"><i class="icon ServiceIcon Account"></i>帳戶管理<i class="icon Up"></i></a>
+            <ul class="SubMenu">
+                <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                @*<li><a href="/MyAccount/AddressBook">紀錄本修改</a></li>*@
+                <li><a href="/MyAccount/AskQuestion">問答中心</a></li>
+                <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+    <div id="WishCartList">
+    @Html.Action("NewEggWishCartList", "Cart", new { TypeID = (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.追蹤清單購物車 } )
+    </div>
+</div>
+
+
+@**彈出對話視窗*@
+<div class="LightBoxUnderLay">
+    <div class="LightBoxMsg DelayWindow ProcessWindow">
+        <div class="Remindtxt">
+            <span id=""><img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+    </div>
+     <div class="LightBoxMsg Stlye-3 RemindDialog" style="display:none;">
+        <div class="Remindtxt">
+            <span id="ErrorMessages"></span>
+        </div>
+        <div class="DialogBtn">
+            <label><input name="" type="button" value="確認" class="DialogConfirmBtn OrgBtn DialogBtnFunctionV1"></label>
+        </div>
+    </div>
+    <div class="LightBoxMsg Stlye-3 AddtoOtherCart Only" style="display:none;">
+        <div class="Remindtxt">
+            <span id="AddtoOtherCartAlert"></span>
+        </div>
+        <div class="DialogBtn">
+            <label><input name="" type="button" value="確認" class="DialogConfirmBtn OrgBtn DialogBtnFunctionV2"></label>
+        </div>
+    </div>
+</div>
+@**彈出對話視窗*@

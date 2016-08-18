@@ -1,0 +1,115 @@
+﻿@using TWNewEgg.Models.DomainModels.Home
+@using TWNewEgg.Models.DomainModels.Store
+@using TWNewEgg.ECWeb.Utility
+@model List<HomeShopWindow>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var homeShopWindow in Model)
+    {
+    <section class="section" id="winShop@(homeShopWindow.Index)" windowID="@(homeShopWindow.ID)">
+        <div class="section-head colorline@(!string.IsNullOrEmpty(homeShopWindow.CssType) ? homeShopWindow.CssType : "")">
+            <div class="icon colorbg@(!string.IsNullOrEmpty(homeShopWindow.CssType) ? homeShopWindow.CssType : "")"><i class="listi@(!string.IsNullOrEmpty(homeShopWindow.IconType) ? homeShopWindow.IconType : "")"></i></div>
+            <div class="section-title colortxt@(!string.IsNullOrEmpty(homeShopWindow.CssType) ? homeShopWindow.CssType : "")">@(!string.IsNullOrEmpty(homeShopWindow.Title) ? homeShopWindow.Title : "")</div>
+        </div>
+        @if (homeShopWindow.BeltBanner != null && !string.IsNullOrWhiteSpace(homeShopWindow.BeltBanner.Image))
+        {
+            <div class="banner2">
+                @if (string.IsNullOrWhiteSpace(homeShopWindow.BeltBanner.Url))
+                {
+                    <text>@BeltImage(homeShopWindow.BeltBanner.Image)</text>
+                }
+                else
+                {
+                    <a href="@(homeShopWindow.BeltBanner.Url)">
+                        @BeltImage(homeShopWindow.BeltBanner.Image)
+                    </a>
+                }
+            </div>
+        }
+
+        @if (homeShopWindow.BlockList != null)
+        {
+            int i = 0;
+            foreach (var windowBlock in homeShopWindow.BlockList)
+            {
+                @* 美蛋直購館(homeShopWindow.ID=38) 版型暫與其他各館統一 故先隱藏 *@
+                @*if (homeShopWindow.ID == "38" && i == 1)
+                {
+            <div class="@GenerateComboBoxClass(i)" blockID="@(windowBlock.ID)">
+                @Html.Partial("BlockStyle/Partial_BlockStyle8", windowBlock, new ViewDataDictionary() { { "cssType", homeShopWindow.CssType }, { "boxType", GenerateComboBoxClass(i) } })
+            </div>
+                }
+                else
+                {*@
+            <div class="@GenerateComboBoxClass(i)" blockID="@(windowBlock.ID)">
+                @Html.Partial("BlockStyle/Partial_BlockStyle" + windowBlock.LayoutNumber, windowBlock, new ViewDataDictionary() { { "cssType", homeShopWindow.CssType }, { "boxType", GenerateComboBoxClass(i) }, { "windowIndex", homeShopWindow.Index } })
+            </div>
+                @*}*@
+                i++;
+            }
+        } 
+        @if (homeShopWindow.ImageList.Any())
+        { 
+        <div class="carousel-logo-wall carousel-logo-index">
+            <ul id="carousel-logo">
+                @foreach (StoreBanner banner in homeShopWindow.ImageList) { 
+                <li class="pic">
+                    <a href="@banner.Url"><img src="@ImageUtility.GetImagePath(banner.Image)" /></a>
+                </li>
+                }
+            </ul>
+            <a id="prev1" class="prev" href="javascript:void(0);">< </a>
+            <a id="next1" class="next" href="javascript:void(0);">> </a>
+        </div>
+        }
+
+    </section>
+    }
+}
+
+@functions {
+
+    public string GenerateComboBoxClass(int i)
+    {
+        return (i % 3 == 0) ? "combobox" : "combobox2";
+    }
+
+}
+
+@helper BeltImage(string imageUrl)
+{
+    <img src="@(TWNewEgg.ECWeb.Utility.ImageUtility.GetImagePath(imageUrl))" @*style="width:1176px;height:105px"*@ style="width:100%;" />
+}
+
+
+
+@*電梯資料*@
+<div id="elevatorWindowArea" class="elevator">
+    <div class="menu">
+        <div class="up" onclick="elevatorAction(1); return false;">
+            <a href="javascript:void(0)">
+                @*<div class="arrow"><</div>*@
+                <div class="text">頁頂</div>
+            </a>
+        </div>
+        <div id="elevatorWinGroup" class="group">
+        @*@{
+            int itemCount = 0;
+            foreach (var shopWindowPage in Model)
+            {
+                <div class="text" onclick="elevatorAction(3, @(itemCount)); return false;">
+                    <a href="javascript:void(0)">@(shopWindowPage.Title)</a>
+                </div>
+                itemCount++;
+            }
+        }*@
+        </div>
+        <div class="down" onclick="elevatorAction(2); return false;">
+            <a href="javascript:void(0)">
+                <div class="text">頁尾</div>
+                @*<div class="arrow">></div>*@
+            </a>
+        </div>
+    </div>
+</div>

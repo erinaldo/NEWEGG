@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "訂單成功通知信重新寄發" + "-新蛋全球生活網";
+}
+<form id="ReSendSuccessMail" name="ReSendSuccessMail" action="/MailManage/SuccessMail" method="post">
+    <div>
+        <table>
+            <tr>
+                <th>重新寄發訂單成功通知信</th>
+                <td></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <th>請輸入訂單編號:&nbsp;</th><td><input type="text" id="orderNumber" name="orderNumber"/>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <th>PassWord:&nbsp;</th><td><input type="text" id="password" name="password"/></td>
+                <td><input type="hidden" id="viewselect" name="viewselect" value="1"/></td>
+            </tr>
+        </table>
+    </div>
+</form>
+

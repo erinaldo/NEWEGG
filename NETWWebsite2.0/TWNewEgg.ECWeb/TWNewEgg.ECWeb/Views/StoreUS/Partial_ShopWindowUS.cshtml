@@ -1,0 +1,18 @@
+﻿@model TWNewEgg.Models.DomainModels.Store.ShopWindow
+@{
+    if(Model != null)
+    {
+        ViewData["Shopt-Window-Index"] = Model.Index;
+<section class="section3 section_US shopwinindex@(Model.Index)" shopwindowId="@(Model.ID)">
+        @if (Model.MainZone != null &&
+!string.IsNullOrEmpty(Model.MainZone.Title))
+        { 
+            <a id="shop@(Model.Index)"></a>
+        }   
+    <div class="section-bg section-bg-img@(StoreShareFuns.GetCssType((int)ViewData["storeId"]))"></div><div class="clear"></div>
+    @(Html.Partial("Partial_ShopWindowMainZoneUS", Model.MainZone))
+    @(Html.Partial("Partial_ShopWindowListZoneUS", Model.ListZone))
+    <div class="section-divider"></div>
+</section>
+    }
+}

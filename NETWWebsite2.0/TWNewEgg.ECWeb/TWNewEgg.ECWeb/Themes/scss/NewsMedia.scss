@@ -1,0 +1,109 @@
+@import "_importSCSS";
+
+.LeftBlock{
+	float:left;
+	width:142px;
+	li{
+		border:1px solid #d5d5d5;
+		text-align:center;
+		a,a:visited{
+			display:block;
+			color:#666;
+			font-size:23px;
+			line-height:55px;
+			border-bottom:0;
+		}
+	}
+	li:hover,li.Selected{
+		border:1px solid #d5d5d5;
+		background-color:#ec8B54;
+		a,a:visited{
+			color:#fff;
+			border-bottom:0; 
+		}
+	}
+}
+.RightBlock{
+	float:right;
+	width:840px;
+	@include clearAfter;
+}
+.BoxsGroup{
+	width:840px;
+	.TwoBoxsInRow{
+		height:420px;
+		margin:20px 0 0 3%;
+		border:0;
+		&>img{width:100%;}
+	}
+}
+.MediaBox{
+	width:100%;
+	height:302px;
+	margin-bottom:15px;
+	cursor: pointer;
+	&>img{width:100%; height: 100%;} 
+}
+.Date{
+	font-size:15px;
+	margin-bottom:5px;
+	cursor: pointer;
+	float:left;
+}
+.WatchThis{
+	font-size:15px;
+	float:right;
+}
+
+$darkGray:#373d3f;
+$MediaWidth:660px; 
+$MediaHeight:371px;
+.MsgContent{
+	display:block;
+	margin-top:55px;
+	.Media{
+		width:$MediaWidth;
+		img{width:$MediaWidth;}
+		iframe{width:$MediaWidth;height:$MediaHeight;}
+	}
+	.MediaName{
+		color:$darkGray;
+		font-size:16px;
+		line-height:20px;
+		margin-top:10px;
+	}
+	.Date{float:none;}
+}
+.SiteFrom{
+	margin:10px 0;
+	.link{
+		cursor: pointer;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: inline-block;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		width:560px;
+		vertical-align: middle;
+		border-bottom: 0;
+		padding: 10px 0;
+	}
+}
+.Summary{
+	color:$darkGray;
+	font-size:16px;
+	line-height:20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp:3;
+	-webkit-box-orient: vertical;
+
+}
+hr{
+	border:0;
+	background-color:#d5d5d5;
+	height:1px;
+	margin:5px 0;
+	clear:both;
+}

@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "帳戶管理" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/MyAccount")
+}
+@section scripts {
+
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    <script type="text/javascript">
+
+        function GetAskDetails(obj) {
+            location.replace("/MyAccount/AskQuestion?SalesOrderCode="); }
+        /*給子選單滑出滑入用的jquery*/
+        TabSelectArea();
+        $("#Account .SubMenu").show();
+    </script>
+}
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <span>我的帳戶</span>
+</div>
+
+<div class="TopExplanationArea"></div>
+
+<div class="AccountArea">
+    <div class="TabArea Border grayBorder">
+        <ul>
+            <li class="Tab BorderTab" id="WishList"><a href="/Cart/WishCart"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+            @*<li class="Tab BorderTab" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>*@
+            <li class="Tab BorderTab" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+            <li class="Tab BorderTab" id="Order" onclick="TabOpenClose()">
+                <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                    @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+                </ul>
+            </li>
+            <li class="Tab BorderTab TabSelected" id="Account">
+                <i class="icon ServiceIcon Account"></i><a href="/MyAccount" style="display:inline;">帳戶管理</a><i class="icon Up"></i>
+                <ul class="SubMenu">
+                    <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                    <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                    @*<li><a href="/MyAccount/RecordBooks">紀錄本修改</a></li>*@
+                    <li><a href="#" onclick="GetAskDetails(this);">問答中心</a></li>
+                    <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="serviceContentArea">
+        <div class="serviceContentBox">
+            <div class="defaultPage">
+                <div class="egg"></div>
+                <div class="pop"><p>您好！<br />請選擇右側服務項目！</p></div>
+            </div>
+        </div>
+    </div>
+
+   <div class="serviceContentArea">
+        <div id="myOrderArea2" class="serviceContentBox"></div>
+    </div>
+</div>

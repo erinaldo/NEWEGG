@@ -1,0 +1,14 @@
+/*RemindDialog*/
+.RemindDialog .Remindtxt, .AddtoOtherCart .Remindtxt { margin: 60px; }
+.RemindDialog .Remindtxt span, .AddtoOtherCart .Remindtxt span { font-size: 21px; font-weight: bold; }
+.RemindDialog .DialogBtn, .AddtoOtherCart .DialogBtn { margin: 150px auto 0 auto; text-align: center; }
+.RemindDialog .DialogBtn .Btn, .AddtoOtherCart .DialogBtn .Btn { width: 106px; height: 44px; margin: 20px; font-size: 14px; letter-spacing: 5px; }
+.RemindDialog .DialogBtn .DialogConfirmBtn, .AddtoOtherCart .DialogBtn .DialogConfirmBtn { background: #EC8B54; }
+.RemindDialog .DialogBtn .DialogDisagreeBtn, .AddtoOtherCart .DialogBtn .DialogDisagreeBtn { background: url("/Themes/img/ShoppingProcess/BlueBigBtnBG.jpg") no-repeat; width: 150px; height: 55px; font-size: 18px; }
+.RemindDialog .DialogBtn .DialogAgreeBtn, .AddtoOtherCart .DialogBtn .DialogAgreeBtn { background: url("/Themes/img/ShoppingProcess/OrangeBigBtnBG.jpg") no-repeat; width: 150px; height: 55px; font-size: 18px; }
+
+.AddtoOtherCart .Remindtxt { margin: 60px; }
+.AddtoOtherCart .Remindtxt span { font-size: 21px; font-weight: bold; }
+.AddtoOtherCart .DialogBtn { margin: 150px auto 0 auto; width: 150px; }
+.AddtoOtherCart .DialogBtn .Btn { width: 106px; height: 44px; margin: 20px; font-size: 14px; letter-spacing: 5px; }
+.AddtoOtherCart .DialogBtn .DialogConfirmBtn { background: #EC8B54; }

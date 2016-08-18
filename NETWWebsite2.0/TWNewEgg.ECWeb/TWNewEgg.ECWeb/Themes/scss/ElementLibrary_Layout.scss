@@ -1,0 +1,734 @@
+﻿//compileExpanded: ../css/ElementLibrary_Layout.css,﻿  includePath: includes/
+@import "compass";
+@import "_importSCSS";
+
+//字體設定
+body,input{
+	font-family:微軟正黑體;
+	color:#666;
+}
+
+//連結基本款
+a,a:hover,a:visited{color:#698eb8;border-bottom:1px solid #698eb8;text-decoration:none;outline:none;}
+
+//H1~6
+h1{a,a:hover,a:visited{border-bottom:0;}}//For Logo
+h2{}//For Footer CopyRight
+h3{//For 產品名稱
+	font-size:18px;
+	margin-top:5px;
+	overflow: hidden;
+	color:#666;
+}
+
+//麵包屑
+.bread {
+	@include clearAfter;
+	width: 500px;
+	margin-left: 10px;
+	position: relative;
+	z-index:1;
+	color: #808080;
+	font-size: 14px;
+    height:45px;
+    line-height:54px;
+    padding-left:8px;
+	margin-left: -58.5px;
+	a {
+		margin:0 3px;
+	}
+}
+
+.pathLink {
+	margin:10px 0;
+	font-size:15px;
+	span,a{
+		margin:0 3px;
+	}
+}
+
+
+//抬頭樣式設定
+.Tit{
+	line-height:50px;
+	font-size:21px;
+}
+.ColorBarTit{
+	background-color:#EC8B54;
+	height:47px;
+	padding-left:16px;
+	color:#fff;
+	font-size:18px;
+	line-height:47px;
+	font-weight:bold;
+}
+.ClassTit{
+	margin:27px 0 27px 46px;
+	line-height:47px;
+	height:34px;
+	font-size:15px;
+	font-weight:bold;
+}
+
+$BorderWidth:1px;
+//頁籤樣式設定
+.TabArea{//包住頁籤最外圍的樣式
+	border:1px solid;
+	@include clearAfter;
+}
+.Tab,.TabNoHover{//單一無邊線頁籤 和 無hover變色的頁籤 樣式
+	list-style:none;
+	color:#666;
+	line-height: 45px;
+	width:25%;//有4個tab
+	text-align:center;
+	float:left;
+	vertical-align: middle;
+	font-weight: bold;
+	cursor: pointer;
+	position:relative;
+	@include transition(100);
+	a,a:visited{
+		line-height: 45px;
+		display:block;
+		color:#666;
+		border-bottom:0;
+	}
+	a:hover{color:#fff;border-bottom:0;}
+}
+.Tab{//無邊線頁籤下有子選單的樣式
+	.SubMenu{
+		display:none;
+		position:absolute;
+		width:(($RWDMinWidth - $BorderWidth * 2) - $BorderWidth * 3 ) / 4 ;//有4個tab
+		color:#666;
+		text-align:center;
+		background-color:#fff;
+		left:-1px;
+		border:1px solid #ec8B54;
+		border-top:0;
+		z-index:1;
+		a,a:hover,a:visited{
+			line-height:35px;
+			//padding-left:60px;
+			display:block;
+			color:#666;
+			border-bottom:0;
+		}
+	}
+}
+.RadiusTab{//頁籤有圓角的樣式
+	border:0;
+	border-top-left-radius:20px;
+	border-top-right-radius:20px;
+	background:#f6c7ad;
+	color:#fff;
+	a,a:hover,a:visited{
+		color:#fff;
+		border-bottom:0;
+	}
+}
+.Tab:hover,.TabSelected{//頁籤在被滑過或是被點選中的樣式
+	background:#ec8B54;
+	color:#fff;
+	a,a:hover,a:visited{
+		color:#fff;
+		border-bottom:0;
+	}
+	.SubMenu{
+		a,a:hover,a:visited{
+			display:block;
+			color:#666;
+			border-bottom:0;
+		}
+	}
+}
+.BorderTab{//有邊線的頁籤樣式
+	border-right:1px solid #d5d5d5;
+	width:(($RWDMinWidth - $BorderWidth * 2) - $BorderWidth * 3 ) / 4 ;//有4個tab
+	//width:292.75px;
+}
+.BorderTab+.BorderTab+.BorderTab+.BorderTab{border:0;}
+
+.SmallBorderTab{//小的頁籤樣式 多用在排列方式上
+	color:#808183;
+	float: right;
+	line-height: 22px;
+	width:(($RWDMinWidth - $BorderWidth * 2) - $BorderWidth * 4 ) / 5 ;
+	border-right: 1px solid #808183;
+	vertical-align: bottom;
+	@include transition(100);
+	a,a:visited{color:#808183;border-bottom:0;}
+	a:hover{color:#f37225;border-bottom:0;}
+}
+.SmallBorderTab:first-child{border:0;}
+.SmallBorderTab:hover,.SmallBorderTabSelected{background:0;color:#f37225;}
+
+
+//Tab + icon
+i.icon{
+	vertical-align: middle;
+}
+//會員中心使用的icon
+i.ServiceIcon{
+	background-image:url(/Themes/img/Icon/SeriveIcon.png);
+	background-repeat:no-repeat;
+	padding:9px 20px;
+	margin-right:5px;
+}
+i.ShoppingCash{background-position:0 0;}
+i.Coupons{background-position:1px -36px;}
+i.Order{background-position:0 -76px;}
+i.WishList{background-position:0 -114px;}
+i.Account{background-position:0 -156px;}
+i.ActivityList{background-position:0 -194px;}
+i.NameList{background-position:0 -230px;}
+#ShoppingCash:hover i.ShoppingCash,.TabSelected i.ShoppingCash{background-position:-37px 0px;}
+#Coupons:hover i.Coupons,.TabSelected i.Coupons{background-position:-41px -36px;}
+#Order:hover i.Order,.TabSelected i.Order{background-position:-39px -76px;}
+#WishList:hover i.WishList,.TabSelected i.WishList{background-position:-39px -114px;}
+#Account:hover i.Account,.TabSelected i.Account{background-position:-39px -156px;}
+#ActivityList:hover i.ActivityList,.TabSelected i.ActivityList{background-position:-39px -194px;}
+#NameList:hover i.NameList,.TabSelected i.NameList{background-position:-39px -230px;}
+i.ShoppingCash-2{background-position:-78px 0px}
+i.Coupons-2{background-position:-84px -36px;}
+i.Order-2{background-position:-78px -76px;}
+i.WishList-2{background-position:-78px -114px;}
+i.Account-2{background-position:-78px -156px;}
+i.Invoice-2{background-position:-78px -265px;}
+i.QuestionCenter-2{background-position:-78px -303px;}
+i.UpdateInformation-2{background-position:-78px -340px;}
+
+//排列方式使用的icon
+i.OrderbyIcaon{
+	background-image:url(/Themes/img/Icon/OrderbyIcaon.png);
+	background-repeat:no-repeat;
+	padding:1px 12px;
+	margin-right:5px;
+}
+i.DateNear{background-position:0 1px;}
+i.DateFar{background-position:0 -26px;}
+i.PriceHigh{background-position:0 -51px;}
+i.PriceLow{background-position:0 -77px;}
+i.LatestActivity{background-position:0 -107px;}
+i.ComingtoEndActivity{background-position:0 -135px;}
+#DateNear:hover i.DateNear,.SmallBorderTabSelected i.DateNear{background-position:-25px 1px;}
+#DateFar:hover i.DateFar,.SmallBorderTabSelected i.DateFar{background-position:-25px -26px;}
+#PriceHigh:hover i.PriceHigh,.SmallBorderTabSelected i.PriceHigh{background-position:-25px -51px;}
+#PriceLow:hover i.PriceLow,.SmallBorderTabSelected i.PriceLow{background-position:-25px -77px;}
+#LatestActivity:hover i.LatestActivity,.SmallBorderTabSelected i.LatestActivity{background-position:-25px -107px;}
+#ComingtoEndActivity:hover i.ComingtoEndActivity,.SmallBorderTabSelected i.ComingtoEndActivity{background-position:-25px -135px;}
+
+//箭頭有上下之別的icon
+i.Down{
+	background:url(/Themes/img/Icon/Close.png) no-repeat center;
+	padding:10px;
+	margin-left:10px;
+}
+i.Up{
+	background:url(/Themes/img/Icon/Open.png) no-repeat center;
+	padding:10px;
+	margin-left:10px;
+}
+//Table Class
+
+/*.table{
+	width:$RWDMinWidth - $BorderWidth * 2;
+	border:1px solid;
+}
+.th{
+	border:1px solid;
+	text-align:center;
+	vertical-align: middle;
+	height:48px;
+}
+.td{
+	border:1px solid;
+	text-align:center;
+	vertical-align: middle;
+	height:70px;
+	img{display:block;}
+}
+tr.Colortr:nth-child(odd){background:#f5f5f5;}
+tr.Colortr:first-child{background:none;}*/
+
+//有顏色背景的 TH 或 TD 樣式
+.GrayBgColorth{background:#f0f0f0;}
+.BgColortd{background:#fbe8dd;}
+.DarkGrayBG {background:#D5D5D5;}
+
+//有圖和文字為一組的樣式
+.PicArtBox{
+	text-align:left;
+	padding:18px 0;
+	border-bottom:1px solid;
+	@include clearAfter;
+	.pic{//包圖的盒子
+		float:left;
+		overflow:hidden;
+	}
+	.ArticPic{width:194px;height:145px;margin-right:23px;}
+	.ItemListPic{
+		margin:0 5px;
+		text-align:center;
+		width:78px;
+		height:78px;
+		img {
+			max-width:78px;max-height:78px;
+		}
+	}
+	.ArticleName{
+		font-weight:bold;
+		line-height:35px;
+		text-decoration:underline;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		padding-right: 5%;
+		height: 35px;
+	}
+	.ItemName{
+		font-weight:bold;
+		line-height:40px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.Article{height:80px;  overflow: hidden;}
+}
+
+//折扣類型的背景樣式
+div.SpecialDeal{
+	min-height:18px;
+	padding-bottom: 6px;
+	p.SpecialDeal{
+		font-size:15px;
+		margin-top:11px;
+		line-height:18px;
+	}
+	span.SpecialDeal{
+		padding:2px 3px;
+		margin-right:5px;
+	}
+
+	//writer: vincent.c.su
+	//write-date: 2015/10/20
+	//sampleAddress: none
+	//describe: 圓角狀態修正for全站，原本specialDeal圓角影響到其他狀態設定，設定為底下幾種狀態使用。
+	span.SpecialDealClass0,
+	span.SpecialDealClass1-1,
+	span.SpecialDealClass1-2,
+	span.SpecialDealClass2-1,
+	span.SpecialDealClass2-2,
+	span.SpecialDealClass3-1,
+	span.SpecialDealClass3-2,
+	span.SpecialDealClass4-1,
+	span.SpecialDealClass4-2,
+	span.SpecialDealClass5-1,
+	span.SpecialDealClass5-2,
+	span.SpecialDealClass6-1,
+	span.SpecialDealClass6-2,
+	span.SpecialDealClass7-1,
+	span.SpecialDealClass7-2,
+	span.SpecialDealClass8-1,
+	span.SpecialDealClass8-2 {
+		@include border-radius(5px);
+	}
+
+	span.SpecialDealClass0{background:#b4b4b4;color:#fff;line-height: 17px;font-size: 13px;}
+	span.SpecialDealClass1-1{background:#ffbe33;color:#fff;}//實心 滿額折(現折)
+	span.SpecialDealClass1-2{border:1px solid #ffbe33;color:#ffbe33;}//空心 滿額折(現折
+	span.SpecialDealClass2-1{background:#e75968;color:#fff;cursor:pointer;}//實心 折價券
+	span.SpecialDealClass2-2{border:1px solid #e75968;color:#e75968;}//空心 折價券
+	span.SpecialDealClass3-1{background:#ff82a3;color:#fff;}//實心 回饋金
+	span.SpecialDealClass3-2{border:1px solid #ff82a3;color:#ff82a3;}//空心 回饋金
+	span.SpecialDealClass4-1{background:#44bed5;color:#fff;}//實心 紅利點數
+	span.SpecialDealClass4-2{border:1px solid #44bed5;color:#44bed5;}//空心 紅利點數
+	span.SpecialDealClass5-1{background:#7cbc69;color:#fff;}//實心 抽獎
+	span.SpecialDealClass5-2{border:1px solid #7cbc69;color:#7cbc69;}//空心 抽獎
+	span.SpecialDealClass6-1{background:#a06ebe;color:#fff;}//實心 贈獎(獎品)
+	span.SpecialDealClass6-2{border:1px solid #a06ebe;color:#a06ebe;}//空心  贈獎(獎品)
+	span.SpecialDealClass7-1{background:#358bc6;color:#fff;}//實心 銀行
+	span.SpecialDealClass7-2{border:1px solid #358bc6;color:#358bc6;}//空心 銀行
+	span.SpecialDealClass8-1{background:#ff8c4c;color:#fff;}//實心 折扣
+	span.SpecialDealClass8-2{border:1px solid #ff8c4c;color:#ff8c4c;}//空心 折扣
+}
+
+
+//分頁頁碼的樣式
+.PageArea{
+	@extend .clear;
+	@include clearAfter;
+	position:relative;
+	margin-top:30px;
+	font-size:24px;
+	text-align:center;
+	a,span {
+		padding:0 5px;
+		vertical-align:middle;
+		color:#777;
+		@include transition(100);
+		cursor:pointer;
+		border-bottom:0;
+		&:hover {
+			background:#f78d51;
+			color:#fff;
+			border-bottom:0;
+		}
+		&.SelectThePage, &.StopGoToPage {
+			background:none;
+			color:#eb8a51;
+			cursor:default;
+		}
+		&.default {
+			background:#fff;
+			color:#777;
+			cursor:text;
+		}
+	}
+	.arrow {
+		position:relative;
+		vertical-align:middle;
+		padding:15px;
+		padding:29px 15px 0 15px \9;
+		vertical-align:baseline \9;
+		bottom: -9px \9;
+		color:#fff;
+		background-image:url(/Themes/img/Icon/arrowPageArea.png);
+		text-indent:-9999px;
+		font-size:0;
+		&:hover {
+			background-image:url(/Themes/img/Icon/arrowPageArea-hover.png);
+		}
+		&.arrLeft{
+			left:-25px;
+			background-position:0 0;
+		}
+		&.arrRight{
+			right:-25px;
+			background-position:0 -50px;
+		}
+	}
+}
+
+//賣場頁中選擇尺寸和顏色等的樣式
+p.ChoseStyle{
+	line-height:22px;
+	margin-bottom: 10px;
+	span{
+		display: inline-block;
+		padding:2px 5px 2px 5px;
+		vertical-align:middle;
+		cursor:pointer;
+		@include transition(100);
+	}
+	//被選中時的樣式
+	@mixin focusStyle {
+		background:#f78d51;
+		color:#fff;
+	}
+	//缺貨時的樣式
+	@mixin grayStyle {
+		background:none;
+		color:#ccc;
+	}
+	span:hover,span.selected{@include focusStyle;}
+	span.gray {
+		@include grayStyle;
+		&:hover {
+			@include focusStyle;
+}
+		&.selected {
+			@include focusStyle;
+		}
+	}
+}
+
+//會員中心最上方會有的單元說明方框
+.TopExplanationArea{
+	margin-top:-30px;
+	padding-top:40px;
+	height:72px;
+	width:100%;
+	min-width: $RWDMinWidth;
+	background: url(/Themes/img/ElementLibrary/ExpEgg.png) no-repeat top right;
+	line-height: 20px;
+	&>p{
+		font-size:17px;
+		line-height:25px;
+	}
+}
+//內容下方的說明方框
+.BottomExplanationArea{
+	width:100%;
+	min-width: $RWDMinWidth;
+	margin:40px auto 40px auto;
+	li.list{
+		margin: 5px 0 5px 30px;
+		line-height: 20px;
+		list-style-type: decimal;
+	}
+}
+
+//一列中分割成多格的樣式
+ul.OneLine{
+	@include clearAfter;
+	width:100%;
+	li{
+		list-style:none;
+		float:left;
+		text-align:center;
+	}
+}
+
+//廣告盒子
+.AdBox{
+	width:100%;
+	min-width:$RWDMinWidth;
+	margin:20px auto 20px auto;
+	img{
+		display:block;
+		margin:0 auto;
+	}
+}
+
+
+//內容以幾個為一列的排列樣式
+.BoxsGroup{
+	width:$RWDMinWidth;
+	margin:0 auto;
+	@include clearAfter;
+	.TwoBoxsInRow,.FourBoxsInRow{
+		float:left;
+		overflow:hidden;
+	}
+	.TwoBoxsInRow{
+		width:47%;
+		margin:20px 0 0 2%;
+		border:1px solid #d5d5d5;
+	}
+	.FourBoxsInRow{
+		width:23.5%;
+		margin:20px 0 0 1%;
+		border:1px solid #d5d5d5;
+	}
+}
+
+//LightBox
+.LightBoxUnderLay{
+	display:none;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	min-width: 1024px;
+	height:100%;
+	background:rgba(0,0,0,0.5);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000) ;
+	z-index:100;
+	//RemindDialog
+	/*.RemindDialog , .AddtoOtherCart , .CheckoutWarning {
+		.Remindtxt {
+		margin: 60px;
+			span {
+				font-size:21px;
+				font-weight:bold;
+			}
+}
+		.DialogBtn {
+			margin: 150px auto 0 auto;
+			text-align: center;
+			.Btn {
+				width:106px;
+				height:44px;
+				margin:20px;
+				font-size: 14px;
+				letter-spacing:5px;
+			}
+			.DialogConfirmBtn  {
+				background:#EC8B54;
+			}
+			.DialogDisagreeBtn {
+				width: 150px;
+				height: 55px;
+				font-size: 18px;
+			}
+			.DialogAgreeBtn {
+				width: 150px;
+				height: 55px;
+				font-size: 18px;
+			}
+		}
+	}*/
+}
+
+.mask {
+  position:fixed;
+  z-index:98;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.5);
+
+}
+
+.stateShow { 
+  position:fixed;
+  z-index:99;
+  left:50%;
+  top:50%;
+  margin-left:-212.5px;
+  margin-top:-100px;
+  width:425px;
+  height:200px;
+  text-align: center;
+
+  img {
+	  position: relative;
+	  //top:50%;
+	  margin:0 auto;
+  }
+
+  p.tips {
+	  font-size:30px;
+	  font-weight: bold;
+	  letter-spacing: 1px;
+	  line-height:200px;
+  }
+  &.autoWidth {
+	margin:auto;
+	min-width:1024px;
+	max-width:1064px;
+	width:auto;
+	height:auto;
+	overflow:auto;
+	background-color:#fff;
+  }
+
+}
+
+.LightBoxMsg{display:none;position:fixed;}
+
+.LightBoxMsgError{
+	#ErrorMessage { display:block; margin:60px; line-height:30px; word-break: break-all; font-size: 21px; font-weight: bold;}
+	#OKButton { display:block; margin:20px auto; text-align:center; }
+}
+
+.Stlye-1{/*樣式一：橘細框*/
+	top:100px;
+	left:50%;
+	background-color:#fff;
+	border:3px solid #ec8b54;
+	.MsgContent{
+		margin:0px 50px 30px 50px;
+		text-align:center;
+		line-height:1.2em;
+		font-size:22px;
+	}
+}
+.Stlye-2{//樣式二：粗黑圓角框
+	top:50%;
+	left:50%;
+	width:660px;
+	margin-left:-330px;
+	height:75vh;
+	margin-top:-37.5vh;
+	margin-top:-320px \9 ;  
+	padding:0 30px;
+	overflow-y:auto;
+	background-color:#fff;
+	border:8px solid #000;
+	@include border-radius(15px);
+	&>img{
+		display:block;
+		margin:0 auto;
+		max-width:100%;
+	}
+	.CloseBtn{
+		position:absolute;
+		cursor:pointer;
+		top:10px;
+		right:10px;
+		width:33px;
+		height:33px;
+		border:0;
+		background: url(/Themes/img/CloseBtn.png) no-repeat center;
+	}
+}
+.Stlye-3{//圓角無邊線
+	width:$RWDMinWidth;
+	background-color:#fff;
+	@include border-radius(15px);
+}
+
+
+//數字加減框
+.Modified{
+	margin-bottom: 10px;
+	@include clearAfter;
+	span{
+		display:block;
+		float:left;
+		text-align:center;
+		height:22px;
+		line-height:23px;
+		&.less,&.add{
+			border:1px solid #5f6465;
+			width:23px;
+			cursor: pointer;
+		}
+		&.less{background:url(/Themes/img/Icon/less.jpg) no-repeat center;}
+		&.notless{background:url(/Themes/img/Icon/NotLess.png) no-repeat center;cursor: auto;}
+		&.add{background:url(/Themes/img/Icon/add.jpg) no-repeat center;}
+		&.notadd{background:url(/Themes/img/Icon/NotAdd.png) no-repeat center;cursor: auto;}
+		&.quantity{
+			border-top:1px solid #5f6465;
+			border-bottom:1px solid #5f6465;
+			width:40px;
+		}
+	}
+}
+
+//Border Color
+.lightGrayBorder{border-color:#ccc;}
+.grayBorder{border-color:#d5d5d5;}
+
+//文字靠左或靠右或置中
+.TextAlign-center{text-align:center;}
+.TextAlign-left{text-align:left;}
+.TextAlign-right{text-align:right;}
+
+//粗體字
+strong,.Boldtext{font-weight: bold;}
+
+//字的顏色
+.white{color:#fff;}
+.red{color:#cb4042;}
+.darkGray{color:#666;}
+.gray{color:#808183;}
+.lightGray{color:#b3b3b3;}
+.darkBlue{color:#0071bc;}
+.blue{color:#698eb8;}
+.garkOrange{color:#b86b3d;}
+.orange{color:#f58e51;}
+
+//字有底線或右刪除線
+.UnderLine{border-bottom: 1px solid;}
+.ThroughLine{text-decoration: line-through;}
+
+//浮動
+.FloatLeft {float:left;}
+.FloatRight {float:right;}
+
+//10大分類顏色
+.Category_01{border-color:#c4c2c2;color:#ec7375;}//設計風尚
+.Category_02{border-color:#d6ae7a;color:#d6ae7a;}//國際精品
+.Category_03{border-color:#82c5ed;color:#82c5ed;}//家電用品
+.Category_04{border-color:#87cdcf;color:#ec7375;}//居家生活
+.Category_05{border-color:#8dc88c;color:#ec7375;}//運動健身
+.Category_06{border-color:#8dcea8;color:#ec7375;}//戶外休旅
+.Category_07{border-color:#669bd3;color:#ec7375;}//電腦周邊
+.Category_08{border-color:#70b0e1;color:#ec7375;}//數位3C
+.Category_09{border-color:#f29f7f;color:#ec7375;}//好食市集
+.Category_10{border-color:#ec7375;color:#ec7375;}//美蛋直購

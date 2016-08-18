@@ -1,0 +1,209 @@
+﻿@model TWNewEgg.Models.ViewModels.Category.CategoryTopBanner_MasterView
+
+@using TWNewEgg.Models.DomainModels.Category;
+@using TWNewEgg.ECWeb.Utility;
+
+        <!-- 判斷是否有設定 -->
+        @if (!(Model.NewCategoryTopBanner == null) && (Model.NewCategoryTopBanner.Count() > 0))
+        { 
+            <!-- 商品輪播促銷模組設計 開始 -->
+            <div class="categoryPushModules">
+                <!-- 輪播模組 開始 -->
+                <div class="banner categoryPushSlider">
+                    <div class="sliderContent">
+                    @foreach (var singleMainZone in Model.NewCategoryTopBanner)
+                    {
+                        if (singleMainZone.AdType == (int)AdLayer3DM.adType.item)
+                        {
+                        <div class="modules">
+                            <!--副標題-->
+                            <div id="starItemTitle" class="startItemTitle">@(ViewBag.SubTitle)</div>
+                            <!-- 輪播模組(商品組合) 開始 -->
+                            <div class="pushProducts">
+                                <ul>
+                                @foreach (var singleItem in singleMainZone.ItemList)
+                                {
+                                    <li class="box">
+                                        <div class="pic">
+                                            <a href="/item?itemid=@(singleItem.ItemID)&categoryid=@(singleItem.CategoryID)&StoreID=@(singleItem.StoreID)">
+                                                <img class="itemImgCen" src="@ImageUtility.GetImagePath(singleItem.ItemImage)" alt="@(singleItem.Title)" title="@(singleItem.Title)">
+                                            </a>
+                                        </div>
+                                        <a href="/item?itemid=@(singleItem.ItemID)&categoryid=@(singleItem.CategoryID)&StoreID=@(singleItem.StoreID)">
+                                            <div class="txt">
+                                                <div class="SpecialDeal">
+                                                </div>
+                                                <h3 title="@(singleItem.Title)">@(singleItem.Title)</h3>
+                                                @if(singleItem.MarketPrice != null && singleItem.UnitPrice != null && singleItem.MarketPrice > singleItem.UnitPrice)
+                                                {
+                                                <span class="marketPrice">$@(singleItem.MarketPrice.ToString("N0"))</span>
+                                                }
+                                                <span class="price">$@(singleItem.UnitPrice.ToString("N0"))</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                }
+                                </ul>
+                            </div>
+                            <!-- 輪播模組(商品組合) 結束 -->
+                        </div>
+                        }
+                        else
+                        {
+                        <div class="modules">
+                            <div id="starItemTitle" class="startItemTitle"></div>
+                            <!-- 輪播模組(廣告圖檔) 開始 -->
+                            <div class="pushBanner">
+                                @if (string.IsNullOrEmpty(singleMainZone.ImagePath))
+                                { 
+                                    <img src="@ImageUtility.GetImagePath(singleMainZone.ImagePath)" alt="@(singleMainZone.Title)" />
+                                }
+                                else
+                                {
+                                    <a href="@(singleMainZone.ImageLink)">
+                                        <img src="@ImageUtility.GetImagePath(singleMainZone.ImagePath)" alt="@(singleMainZone.Title)" />
+                                    </a>
+                                }
+                            </div>
+                            <!-- 輪播模組(廣告圖檔) 結束 -->
+                        </div>
+                        }
+                    }
+                    </div>
+                    <!-- 輪播模組(頁簽) 開始 -->
+                    <div class="tab">
+                        <ul>
+                            @foreach (var BannerName in Model.NewCategoryTopBanner)
+                            {
+                                <li><a href="javascript:void(0)">@BannerName.Title<div class="arrow"></div></a></li> 
+                            }
+                        </ul>
+                    </div>
+                    <!-- 輪播模組(頁簽) 結束 -->
+                </div>
+                <!-- 輪播模組 結束 -->
+            </div>
+            <!-- 商品輪播促銷模組設計 結束 -->
+        }
+        else
+        {        
+            foreach (var singleMainZone in Model.OldCategoryTopBanner)
+            {
+                <div id="starItemTitle" class="startItemTitle">@(singleMainZone.Title)</div>
+                if (singleMainZone.ItemList != null)
+                { 
+        
+                    <ul class="list">
+                        @foreach (var singleItem in singleMainZone.ItemList)
+                        {
+                            <li class="box">
+                                <div class="pic img7">
+                                    <a href="/item?itemid=@(singleItem.ItemID)&categoryid=@(singleItem.CategoryID)&StoreID=@(singleItem.StoreID)">
+                                        <img src="@ImageUtility.GetImagePath(singleItem.ItemImage)" alt="@(singleItem.Title)" title="@(singleItem.Title)" class="itemImgCen" />
+                                    </a>
+                                </div>
+                                <div class="txt">
+                                    <a href="/item?itemid=@(singleItem.ItemID)&categoryid=@(singleItem.CategoryID)&StoreID=@(singleItem.StoreID)">
+                                        <h3 class="banner2-caption" title="@(singleItem.Title)">@(singleItem.Title)</h3>
+                                        <span class="banner2-price">$@(singleItem.UnitPrice.ToString("N0"))</span>
+                                        @if(singleItem.MarketPrice !=null && singleItem.UnitPrice !=null &&singleItem.UnitPrice < singleItem.MarketPrice)
+                                        {
+                                        <span class="banner2-price2">  
+                                            $@(singleItem.MarketPrice.ToString("N0")) 
+                                        </span>
+                                         }
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    </ul>           
+                }
+                else
+                {
+                    <ul class="list singleImg">
+                        @foreach (var singleItem in singleMainZone.LogoList)
+                        {
+                        <li class="banner">
+                            @if (string.IsNullOrEmpty(singleItem.Url))
+                            { 
+                                <img src="@ImageUtility.GetImagePath(singleItem.Image)" alt="@(singleItem.Title)" />
+                            }
+                            else
+                            {
+                                <a href="@(singleItem.Url)">
+                                    <img src="@ImageUtility.GetImagePath(singleItem.Image)" alt="@(singleItem.Title)" />
+                                </a>
+                            }
+                        </li>
+                        }
+                    </ul>
+                }
+
+            }
+        <!-- 無選擇輪播模組-廣告圖檔 結束 -->
+        }
+<div class="banner2-tab">
+</div>
+
+<script>
+    sectionImgVerticalAlignCenter($("#categoryBanner"));
+    
+    $(function () {
+        var storeClass = $("#storeID").text();
+        if (storeClass) {
+            $(".startItemTitle").addClass("catcolorbg" + storeClass);
+        }
+    });
+
+
+
+
+    var numIndex = 0;
+    var strBgColor = "";
+    var numNowSlideIndex = 0;
+    var _animateSpeed = 100,
+        timer;
+    var _speed = 10000;
+    var $slides = $(".categoryPushSlider a:eq(0)");
+    var $liTab = $(".categoryPushSlider div.tab ul li");
+    var _isOver = false;
+    var _mouseTab = false;
+    var _mouseImg = false;
+
+    $(".categoryPushSlider div.tab ul li").eq(0).addClass("selected");
+    $(".categoryPushSlider div.tab ul li").bind("mouseenter", function () {
+        clearTimeout(timer);
+        _mouseTab = true;
+        _isOver = true;
+        numIndex = $(this).index();
+
+        $(this).addClass("selected");
+        $(".categoryPushSlider .sliderContent > div").eq(numIndex).fadeIn("fast").siblings("div").fadeOut("fast");
+        $(this).siblings().removeClass();
+    }).mouseleave(function () {
+        clearTimeout(timer);
+        _isOver = false;
+        timer = setTimeout(TopBannerMoveNext, _speed);
+    });
+
+    //當滑鼠移到時停止輪播
+    $(".categoryPushSlider div.banner-img").bind("mouseenter", function () {
+        clearTimeout(timer);
+        _isOver = true;
+        _mouseImg = true;
+    }).mouseleave(function () {
+        clearTimeout(timer);
+        timer = setTimeout(TopBannerMoveNext, _speed);
+        _isOver = false;
+    });
+    //啟動第一次輪播
+    timer = setTimeout(TopBannerMoveNext, _speed);
+
+    // 用來控制Banner移動的函式
+    function TopBannerMoveNext() {
+        var _now = $(".categoryPushSlider div.tab ul li.selected").eq(0).index();
+        var _nextIndex = (_now + 1) % $liTab.length;
+        $($liTab).eq(_nextIndex).mouseenter();
+        timer = setTimeout(TopBannerMoveNext, _speed);
+    }
+</script>

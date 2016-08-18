@@ -1,0 +1,12 @@
+﻿@using TWNewEgg.Models.DomainModels.Media
+@model MediaInfo
+@if (Model != null)
+{
+    <div class="TwoBoxsInRow grayBorder">
+        <div class="MediaBox" type="@Model.Type" path="@Model.Path" link="@Model.LinkUrl" onclick="twNewegg.Media.GetValue(this)"><img src="@(TWNewEgg.ECWeb.Utility.ImageUtility.GetImagePath(Model.SnapshotPath))")" /></div>
+        <span class="Date blue">@(string.Format("{0}/{1}/{2}", Model.Date.Year, Model.Date.Month, Model.Date.Day))</span>
+        <span class="WatchThis orange" onclick="twNewegg.Media.GetValue(this)" style="cursor:pointer;">觀看報導 〉〉</span>
+        <hr />
+        <div class="Summary">@Model.Title</div>@*請限制此區只顯示90個字，若有超出請以"..."代替*@
+    </div>
+}

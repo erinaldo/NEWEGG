@@ -1,0 +1,32 @@
+﻿@if (Model.PullDownBannerList != null && Model.PullDownBannerList.Count > 0)
+{
+    <div class="banner-title"><i class="listi@(StoreShareFuns.GetCssType((int)ViewData["storeId"]))"></i>@(Model.Title)</div>
+    <div class="banner">
+        <div class="banner-bg2 banner-bg2-img@(StoreShareFuns.GetCssType((int)ViewData["storeId"]))"></div>
+        <a href="@(!string.IsNullOrEmpty(Model.PullDownBannerList[0].Url) ? Model.PullDownBannerList[0].Url : '#')">
+            <div class="banner-img" style="background:url('@(TWNewEgg.ECWeb.Utility.ImageUtility.GetImagePath(Model.PullDownBannerList[0].Image))')">
+            </div>
+        </a>
+        <div class="tab">
+            <ul>
+                @{
+    int bannerCount = 0;
+    foreach (var PullDownBanner in Model.PullDownBannerList)
+    {
+                    <li><a href="javascript:void(0)" banner-src="@(TWNewEgg.ECWeb.Utility.ImageUtility.GetImagePath(PullDownBanner.Image))" banner-url="@(!string.IsNullOrEmpty(PullDownBanner.Url) ? PullDownBanner.Url : '#')">@(PullDownBanner.Title)<div class="arrow"></div>
+                    </a></li> 
+        bannerCount++;
+        if (bannerCount == 5)
+        {
+            break;
+        }
+    } 
+                }
+            </ul>
+        </div>
+        <div class="storeUSBG red"></div><div class="storeUSBG blue"></div>
+    </div>
+    <div class="banner-bg banner-bg-img@(StoreShareFuns.GetCssType((int)ViewData["storeId"]))"></div>
+    <div class="banner-bgcolor colorbg@(StoreShareFuns.GetCssType((int)ViewData["storeId"]))"></div>
+    <div class="toperHeaderBG"></div>
+}

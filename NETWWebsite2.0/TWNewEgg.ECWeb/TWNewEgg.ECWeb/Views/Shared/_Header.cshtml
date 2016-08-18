@@ -1,0 +1,192 @@
+﻿@using TWNewEgg.Framework.ServiceApi;
+
+@{
+    string defaultHeaderWelcomeWord = "Hi, {email}，您好！";
+    string headerWelcomeWord0 = System.Configuration.ConfigurationManager.AppSettings.Get("HeaderWelcomeWord0");
+    string headerWelcomeWord1 = System.Configuration.ConfigurationManager.AppSettings.Get("HeaderWelcomeWord1");
+    string hWW1StartDateString = System.Configuration.ConfigurationManager.AppSettings.Get("HeaderWelcomeWord1StartDate");
+    string hWW1EndDateString = System.Configuration.ConfigurationManager.AppSettings.Get("HeaderWelcomeWord1EndDate");
+    string headerWelcomeWord2 = System.Configuration.ConfigurationManager.AppSettings.Get("HeaderWelcomeWord2");
+    string hWW2StartDateString = System.Configuration.ConfigurationManager.AppSettings.Get("HeaderWelcomeWord2StartDate");
+    string hWW2EndDateString = System.Configuration.ConfigurationManager.AppSettings.Get("HeaderWelcomeWord2EndDate");
+    IFormatProvider culture = new System.Globalization.CultureInfo("zh-TW", true);
+    DateTime dateTimeNow = DateTime.UtcNow.AddHours(8);
+    //DateTime time = DateTime.ParseExact("20090723194530", "yyyyMMddHHmmss", culture);
+    DateTime hWW1Start = DateTime.ParseExact(hWW1StartDateString, "yyyyMMddHHmm", culture);
+    DateTime hWW1End = DateTime.ParseExact(hWW1EndDateString, "yyyyMMddHHmm", culture);
+    DateTime hWW2Start = DateTime.ParseExact(hWW2StartDateString, "yyyyMMddHHmm", culture);
+    DateTime hWW2End = DateTime.ParseExact(hWW2EndDateString, "yyyyMMddHHmm", culture);
+    defaultHeaderWelcomeWord = headerWelcomeWord0;
+
+    if (DateTime.Compare(dateTimeNow, hWW1Start) >= 0 && DateTime.Compare(dateTimeNow, hWW1End) < 0)
+    {
+        defaultHeaderWelcomeWord = headerWelcomeWord1;
+    }
+    if (DateTime.Compare(dateTimeNow, hWW2Start) >= 0 && DateTime.Compare(dateTimeNow, hWW2End) < 0)
+    {
+        defaultHeaderWelcomeWord = headerWelcomeWord2;
+    }
+
+    TWNewEgg.ECWeb.Controllers.HomeController obj = new TWNewEgg.ECWeb.Controllers.HomeController();
+
+    //問候語
+    string greetingWords1 = obj.GetGreetingWords();
+    defaultHeaderWelcomeWord = greetingWords1; // ViewBag.GreetingWords;
+    
+}
+
+
+
+<!-- 顯示問候卡-----------add by bruce 20160414 -->
+<div id="gw" data-url="/Home/GreetingWords2"></div>
+
+<header class="header">
+    <div class="header-limiter">
+
+
+        <h1 class="logo"><a href="/">
+            <img src="/Themes/img/Common/logo.jpg"></a></h1>
+        <div class="group">
+            <div class="IDheight">
+                @*@if (Request.IsAuthenticated) {
+                    <div class="welcome orangetxt">Hi, @(TWNewEgg.ECWeb.Auth.NEUser.Email)，您好！</div>
+                }*@
+                <div class="welcome orangetxt" id="loginEmail"></div>
+            </div>
+            <!-- Top AdvHeaderBanner -->
+            <div class="ad" data-url="/AdvEvent/Partial_AdvHeaderBanner" style="text-align: center">
+                <img src="~/Themes/img/loading.gif" />
+                Loading ...
+            </div>
+            <!-- end of Top AdvHeaderBanner -->
+        </div>
+        <div class="icon quickMenu">
+            <ul>
+                @*@if (!Request.IsAuthenticated) {
+                    <li><a href="/MyAccount/Login"><i class="icon listi6"></i><div class="text">登入/註冊</div></a></li>
+                }*@
+                @*改以JS插入*@ @*<li id="loginOrSignUp"><a href="/MyAccount/Login"><i class="icon listi6"></i><div class="text">登入/註冊</div></a></li>*@
+                @*<li><a href="/EDM/LatestEDM"><i class="icon listi1"></i><div class="text">電子報</div></a></li>*@
+                <a id="RabbitLoca" href="https://secure.newegg.com.tw/activity/20160316_HappyEaster" target="_blank" style="border: 0; padding: 0; position: absolute; top: 0; left: -200px; background: url(/Themes/img/EasterRabbit.gif) center no-repeat; width: 188px; height: 100px; display: block;"></a>
+                <li><a href="/Activity/Index"><i class="icon listi2"></i>
+                    <div class="text">優惠活動</div>
+                </a></li>
+                <li><a href="/Service/FAQ"><i class="icon listi3"></i>
+                    <div class="text">服務說明</div>
+                </a></li>
+                <li id="headerCartBtn"><a href="/Cart"><i class="icon listi4"><span id="neSCHead" class="num"></span></i>
+                    <div class="text">購物車</div>
+                </a></li>
+                @*@if (Request.IsAuthenticated) {*@
+                <li id="dropAccount" class="divider-none"><a href="javascript:void(0)"><i class="icon listi5"></i>
+                    <div class="text">我的帳戶</div>
+                </a>
+                    <div class="dropCon panel">
+                        @*<div class="icon">*@
+                        <ul>
+                            <li><a href="/Cart/WishCart"><i class="icon listi5"></i>
+                                <div class="text">我的最愛</div>
+                            </a></li>
+                            @*<li><a href="/MyAccount/NeweggCash"><i class="icon listi2"></i><div class="text">紅利:120點</div></a></li>*@
+                            <li><a href="/MyAccount/Coupon"><i class="icon listi3"></i>
+                                <div class="text">折價券@*:3張*@</div>
+                            </a></li>
+                            <li><a href="/MyAccount/Order"><i class="icon listi4"></i>
+                                <div class="text">我的訂單</div>
+                            </a></li>
+                            <li><a href="/MyAccount"><i class="icon listi1"></i>
+                                <div class="text">帳戶管理</div>
+                            </a></li>
+                            <li><a href="/Logout"><i class="icon listi6"></i>
+                                <div class="text">登出</div>
+                            </a></li>
+                        </ul>
+                        @*</div>*@
+                    </div>
+                </li>
+                @*}*@
+            </ul>
+            <a href="https://www.facebook.com/twnewegg" target="_blank">
+                <div class="fb"></div>
+            </a>
+            <a href="#">
+                <div class="music" id="siteMusic"></div>
+            </a>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+    var showLoginFunc = function () {
+        var email = twNewegg().loginMail();
+        var welcomeMessage = "@Html.Raw(defaultHeaderWelcomeWord)";
+        if (email !== "") {
+            welcomeMessage = welcomeMessage.replace("{email}", email);
+            $("#loginEmail").html(welcomeMessage);
+        }
+        else {
+            $(".icon.quickMenu ul").prepend("<li><a href=\"/MyAccount/Login\"><i class=\"icon listi6\"></i><div class=\"text\">登入/註冊</div></a></li>")
+        }
+    };
+
+    $(document).ready(function (e) {
+
+        //顯示問候卡-----------add by bruce 20160414
+        $("#gw").load($("#gw").data("url"));
+
+        showLoginFunc();
+        @*載入PartialView*@
+        jQuery.ajax({
+            method: "GET",
+            url: "/AdvEvent/Partial_AdvTopHeadBanner",
+            dataType: "html",
+            //async: false,
+        })
+        .done(function (data) {
+            $(".wrapper").prepend(data);
+        })
+        .fail(function () {
+
+        });
+        $(".ad").each(function (index, item) {
+            var url = $(item).data("url");
+            if (url && url.length > 0) {
+                $(item).load(url);
+            }
+        });
+
+        
+
+    });
+</script>
+
+<script type="text/javascript">
+    $('#RabbitLoca').hide();
+
+    /* 計時器控制 */
+    var DateArr = [
+        "2016/03/16 10:00:00",
+        "2016/04/01 09:59:59"
+    ];
+
+
+    countdown(DateArr, function (key) {
+        switch (key) {
+            case 0:
+                Rabbitstart();
+                break;
+            case 1:
+                Rabbitend();
+                break;
+        }
+    });
+
+    function Rabbitstart() {
+        $('#RabbitLoca').show();
+    }
+
+    function Rabbitend() {
+        $('#RabbitLoca').hide();
+    }
+
+</script>

@@ -1,0 +1,5 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16027\TWNewEgg.ECWeb\TWNewEgg.ECWeb\obj\Release\TWNewEgg.ECWeb.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16027\TWNewEgg.ECWeb\TWNewEgg.ECWeb\obj\Release\TWNewEgg.ECWeb.Resources.PageMgmt.PageMgmtResource.resources
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16027\TWNewEgg.ECWeb\TWNewEgg.ECWeb\obj\Release\TWNewEgg.ECWeb.Resources.PageMgmt.PropertyResource.resources
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16027\TWNewEgg.ECWeb\TWNewEgg.ECWeb\obj\Release\TWNewEgg.ECWeb.Resources.PageMgmt.SiteMapResource.resources
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16027\TWNewEgg.ECWeb\TWNewEgg.ECWeb\obj\Release\TWNewEgg.ECWeb.csproj.GenerateResource.Cache

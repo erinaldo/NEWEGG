@@ -1,0 +1,13 @@
+﻿// out: ../css/Act.css, compress: true,﻿﻿
+@import "_importSCSS";
+
+.mainPadding {
+	/*解除頁面寬度內縮*/
+	@include mainPaddingRemove;
+}
+
+.ActContent {
+	margin:0 auto;
+}
+
+a { border: 0; }

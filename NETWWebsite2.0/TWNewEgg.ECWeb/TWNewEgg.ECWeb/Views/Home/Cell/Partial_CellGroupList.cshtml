@@ -1,0 +1,39 @@
+﻿@using System.Collections.Generic
+@using TWNewEgg.Models.DomainModels.Home
+@using TWNewEgg.Models.DomainModels.Store
+@model BlockCell
+@if (Model != null && Model.GroupLinkList != null && Model.GroupLinkList.Any())
+{
+    bool tripleLine = Model.GroupLinkList.Count > 8 ? true : false;
+    <div class="box-category" data-cell-type="Group-List" style="@(tripleLine ? "width:70%;margin:0 auto;float:none;" : "width:inherit");">
+    @if (Model.GroupLinkList.Count > 0)
+    { 
+        <ul>
+            @for (int i = 0; i < Model.GroupLinkList.Count && i < 4; i++)
+			{
+            <li cellgroupId="@(Model.GroupLinkList[i].ID)"><a href="@(Model.GroupLinkList[i].Url)">@(Model.GroupLinkList[i].Title)</a></li>
+			}
+        </ul>
+    }
+    @if (Model.GroupLinkList.Count > 4)
+    {
+        <div class="divider"></div>
+        <ul>
+        @for (int i = 4; i < Model.GroupLinkList.Count && i < 8; i++)
+		{
+            <li cellgroupId="@(Model.GroupLinkList[i].ID)"><a href="@(Model.GroupLinkList[i].Url)">@(Model.GroupLinkList[i].Title)</a></li>
+		}
+        </ul>
+    }
+    @if (Model.GroupLinkList.Count > 8)
+    {
+        <div class="divider"></div>
+        <ul>
+        @for (int i = 8; i < Model.GroupLinkList.Count && i < 12; i++)
+		{
+            <li cellgroupId="@(Model.GroupLinkList[i].ID)"><a href="@(Model.GroupLinkList[i].Url)">@(Model.GroupLinkList[i].Title)</a></li>
+		}
+        </ul>
+    }
+    </div>
+}

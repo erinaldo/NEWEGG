@@ -1,0 +1,12 @@
+﻿@{
+    if (Model != null &&
+        Model.SingleBanner != null &&
+        !string.IsNullOrEmpty(Model.SingleBanner.Image))
+    {
+    <section class="section2">
+        <div class="banner2"><a href="@(Model.SingleBanner.Url)">
+            <img src="@(TWNewEgg.ECWeb.Utility.ImageUtility.GetImagePath(Model.SingleBanner.Image))"></a></div>
+        <div class="section-bg section-bg-img@(StoreShareFuns.GetCssType((int)ViewData["storeId"]))"></div>
+    </section>
+    }
+}

@@ -1,0 +1,33 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Model.DIC["Header"]" width="795" height="68" />
+                    </div>
+                    <br /><br /><br /><br />
+                    <div>
+                        <p>
+                            @Model.Exception
+                        </p>
+                        <p>
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                            請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Model.DIC["Fooer"]" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

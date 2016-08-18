@@ -1,0 +1,208 @@
+﻿  @model List<TWNewEgg.Models.ViewModels.Cart.AdditionalItem_View>
+<div class="cartAdditionalBuy" style="display:none">
+@{if (Model != null)
+    {  
+    <div class="cartAddBuy">
+        <div class="payMethod ColorBarTit redTit"><i class="icon"></i><p>推薦加購</p></div>
+        <a class="arrow grayBg prev">上一頁</a>
+        <a class="arrow grayBg next">下一頁</a>
+        <div class="wrapperList">
+            <ul class="list">
+
+                @foreach (var additionalItem in Model)
+                {
+                <li class="box">
+                    <div class="openItem" style="cursor:pointer;"   data-ItemID="@additionalItem.Id">
+                        <div class="pic">
+                            <img src="@additionalItem.ImagePath" alt="@additionalItem.Name" class="itemImgCen" />
+                        </div>
+                        <div class="txt">
+                            <h3 title="@additionalItem.Name">@additionalItem.Name</h3>
+                            <span class="price">@(additionalItem.Price.ToString("C0",new System.Globalization.CultureInfo("en-US")))</span>
+                        </div>
+                    </div>
+
+                    <div class="specSelect " id="@("specSelect"+additionalItem.Id)" data-itemID="@additionalItem.Id" data-itemCount="@additionalItem.ItemMarketGroup.Count">
+
+                        <select id="@("selectMD"+additionalItem.Id)" data-itemID="@additionalItem.Id" class="select_md"           
+                            @{
+                                if (additionalItem.ItemMarketGroup.Count == 0)
+                                {
+                                    @:disabled="disabled"
+                                }
+                            }
+                         >
+                            @if (additionalItem.ItemMarketGroup.Count == 0)
+                            {
+                                <option value="-1">單一規格</option>
+                            }
+                            else
+                            {
+                                foreach (var itemMarketGroup in additionalItem.ItemMarketGroup)
+                                {
+                                      <option id="@("itemCount"+additionalItem.Id)" class="@("itemCount"+itemMarketGroup.ItemId)" data-itemID="@additionalItem.Id" data-ID="@itemMarketGroup.ItemId" data-Qty="@itemMarketGroup.SellingQty" value="@itemMarketGroup.SellingQty">@itemMarketGroup.MasterPropertyValueDisplay
+                                            @{
+                                                if (@itemMarketGroup.SecondPropertyValueDisplay != "")
+                                                {
+                                                    @:,
+                                                }
+                                            }
+                                            @itemMarketGroup.SecondPropertyValueDisplay</option>            //商品規格            
+                                }       
+                            }
+                        </select>
+                    
+                    </div>
+                    <div class="chooseBar">
+                        <div class="numTit">數量</div>
+                        <div class="numTxt">
+                            <select  id="@("selectQTY"+additionalItem.Id)" class="select_sm">
+                                        @if (@additionalItem.SellingQty== 0 )
+                                        {
+                                            <option value="1">1</option>
+
+                                        }
+                                        else
+                                        {
+                                            for (int i = 1; i <= @additionalItem.SellingQty; i++)
+                                            {
+
+                                                if (i <=10)
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            }
+                                            
+                                        }
+
+
+
+                            </select>
+                        </div>
+                        <div class="status">
+                            <span>加購</span>
+                            <input id="@("neAddToCart" + additionalItem.Id)" name="neAddToCart" value="@additionalItem.Id" onclick="AddToCart(value)" data-itemID="@additionalItem.Id" type="checkbox" class="btn">
+                        </div>
+                    </div>
+                </li>             
+                }
+            </ul>
+        </div>
+    </div>
+    }
+   }
+
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //var html = '';
+
+        //$(".select_md").each(function () {
+        //    selectItemID = $(this).attr('data-ItemID'); //484892
+        //    $(this).children().each(function () {
+        //        var qty = $(this).attr("data-Qty");
+        //        for (var i = 1; i <= qty; ++i) {
+        //            $("#selectQTY" + selectItemID).find('option').remove().end().append('').val(''); //清除前一個select的值
+        //                html += '<option value="' + i + '">' + i + '</option>';
+        //        }
+        //        $("#selectQTY" + selectItemID).append(html);
+
+        //    })
+
+        //})
+    });
+
+    /*產品Light Box*/
+    $(".openItem").on("click", function () {
+        var itemID = $(this).attr('data-ItemID');
+        twNewegg().checkState("loadWin", "/Item/Partial_AdditionalItemDetial?ItemId=" + itemID);
+    });
+
+    /*判斷是否已加入購物車*/
+    @*
+    $(".AdditionalItemDetial").each(function () {
+        cartItemID = $(this).attr('data-ItemID'); //484894
+        var sellingQty = '';
+        var html = '';
+        $(".select_md").each(function () {
+            selectItemID = $(this).attr('data-ItemID'); //484892
+
+            sellingQty = $(".itemCount" + cartItemID).attr("data-Qty");
+            $(this).children().each(function () {
+                var Qty = $('#' + selectItemID + '_Qty').text().toString();
+                if ($(this).val() == -1) {
+                    if (cartItemID == selectItemID) {
+                        $("#neAddToCart" + selectItemID).attr('checked', true);
+                        $('#selectQTY' + selectItemID + ' option[value="' + Qty + '"]').attr('selected', true);
+                    }
+                }
+                var a = $(this).attr("data-ID");
+                if (a == cartItemID) {
+                    $("#neAddToCart" + selectItemID).attr('checked', true);
+                    var Qtty = $('#' + cartItemID + '_Qty').text().toString();
+                    for (var i = 1; i <= sellingQty; ++i) {
+                        $("#selectQTY" + selectItemID).find('option').remove().end().append('').val(''); //清除前一個select的值
+                        html += '<option value="' + i + '">' + i + '</option>';
+                    }
+                    $("#selectQTY" + selectItemID).append(html);
+
+                    $('#selectQTY' + selectItemID + ' option[value="' + Qtty + '"]').attr('selected', true);
+                    $(this).attr('selected', 'selected');
+                } else {
+                    var Qtty = $('#' + selectItemID + '_Qty').text().toString();
+
+                }
+            })
+        })
+    })
+
+    function SetQtySelected(id, qty, cartItemID) {
+        $(".select_md").each(function () {
+            selectItemID = $(this).attr('data-ItemID'); //484892
+
+            if (id == selectItemID) {
+                $('#selectQTY484892 option[value="4"]').attr('selected', 'selected');
+            }
+        })
+
+    }
+    *@
+    /*改變規格品(數量改變)*/
+    $(".select_md").change(function () {
+        var itemID = $(this).attr('data-itemID');
+        var sellingQty = $("#selectMD" + itemID).children(":selected").attr("data-Qty");
+        var html = '';
+
+     for (var i = 1; i <= sellingQty; ++i) {
+            $("#selectQTY" + itemID).find('option').remove().end().append('').val(''); //清除前一個select的值
+            if (i == 1) {
+                html += '<option value="' + i + '" selected="selected">' + i + '</option>';
+            } else {
+            html += '<option value="' + i + '">' + i + '</option>';
+     }
+        }
+     $("#selectQTY" + itemID).append(html);
+   });
+    
+    /*加入購物車*/
+    function AddToCart(id) {
+        var check = $("#neAddToCart" + id).prop("checked");
+        if (check == true) {
+            $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            var itemID = $("#selectMD" + id).children(":selected").attr("data-ID");
+                var qty = $("#selectQTY" + id + " option:selected").text();
+            if (qty == null) {
+                    qty = 1;
+                }
+                if (itemID == "" || itemID == null) {
+                    itemID = id;
+                }
+                //加購商品加入購物車
+            twNewegg().cart().cartMethod("addToAdditionalCart", { itemIds: [itemID], qtys: [qty], categoryIds: [], categoryTypes: [], status: [AdditionalCartTypeID], successMethods: [Reload], successParas: [["加入購物車成功!"]] });
+        } 
+    }
+
+</script>

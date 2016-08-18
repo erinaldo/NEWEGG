@@ -1,0 +1,361 @@
+﻿@model Dictionary<int, List<TWNewEgg.Models.ViewModels.Redeem.Coupon>>
+@{
+    ViewBag.Title = "我的折價券" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<TWNewEgg.Models.ViewModels.Redeem.Coupon> listActiveCoupon = null;   //已生效可使用的Coupon
+    List<TWNewEgg.Models.ViewModels.Redeem.Coupon> listUsedCoupon = null; //已經使用過的Coupon
+    List<TWNewEgg.Models.ViewModels.Redeem.Coupon> listExpiredCoupon = null; //過期的Coupon
+    List<TWNewEgg.Models.ViewModels.Redeem.Coupon> listWaitingForActivecoupon = null; //待生效的Coupon
+    
+    if(Model != null)
+    {
+        //已生效可使用的Coupon
+        if(Model.ContainsKey(1) && Model[1] != null)
+        {
+            listActiveCoupon = Model[1];
+        }
+        
+        //已使用過的Coupon
+        if (Model.ContainsKey(2) && Model[2] != null)
+        {
+            listUsedCoupon = Model[2];
+        }
+
+        //過期的Coupon
+        if (Model.ContainsKey(3) && Model[3] != null)
+        {
+            listExpiredCoupon = Model[3];
+        }
+
+        //待生效的Coupon
+        if (Model.ContainsKey(4) && Model[4] != null)
+        {
+            listWaitingForActivecoupon = Model[4];
+        }
+        
+    }
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/Account")
+}
+@section scripts {
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    <script>
+        /*給子選單滑出滑入用的jquery*/
+        TabSelectArea();
+        /*說明顯示開關*/
+        tipsSwitch();
+    </script>
+}
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/MyAccount">我的帳戶</a> >
+    <span>我的折價券</span>
+</div>
+
+<div class="TopExplanationArea"></div>
+
+<div class="AccountArea">
+    <div class="TabArea Border grayBorder">
+        <ul>
+            <li class="Tab BorderTab" id="WishList"><a href="/Cart/WishCart"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+            @*<li class="Tab BorderTab" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>*@
+            <li class="Tab BorderTab TabSelected" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+            <li class="Tab BorderTab" id="Order" onclick="TabOpenClose()">
+                <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                    @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+                </ul>
+            </li>
+            <li class="Tab BorderTab" id="Account">
+                <a href="/MyAccount"><i class="icon ServiceIcon Account"></i>帳戶管理<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                    <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                    @*<li><a href="/MyAccount/AddressBook">紀錄本修改</a></li>*@
+                    <li><a href="/MyAccount/AskQuestion">問答中心</a></li>
+                    <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="serviceContentArea">
+        <div class="serviceContentBox">
+            <div class="Tit ClassTit"><i class="icon ServiceIcon Coupons-2"></i>我的折價券</div>
+            <div class="couponPswArea">如需兌換折價券，請輸入折價券領用代碼
+                <input type="text" id="ExchangeCouponCode" placeholder="請輸入折價券代碼" />
+                <input type="button" value="輸入" class="btn btn-submit" id="ExchangeCouponBtn" />
+            </div>
+            <select class="select_sm selector-coupon">
+                <option selected="" value="listActiveCoupon">已生效</option>
+                <option value="listUsedCoupon">已使用</option>
+                <option value="listExpiredCoupon">已過期</option>
+                <option value="listWaitingForActivecoupon">待生效</option>
+            </select>
+            <div class="service_contentTable">
+
+                <!--已生效 -->
+                <table id="listActiveCoupon">
+                    <tr>
+                        <th style="width:50px;">狀態</th>
+                        <th>名稱</th>
+                        <th style="width:90px;">生效日期</th>
+                        <th style="width:90px;">失效日期</th>
+                        <th style="width:60px;">金額</th>
+                        <th style="width:300px;">適用範圍</th>
+                    </tr>
+                    @if (listActiveCoupon != null && listActiveCoupon.Count > 0)
+                    {
+                        foreach (TWNewEgg.Models.ViewModels.Redeem.Coupon objSubCoupon in listActiveCoupon)
+                        {
+                            <tr>
+                                <td><span class="highline">已生效</span></td>
+                                <td>@objSubCoupon.title</td>
+                                <td>@Html.Raw(String.Format("{0:yyyy\\/MM\\/dd HH:mm:ss}", @objSubCoupon.validstart))</td>
+                                <td>@Html.Raw(String.Format("{0:yyyy\\/MM\\/dd HH:mm:ss}", @objSubCoupon.validend))</td>
+                                <td>@Html.Raw(String.Format("{0:#}元",@objSubCoupon.value))</td>
+                                <td>@objSubCoupon.categories</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">目前尚無可用折價券</td>
+                        </tr>
+                    }
+                </table>
+                <!--已使用 -->
+                <table id="listUsedCoupon" style="display:none;">
+                    <tr>
+                        <th style="width:50px;">狀態</th>
+                        <th>名稱</th>
+                        <th>品項</th>
+                        <th style="width:90px;">使用日期</th>
+                        <th style="width:60px;">金額</th>
+                        <th style="width:300px;">適用範圍</th>
+                    </tr>
+                    @if (listUsedCoupon != null && listUsedCoupon.Count > 0)
+                    {
+                        foreach (TWNewEgg.Models.ViewModels.Redeem.Coupon objSubCoupon in listUsedCoupon)
+                        {
+                            <tr>
+                                <td><span>已使用</span></td>
+                                <td>@objSubCoupon.title</td>
+                                <td>@Html.Raw(@objSubCoupon.ordcode)
+                                </td>
+                                <td>@Html.Raw(String.Format("{0:yyyy\\/MM\\/dd HH:mm:ss}", @objSubCoupon.usedate))</td>
+                                <td>@Html.Raw(String.Format("{0:#}元",@objSubCoupon.value))</td>
+                                <td>@objSubCoupon.categories</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">3個月內無使用折價券記錄</td>
+                        </tr>
+                    }
+                </table>
+                <!--已過期 -->
+                <table id="listExpiredCoupon" style="display:none;">
+                    <tr>
+                        <th style="width:50px;">狀態</th>
+                        <th>名稱</th>
+                        <th style="width:90px;">生效日期</th>
+                        <th style="width:90px;">失效日期</th>
+                        <th style="width:60px;">金額</th>
+                        <th style="width:300px;">適用範圍</th>
+                    </tr>
+                    @if (listExpiredCoupon != null && listExpiredCoupon.Count > 0)
+                    {
+                        foreach (TWNewEgg.Models.ViewModels.Redeem.Coupon objSubCoupon in listExpiredCoupon)
+                        {
+                            <tr>
+                                <td><span>已過期</span></td>
+                                <td>@objSubCoupon.title</td>
+                                <td>@Html.Raw(String.Format("{0:yyyy\\/MM\\/dd HH:mm:ss}", @objSubCoupon.validstart))</td>
+                                <td>@Html.Raw(String.Format("{0:yyyy\\/MM\\/dd HH:mm:ss}", @objSubCoupon.validend))</td>
+                                <td>@Html.Raw(String.Format("{0:#}元",@objSubCoupon.value))</td>
+                                <td>@objSubCoupon.categories</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">目前尚無過期的折價券</td>
+                        </tr>
+                    }
+                </table>
+                <!--待生效 -->
+                <table id="listWaitingForActivecoupon" style="display:none;">
+                    <tr>
+                        <th style="width:50px;">狀態</th>
+                        <th>名稱</th>
+                        <th style="width:90px;">生效日期</th>
+                        <th style="width:90px;">失效日期</th>
+                        <th style="width:60px;">金額</th>
+                        <th style="width:300px;">適用範圍</th>
+                    </tr>
+                    @if (listWaitingForActivecoupon != null && listWaitingForActivecoupon.Count > 0)
+                    {
+                        foreach (TWNewEgg.Models.ViewModels.Redeem.Coupon objSubCoupon in listWaitingForActivecoupon)
+                        {
+                            <tr>
+                                <td><span>待生效</span></td>
+                                <td>@objSubCoupon.title</td>
+                                <td>@Html.Raw(String.Format("{0:yyyy\\/MM\\/dd HH:mm:ss}", @objSubCoupon.validstart))</td>
+                                <td>@Html.Raw(String.Format("{0:yyyy\\/MM\\/dd HH:mm:ss}", @objSubCoupon.validend))</td>
+                                <td>@Html.Raw(String.Format("{0:#}元",@objSubCoupon.value))</td>
+                                <td>@objSubCoupon.categories</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">目前尚無待生效的折價券</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="couponTipsArea">
+                <div class="btn couponTipsTit">折價券使用說明</div>
+                <div class="couponTxt">
+                    <article>
+                        <span class="tit red">一、什麼是折價券</span>
+                        <ul>
+                            <li>新蛋全球生活網將不定期舉辦贈送折價券活動，折價券僅供會員本人依「折價券使用辦法」於有效期限內，在新蛋全球生活網購物消費商品或相關活動或時折抵使用，不得轉讓予他人。</li>
+                            <li>每筆折價券生效日不同，已生效才可使用，說明如下：<br />
+                                折價券採系統自動設定，實際生效日期以出貨日（即發票開立日）+8日為準，確認無退貨或取消訂單才會贈送。
+                                <ol>
+                                    <li>已生效（可使用）：目前可用的折價券。</li>
+                                    <li>待生效：尚不可使用的折價券，待訂單生效且無取消退貨即可使用。</li>
+                                    <li>已過期（已失效）：每一筆折價券會有其設定的到期日，超過到期日後，該筆折價券即失效，無法使 用。（例：2015/12/31  23:59到期之回饋金，於2016/1/1失效）</li>
+                                </ol>
+                            </li>
+                        </ul>
+                        <span class="tit red">二、如何獲得折價券</span>
+                        <ul>
+                            <li>透過新蛋全球生活網所舉辦的各種行銷活動與會員專屬活動，可獲得不同面額的折價券。</li>
+                            <li>贈送面額將依照各項活動門檻規定，詳細活動辦法請詳閱各活動網頁說明。</li>
+                            <li>折價券為贈品，係屬無償取得，不適用商品（服務）禮券記載之規範。</li>
+                        </ul>
+                        <span class="bold">會員迎新禮（不定期）</span>
+                        <ol>
+                            <li>限定新會員，入會成功後方能獲得，每個會員帳號限領取一次。</li>
+                            <li>成功加入會員後，系統將自動發送，您將會收到會員通知信函，可登入「我的帳戶><a href="/MyAccount/Coupon" target="_blank">我的折價券</a>」查詢，並請留意您的E-mail信箱。</li>
+                        </ol>
+                        <span class="bold">折價券序號兌換（不定期）</span>
+                        <ol>
+                            <li>會員可於活動期間於「我的帳戶><a href="/MyAccount/Coupon" target="_blank">我的折價券</a>」輸入「折價券領用代碼」兌換，每個會員帳號限領取一次。（請注意填寫時必須為英文字母大寫或是半型阿拉伯數字，輸入錯誤恕不補發）</li>
+                        </ol>
+                        <span class="bold">活動頁購物滿額贈送（不定期）</span>
+                        <ol>
+                            <li>新蛋全球生活網將不定期舉辦購物回饋活動，只要購買特定賣場商品或是參與購物滿額活動並符合活動條件，即可獲得回饋金。（成立的條件將依據每個購物活動條件而有所不同，詳情請參見各活動網頁說明）</li>
+                            <li>採系統自動設定判讀該筆訂單符合門檻且確認無退貨或取消訂單才會贈送歸戶，實際生效日期以出貨日（即發票開立日）+8日為準。</li>
+                        </ol>
+                        <span class="tit red">三、如何使用折價券</span>
+                        <ul>
+                            <li>折價券以單次單品結帳時使用，每次使用每張折價券時，系統會自動以該券的面額做全額折抵，恕不累計使用，且購買商品之單價須符合該券設限門檻，且須單次全數使用完畢。</li>
+                            <li>每次消費單筆訂單限使用一張折價券折抵，若您同時有2張以上折價券，可以同時使用於同一筆訂單，但仍須符合一張券限用一項商品的原則。且限在期限內使用於指定商品。（使用限制請參照各活動說明）</li>
+                            <li>在您購物結帳時，如果您的帳戶存有折價券，且購買適用折價券折抵的商品，在商品結帳頁會出現「使用折價券」的圖示，點選「使用折價券」的圖示，會跳出您的折價券帳戶視窗，請勾選您欲使用之折價券，系統將會為您自動換算當次可抵用金額及計算本次消費需實際支付金額。</li>
+                            <li>折價券皆有其折抵限制、開始日期、使用效期、適用館別，您可從「我的帳戶><a href="/MyAccount/Coupon" target="_blank">我的折價券</a>」查詢詳細說明。凡適用折價券優惠，將在該商品賣場頁標示。</li>
+                            <li>折價券僅限原註冊會員使用，恕不可轉讓且不可要求將不同會員帳號或不同活動的折價券合併，部分活動或商品無法折抵使用，恕無法轉換成現金、找零或交換其他商品及折換其他贈品；且無法抵扣物流費、安裝費、運費、服務費、稅賦等費用。</li>
+                            <li>折價券需於使用期限內使用，逾期失效，恕不補發。</li>
+                            <li>專案活動及優惠方案（如其他折扣、滿額折、折價券、回饋金）不可合併同時使用。故會員若同時擁有二種優惠時，只能擇其一種方式進行折抵。 （如該活動已有滿額折，則折價券／回饋金皆無法使用）</li>
+                            <li>折價券折抵部分不再另開立發票，開立發票金額，以該訂單「實際支付金額」來計算。</li>
+                        </ul>
+                        <span class="tit red">四、取消訂單與退貨的處理</span>
+                        <ul>
+                            <li>以折價券購買商品依然享有退貨及商品7天猶豫期等所有服務。</li>
+                            <li>使用折價券之訂單，若事後取消訂單或辦理退貨，須將所有訂單之商品一併退貨，僅會退還顧客實際所支付的金額，折價券一經使用立即失效，恕不補發，即該筆訂單所使用的折價券不予退回。</li>
+                        </ul>
+                        <span class="tit red">五、如何查詢折價券</span>
+                        <ul>
+                            <li>您可經由「我的帳戶><a href="/MyAccount/Coupon" target="_blank">我的折價券</a>」查詢您持有的折價券張數、面額、適用範圍、適用商品及使用明細。</li>
+                        </ul>
+                        <span class="tit red">六、其他事項</span>
+                        <ul>
+                            <li>會員應妥善保管您的帳號及密碼，避免他人未經您的同意而使用，任何經由輸入正確帳號與密碼所使用之折價券，本公司均不退還。若由於不可抗力或不可歸責於本站的因素致回饋金帳戶資料流失時，本公司將不負賠償或補償之責。會員於參與獲得回饋金活動時，即視為同意活動流程及本公司之回饋金規範，本公司將保有所有發送回饋金之收回／使用權。</li>
+                            <li>新蛋全球生活網將不定期舉辦的各種行銷活動與會員專屬活動，亦可獲得不同的折價券。詳細活動辦法請詳閱各活動網頁說明。</li>
+                            <li>新蛋全球生活網將保留隨時變更、修改與解釋或終止本「折價券使用辦法」之權利，若有異動及修改內容將在本網站上公佈，恕不另外個別通知。</li>
+                            <li>若您有任何疑問，歡迎來信（<a href="mailto:service@newegg.com.tw">service@newegg.com.tw</a>），我們將於1～2日內（不含例假日）以E-mail回覆您，或請致電客服人員。(02)-8175-5996   08:30am ~ 17:30pm</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <div class="PageArea" style="display:none;">
+            <a href="#" class="arrow arrLeft">&#60;</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">7</a>
+            <a href="#">8</a>
+            <a href="#">15</a>
+            <a href="#" class="arrow arrRight">&#62;</a>
+        </div>
+</div>
+
+</div>
+
+@section refScripts{
+    <script>
+        $(function(){
+            $(".selector-coupon").on("change", function ()
+            {
+                var strValue = "";
+                strValue = $(this).val();
+                $("#" + strValue).show().siblings().hide();
+            });
+
+            //兌換折價券
+            $("#ExchangeCouponBtn").bind("click", function ()
+            {
+                ExchangeCoupon();
+            });
+        });
+
+        function ExchangeCoupon()
+        {
+            var strCouponNumber = "addCouponNumber";
+
+            strCouponNumber = $("#ExchangeCouponCode").val();
+            if (typeof (strCouponNumber) == "unidefined" || strCouponNumber == null || strCouponNumber.length <= 0)
+            {
+                alert("請輸入折價券領用代碼！");
+                return false;
+            }
+            $.ajax({
+                url: "/api/coupon/addDynamicCouponByCouponMarketNumber" + "?CouponMarketNumber=" + strCouponNumber,
+                cache: false,
+                type: 'get',
+                dataType: "html",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", "Basic " + jQuery.cookie("neui"));
+                },
+                success: function (data)
+                {
+                    //alert(JSON.stringify(data));
+                    alert(data);
+                    location.reload();
+                },//end success
+                error: function ()
+                {
+                    alert("折價券功能維護中，請稍候再兌換！");
+                },
+            });//end $.ajax
+        }
+    </script>
+    }

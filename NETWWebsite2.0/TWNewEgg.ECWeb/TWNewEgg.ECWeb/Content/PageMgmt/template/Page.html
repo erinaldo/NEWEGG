@@ -1,0 +1,12 @@
+﻿<div ng-style="{'background': PageData.PageInfo.BackgroundImg}">
+    <button ng-show="isAdmin" ng-click="toggleEdit()" ng-bind="toogleEditButton"></button>
+    <div id="easel" ng-style="{ height:PageData.PageInfo.Height, width: PageData.PageInfo.Width }">
+        <div id="{{comp.Index}}" class='obj' ng-controller="ComponentController" ng-repeat="comp in PageData.PageInfo.ComponentInfo" ng-init="init(comp)" style="position:relative"
+            ng-style="{height:comp.Height, width:comp.Width, top:comp.YIndex+'px', left:comp.XIndex+'px', zIndex:comp.ZIndex}">
+            <div ng-include="componentUrl"></div>
+        </div>
+    </div>
+    <div id="tv-dialog" style="display:none;">
+        <div id="ytPlayer" style="height:295px;width:480px;"></div>
+    </div>
+</div>

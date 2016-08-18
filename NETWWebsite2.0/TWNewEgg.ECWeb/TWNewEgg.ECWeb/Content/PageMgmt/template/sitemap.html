@@ -1,0 +1,23 @@
+﻿<div id="sitemap">
+    <a href="javascript:;" ng-click="show()">show</a>    
+    <div id="cssmenu">
+        <ul class="mainEditMenu" >
+            <li>
+                <a style="background-color:#FFF1D3;" href="/" target="_blank">新蛋全球生活網</a>
+            </li>
+            <li ng-repeat="page in PageData.Pages" class="has-sub">
+                <a href="javascript:;" ng-click="showpage(page)"><span ng-bind="page.Path"></span><span class="pagestatus">{{pagemgmtResx[page.Status]}}</span></a>
+                <ul>
+                    <li><a href="javascript:;" ng-click="editpage(page)">{{pagemgmtResx['Edit']}}</a></li>
+                    <li><a href="javascript:;" ng-click="deletepage(page)">{{pagemgmtResx['DeletePage']}}</a></li>
+                    <li><a href="javascript:;" ng-click="showUrl(page)">{{pagemgmtResx['PageUrl']}}</a></li>
+                </ul>
+            </li>
+        </ul>
+        <a class="createbutton" ng-hide="showadd" ng-click="showadd = true">{{pagemgmtResx['New']}}</a>
+        <span class="createbutton" ng-show="showadd">
+            <a style="width:25px; padding:0;" ng-click="showadd = false">{{pagemgmtResx['Cancel']}}</a>
+            <input type="text" ng-show="showadd" ng-model="newPagePath" ng-enter="addpage(newPagePath)" style="width:100px;" />
+        </span>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+﻿@using System.Collections.Generic
+@using TWNewEgg.ECWeb.Utility
+@using TWNewEgg.Models.DomainModels.Home
+@using TWNewEgg.Models.DomainModels.Store
+@model BlockCell
+
+@if (Model != null && Model.TextOverImage != null)
+{
+    TextOverImage cellData = Model.TextOverImage;
+    <div class="box3">
+        @(Html.Partial("Cell/Partial_CellSingleImage", Model, new ViewDataDictionary() { {"Cell_FixHeight", true} }))
+    </div>
+    <div class="box3">
+        @(Html.Partial("Cell/Partial_CellText", Model))
+    </div>
+}

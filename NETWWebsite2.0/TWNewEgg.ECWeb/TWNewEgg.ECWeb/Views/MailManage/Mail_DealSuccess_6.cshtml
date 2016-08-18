@@ -1,0 +1,127 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+@{
+    List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput> SOList = ViewBag.SOList as List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput>;
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+}
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Header" width="795" height="68" />
+                    </div>
+                    <div>
+                        <br />
+                        @SOList.First().salesorder_name @ViewBag.appellation，您好：
+                        <br/><br/>
+                        您的訂單: @ViewBag.LBO 已於 @SOList.First().salesorder_createdate.ToShortDateString() 訂購成功，<br />
+                        ■若您尚未付款，請於付款期限內完成繳款。<br />
+                        ■若您已付款成功，商品寄出時，將會發信通知，感謝您的支持與配合。 <br />
+                        若商品未能如期出貨，我們會發信通知，請您放心。您也可隨時在「我的訂單」查詢出貨狀況及相關資訊。<br />
+                        <br />
+                        注意事項：<br />
+                        1.若選擇【貨到付款】，請先將款項備妥，於約定收貨時間，一併將全額款項交給宅配人員。<br />
+                        2.商品若已出貨，則無法更改其他配送地址，請於原留地址取件，手機保持暢通待宅配人員與您聯繫。<br />
+                        <br />
+                    </div>
+                    <div>
+                        <p style="color:#f00">提醒您：</p>
+                        @{
+                            // 海外限定
+                            // 6_0 // 海外限定_無多加附檔
+                            if (ViewBag.MainDelvType == "6_0_C") // 公司
+                            {
+                                <p>
+                                    1.	由於此商品為國外進口，需申報海關，需請您協助配合提供相關報關文件，需要請您填寫附件表格「個案委任書、自用切結書」後，E-MAIL至客服信箱「@(WebSiteListWebSiteData.Email1)」，為能加速優先處理您的訂單，請設主旨為：「海外直購+訂單編號」。海關申報文件請務必保留至商品配達為止(因海關會不定期抽驗進口商品，若需請您提供文件正本，客服將會與您聯繫)。<br/>
+                                    2.	需請您手機暢通，待物流人員與您電聯確認，並方便簽收商品<br/>
+                                    3.	商品已出貨，無法更改其他配送地址，請於原留地址取件<br/>
+                                </p>
+                            }
+                            if (ViewBag.MainDelvType == "6_0_S") // 個人
+                            {
+                                <p>
+                                    1.	由於此商品為國外進口，需申報海關，需請您協助配合提供相關報關文件，需要請您填寫附件表格「個案委任書、自用切結書」後，並連同身分證正反面影本E-MAIL至客服信箱「@(WebSiteListWebSiteData.Email1)」，為能加速優先處理您的訂單，請設主旨為：「海外直購+訂單編號」。海關申報文件請務必保留至商品配達為止(因海關會不定期抽驗進口商品，若需請您提供文件正本，客服將會與您聯繫)。<br/>
+                                    2.	需請您手機暢通，待物流人員與您電聯確認，並方便簽收商品<br/>
+                                    3.	商品已出貨，無法更改其他配送地址，請於原留地址取件<br/>
+                                </p>
+                            }
+                            // 6_1 // 海外限定_多加報驗授權書
+                            if (ViewBag.MainDelvType == "6_1_C") // 公司
+                            {
+                                <p>
+                                    1.	由於此商品為國外進口，需申報海關，需請您協助配合提供相關報關文件，需要請您填寫附件表格「個案委任書、自用切結書」後，E-MAIL至客服信箱「@(WebSiteListWebSiteData.Email1)」，為能加速優先處理您的訂單，請設主旨為：「海外直購+訂單編號」。海關申報文件請務必保留至商品配達為止(因海關會不定期抽驗進口商品，若需請您提供文件正本，客服將會與您聯繫)。<br/>
+                                    2.	因您訂購商品售價加國際物流處理費總額超過USD1,000需要正式報關做商品檢驗，需要請您填寫附件表格「報驗授權書」郵寄至「@(WebSiteListWebSiteData.Contact1)收 @(WebSiteListWebSiteData.Address1)」，為能加速優先處理您的訂單，郵寄紙本正本時請加註「@(WebSiteListWebSiteData.SiteName)+訂單編號」。在商品配達時物流人員會向您收取商檢費NT$1,200。<br/>
+                                    3.	需請您手機暢通，待物流人員與您電聯確認，並方便簽收商品<br/>
+                                    4.	商品已出貨，無法更改其他配送地址，請於原留地址取件<br/>
+                                </p>
+                            }
+                            if (ViewBag.MainDelvType == "6_1_S") // 個人
+                            {
+                                <p>
+                                    1.	由於此商品為國外進口，需申報海關，需請您協助配合提供相關報關文件，需要請您填寫附件表格「個案委任書、自用切結書」後，並連同身分證正反面影本E-MAIL至客服信箱「@(WebSiteListWebSiteData.Email1)」，為能加速優先處理您的訂單，請設主旨為：「海外直購+訂單編號」。海關申報文件請務必保留至商品配達為止(因海關會不定期抽驗進口商品，若需請您提供文件正本，客服將會與您聯繫)。<br/>
+                                    2.	因您訂購商品售價加國際物流處理費總額超過USD1,000需要正式報關做商品檢驗，需要請您填寫附件表格「報驗授權書」郵寄至「@(WebSiteListWebSiteData.Contact1)收 @(WebSiteListWebSiteData.Address1)」，為能加速優先處理您的訂單，郵寄紙本正本時請加註「@(WebSiteListWebSiteData.SiteName)+訂單編號」。在商品配達時物流人員會向您收取商檢費NT$1,200。<br/>
+                                    3.	需請您手機暢通，待物流人員與您電聯確認，並方便簽收商品<br/>
+                                    4.	商品已出貨，無法更改其他配送地址，請於原留地址取件<br/>
+                                </p>
+                            }
+                            // 6_2 // 海外限定_多加報驗授權與電信自用切結
+                            if (ViewBag.MainDelvType == "6_2_C") // 公司
+                            {
+                                <p>
+                                    1.	由於此商品為國外進口，需申報海關，需請您協助配合提供相關報關文件，需要請您填寫附件表格「個案委任書、自用切結書、電信自用切結書」後，E-MAIL至客服信箱「@(WebSiteListWebSiteData.Email1)」，為能加速優先處理您的訂單，請設主旨為：「海外直購+訂單編號」。海關申報文件請務必保留至商品配達為止(因海關會不定期抽驗進口商品，若需請您提供文件正本，客服將會與您聯繫)。<br/>
+                                    2.	因您訂購商品售價加國際物流處理費總額超過USD1,000需要正式報關做商品檢驗，需要請您填寫附件表格「報驗授權書」郵寄至「@(WebSiteListWebSiteData.Contact1)收 @(WebSiteListWebSiteData.Address1)」，為能加速優先處理您的訂單，郵寄紙本正本時請加註「@(WebSiteListWebSiteData.SiteName)+訂單編號」。在商品配達時物流人員會向您收取商檢費NT$1,200。<br/>
+                                    3.	需請您手機暢通，待物流人員與您電聯確認，並方便簽收商品<br/>
+                                    4.	商品已出貨，無法更改其他配送地址，請於原留地址取件<br/>
+                                </p>
+                            }
+                            if (ViewBag.MainDelvType == "6_2_S") // 個人
+                            {
+                                <p>
+                                    1.	由於此商品為國外進口，需申報海關，需請您協助配合提供相關報關文件，需要請您填寫附件表格「個案委任書、自用切結書、電信自用切結書」後，並連同身分證正反面影本E-MAIL至客服信箱「@(WebSiteListWebSiteData.Email1)」，為能加速優先處理您的訂單，請設主旨為：「海外直購+訂單編號」。海關申報文件請務必保留至商品配達為止(因海關會不定期抽驗進口商品，若需請您提供文件正本，客服將會與您聯繫)。<br/>
+                                    2.	因您訂購商品售價加國際物流處理費總額超過USD1,000需要正式報關做商品檢驗，需要請您填寫附件表格「報驗授權書」郵寄至「@(WebSiteListWebSiteData.Contact1)收 @(WebSiteListWebSiteData.Address1)」，為能加速優先處理您的訂單，郵寄紙本正本時請加註「@(WebSiteListWebSiteData.SiteName)+訂單編號」。在商品配達時物流人員會向您收取商檢費NT$1,200。<br/>
+                                    3.	需請您手機暢通，待物流人員與您電聯確認，並方便簽收商品。<br/>
+                                    4.	商品已出貨，無法更改其他配送地址，請於原留地址取件。<br/>
+                                </p>
+                            }
+                            // 6_3 // 海外限定_多加電信自用切結
+                            if (ViewBag.MainDelvType == "6_6_C") // 公司
+                            {
+                                <p>
+                                    1.	由於此商品為國外進口，需申報海關，需請您協助配合提供相關報關文件，需要請您填寫附件表格「個案委任書、自用切結書、電信自用切結書」後，E-MAIL至客服信箱「@(WebSiteListWebSiteData.Email1)」，為能加速優先處理您的訂單，請設主旨為：「海外直購+訂單編號」。海關申報文件請務必保留至商品配達為止(因海關會不定期抽驗進口商品，若需請您提供文件正本，客服將會與您聯繫)。<br/>
+                                    2.	需請您手機暢通，待物流人員與您電聯確認，並方便簽收商品<br/>
+                                    3.	商品已出貨，無法更改其他配送地址，請於原留地址取件<br/>
+                                </p>
+                            }
+                            if (ViewBag.MainDelvType == "6_6_S") // 個人
+                            {
+                                <p>
+                                    1.	由於此商品為國外進口，需申報海關，需請您協助配合提供相關報關文件，需要請您填寫附件表格「個案委任書、自用切結書、電信自用切結書」後，並連同身分證正反面影本E-MAIL至客服信箱「@(WebSiteListWebSiteData.Email1)」，為能加速優先處理您的訂單，請設主旨為：「海外直購+訂單編號」。海關申報文件請務必保留至商品配達為止(因海關會不定期抽驗進口商品，若需請您提供文件正本，客服將會與您聯繫)。<br/>
+                                    2.	需請您手機暢通，待物流人員與您電聯確認，並方便簽收商品<br/>
+                                    3.	商品已出貨，無法更改其他配送地址，請於原留地址取件<br/>
+                                </p>
+                            }
+                        }
+                        建議您可於會員登入後，於「我的帳戶>我的訂單>訂單狀態」內，可即時線上參考訂單的出貨狀況<br />
+                        <br />
+                    </div>
+                    <div>
+                        <p>
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                            請注意：此郵件為系統自動傳送，請勿直接回覆！<br /><br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Fooer" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

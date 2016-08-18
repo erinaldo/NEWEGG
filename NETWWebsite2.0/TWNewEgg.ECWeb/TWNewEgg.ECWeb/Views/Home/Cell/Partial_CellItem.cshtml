@@ -1,0 +1,42 @@
+﻿@using System.Collections.Generic
+@using TWNewEgg.ECWeb.Utility
+@using TWNewEgg.Models.DomainModels.Home
+@using TWNewEgg.Models.DomainModels.Store
+@model BlockCell
+
+@if (Model != null && Model.Item != null)
+{
+    string imgClass = "img";
+    string captionClass = "caption";
+
+    if (ViewBag.LayoutNumber == 6)
+    {
+        imgClass = "img3";
+        captionClass = "caption2";
+    }
+    <div class="border">
+        
+        <div cellItemId="@(Model.ID)" class="pic @imgClass">
+            <!--<a href="/item?itemid=@(Model.Item.ItemID)">-->
+            <a href="@(Model.Item.Url)">
+                <img src="@(ImageUtility.GetImagePath(Model.Item.ItemImage))" class="itemImgCen" />
+            </a>
+        </div>
+        <div class="txt">
+            <!--<a href="/item?itemid=@(Model.Item.ItemID)">-->
+            <a href="@(Model.Item.Url)">
+                <!--副標 -->
+                <div class="subTit">@Model.Item.SubTitle</div>
+                <!--主標 -->
+                <div class="@captionClass">@(Model.Item.Title)</div>
+                <!--原價 -->
+                @if(@Model.Item.MarketPrice > 0 && @Model.Item.UnitPrice < @Model.Item.MarketPrice)
+                {
+                    @Html.Raw(String.Format("<div class='marketPrice'>${0:#,0}</div>",@Model.Item.MarketPrice))
+                }
+                <!--促銷價-->
+                <div class="price">@(Model.Item.UnitPrice.AddCommas())</div>
+            </a>
+        </div>
+    </div>
+}

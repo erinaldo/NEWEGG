@@ -1,0 +1,16 @@
+﻿@using System.Linq;
+@using TWNewEgg.ECWeb.Utility
+@model TWNewEgg.Models.ViewModels.Category.OptionStoreItemCell_View
+
+<div class="pic">
+    <!--<a href="/item?itemID=@(Model.ItemID)">-->
+    <a href="@(Model.Url)">
+        <img src="@(ImageUtility.GetImagePath(Model.ItemImage))" alt="@(Model.Title)" />
+    </a>
+</div>
+<div class="txt">
+    <h3>@(Model.Title)</h3>
+    <span class="price">@(Model.UnitPrice.AddCommas())</span>
+    <span class="buyNum">x<span class="num">@(Model.PickQty)</span>件</span>
+    <input type="button" class="icon icon-delete" onclick="twNewegg.ChooseAny.DeleteItem(this);" />
+</div>

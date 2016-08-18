@@ -1,0 +1,26 @@
+﻿<div id="FloatingAccount" class="aside-icon FloatingBubble FloatingAccount">
+    <div class="panel">
+        <div class="FloatingTit service">
+        <div class="shoppingCart"><a href="/Cart"><div class="count" id="neSCBody">0</div></a></div>
+            <div id="FloatingSwitch" class="text">我的帳戶</div>
+            <div class="pageTop"><i class="icon"><img src="~/Themes/img/Icon/GoToTop.png"></i><br/><span>頁頂</span></div>
+        </div>
+        <div class="icon FloatingCon">
+            <ul>
+                <li><a href="/Cart/Wishcart"><i class="icon listi5"></i><div class="text">我的最愛</div></a></li>
+                @*<li><a href="/MyAccount/NeweggCash"><i class="icon listi2"></i><div class="text">紅利:120點</div></a></li>*@
+                <li><a href="/MyAccount/Coupon"><i class="icon listi3"></i><div class="text">折價券@*:3張*@</div></a></li>
+                <li><a href="/MyAccount/Order"><i class="icon listi4"></i><div class="text">我的訂單</div></a></li>
+                <li><a href="/MyAccount"><i class="icon listi1"></i><div class="text">帳戶管理</div></a></li>
+                <li><a href="/Logout"><i class="icon listi6"></i><div class="text">登出</div></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        /*浮動小車*/
+        myFloatingAccount();
+    });
+</script>

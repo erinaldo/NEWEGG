@@ -1,0 +1,36 @@
+@import "_importSCSS";
+
+.mainPadding {
+	@include mainPaddingRemove; 
+}
+
+.Info{
+	width:1000px;
+	margin:0 auto;
+	&>img{
+		width:100%;
+		height:auto;
+	}
+	.AboutUs{
+		background:url(/Themes/img/AboutTWNewEgg/AboutTWNewEgg_02.jpg) no-repeat center;
+		height:777px;
+		position:relative;
+		.Main{
+			width:500px;
+			position:absolute;
+			top:130px;
+			font-size:20px;
+			line-height:40px;
+		}
+		.Tit{
+			position:absolute;
+			top:450px;
+		}
+		.List{
+			position:absolute;
+			top:530px;
+			line-height:40px;
+			font-size:20px;
+		}
+	}
+}

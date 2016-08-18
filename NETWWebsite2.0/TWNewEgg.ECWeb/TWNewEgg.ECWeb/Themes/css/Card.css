@@ -1,0 +1,356 @@
+.clear {
+  clear: both;
+}
+
+body {
+  background: url(/Themes/img/CreditCaredProgram/CreditCaredProgramtdBg02.jpg) no-repeat center 616px;
+}
+
+.AdBox {
+  height: 613px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  margin: 0;
+  background-color: #0ca39a;
+  position: relative;
+}
+.AdBox .AdImg {
+  width: 100%;
+  height: 613px;
+  margin: 0 auto;
+  background: url(/Themes/img/CreditCaredProgram/CardInstallment_Bg_04.jpg) no-repeat top center;
+  position: relative;
+}
+
+.ShoppingGoBtn {
+  position: absolute;
+  top: 28px;
+  right: 50px;
+}
+
+.logo {
+  position: absolute;
+  display: block;
+  left: 53px;
+}
+
+.mainPadding {
+  min-width: 1004px;
+  width: 100%;
+  padding: 0;
+}
+
+.TabArea {
+  margin-top: -51px;
+  margin-bottom: 50px;
+  border: 0;
+  width: 1004px;
+}
+
+.Tab {
+  width: 200px;
+  border: 0;
+  background: #f0f0f0;
+  margin: 0 2px;
+  font-size: 21px;
+}
+
+.RadiusTab {
+  background-color: #fff;
+  border-bottom: 0;
+}
+.RadiusTab a, .RadiusTab a:visited {
+  color: #8a8a8a;
+}
+.RadiusTab a:hover {
+  color: #fff;
+}
+
+.TabSelected {
+  background: #ec8B54;
+  height: 50px;
+  margin-top: -5px;
+}
+.TabSelected a, .TabSelected a:visited {
+  color: #fff;
+  line-height: 50px;
+}
+
+.table {
+  width: 1004px;
+  margin-bottom: 20px;
+  border: none;
+}
+
+.tr {
+  border: 1px solid;
+}
+
+.td > img {
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+  max-width: 270px;
+  height: auto;
+}
+
+.ColoreBgtd {
+  font-size: 37px;
+  width: 650px;
+  background: url(/Themes/img/CreditCaredProgram/CreditCaredProgramtdBg.jpg) repeat top left;
+  padding: 10px 100px 10px 26px;
+  position: relative;
+}
+
+.grayBorder {
+  border-color: #d5d5d5;
+}
+
+.ConfirmBtn {
+  font-size: 17px;
+  width: 74px;
+  height: 30px;
+  line-height: 31px;
+  letter-spacing: 0;
+  font-weight: normal;
+  background: #fd031e;
+}
+
+.ConfirmBtn:hover {
+  background: #698EB8;
+}
+
+.DetailBtn {
+  position: absolute;
+  top: 14px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.Btn_radius {
+  border-radius: 4px;
+}
+
+.BankName {
+  padding: 5px 0;
+  border-bottom: 1px solid #d5d5d5;
+}
+.BankName img {
+  display: block;
+  margin: 0 auto;
+  height: 50px;
+  width: auto;
+}
+
+.Program {
+  padding-top: 12px;
+  height: 150px;
+}
+.Program .red {
+  font-size: 22px;
+  color: #ca0002;
+}
+
+.OtherDetail {
+  padding: 14px 10px;
+  border-top: 1px solid #d5d5d5;
+  background-color: #e0e0e0;
+}
+.OtherDetail .OneLine .RemarkLeft {
+  float: left;
+  padding: 0 20px;
+}
+.OtherDetail .OneLine .RemarkRight {
+  float: right;
+  padding: 0 20px;
+}
+
+p {
+  line-height: 30px;
+  font-size: 20px;
+  margin: 0 20px 0 20px;
+  letter-spacing: 1px;
+}
+
+p span {
+  font-size: 16px;
+  margin: 0 3px;
+  font-weight: bolder;
+}
+
+.OneLine li {
+  /*width:131px;*/
+  line-height: 30px;
+  text-align: center;
+}
+
+/*.OneLine li+li{
+	padding-left:10px;
+	line-height: 30px;
+	width:229px;
+	text-align: left;
+	border:0;
+}
+.OneLine li+li+li{
+	width:90px;
+	text-align:center;
+	border:0;
+}*/
+/*.LightBoxMsg-2{
+	p{
+		font-size:16px;
+		span{
+			font-size:16px;
+			margin:0 5px;
+			color:#000;
+		}
+	}
+	ul{
+		margin:30px 0;
+		li,&>p{
+			list-style-type:decimal;
+			list-style-position:inside;
+			margin:10px 22px;
+			line-height:18px;
+			font-size:14px;
+		}
+	}
+}*/
+.BankSlogan {
+  font-size: 28px;
+  letter-spacing: 10px;
+  margin: 10px 0;
+}
+
+.BoxsGroup .TwoBoxsInRow {
+  /*height:395px;*/
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  border-color: #fd031e;
+  background-color: #fff;
+  color: #343434;
+}
+
+/*footer CSS*/
+.simpleFooterArea {
+  text-align: center;
+  padding: 5px 0;
+}
+.simpleFooterArea h2, .simpleFooterArea p {
+  display: inline;
+  margin-right: 10px;
+  font-size: 19px;
+}
+
+/*LightBox*/
+.LightBoxUnderLay .LightBoxMsg {
+  border: 0;
+  overflow-y: hidden;
+  height: auto;
+  padding-bottom: 20px;
+}
+.LightBoxUnderLay .LightBoxMsg .CloseBtn {
+  border-radius: 2px;
+  outline: none;
+  position: relative;
+  left: 95%;
+  top: 30px;
+  background: url(/Themes/img/XBtn.png) no-repeat center;
+  background-color: #B3B3B3;
+}
+.LightBoxUnderLay .LightBoxMsg .CloseBtn .Xbutton {
+  background-color: #fff;
+  width: 2%;
+  height: 85%;
+  position: absolute;
+  /*left: 50%;*/
+  right: 15px;
+  top: 5%;
+}
+.LightBoxUnderLay .LightBoxMsg .CloseBtn:hover {
+  background-color: #ec8B54;
+}
+.LightBoxUnderLay .LightBoxMsg .DescriptionContent {
+  overflow-y: auto;
+  max-height: 62vh;
+  line-height: 2;
+  list-style-type: decimal;
+  padding: 20px 10px 0 35px;
+  /*ul::-webkit-scrollbar {
+  		
+  		background: #F1F1F1;
+  		height: 50px;
+  }
+  ul::-webkit-scrollbar-thumb {
+  		background: #B3B3B3;
+  		cursor: pointer;
+  }
+  ul::-webkit-scrollbar {
+  width: 35px;
+  height:50px;
+  }*/
+}
+
+.PromotionsContent {
+  /*height:620px;*/
+  max-height: 510px;
+  min-height: 510px;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 15px 0;
+}
+.PromotionsContent br {
+  clear: both;
+}
+.PromotionsContent .ul {
+  margin-top: 30px;
+}
+.PromotionsContent .ul p {
+  margin: 0 20px 0 10px;
+}
+.PromotionsContent .ul li {
+  line-height: 35px;
+  margin: 5px 15px 0 35px;
+  list-style-type: decimal;
+  padding-left: 5px;
+}
+.PromotionsContent .Activities .item {
+  width: 93%;
+}
+.PromotionsContent .Activities span {
+  display: block;
+  float: left;
+}
+.PromotionsContent .Activities .CTBCQRCode {
+  width: 126px;
+  height: 126px;
+  position: absolute;
+  right: 15px;
+  background: url(/Themes/img/CreditCaredProgram/CTBCLine-QRcode.jpg) no-repeat top center;
+}
+.PromotionsContent table, .PromotionsContent tr, .PromotionsContent th, .PromotionsContent td {
+  border: 1px solid #000;
+  /*width: 70%;*/
+  text-align: center;
+  padding: 10px;
+  margin: 15px auto;
+}
+
+.Announcement {
+  font-size: 15px;
+}
+
+#BankInfoCreditCardPromotion .BankName {
+  margin-top: -20px;
+}
+
+@media screen and (max-width: 1280px) {
+  .PromotionsContent {
+    max-height: 400px;
+    min-height: 400px;
+    height: auto;
+  }
+}

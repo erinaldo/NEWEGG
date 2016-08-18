@@ -1,0 +1,19 @@
+﻿@using System.Collections.Generic
+@using TWNewEgg.ECWeb.Utility
+@using TWNewEgg.Models.DomainModels.Home
+@using TWNewEgg.Models.DomainModels.Store
+@model BlockCell
+
+@if (Model != null && Model.ImageList != null && Model.ImageList.Any())
+{ 
+<div class="carousel-logo">
+    <ul>
+        @foreach (var logoItem in Model.ImageList)
+        {
+        <li><a href="@(logoItem.Url)"><img src="@(ImageUtility.GetImagePath(logoItem.Image))" style="width:85px;"></a></li>   
+        }
+    </ul>
+    <a class="prev colorbg2" href="#"> < </a>
+    <a class="next colorbg2" href="#"> > </a>
+</div>
+}

@@ -1,0 +1,48 @@
+﻿<div id="property" ng-show="PageData.PageInfo.ext.isEditPage">
+    
+    <div id="property-detail">
+        <h3>{{Resource['PageProperty']}}</h3>
+        <div>
+            <p>
+                {{Resource['PageName']}}:<input type="text" ng-model="PageData.PageInfo.Path" style="width:106px" filtered-input regex="[^a-zA-Z\d]" regex-flags="g"  /><br />
+                {{Resource['Height']}}:<input type="text" ng-model="PageData.PageInfo.Height" filtered-input regex="[^\d.]" regex-flags="g" />
+                {{Resource['Width']}}:<input type="text" ng-model="PageData.PageInfo.Width" filtered-input regex="[^\d.]" regex-flags="g" />
+            </p>
+        </div>
+        <h3>{{Resource['ComponentProperty']}}</h3>
+        <div>
+            <p>
+                ID:<input type="text" ng-model="PageData.PageInfo.ext.selectedComp.Index" filtered-input regex="[^a-zA-Z\d]" regex-flags="g" /><br />
+                {{Resource['Height']}}:<input type="text" ng-model="PageData.PageInfo.ext.selectedComp.Height" filtered-input regex="[^\d.]" regex-flags="g" />
+                {{Resource['Width']}}:<input type="text" ng-model="PageData.PageInfo.ext.selectedComp.Width" filtered-input regex="[^\d.]" regex-flags="g" /><br />
+                Ｙ:<input type="text" ng-model="PageData.PageInfo.ext.selectedComp.YIndex" filtered-input regex="[^\d.]" regex-flags="g" />
+                Ｘ:<input type="text" ng-model="PageData.PageInfo.ext.selectedComp.XIndex" filtered-input regex="[^\d.]" regex-flags="g" /><br />
+                {{Resource['ZIndex']}}:<input type="text" ng-model="PageData.PageInfo.ext.selectedComp.ZIndex" filtered-input regex="[^\d.]" regex-flags="g" />
+            </p>
+        </div>
+        <h3>{{Resource['PageBackground']}}</h3>
+        <div>
+            <p>
+                {{Resource['BackgroundImage']}}:<input type="text" style="width:106px" ng-model="backgroundImg" /><br />
+                <button ng-click="openUploader()">{{Resource['UploadImg']}}</button>
+                <button ng-click="saveBk()">{{Resource['Update']}}</button>
+                <button ng-click="clearBk()">{{Resource['Clear']}}</button>
+            </p>
+        </div>
+        <h3>{{Resource['Control']}}</h3>
+        <div>
+            <p>
+                <input type="checkbox" ng-model="isFixedRatio" ng-click="fixedRatio()" />{{Resource['FixedRatio']}}<br />
+                <input type="checkbox" ng-model="isLockedPos" />{{Resource['Draggable']}}<br />
+                <button ng-show="PageData.PageInfo.ext.pickedComps.length>0" ng-click="COPY.copyPicked()" style="margin-top:10px;">複製</button>
+                <button ng-show="COPY.getComps().length>0" ng-click="COPY.paste()" style="margin-top:10px;">貼上</button><br />
+                <button ng-show="PageData.PageInfo.ext.pickedComps.length>0" ng-click="controlService.cancelPicked()" style="margin-top:10px">取消選取</button>
+                <button ng-click="controlService.selectAll()" style="margin-top:10px">全選</button><br />
+                <button ng-hide="PageData.ctrl.isGrid" ng-click="controlService.showGrid()" style="margin-top:10px">顯示格線</button>
+                <button ng-show="PageData.ctrl.isGrid" ng-click="controlService.hideGrid()" style="margin-top:10px">隱藏格線</button>
+            </p>
+        </div>
+    </div>
+    <img-chooser id="imgChooser" callback="changeBkImg"></img-chooser>
+    <a href="javascript:;" ng-click="show()">show</a>
+</div>

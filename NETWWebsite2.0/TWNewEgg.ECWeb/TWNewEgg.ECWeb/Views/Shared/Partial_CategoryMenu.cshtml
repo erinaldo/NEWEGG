@@ -1,0 +1,259 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Category.Category_TreeItem>
+@using TWNewEgg.ECWeb.Utility
+@{
+    Layout = null;
+    List<TWNewEgg.Models.ViewModels.Category.Category_TreeItem> listFirstLayer = null;
+    
+    if(Model != null && Model[0].Nodes != null)
+    {
+        listFirstLayer = Model[0].Nodes;
+    }
+    
+    
+    var categotyTapID = (System.Configuration.ConfigurationManager.AppSettings["categoryMenuTopID"] == null ? "0" : System.Configuration.ConfigurationManager.AppSettings["categoryMenuTopID"]);
+    int category_id = 0;
+    int.TryParse(categotyTapID, out category_id);
+}
+
+
+
+<!-- 第一層選單 -->
+
+<ul class="pullDownList">
+    @if (listFirstLayer != null)
+    {
+        foreach (TWNewEgg.Models.ViewModels.Category.Category_TreeItem objTreeItem in listFirstLayer)
+        {
+            if (objTreeItem.category_id == category_id)
+            {
+                continue;
+            }
+            <li CategoryId="@objTreeItem.category_id">
+                <a href="/Store?StoreID=@objTreeItem.category_id"><i class="@objTreeItem.ClassName"></i>@objTreeItem.category_description</a>
+                <span></span>
+            </li>
+        }
+    }
+</ul>
+<!-- end of 第一層選單 -->
+
+<!-- 子選單第一層 -->
+<div id="SecMenu">
+        @if (listFirstLayer != null)
+        {
+            foreach (TWNewEgg.Models.ViewModels.Category.Category_TreeItem objFirstTreeItem in listFirstLayer)
+            {
+                <ul class="pullDownListSec" ParentId="@objFirstTreeItem.category_id" style="display:none;">
+                @if (objFirstTreeItem.Nodes != null)
+                {
+                    foreach (TWNewEgg.Models.ViewModels.Category.Category_TreeItem objSecTreeItem in objFirstTreeItem.Nodes)
+                    {
+                        if (!String.IsNullOrEmpty(objSecTreeItem.ClassName))
+                        {
+                            <li class="liBG @objSecTreeItem.ClassName" CategoryId="@objSecTreeItem.category_id">
+                                <a><i class=""></i>@objSecTreeItem.category_description</a>
+                                <span class="arrowhover"></span>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="liBG" CategoryId="@objSecTreeItem.category_id">
+                                <a><i class=""></i>@objSecTreeItem.category_description</a>
+                                <span class="arrowhover"></span>
+                            </li>
+                        }
+                    }
+                }
+                </ul>
+            }
+        }
+    <!-- 子選單第二層 -->
+    <div class="yMenuListCon" style="display:none;">
+    @if (listFirstLayer != null)
+    {
+        foreach (TWNewEgg.Models.ViewModels.Category.Category_TreeItem objFirstTreeItem in listFirstLayer)
+        {
+            if (objFirstTreeItem.category_id == category_id)
+            {
+                continue;
+            }
+            <div class="yMenuListConin @objFirstTreeItem.ClassName">
+            <div class="yMenuColLCinList">
+
+            @if (objFirstTreeItem.Nodes != null)
+            {
+                foreach (TWNewEgg.Models.ViewModels.Category.Category_TreeItem objSecTreeItem in objFirstTreeItem.Nodes)
+                {
+                    <div class="yMenuLCinList" style="display:none;" ParentId="@objSecTreeItem.category_id">
+                        <h3>@objSecTreeItem.category_description</h3>
+                
+                        @if (objSecTreeItem.Nodes != null)
+                        {
+                            <p>
+                            @foreach (TWNewEgg.Models.ViewModels.Category.Category_TreeItem objThirdTreeItem in objSecTreeItem.Nodes)
+                            {
+                                <a href="/Category?CategoryID=@objThirdTreeItem.category_id" class="@objThirdTreeItem.ClassName">@objThirdTreeItem.category_description</a>     @* 後台可設定紅字class="MenuListRedtxt" *@
+                            }
+                            </p>
+                        }
+
+                        <!-- 選單下方圖片 -->
+                        @if (!String.IsNullOrWhiteSpace(objSecTreeItem.ImagePath))
+                        {
+                        <div class="MenuListImg">
+                            <a href="@objSecTreeItem.ImageHref" target="_blank">
+                            <img src="@ImageUtility.GetImagePath(objSecTreeItem.ImagePath)">
+                            </a>
+                        </div>
+                        }
+                    </div>
+                }
+            }
+            </div>
+            </div>
+        }
+
+    } 
+</div>
+    <!-- end of 子選單第二層 -->
+</div>
+<!-- end of 子選單第一層 -->
+
+
+
+
+
+<script>
+    //Menu延遲顯示及縮放的變數
+    var m_ChooseItem = null;
+    var m_Layer2Index = null;
+    var m_LeaveItem = null;
+
+    var m_FirstCategoryId = 0;
+    var m_SecCategoryId = 0;
+    $(document).ready(function ()
+    {
+        $("ul.pullDownList li").bind("mouseenter", function ()
+        {
+            $(".yMenuListCon").show();
+            var numIndex = $(this).index();
+            if (m_ChooseItem == null)
+            {
+                m_FirstCategoryId = $(this).attr("CategoryId");
+                $(this).addClass("menulihover").siblings().removeClass();
+                //第一層選單被選擇時, 換li的CSS
+                $("div.pullDown div.yMenuListCon div.yMenuListConin").eq(numIndex).fadeIn(100);
+                m_ChooseItem = numIndex;
+
+                //顯示相對應的第二層選單
+                var listSec = $(".pullDownListSec");
+                for (var ni = 0; ni < listSec.length; ni++)
+                {
+                    if ($(listSec[ni]).attr("parentid") == m_FirstCategoryId)
+                    {
+                        $(listSec[ni]).show().siblings("ul").hide();
+
+                        //預設第二層選單顯示第一筆資料
+                        m_SecCategoryId = $(listSec[ni]).children("li").eq(0).attr("categoryid");
+                        $(listSec[ni]).children("li").eq(0).addClass("selected").siblings().removeClass("selected");
+                        //觸發mouseenter,顯示第三層的資料
+                        $(listSec[ni]).children("li").eq(0).mouseenter();
+
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                m_ChooseItem = numIndex;
+                setTimeout(function ()
+                {
+                    if (m_ChooseItem != null && (m_LeaveItem == m_Layer2Index || m_Layer2Index == null))
+                    {
+                        $("ul.pullDownList li").eq(m_ChooseItem).addClass("menulihover").siblings().removeClass();
+                        $("div.pullDown div.yMenuListCon div.yMenuListConin").eq(m_ChooseItem).fadeIn(100).siblings().hide();
+
+                        m_FirstCategoryId = $("ul.pullDownList li").eq(m_ChooseItem).attr("CategoryId");
+
+                        //顯示相對應的第二層選單
+                        var listSec = $(".pullDownListSec");
+                        for (var ni = 0; ni < listSec.length; ni++)
+                        {
+                            if ($(listSec[ni]).attr("parentid") == m_FirstCategoryId)
+                            {
+                                $(listSec[ni]).show().siblings("ul").hide();
+
+                                //預設第二層選單顯示第一筆資料
+                                m_SecCategoryId = $(listSec[ni]).children("li").eq(0).attr("categoryid");
+                                $(listSec[ni]).children("li").eq(0).addClass("selected").siblings().removeClass("selected");
+                                //觸發mouseenter,顯示第三層的資料
+                                $(listSec[ni]).children("li").eq(0).mouseenter();
+
+                                break;
+                            }
+                        }
+                    }
+                }, 100);
+            }
+        });
+
+        $("ul.pullDownList li").bind("mouseleave", function ()
+        {
+            var numIndex = $(this).index();
+            m_LeaveItem = numIndex;
+        });
+
+        $("ul.pullDownList li a").bind("mouseenter", function ()
+        {
+            var numIndex = $(this).parent("li").index();
+            m_ChooseItem = numIndex;
+        });
+
+        
+        $("div.yMenuListConin").bind("mouseenter", function ()
+        {
+            m_Layer2Index = $(this).index();
+        });
+        
+
+        $("div.yMenuListCon").bind("mouseleave", function ()
+        {
+            //$("div.yMenuListConin").hide();
+            m_Layer2Index = null;
+        });
+
+
+        $("div.pullDown").bind("mouseleave", function ()
+        {
+            //重設所有值
+            m_ChooseItem = null;
+            m_Layer2Index = null;
+            m_LeaveItem = null;
+            $("ul.pullDownList li").removeClass();
+            $("div.pullDown div.yMenuListCon div.yMenuListConin").hide();
+            $(".yMenuListCon").hide();
+            $(".pullDownListSec").hide();
+        });
+
+
+        //第二層選單的選取事件
+        $(".pullDownListSec .liBG").mouseenter(function ()
+        {
+
+            $(this).addClass("selected").siblings().removeClass("selected");
+            m_SecCategoryId = $(this).attr("categoryid")
+
+            //顯示相對應的第三層選單
+            $(".yMenuListCon").show();
+            var listNextMenu = $(".yMenuLCinList");
+            for (var ni = 0; ni < listNextMenu.length; ni++)
+            {
+                if ($(listNextMenu[ni]).attr("parentid") == m_SecCategoryId)
+                {
+                    $(listNextMenu[ni]).show().siblings().hide();
+                    break;
+                }
+            }
+        });
+    });
+</script>

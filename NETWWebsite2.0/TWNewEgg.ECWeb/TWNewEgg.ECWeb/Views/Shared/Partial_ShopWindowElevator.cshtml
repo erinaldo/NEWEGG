@@ -1,0 +1,37 @@
+﻿@using TWNewEgg.Models.DomainModels.Store
+@model List<ElevatorItem>
+
+@{
+    int elevatorTop = Model.Count;
+    if (Model != null)
+    {
+    <div id="elevatorWindowArea" class="elevator" style="top:@(elevatorTop == 13 ? 100 : (100 - ((elevatorTop - 13) * 20)))px">
+        <div class="menu">
+            <div class="up" onclick="elevatorAction(1); return false;">
+                <a href="javascript:void(0)">
+                    @*<div class="arrow"><</div>*@
+                    <div class="text">頁頂</div>
+                </a>
+            </div>
+            <div id="elevatorWinGroup" class="group">
+                @{
+        int itemCount = 0;
+        foreach (var shopWindowPage in Model)
+        {
+                    <div class="text" onclick="elevatorAction(3, @(itemCount)); return false;">
+                        <a href="javascript:void(0)">@(shopWindowPage.Title)</a>
+                    </div>
+            itemCount++;
+        }
+                }
+            </div>
+            <div class="down" onclick="elevatorAction(2); return false;">
+                <a href="javascript:void(0)">
+                    <div class="text">頁尾</div>
+                    @*<div class="arrow">></div>*@
+                </a>
+            </div>
+        </div>
+    </div>
+    }
+}

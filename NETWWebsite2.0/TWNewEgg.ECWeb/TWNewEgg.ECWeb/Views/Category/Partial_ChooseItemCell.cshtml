@@ -1,0 +1,50 @@
+﻿@using TWNewEgg.ECWeb.Utility
+@model TWNewEgg.Models.DomainModels.Store.OptionStoreItemCell
+@{
+    if(Model != null) {
+<div class="box @(Html.Raw(Model.IsOutOfStock ? "soldOut" : "")) @(Html.Raw(Model.IsChoose ? "choose" : ""))">
+    <div class="pic">
+        <!--<a href="/item?itemID=@(Model.ItemID)" onclick="twNewegg.ChooseAny.Openwin('/item?itemID=@(Model.ItemID)','@(Model.Title)');return false;">-->
+        <a href="@(Model.Url)" onclick="twNewegg.ChooseAny.Openwin('@(Model.Url)','@(Model.Title)');return false;">
+            <img src="@(ImageUtility.GetImagePath(Model.ItemImage))" alt="@(Model.Title)" class="itemImgCen" />
+        </a>
+    </div>
+    <div class="txt">
+        <!--<a href="/item?itemID=@(Model.ItemID)">-->
+        <a href="@(Model.Url)">
+            <h3 title="@(Model.Title))">@(Model.Title)</h3>
+            @if (!Model.OriginalPrice.Equals(Model.UnitPrice)) { 
+            <span class="marketPrice">@(Model.OriginalPrice.AddCommas())</span>
+            }
+            <span class="price">@(Model.UnitPrice.AddCommas())</span>
+            @*<input type="button" class="icon icon-delete" />*@
+        </a>
+    </div>
+    <div class="specSelect" style="display:none;">
+        <select class="select_md">
+            <option>請選擇商品規格</option>
+        </select>
+    </div>
+    <div class="chooseBar">
+        @if (Model.IsOutOfStock) { 
+        <div class="tit"><p style="text-align:center;">商品已售完，補貨中</p></div>
+        }
+        else
+        {
+        <div class="numTit">數量</div>
+        <div class="numTxt">
+            <select class="select_sm">
+                @for (int i = 1; i <= Model.SellingQty && i <= 10; i++)
+                {
+                <option value="@(i)" @(Model.PickQty==i ? "selected=\"selected\"" : "")>@(i)</option>   
+                }
+            </select>
+        </div>
+        <div class="status">
+            <input type="button" value="選購" class="btn @(Html.Raw(Model.IsChoose ? "btn-selected" : ""))" data-choose-unit-price="@(Model.UnitPrice)" data-choose-item-id="@(Model.ItemID)"/>
+        </div>
+        }
+    </div>
+</div>
+    }
+}

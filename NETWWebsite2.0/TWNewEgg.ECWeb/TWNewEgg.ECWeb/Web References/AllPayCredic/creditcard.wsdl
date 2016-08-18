@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://PaymentCenter.AllPay.com.tw/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://PaymentCenter.AllPay.com.tw/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://PaymentCenter.AllPay.com.tw/">
+      <s:element name="CreateTrade">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTradeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateTradeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerifyOrderByOtp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerifyOrderByOtpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VerifyOrderByOtpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResendOtp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlData" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResendOtpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResendOtpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryTrade">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchantTradeNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryTradeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryTradeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlatformQueryTrade">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchantTradeNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PlatformID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlatformQueryTradeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlatformQueryTradeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryPeriodTrade">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchantTradeNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryPeriodTradeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryPeriodTradeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateTradeSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateTrade" />
+  </wsdl:message>
+  <wsdl:message name="CreateTradeSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateTradeResponse" />
+  </wsdl:message>
+  <wsdl:message name="VerifyOrderByOtpSoapIn">
+    <wsdl:part name="parameters" element="tns:VerifyOrderByOtp" />
+  </wsdl:message>
+  <wsdl:message name="VerifyOrderByOtpSoapOut">
+    <wsdl:part name="parameters" element="tns:VerifyOrderByOtpResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResendOtpSoapIn">
+    <wsdl:part name="parameters" element="tns:ResendOtp" />
+  </wsdl:message>
+  <wsdl:message name="ResendOtpSoapOut">
+    <wsdl:part name="parameters" element="tns:ResendOtpResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryTradeSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryTrade" />
+  </wsdl:message>
+  <wsdl:message name="QueryTradeSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryTradeResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlatformQueryTradeSoapIn">
+    <wsdl:part name="parameters" element="tns:PlatformQueryTrade" />
+  </wsdl:message>
+  <wsdl:message name="PlatformQueryTradeSoapOut">
+    <wsdl:part name="parameters" element="tns:PlatformQueryTradeResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryPeriodTradeSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryPeriodTrade" />
+  </wsdl:message>
+  <wsdl:message name="QueryPeriodTradeSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryPeriodTradeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="creditcardSoap">
+    <wsdl:operation name="CreateTrade">
+      <wsdl:input message="tns:CreateTradeSoapIn" />
+      <wsdl:output message="tns:CreateTradeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VerifyOrderByOtp">
+      <wsdl:input message="tns:VerifyOrderByOtpSoapIn" />
+      <wsdl:output message="tns:VerifyOrderByOtpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResendOtp">
+      <wsdl:input message="tns:ResendOtpSoapIn" />
+      <wsdl:output message="tns:ResendOtpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryTrade">
+      <wsdl:input message="tns:QueryTradeSoapIn" />
+      <wsdl:output message="tns:QueryTradeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlatformQueryTrade">
+      <wsdl:input message="tns:PlatformQueryTradeSoapIn" />
+      <wsdl:output message="tns:PlatformQueryTradeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryPeriodTrade">
+      <wsdl:input message="tns:QueryPeriodTradeSoapIn" />
+      <wsdl:output message="tns:QueryPeriodTradeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="creditcardSoap" type="tns:creditcardSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateTrade">
+      <soap:operation soapAction="http://PaymentCenter.AllPay.com.tw/CreateTrade" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyOrderByOtp">
+      <soap:operation soapAction="http://PaymentCenter.AllPay.com.tw/VerifyOrderByOtp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResendOtp">
+      <soap:operation soapAction="http://PaymentCenter.AllPay.com.tw/ResendOtp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTrade">
+      <soap:operation soapAction="http://PaymentCenter.AllPay.com.tw/QueryTrade" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlatformQueryTrade">
+      <soap:operation soapAction="http://PaymentCenter.AllPay.com.tw/PlatformQueryTrade" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPeriodTrade">
+      <soap:operation soapAction="http://PaymentCenter.AllPay.com.tw/QueryPeriodTrade" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="creditcardSoap12" type="tns:creditcardSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateTrade">
+      <soap12:operation soapAction="http://PaymentCenter.AllPay.com.tw/CreateTrade" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyOrderByOtp">
+      <soap12:operation soapAction="http://PaymentCenter.AllPay.com.tw/VerifyOrderByOtp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResendOtp">
+      <soap12:operation soapAction="http://PaymentCenter.AllPay.com.tw/ResendOtp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTrade">
+      <soap12:operation soapAction="http://PaymentCenter.AllPay.com.tw/QueryTrade" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlatformQueryTrade">
+      <soap12:operation soapAction="http://PaymentCenter.AllPay.com.tw/PlatformQueryTrade" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPeriodTrade">
+      <soap12:operation soapAction="http://PaymentCenter.AllPay.com.tw/QueryPeriodTrade" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="creditcard">
+    <wsdl:port name="creditcardSoap" binding="tns:creditcardSoap">
+      <soap:address location="https://pay.allpay.com.tw/merchantapi/creditcard.asmx" />
+    </wsdl:port>
+    <wsdl:port name="creditcardSoap12" binding="tns:creditcardSoap12">
+      <soap12:address location="https://pay.allpay.com.tw/merchantapi/creditcard.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

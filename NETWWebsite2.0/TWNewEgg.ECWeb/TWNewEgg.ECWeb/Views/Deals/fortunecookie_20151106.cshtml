@@ -1,0 +1,508 @@
+﻿@{
+    ViewBag.Title = "幸運餅";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section metaTags{
+    <!-- 活動正式網址 -->
+    <meta property='og:url' content='http://www.newegg.com.tw/Deals/fortunecookie_20151106' />
+    <!-- 活動Title -->
+    <meta property='og:title' content='幸運餅招好運 分享您的專屬籤詩' />
+    <!-- 活動描述 -->
+    <meta property='og:description' content='每個人都值得一份幸運，得到各自懷抱的幸福精彩，現在就打開屬於您的幸運籤餅，分享您的幸運籤詩！' />
+    <!-- 活動示意圖 -->
+    <meta property='og:image' content='http://www.newegg.com.tw/img/Act/20151106_fortunecookie/share_FB_Banner.jpg' />
+    <!-- 活動網站(此屬性已取消) -->
+    <meta property='og:site_name' content='新蛋全球生活網' />
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/Act")
+
+<style>
+    body{font-family:arial, "微軟正黑體";  background-color:#ffe8dc;}
+    a{outline:none;}
+    .mainPadding{margin-bottom:0;}
+    .content{margin-top: -177px;} /*Banner 若是至頂時用的*/
+    .header{z-index: 100;position: relative;} /*Banner 若是至頂時用的 */
+    .topper{z-index: 100;position: relative;} /*Banner 若是至頂時用的*/
+    html, body, .content, .banner,.Floor,.NotesRules{
+	    width:100%;
+	    min-width:1024px;
+    }
+    .Floor .inside{
+        padding:50px 0 100px 0;
+        border-bottom:1px solid #999;
+    }
+    .inside {width:1024px; margin:0 auto; position:relative;}
+	.Banner{
+		background:url("/img/Act/20151106_fortunecookie/Banner.jpg") no-repeat top center;
+		height:793px;
+	}
+    .hand {
+        position: absolute;
+        top: 560px;
+        right: 441px;
+    }
+    #btn_Lottery{
+        display: block;
+        position: absolute;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background:rgba(0,0,0,0);
+        filter:alpha(opacity=0);
+        -mox-opacity: 0;
+        opacity: 0;
+        height: 110px;
+        width: 335px;
+        top: 540px;
+        right: 180px;
+        text-indent:-200%;
+        overflow:hidden;
+    }
+    .NotesRules .inside{padding:50px 0;}
+    .NotesRules h2{
+	    color:#6d6e71;
+        padding:5px 8px;
+        font-size: 18px;
+        line-height: 30px;
+	    margin-bottom: 15px;
+    }
+    .NotesRules li{
+        line-height: 25px;
+        letter-spacing: 1.3px;
+        font-size: 15px;
+	    list-style-type: decimal;
+	    margin-left: 25px;
+	    color:#6d6e71;
+    }
+    .NotesRules a,.NotesRules a:hover{
+        color:#6d6e71;
+	    border-bottom:1px solid #6d6e71;
+    }
+    .Explanation {
+        width:95%;
+        margin:0 auto;
+    }
+    .Explanation th{
+        font-size:28px;
+        color:#58595b;
+        line-height:55px;
+        width:140px;
+        vertical-align:top;
+    }
+    .Explanation td{
+        font-size:21px;
+        color:#6d6e71;
+        line-height:35px;
+    }
+    .Explanation td span{color:#db3e4a;}
+    .lightbox {
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background-color:transparent;
+        background-color:rgba(0, 0, 0, 0.6);
+        filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#99000000", EndColorStr="#99000000");
+    }
+    .lightbox:not(s){filter:none;}/* IE9+ filter reset */
+    .msgBox {
+        position:absolute;
+        z-index:99999;
+        top:50%;
+        left:50%;
+        width:782px;
+        height:261px;
+        margin:-130px 0 0 -391px;
+        background:url("/img/Act/20151106_fortunecookie/linghtbox_bg.png") no-repeat top center;
+    }
+    .Title {
+        color:#be1e2d;
+        font-size:19px;
+        margin: 105px 0 5px 158px;
+        font-weight:bold;
+    }
+    .Title span{
+        font-size:11px;
+        color:#58595b;
+    }
+    .Article {
+        color: #a97c50;
+        font-size: 15px;
+        line-height: 18px;
+        text-align: center;
+        font-weight:bold;
+    }
+    #btn_FB_ShareActivity {
+        position:absolute;
+        width:163px;
+        height:53px;
+        background:url("/img/Act/20151106_fortunecookie/share_FB_1.png") no-repeat top center;
+        border: none;
+        cursor:pointer;
+        outline:none;
+        right: 57px;
+        text-indent:-500%;
+        overflow:hidden;
+    }
+    #btn_FB_ShareAward {
+        position:absolute;
+        width:63px;
+        height:26px;
+        background:url("/img/Act/20151106_fortunecookie/share_FB_2.png") no-repeat top center;
+        border: none;
+        cursor:pointer;
+        top: 50px;
+        right: 200px;
+        outline:none;
+        text-indent:-500%;
+        overflow:hidden;
+    }
+    #delete {
+        position:absolute;
+        width:25px;
+        height:24px;
+        background:url("/img/Act/20151106_fortunecookie/close.png") no-repeat top center;
+        border: none;
+        cursor:pointer;
+        top: 60px;
+        left: 180px;
+        outline:none;
+    }
+</style>
+}
+
+<div class="content">
+    <div class="Banner">
+        <div class="inside">
+            <input type="button" id="btn_Lottery" value ="測試抽獎" />
+            <img class="hand" src="/img/Act/20151106_fortunecookie/hand.gif">
+        </div>
+    </div>
+
+    <div class="Floor">
+        <div class="inside">
+            <input type="button" id="btn_FB_ShareActivity" value="FB分享活動" />
+            <table class="Explanation">
+                <tr>
+                    <th>活動時間</th>
+                    <td><span>2015.11.06 - 2015.11.30</span></td>
+                </tr>
+                <tr>
+                    <th>參加資格</th>
+                    <td><span>2015.11.30 前加入的新蛋會員</span></td>
+                </tr>
+                <tr>
+                    <th>活動方式</th>
+                    <td>
+                        <p>活動時間，新蛋舊會員可獲得乙次參加「幸運餅招好運　分享您的專屬籤詩」抽獎活動，有機會獲得100、200、300、500與1,000元的新蛋購物折價券以及您的專屬幸運祝福籤詩。</p>
+                        <p><span>提醒您，「新蛋購物折價券」請務必於2015年12月4日前使用本券，逾期將自動失效。</span></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="NotesRules">
+        <div class="inside">
+            <h2>注意事項與規則：</h2>
+            <ol>
+                <li>活動方式：點擊活動頁中的「抽取幸運籤餅」即可進行抽獎活動，活動獎項為電腦程式隨機抽出。活動期間(2015/11/6-2015/11/30)，於2015/11/30前註冊成功為新蛋全球生活網會員，即可獲得一次抽獎機會。每個帳號限參加一次。參加抽獎將有機會獲得面額100、200、300、500元新蛋購物折價券，贈品恕不可折換現金或其他等值商品。</li>
+                <li>活動期間參加本活動有機會得新蛋購物折價券，新蛋購物折價券(面額NTD100、200、300、500，可使用於商品單價501元(含)以上商品)，折價券需單次全數使用完畢，每件商品限使用一張折價券，專案活動及優惠方案（如其他折扣/滿額折/折價券）不可合併使用，會員若同時擁有兩種優惠，只能擇一進行折抵。（如該活動已有滿額折，則折價券無法使用）</li>
+                <li>折價券有效使用期限 2015/11/06-2015/12/04當日23:59止。</li>
+                <li>折價券之使用方式與注意事項，請參閱「我的帳戶><a href="/MyAccount/Coupon" target="_blank">我的折價券</a>」使用辦法。</li>
+                <li>折價券僅限原註冊會員，依「折價券使用辦法」於有效期限內（逾期失效，恕不補發），在新蛋全球生活網消費時使用，恕無法轉讓或合併，部分活動或商品無法折抵使用，亦無法折換現金、找零或交換其他商品及折換其他贈品，且無法抵扣物流、安裝、服務、稅賦等費用。</li>
+                <li>若使用折價券後取消訂單或退貨，恕不回補發折價券。折價券折抵部分不再另外開立發票，開立發票金額以該訂單「實際支付金額」計算。</li>
+                <li>新蛋全球生活網將保留隨時變更、修改與解釋或終止本「折價券使用辦法」之權利，若有異動及修改，將在本網站上公布，恕不另行個別通知。</li>
+                <li>若您有任何疑問，歡迎<a href="mailto:service@newegg.com.tw" target="_self">來信</a>，我們將於1～2日內（不含例假日）以E-mail回覆您，或請於上班時間（8:30～17:30）來電（02-8175- 5996）。</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="lightbox" style="display:none;">
+    <div class="msgBox" style="display:none;">
+        <button id="delete"></button>
+        <input type="button" id="btn_FB_ShareAward" value="FB分享獎項" />
+
+        <p class="Title"></p>
+        <p class="Article"></p>
+    </div>
+</div>
+
+<div style="display:none;">
+    隱藏項目:<br />
+    award_name: <input type="text" id="award_name" /><br />
+    award_desc: <input type="text" id="award_desc" /><br />
+</div>
+<!-- FB的必要項目 -->
+<div id="fb-root"></div>
+
+@section refScripts{
+<script type="text/javascript">
+
+(function (d, s, id)
+{
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=695768887110336";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+var _fbAppId = '695768887110336';
+    var _uid = "";
+    var _fbAccessToken = "";
+
+    function checkFBStatus()
+    {
+        FB.init({
+            appId: '695768887110336',                        // App ID from the app dashboard
+            channelUrl: '//WWW.neweegg.com.tw/', // Channel file for x-domain comms
+            status: true,                                 // Check Facebook Login status
+            xfbml: true,                                  // Look for social plugins on the page
+            cookie: true,
+            oauth: true,
+            version: 'v2.4' // or v2.0, v2.1, v2.0
+        });
+
+
+        FB.login(function (response)
+        {
+            if (response.status == "connected")
+            {  // 程式有連結到 Facebook 帳號
+                //console.log("auth status", response.authResponse);
+                _uid = response.authResponse.userID; // 取得 UID
+                _fbAccessToken = response.authResponse.accessToken; //get access token, and save it in local storage
+
+                /*
+                console.log("fb response", response);
+                console.log("logion response:", response.authResponse);
+                console.log("_uid1", _uid);
+                console.log("_fbAccessToken1", _fbAccessToken);
+                */
+                FB.api("/me", "GET", function (response)
+                {
+                    _uid = response.authResponse.userID; // 取得 UID
+                    //console.log("_uid3", _uid);
+                    var email = response.email;
+
+                });
+                postToWall();
+            } else if (response.status == "not_authorized")
+            {  // 帳號沒有連結到 Facebook 程式
+                FB_login();
+            } else
+            {    // 帳號沒有登入
+                FB_login();
+            }
+        }, { scope: "publish_actions"});
+    }
+    //如果已經登入但還沒允許APP存取的話，可以使用 FB.login() 來請使用者允許存取
+    //其中存取權限要加上 publish_stream，才可以貼文或刪文
+
+
+    function FB_login()
+    {
+        FB.login(function (response)
+        {
+            if (response.authResponse)
+            {
+                _uid = response.authResponse.userID; // 取得 UID
+                _fbAccessToken = response.authResponse.accessToken; //get access token, and save it in local storage
+                init();
+
+                postToWall();
+            }
+        }, { scope: 'publish_actions'});
+    }
+
+    //登入後可以抓取FB帳號資料，可以參考 Graph API
+    //FB.api('/me', function(response) { $('#info').html("<div><img src='https://graph.facebook.com/" + response.id + "/picture/' /></div><div>" + response.name + "</div>");
+    function postToWall()
+    {
+        var strMsg = "我抽中的幸運籤詩是{$award_desc}新蛋送上{$award_name}，快來新蛋抽取您的幸運餅";
+        var strAwardName = $("#award_name").val();
+        var strAwardDesc = $("#award_desc").val();
+
+        if (strAwardName == null || typeof (strAwardName) == "undefined" || strAwardName.length <= 0
+            || strAwardDesc == null || typeof (strAwardDesc) == "undefined" || strAwardDesc.length <= 0)
+        {
+            alert('請先抽獎');
+            return;
+        }
+
+        strMsg = strMsg.replace("{$award_desc}", strAwardDesc);
+        strMsg = strMsg.replace("{$award_name}", strAwardName);
+        strMsg = strMsg.replace("<br />", "");
+
+        var args = {
+            access_token: _fbAccessToken,
+            //method: 'feed',
+            //name: '入會試手氣 扭蛋抽好禮',
+            
+            message: strMsg,
+            link: 'https://secure.newegg.com.tw/Deals/fortunecookie_20151106',
+            picture: 'http://www.newegg.com.tw/img/Act/20151106_fortunecookie/share_FB_Banner.jpg',
+            description: '活動時間內，新蛋舊會員可獲得乙次參加「幸運餅招好運 分享您的專屬籤詩」抽獎活動，有機會獲得100、200、300、500與1,000元的新蛋購物折價券以及您的專屬幸運祝福籤詩。',
+            caption: '幸運餅招好運 分享您的專屬籤詩'
+        };
+
+        console.log("args:", args);
+        console.log("_uid:", _uid);
+        console.log("_token:", _fbAccessToken);
+        FB.api('/' + _uid + '/feed', 'post', args, onPostToWallCompleted);
+    }
+
+    function onPostToWallCompleted(response)
+    {
+        console.log("response:", response);
+        if (!response || response.error)
+        {
+            //console.log("FB error message:", response.error);
+            //alert('Facebook發佈失敗！\n' + response.error.message);
+            alert('Facebook發佈失敗！');
+            //document.getElementById('msg').innerHTML = 'Error occured: ' + response.error.message;
+        } else
+        {
+            //alert('Facebook發佈成功！\n' +response.id);
+            alert('Facebook發佈成功！');
+        }
+    }
+
+    function postActivity()
+    {
+        //var strHref = window.document.location.href;
+        var strHref = "http://www.newegg.com.tw/Deals/fortunecookie_20151106";
+
+        FB.ui({
+            method: 'share_open_graph',
+            action_type: 'og.likes',
+            action_properties: JSON.stringify({
+                object: strHref,
+            })
+        }, function (response)
+        {
+            // Debug response (optional)
+            //console.log(response);
+        });
+    }
+
+
+
+    /* ----- btn:抽獎 ------ */
+    $("#btn_Lottery").click(function ()
+    {
+        $("div.lightbox").show();
+        GetLottery();
+    });
+
+    /* ------ btn:分享活動 ------ */
+    $("#btn_FB_ShareActivity").click(function ()
+    {
+        postActivity();
+    });
+
+    /* ------ btn: 分享獎項 ------ */
+    $("#btn_FB_ShareAward").click(function ()
+    {
+        checkFBStatus();
+    });
+
+    /* ------ btn : 關閉視窗 ------ */
+    $("#delete").click(function ()
+    {
+        $(".lightbox").hide();
+        $(".msgBox").hide();
+    });
+
+    /* ========================================== function ========================================== */
+    /* ------ 抽獎 ------ */
+    function GetLottery()
+    {
+        twNewegg().checkNGO(function (auchk)
+        {
+            if (!auchk)
+            {
+                alert("請登入您的會員帳號");
+                window.location = "/MyAccount/Login?ReturnUrl=/Deals/fortunecookie_20151106";
+                return;
+            }
+            else
+            {
+                var objResult = null;
+                $.ajax({
+                    url: "/api/Deals/GetLotteryResult",
+                    cache: false,
+                    type: 'post',
+                    dataType: "html",
+                    beforeSend: function (xhr)
+                    {
+                        xhr.setRequestHeader("Authorization", "Basic " + jQuery.cookie("neui"));
+                    },
+                    success: function (data)
+                    {
+                        if (data != null && data.length > 0)
+                        {
+                            var objResult = JSON.parse(data);
+                            if (objResult.Award != null && typeof (objResult.Award) != "undefined")
+                            {
+                                //有獎項
+                                $("#award_name").val(objResult.Award.Name);
+                                $("#award_desc").val(objResult.Award.Description);
+
+                                //顯示獎項視窗
+                                var strAward = "新蛋送上{$award_name}<span>{$award_condition}</span>";
+                                strAward = strAward.replace("{$award_name}", objResult.Award.Name);
+                                strAward = strAward.replace("{$award_condition}", "單價501元(含)以上商品適用");
+                                $("div.lightbox div.msgBox p.Title").html(strAward);
+                                $("div.lightbox div.msgBox p.Article").html(objResult.Award.Description);
+                                $("div.msgBox").show();
+                            }
+                            else
+                            {
+                                switch (objResult.State)
+                                {
+                                    case "1":
+                                        //活動不存在
+                                        alert("活動不存在");
+                                        break;
+                                    case "2":
+                                        //活動尚未開始
+                                        alert("活動尚未開始");
+                                        break;
+                                    case "3":
+                                        //活動已結束
+                                        alert("活動已結束");
+                                        break;
+                                    case "4":
+                                        //資格不符合
+                                        alert("本活動僅限於2015年11月30前註冊成功之新蛋會員參加，建議您到其他活動頁逛逛，敬請期待下次活動，謝謝。");
+                                        break;
+                                    case "5":
+                                        //已抽過獎
+                                        alert("您已抽取過幸運餅");
+                                        break;
+                                    case "6":
+                                        //Error
+                                        alert("獎項已全數抽完");
+                                        break;
+                                }
+                                $(".lightbox").hide();
+                            }
+                        }
+                    },//end success
+                    error: function ()
+                    {
+                        alert("抽獎失敗，請稍候再試");
+                        $("div.msgBox").hide();
+                        $("div.lightbox").hide();
+                    },
+                });
+            }// end if(!auchk)
+        }, []);
+    }
+</script>
+}

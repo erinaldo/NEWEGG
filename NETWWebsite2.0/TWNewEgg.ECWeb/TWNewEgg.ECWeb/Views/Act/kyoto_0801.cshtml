@@ -1,0 +1,373 @@
+﻿@{
+    ViewBag.Title = "手感京都";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/Act")
+
+    @* css style寫這邊 *@
+    <style>
+html {min-width:1280px;}
+.mainPadding{margin:0;padding:0;}
+ body {
+    font-family: arial, "微軟正黑體";
+    background: url("/img/Activity/20150801_kyto/Bg.jpg");
+}
+*{outline:none;}
+a img { border: 0; }
+.content,.banner,.Floor,.NotesRules{
+	width:100%;
+	min-width:1280px;
+}
+/*樓層，包含banner亦為一個樓層*/
+.banner{
+	background: url("/img/Activity/20150801_kyto/Banner_Bg.jpg") no-repeat top center;
+	height:550px;
+}
+.banner div{
+	position: relative;
+}
+.Floor01 .Top{
+	background: url("/img/Activity/20150801_kyto/FloorTop_Bg_01.jpg") no-repeat top center;
+	height:673px;
+}
+.Floor02 .Top{
+	background: url("/img/Activity/20150801_kyto/FloorTop_Bg_02.jpg") no-repeat top center;
+	height:452px;
+}
+.Floor03 .Top{
+	background: url("/img/Activity/20150801_kyto/FloorTop_Bg_03.jpg") no-repeat top center;
+	height:585px;
+}
+.Floor04 .Top{
+	background: url("/img/Activity/20150801_kyto/FloorTop_Bg_04.jpg") no-repeat top center;
+	height:561px;
+}
+.Pro img{
+	display: block;
+	margin: 0 auto;
+}
+/*當背景寬100%時，用此來抓內容的1004寬*/
+.Inside,.Inside>div{
+	width:1280px;
+	position:relative;
+	margin:0 auto;
+	clear:both;
+}
+.Inside .Links{
+	display: block;
+	width: 234px;
+	height:100px;
+	border-left:1px solid #5f3e2b;
+	float: left;
+	padding: 0 10px;
+    -moz-transform:.2s;
+    -webkit-transform:.2s;
+    -o-transform:.2s;
+    -ms-transform:.2s;
+    transform:.2s;
+}
+.Inside .Links:hover img{
+	-moz-transform:scale(1.1);
+    -webkit-transform:scale(1.1);
+    -o-transform:scale(1.1);
+    -ms-transform:scale(1.1);
+    transform:scale(1.1);
+}
+.Inside .Links:first-child{border-left:0;}
+/*注意事項與規則*/
+.NotesRules{
+	color:#000;
+	border-top: 3px solid #603813;
+	margin-top: 56px;
+}
+.NotesRules p{
+	margin:10px 30px;
+	font-size:18px;
+	padding-top:20px;
+}
+.NotesRules li{
+	font-size:15px;
+	line-height:20px;
+	list-style-type:decimal;
+	margin:5px 50px;
+}
+.NotesRules li a{
+	text-decoration: underline;
+	color:#000;
+}
+.Video{
+	position: absolute;
+	width: 130px;
+	height: 97px;
+	cursor: pointer;
+}
+.Video img{
+	max-width:130px;
+	max-height:97px;
+}
+.LightBoxUnderLay{
+	display:none;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100vw;
+	height:100vh;
+	background:rgba(0,0,0,0.5);
+	z-index:100;
+}
+.LightBoxMsg{display:none;position:fixed;background-color:#fff;}
+.Stlye-2{
+    top:50%;
+	left:50%;
+	margin-left:-330px;
+	margin-top:-37.5vh;
+	padding:50px;
+	overflow-y:auto;
+	border:8px solid #000;
+    border-radius:15px;
+}
+.CloseBtn{
+	position:absolute;
+	cursor:pointer;
+	top:10px;
+	right:10px;
+	width:33px;
+	height:33px;
+	border:0;
+	background: url(/Themes/img/CloseBtn.png) no-repeat center;
+}
+    </style>
+}
+@section scripts {
+    @* js寫這邊 *@
+    <script>
+        $(function () {
+            $("a.Links").each(function () {
+                $(this).click(function () {
+                    var $target = $(this).attr("class").split(" ").pop().split("Link").pop();
+                    smoothScroll($target);
+                });
+            });
+
+            function smoothScroll(obj) {
+                var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+
+                $body.animate({
+                    scrollTop: $('.Floor' + obj).offset().top
+                }, 1500);
+                return false;
+            }
+        });
+
+        function ShowLightbox(a) {
+            $('.LightBoxUnderLay').show();
+            var $YoutubeLink = 0;
+            if (a === 1) {
+                $YoutubeLink ='<iframe width="560" height="315" src="https://www.youtube.com/embed/mTn-SL4LruU" frameborder="0" allowfullscreen></iframe>';
+            } else if (a === 2) {
+                $YoutubeLink = '<iframe width="560" height="315" src="https://www.youtube.com/embed/aburJ3uVBDM" frameborder="0" allowfullscreen></iframe>';
+            } else if(a === 3) { 
+                $YoutubeLink = '<iframe width="560" height="315" src="https://www.youtube.com/embed/7LVSyeDDvtM" frameborder="0" allowfullscreen></iframe>';
+            }else{
+                $YoutubeLink = '<iframe width="560" height="315" src="https://www.youtube.com/embed/EN74h62HdgI" frameborder="0" allowfullscreen></iframe>';
+            }
+            $('.Media').html($YoutubeLink);
+            $('.Stlye-2').css('display', 'block');
+        }
+        function clseLightbox() {
+            $('iframe').remove();
+            $('.Stlye-2').css('display', 'none');
+            $('.LightBoxUnderLay').css('display', 'none');
+        }
+
+    </script>
+}
+
+<!-- start 活動內容 -->
+<div class="content">
+    <!--穿插banner-->
+    <div class="banner">
+        <div class="Inside">
+            <div>
+                <img src="/img/Activity/20150801_kyto/Banner_content-2.png">
+                <!--<a href="https://secure.newegg.com.tw/act/ticket888_0801" target="_blank" style="position: absolute; width: 465px; height: 50px; top: 341px; left: 539px;"></a>-->
+                <p style=" position: absolute;  top: 389px; left: 650px; color: #644439; font-size: 17px; text-align: center; ">本活動頁商品恕無法參加滿3000折500</p>
+            </div>
+            <div style="width:1020px;margin:10px auto;">
+                <a href="javascript:void(0);" class="Links Link01"><img src="/img/Activity/20150801_kyto/Link_01.png"></a>
+                <a href="javascript:void(0);" class="Links Link02"><img src="/img/Activity/20150801_kyto/Link_02.png"></a>
+                <a href="javascript:void(0);" class="Links Link03"><img src="/img/Activity/20150801_kyto/Link_03.png"></a>
+                <a href="javascript:void(0);" class="Links Link04"><img src="/img/Activity/20150801_kyto/Link_04.png"></a>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--第一樓層-->
+    <div class="Floor Floor01" id="F1">
+        <div class="Inside">
+            <div class="Top">
+           	  <div class="Video" style="left: 630px;top: 352px;" onClick="ShowLightbox(1)"><img src="/img/Activity/20150801_kyto/VideoImg-01.jpg"></div><!--<img src="http://i.ytimg.com/vi/LO8PlUJGyUA/0.jpg">-->
+          </div>
+            <div class="Pro"><img src="/img/Activity/20150801_kyto/product_01.jpg" usemap="#Floor01_Map" style="margin-bottom: 60px;">
+              <map name="Floor01_Map">
+                <area shape="rect" coords="259,56,375,255" href="/item?itemid=443279">
+                <area shape="rect" coords="377,56,489,257" href="/item?itemid=443276">
+                <area shape="rect" coords="493,55,611,258" href="/item?itemid=443503">
+                <area shape="rect" coords="614,16,741,259" href="/item?itemid=443281">
+                <area shape="rect" coords="263,282,374,515" href="/item?itemid=458219">
+                <area shape="rect" coords="377,281,491,515" href="/item?itemid=443502">
+                <area shape="rect" coords="493,280,610,515" href="/item?itemid=443273">
+                <area shape="rect" coords="612,280,744,515" href="/item?itemid=443272">
+                <area shape="rect" coords="270,551,375,783" href="/item?itemid=443151">
+                <area shape="rect" coords="377,552,487,780" href="/item?itemid=443152">
+                <area shape="rect" coords="492,549,610,784" href="/item?itemid=443150">
+                <area shape="rect" coords="615,547,748,782" href="/item?itemid=443153">
+              </map>
+          </div>
+        </div>
+    </div>
+
+    <!--第二樓層-->
+    <div class="Floor Floor02" id="F2">
+        <div class="Inside">
+            <div class="Top">
+           	  <div class="Video" style="left: 976px;top: 46px;" onClick="ShowLightbox(2)"><img src="/img/Activity/20150801_kyto/VideoImg-02.jpg"></div>
+          </div>
+            <div class="Pro"><img src="/img/Activity/20150801_kyto/product_02.jpg" usemap="#Floor02_Map">
+              <map name="Floor02_Map">
+                <area shape="rect" coords="927,4,1138,183" href="/item?itemid=443268">
+                <area shape="poly" coords="153,197,130,429,229,430,239,317,288,263,419,260,415,200,153,199" href="/item?itemid=443263">
+                <area shape="poly" coords="288,267,242,317,233,450,417,449,415,266" href="/item?itemid=443262">
+                <area shape="poly" coords="522,164,424,303,434,437,598,451,601,386,697,252,826,250,826,184" href="/item?itemid=443269">
+                <area shape="poly" coords="701,256,606,388,604,459,811,456,824,255" href="/item?itemid=443250">
+                <area shape="rect" coords="886,190,1140,461" href="/item?itemid=443260">
+                <area shape="poly" coords="170,506,175,757,292,758,282,564,385,562,378,503" href="/item?itemid=443261">
+                <area shape="poly" coords="288,568,300,768,411,764,395,567" href="/item?itemid=443283">
+                <area shape="poly" coords="478,479,517,730,659,731,570,477" href="/item?itemid=443264">
+                <area shape="poly" coords="576,478,672,737,520,735,527,769,774,759,680,478" href="/item?itemid=443265">
+                <area shape="poly" coords="727,484,869,754,983,734,835,466" href="/item?itemid=443267">
+                <area shape="poly" coords="848,483,1013,777,1192,762,1113,591,994,588,946,476" href="/item?itemid=443266">
+                <area shape="poly" coords="979,531,1000,586,1140,585,1106,527" href="/item?itemid=443267">
+              </map>
+          </div>
+        </div>
+    </div>
+
+    <!--第三樓層-->
+    <div class="Floor Floor03" id="F3">
+        <div class="Inside">
+            <div class="Top">
+            	<div class="Video" style="left: 193px; top: 52px;" onClick="ShowLightbox(3)"><img src="/img/Activity/20150801_kyto/VideoImg-03.jpg"></div>
+          </div>
+            <div class="Pro"><img src="/img/Activity/20150801_kyto/product_03.jpg" usemap="#Floor03_Map">
+              <map name="Floor03_Map">
+                <area shape="rect" coords="125,59,241,348" href="/item?itemid=443202">
+                <area shape="rect" coords="243,58,381,431" href="/item?itemid=443203">
+                <area shape="rect" coords="381,56,519,335" href="/item?itemid=443237">
+                <area shape="rect" coords="537,4,716,263" href="/item?itemid=443234">
+                <area shape="rect" coords="545,455,714,506" href="/item?itemid=443235">
+                <area shape="rect" coords="545,507,712,535" href="/item?itemid=443236">
+                <area shape="rect" coords="629,543,711,664" href="/item?itemid=443236">
+                <area shape="rect" coords="550,538,626,666" href="/item?itemid=443235">
+				<area shape="rect" coords="737,58,861,371" href="/item?itemid=443209">
+                <area shape="rect" coords="867,63,1005,368" href="/item?itemid=443207">
+                <area shape="rect" coords="1011,67,1153,373" href="/item?itemid=443206">
+                <area shape="rect" coords="731,379,1143,542" href="/item?itemid=443204">
+              </map>
+          </div>
+        </div>
+    </div>
+
+    <!--第四樓層-->
+    <div class="Floor Floor04" id="F4">
+        <div class="Inside">
+            <div class="Top">
+           	  <div class="Video" style="top: 410px; left: 607px;" onClick="ShowLightbox(4)"><img src="/img/Activity/20150801_kyto/VideoImg-04.jpg"></div>
+          </div>
+            <div class="Pro">
+              <img src="/img/Activity/20150801_kyto/product_04.jpg" usemap="#Map2">
+                <map name="Map2">
+                  <area shape="poly" coords="115,145,184,63,211,55,214,80,157,158,136,182,118,181" href="/item?itemid=443229">
+                  <area shape="poly" coords="85,438,86,208,98,194,112,201,120,312,170,391,171,415,132,452,95,457" href="/item?itemid=443233">
+                  <area shape="poly" coords="188,297,178,244,230,129,225,114,203,121,158,216,143,298,151,333" href="/item?itemid=443231">
+                  <area shape="poly" coords="258,441,267,421,235,347,231,310,238,247,221,228,205,249,206,342,214,401,234,436" href="/item?itemid=443230">
+                  <area shape="poly" coords="239,188,250,167,272,179,286,237,287,294,275,322,263,325,257,298,259,250" href="/item?itemid=443229">
+                  <area shape="poly" coords="323,218,546,233,559,244,560,261,540,265,447,261,397,282,359,306,340,304,318,280,303,247,308,223" href="/item?itemid=443233">
+                  <area shape="poly" coords="510,185,496,222,245,154,249,123,436,145" href="/item?itemid=443232">
+                  <area shape="poly" coords="547,148,494,117,466,77,450,72,445,81,466,125,508,164,541,185,560,182,564,165" href="/item?itemid=443229">
+                  <area shape="poly" coords="284,330,293,332,377,336,402,329,472,283,508,304,525,353,514,378,278,367,263,355,267,337" href="/item?itemid=443233">
+                  <area shape="poly" coords="560,507,561,443,499,428,477,445,425,452,303,451,303,503" href="/item?itemid=443232">
+                  <area shape="poly" coords="759,145,635,62,591,67,578,84,592,102,662,115,744,178,766,177" href="/item?itemid=443230">
+                  <area shape="poly" coords="517,73,571,138,656,190,706,198,681,148,645,154,598,134,530,65,518,63" href="/item?itemid=443231">
+                  <area shape="poly" coords="605,181,615,299,660,351,642,402,608,357,595,287,590,193,593,176" href="/item?itemid=443231">
+                  <area shape="poly" coords="564,285,575,352,640,450,630,479,595,475,541,293,552,280" href="/item?itemid=443230">
+                  <area shape="poly" coords="648,296,659,244,694,240,701,302,710,423,732,502,683,503,669,336" href="/item?itemid=443232">
+                  
+                  <area shape="rect" coords="796,39,997,65" href="/item?itemid=443229">
+                  <area shape="rect" coords="794,70,976,95" href="/item?itemid=443233">
+                  <area shape="rect" coords="796,106,991,130" href="/item?itemid=443231">
+                  <area shape="rect" coords="795,137,992,162" href="/item?itemid=443230">
+                  <area shape="rect" coords="795,168,995,192" href="/item?itemid=443229">
+                  <area shape="rect" coords="796,201,980,222" href="/item?itemid=443233">
+                  <area shape="rect" coords="794,233,995,253" href="/item?itemid=443232">
+                  <area shape="rect" coords="795,266,993,288" href="/item?itemid=443229">
+                  <area shape="rect" coords="792,297,979,322" href="/item?itemid=443233">
+                  <area shape="rect" coords="796,329,1003,352" href="/item?itemid=443232">
+                  <area shape="rect" coords="798,361,1009,384" href="/item?itemid=443230">
+                  <area shape="rect" coords="797,393,1007,414" href="/item?itemid=443231">
+                  <area shape="rect" coords="798,423,1001,447" href="/item?itemid=443231">
+                  <area shape="rect" coords="796,457,1002,481" href="/item?itemid=443230">
+                  <area shape="rect" coords="797,489,1006,512" href="/item?itemid=443232">
+              </map> 
+              <img src="/img/Activity/20150801_kyto/product_05.jpg" usemap="#Floor04_Map_02" style="margin-top:5px;">
+                <map name="Floor04_Map_02">
+                  <area shape="rect" coords="3,3,300,299" href="/item?itemid=443247">
+                  <area shape="rect" coords="306,3,604,299" href="/item?itemid=443246">
+                  <area shape="rect" coords="612,3,1017,300" href="/item?itemid=443245">
+                  <area shape="rect" coords="3,306,299,924" href="/item?itemid=443884">
+                  <area shape="poly" coords="316,656,396,622,412,545,696,307,1013,307,1014,427,467,621,467,660" href="/item?itemid=443221">
+                  <area shape="poly" coords="320,550,320,643,392,620,408,545" href="/item?itemid=443219">
+                  <area shape="poly" coords="474,624,1010,433,1007,644,476,658" href="/item?itemid=443219">
+                  <area shape="rect" coords="307,671,644,1136" href="/item?itemid=443251">
+                  <area shape="rect" coords="650,935,1015,1179" href="/item?itemid=443881">
+                  <area shape="rect" coords="649,1188,1016,1569" href="/item?itemid=443212">
+                  <area shape="rect" coords="309,1147,642,1568" href="/item?itemid=443252">
+                  <area shape="rect" coords="5,930,298,1569" href="/item?itemid=443244">
+                  <area shape="poly" coords="688,928,695,887,797,882,739,846,664,857,658,820,730,778,1015,876,1014,929" href="/item?itemid=443228">
+                  <area shape="poly" coords="655,763,656,814,732,771,1014,866,1016,797,734,724" href="/item?itemid=443248">
+                  <area shape="poly" coords="736,852,781,878,692,883,683,926,654,927,659,862" href="/item?itemid=443248">
+              </map>
+          </div>
+        </div>
+    </div>
+
+    <!--注意事項與規則-->
+    <div class="NotesRules">
+        <div class="Inside">
+            <p>注意事項與規則</p>
+            <ul>
+                <li>折價券限原註冊會員，依「折價券使用辦法」於有效期限內(逾期失效，恕不補發），在新蛋全球生活網消費時使用，恕無法轉讓或合併，部分活動或商品無法折抵使用，亦無法折換現金、找零或交換其他商品及折換其他贈品，且無法抵扣物流、安裝、服務、稅賦等費用。</li>
+                <li>折價券之使用方式與注意事項，請參閱「我的帳戶><a  href="/MyAccount/Coupon" target="_blank">我的折價券</a>」使用辦法。</li>
+                <li>專案活動及優惠方案（如其他折扣、滿額折、折價券）不可合併使用，會員若同時擁有兩種優惠，只能擇一進行折抵。（如該活動已有滿額折，則折價券無法使用）</li>
+                <li>折價券折抵部分不再另外開立發票，開立發票金額以該訂單「實際支付金額」計算。</li>
+                <li>商品顏色因電腦螢幕之設定會略有不同，以實際出貨商品顏色為準。</li>
+                <li>產品數量有限，售完為止。</li>
+                <li>新蛋全球生活網將保留隨時變更、修改與解釋或終止本「折價券使用辦法」之權利，若有異動及修改，將在本網站上公布，恕不另行個別通知。</li>
+                <li>若您有任何疑問，<a href="mailto:service@newegg.com.tw">歡迎來信</a>，我們將於1～2日內（不含例假日）以E-mail回覆您，或請致電客服人員。<br/>02-8170-6025  08:30am～17:30pm。
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="LightBoxUnderLay">
+	<div class="LightBoxMsg Stlye-2">
+		<input type="button" class="CloseBtn" onclick="clseLightbox()">
+		<div class="MsgContent">
+			<div class="Media"></div>
+		</div>
+	</div>
+</div>
+<!-- end 活動內容 -->

@@ -1,0 +1,27 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>
+@{    
+    string strImageServer = "";
+    strImageServer = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsImgDomain") ?? string.Empty;
+
+<div class="bottomer">
+    <div class="icon">
+        <ul>
+            @if (Model != null)
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    string divline = " "; //每張圖旁邊的線
+                    string displayN = "style='display:none;'";
+
+                    @Html.Raw(String.Format("<li {4}><a href='{0}'><i class=\" \"><img src='{1}' title=\"{2}\"></i><div class=\"text\">{2}</div></a></li>{3}",Model[i].LinkUrl, strImageServer + Model[i].ImgUrl, Model[i].Title, i<(Model.Count-1)?divline:"", i<5?"":displayN))                        
+                }
+            }
+        </ul>
+    </div>
+</div>    
+}
+
+<script>
+    /* ------ 產品圖放大1.5倍 ------ */
+    sectionImgVerticalAlignCenter($("div.bottomer"));
+</script>

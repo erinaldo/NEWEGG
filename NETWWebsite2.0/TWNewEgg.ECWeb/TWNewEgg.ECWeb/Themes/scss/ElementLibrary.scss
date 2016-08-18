@@ -1,0 +1,234 @@
+﻿@import "_importSCSS";
+
+img {
+	  vertical-align: middle;
+}
+.CheckboxTit , .InputTit , .RadioTit , .SelectTit , .TextBoxTit , .BtnTit , .IconTit {
+	line-height:2.5; 
+}
+
+/*Checkbox*/
+.checkbox {
+	width: 20px;
+	height: 20px; 
+	vertical-align: middle;
+	margin:0 5px;
+}
+
+/*Input*/
+input[type="text"] , input[type="password"] , input[type="tel"] , select , textarea{
+	padding:5px 10px;
+	*padding:5px 10px;		/*IE7*/
+	margin:0 5px;
+	vertical-align: middle;  
+	border-width: 1px;
+	border-color:#808080;
+	border-style: solid;
+	font-family: "Microsoft JhengHei", sans-serif;
+	background-color: white;
+	outline: none;
+}
+.input_xs {
+	width:45px;
+}
+.input_sm {
+	width:100px;
+}
+.input_md {
+	width:235px;
+}
+.input_lg {
+	width:700px;
+}
+.input_radius_md {
+	width:200px;
+	border-radius:7px;
+}
+
+/*Radio*/
+input[type=radio], .radio {
+	width:20px;
+	height:20px;
+	vertical-align: middle;
+	margin:0 10px;
+	border:0;
+}
+
+/*Select*/
+select {
+	padding: 4px 3px;
+	*padding: 40px 3px;		/*IE7*/
+	*height:29px;
+	margin:0 5px;
+	background: url("/Themes/img/Icon/SelectImg.png") right no-repeat;
+	-webkit-appearance: none;
+	-moz-appearance: none; 
+	color: #666666;
+
+	z-index:1;
+	text-indent:0.01px;
+}
+.select_sm {
+	width:120px;
+}
+.select_md {
+	width:235px;
+}
+.select_other {
+	padding-right:30px;
+	padding-right:3px \9;
+	background-imeage:none\9;
+}
+
+/*Btn*/
+ input[type="button"]::-moz-focus-inner {
+	border: none;
+ } 
+.OrgBgBtn,.BluBgBtn,.LightOrgBtn,.OrgBtn,.LightBluBtn,.BluBtn,.GryBtn,.Btn_radius{
+	text-align:center;
+	color:#fff;
+	border-bottom:0;
+	border: 0;
+	outline: none;
+	font-weight:bold;
+	cursor: pointer;
+}
+.OrgBgBtn{background: url("/Themes/img/ShoppingProcess/OrangeBigBtnBG.jpg");}
+.BluBgBtn{background: url("/Themes/img/ShoppingProcess/BlueBigBtnBG.jpg");}
+.LightOrgBtn{background-color:#edad7e;}
+.OrgBtn{background-color:#ec8b54;}
+.LightOrgBtn,.OrgBtn{
+	@include transition-property(background-color);
+	@include transition-duration(.2s);
+	&:hover{background-color:darken(#edad7e,15%);}
+}
+.LightBluBtn{background-color:#a5bbd4;}
+.BluBtn{background-color:#698eb8;}
+.LightBluBtn,.BluBtn{
+	@include transition-property(background-color);
+	@include transition-duration(.2s);
+	&:hover{background:darken(#a5bbd4,15%);}
+}
+.GryBtn{
+	background-color:#b4b4b4;
+	@include transition-property(background-color);
+	@include transition-duration(.2s);
+	&:hover{background:darken(#b4b4b4,15%);}
+}
+.ContinueBtn {
+	width:212px;
+	height:81px;
+	line-height:81px;
+}
+.CheckoutBtn {
+	width:212px;
+	height:81px;
+	line-height:81px;
+}
+.InquiryBtn {
+	width:64px;
+	height:27px;
+	line-height:27px;
+	background:#EF9560;
+	letter-spacing: 5px;
+}
+.CancelBtn {
+	background:#A5BBD3;
+	width:87px;
+	height:45px;
+	line-height:45px;
+	letter-spacing: 5px;
+}
+.AskAgainBtn {
+	background:#EF9560;
+	width:92px;
+	height:26px;
+	line-height:26px;
+	letter-spacing: 5px;
+}
+.Btn_radius {
+	@include border-radius(10px);
+}
+.ConfirmBtn {
+	background:#698EB8;
+	width:91px;
+	height:30px;
+	letter-spacing: 5px;
+}
+/*.DiscountCouponsBtn {
+	background:#FF8E8A;
+	width:103px;
+	height:20px;
+	line-height:20px;
+}*/
+
+/*Icon*/
+.ICON {
+	background: rgb(10, 36, 60);
+	height: 100px;	
+	padding: 20px;
+	*padding: 20px;		/*IE7*/
+	.IconImg {
+		float:left;
+		margin:0 10px;
+	}
+}
+
+/*LightBox*/
+.NoneBG {
+	 background: rgba(255, 255, 255, 0);
+}
+.LightBoxUnderLay{
+	/*RemindDialog*/
+	.ProcessWindow {
+		width:400px;
+		height:182px;
+	}
+	.AddWish {
+		width:425px;
+		height:198px;
+	}
+	.AddCart {
+		width:422px;
+		height:188px;
+	}
+	.RemindDialog , .AddtoOtherCart , .CheckoutWarning , .SuccessDialog {
+		.Remindtxt {
+		margin: 60px;
+			span { 
+				font-size:21px;
+				font-weight:bold;
+			}
+}
+		.DialogBtn {
+			margin: 150px auto 0 auto;
+			text-align: center;
+			.OrgBtn {
+				width:106px;
+				height:44px;
+				margin:20px; 
+				font-size: 14px;
+				letter-spacing:5px;
+				background:rgba(236, 139, 84, 0.9);
+			}
+			.OrgBtn:hover {
+				background:#EC8B54;
+			}
+			.DialogConfirmBtn  {
+				background:rgba(236, 139, 84, 0.9);
+			}
+			.DialogDisagreeBtn {
+				width: 150px;
+				height: 55px;
+				font-size: 18px;
+				margin: 20px;
+			}
+			.DialogAgreeBtn {
+				width: 150px;
+				height: 55px;
+				font-size: 18px;
+				margin: 20px;
+			}
+		}
+	}
+}

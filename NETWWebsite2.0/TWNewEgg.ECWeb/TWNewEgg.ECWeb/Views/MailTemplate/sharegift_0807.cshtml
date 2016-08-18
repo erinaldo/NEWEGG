@@ -1,0 +1,34 @@
+﻿@{
+	string _SecureNewegg = System.Configuration.ConfigurationManager.AppSettings["SecureNewegg"]; 
+}
+
+<html>
+<body>
+<style type="text/css">
+body,td,th {font-family: "微軟正黑體";}
+h1 {font-size: 22px;}
+.content { padding-bottom:30px; border-bottom: dotted 2px rgba(144,144,144,1.00);}
+.content span {font-size: 18px; margin-left:10px;}
+p {font-size: 16px; margin-left:50px; line-height:30px;}
+h2 {font-size: 15px;}
+.explanation li { font-size:14px; margin-bottom:5px; list-style:decimal;}
+</style>
+<div class="content">
+    <span>親愛的新蛋網會員，您好：</span>
+    <p>感謝您於新蛋全球生活網Newegg.com.tw註冊，<br />
+       日後我們將不定期寄發EDM至您的電子信箱，告知專屬優惠和折扣訊息，為了歡迎您的加入，我們已將專屬的<a href= "@_SecureNewegg/MyAccount/Coupon">150元折價券</a>發送至您的帳戶，期待您在新蛋網的購物體驗，能有個美好的開始，分享最美好的禮物，現在就到新蛋全球生活網Newegg.com.tw逛逛吧！</p>
+    <p>※此信件為系統自動發送，請勿直接回覆。※</p>
+</div>
+
+<div class="explanation">
+    <h2>注意事項</h2>
+    <ul>
+        <li>折價券使用期限至2015/9/30，單品滿1,000元方可使用，其餘規則請參閱<a href= "@_SecureNewegg/MyAccount/Coupon">「折價券使用說明」</a>會員資料可於<a href= "@_SecureNewegg/MyAccount/EditPersonInfo">「我的帳戶>帳戶管理>個人資料修改」</a>維護</li>
+        
+        <li>為確保您不會遺漏優惠訊息，建議您將<a href="mailto:promo@newegg.com.tw">promo@newegg.com.tw</a>加入電子郵件聯絡人</li>
+        
+        <li>若您有任何疑問，歡迎<a href="mailto:service@newegg.com.tw">來信</a>或致電(02-8006-8010)我們的客服人員(08:30 am ~ 17:30 pm)，若您未曾在新蛋全球生活網註冊會員，也請聯絡客服人員為您處理。</li>
+    </ul>
+</div>
+</body>
+</html>

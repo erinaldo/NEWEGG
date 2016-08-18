@@ -1,0 +1,89 @@
+﻿@{    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);}
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Model.Header" width="795" height="113" />
+                    </div>
+                    <div>
+                        <br />
+                        @Model.Cart[0].Username 先生/小姐，您好：
+                        <br/><br/>
+                        您的訂單號碼:  @Model.DIC["SalesOrderCodes"]
+                        <br/><br/>
+                        已於 @Model.DIC["CancelDate"] 申請取消此訂單，為您查詢此商品目前尚未出貨
+                        <br/><br/>
+                        為維護您的權益，會直接為您取消此筆訂單且執行退款作業，
+                        @{
+                            if (Model.DIC["Paytype"] == "WebATM")
+                            {
+                                <div>
+                                    <br/><br/>
+                                    您的付款方式為:ATM/貨到付款，故會再用匯款方式退款給您
+                                    <br/><br/>
+                                    請您提供原訂購人的銀行帳號資訊，以方便後續退款作業，待收到您的資料後，約2-5個工作天內會
+                                    <br/><br/>
+                                    退款給您退款時會再發信通知您
+                                    <br/>
+                                    銀行:  @Model.SalesOrderCancel[0].BankID
+                                    <br/>
+                                    分行:  @Model.SalesOrderCancel[0].BankBranch
+                                    <br/>
+                                    帳號:@Model.SalesOrderCancel[0].AccountNO
+                                    <br/>
+                                    戶名(原訂購人名稱):@Model.SalesOrderCancel[0].AccountName
+                                    <br/>
+                                </div>
+                            }
+                            else if (Model.DIC["Paytype"] == "信用卡")
+                            {
+                                <div>
+                                    <br/><br/>
+                                    退款作業完成後3-5個工作天內取消您的授權，建議您可再向您的刷卡銀行確認
+                                    <br/><br/>
+                                    若您欲購買別款商品，請再重新直接訂購即可，謝謝您
+                                    <br/><br/>
+                                </div>
+                            }
+                            else if (Model.DIC["Paytype"] == "歐付寶")
+                            {
+                                <div>
+                                    <br/><br/>
+                                    退款申請作業將於2-3個工作天內(不含假日)處理完成，會將款項退至您的 “歐付寶儲值帳戶”中
+                                    <br/><br/>
+                                    建議您可到歐付寶會員帳戶中心查詢或向您的發卡銀行確認
+                                    <br/><br/>
+                                    若您欲購買別款商品，請再重新直接訂購即可，謝謝您
+                                    <br/><br/>
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    <br/><br/>
+                                    退款作業完成後3-5個工作天內取消您的授權，建議您可再向您的刷卡銀行確認
+                                    <br/><br/>
+                                    若您欲購買別款商品，請再重新直接訂購即可，謝謝您
+                                    <br/><br/>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <br /><br /><br /><br />
+                    <div>
+                        <p>
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            電話:@(WebSiteListWebSiteData.PhoneNumber2) 客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Model.Fooer" width="795" height="108" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

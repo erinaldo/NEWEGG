@@ -1,0 +1,363 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.ECWeb", "TWNewEgg.ECWeb\TWNewEgg.ECWeb.csproj", "{33C60804-C2C6-4360-A83A-46FA9BE90D54}"
+	ProjectSection(ProjectDependencies) = postProject
+		{14D61A47-A7DF-4002-9B46-3850AC109807} = {14D61A47-A7DF-4002-9B46-3850AC109807}
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB} = {1E32FB82-CD2D-4B10-B064-6DB1483829FB}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.ECWeb.Tests", "TWNewEgg.ECWeb.Tests\TWNewEgg.ECWeb.Tests.csproj", "{19551014-FE0C-4EBA-888E-4B41FB4E5E23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModelProjects", "ModelProjects", "{4EA3528C-E29B-4200-B74A-9CFBF8A260AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ComponentProjects", "ComponentProjects", "{A0B49BFC-DFA4-4873-9B5C-111DB9B13AED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Models.ViewModels", "..\TWNewEgg.Models\TWNewEgg.Models.ViewModels\TWNewEgg.Models.ViewModels.csproj", "{CA3FC63A-84C3-4899-8365-D110CB8A6BF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Models.WebsiteMappingRules", "..\TWNewEgg.Models\TWNewEgg.Models.WebsiteMappingRules\TWNewEgg.Models.WebsiteMappingRules.csproj", "{FAB868CD-8E2F-48F0-9FDE-04AE4CAA203C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F} = {A4BD2533-FBC1-40D7-9F99-792D8A330F3F}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.0ComponentProjects", "2.0ComponentProjects", "{FDC87A56-7145-48D6-8A2E-14A6815A7135}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.ECWeb.PrivilegeFilters", "..\TWNewEgg.Components\TWNewEgg.ECWeb.Filters\TWNewEgg.ECWeb.PrivilegeFilters.csproj", "{804862FC-F712-4221-B269-96D075858EF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Models.DomainModels", "..\TWNewEgg.Models\TWNewEgg.Models.DomainModels\TWNewEgg.Models.DomainModels.csproj", "{A4BD2533-FBC1-40D7-9F99-792D8A330F3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.AccountEnprypt", "..\TWNewEgg.Components\TWNewEgg.AccountEnprypt\TWNewEgg.AccountEnprypt.csproj", "{AF7E45A8-7010-4518-AFC1-A8B622FD43FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.CookiesUtilities", "..\TWNewEgg.Components\TWNewEgg.CookiesUtilities\TWNewEgg.CookiesUtilities.csproj", "{EE1B832A-42A9-484F-BD21-E8DBF6D9B362}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.DB", "..\TWNewEgg.Components\TWNewEgg.DB\TWNewEgg.DB.csproj", "{A65AC3A0-6A55-433B-ADC1-22F8B88A3677}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.ItemService", "..\TWNewEgg.Components\TWNewEgg.ItemService\TWNewEgg.ItemService.csproj", "{F9001709-9301-4D69-BE6C-B0E112DA813C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.CategoryService", "..\TWNewEgg.Components\TWNewEgg.Category\TWNewEgg.CategoryService.csproj", "{FD56DE5B-C274-4006-A860-D51F80697EE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.GetConfigData", "..\TWNewEgg.Components\TWNewEgg.GetConfigData\TWNewEgg.GetConfigData.csproj", "{FFD8BB60-D05E-4273-8349-CBB51DB5693E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Redeem", "..\TWNewEgg.Components\TWNewEgg.Redeem\TWNewEgg.Redeem.csproj", "{1E32FB82-CD2D-4B10-B064-6DB1483829FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.InternalSendMail", "..\TWNewEgg.Components\TWNewEgg.InternalSendMail\TWNewEgg.InternalSendMail.csproj", "{14D61A47-A7DF-4002-9B46-3850AC109807}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.SMSService", "..\TWNewEgg.Components\TWNewEgg.SMSService\TWNewEgg.SMSService.csproj", "{E2E435DC-268C-46A6-847B-8E7394DC47BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.OeyaIChannelsService", "..\TWNewEgg.Components\TWNewEgg.OeyaIChannelsService\TWNewEgg.OeyaIChannelsService.csproj", "{F8B40204-2C39-43B6-B344-81AA69A23BCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Logistics.HiLife", "..\TWNewEgg.Components\TWNewEgg.Logistics.HiLife\TWNewEgg.Logistics.HiLife.csproj", "{00327268-7605-4177-A344-BE3A194A4983}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.ActionFilters", "..\TWNewEgg.Components\TWNewEgg.ActionFilters\TWNewEgg.ActionFilters.csproj", "{268FF312-6AB6-4BEA-87DC-7B234CAF29D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.PaymentGateway", "..\TWNewEgg.Components\TWNewEgg.PaymentGateway\TWNewEgg.PaymentGateway.csproj", "{9B123682-3AF8-4165-BB04-249BF3E31FAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.HiTrustRepoAdapters", "..\TWNewEgg.Components\TWNewEgg.HiTrustRepoAdapters\TWNewEgg.HiTrustRepoAdapters.csproj", "{F5EAE63D-8DA0-4537-8240-7869DA6E797F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.FileServices", "..\TWNewEgg.Components\TWNewEgg.FileServices\TWNewEgg.FileServices.csproj", "{A610813D-57A8-4B9F-8811-E58D0E3B8E40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.NCCCRepoAdapters", "..\TWNewEgg.Components\TWNewEgg.NCCCRepoAdapters\TWNewEgg.NCCCRepoAdapters.csproj", "{44E0D48B-C9EB-42EC-855B-D948289FF730}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Models.DBModels", "..\TWNewEgg.Models\TWNewEgg.Models.DBModels\TWNewEgg.Models.DBModels.csproj", "{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.DAL", "..\TWNewEgg.DAL\TWNewEgg.DAL\TWNewEgg.DAL.csproj", "{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShouldNotBeHere", "ShouldNotBeHere", "{C821D639-CFB8-4516-8DF6-4E3A29C5BBBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.AccountServices", "..\TWNewEgg.Components\TWNewEgg.AccountServices\TWNewEgg.AccountServices.csproj", "{EE8FC16D-B86C-452A-9B97-B907E6B39D25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.CartRepoAdapters", "..\TWNewEgg.Components\TWNewEgg.CartRepoAdapters\TWNewEgg.CartRepoAdapters.csproj", "{54082231-29EC-4C4D-9CE4-B48B1BA16A45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.EventRepoAdapters", "..\TWNewEgg.Components\TWNewEgg.EventRepoAdapters\TWNewEgg.EventRepoAdapters.csproj", "{B2C1F7FF-BCFC-4F6B-9967-466EB3F4A544}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.AccountRepoAdapters", "..\TWNewEgg.Components\TWNewEgg.AccountRepoAdapters\TWNewEgg.AccountRepoAdapters.csproj", "{06785C1F-165E-43D9-814F-13FB208639F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Utility", "..\TWNewEgg.Components\TWNewEgg.Utility\TWNewEgg.Utility.csproj", "{B0345451-481C-4C63-ACD5-7779BF90FB83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.StorageServices", "..\TWNewEgg.Components\TWNewEgg.StorageServices\TWNewEgg.StorageServices.csproj", "{2F01BDF2-21C0-410B-AA51-D1AB21773E6C}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 31
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://st02mistfs01:8080/tfs/netwcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\TWNewEgg.Models\\TWNewEgg.Models.ViewModels\\TWNewEgg.Models.ViewModels.csproj
+		SccProjectTopLevelParentUniqueName1 = TWNewEgg.ECWeb.sln
+		SccProjectName1 = ../TWNewEgg.Models/TWNewEgg.Models.ViewModels
+		SccLocalPath1 = ..\\TWNewEgg.Models\\TWNewEgg.Models.ViewModels
+		SccProjectUniqueName2 = ..\\TWNewEgg.Models\\TWNewEgg.Models.WebsiteMappingRules\\TWNewEgg.Models.WebsiteMappingRules.csproj
+		SccProjectTopLevelParentUniqueName2 = TWNewEgg.ECWeb.sln
+		SccProjectName2 = ../TWNewEgg.Models/TWNewEgg.Models.WebsiteMappingRules
+		SccLocalPath2 = ..\\TWNewEgg.Models\\TWNewEgg.Models.WebsiteMappingRules
+		SccProjectUniqueName3 = TWNewEgg.ECWeb\\TWNewEgg.ECWeb.csproj
+		SccProjectName3 = TWNewEgg.ECWeb
+		SccLocalPath3 = TWNewEgg.ECWeb
+		SccProjectUniqueName4 = TWNewEgg.ECWeb.Tests\\TWNewEgg.ECWeb.Tests.csproj
+		SccProjectName4 = TWNewEgg.ECWeb.Tests
+		SccLocalPath4 = TWNewEgg.ECWeb.Tests
+		SccProjectUniqueName5 = ..\\TWNewEgg.Components\\TWNewEgg.ECWeb.Filters\\TWNewEgg.ECWeb.PrivilegeFilters.csproj
+		SccProjectTopLevelParentUniqueName5 = TWNewEgg.ECWeb.sln
+		SccProjectName5 = ../TWNewEgg.Components/TWNewEgg.ECWeb.Filters
+		SccLocalPath5 = ..\\TWNewEgg.Components\\TWNewEgg.ECWeb.Filters
+		SccProjectUniqueName6 = ..\\TWNewEgg.Models\\TWNewEgg.Models.DomainModels\\TWNewEgg.Models.DomainModels.csproj
+		SccProjectTopLevelParentUniqueName6 = TWNewEgg.ECWeb.sln
+		SccProjectName6 = ../TWNewEgg.Models/TWNewEgg.Models.DomainModels
+		SccLocalPath6 = ..\\TWNewEgg.Models\\TWNewEgg.Models.DomainModels
+		SccProjectUniqueName7 = ..\\TWNewEgg.Components\\TWNewEgg.AccountEnprypt\\TWNewEgg.AccountEnprypt.csproj
+		SccProjectTopLevelParentUniqueName7 = TWNewEgg.ECWeb.sln
+		SccProjectName7 = ../TWNewEgg.Components/TWNewEgg.AccountEnprypt
+		SccLocalPath7 = ..\\TWNewEgg.Components\\TWNewEgg.AccountEnprypt
+		SccProjectUniqueName8 = ..\\TWNewEgg.Components\\TWNewEgg.CookiesUtilities\\TWNewEgg.CookiesUtilities.csproj
+		SccProjectTopLevelParentUniqueName8 = TWNewEgg.ECWeb.sln
+		SccProjectName8 = ../TWNewEgg.Components/TWNewEgg.CookiesUtilities
+		SccLocalPath8 = ..\\TWNewEgg.Components\\TWNewEgg.CookiesUtilities
+		SccProjectUniqueName9 = ..\\TWNewEgg.Components\\TWNewEgg.DB\\TWNewEgg.DB.csproj
+		SccProjectTopLevelParentUniqueName9 = TWNewEgg.ECWeb.sln
+		SccProjectName9 = ../TWNewEgg.Components/TWNewEgg.DB
+		SccLocalPath9 = ..\\TWNewEgg.Components\\TWNewEgg.DB
+		SccProjectUniqueName10 = ..\\TWNewEgg.Components\\TWNewEgg.ItemService\\TWNewEgg.ItemService.csproj
+		SccProjectTopLevelParentUniqueName10 = TWNewEgg.ECWeb.sln
+		SccProjectName10 = ../TWNewEgg.Components/TWNewEgg.ItemService
+		SccLocalPath10 = ..\\TWNewEgg.Components\\TWNewEgg.ItemService
+		SccProjectUniqueName11 = ..\\TWNewEgg.Components\\TWNewEgg.Category\\TWNewEgg.CategoryService.csproj
+		SccProjectTopLevelParentUniqueName11 = TWNewEgg.ECWeb.sln
+		SccProjectName11 = ../TWNewEgg.Components/TWNewEgg.Category
+		SccLocalPath11 = ..\\TWNewEgg.Components\\TWNewEgg.Category
+		SccProjectUniqueName12 = ..\\TWNewEgg.Components\\TWNewEgg.GetConfigData\\TWNewEgg.GetConfigData.csproj
+		SccProjectTopLevelParentUniqueName12 = TWNewEgg.ECWeb.sln
+		SccProjectName12 = ../TWNewEgg.Components/TWNewEgg.GetConfigData
+		SccLocalPath12 = ..\\TWNewEgg.Components\\TWNewEgg.GetConfigData
+		SccProjectUniqueName13 = ..\\TWNewEgg.Components\\TWNewEgg.Redeem\\TWNewEgg.Redeem.csproj
+		SccProjectTopLevelParentUniqueName13 = TWNewEgg.ECWeb.sln
+		SccProjectName13 = ../TWNewEgg.Components/TWNewEgg.Redeem
+		SccLocalPath13 = ..\\TWNewEgg.Components\\TWNewEgg.Redeem
+		SccProjectUniqueName14 = ..\\TWNewEgg.Components\\TWNewEgg.InternalSendMail\\TWNewEgg.InternalSendMail.csproj
+		SccProjectTopLevelParentUniqueName14 = TWNewEgg.ECWeb.sln
+		SccProjectName14 = ../TWNewEgg.Components/TWNewEgg.InternalSendMail
+		SccLocalPath14 = ..\\TWNewEgg.Components\\TWNewEgg.InternalSendMail
+		SccProjectUniqueName15 = ..\\TWNewEgg.Components\\TWNewEgg.SMSService\\TWNewEgg.SMSService.csproj
+		SccProjectTopLevelParentUniqueName15 = TWNewEgg.ECWeb.sln
+		SccProjectName15 = ../TWNewEgg.Components/TWNewEgg.SMSService
+		SccLocalPath15 = ..\\TWNewEgg.Components\\TWNewEgg.SMSService
+		SccProjectUniqueName16 = ..\\TWNewEgg.Components\\TWNewEgg.OeyaIChannelsService\\TWNewEgg.OeyaIChannelsService.csproj
+		SccProjectTopLevelParentUniqueName16 = TWNewEgg.ECWeb.sln
+		SccProjectName16 = ../TWNewEgg.Components/TWNewEgg.OeyaIChannelsService
+		SccLocalPath16 = ..\\TWNewEgg.Components\\TWNewEgg.OeyaIChannelsService
+		SccProjectUniqueName17 = ..\\TWNewEgg.Components\\TWNewEgg.Logistics.HiLife\\TWNewEgg.Logistics.HiLife.csproj
+		SccProjectTopLevelParentUniqueName17 = TWNewEgg.ECWeb.sln
+		SccProjectName17 = ../TWNewEgg.Components/TWNewEgg.Logistics.HiLife
+		SccLocalPath17 = ..\\TWNewEgg.Components\\TWNewEgg.Logistics.HiLife
+		SccProjectUniqueName18 = ..\\TWNewEgg.Components\\TWNewEgg.ActionFilters\\TWNewEgg.ActionFilters.csproj
+		SccProjectTopLevelParentUniqueName18 = TWNewEgg.ECWeb.sln
+		SccProjectName18 = ../TWNewEgg.Components/TWNewEgg.ActionFilters
+		SccLocalPath18 = ..\\TWNewEgg.Components\\TWNewEgg.ActionFilters
+		SccProjectUniqueName19 = ..\\TWNewEgg.Components\\TWNewEgg.PaymentGateway\\TWNewEgg.PaymentGateway.csproj
+		SccProjectTopLevelParentUniqueName19 = TWNewEgg.ECWeb.sln
+		SccProjectName19 = ../TWNewEgg.Components/TWNewEgg.PaymentGateway
+		SccLocalPath19 = ..\\TWNewEgg.Components\\TWNewEgg.PaymentGateway
+		SccProjectUniqueName20 = ..\\TWNewEgg.Components\\TWNewEgg.HiTrustRepoAdapters\\TWNewEgg.HiTrustRepoAdapters.csproj
+		SccProjectTopLevelParentUniqueName20 = TWNewEgg.ECWeb.sln
+		SccProjectName20 = ../TWNewEgg.Components/TWNewEgg.HiTrustRepoAdapters
+		SccLocalPath20 = ..\\TWNewEgg.Components\\TWNewEgg.HiTrustRepoAdapters
+		SccProjectUniqueName21 = ..\\TWNewEgg.Components\\TWNewEgg.FileServices\\TWNewEgg.FileServices.csproj
+		SccProjectTopLevelParentUniqueName21 = TWNewEgg.ECWeb.sln
+		SccProjectName21 = ../TWNewEgg.Components/TWNewEgg.FileServices
+		SccLocalPath21 = ..\\TWNewEgg.Components\\TWNewEgg.FileServices
+		SccProjectUniqueName22 = ..\\TWNewEgg.Components\\TWNewEgg.NCCCRepoAdapters\\TWNewEgg.NCCCRepoAdapters.csproj
+		SccProjectTopLevelParentUniqueName22 = TWNewEgg.ECWeb.sln
+		SccProjectName22 = ../TWNewEgg.Components/TWNewEgg.NCCCRepoAdapters
+		SccLocalPath22 = ..\\TWNewEgg.Components\\TWNewEgg.NCCCRepoAdapters
+		SccProjectUniqueName23 = ..\\TWNewEgg.Models\\TWNewEgg.Models.DBModels\\TWNewEgg.Models.DBModels.csproj
+		SccProjectTopLevelParentUniqueName23 = TWNewEgg.ECWeb.sln
+		SccProjectName23 = ../TWNewEgg.Models/TWNewEgg.Models.DBModels
+		SccLocalPath23 = ..\\TWNewEgg.Models\\TWNewEgg.Models.DBModels
+		SccProjectUniqueName24 = ..\\TWNewEgg.DAL\\TWNewEgg.DAL\\TWNewEgg.DAL.csproj
+		SccProjectTopLevelParentUniqueName24 = TWNewEgg.ECWeb.sln
+		SccProjectName24 = ../TWNewEgg.DAL/TWNewEgg.DAL
+		SccLocalPath24 = ..\\TWNewEgg.DAL\\TWNewEgg.DAL
+		SccProjectUniqueName25 = ..\\TWNewEgg.Components\\TWNewEgg.AccountServices\\TWNewEgg.AccountServices.csproj
+		SccProjectTopLevelParentUniqueName25 = TWNewEgg.ECWeb.sln
+		SccProjectName25 = ../TWNewEgg.Components/TWNewEgg.AccountServices
+		SccLocalPath25 = ..\\TWNewEgg.Components\\TWNewEgg.AccountServices
+		SccProjectUniqueName26 = ..\\TWNewEgg.Components\\TWNewEgg.CartRepoAdapters\\TWNewEgg.CartRepoAdapters.csproj
+		SccProjectTopLevelParentUniqueName26 = TWNewEgg.ECWeb.sln
+		SccProjectName26 = ../TWNewEgg.Components/TWNewEgg.CartRepoAdapters
+		SccLocalPath26 = ..\\TWNewEgg.Components\\TWNewEgg.CartRepoAdapters
+		SccProjectUniqueName27 = ..\\TWNewEgg.Components\\TWNewEgg.EventRepoAdapters\\TWNewEgg.EventRepoAdapters.csproj
+		SccProjectTopLevelParentUniqueName27 = TWNewEgg.ECWeb.sln
+		SccProjectName27 = ../TWNewEgg.Components/TWNewEgg.EventRepoAdapters
+		SccLocalPath27 = ..\\TWNewEgg.Components\\TWNewEgg.EventRepoAdapters
+		SccProjectUniqueName28 = ..\\TWNewEgg.Components\\TWNewEgg.AccountRepoAdapters\\TWNewEgg.AccountRepoAdapters.csproj
+		SccProjectTopLevelParentUniqueName28 = TWNewEgg.ECWeb.sln
+		SccProjectName28 = ../TWNewEgg.Components/TWNewEgg.AccountRepoAdapters
+		SccLocalPath28 = ..\\TWNewEgg.Components\\TWNewEgg.AccountRepoAdapters
+		SccProjectUniqueName29 = ..\\TWNewEgg.Components\\TWNewEgg.Utility\\TWNewEgg.Utility.csproj
+		SccProjectTopLevelParentUniqueName29 = TWNewEgg.ECWeb.sln
+		SccProjectName29 = ../TWNewEgg.Components/TWNewEgg.Utility
+		SccLocalPath29 = ..\\TWNewEgg.Components\\TWNewEgg.Utility
+		SccProjectUniqueName30 = ..\\TWNewEgg.Components\\TWNewEgg.StorageServices\\TWNewEgg.StorageServices.csproj
+		SccProjectTopLevelParentUniqueName30 = TWNewEgg.ECWeb.sln
+		SccProjectName30 = ../TWNewEgg.Components/TWNewEgg.StorageServices
+		SccLocalPath30 = ..\\TWNewEgg.Components\\TWNewEgg.StorageServices
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33C60804-C2C6-4360-A83A-46FA9BE90D54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33C60804-C2C6-4360-A83A-46FA9BE90D54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33C60804-C2C6-4360-A83A-46FA9BE90D54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33C60804-C2C6-4360-A83A-46FA9BE90D54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19551014-FE0C-4EBA-888E-4B41FB4E5E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19551014-FE0C-4EBA-888E-4B41FB4E5E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19551014-FE0C-4EBA-888E-4B41FB4E5E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19551014-FE0C-4EBA-888E-4B41FB4E5E23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA3FC63A-84C3-4899-8365-D110CB8A6BF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA3FC63A-84C3-4899-8365-D110CB8A6BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA3FC63A-84C3-4899-8365-D110CB8A6BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA3FC63A-84C3-4899-8365-D110CB8A6BF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAB868CD-8E2F-48F0-9FDE-04AE4CAA203C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAB868CD-8E2F-48F0-9FDE-04AE4CAA203C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAB868CD-8E2F-48F0-9FDE-04AE4CAA203C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAB868CD-8E2F-48F0-9FDE-04AE4CAA203C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{804862FC-F712-4221-B269-96D075858EF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{804862FC-F712-4221-B269-96D075858EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{804862FC-F712-4221-B269-96D075858EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{804862FC-F712-4221-B269-96D075858EF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF7E45A8-7010-4518-AFC1-A8B622FD43FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF7E45A8-7010-4518-AFC1-A8B622FD43FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF7E45A8-7010-4518-AFC1-A8B622FD43FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF7E45A8-7010-4518-AFC1-A8B622FD43FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1B832A-42A9-484F-BD21-E8DBF6D9B362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1B832A-42A9-484F-BD21-E8DBF6D9B362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1B832A-42A9-484F-BD21-E8DBF6D9B362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1B832A-42A9-484F-BD21-E8DBF6D9B362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A65AC3A0-6A55-433B-ADC1-22F8B88A3677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A65AC3A0-6A55-433B-ADC1-22F8B88A3677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A65AC3A0-6A55-433B-ADC1-22F8B88A3677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A65AC3A0-6A55-433B-ADC1-22F8B88A3677}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9001709-9301-4D69-BE6C-B0E112DA813C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9001709-9301-4D69-BE6C-B0E112DA813C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9001709-9301-4D69-BE6C-B0E112DA813C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9001709-9301-4D69-BE6C-B0E112DA813C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD56DE5B-C274-4006-A860-D51F80697EE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD56DE5B-C274-4006-A860-D51F80697EE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD56DE5B-C274-4006-A860-D51F80697EE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD56DE5B-C274-4006-A860-D51F80697EE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFD8BB60-D05E-4273-8349-CBB51DB5693E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFD8BB60-D05E-4273-8349-CBB51DB5693E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFD8BB60-D05E-4273-8349-CBB51DB5693E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFD8BB60-D05E-4273-8349-CBB51DB5693E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14D61A47-A7DF-4002-9B46-3850AC109807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14D61A47-A7DF-4002-9B46-3850AC109807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14D61A47-A7DF-4002-9B46-3850AC109807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14D61A47-A7DF-4002-9B46-3850AC109807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2E435DC-268C-46A6-847B-8E7394DC47BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2E435DC-268C-46A6-847B-8E7394DC47BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2E435DC-268C-46A6-847B-8E7394DC47BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2E435DC-268C-46A6-847B-8E7394DC47BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8B40204-2C39-43B6-B344-81AA69A23BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8B40204-2C39-43B6-B344-81AA69A23BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8B40204-2C39-43B6-B344-81AA69A23BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8B40204-2C39-43B6-B344-81AA69A23BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00327268-7605-4177-A344-BE3A194A4983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00327268-7605-4177-A344-BE3A194A4983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00327268-7605-4177-A344-BE3A194A4983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00327268-7605-4177-A344-BE3A194A4983}.Release|Any CPU.Build.0 = Release|Any CPU
+		{268FF312-6AB6-4BEA-87DC-7B234CAF29D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{268FF312-6AB6-4BEA-87DC-7B234CAF29D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{268FF312-6AB6-4BEA-87DC-7B234CAF29D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{268FF312-6AB6-4BEA-87DC-7B234CAF29D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B123682-3AF8-4165-BB04-249BF3E31FAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B123682-3AF8-4165-BB04-249BF3E31FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B123682-3AF8-4165-BB04-249BF3E31FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B123682-3AF8-4165-BB04-249BF3E31FAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5EAE63D-8DA0-4537-8240-7869DA6E797F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5EAE63D-8DA0-4537-8240-7869DA6E797F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5EAE63D-8DA0-4537-8240-7869DA6E797F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5EAE63D-8DA0-4537-8240-7869DA6E797F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A610813D-57A8-4B9F-8811-E58D0E3B8E40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A610813D-57A8-4B9F-8811-E58D0E3B8E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A610813D-57A8-4B9F-8811-E58D0E3B8E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A610813D-57A8-4B9F-8811-E58D0E3B8E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44E0D48B-C9EB-42EC-855B-D948289FF730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44E0D48B-C9EB-42EC-855B-D948289FF730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44E0D48B-C9EB-42EC-855B-D948289FF730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44E0D48B-C9EB-42EC-855B-D948289FF730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE8FC16D-B86C-452A-9B97-B907E6B39D25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE8FC16D-B86C-452A-9B97-B907E6B39D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE8FC16D-B86C-452A-9B97-B907E6B39D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE8FC16D-B86C-452A-9B97-B907E6B39D25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54082231-29EC-4C4D-9CE4-B48B1BA16A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54082231-29EC-4C4D-9CE4-B48B1BA16A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54082231-29EC-4C4D-9CE4-B48B1BA16A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54082231-29EC-4C4D-9CE4-B48B1BA16A45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2C1F7FF-BCFC-4F6B-9967-466EB3F4A544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2C1F7FF-BCFC-4F6B-9967-466EB3F4A544}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2C1F7FF-BCFC-4F6B-9967-466EB3F4A544}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2C1F7FF-BCFC-4F6B-9967-466EB3F4A544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06785C1F-165E-43D9-814F-13FB208639F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06785C1F-165E-43D9-814F-13FB208639F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06785C1F-165E-43D9-814F-13FB208639F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06785C1F-165E-43D9-814F-13FB208639F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0345451-481C-4C63-ACD5-7779BF90FB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0345451-481C-4C63-ACD5-7779BF90FB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0345451-481C-4C63-ACD5-7779BF90FB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0345451-481C-4C63-ACD5-7779BF90FB83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F01BDF2-21C0-410B-AA51-D1AB21773E6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F01BDF2-21C0-410B-AA51-D1AB21773E6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F01BDF2-21C0-410B-AA51-D1AB21773E6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F01BDF2-21C0-410B-AA51-D1AB21773E6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA3FC63A-84C3-4899-8365-D110CB8A6BF2} = {4EA3528C-E29B-4200-B74A-9CFBF8A260AD}
+		{FAB868CD-8E2F-48F0-9FDE-04AE4CAA203C} = {4EA3528C-E29B-4200-B74A-9CFBF8A260AD}
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F} = {4EA3528C-E29B-4200-B74A-9CFBF8A260AD}
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E} = {4EA3528C-E29B-4200-B74A-9CFBF8A260AD}
+		{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749} = {4EA3528C-E29B-4200-B74A-9CFBF8A260AD}
+		{A65AC3A0-6A55-433B-ADC1-22F8B88A3677} = {A0B49BFC-DFA4-4873-9B5C-111DB9B13AED}
+		{F9001709-9301-4D69-BE6C-B0E112DA813C} = {A0B49BFC-DFA4-4873-9B5C-111DB9B13AED}
+		{FD56DE5B-C274-4006-A860-D51F80697EE8} = {A0B49BFC-DFA4-4873-9B5C-111DB9B13AED}
+		{FFD8BB60-D05E-4273-8349-CBB51DB5693E} = {A0B49BFC-DFA4-4873-9B5C-111DB9B13AED}
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB} = {A0B49BFC-DFA4-4873-9B5C-111DB9B13AED}
+		{14D61A47-A7DF-4002-9B46-3850AC109807} = {A0B49BFC-DFA4-4873-9B5C-111DB9B13AED}
+		{E2E435DC-268C-46A6-847B-8E7394DC47BD} = {A0B49BFC-DFA4-4873-9B5C-111DB9B13AED}
+		{F8B40204-2C39-43B6-B344-81AA69A23BCA} = {A0B49BFC-DFA4-4873-9B5C-111DB9B13AED}
+		{00327268-7605-4177-A344-BE3A194A4983} = {A0B49BFC-DFA4-4873-9B5C-111DB9B13AED}
+		{804862FC-F712-4221-B269-96D075858EF8} = {FDC87A56-7145-48D6-8A2E-14A6815A7135}
+		{AF7E45A8-7010-4518-AFC1-A8B622FD43FF} = {FDC87A56-7145-48D6-8A2E-14A6815A7135}
+		{EE1B832A-42A9-484F-BD21-E8DBF6D9B362} = {FDC87A56-7145-48D6-8A2E-14A6815A7135}
+		{268FF312-6AB6-4BEA-87DC-7B234CAF29D9} = {FDC87A56-7145-48D6-8A2E-14A6815A7135}
+		{9B123682-3AF8-4165-BB04-249BF3E31FAF} = {FDC87A56-7145-48D6-8A2E-14A6815A7135}
+		{F5EAE63D-8DA0-4537-8240-7869DA6E797F} = {FDC87A56-7145-48D6-8A2E-14A6815A7135}
+		{A610813D-57A8-4B9F-8811-E58D0E3B8E40} = {FDC87A56-7145-48D6-8A2E-14A6815A7135}
+		{44E0D48B-C9EB-42EC-855B-D948289FF730} = {FDC87A56-7145-48D6-8A2E-14A6815A7135}
+		{B0345451-481C-4C63-ACD5-7779BF90FB83} = {FDC87A56-7145-48D6-8A2E-14A6815A7135}
+		{2F01BDF2-21C0-410B-AA51-D1AB21773E6C} = {FDC87A56-7145-48D6-8A2E-14A6815A7135}
+		{EE8FC16D-B86C-452A-9B97-B907E6B39D25} = {C821D639-CFB8-4516-8DF6-4E3A29C5BBBC}
+		{54082231-29EC-4C4D-9CE4-B48B1BA16A45} = {C821D639-CFB8-4516-8DF6-4E3A29C5BBBC}
+		{B2C1F7FF-BCFC-4F6B-9967-466EB3F4A544} = {C821D639-CFB8-4516-8DF6-4E3A29C5BBBC}
+		{06785C1F-165E-43D9-814F-13FB208639F5} = {C821D639-CFB8-4516-8DF6-4E3A29C5BBBC}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,63 @@
+@import "_importSCSS";
+
+$grayBorder:#d5d5d5;
+$BorderWidth:1px;
+.BorderTab{
+	width:(($RWDMinWidth - $BorderWidth * 2) - $BorderWidth * 5) / 6 ;
+}
+.BorderTab+.BorderTab+.BorderTab+.BorderTab{border-right:1px solid $grayBorder;}
+.BorderTab+.BorderTab+.BorderTab+.BorderTab+.BorderTab+.BorderTab{border:0;}
+.InformationDeskTit{
+	font-size:35px;
+	margin:30px 0 10px 0;
+}
+i.InformationDesk{
+	padding:4px 27px;
+	background:url(/Themes/img/Icon/InformationCounterImg.png) no-repeat top left;
+	margin-right:5px;
+}
+.InformationDeskContent{
+	width:90%;
+	margin:0 auto 20px auto;
+	border-bottom:1px solid $grayBorder;
+}
+
+.ColorBarTit{
+	border-top:1px solid $grayBorder;
+	cursor: pointer;
+}
+.Open{
+	background-image:url(/Themes/img/Icon/Open.png);
+	background-repeat:no-repeat;
+	background-position: 98% 50%;
+}
+.Open:hover{
+	background-color:#f56d20;
+	background-image:url(/Themes/img/Icon/Open.png);
+	background-repeat:no-repeat;
+	background-position: 98% 50%;
+}
+.Close{
+	background-image:url(/Themes/img/Icon/Close.png);
+	background-repeat:no-repeat;
+	background-position: 98% 50%;
+}
+.Close:hover{
+	background-color:#f56d20;
+	background-image:url(/Themes/img/Icon/Close.png);
+	background-repeat:no-repeat;
+	background-position: 98% 50%;
+}
+.AnsBox{
+	padding:15px 60px;
+	border-left:1px solid $grayBorder;
+	border-right:1px solid $grayBorder;
+}
+.AnsBox>p{
+	font-size:15px;
+	line-height:20px;
+	margin:10px 0;
+}
+.AnsBox>img{
+	max-width:100%;
+}

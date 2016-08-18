@@ -1,0 +1,729 @@
+﻿@model List<TWNewEgg.DB.TWSQLDB.Models.Addressbook>
+@{
+    int defaultSettingID = 0;
+    if (Model.Count > 0)
+    {
+        List<TWNewEgg.DB.TWSQLDB.Models.Addressbook> addressbooks = Model.Where(x=>x.DefaultSetting == 1).ToList();
+        if(addressbooks.Count > 1) {
+            defaultSettingID = addressbooks[0].ID;
+        }
+        else if(addressbooks.Count == 1)
+        {
+            defaultSettingID = addressbooks[0].ID;
+        }
+        else {
+            defaultSettingID = Model[0].ID;
+        }
+    }
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head id="ReceiveHead">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>收件人紀錄本</title>
+    <link href="/Themes/2013/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/Themes/2013/css/template.css" rel="stylesheet" type="text/css" />
+    <link href="/Themes/2013/css/service.css" rel="stylesheet" type="text/css" />
+    @Scripts.Render("~/Scripts/json2.js")
+    @Scripts.Render("~/bundles/jquery")
+    </head>
+    <style>
+        body {
+            background:#fff;
+        }
+        .recordReceiveTable tr.cho {
+	        background:#DDBC9B;
+        }
+        .recordReceiveTable td.no {
+	        background:#fff;
+        }
+        .recordReceiveTable th {
+	        letter-spacing:2px;
+        }
+        .recordReceiveTable th, .recordReceiveTable td {
+            font-size:1em;
+        }
+        .tit {
+	        float:left;
+	        margin-bottom:10px;padding:3px 5px;width:50%;font-weight:bold;font-size:1.3em;letter-spacing:0.5em;
+	        background: #7db9e8; /* Old browsers */
+            /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iIzdkYjllOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+            background: -moz-linear-gradient(left,  #7db9e8 1%, #ffffff 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(1%,#7db9e8), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left,  #7db9e8 1%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left,  #7db9e8 1%,#ffffff 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left,  #7db9e8 1%,#ffffff 100%); /* IE10+ */
+            background: linear-gradient(to right,  #7db9e8 1%,#ffffff 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
+        }
+        .roundB {
+	        margin:10px;padding:15px;background:#fff;border:1px solid #aaa;
+        }
+        .txt {
+	        border:1px solid #aaa;
+	        text-align:center;
+	        padding:20px 0;
+        }
+        #orderlistbox th, #faqlistbox th, .faqlistbox th, #returnbox th, #ordercontentbox th, #statubox th, .recordnumberbox th, #recordreceivebox th {
+            height: 17px;
+            color:#fff;
+            font-size:0.9em;
+        }        
+    </style>
+    <body>        
+        <div class="RecordBookBox">
+            <div class="titTab">
+                <span>收件人紀錄本</span>
+                <input type="button" class="iconB btnCompany" onclick="newInput()" value="新增收件人" />
+            </div>
+            <div class="clear"></div>
+            <div class="txt" style="display:none">查無任何收件人通訊資料!!</div>
+            <div id="recordReceiveBox" class="recordReceiveTable">
+                <table width="100%" border="1" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th class="gray" style="width:60px;"></th>
+                        <th class="gray" style="width:90px;">姓名</th>
+                        <th class="gray address">地址<span class="red">(限台灣本島，且不接受郵政信箱)</span></th>
+                        <th class="gray" style="width:20%;">電話 <span class="red">(可不填)</span></th>
+                        <th class="gray" style="width:115px;">手機</th>
+                        <th class="gray" colspan="2" style="width:12%;">功能</th>
+                    </tr>
+                    @if (Model != null)
+                    {
+                        foreach (TWNewEgg.DB.TWSQLDB.Models.Addressbook row in Model)
+                        {
+                            <tr align="center" addressbook_id="@row.ID">
+                                <td class="no">
+                                    <input type="button" id="addressbook_choose_@row.ID" name="addressbook_choose" value="選擇" onclick="addressbook_choose(@row.ID)"/>
+                                    <img src="/Themes/2013/img/tick.png" id="addressbook_default_@row.ID" style="display:none;" onclick="addressbook_choose(@row.ID)"/>
+                                    <input type="text" id="addressbook_id_@row.ID" value="@row.ID" style="display:none" />
+                                </td>
+                                <td>
+                                    <div class="showRecvNameAndSex_@row.ID">
+                                        <label class="display" id="AddressRecvname_@row.ID">@(row.RecvFirstName == null ? row.RecvName : row.RecvLastName + row.RecvFirstName)</label>
+                                        @{
+                                            if(row.RecvSex == 1)
+                                            {
+                                                <span>先生</span>
+                                            }
+                                            else if(row.RecvSex == 0)
+                                            {
+                                                <span>女士</span>
+                                            }
+                                            <input type="hidden" id="hiddenRecvSex_@row.ID" value="@row.RecvSex" />
+                                        }
+                                    </div>
+                                    <div class="editRecvNameAndSex_@row.ID" style="display:none;">
+                                        <select id="RecvSex_@row.ID" name="RecvSex_@row.ID" style="width:105px;">
+                                            <option value="2">請選擇稱謂</option>
+                                            <option value="1">先生</option>
+                                            <option value="0">女士</option>
+                                        </select>
+                                        @{
+                                            <script type="text/javascript">
+                                                var sexType = parseInt("@row.RecvSex");
+                                                $("#RecvSex_@row.ID").val(sexType);
+                                            </script>
+                                        }
+                                        <br />
+                                        姓&nbsp;<input class="edit_chineseOnlyInput" type="text" id="recvlastname_@row.ID" name="recvlastname_@row.ID" maxlength="10" value="@(row.RecvLastName == null ? row.RecvName.Substring(0,1) : row.RecvLastName)" style="width:80px;"/>
+                                        <br />
+                                        名&nbsp;<input class="edit_chineseOnlyInput" type="text" id="recvfirstname_@row.ID" name="recvfirstname_@row.ID" maxlength="10" value="@(row.RecvFirstName == null ? row.RecvName.Substring(1,row.RecvName.Length-1) : row.RecvFirstName)" style="width:80px;"/>
+                                    </div>
+                                </td>
+                                @{string address_all = row.DelivZip + row.DelivLOC + row.DelivAddr;}
+                                <td style="text-align:left;padding-left:12px;">
+                                    <div class="showRecvNameAndSex_@row.ID">
+                                        <label class="display" id="AddressAll_@row.ID">@address_all</label>
+                                    </div>
+                                    <div class="editRecvNameAndSex_@row.ID" style="display:none;">
+                                        <select id="addressbook_county_@row.ID" onchange="CountyChange(@row.ID)" style="width:100px;">
+                                            <option value="">請選擇縣市</option>
+                                            <option value="基隆市">基隆市</option>
+                                            <option value="台北市">台北市</option>
+                                            <option value="新北市">新北市</option>
+                                            <option value="桃園縣">桃園縣</option>
+                                            <option value="新竹市">新竹市</option>
+                                            <option value="新竹縣">新竹縣</option>
+                                            <option value="苗栗縣">苗栗縣</option>
+                                            <option value="台中市">台中市</option>
+                                            <option value="彰化縣">彰化縣</option>
+                                            <option value="南投縣">南投縣</option>
+                                            <option value="雲林縣">雲林縣</option>
+                                            <option value="嘉義市">嘉義市</option>
+                                            <option value="嘉義縣">嘉義縣</option>
+                                            <option value="台南市">台南市</option>
+                                            <option value="高雄市">高雄市</option>
+                                            <option value="屏東縣">屏東縣</option>
+                                            <option value="台東縣">台東縣</option>
+                                            <option value="花蓮縣">花蓮縣</option>
+                                            <option value="宜蘭縣">宜蘭縣</option>
+                                        </select>
+                                        <select id="addressbook_city_@row.ID" style="width:110px;" ></select>
+                                        <input type="text" style="width:80px" id="addressbook_address_@row.ID"/>
+                                        <span class="red" id="Limite_TW_@row.ID">(限台灣本島，且不接受郵政信箱)</span>
+                                    </div>
+                                    <input type="hidden" id="addressbook_delivloc_@row.ID" value="@row.DelivLOC"/>
+                                    <input type="hidden" id="addressbook_delivaddr_@row.ID" value="@row.DelivAddr"/>
+                                    <input type="hidden" id="addressbook_delivzip_@row.ID" value="@row.DelivZip"/>
+                                </td>
+                                <td>
+                                    <div class="showRecvNameAndSex_@row.ID">
+                                        <label class="display" id="AddressRecvtelday_@row.ID">@row.RecvTelDay</label>
+                                    </div>
+                                    <div class="editRecvNameAndSex_@row.ID" style="display:none;">
+                                        <input type="text" id="AreaCodeTwoNumber_@row.ID" style="width:25px;" maxlength="4" numberrule="true"/>
+                                        <input type="text" id="PhoneNumber_@row.ID" style="width:80px;" maxlength="8" numberrule="true"/>
+                                        <span style="display:none" id="Ex_@row.ID">分機#</span>
+                                        <input type="text" id="ExtNumber_@row.ID" style="width:25px;" maxlength="10" numberrule="true"/>
+                                    </div>
+                                    <input type="hidden" id="addressbook_recvtelday_@row.ID" name="addressbook_recvtelday_@row.ID" value="@row.RecvTelDay" disabled="disabled"/>
+                                </td>
+                                <td>
+                                    <div class="showRecvNameAndSex_@row.ID">
+                                        <label class="display" id="RecvMobileNumber_@row.ID">@row.RecvMobile</label>
+                                    </div>
+                                    <div class="editRecvNameAndSex_@row.ID" style="display:none;">
+                                        <input type="text" id="addressbook_recvmobile1_@row.ID" style="width:32px;" value="@(row.RecvMobile.Length > 4 ? row.RecvMobile.Substring(0, 4) : row.RecvMobile)" numberrule="true" maxlength="4" onkeyup="nextInput(@row.ID)"/>
+                                        ─
+                                        <input type="text" id="addressbook_recvmobile2_@row.ID" style="width:48px;" value="@(row.RecvMobile.Length > 4 ? row.RecvMobile.Substring(4, row.RecvMobile.Length - 4) : "")" numberrule="true" maxlength="6"/>
+                                    </div>
+                                    <input type="hidden" id="addressbook_recvmobileback_@row.ID" value="@row.RecvMobile"/>
+                                </td>
+                                <td>
+                                    <a class="display" onclick="checkAddressThenSubmit(@row.ID)" id="checkAddressThenSubmit_@row.ID">編輯</a>
+                                    <a class="checkAddressThenSubmit" id="checkAddressThenSure_@row.ID" onclick="checkAddressThenSure(@row.ID)" style="display:none">確認</a>
+                                </td>
+                                <td>
+                                    <a class="checkAddressThenSubmit" id="checkAddressThenCancle_@row.ID" onclick="checkAddressThenCancle(@row.ID)" style="display:none;">取消</a>
+                                    <a class="checkAddressThenSubmit" id="checkAddressThenDelete_@row.ID" onclick="checkAddressThenDelete(@row.ID)">刪除</a>
+                                </td>
+                            </tr>
+                        } 
+                    }
+                    <tr id="NewAddressBook" style="display:none;">
+                        <td>
+                            <input type="button" value="選擇" disabled="disabled" />
+                        </td>
+                        <td>
+                            <select id="AddressBook_RecvSex" name="AddressBook_RecvSex" style="width:105px;">
+                                <option value="2">請選擇稱謂</option>
+                                <option value="1">先生</option>
+                                <option value="0">女士</option>
+                            </select>
+                            <br />
+                            姓&nbsp;<input type="text" id="AddressBook_RecvLastName" style="width:80px;"/><br />
+                            名&nbsp;<input type="text" id="AddressBook_RecvFirstName" style="width:80px;"/>
+                            <input type="text" style="display:none;" id="AddressBook_Name"/>
+                        </td>
+                        <td style="text-align:left;">
+                            <select id="AddressBookCounty" onchange="NewCountyChange()" style="width:93px;margin-bottom:3px;">
+                                <option value="">請選擇縣市</option>
+                                <option value="基隆市">基隆市</option>
+                                <option value="台北市">台北市</option>
+                                <option value="新北市">新北市</option>
+                                <option value="桃園縣">桃園縣</option>
+                                <option value="新竹市">新竹市</option>
+                                <option value="新竹縣">新竹縣</option>
+                                <option value="苗栗縣">苗栗縣</option>
+                                <option value="台中市">台中市</option>
+                                <option value="彰化縣">彰化縣</option>
+                                <option value="南投縣">南投縣</option>
+                                <option value="雲林縣">雲林縣</option>
+                                <option value="嘉義市">嘉義市</option>
+                                <option value="嘉義縣">嘉義縣</option>
+                                <option value="台南市">台南市</option>
+                                <option value="高雄市">高雄市</option>
+                                <option value="屏東縣">屏東縣</option>
+                                <option value="台東縣">台東縣</option>
+                                <option value="花蓮縣">花蓮縣</option>
+                                <option value="宜蘭縣">宜蘭縣</option>
+                            </select>
+                            <select id="AddressBookCity" style="width:103px;margin-bottom:3px;"></select>
+                            <input type="text" id="AddressBookLocal" style="width:191px;margin-bottom:3px;" />
+                        </td>
+                        <td>
+                            <div style="width:135px; display:inline-block;">
+                                <input type="text" id="PhoneNumberTwoNumber" style="width:25px" maxlength="3" numberrule="true"/>
+                                -
+                                <input type="text" id="PhoneNumberMain" style="width:80px" maxlength="8" numberrule="true" />
+                            </div>
+                            分機 #
+                            <input type="text" id="PhoneNumberExt" style="width:25px" maxlength="10" numberrule="true" />
+                        </td>
+                        <td>
+                            <input type="text" id="recvmobile1" style="width:32px;" maxlength="4" numberrule="true" onkeyup="nextInput()"/>
+                            ─
+                            <input type="text" id="recvmobile2" style="width:48px;" maxlength="6" numberrule="true"/>
+                            <input type="text" id="MobilNumber" maxlength="10" style="width:73px; display:none;" />
+                        </td>
+                        <td>
+                            <a class="modify" id="NewAddressSure" onclick="NewAddressSure()">確定</a>
+                        </td>
+                        <td>
+                            <a class="modify" id="NewAddressCancel" onclick="NewAddressCancel()">取消</a>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
+<script type="text/javascript">
+    @*設定預設的收件人*@
+    var SettingDefaultAddress = parseInt("@defaultSettingID");
+    if(SettingDefaultAddress != 0) {
+        $("img[id *=addressbook_default_]").css("display", "none"); @*全部隱藏*@
+        $("img[id *=addressbook_default_" + SettingDefaultAddress + "]").attr("style", "cursor:pointer");
+        $("input[id *=addressbook_choose_" + SettingDefaultAddress + "]").css("display", "none");
+    }
+    @*限定只能填入數字*@
+    $("input[numberrule='true']").keypress(function (e) {
+        if ((e.shiftKey && e.keyCode == 45) || e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    });
+    function newInput(){
+        $('#NewAddressBook').removeAttr("style", "display:none");
+    }
+    @*新增收件人縣市選擇後執行*@
+    function NewCountyChange(){
+        var CitySelect = $('#AddressBookCounty').val();
+        CityArea(CitySelect, "AddressBookCity");
+    }
+    @*鄉鎮市區帶入*@
+    function CityArea(str_county, str_select_id){
+        var Address = new Array(22);
+        Address = [
+            ["基隆市", "200 仁愛區", "201 信義區", "202 中正區", "203 中山區", "204 安樂區", "205 暖暖區", "206 七堵區"],
+            ["台北市", "100 中正區", "103 大同區", "104 中山區", "105 松山區", "106 大安區", "108 萬華區", "110 信義區", "111 士林區", "112 北投區", "114 內湖區", "115 南港區", "116 文山區"],
+            ["新北市", "207 萬里區", "208 金山區", "220 板橋區", "221 汐止區", "222 深坑區", "223 石碇區", "224 瑞芳區", "226 平溪區", "227 雙溪區", "228 貢寮區", "231 新店區", "232 坪林區", "233 烏來區", "234 永和區", "235 中和區", "236 土城區", "237 三峽區", "238 樹林區", "239 鶯歌區", "241 三重區", "242 新莊區", "243 泰山區", "244 林口區", "247 蘆洲區", "248 五股區", "249 八里區", "251 淡水區", "252 三芝區", "253 石門區"],
+            ["桃園縣", "320 中壢市", "324 平鎮市", "325 龍潭鄉", "326 楊梅市", "327 新屋鄉", "328 觀音鄉", "330 桃園市", "333 龜山鄉", "334 八德市", "335 大溪鎮", "336 復興鄉", "337 大園鄉", "338 蘆竹鄉"],
+            ["新竹市", "300 東區", "300 北區", "300 香山區"],
+            ["新竹縣", "302 竹北市", "303 湖口鄉", "304 新豐鄉", "305 新埔鎮", "306 關西鎮", "307 芎林鄉", "308 寶山鄉", "310 竹東鎮", "311 五峰鄉", "312 橫山鄉", "313 尖石鄉", "314 北埔鄉", "315 峨眉鄉"],
+            ["苗栗縣", "350 竹南鎮", "351 頭份鎮", "352 三灣鄉", "353 南庄鄉", "354 獅潭鄉", "356 後龍鎮", "357 通霄鎮", "358 苑裡鎮", "360 苗栗市", "361 造橋鄉", "362 頭屋鄉", "363 公館鄉", "364 大湖鄉", "365 泰安鄉", "366 銅鑼鄉", "367 三義鄉", "368 西湖鄉", "369 卓蘭鎮"],
+            ["台中市", "400 中區", "401 東區", "402 南區", "403 西區", "404 北區", "406 北屯區", "407 西屯區", "408 南屯區", "411 太平區", "412 大里區", "413 霧峰區", "414 烏日區", "420 豐原區", "421 后里區", "422 石岡區", "423 東勢區", "424 和平區", "426 新社區", "427 潭子區", "428 大雅區", "429 神岡區", "432 大肚區", "433 沙鹿區", "434 龍井區", "435 梧棲區", "436 清水區", "437 大甲區", "438 外埔區", "439 大安區"],
+            ["彰化縣", "500 彰化市", "502 芬園鄉", "503 花壇鄉", "504 秀水鄉", "505 鹿港鎮", "506 福興鄉", "507 線西鄉", "508 和美鎮", "509 伸港鄉", "510 員林鎮", "511 社頭鄉", "512 永靖鄉", "513 埔心鄉", "514 溪湖鎮", "515 大村鄉", "516 埔鹽鄉", "520 田中鎮", "521 北斗鎮", "522 田尾鄉", "523 埤頭鄉", "524 溪州鄉", "525 竹塘鄉", "526 二林鎮", "527 大城鄉", "528 芳苑鄉", "530 二水鄉"],
+            ["南投縣", "540 南投市", "541 中寮鄉", "542 草屯鎮", "544 國姓鄉", "545 埔里鎮", "546 仁愛鄉", "551 名間鄉", "552 集集鎮", "553 水里鄉", "555 魚池鄉", "556 信義鄉", "557 竹山鎮", "558 鹿谷鄉"],
+            ["雲林縣", "630 斗南鎮", "631 大埤鄉", "632 虎尾鎮", "633 土庫鎮", "635 東勢鄉", "634 褒忠鄉", "636 台西鄉", "637 崙背鄉", "638 麥寮鄉", "640 斗六市", "643 林內鄉", "646 古坑鄉", "647 莿桐鄉", "648 西螺鎮", "649 二崙鄉", "651 北港鎮", "652 水林鄉", "653 口湖鄉", "654 四湖鄉", "655 元長鄉"],
+            ["嘉義市", "600 東區", "600 西區"],
+            ["嘉義縣", "602 番路鄉", "603 梅山鄉", "604 竹崎鄉", "605 阿里山鄉", "606 中埔鄉", "607 大埔鄉", "608 水上鄉", "611 鹿草鄉", "612 太保市", "613 朴子市", "614 東石鄉", "615 六腳鄉", "616 新港鄉", "621 民雄鄉", "622 大林鎮", "623 溪口鄉", "624 義竹鄉", "625 布袋鎮"],
+            ["台南市", "700 中西區", "701 東區", "702 南區", "704 北區", "708 安平區", "709 安南區", "710 永康區", "711 歸仁區", "712 新化區", "713 左鎮區", "714 玉井區", "715 楠西區", "717 仁德區", "718 關廟區", "716 南化區", "719 龍崎區", "720 官田區", "721 麻豆區", "722 佳里區", "723 西港區", "724 七股區", "725 將軍區", "726 學甲區", "727 北門區", "730 新營區", "731 後壁區", "732 白河區", "733 東山區", "734 六甲區", "735 下營區", "736 柳營區", "737 鹽水區", "741 善化區", "742 大內區", "744 新市區", "745 安定區", "743 山上區"],
+            ["高雄市", "800 新興區", "801 前金區", "802 苓雅區", "803 鹽埕區", "804 鼓山區", "805 旗津區", "806 前鎮區", "807 三民區", "811 楠梓區", "812 小港區", "813 左營區", "814 仁武區", "815 大社區",/* "817 東沙群島",*/ "820 岡山區", "821 路竹區",/* "819 南沙群島",*/ "822 阿蓮區", "823 田寮區", "824 燕巢區", "825 橋頭區", "826 梓官區", "827 彌陀區", "829 湖內區", "828 永安區", "830 鳳山區", "831 大寮區", "832 林園區", "833 鳥松區", "840 大樹區", "842 旗山區", "843 美濃區", "844 六龜區", "845 內門區", "847 甲仙區", "846 杉林區", "848 桃源區", "852 茄萣區", "851 茂林區", "849 那瑪夏區"],
+            ["屏東縣", "900 屏東市", "901 三地門鄉", "902 霧台鄉", "903 瑪家鄉", "904 九如鄉", "905 里港鄉", "906 高樹鄉", "907 鹽埔鄉", "908 長治鄉", "909 麟洛鄉", "911 竹田鄉", "912 內埔鄉", "913 萬丹鄉", "920 潮州鎮", "921 泰武鄉", "923 萬巒鄉", "922 來義鄉", "924 崁頂鄉", "925 新埤鄉", "926 南州鄉", "927 林邊鄉", "928 東港鎮",/* "929 琉球鄉",*/ "931 佳冬鄉", "932 新園鄉", "940 枋寮鄉", "941 枋山鄉", "943 獅子鄉", "944 車城鄉", "945 牡丹鄉", "946 恆春鎮", "947 滿州鄉", "942 春日鄉"],
+            ["台東縣", "950 台東市", /*"951 綠島鄉", "952 蘭嶼鄉",*/ "954 卑南鄉", "955 鹿野鄉", "956 關山鎮", "957 海端鄉", "958 池上鄉", "953 延平鄉", "959 東河鄉", "961 成功鎮", "962 長濱鄉", "963 太麻里鄉", "965 大武鄉", "966 達仁鄉", "964 金峰鄉"],
+            ["花蓮縣", "970 花蓮市", "971 新城鄉", "972 秀林鄉", "973 吉安鄉", "974 壽豐鄉", "975 鳳林鎮", "976 光復鄉", "977 豐濱鄉", "978 瑞穗鄉", "981 玉里鎮", "979 萬榮鄉", "983 富里鄉", "982 卓溪鄉"],
+            ["宜蘭縣", "260 宜蘭市", "261 頭城鎮", "262 礁溪鄉", "263 壯圍鄉", "264 員山鄉", "265 羅東鎮", "266 三星鄉", "267 大同鄉", "268 五結鄉", "269 冬山鄉", "270 蘇澳鎮", "272 南澳鄉"/*, "290 釣魚台"*/],
+            //["澎湖縣", "880 馬公市", "881 西嶼鄉", "882 望安鄉", "885 湖西鄉", "883 七美鄉", "884 白沙鄉"],
+            //["金門縣", "890 金沙鎮", "891 金湖鎮", "892 金寧鄉", "893 金城鎮", "894 烈嶼鄉", "896 烏坵鄉"],
+            //["連江縣", "209 南竿鄉", "210 北竿鄉", "211 莒光鄉", "212 東引鄉"]
+        ];
+        var number = 0;
+        var i = 0;
+        while(i < 22){
+            if(Address[i][0] == str_county){
+                number = i;
+                break;
+            }
+            i++;
+        }
+        var strAreaBuild = "";
+        for(var a = 1; a < Address[number].length; a++){
+            strAreaBuild = strAreaBuild + '<option value = "' + Address[number][a] + '">' + Address[number][a] + '</option>';
+        }
+        $('#' + str_select_id).empty();
+        $('#' + str_select_id).append(strAreaBuild);
+    }
+    @*編輯已存在收件人地址*@
+    function CountyChange(obj) {
+        var str_county = $('#addressbook_county_' + obj).val();
+        CityArea(str_county, "addressbook_city_" + obj);
+    }
+    @*填完自動到下一個input*@
+    function nextInput(id){
+        if(id != null && id != "" && $("#addressbook_recvmobile1_" + id).val().length == 4) {
+            $("#addressbook_recvmobile2_" + id).focus();
+        }
+        if($("#recvmobile1").val().length == 4) {
+            $("#recvmobile2").focus();
+        }
+    }
+    @*新增收件人資訊*@
+    function NewAddressSure(){
+        if($("#AddressBook_RecvSex").val() != 1 && $("#AddressBook_RecvSex").val() != 0)
+        {
+            alert("請選擇稱謂");
+            return null;
+        }
+        if($("#AddressBook_RecvLastName").val() == "" || $("#AddressBook_RecvFirstName").val() == "") {
+            alert("請輸入姓名!!!");
+            return null;
+        }
+        if($('#AddressBookCounty').val() == ""){
+            alert("請選擇縣市!!!");
+            return null;
+        }
+        if($('#AddressBookLocal').val() == ""){
+            alert("請輸入地址!!!");
+            return null;
+        }
+        if($("#PhoneNumberTwoNumber").val() != "" || $("#PhoneNumberMain").val() != ""){
+            mobilelengthcheck = $("#PhoneNumberTwoNumber").val() + $("#PhoneNumberMain").val();
+            if(mobilelengthcheck.length != 9 && mobilelengthcheck.length != 10)
+            {
+                alert("請確認電話號碼輸入正確");
+                return null;
+            }
+        }
+        if($("#recvmobile1").val() == "" || $("#recvmobile2").val() == ""){
+            alert("請輸入手機號碼!!!");
+            return null;
+        }
+        var addressbook_recvsex = $('#AddressBook_RecvSex').val();
+        var addressbook_recvname = $("#AddressBook_RecvLastName").val() + $("#AddressBook_RecvFirstName").val();
+        var addressbook_recvlastname = $("#AddressBook_RecvLastName").val();
+        var addressbook_recvfirstname = $("#AddressBook_RecvFirstName").val();
+        var addressbook_recvmobile = $('#recvmobile1').val() + $('#recvmobile2').val();//手機
+        if($('#PhoneNumberExt').val() == ""){
+            var addressbook_recvtelday = "(" + $('#PhoneNumberTwoNumber').val() + ")" + $('#PhoneNumberMain').val(); 
+        }
+        else{
+            var addressbook_recvtelday = "(" + $('#PhoneNumberTwoNumber').val() + ")" + $('#PhoneNumberMain').val() + "#" + $('#PhoneNumberExt').val();
+        }
+        var addressbook_delivloc = $('#AddressBookCounty').val(); //縣市
+        var addressbook_city = $('#AddressBookCity').val();
+        var addressbook_delivzip = addressbook_city.split(" ")[0];
+        var addressbook_delivzipAddr = addressbook_city.split(" ")[1];
+        var addressbook_delivaddr = addressbook_delivzipAddr + $('#AddressBookLocal').val();//地址扣除鄉鎮市區
+        
+        jason = JSON.stringify({
+            //"ID": addressbook_id,
+            "RecvSex": addressbook_recvsex,
+            "RecvName": addressbook_recvname,
+            "RecvLastName": addressbook_recvlastname,
+            "RecvFirstName": addressbook_recvfirstname,
+            "RecvTelDay": addressbook_recvtelday,
+            "RecvMobile": addressbook_recvmobile,
+            "DelivLoc": addressbook_delivloc,
+            "DelivZip": addressbook_delivzip,
+            "DelivAddr": addressbook_delivaddr
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Addressbook/AddNewAddressBook",
+            contentType: "application/json;charset=utf-8",
+            data: jason,
+            success: function(res){
+                if(res.indexOf('[Error]') >= 0){
+                    var Error = res.split('[Error]')[1];
+                    alert(Error);
+                    return null;
+                }
+                else if(res.indexOf('[Message]') >= 0){
+                    var Message = res.split('[Message]')[1];
+                    alert(Message); // 新增成功訊息可刪除
+                    window.location.reload();
+                }
+                else{
+                    alert("新增錯誤");
+                    //return true;
+                }
+            }
+        });
+    }
+    @*取消新增收件人資訊*@
+    function NewAddressCancel(){
+        $('#NewAddressBook').css("display", "none");
+    }
+    @*刪除該收件人資訊*@
+    function checkAddressThenDelete(obj){
+        addressbook_id = obj;
+        var status = window.confirm("確定刪除?");
+        jason = JSON.stringify({
+            "ID": addressbook_id
+        });
+        if(status){
+            $.ajax({
+                type: "POST",
+                url: "/Addressbook/DeleteAddressBook",
+                contentType: "application/json;charset=utf-8",
+                data: jason,
+                success: function (res){
+                    if(res.indexOf('[Error]') >= 0){
+                        var Error = res.split('[Error]')[1];
+                        alert(Error);
+                        return null;
+                    }
+                    else if(res.indexOf('[Message]') >= 0){
+                        var Message = res.split('[Message]')[1];
+                        alert(Message); // 刪除成功訊息可刪除
+                        window.location.reload();
+                    }
+                    else{
+                        alert("修改錯誤，請確認資料填寫正確");
+                    }
+                }
+            });
+        }
+    }
+</script>
+<script type="text/javascript">
+    @*收件人地址選擇後執行*@
+    function addressbook_choose(obj) {
+        var addressbook_recvsex = $('#hiddenRecvSex_' + obj).val(); @*稱謂*@
+        if(addressbook_recvsex == null || addressbook_recvsex == "" || addressbook_recvsex == 2|| addressbook_recvsex == "2") {
+            alert("請確認及更新此筆收件人資料, 謝謝!");
+            @*編輯收件人資訊*@
+            checkAddressThenSubmit(obj);
+            return null;
+        }
+        //var addressbook_recvname = $('#addressbook_recvname_' + obj).val(); @*姓名*@
+        var addressbook_recvlastname = $('#recvlastname_' + obj).val(); @*姓*@
+        var addressbook_recvfirstname = $('#recvfirstname_' + obj).val(); @*名*@
+        var addressbook_recvmobile = $('#addressbook_recvmobile1_' + obj).val() + $('#addressbook_recvmobile2_' + obj).val();//手機
+        /*-----------------------------------------------------市話START-----------------------------------------------------*/
+        var addressbook_recvtelday = $('#addressbook_recvtelday_' + obj).val();
+        var leftParentheses = addressbook_recvtelday.indexOf("(");
+        var rightParentheses = addressbook_recvtelday.indexOf(")");
+        var AreaNumber = addressbook_recvtelday.substring(leftParentheses + 1, rightParentheses);
+        if(addressbook_recvtelday.indexOf("#") == -1){
+            var addressbook_recvtelday_length = addressbook_recvtelday.length;
+            var recvteldaynumber = addressbook_recvtelday.substring(rightParentheses + 1, addressbook_recvtelday_length);
+            var recvteldayext = "";
+        }
+        else{
+            var addressbook_recvtelday_length = addressbook_recvtelday.length;
+            var ExtWell = addressbook_recvtelday.indexOf("#");
+            var recvteldaynumber = addressbook_recvtelday.substring(rightParentheses + 1, ExtWell);
+            var recvteldayext = addressbook_recvtelday.substring(ExtWell + 1, addressbook_recvtelday_length);
+        }
+        /*-----------------------------------------------------市話END-----------------------------------------------------*/
+        /*-----------------------------------------------------地址START-----------------------------------------------------*/
+        var addressbook_delivloc = $('#addressbook_delivloc_' + obj).val();
+        var addressbook_delivaddr = $('#addressbook_delivaddr_' + obj).val();
+        var addressbook_delivzip = $('#addressbook_delivzip_' + obj).val().substring(0, 3); @*郵遞區號*@
+        $.ajax({
+            type: "POST",
+            url: "/Api/Address/AddressAnalyse",
+            //url: "/Api/Address/AddressAnalyse?recv=" + true + "&county=" + encodeURI(addressbook_delivloc) + "&address=" + encodeURI(addressbook_delivaddr) + "&zipCode=" + encodeURI(addressbook_delivzip),
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "Recv": true,
+                "County": addressbook_delivloc,
+                "Address": addressbook_delivaddr,
+                "ZipCode": addressbook_delivzip
+            }),
+            success: function(res) {
+                console.log(6);
+                if(res.FindCity) {
+                    @*更新Addressbook預設*@
+                    jason = JSON.stringify({
+                        "addressBookID": obj
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: "/Addressbook/ReSetAddressDefault",
+                        contentType: "application/json;charset=utf-8",
+                        data: jason,
+                        success: function (res){
+                        }
+                    });
+                    window.opener.$('#member_recvlastname').val(addressbook_recvlastname);
+                    window.opener.$('#member_recvfirstname').val(addressbook_recvfirstname);
+                    window.opener.$('#salesorder_recvname').val(addressbook_recvlastname + addressbook_recvfirstname);
+                    window.opener.$('#member_recvsex').val(addressbook_recvsex);
+                    window.opener.$('#salesorder_recvmobile').val(addressbook_recvmobile);
+                    window.opener.$('#member_recvmobile1').val(addressbook_recvmobile.substring(0,4));
+                    window.opener.$('#member_recvmobile2').val(addressbook_recvmobile.substring(4,10));
+                    window.opener.$('#recvteldayzip').val(AreaNumber);
+                    window.opener.$('#recvteldaynumber').val(recvteldaynumber);
+                    window.opener.$('#recvteldayext').val(recvteldayext);
+                    window.opener.$('#salesorder_delivloc').val(addressbook_delivloc);
+                    window.opener.$('#delivaddr').val(res.Addr);
+                    window.opener.CityChoose(addressbook_delivloc, "delivCity", "salesorder_delivzip",0);
+                    var addressCity = addressbook_delivzip.replace("  ","") + " " + res.City;
+                    window.opener.$('#delivCity').val(addressCity);
+                    window.opener.$('#salesorder_delivzip').val(addressbook_delivzip);
+                    window.close();
+                }
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    @*編輯收件人資訊*@
+    function checkAddressThenSubmit(obj){
+        @*秀出所要顯示的收件人姓名可填欄位*@
+        $("div[class *=showRecvNameAndSex_]").css("display", "");
+        $("div[class *=editRecvNameAndSex_]").css("display", "none");
+        $(".showRecvNameAndSex_" + obj).css("display", "none");
+        $(".editRecvNameAndSex_" + obj).css("display", "");
+        @*回填原手機號碼*@
+        $('#addressbook_recvmobile1_' + obj).val($('#addressbook_recvmobileback_' + obj).val().substring(0, 4));
+        $('#addressbook_recvmobile2_' + obj).val($('#addressbook_recvmobileback_' + obj).val().substring(4, 10));
+                
+        var addressbook_recvtelday = $('#addressbook_recvtelday_' + obj).val();
+        var leftParentheses = addressbook_recvtelday.indexOf("(");
+        var rightParentheses = addressbook_recvtelday.indexOf(")");
+        var AreaNumber = addressbook_recvtelday.substring(leftParentheses + 1, rightParentheses);
+        if(addressbook_recvtelday.indexOf("#") == -1){
+            @*若無分機號碼*@
+            addressbook_recvtelday_length = addressbook_recvtelday.length;
+            var ExtWell = addressbook_recvtelday.indexOf("#");
+            var recvteldaynumber = addressbook_recvtelday.substring(rightParentheses + 1, addressbook_recvtelday_length);
+            var recvteldayext = "";
+            $('#PhoneNumber_' + obj).val(recvteldaynumber);
+        }
+        else{
+            @*若有分機號碼*@
+            var addressbook_recvtelday_length = addressbook_recvtelday.length;
+            var ExtWell = addressbook_recvtelday.indexOf("#");
+            var recvteldaynumber = addressbook_recvtelday.substring(rightParentheses + 1, ExtWell);
+            var recvteldayext = addressbook_recvtelday.substring(ExtWell + 1, addressbook_recvtelday_length);
+            $('#PhoneNumber_' + obj).val(recvteldaynumber);
+            $('#ExtNumber_' + obj).val(recvteldayext);
+            
+        }
+        $('#AreaCodeTwoNumber_' + obj).val(AreaNumber);
+        
+        $("a[id *= 'checkAddressThenSubmit_']").css("display", "");
+        $("#checkAddressThenSubmit_" + obj).css("display", "none");
+        $("a[id *= 'checkAddressThenSure_']").css("display", "none");
+        $("#checkAddressThenSure_" + obj).css("display", "");
+        $("a[id *= checkAddressThenDelete_]").css("display", "");
+        $("a[id *= checkAddressThenCancle_]").css("display", "none");
+        $("#checkAddressThenCancle_" + obj).css("display", "");
+        $("#checkAddressThenDelete_" + obj).css("display", "none");
+        $('#NewAddressBook').css("display", "none");
+
+        var str_county = $('#addressbook_delivloc_' + obj).val();
+        SourceChange(str_county, obj);
+    }
+    @*編輯時重新帶入地址資訊*@
+    function SourceChange(str_county, obj){
+        CityArea(str_county, "addressbook_city_" + obj);
+        
+        var addressbook_delivloc = $('#addressbook_delivloc_' + obj).val();
+        var addressbook_delivaddr = $('#addressbook_delivaddr_' + obj).val();
+        var addressbook_delivzip = $('#addressbook_delivzip_' + obj).val().substring(0, 3); @*郵遞區號*@
+        $.ajax({
+            type: "POST",
+            url: "/Api/Address/AddressAnalyse",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "Recv": true,
+                "County": addressbook_delivloc,
+                "Address": addressbook_delivaddr,
+                "ZipCode": addressbook_delivzip
+            }),
+            success: function (res){
+                if(res.FindCity == true)
+                {
+                    $('#addressbook_county_' + obj).val(res.County);
+                    $('#addressbook_city_' + obj).val(res.ZipCode + " " + res.City);
+                    $('#addressbook_address_' + obj).val(res.Addr);
+                }
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    @*取消收件人資訊*@
+    function checkAddressThenCancle(obj){
+        $("div[class *=showRecvNameAndSex_]").css("display", "");
+        $("div[class *=editRecvNameAndSex_]").css("display", "none");
+        @*回填原手機號碼*@
+        $('#addressbook_recvmobile1_' + obj).val($('#addressbook_recvmobileback_' + obj).val().substring(0, 4));
+        $('#addressbook_recvmobile2_' + obj).val($('#addressbook_recvmobileback_' + obj).val().substring(4, 10));
+        
+        $('#checkAddressThenSure_' + obj).css("display", "none");
+        $('#checkAddressThenSubmit_' + obj).css("display", "");
+        $('#checkAddressThenCancle_' + obj).css("display", "none");
+        $('#checkAddressThenSubmit_' + obj).css("display", "");
+        $('#checkAddressThenCancle_' + obj).css("display", "none");
+        $('#checkAddressThenDelete_' + obj).css("display", "");
+    }
+    @*更新收件人資訊*@
+    function checkAddressThenSure(obj){
+        if($("#RecvSex_" + obj).val() != 1 && $("#RecvSex_" + obj).val() != 0)
+        {
+            alert("請選擇稱謂");
+            return null;
+        }
+        if($('#recvlastname_' + obj).val() == "" || $('#recvfirstname_' + obj).val() == ""){
+            alert("請輸入姓名");
+            return null;
+        }
+        if($('#addressbook_county_' + obj) == ""){
+            alert("請選擇縣市");
+            return null;
+        }
+        if($('#AreaCodeTwoNumber_' + obj).val() != "" || $('#PhoneNumber_' + obj).val() != ""){
+            mobilelengthcheck = $('#AreaCodeTwoNumber_' + obj).val() + $('#PhoneNumber_' + obj).val();
+            if(mobilelengthcheck.length != 9 && mobilelengthcheck.length != 10)
+            {
+                alert("請確認電話號碼輸入正確");
+                return null;
+            }
+        }
+        if($('#addressbook_address_' + obj).val() == ""){
+            alert("請輸入地址");
+            return null;
+        }
+        if($('#addressbook_recvmobile1_' + obj).val().length != 4 || $('#addressbook_recvmobile2_' + obj).val().length != 6 ){
+            alert("請確認手機號碼輸入正確");
+            return null;
+        }
+        var addressbook_id = obj;
+        var addressbook_recvsex = $("#RecvSex_" + obj).val();
+        var addressbook_recvlastname = $('#recvlastname_' + obj).val();
+        var addressbook_recvfirstname = $('#recvfirstname_' + obj).val();
+        var addressbook_recvname = addressbook_recvlastname + addressbook_recvfirstname;
+        if($('#ExtNumber_' + obj).val() == ""){
+            var addressbook_recvtelday = "(" + $('#AreaCodeTwoNumber_' + obj).val() + ")" + $('#PhoneNumber_' + obj).val();
+        }
+        else{
+            var addressbook_recvtelday = "(" + $('#AreaCodeTwoNumber_' + obj).val() + ")" + $('#PhoneNumber_' + obj).val() + "#" + $('#ExtNumber_' + obj).val();
+        }
+        var addressbook_recvmobile = $('#addressbook_recvmobile1_' + obj).val() + $('#addressbook_recvmobile2_' + obj).val();
+        var addressbook_delivloc = $('#addressbook_county_' + obj).val();
+        var AreaCodeCity = $('#addressbook_city_' + obj).val();
+        var addressbook_delivzip = AreaCodeCity.split(" ")[0];
+        var addressbook_delivaddr = AreaCodeCity.split(" ")[1] + $('#addressbook_address_' + obj).val();
+        jason = JSON.stringify({
+            "ID": addressbook_id,
+            "RecvSex": addressbook_recvsex,
+            "RecvName": addressbook_recvname,
+            "RecvLastName": addressbook_recvlastname,
+            "RecvFirstName": addressbook_recvfirstname,
+            "RecvTelDay": addressbook_recvtelday,
+            "RecvMobile": addressbook_recvmobile,
+            "DelivLoc": addressbook_delivloc,
+            "DelivZip": addressbook_delivzip,
+            "DelivAddr": addressbook_delivaddr
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Addressbook/ModifyAddressBook",
+            contentType: "application/json;charset=utf-8",
+            data: jason,
+            success: function (res){
+                if(res.indexOf('[Error]') >= 0){
+                    var Error = res.split('[Error]')[1];
+                    alert(Error);
+                    return;
+                }
+                else if(res.indexOf('[Message]') >= 0){
+                    var Message = res.split('[Message]')[1];
+                    alert(Message);
+                    window.location.reload();
+                }
+                else{
+                    alert("修改錯誤，請確認資料填寫正確");
+                }
+            }
+        });
+    }
+</script>

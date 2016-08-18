@@ -1,0 +1,258 @@
+﻿@{
+    ViewBag.Title = "True Yoga";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets{
+    @Styles.Render("~/content/css/Act")
+    @* css style寫這邊 *@
+    <style>
+        body {
+            background-color: rgb(202, 234, 219);
+        }
+        .ActContent {
+            width:100%;
+        }
+        .Banner {
+            height:3690px;
+        }
+        .Banner .Head {width: 100%; height: 880px; background: url(/Themes/img/Act/trueyoga_0801/head.jpg) center top no-repeat; margin-top: -177px; min-width: 1200px;}
+        .Link {
+            position:relative;
+            width: 1200px;
+            height: 100%;
+            margin: 0 auto;
+        }
+        .hLink {
+             z-index: 9999;
+             position: absolute;
+             text-indent: -99999px;
+             letter-spacing: -99999px; 
+        }
+        .Banner img {
+            display:block;
+            z-index: -1;
+            position: absolute;
+        }
+        .warningTxt { 
+            /*position: absolute;
+            top: 3170px;
+            min-width: 1000px;
+            max-width: 1210px;
+            margin-left: 380px;*/
+            color: #734600;
+            line-height: 2.3;
+            font-weight: bold;
+            width: 1160px;
+            margin: 0 auto;
+            padding-left: 30px;
+        }
+        .warningTxt ul {
+            list-style-type: decimal;
+        }
+        .tit00 {
+            margin: 0px -20px;
+        }
+        .footer {
+            max-width: 1280px;
+            min-width: 1200px;
+            background-color: #FFF;
+        }
+        .FBshare {
+            position: absolute;
+            top: 985px;
+            left: 880px;
+            font-weight: bold;
+            cursor: pointer;
+            width:120px;
+        }
+        .FBshare p {
+            float: left;
+            display: block;
+            margin: 8px;
+            
+        }
+
+        .FBshare:hover {
+            text-shadow: 3px 3px 3px #252525;
+        }
+        .FbshareImg {
+            background: url(/Themes/img/fb.png); 
+            width: 37px; 
+            height: 34px; 
+            float: left;
+        }
+    </style>
+}
+@section scripts {
+    @* js寫這邊 *@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".FBshare").on("click", function () {
+            checkFBStatus();
+        });
+    });
+    /* ------ 分享至FB ------ */
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=695768887110336";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    
+    var _fbAppId = '695768887110336';
+    var _uid = "";
+    var _fbAccessToken = "";
+    function checkFBStatus() {
+        FB.init({
+            appId: _fbAppId,                        // App ID from the app dashboard
+            channelUrl: '//secure.newegg.com.tw/', // Channel file for x-domain comms
+            status: true,                                 // Check Facebook Login status
+            xfbml: true,                                  // Look for social plugins on the page
+            cookie: true,
+            oauth: true,
+            version: 'v2.3' // or v2.0, v2.1, v2.0
+        });
+
+
+        FB.login(function (response) {
+            if (response.status == "connected") {  // 程式有連結到 Facebook 帳號
+                //console.log("auth status", response.authResponse);
+                _uid = response.authResponse.userID; // 取得 UID
+                _fbAccessToken = response.authResponse.accessToken; //get access token, and save it in local storage
+
+                /*
+                console.log("fb response", response);
+                console.log("logion response:", response.authResponse);
+                console.log("_uid1", _uid);
+                console.log("_fbAccessToken1", _fbAccessToken);
+                */
+                FB.api("/me", "GET", function (response) {
+                    _uid = response.authResponse.userID; // 取得 UID
+                    //console.log("_uid3", _uid);
+                    var email = response.email;
+
+                });
+                postToWall();
+            } else if (response.status == "not_authorized") {  // 帳號沒有連結到 Facebook 程式
+                FB_login();
+            } else {    // 帳號沒有登入
+                FB_login();
+            }
+        }, { scope: "publish_actions", return_scopes: true });
+    }
+    //如果已經登入但還沒允許APP存取的話，可以使用 FB.login() 來請使用者允許存取
+    //其中存取權限要加上 publish_stream，才可以貼文或刪文
+
+
+    function FB_login() {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                _uid = response.authResponse.userID; // 取得 UID
+                _fbAccessToken = response.authResponse.accessToken; //get access token, and save it in local storage
+                init();
+
+                //console.log("_uid2", _uid);
+                //console.log("_fbAccessToken2", _fbAccessToken);
+
+                postToWall();
+            }
+        }, { scope: 'publish_actions', return_scopes: true });
+    }
+
+    function postToWall() {
+        //var strHref = window.document.location.href;
+        var desc = '美好健康新風潮 Healthy Life 立即入會！新但會員獨享，首次入會免費體驗True Yoga專屬課程。由裡到外機活身體能量。更輕盈、更樂活，就從這一刻開始！';
+
+        var args = {
+            access_token: _fbAccessToken,
+            message: "",
+            link: 'https://secure.newegg.com.tw/act/trueyoga_0801',
+            picture: 'https://secure.newegg.com.tw/img/Act/trueyoga_0801/fblogo.jpg',
+            description: desc,
+            caption: 'True Yoga x 新蛋全球生活網'
+        };
+        FB.api('/' + _uid + '/feed', 'post', args, onPostToWallCompleted);
+
+        //FB.ui({
+        //    method: 'share_open_graph',
+        //    action_type: 'og.likes',
+        //    action_properties: JSON.stringify({
+        //        object: strHref,
+        //    })
+        //}, function (response) {
+        //    // Debug response (optional)
+        //    //console.log(response);
+        //});
+    }
+
+    function onPostToWallCompleted(response) {
+        if (!response || response.error) {
+
+            //alert('Facebook發佈失敗！\n' + response.error.message);
+            alert('Facebook發佈失敗！');
+            //document.getElementById('msg').innerHTML = 'Error occured: ' + response.error.message;
+        } else {
+            //alert('Facebook發佈成功！\n' +response.id);
+            alert('Facebook發佈成功！');
+        }
+    }
+    //活動標記Cookie
+    var activity = "activity";
+    var value = "trueyoga_0801";
+    var setCookies = function (key, value, expire, path, domain) {
+        jQuery.cookie(key, value, {
+            expires: expire,
+            path: path,
+            domain: domain
+        });
+    };
+    setCookies(activity, value, 1, "/", twNewegg().twNeweggDomain);
+
+</script>
+}
+
+<div class="ActContent">
+<!-- start 活動內容 -->
+    <div class="Link">
+        <a href="/MyAccount/Signup" target="_blank" class="hLink" style="top:510px;left:265px;width:350px;height:45px;">立即入會免費體驗</a>
+        <a href="http://www.trueyoga.com.tw/" target="_blank" class="hLink" style="top:3626px;left:325px;width:120px;height:70px;">True Yoga Logo </a>
+        <a href="http://www.truedance.com.tw/" target="_blank" class="hLink" style="top:3626px;left:460px;width:120px;height:70px;">True Dance Logo</a>
+        <a href="http://www.truefitness.com.tw/" target="_blank" class="hLink" style="top:3626px;left:600px;width:120px;height:70px;">True Fitness Logo</a>
+        <a href="http://www.newegg.com.tw/" target="_blank" class="hLink" style="top:3626px;left:745px;width:120px;height:70px;">Newegg Logo</a>
+        <div class="FBshare">
+            <p>分享活動</p>
+            <div class="FbshareImg"></div>
+        </div>
+    </div>
+    <div class="Banner">   
+        <div class="Head"></div>
+
+        <div  class="Content" style="width: 100%; height: 620px; background: url(/Themes/img/Act/trueyoga_0801/02.jpg) center top no-repeat; min-width: 1200px;"></div>
+        <div  class="Content" style="width: 100%; height: 557px; background: url(/Themes/img/Act/trueyoga_0801/03.jpg) center top no-repeat; min-width: 1200px;"></div>
+        <div  class="Content" style="width: 100%; height: 554px; background: url(/Themes/img/Act/trueyoga_0801/04.jpg) center top no-repeat; min-width: 1200px;"></div>
+        <div  class="Content" style="width: 100%; height: 541px; background: url(/Themes/img/Act/trueyoga_0801/05.jpg) center top no-repeat; min-width: 1200px;"></div>
+
+        <div class="Contentfooter" style="width: 100%; height: 479px; background: url(/Themes/img/Act/trueyoga_0801/footer01.jpg) center top no-repeat; min-width: 1200px;margin: 0 auto;">
+            <div class="warningTxt"> 
+                <div class="tit00">體驗卡使用規範及注意事項：</div>
+                <ul>
+                    <li>活動期間104年8月1日起至104年8月31日，成功註冊為新蛋全球生活網會員，即可獲得全台TRUE YOGA、TRUE DANCE、或TRUE FITNESS雙人同行7天免費體驗課程。兌換日期至104年9月30日止。</li>
+                    <li>成功註冊為新蛋全球生活網會員，TRUE YOGA、TRUE DANCE、或TRUE FITNESS雙人同行7天免費體驗課程憑證將以Email方式寄至會員註冊電子郵件帳號，會員須完整填具會員資料含姓名、電話、地址以確保獲獎權益；請持本列印憑證((即此封Email 通知函)至各門市據點出示領取兌換。</li>
+                    <li>選擇True Yoga、True Dance限7天內2堂課程使用，選擇True Fitness可7 天內每日進出一次使用健身器材，不適用私人教練課程。</li>
+                    <li>請擇一會館使用，並於3天前來電預約課程，進入使用時請出示本卡與身分證件。並請於課程開始前20分鐘前到館報到，以利課程之準備。</li>
+                    <li>僅限於非會員、且超過六個月為體驗中心者，須年滿20歲。</li>
+                    <li>僅限於使用期限前使用，逾期則視為作廢，課程預約後未實際使用者仍視為已經使用。</li>
+                    <li>設施使用需遵守本中心規定。本中心保留隨時調整或終止活動內容之權利。</li>
+                    <li>體驗課程前應自行評估身體狀況適於課程活動，如有必要，並請先向醫生諮詢；課程中如身體不適，建議應停止體驗課程。會館對於因運動過量致運動傷害或個人體質或個人疾病(如心血管疾病)導致之症狀所造成的傷害，不負賠償責任，如有懷孕請先行告知。</li>
+                </ul>
+              </div>
+        </div>
+        <div class="Contentfooter" style="width: 100%; height: 65px; background: url(/Themes/img/Act/trueyoga_0801/logobtn.jpg) center top no-repeat; min-width: 1200px;"></div>
+        <div class="Contentfooter" style="width: 100%; height: 526px; background: url(/Themes/img/Act/trueyoga_0801/footer02.jpg) center top no-repeat; min-width: 1200px;"></div>
+    </div>
+</div>
+<!-- end 活動內容 -->
+<div id="fb-root"></div>

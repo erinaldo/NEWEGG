@@ -1,0 +1,67 @@
+﻿@using TWNewEgg.DB.TWSQLDB.Models
+@using TWNewEgg.Website.ECWeb.Models
+@model TWNewEgg.Models.ViewModels.MyAccount.OrderHistory
+
+@{
+    TWNewEgg.Models.ViewModels.MyAccount.SalceOrder SOrder = Model.SalceOrderList[0];
+
+    string invoiceMM = "", invoiceNo = "";
+    if (SOrder.Procout.Month % 2==0){
+        invoiceMM = string.Format("{0:00}-{1:00}", SOrder.Procout.Month - 1, SOrder.Procout.Month);
+    }else{
+        invoiceMM = string.Format("{0:00}-{1:00}", SOrder.Procout.Month, SOrder.Procout.Month + 1);
+    }
+    
+    if (!string.IsNullOrWhiteSpace(SOrder.InvoiceNo)){
+        invoiceNo = string.Format("{0}-{1}", SOrder.InvoiceNo.Substring(0, 2), SOrder.InvoiceNo.Substring(2));
+    }
+}
+
+<div class="invoiceBox">
+    <img src="/Themes/img/MyAccount/invoiceLogo.jpg" alt="" />
+    <div class="invoiceTit">電子發票證明聯</div>
+    <div class="invoiceMon">
+        <span class="yy">@(SOrder.Procout.Year-1911)</span>年
+        <span class="mm">@invoiceMM</span>月
+    </div>
+    <div class="invoiceNum">@invoiceNo</div>
+    <div class="detialDate">
+        
+        @*@(!string.IsNullOrWhiteSpace(SOrder.InvoiceInDate)?DateTime.Parse(SOrder.InvoiceInDate).ToString("yyyy-MM-dd hh:mm:ss"):"")*@
+        @(!string.IsNullOrWhiteSpace(SOrder.InvoiceInDate)?DateTime.Parse(SOrder.InvoiceInDate).ToString("yyyy-MM-dd hh:mm:ss"):"")
+    </div>
+    <table width="100%">
+        <tr>
+            <!--<td style="width:50%;"><p class="randomNum">隨機碼：<span>1658</span></p></td>-->
+            <td style="width:50%;"><p class="totalPrice">總計：<span>@SOrder.PiceSum.ToString("#,##0")</span></p></td>
+        </tr>
+        <tr>
+            <td><p class="sellerNum">賣方：<span>24721751</span></p></td>
+            <td><p class="buyerNum">買方：<span>@SOrder.InvoiceID</span></p></td>
+        </tr>
+    </table>
+
+    <div class="invoiceWar">退貨憑電子發票證明聯正本辦理</div>
+</div>
+<div class="invoiceBox" >
+    <img src="/Themes/img/MyAccount/invoiceLogo.jpg" alt="" />
+    <div class="invoiceTit">交易明細</div>
+    <div class="invoiceDetial">
+        <div class="detialDate">@(!string.IsNullOrWhiteSpace(SOrder.InvoiceInDate)?DateTime.Parse(SOrder.InvoiceInDate).ToString("yyyy-MM-dd hh:mm:ss"):"")</div>
+        <table width="100%">
+           
+            <tr>
+                <th class="detialName">@Model.SalceOrderList[0].SalesOrderItemDetil[0].Name</th>
+                <td style="width:20%;text-align:center;" class="detialPrice">@Model.SalceOrderList[0].SalesOrderItemDetil[0].DisplayPriceTemp.ToString("#,##0")</td>
+                <td style="width:12%;text-align:center;" class="detialNum">*@Model.SalceOrderList[0].SumQTY</td>
+                <td style="width:20%;text-align:center;" class="detialTPrice">@Model.SalceOrderList[0].PiceSum.ToString("#,##0")</td>
+            </tr>
+         
+        </table>
+    </div>
+    <div class="invoiceWar detialTTprice">
+        <span style="font-size:14px;font-weight:normal;">商品共 @Model.SalceOrderList[0].SumQTY 項</span>　合計 @Model.SalceOrderList[0].PiceSum.ToString("#,##0")<br />
+        發票金額 @Model.SalceOrderList[0].PiceSum.ToString("#,##0")</div>
+</div>
+<input type="button" value="取消" class="btn btn-close" onclick="closePopDialog();" style="padding:3px 20px" />
+<!--<input type="button" value="列印" class="btn btn-print"/>-->

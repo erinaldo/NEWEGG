@@ -1,0 +1,78 @@
+﻿@functions 
+{
+    public static string GetCssType(int storeId)
+    {
+        string BgColor = "";
+        switch (storeId)
+        {
+            ////美妝保養
+            case 1929:
+                BgColor = "3";
+                break;
+            ////保健養生
+            case 1930:
+                BgColor = "4";
+                break;
+            ////親子寵物
+            case 1928:
+                BgColor = "8";
+                break;
+            ////設計風尚
+            case 1279:
+                BgColor = "1";
+                break;
+            ////國際名品
+            case 734:
+                BgColor = "2";
+                break;
+            ////生活家電
+            case 3:
+                BgColor = "10";
+                break;
+            ////居家親子
+            case 6:
+                BgColor = "9";
+                break;
+            ////運動健身
+            case 735:
+                BgColor = "6";
+                break;
+            ////戶外休旅
+            case 7:
+                BgColor = "7";
+                break;
+            ////電腦週邊
+            case 1:
+                BgColor = "12";
+                break;
+            ////數位3C
+            case 264:
+                BgColor = "11";
+                break;
+            ////好食市集
+            case 736:
+                BgColor = "5";
+                break;
+            ////美國新蛋直購
+            case 737:
+                BgColor = "13";
+                break;
+            ////16.1.13新增城市館
+            case 2505:
+                BgColor = "14";
+                break;
+            ////尋找禮品 GQC
+            case 2509:
+                BgColor = "15";
+                break;
+            ////尋找禮品 PP
+            case 3756:
+                BgColor = "15";
+                break;
+            default:
+                BgColor = "9";
+                break;
+        }
+        return BgColor;
+    }
+}

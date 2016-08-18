@@ -1,0 +1,8 @@
+﻿<div>
+    <div>{{resx.ImgUpload}}:<button ng-click="openUploader(selected)">{{resx.ChooseFile}}</button></div>
+    <img style="max-width:200px; max-height:150px; text-align:center;" ng-src="{{selected.Path}}" />
+    圖片位置: <input type="text" ng-model="selected.Path" />
+    {{resx.ImgLink}}:<input type="text" ng-model="selected.Hyperlink" />
+    {{resx.LinkTarget}}:<select ng-model="selected.Target" ng-options="t.Target as t.Name for t in Targets"></select>
+    <input type="button" value="以原圖大小顯示" ng-click="fitOriginalSize()" />
+</div>

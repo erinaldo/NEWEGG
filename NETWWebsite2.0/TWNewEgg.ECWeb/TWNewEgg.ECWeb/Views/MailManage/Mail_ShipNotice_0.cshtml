@@ -1,0 +1,57 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+@{
+    List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput> SOList = ViewBag.SOList as List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput>;
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+}
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Header" width="795" height="68" />
+                    </div>
+                    <div>
+                        <br />
+                        @SOList.First().salesorder_name 先生/小姐，您好：
+                        <br/><br/>
+                        您的訂單: @ViewBag.LBO 已出貨
+                        <br/><br/>
+                        商品預計2個工作天內，配達到您指定的收件地址
+                        <br/><br/>
+                        請您留意配送狀況，感謝您的支持與配合
+                        <br/><br/>
+                    </div>
+                    <div>
+                        <p style="color:#f00">注意事項：</p>
+                        <p>
+                            1.請您手機暢通，待到貨時物流人員與您聯繫，以方便簽收您的商品。<br /><br />
+                            2.連續配送三次，若無人簽收或手機無法聯繫，物流將會退回原寄件人。<br /><br />
+                        </p>
+                        <br />
+                        <p>
+                            <b>建議您可於會員登入後，於「會員中心>訂單查詢>訂單狀態」內，可即時線上參考訂單的出貨狀況</b><br />
+                            <br />
+                            <br />
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                            請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Fooer" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

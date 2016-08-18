@@ -1,0 +1,201 @@
+﻿@model TWNewEgg.Models.ViewModels.Login.Login
+@*@model List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>*@
+@{
+    ViewBag.Title = "登入頁" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+@section addToFloatMenu {
+
+}
+
+
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/PswRule")
+    @Styles.Render("~/content/css/Login")
+    @Styles.Render("~/content/css/commonSimple")
+}
+@section addToTopper {
+
+}
+@section addToBottomer {
+
+}
+@section addToHeader {
+    @{Html.RenderPartial("_HeaderSimple");}
+}
+@section addToFooter {
+    @{Html.RenderPartial("_FooterSimple");}
+}
+
+
+
+<div class="loginArea">
+    <!-- Top AdvLogBanner -->
+    <div class="login_adBox" data-url="/AdvEvent/Partial_AdvLogBanner">
+         <img src="~/Themes/img/loading.gif" /> Loading ...
+    </div>
+    <!-- end of Top AdvLogBanner -->
+    <form action="/MyAccount/Login" method="post">
+        <div class="fillFormArea">
+            <div class="Tit ColorBarTit mainTitBar"><i class="icon icon-login"><img src="/Themes/img/Icon/SignInImg.png" alt="" /></i>新蛋全球生活網會員登入</div>
+            <div class="fillFormBox">
+                <div class="fillForm_contentList @(string.IsNullOrEmpty(Model.Iderro) ? "" : "errTips")">
+                    <div class="tit">帳號</div>
+                    <div class="txt">
+                        <input type="text" id="user" name="user" placeholder="請輸入e-mail" maxlength="256" value="@(Model.user)" />
+                        <span class="errMsg">@(string.IsNullOrEmpty(Model.Iderro) ? "" : Model.Iderro)</span>
+                    </div>
+                </div>
+                <div class="fillForm_contentList @(string.IsNullOrEmpty(Model.Pwderro) ? "" : "errTips")">
+                    <div class="tit">密碼</div>
+                    <div class="txt">
+                        <input type="password" id="pass" name="pass" placeholder="6-16碼數字或英文字母混合" value="@(Model.pass)" />
+                        <span class="errMsg">@(string.IsNullOrEmpty(Model.Pwderro) ? "" : Model.Pwderro)</span>
+                    </div>
+                </div>
+
+                @if (Model.rytm)
+                {
+                <div class="fillForm_contentList">
+                    <div class="tit">驗證碼</div>
+                    <div class="txt">
+                        <div id="googlecaptcha"></div>
+                        <input type="hidden" id="gcap" name="gcap" value=""/>
+                    </div>
+                </div>
+                }
+
+                <div class="tipsRemember">
+                    <label>
+                        <input id="remb" name="remb" type="checkbox" value="@(Model.remb)" checked="checked" />記住我
+                    </label>
+                </div>
+                <div class="tipsForgot"><a href="/MyAccount/ForgetPassword">忘記密碼？</a></div>
+                <input type="submit" value="登入" class="btn btn-login"  />
+                <span>
+                    <input type="button" value="Facebook" class="btn btn-fb halfWidthBtn" onclick="checkFBStatus();" style="display:none;"/>
+                    <input type="button" value="非會員" id="GuestLogin"  style="display:none;" class="btn btn-nonMember halfWidthBtn" onclick="location.href = '/MyAccount/GuestLogin'"/>
+                </span>
+                <div class="clear"></div>
+                <hr class="grayStyle" />
+
+                還不是會員嗎？
+                <input type="button" value="加入會員" class="btn btn-register" onclick="location.href = '/MyAccount/Signup'" />
+
+                <input type="hidden" id="ratm" name="ratm" value="@(Model.ratm)"/>
+                <input type="hidden" id="type" name="type" value="@(Model.type)"/>
+                <input type="hidden" id="acty" name="acty" value="@(Model.acty)"/>
+                <input type="hidden" id="returnUrl" name="returnUrl" value="@(ViewBag.ReturnUrl)"/>
+
+            </div>
+        </div>
+    </form>
+    <div class="tipsConnect">
+        <a href="mailto:service@newegg.com.tw">聯絡客服</a>
+        <hr class="verticalDir" />
+        <a href="/Policies/Member" target="_blank">服務條款</a>
+        <hr class="verticalDir" />
+        <a href="/Policies/Privacy" target="_blank">隱私權政策</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+    @*載入PartialView*@
+    $(document).ready(function (e) {
+        $(".login_adBox").each(function (index, item) {
+            var url = $(item).data("url");
+            if (url && url.length > 0) {
+                $(item).load(url);
+            }
+        });
+    });
+</script>
+
+@section refScripts{
+    @if (Model.rytm)
+    {
+        <script src="https://www.google.com/recaptcha/api.js?hl=zh-TW&render=explicit" async defer></script>
+        <script type="text/javascript" src="/Scripts/NETW/netw-grcaptcha-1.0.0.js" async defer></script>
+    }
+}
+@section scripts{
+    @if (Model.rytm)
+    {
+        <script>
+
+
+            var verifyCallback = function (reponse) {
+                $("#gcap").val(reponse);
+                //ga('send', 'event', 'login', 'validatecode', 'click');
+            };
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=695768887110336";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+            function checkFBStatus() {
+                FB.init({
+                    appId: '695768887110336',                        // App ID from the app dashboard
+                    channelUrl: '//WWW.neweegg.com.tw/', // Channel file for x-domain comms
+                    status: true,                                 // Check Facebook Login status
+                    xfbml: true,                                  // Look for social plugins on the page
+                    cookie: true,
+                    oauth: true
+                });
+
+                FB.login(function (response) {
+                    if (response.status == "connected") {  // 程式有連結到 Facebook 帳號
+                        var uid = response.authResponse.userID; // 取得 UID
+                        FB.api("/me", "GET", function (response) {
+                            var email = response.email;
+                            var strReturnUrl = $('#returnUrl').attr("value");
+                            if (typeof (strReturnUrl) == "undefined")
+                                strReturnUrl = "";
+                            else
+                                strReturnUrl = strReturnUrl.replace(/"/g, "")
+                            var jsonString = '{"user" : "' + email + '" , "ouid": "' + uid + '", "returnUrl" : "' + strReturnUrl + '", "type" : "facebook"}';
+
+                            $.ajax({
+                                url: '/Login/Facebook',
+                                data: JSON.parse(jsonString),
+                                type: 'POST',
+                                //dataType: 'json',
+                                success: function (Jdata) {
+                                    //alert(JSON.stringify(Jdata));
+                                    var oType = JSON.parse(JSON.stringify(Jdata));
+                                    //alert(JSON.stringify(Jdata));
+                                    if (oType.type == "success") {
+                                        if (oType.newegg == "false" && oType.first == "true")
+                                            location.href = oType.redirect;
+                                        else
+                                            location.href = oType.returnUrl;
+                                    }
+                                    else
+                                        alert('您使用FB帳號登入無法與會員帳號比對，請重新申請會員！');
+                                },//success
+                                error: function (Jdata) {
+                                    alert("error:" + Jdata.error);
+                                }//error
+                            });
+                        });
+
+                    } else if (response.status == "not_authorized") {  // 帳號沒有連結到 Facebook 程式
+                        alert("請允許授權！");
+                    } else {    // 帳號沒有登入
+                        // 在本例子中，此段永遠不會進入...XD
+                    }
+                }, { scope: "email, user_about_me" });
+            };
+
+            $(window).load(function () {
+                initGreCaptcha('googlecaptcha', verifyCallback, 'light', 'image');
+            });
+        </script>
+    }
+}

@@ -1,0 +1,16 @@
+﻿@model List<TWNewEgg.Models.ViewModels.HotWords.HotWords>
+
+@{
+}
+<div class="keyword">
+    <ul>
+        @if(Model != null && Model.Count > 0)
+        {
+            foreach(TWNewEgg.Models.ViewModels.HotWords.HotWords objHotWords in Model)
+            {
+                <li class="word"><a href="@objHotWords.Clickpath">@objHotWords.Description</a></li>
+            }
+        }
+    </ul>
+    <div style="clear:both;"></div>
+</div>

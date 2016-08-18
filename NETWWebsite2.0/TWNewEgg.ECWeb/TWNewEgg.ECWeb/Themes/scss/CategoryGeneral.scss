@@ -1,0 +1,316 @@
+//compileCompressed: ../css/CategoryGeneral.css, includePath: includes/
+@import "compass";
+@import "_importSCSS";
+
+.content {
+	@media screen and (max-width: 1280px) {
+		margin-left:52px;
+	}
+}
+.content {
+	@media screen and (max-width: 1024px) {
+		margin-left:22px;
+	}
+}
+
+.categoryBanner {
+	// margin-bottom:30px;
+
+	width:$RWDMaxWidth;
+	@media screen and (max-width: 1280px) {
+		width:$RWDMinWidth;
+	}
+	.list .box {
+		@media screen and (max-width: 1280px) {
+			width:30%;
+			margin:0 1%;
+		}
+	}
+}
+
+select {
+	/*padding-right:30px;*/
+}
+.categoryTopBar {
+	@include clearAfter;
+}
+
+.CategoryArea {
+	@include clearAfter;
+	$aside2Width:206px;
+	.aside2 {
+		/*屬性篩選*/
+		float:left;
+		width:$aside2Width;
+	}
+	.subCategory {
+		/*float:right;
+		width:($RWDMaxWidth - $aside2Width);*/
+		@media screen and (max-width: 1280px) {
+			width:($RWDMinWidth - $aside2Width);
+		}
+		.box {
+			/*不需要RWD效果 直接以3欄呈顯*/
+			/*width:24%;
+			margin-left:0.75%;
+			@media screen and (max-width: 1280px) {*/
+				width:32%;
+				margin-left:1%;
+			/*}*/
+		}
+	}
+}
+
+
+
+//select UI refactor and settings.
+.pathLink {
+	height: 27px;
+	line-height: 27px;
+}
+
+.pathLink .selectText {
+	position: relative;
+	display:inline-block;
+	top: 8px;
+	width: 200px;
+	height: 26px;
+	margin:0 5px;
+	padding-right: 25px;
+	border: 1px solid #ccc;
+	background: #fff;
+	cursor: pointer;
+
+	&:before {
+		position: absolute;
+		content:"";
+		display: block;
+		top:1px;
+		right: 2px;
+		width: 25px;
+		height: 25px;
+		overflow: hidden;
+		background: url(/Themes/img/Icon/SelectImg.png) center no-repeat;
+	}
+
+
+	span {
+		position: relative;
+		left:0;
+		top:0;
+		display: inline-block;
+		width: 91.5%;
+		height: 26px;
+		padding: 0 5px;
+		border-right: 1px solid #ccc;
+
+		line-height: 26px;
+		@include ellipsis;
+
+	}
+
+	.selectLists {
+		position: absolute;
+		z-index: 101;
+		top:26px;
+		left:-1px;
+		width: 100%;
+		height: auto;
+		padding: 5px 0;
+		border: 1px solid #ccc;
+		overflow: hidden;
+
+
+		background: #fff;
+
+		li {
+			display: inline-block;
+			width: 100%;
+			height: 25px;
+			padding:0 5px;
+			line-height:25px;
+
+			&:hover { background: #ececec; }
+		}
+	}
+
+}
+
+//project-task: [WMTWNOR-3015]CSS切版
+//writer: vincent.c.su
+//write-date: 2015/12/01
+//sampleAddress: http://localhost:50118/Category?CategoryID=1195[可測試標題]
+//describe: 商品列表頁上方輪播模組設計製作
+
+.categoryBanner.banner2 { margin-bottom:0; }
+
+div#starItemTitle {
+	position: relative;
+	left:-1px;
+	width: 1176px;
+	padding: 2.5px 0 2.5px 5px;
+	color: #fff;
+	letter-spacing: 0.5px;
+}
+
+
+.categoryPushModules {
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+
+	&.pushBannerModule,
+	&.pushBannerModule > a,
+	&.pushBannerModule > a img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-bottom:0;
+	}
+}
+
+.categoryPushSlider {
+	position: relative;
+	width: 100%;
+	height: auto;
+//project-task: [WMTWNOR-3145]次分類頁Banner高度與需求不符
+//writer: Ian.Y.Chiu
+//write-date: 2015/12/22
+//describe: height 410
+	& > .sliderContent {
+		position: relative;
+		width: 1174px;
+		height: 410px;
+		border-width: 0 1px;
+		border-style: solid;
+		border-color: #ccc;
+	}
+
+	& > .sliderContent .modules {
+		position: absolute;
+		left:0;
+		top:0;
+		display: none;
+		width: 100%;
+		height: 100%;
+		overflow:hidden;
+
+		@include pie-clearfix;
+
+		&:first-child { display: block; }
+	}
+
+
+	& > .tab {
+		position: absolute;
+		left: 1px;
+		bottom: 0;
+	}
+
+	& > .tab,
+	& > .tab ul {
+		@include pie-clearfix;
+		display: block;
+		width: 1174px;
+		height: 36px;
+		background-color: rgba(0,0,0,0.2);
+	}
+
+	& > .tab ul li {
+		position: relative;
+		@include float(left);
+		display: block;
+		width: 20%;
+		height: 100%;
+
+		a {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 100%;
+			border-bottom: 0px;
+
+			font-size: 16px;
+			line-height: 36px;
+			text-align: center;
+			color: #fff;
+			@include ellipsis;
+		}
+
+		&:before {
+			position: absolute;
+			z-index: 3;
+			top: -7px;
+			left: 50%;
+			display: none;
+			content: "";
+			width: 0;
+			height: 0;
+			margin-left: -7.5px;
+
+			border-style: solid;
+			border-width: 0 7.5px 8px 7.5px;
+			border-color: transparent transparent #333 transparent;
+		}
+
+		&.selected {
+			&:before { display: block; }
+			a {
+				background: #333;
+				color: #fff;
+			}
+		}
+	}
+}
+
+
+//pushProducts
+.pushProducts {
+	&,
+	& > ul {
+		height: 100%;
+		overflow: hidden;
+		@include pie-clearfix;
+	}
+
+	& > ul > li:first-child { border-left:0px; }
+
+	.box {
+		width: 24.9%;
+		border-width: 0 0 0 1px;
+//project-task: [WMTWNOR-3145]次分類頁Banner高度與需求不符
+//writer: Ian.Y.Chiu
+//write-date: 2015/12/22
+//describe: vertical align at items show.
+		margin: 46px 0 46px 0;
+
+		.pic {
+			width: 200px;
+			height: 200px;
+		}
+
+		a { border-bottom:0; }
+	}
+
+}
+
+//pushBanner
+.pushBanner {
+	&,
+	& > a {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+
+		@include pie-clearfix;
+	}
+
+	& > a { border-bottom: 0px; }
+
+	img {
+		width: 100%;
+		height: 100%;
+	}
+
+
+}

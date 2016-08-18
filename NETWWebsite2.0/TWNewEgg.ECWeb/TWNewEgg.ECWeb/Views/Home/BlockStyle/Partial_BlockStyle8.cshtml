@@ -1,0 +1,14 @@
+﻿@using TWNewEgg.Models.DomainModels.Home
+@model WindowBlock
+@if (Model != null && Model.CellList.Count >= 2)
+{
+    string cssType = !string.IsNullOrEmpty((string)ViewData["cssType"]) ? (string)ViewData["cssType"] : "1";
+    
+    <div class="@HomeShareFuns.GenerateBoxStyleClass("box17", Model.CellList[0].Type, cssType)">
+        @Html.Partial("Cell/Partial_Cell" + Model.CellList[0].Type, Model.CellList[0])
+    </div>
+    <div class="@HomeShareFuns.GenerateBoxStyleClass("box6", Model.CellList[1].Type, cssType)">
+        @Html.Partial("Cell/Partial_CellUsGroupList", Model.CellList[1])
+    </div>
+
+}

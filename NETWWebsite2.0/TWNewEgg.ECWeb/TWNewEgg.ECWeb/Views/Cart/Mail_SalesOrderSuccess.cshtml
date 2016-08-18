@@ -1,0 +1,336 @@
+﻿@model List<TWNewEgg.Website.ECWeb.Models.ResultCart>
+
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+
+@{
+    decimal TotalPriceSum = ViewBag.TotalPriceSum;
+    string ArrivalTime = ViewBag.ArrivalTime;
+    List<decimal> InterShip = ViewBag.InterShip as List<decimal>;
+    TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput UserData = ViewBag.UserData as TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput;
+    List<string> Seller = Model.Select(x => x.itemSeller).Distinct().ToList();
+    Dictionary<string, int> rowSpan = ViewBag.rowSpan as Dictionary<string, int>;
+    Dictionary<string, decimal> shippingCosts = ViewBag.shippingCosts as Dictionary<string, decimal>;
+    var rowNum = 0;
+    var sellerName = "";
+    var Header = ViewBag.tt + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.tt + "/Themes/2013/img/footer.png";
+}
+<style>
+    table {border-collapse: collapse;}
+    table.OrderTable td {vertical-align:middle;text-align:center;padding: 0 5px;border:1px solid #000;}
+    table.OrderTable th {vertical-align:middle;text-align:center;padding: 0 5px;border:1px solid #000;}
+</style>
+<html>
+    <body>
+        <table width="860" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <!-- <img src="/Themes/2013/img/header.png" width="795" height="113" /> -->
+                        <img src="@Header" width="860" height="68" />
+                    </div>
+                    <div>
+                        @UserData.salesorder_name 先生/小姐，您好：
+                        <br/><br/>
+                        感謝您的訂購，您訂購的商品明細如下：
+                        <br/><br/>
+                        訂單編號：@UserData.salesorder_code <br/><br/>
+                    </div>
+                    <div>
+                        <table  width="860" border="1" class="OrderTable">
+                            <tr >
+                                <th width="50" style="background-color:#ccc">區域</th>
+                                <th width="210" style="background-color:#ccc">商品品項</th>
+                                <th width="95" style="background-color:#ccc">產品規格</th>
+                                <th width="65" style="background-color:#ccc">原產地售價</th>
+                                <th width="50" style="background-color:#ccc">台幣售價</th>
+                                <th width="50" style="background-color:#ccc">數量</th>
+                                @if (!ViewBag.isOverSea)
+                                {
+                                    <th width="30" style="background-color:#ccc">稅賦</th>
+                                }
+                                <th width="50" style="background-color:#E5A0A0">商品小計</th>
+                                @if (!ViewBag.isOverSea)
+                                {
+                                    <th width="60" style="background-color:#E5A0A0">區域小計</th>
+                                }
+                                <th width="60" style="background-color:#E5A0A0">國際運費</th>
+                                <th width="60" style="background-color:#E5A0A0">區域總計</th>
+                            </tr>
+                            @if (ViewBag.isOverSea)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    rowNum = item.itemList.Count + 1;
+
+                                    <tr id="@(item.itemID)">
+                                        @if (sellerName != item.itemSeller)
+                                        {
+                                            <th name="seller_@(item.itemID)" rowspan="@(rowNum)" style="background-color:#ccc">
+                                                @Html.Raw(item.itemSeller)
+                                            </th>
+                                        }
+                                        <td name="name_@(item.itemID)">
+                                            @Html.ActionLink(item.itemName, "ItemDetail", "Item", new { item_id = item.itemID }, "")
+                                        </td>
+                                        <td name="attr_@(item.itemID)">
+                                            @Html.Raw(item.itemAttribname)
+                                        </td>
+                                        <td name="localprice_@(item.itemID)">
+                                            @Html.Raw(item.itemLocalprice.Replace("\"", ""))
+                                        </td>
+                                        <td name="twprice_@(item.itemID)">
+                                            @Html.Raw(item.itemTWprice)
+                                        </td>
+                                        <td name="qty_@(item.itemID)">
+                                            @Html.Raw(item.itemQty)
+                                        </td>
+                                        <td name="pricesum_@(item.itemID)">
+                                            @Html.Raw(item.itemTWprice * item.itemQty)
+                                        </td>
+
+                                        @if (sellerName != item.itemSeller)
+                                        {
+                                            <td name="shipping_@(item.itemID)" rowspan="@(rowNum)">
+                                                @Html.Raw(shippingCosts[item.itemID.ToString()].ToString())
+                                            </td>
+                                            <td name="statesum_@(item.itemID)" rowspan="@(rowNum)">
+                                                @Html.Raw(item.statesPricesum)
+                                            </td>
+                                        }
+                                    </tr>
+                                    foreach (var itemlist in item.itemList)
+                                    {
+                                        <tr id="@itemlist.itemID">
+                                            <td name="listName_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                <div class ="check" style="display:inline; float:left">@Html.Raw(itemlist.itemType)</div>
+                                                @Html.Raw(itemlist.itemName)
+                                            </td>
+                                            <td name="listAttr_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.itemAttribname)
+                                            </td>
+                                            <td name="listLocal_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.itemLocalprice.Replace("\"", ""))
+                                            </td>
+                                            <td name="listTW_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.itemTWprice)
+                                            </td>
+                                            <td name="listQty_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.itemQty)
+                                            </td>
+                                            <td name="listPSum_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.itemTWprice * itemlist.itemQty)
+                                            </td>
+                                        </tr>
+                                    }   
+                                    sellerName = item.itemID.ToString();
+                                }
+                            }
+                            else
+                            {
+                                foreach (var item in Model)
+                                {
+                                    if (rowSpan.ContainsKey(item.itemSeller))
+                                    {
+                                        rowNum = rowSpan[item.itemSeller];
+                                    }
+                                    <tr id="@(item.itemID)">
+                                        @if (sellerName != item.itemSeller)
+                                        {
+                                            <th name="seller_@(item.itemID)" rowspan="@(rowNum)" style="background-color:#ccc">
+                                                @Html.Raw(item.itemSeller)
+                                            </th>
+                                        }
+                                        <td name="name_@(item.itemID)">
+                                            @Html.ActionLink(item.itemName, "ItemDetail", "Item", new { item_id = item.itemID }, "")
+                                        </td>
+                                        <td name="attr_@(item.itemID)">
+                                            @Html.Raw(item.itemAttribname)
+                                        </td>
+                                        <td name="localprice_@(item.itemID)">
+                                            @Html.Raw(item.itemLocalprice.Replace("\"", ""))
+                                        </td>
+                                        <td name="twprice_@(item.itemID)">
+                                            @Html.Raw(item.itemTWprice)
+                                        </td>
+                                        <td name="qty_@(item.itemID)">
+                                            @Html.Raw(item.itemQty)
+                                        </td>
+
+                                        <td name="itemtax_@(item.itemID)">
+                                            @Html.Raw(item.itemTax)
+                                        </td>
+                                        <td name="pricesum_@(item.itemID)">
+                                            @Html.Raw(item.priceSum)
+                                        </td>
+                                        @if (sellerName != item.itemSeller)
+                                        {
+                                            <td name="stateprice_@(item.itemID)" rowspan="@(rowNum)">
+                                                @Html.Raw(item.statesPrice)
+                                            </td>
+                                            <td name="shipping_@(item.itemID)" rowspan="@(rowNum)">
+                                                @Html.Raw(shippingCosts[item.itemSellerID.ToString()].ToString())
+                                            </td>
+                                            <td name="statesum_@(item.itemID)" rowspan="@(rowNum)">
+                                                @Html.Raw(item.statesPricesum)
+                                            </td>
+                                        }
+                                    </tr>
+                                    foreach (var itemlist in item.itemList)
+                                    {
+                                        <tr id="@itemlist.itemID">
+                                            <td name="listName_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                <div class ="check" style="display:inline; float:left">@Html.Raw(itemlist.itemType)</div>
+                                                @Html.Raw(itemlist.itemName)
+                                            </td>
+                                            <td name="listAttr_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.itemAttribname)
+                                            </td>
+                                            <td name="listLocal_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.itemLocalprice.Replace("\"", ""))
+                                            </td>
+                                            <td name="listTW_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.itemTWprice)
+                                            </td>
+                                            <td name="listQty_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.itemQty)
+                                            </td>
+
+                                            <td name="listTax_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.itemTax)
+                                            </td>
+                                            <td name="listPSum_@(item.itemID)_@(itemlist.itemID)" class="addBuy">
+                                                @Html.Raw(itemlist.priceSum)
+                                            </td>
+                                        </tr>
+                                    }
+                                    sellerName = item.itemSeller;
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div style="text-align:right; width:860px;">
+                        <b>應付金額 台幣&nbsp;<span style="color:#f00">NT$ @TotalPriceSum </span></b>
+                    </div>
+                    <br/>
+                    @{
+                        if (!ViewBag.isOverSea)
+                        {
+                            <div>
+                                <div>訂購人資訊</div>
+                                <table width="100%" border="1">
+                                    <tr>
+                                        <td width="150">姓名：</td>
+                                        <td>@UserData.salesorder_name </td>
+                                    </tr>
+                                    <tr>
+                                        <td>電話：</td>
+                                        <td>
+                                            手機：@UserData.salesorder_mobile 
+                                            &nbsp;&nbsp;&nbsp;
+                                            市話：@UserData.salesorder_telday
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>地址：</td>
+                                        <td>@UserData.salesorder_cardloc
+                                            &nbsp;
+                                            @UserData.salesorder_cardaddr
+                                            &nbsp;
+                                            郵遞區號：@UserData.salesorder_cardzip
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br/>
+                            <div>
+                                <div>收件人資訊</div>
+                                <table width="100%" border="1">
+                                    <tr>
+                                        <td width="150">姓名：</td>
+                                        <td>@UserData.salesorder_recvname </td>
+                                    </tr>
+                                    <tr>
+                                        <td>電話：</td>
+                                        <td>手機：@UserData.salesorder_recvmobile 
+                                            &nbsp;&nbsp;&nbsp;
+                                            市話：@UserData.salesorder_recvtelday 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>地址：</td>
+                                        <td>@UserData.salesorder_delivloc 
+                                            &nbsp;
+                                            @UserData.salesorder_delivaddr 
+                                            &nbsp;
+                                            郵遞區號：@UserData.salesorder_delivzip 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>希望收貨時段：</td>
+                                        <td>@ArrivalTime </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <div>訂購人暨收件人資訊</div>
+                                <table width="100%" border="1">
+                                    <tr>
+                                        <td width="150">姓名：</td>
+                                        <td>@UserData.salesorder_name </td>
+                                    </tr>
+                                    <tr>
+                                        <td>電話：</td>
+                                        <td>
+                                            手機：@UserData.salesorder_mobile 
+                                            &nbsp;&nbsp;&nbsp;
+                                            市話：@UserData.salesorder_telday
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>地址：</td>
+                                        <td>@UserData.salesorder_cardloc
+                                            &nbsp;
+                                            @UserData.salesorder_cardaddr
+                                            &nbsp;
+                                            郵遞區號：@UserData.salesorder_cardzip
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>希望收貨時段：</td>
+                                        <td>@ArrivalTime </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        }
+                    }
+                    <div>
+                        <br/>
+                        <p>
+                            訂單確認後，除特殊原因外，一般商品會在3個工作天內送達您指定的地點。<br />
+                            若有不可抗力之因素延長送貨時間，將會有我們的客服聯絡您。<br /><br />
+                        </p>
+                        <p style="color:#f00">注意事項：</p>
+                        <p>
+                            1.貨物委由新竹貨運運送，商品送達時同時委由新竹貨運代收商品的全額貨款。<br />
+                            2.因為付款方式為貨到付款，請務必在約定收貨時間內確定有人收貨付款。<br /><br /><br /><br /><br /><br />
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                            請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                        </p>
+                    </div>
+                    <div>
+                        <!-- <img src="/Themes/2013/img/footer.png" width="795" height="108" /> -->
+                        <img src="@Fooer" width="860" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

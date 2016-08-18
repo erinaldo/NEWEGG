@@ -1,0 +1,223 @@
+﻿@charset "UTF-8";
+.clear {
+  clear: both;
+}
+
+/*左側篩選列表*/
+.filterList {
+  margin-bottom: 10px;
+  /*border:1px solid #d5d5d5;*/
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.filterList .head {
+  background-color: #e6e6e6;
+  border: 1px solid #d5d5d5;
+  line-height: 46px;
+  text-indent: 10px;
+  font-size: 22px;
+  color: #5e5e63;
+  margin-top: 28px;
+}
+.filterList .head .headAll {
+  float: right;
+  margin: 10px;
+  width: 20px;
+  height: 20px;
+  border: thin solid #000;
+  line-height: 18px;
+  text-indent: 0;
+  text-align: center;
+  cursor: pointer;
+}
+.filterList .head .headAll.open {
+  background-color: #ccc;
+}
+.filterList .head .headAll.close {
+  background-color: #fff;
+}
+.filterList .groupList {
+  border: 1px solid #d5d5d5;
+  border-top: 0;
+}
+.filterList .groupTit {
+  padding: 5px 0;
+  cursor: pointer;
+}
+.filterList .groupTit:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.filterList .groupTit .tit {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  float: left;
+  width: 160px;
+  height: 24px;
+  font-size: 18px;
+  color: #373D3F;
+  line-height: 22px;
+}
+.filterList .groupTit .num {
+  float: right;
+  margin: 4px 3px 0 0;
+  color: #666;
+}
+.filterList .groupTit .num span {
+  width: 64px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.filterList .groupTit .showArrow {
+  float: left;
+  margin: 0 5px;
+  padding: 12px;
+}
+.filterList .groupTit .showArrow.top, .filterList .groupTit .showArrow.open {
+  background: url(/Themes/img/Icon/GrayaArowUpDown.png) no-repeat 0 6px;
+  /*@include rotate(90deg);*/
+}
+.filterList .groupTit .showArrow.down, .filterList .groupTit .showArrow.close {
+  background: url(/Themes/img/Icon/GrayaArowUpDown.png) no-repeat 0 -19px;
+  /*@include rotate(-90deg);*/
+}
+.filterList .list {
+  display: none;
+}
+.filterList .list li {
+  padding: 10px 3px;
+  line-height: 24px;
+  font-size: 16px;
+  color: #373D3F;
+}
+.filterList .list li:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.filterList .list li input[type="checkbox"] {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin-right: 7px;
+}
+.filterList .list li .subTit, .filterList .list li .subTitNoCut {
+  float: left;
+  width: 110px;
+}
+.filterList .list li .subTitLong {
+  width: 160px;
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.filterList .list li .subTit {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.filterList .list li .subTitNoCut {
+  word-wrap: break-word;
+  word-break: normal;
+}
+.filterList .list li:first-child {
+  border-top: 1px solid #d5d5d5;
+}
+.filterList .list .subNum {
+  float: right;
+}
+.filterList .list .subNum > span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  float: left;
+  display: block;
+}
+
+.subCategory-ad {
+  width: 206px;
+  margin-bottom: 10px;
+}
+.subCategory-ad a {
+	border:0;
+}
+.subCategory-ad img {
+	width:206px;
+}
+
+/*右側區塊與RWD*/
+.subCategory, .searchListArea {
+  float: right;
+  width: 955px;
+}
+@media screen and (max-width: 1280px) {
+  .subCategory, .searchListArea {
+    width: 783px;
+  }
+}
+
+/*右側排序圖示*/
+.navOrder {
+  float: right;
+  margin-bottom: 10px;
+}
+.navOrder:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.navOrder .orderList {
+  float: left;
+  padding-left: 10px;
+  margin-left: 10px;
+  height: 16px;
+  border-left: 0 solid #666;
+  line-height: 16px;
+  cursor: pointer;
+}
+.navOrder .orderList + .orderList {
+  border-width: 1px;
+}
+.navOrder .orderList:hover, .navOrder .orderList.active {
+  color: #f37225;
+}
+.navOrder .orderList:hover i.icon, .navOrder .orderList.active i.icon {
+  background-image: url(/Themes/img/filter-icon-hover.png);
+}
+.navOrder i.icon {
+  margin-top: -3px;
+  margin-right: 5px;
+  float: left;
+  width: 25px;
+  height: 25px;
+  background-image: url(/Themes/img/filter-icon.png);
+  background-repeat: no-repeat;
+}
+.navOrder i.icon.new {
+  background-position: 0 0;
+}
+.navOrder i.icon.hot {
+  background-position: 0 -50px;
+}
+.navOrder i.icon.recom {
+  background-position: 0 -100px;
+}
+.navOrder i.icon.priceH {
+  background-position: 0 -150px;
+}
+.navOrder i.icon.priceL {
+  background-position: 0 -200px;
+}
+.navOrder span {
+  float: left;
+}

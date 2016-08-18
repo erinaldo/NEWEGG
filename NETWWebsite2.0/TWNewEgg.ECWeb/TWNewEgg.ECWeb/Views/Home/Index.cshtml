@@ -1,0 +1,511 @@
+﻿@using TWNewEgg.Models.DomainModels.Home
+@model HomeStoreInfo
+@{
+    ViewBag.Title = "新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section bodyStartJSTracking{
+
+    @*iProspect feeds start*@
+    <script type='text/javascript'>
+        dataLayer.push({
+            'sitetype': 'd'//,
+            //'emailMD5': '32312c1b6865d1adf04f79e2b731a49e',
+            //'emailSHA': '32312c1b6865d1adf04f79e2b731a49e'
+        });
+    </script>
+    @*iProspect feeds end*@
+    @*criteo feeds start*@
+    <script type='text/javascript'>
+        dataLayer.push({
+            'PageType': 'HomePage',
+            'email': '' + twNewegg().loginMail()
+        });
+    </script>
+    @*criteo feeds end*@
+
+}
+
+@section addToFloatMenu {
+
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/index")
+    @Styles.Render("~/content/css/custom")
+    @Styles.Render("~/content/css/rwd")
+    @Styles.Render("~/content/css/rwdGeneral")
+    @Styles.Render("~/content/css/mainMenu")
+    @Styles.Render("~/content/css/indexGeneral")
+    @Styles.Render("~/content/css/Style_product")
+    <style>
+        .section .combobox,
+        .section .combobox .box1, 
+        .section .combobox .box2, 
+        .section .combobox .box3, 
+        .section .combobox .box4, 
+        .section .combobox .box5, 
+        .section .combobox .box6, 
+        .section .combobox .box7, 
+        .section .combobox .box8, 
+        .section .combobox .box9, 
+        .section .combobox .box10, 
+        .section .combobox .box11, 
+        .section .combobox .box12, 
+        .section .combobox .box13, 
+        .section .combobox .box14, 
+        .section .combobox .box15, 
+        .section .combobox .box16, 
+        .section .combobox .box17,
+        .section .combobox2 .box1, 
+        .section .combobox2 .box2, 
+        .section .combobox2 .box3, 
+        .section .combobox2 .box4, 
+        .section .combobox2 .box5, 
+        .section .combobox2 .box6, 
+        .section .combobox2 .box7, 
+        .section .combobox2 .box8, 
+        .section .combobox2 .box9, 
+        .section .combobox2 .box10, 
+        .section .combobox2 .box11, 
+        .section .combobox2 .box12, 
+        .section .combobox2 .box13, 
+        .section .combobox2 .box14, 
+        .section .combobox2 .box15, 
+        .section .combobox2 .box16, 
+        .section .combobox2 .box17 {
+            overflow:hidden;
+        }
+        body {
+            background-color:#f2f2f2;
+        }
+    </style>
+}
+
+<!--[if lt IE 9]>
+    <script src="/Scripts/RWD/js/css3-mediaqueries.js" type="text/javascript"></script>
+    <script src="/Scripts/RWD/js/html5shiv.js" type="text/javascript"></script>
+    <script src="/Scripts/RWD/rem.js" type="text/javascript"></script>
+    <script src="/Scripts/RWD/js/respond.js" type="text/javascript"></script>
+    <script src="/Scripts/RWD/selectivizr.js" type="text/javascript"></script>
+<![endif]-->
+
+@section scripts{
+    @*<script src="/Scripts/RWD/jquery.js" type="text/javascript"></script>*@
+    <script src="/Scripts/RWD/nav.js" type="text/javascript"></script>   
+    <script src="/Scripts/RWD/jquery.carouFredSel-5.5.0-packed.js" type="text/javascript"></script>
+    @Scripts.Render("~/Scripts/NETW/netw-home-1.0.0.0.js")
+
+    <script>
+        $(".pullDown").load('@(Url.Action("GetLeftMenu"))');
+        var logoItems = 8;
+        var runCarousel = function () {
+            if ($(document).width() < 1280) {
+                logoItems = 6;
+            } else {
+                logoItems = 8;
+            }
+            //Logo wall effects.
+            $('.carousel-logo-index').each(function () {
+                var prev = $(this).find('a.prev');
+                var next = $(this).find('a.next');
+                var elem = $($(this).find('ul'));
+                elem.trigger("destroy", true);
+                elem.carouFredSel({
+                    circular: false,
+                    infinite: false,
+                    width: 1094,
+                    height: 85,
+                    items: logoItems,
+                    align: "left",
+                    prev: {
+                        button: prev,
+                        onBefore: function () {
+                            next.show();
+                        },
+                        onEnd: function (direction) {
+                            prev.hide();
+                        }
+                    },
+                    next: {
+                        button: next,
+                        onBefore: function () {
+                            prev.show();
+                        },
+                        onEnd: function () {
+                            next.hide();
+                        }
+                    },
+                    auto: false
+                });
+                prev.hide();
+            });
+        }
+        
+        $(window).resize(function () {
+            runCarousel();
+        });
+        runCarousel();
+    </script>
+}
+
+<div>
+    <section class="section">
+        <!-- Nav -->
+        <div class="pullDown">
+        </div>
+        <!-- Nav end -->
+        <!-- Top AdvLeftTopBanner -->
+        <div class="banner-ad2" name="advBannerTopLeft" data-url="/AdvEvent/Partial_AdvLeftTopBanner">
+            <img src="~/Themes/img/loading.gif" /> Loading ...
+        </div>
+        <!-- end of Top AdvLeftTopBanner -->
+
+        <!-- Top Banner -->
+        <div class="banner" name="advBannerTopCenter" data-url="/Home/GetTopAdvertise" style="text-align:center; line-height:350px;">
+            <img src="~/Themes/img/loading.gif" /> Loading ...
+        </div>
+        <!-- end of TopBanner -->
+
+        <!-- Top AdvRightTopBanner -->
+        <div class="IndexRightBanner" name="advBannerTopRight" data-url="/AdvEvent/Partial_AdvRightTopBanner">
+            <div class="bannerLoad"><img src="~/Themes/img/loading.gif" /> Loading ...</div>
+        </div>
+        <!-- end of Top AdvRightTopBanner -->
+
+    </section>
+
+
+    <div class="indexBoxArea">
+        <!-- NeweggFlash -->
+         <aside class="limitedArea" onclick="location.href='/Flash'">
+            @*<div class="tit"><img src="/Themes/img/limitedIcon.png" />天天閃購</div>*@
+             
+            @* ↓↓↓2016/4/25-5/1限時優惠↓↓↓ *@
+            <style>.limitedArea .tit,.limitedArea .limited{border-color:#ee2e27}.limitedArea .limited .box .MoreProduct{background:#f15852}</style>
+            <div class="tit" style="background:url(/Themes/img/limitedAreaBG_1605.jpg) no-repeat -1px top;border-color:#ee2e27"><img src="/Themes/img/limitedIcon.png" />限時優惠</div>
+            @* ↑↑↑2016/4/25-5/1限時優惠↑↑↑ *@
+
+            <div class="limited">
+                <div class="box">
+                    <div class="discount"><p><span id="discount" ></span>折</p></div>
+                    
+                    <div class="TimeHeight">
+                        <div class="Time">
+                            <p id="show_countdown" class="countdown" name="timeleft"  begindate="2015/09/09 11:00:00 AM" enddate="2015/09/10 10:59:39 AM">
+                                <!--<span class="countdowntxt">倒數</span>
+                                <span class="hour">17</span>
+                                    <span>:</span>
+                                <span class="minute">09</span>
+                                <span>:</span>
+                                <span class="second">09</span>
+                                    -->
+                            </p>
+                            <span class="countdowntxt">倒數</span>
+                        </div>@*倒數*@
+                    </div>
+                    
+                    <div id="gbPic" class="pic"><a href="/Flash"></a></div>
+                    <div class="txt">
+                        <a href="/Flash">
+                            <h3 id="gbName" title=""></h3>
+                            <span id="gbPrice" class="price"></span>
+                            <span id="gbOPrice" class="marketPrice"></span>
+                        </a>
+                    </div>
+                    <div class="MoreProduct">
+                        <span class="doublearrow"></span>
+                        <p>更多優惠商品</p>
+                </div>
+            </div>
+            </div>
+        </aside>
+        <!-- end of NeweggFlash -->
+
+        <!-- Grid Banner -->
+        <div class="banner-adv" name="advBannerGrid" data-url="/Home/GetGridAdvertise" style="text-align:center; line-height:300px;">
+            <img src="~/Themes/img/loading.gif" /> Loading ...
+
+        </div>
+        @*@Html.Action("GetGridAdvertise", "Home", new { arg_nAdvTypeCode = Convert.ToInt32(TWNewEgg.Models.ViewModels.Advertising.AdvEventType.AdvTypeOption.IndexGridBanner) })*@
+        <!-- end of GridBanner -->
+    </div>
+    
+    @Html.Action("ShopWindowArea")
+
+
+   @*<!-- ColorSection -->
+    <section class="section">
+        <div class="section-head colorline1">
+            <div class="icon"><i class="listi1 colorbg1"></i></div><div class="section-title colortxt1">設計風尚</div>
+        </div>
+        <div class="section-head colorline2">
+            <div class="icon"><i class="listi2 colorbg2"></i></div><div class="section-title colortxt2">國際精品</div>
+        </div>
+        <div class="section-head colorline3">
+            <div class="icon"><i class="listi3 colorbg3"></i></div><div class="section-title colortxt3">家電用品</div>
+        </div>
+        <div class="section-head colorline4">
+            <div class="icon"><i class="listi4 colorbg4"></i></div><div class="section-title colortxt4">居家生活</div>
+        </div>
+        <div class="section-head colorline5">
+            <div class="icon"><i class="listi5 colorbg5"></i></div><div class="section-title colortxt5">運動健身</div>
+        </div>
+        <div class="section-head colorline6">
+            <div class="icon"><i class="listi6 colorbg6"></i></div><div class="section-title colortxt6">戶外休旅</div>
+        </div>
+        <div class="section-head colorline7">
+            <div class="icon"><i class="listi7 colorbg7"></i></div><div class="section-title colortxt7">電腦周邊</div>
+        </div>
+        <div class="section-head colorline8">
+            <div class="icon"><i class="listi8 colorbg8"></i></div><div class="section-title colortxt8">數位 3 C</div>
+        </div>
+        <div class="section-head colorline9">
+            <div class="icon"><i class="listi9 colorbg9"></i></div><div class="section-title colortxt9">好食市集</div>
+        </div>
+        <div class="section-head colorline10">
+            <div class="icon"><i class="listi10 colorbg10"></i></div><div class="section-title colortxt10">美國新蛋直購</div>
+        </div>
+        <div class="section-head colorline11">
+            <div class="icon"><i class="listi11 colorbg11"></i></div><div class="section-title colortxt11">國際風尚館</div>
+        </div>
+        <div class="section-head colorline112">
+            <div class="icon"><i class="listi12 colorbg12"></i></div><div class="section-title colortxt12">樂活食尚館</div>
+        </div>
+        <div class="section-head colorline13">
+            <div class="icon"><i class="listi13 colorbg13"></i></div><div class="section-title colortxt13">活力健康館</div>
+        </div>
+        <div class="section-head colorline14">
+            <div class="icon"><i class="listi14 colorbg14"></i></div><div class="section-title colortxt14">時尚科技館</div>
+        </div>
+        <div class="section-head colorline15">
+            <div class="icon"><i class="listi15 colorbg15"></i></div><div class="section-title colortxt15">美蛋直購館</div>
+        </div>
+        <div class="section-head colorline16">
+            <div class="icon"><i class="listi16 colorbg16"></i></div><div class="section-title colortxt16">品味生活館</div>
+        </div>
+    </section>
+    <section class="section">
+        <a id="prev1" class="prev colorbg1" href="#"> < </a>
+        <a id="prev1" class="prev colorbg2" href="#"> < </a>
+        <a id="prev1" class="prev colorbg3" href="#"> < </a>
+        <a id="prev1" class="prev colorbg4" href="#"> < </a>
+        <a id="prev1" class="prev colorbg5" href="#"> < </a>
+        <a id="prev1" class="prev colorbg6" href="#"> < </a>
+        <a id="prev1" class="prev colorbg7" href="#"> < </a>
+        <a id="prev1" class="prev colorbg8" href="#"> < </a>
+        <a id="prev1" class="prev colorbg9" href="#"> < </a>
+        <a id="prev1" class="prev colorbg10" href="#"> < </a>
+        <a id="prev1" class="prev colorbg11" href="#"> < </a>
+        <a id="prev1" class="prev colorbg12" href="#"> < </a>
+        <a id="prev1" class="prev colorbg13" href="#"> < </a>
+        <a id="prev1" class="prev colorbg14" href="#"> < </a>
+        <a id="prev1" class="prev colorbg15" href="#"> < </a>
+        <a id="prev1" class="prev colorbg16" href="#"> < </a>
+    </section>
+    <section class="section">
+        <div class="box2 colorbg1">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg2">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg3">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg4">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg5">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg6">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg7">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg8">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg9">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg11">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg12">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg13">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg14">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg15">
+            <div class="box-category"></div>
+        </div>
+        <div class="box2 colorbg16">
+            <div class="box-category"></div>
+        </div>
+    </section>*@
+
+
+    @section addToBottomer {
+        @*@Html.Action("Index", "AdvEvent", new {advEventTypeID=28 })*@
+    <div class="banner-bottomer" name="advBannerBottom" data-url="/AdvEvent/Partial_AdvBottomer">
+        <img src="~/Themes/img/loading.gif" /> Loading ...
+    </div>
+    }
+
+</div>
+
+@*<a href="#0" class="cd-top">Top</a>
+<script src="/Themes/js/btt.js"></script>*@
+<script src="/Scripts/jquery.countdown.js"></script>
+<script>
+    $(function () {
+        @*電梯資料組成*@
+        elevatorData();
+
+        //	Variable number of visible items with variable sizes
+        $('.carousel-logo ul').each(function () {
+            $(this).carouFredSel({
+                width: 285,
+                height: 'auto',
+                prev: $(this).next(),
+                next: $(this).next().next(),
+                auto: false
+            });
+        });
+
+        setGroupBuyBanner();
+    });
+
+       @*自動設定團購Banner START*@
+    var setGroupBuyBanner = function () {
+
+        var setGroupBuyDetail = function (groupbuyItem)
+        {
+            var gbPicHtml = '<img src="{gbPicUrl}" class="itemImgCen"" />';
+            var gbNameHtml = '{gbName}';
+            var gbPriceHtml = '{gbPrice}';
+            var gbOriginalPriceHtml = '${gbOPrice}';
+            var gbDiscountHtml = '{discount}';
+            @*Item image url was fixed when groupby service generate json data, so using replace.*@
+            gbPicHtml = gbPicHtml.replace("{gbPicUrl}", groupbuyItem.ImgUrl.replace("_1_640.jpg", "_1_300.jpg"));
+            gbNameHtml = gbNameHtml.replace("{gbName}", groupbuyItem.Title);
+            gbOriginalPriceHtml = gbOriginalPriceHtml.replace("{gbOPrice}", groupbuyItem.OriginalPrice);
+            gbPriceHtml = gbPriceHtml.replace("{gbPrice}", groupbuyItem.GroupBuyPrice);
+            var discount = (groupbuyItem.GroupBuyPrice / groupbuyItem.OriginalPrice) * 100;
+            gbDiscountHtml = gbDiscountHtml.replace("{discount}", Math.round(discount));
+            @*打折數大於95折，原價=0  -[隱藏折數]*@
+            if (gbDiscountHtml > 95 || gbDiscountHtml == 0) {
+                $(".discount").hide();
+            }
+            else {
+                $(".discount").show();
+            }
+            if (gbDiscountHtml % 10 == 0) {
+                gbDiscountHtml = gbDiscountHtml / 10;
+            }
+            var gbName = gbNameHtml.substr(0, 60);
+            var price = fmoney(gbPriceHtml);
+            var oriPrice = fmoney(gbOriginalPriceHtml);
+            $("#gbPic a").html("");
+            $("#gbPic a").append(gbPicHtml);
+            $("#gbName").html("");
+            $("#gbName").append(gbName);
+            $("#gbOPrice").html("");
+            $("#gbOPrice").append("$" + oriPrice);
+            $("#gbPrice").html("");
+            $("#gbPrice").append("$" + price);
+            $("#discount").html("");
+            $("#discount").append(gbDiscountHtml);
+
+            //執行圖片放大1.5倍
+            sectionImgVerticalAlignCenter($("div.limited div.box"));
+
+            //顯示countdown及套css
+            //var tempCoundownDate = new Date().setFullYear(2015, 8, 20);
+            var tempCoundownDate = new Date(groupbuyItem.EndDate);
+            $("#show_countdown").countdown(tempCoundownDate, function (event)
+            {
+                var totalHours = event.offset.totalDays * 24 + event.offset.hours;
+                if (totalHours <= 0)
+                    totalHours = "00";
+                var dateFormat = "<span class='hour'>" + totalHours + "</span><span>:</span><span class='minute'>%M</span><span>:</span><span class='second'>%S</span>";
+                
+                $(this).html(event.strftime(dateFormat));
+            });
+            
+            /*
+            $("#show_countdown").countdown({
+                until: tempCoundownDate,
+                layout: "<span class='countdowntxt'>倒數</span><span class='hour'>{hnn}</span><span style='float: left;'>:</span><span class='minute'>{mnn}</span><span>:</span><span class='second'>{snn}</span>"
+            });
+            */
+
+        };
+
+        //金額格式化
+        function fmoney(s) //s:传入的float数字 ，n:希望返回小数点几位
+        {
+            s = parseFloat((s + "").replace(/[^\d\.-]/g, "")) + "";
+            var l = s.split(".")[0].split("").reverse(),
+            t = "";
+            for (i = 0; i < l.length; i++) {
+                t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+            }
+            return t.split("").reverse().join("");
+        }
+
+        var randomSetGBDetail = function (items) {
+            var startNumber = Math.floor((Math.random() * items.length));
+            setGroupBuyDetail(items[startNumber]);
+            setTimeout(function () { randomSetGBDetail(items); }, 5000);
+        };
+
+        var groupbuyListURL = '/Flash/Get';
+        $.getJSON(groupbuyListURL, function (data) {
+            var list_data = "";
+            if (data.length > 0) {
+                randomSetGBDetail(data);
+            }
+            //$.each(data, function (i, item) {
+            //    if (i < 1) {
+            //        setGroupBuyDetail(item);
+            //    }
+            //});
+        });
+    };
+
+    @*自動設定團購Banner END*@
+
+    $(document).ready(function () {
+    @*過長的文字加上省略號*@
+        $('div.caption6').each(function () {
+            if ($(this).height() < this.scrollHeight) {
+                var lineHeight = parseInt($(this).css('line-height').replace('px', ''));
+                var elementHeight = $(this).height();
+                var lineCount = 1;
+                if (lineHeight != undefined && lineHeight != null && elementHeight != undefined && elementHeight != null) {
+                    lineCount = Math.ceil(elementHeight / lineHeight);
+                    var oriStyle = $(this).attr('style') != undefined ? $(this).attr('style') : '';
+                    $(this).attr('style', oriStyle + ' -webkit-line-clamp:' + lineCount + ';');
+                }
+            }
+        });
+        
+        @*載入PartialView*@
+        $("div[name^='advBanner']").each(function (index, item) {
+            var url = $(item).data("url");
+            if (url && url.length > 0) {
+                $(item).load(url);
+            }
+        });
+        
+    });
+</script>

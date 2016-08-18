@@ -1,0 +1,1728 @@
+﻿ERROR 2016/05/23 14:35:14 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.CouponService.CouponServiceRepository,  Method Name: getActiveCouponListByAccount,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.CouponService.CouponServiceRepository,
+
+  Method Name: getActiveCouponListByAccount,
+
+  Input Parameters: ["36433"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:35:16 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.CouponService.CouponServiceRepository,  Method Name: getActiveCouponListByAccount,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.CouponService.CouponServiceRepository,
+
+  Method Name: getActiveCouponListByAccount,
+
+  Input Parameters: ["36433"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:35:27 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: ShoppingCartService,  Method Name: GetCartAllList,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: ShoppingCartService,
+
+  Method Name: GetCartAllList,
+
+  Input Parameters: [36433],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:35:28 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: ShoppingCartService,  Method Name: GetCartAllList,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: ShoppingCartService,
+
+  Method Name: GetCartAllList,
+
+  Input Parameters: [36433],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:35:58 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.CouponService.CouponServiceRepository,  Method Name: getActiveCouponListByAccount,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.CouponService.CouponServiceRepository,
+
+  Method Name: getActiveCouponListByAccount,
+
+  Input Parameters: ["36433"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:36:09 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HomeStoreService,  Method Name: GetHomeShopWindows,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HomeStoreService,
+
+  Method Name: GetHomeShopWindows,
+
+  Input Parameters: [null],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:36:10 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: ShoppingCartService,  Method Name: GetCartAllList,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: ShoppingCartService,
+
+  Method Name: GetCartAllList,
+
+  Input Parameters: [36433],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:36:23 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HomeGreetingWordsService,  Method Name: GetShow,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HomeGreetingWordsService,
+
+  Method Name: GetShow,
+
+  Input Parameters: ["2016-05-23T14:36:11.0951289+08:00"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:36:35 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HotWordsService,  Method Name: GetActive,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HotWordsService,
+
+  Method Name: GetActive,
+
+  Input Parameters: [0],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:36:48 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.BaseService,  Method Name: XML2Tree,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.BaseService,
+
+  Method Name: XML2Tree,
+
+  Input Parameters: ["XML\\Category_Menu_ALL.XML"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:36:48 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HolidayGreetingWordsService,  Method Name: GetShow,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HolidayGreetingWordsService,
+
+  Method Name: GetShow,
+
+  Input Parameters: ["2016-05-23T14:36:35.8546046+08:00"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:36:48 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [37],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:36:48 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [35],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:36:48 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [49],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:36:48 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: GroupBuyService,  Method Name: QueryViewInfo,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: GroupBuyService,
+
+  Method Name: QueryViewInfo,
+
+  Input Parameters: [{"GroupBuyID":0,"ItemID":0,"BeginDate":"0001-01-01T00:00:00","EndDate":"0001-01-01T00:00:00","Status":0,"PageSize":30,"PageNumber":1},"30_1"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:00 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HomeStoreService,  Method Name: GetHomeShopWindows,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HomeStoreService,
+
+  Method Name: GetHomeShopWindows,
+
+  Input Parameters: [null],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:00 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [31],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:00 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventTypeReposity,  Method Name: GetActiveAdvEventTypeListByAdvType,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventTypeReposity,
+
+  Method Name: GetActiveAdvEventTypeListByAdvType,
+
+  Input Parameters: [3],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:00 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventTypeReposity,  Method Name: GetActiveAdvEventTypeListByAdvType,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventTypeReposity,
+
+  Method Name: GetActiveAdvEventTypeListByAdvType,
+
+  Input Parameters: [4],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:00 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [28],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:02 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: TrackService,  Method Name: GetTracksStatus,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: TrackService,
+
+  Method Name: GetTracksStatus,
+
+  Input Parameters: [36433,null],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:13 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HomeGreetingWordsService,  Method Name: GetShow,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HomeGreetingWordsService,
+
+  Method Name: GetShow,
+
+  Input Parameters: ["2016-05-23T14:37:00.8181007+08:00"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:25 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HotWordsService,  Method Name: GetActive,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HotWordsService,
+
+  Method Name: GetActive,
+
+  Input Parameters: [0],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:38 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.BaseService,  Method Name: XML2Tree,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.BaseService,
+
+  Method Name: XML2Tree,
+
+  Input Parameters: ["XML\\Category_Menu_ALL.XML"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:38 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [49],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:39 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [35],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:39 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HolidayGreetingWordsService,  Method Name: GetShow,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HolidayGreetingWordsService,
+
+  Method Name: GetShow,
+
+  Input Parameters: ["2016-05-23T14:37:26.3946581+08:00"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:40 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: GroupBuyService,  Method Name: QueryViewInfo,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: GroupBuyService,
+
+  Method Name: QueryViewInfo,
+
+  Input Parameters: [{"GroupBuyID":0,"ItemID":0,"BeginDate":"0001-01-01T00:00:00","EndDate":"0001-01-01T00:00:00","Status":0,"PageSize":30,"PageNumber":1},"30_1"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:40 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [37],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:51 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [31],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:51 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventTypeReposity,  Method Name: GetActiveAdvEventTypeListByAdvType,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventTypeReposity,
+
+  Method Name: GetActiveAdvEventTypeListByAdvType,
+
+  Input Parameters: [3],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:52 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [28],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:52 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventTypeReposity,  Method Name: GetActiveAdvEventTypeListByAdvType,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventTypeReposity,
+
+  Method Name: GetActiveAdvEventTypeListByAdvType,
+
+  Input Parameters: [4],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:37:52 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: TrackService,  Method Name: GetTracksStatus,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: TrackService,
+
+  Method Name: GetTracksStatus,
+
+  Input Parameters: [36433,null],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:38:50 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HomeStoreService,  Method Name: GetHomeShopWindows,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HomeStoreService,
+
+  Method Name: GetHomeShopWindows,
+
+  Input Parameters: [null],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:02 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HomeGreetingWordsService,  Method Name: GetShow,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HomeGreetingWordsService,
+
+  Method Name: GetShow,
+
+  Input Parameters: ["2016-05-23T14:38:50.4560634+08:00"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:15 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HotWordsService,  Method Name: GetActive,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HotWordsService,
+
+  Method Name: GetActive,
+
+  Input Parameters: [0],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:27 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: HolidayGreetingWordsService,  Method Name: GetShow,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: HolidayGreetingWordsService,
+
+  Method Name: GetShow,
+
+  Input Parameters: ["2016-05-23T14:39:15.5855761+08:00"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:28 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [37],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:28 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [35],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:28 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: GroupBuyService,  Method Name: QueryViewInfo,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: GroupBuyService,
+
+  Method Name: QueryViewInfo,
+
+  Input Parameters: [{"GroupBuyID":0,"ItemID":0,"BeginDate":"0001-01-01T00:00:00","EndDate":"0001-01-01T00:00:00","Status":0,"PageSize":30,"PageNumber":1},"30_1"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:28 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.BaseService,  Method Name: XML2Tree,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.BaseService,
+
+  Method Name: XML2Tree,
+
+  Input Parameters: ["XML\\Category_Menu_ALL.XML"],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:28 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [49],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:40 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventTypeReposity,  Method Name: GetActiveAdvEventTypeListByAdvType,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventTypeReposity,
+
+  Method Name: GetActiveAdvEventTypeListByAdvType,
+
+  Input Parameters: [3],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:40 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventTypeReposity,  Method Name: GetActiveAdvEventTypeListByAdvType,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventTypeReposity,
+
+  Method Name: GetActiveAdvEventTypeListByAdvType,
+
+  Input Parameters: [4],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:40 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [31],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:40 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: Service.AdvEventItemService,  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: Service.AdvEventItemService,
+
+  Method Name: GetActiveAdvEventDisplayListByAdvEventTypeId,
+
+  Input Parameters: [28],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+
+ERROR 2016/05/23 14:39:41 Processor                      Request                                  Exception: Service Api Request Side Error!! Component ID: TrackService,  Method Name: GetTracksStatus,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10srv,
+
+  Component ID: TrackService,
+
+  Method Name: GetTracksStatus,
+
+  Input Parameters: [36433,null],
+
+  Request Side Error Message: Request failed.,
+
+  Response Side Error Message: ,
+
+  Response Message: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at TWNewEgg.Framework.HttpMethod.HttpClientMethod.PostResponse(HttpClient httpClient, String apiPath, String body) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod\HttpClientMethod.cs:line 182
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:50278
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---<---
+
+

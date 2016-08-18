@@ -1,0 +1,93 @@
+﻿@import "_importSCSS";
+
+/*.mainPadding {
+	margin:0 auto;
+	margin-bottom:50px;
+	padding-left:$RWDMainPadding;
+		padding-left:0;
+		width:$RWDMinWidth;
+	.mainMenuBox, .pathLink {
+		margin-left:-58.5px;
+		@media screen and (max-width: 1280px) {
+			margin-left:0;
+		}
+	}
+}*/
+
+
+.OrderBy{
+	border-top:0;
+	border-bottom:0;
+	height:40px;
+	ul{
+		padding:10px 0;
+	}
+}
+.table{
+	width:100%;
+	min-width:1004px;
+	border:1px solid #d5d5d5;
+}
+.th{
+	height:48px;
+	background-color:#f0f0f0;
+	font-size:15px;
+	text-align:center;
+}
+.td{
+	border:1px solid #d5d5d5;
+	text-align:center;
+	a,a:hover,a:active{
+		color:#666;
+		text-decoration:none;
+	}
+}
+.PicArtBox{
+	border:0;
+	padding:0;
+}
+div.SpecialDeal{
+	padding-left:90px;
+}
+.Select{
+	display:inline-block;
+	vertical-align:middle;
+	font-size:12px;
+}
+/*h3{
+	margin:12px 0;
+}*/
+p{
+	font-size:13px;
+	font-weight:normal;
+}
+.price{
+	font-size:17px;
+}
+.PutInCart{
+	background:url(/Themes/img/Icon/PutInCart.png) no-repeat top left;
+	padding:7px 20px;
+	cursor:pointer;
+}
+.NoStock{
+	background:url(/Themes/img/Icon/PutInCart.png) no-repeat bottom left;
+	padding:7px 20px;
+	cursor:default;
+}
+ul.OneLine{
+	li{
+		width:10%;
+		margin:15px 0;
+		&>p{
+			font-size:15px;
+			line-height:27px;
+			vertical-align:top;
+		}
+	}
+}
+.Delete{
+	display:inline-block;
+	margin-right:5px;
+	cursor: pointer;
+	img{margin-right:5px;}
+}

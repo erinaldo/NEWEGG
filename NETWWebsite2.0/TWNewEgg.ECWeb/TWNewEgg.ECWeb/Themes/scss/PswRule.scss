@@ -1,0 +1,93 @@
+﻿@import "_importSCSS";
+
+/*密碼規則方塊*/
+.pswRuleBox {
+	opacity:0;
+	display:none;
+	/*float:left;
+	display:none;
+	position:absolute;
+	top:0;
+	left:600px;
+	z-index:1;
+	margin:10px 5px;*/
+	margin-left:5px;
+	width:180px;
+	background:#fff;
+	border:1px solid #666;
+	font-size:13px;
+	line-height:1.5em;
+	li {
+		margin-left:3px;
+		height:25px;
+		&.ruleTerm {
+			margin-left:0;
+			margin-bottom:5px;
+			padding:3px 5px;
+			height:initial;
+			background:#8aa7c7;
+			line-height:1.3em;
+			color:#fff;
+		}
+	}
+	img, input[type="checkbox"] {
+		margin-right:3px;
+		width:16px;
+		height:16px;
+		border-color:#666;
+	}
+}
+
+/*錯誤提示區*/
+.fillFormBox, .serviceContentBox {
+	.fillForm_contentList, .service_contentList {
+		&.errTips {
+			position:relative;
+			input {
+				&[type="text"], &[type="password"], &[type="tel"] {
+					border:1px solid #c21920;
+				}
+			}
+			.errMsg {
+				display:block;
+				width:500px;
+			}
+		}
+		&.pswBar {
+			position:relative;
+			.pswSecure {
+				position:absolute;
+				top:24px;
+				left:80px;
+				width:50%;
+				p {
+					width:0;
+					height:2px;
+					background:#f00;
+					text-indent:-9999px;
+					letter-spacing:-999px;
+					font-size:0;
+					color:#fff;
+				}
+				&.step1 p {
+					width:33%;
+				}
+				&.step2 p {
+					width:66%;
+				}
+				&.step3 p {
+					width:100%;
+					background:green;
+				}
+			}
+		}
+	}
+	.errMsg {
+		display:none;
+		position:absolute;
+		bottom:8px;
+		margin-left:5px;
+		font-size:12px;
+		color:#900;
+	}
+}

@@ -1,0 +1,168 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+@{
+    List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput> SOList = ViewBag.SOList as List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput>;
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+}
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Header" width="795" height="68" />
+                    </div>
+                    <div>
+                        <br />
+                        @SOList.First().salesorder_name 先生/小姐，您好：
+                        <br/><br/>
+                        @{
+                            if (ViewBag.PayType == "退貨取消通知信")
+                            {
+                                <p>
+                                    我們已於 @ViewBag.RetGoodsDate 收到您欲取消退貨申請:訂單號碼 @ViewBag.RetGoodLBO
+                                    <br/><br/>
+                                    已為您取消退貨申請，並會恢復您的訂單。且通知物流人員已無需取回您的退貨商品，您可直接保留此商品。
+                                    <br/><br/>
+                                    若物流與您聯繫欲取件，煩請您再與物流告知已無需取件即可，謝謝您的配合。
+                                    <br/><br/><br/>
+                                </p>
+                            }
+                            if (ViewBag.PayType == "退貨異常通知信")
+                            {
+                                <p>
+                                    感謝您對本網站的支持
+                                    <br/><br/>
+                                    訂單編號: @ViewBag.RetGoodLBO
+                                    <br/><br/>
+                                    商品名稱: @ViewBag.ItemName
+                                    <br/><br/>
+                                    廠商目前已收到您的退貨商品，經檢測，由於您的退貨商品: @ViewBag.AbnormalStatus ，根據退貨規定:「退貨的商品必須回復原狀，亦即回到您收到商品時的原始狀態(包含主機、附件、內外包裝、隨機文件及贈品等等  )」，故需暫緩您的退貨申請處理，煩請您再與我們聯絡。
+                                    <br/><br/>
+                                    我們將會儘快為您查詢與確認，再次感謝您的支持與愛護！
+                                    <br/><br/><br/>
+                                </p>
+                            }
+                            if (ViewBag.PayType == "退貨處理中通知信")
+                            {
+                                <p>
+                                    我們已收到您的退貨要求如下， 物流公司將在5個工作天內與您聯繫確認取貨事宜，
+                                    <br/><br/>
+                                    請您將手機保持暢通待物流人員聯繫取件。
+                                    <br/><br/>
+                                </p>
+                                <p class="red">
+                                    <b>請注意！</b>
+                                    1.	退貨的商品必須回復原狀，亦即必須回復至您收到商品時的原始狀態 ( 包含主機、附件、內外包裝、隨機文件、贈品等 ) 
+                                    2.	並且隨貨附上發票等隨附文件（海外直購商品的退貨則需寄回有商品金額的商業發票Commercial Invoice或代收代付收據，國際物流處理費的發票）。
+                                    3.	若原外盒紙箱已遺失，請另使用其他紙箱包覆於商品原廠包裝之外，切勿直接於商品原廠包裝（彩盒）上黏貼紙張或書寫文字。若商品原廠包裝(彩盒)損毀或遺失將無法辦理退貨。
+                                </p>
+                                <table>
+                                    <tr>
+                                        <td><b>訂購資訊</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>訂購單編號：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>訂購人：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>退貨資訊</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>退貨登錄日期：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>退貨商品：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>退貨原因：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>退貨單號：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>數量：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>配件(含贈品)：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>退貨物流狀態：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>取貨資訊</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>連絡人：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>地址：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>電話：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>取件備註：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>退款資訊</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>退款銀行名稱：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>退款銀行分行：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>退款銀行帳號：</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>戶名：</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                                <p>
+                                    <br /><br />
+                                    收到您的退貨時，待檢查無誤且商品是完善後，我們會開始進行退款作業。當退款完成時，我們也會發送退款完成通知信通知您。
+                                    <br /><br /><br /><br /><br />
+                                </p>
+                            }
+                        }
+                    </div>
+                    <div>
+                        <p>
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                            請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Fooer" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

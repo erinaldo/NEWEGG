@@ -1,0 +1,23 @@
+﻿@{
+    var categotyTapID = (System.Configuration.ConfigurationManager.AppSettings["categoryMenuTopID"] == null ? "0" : System.Configuration.ConfigurationManager.AppSettings["categoryMenuTopID"]);
+    string pathURL = string.Empty;
+    if (categotyTapID != "0")
+    {
+        pathURL = "/Store?StoreID=" + categotyTapID;
+    }
+}
+<div class="topper">
+    <div class="topper-limiter">
+        <div class="topperSpec">
+            <a id="iconEntrance_01" href="@pathURL"><img src="/Themes/img/Common/topper-TitBn_02.jpg" alt="玩轉世界生活誌" title="玩轉世界生活誌" /></a>
+        </div>
+        <div class="searchbar">
+		    <form method="get" action="/search">
+		        <input type="text" class="input" id="searchword" name="searchword" size="21" maxlength="120" placeholder="請輸入商品關鍵字" />
+                <input type="submit" value=" " class="btn" />
+		    </form>
+        </div>
+        
+        @Html.Action("GetHotWords", "Home", new{CategoryId=0})
+    </div>
+</div> 

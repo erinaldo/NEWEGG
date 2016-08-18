@@ -1,0 +1,168 @@
+﻿@model TWNewEgg.Models.ViewModels.Item.CategoryItemInfoMain_View
+
+@{int itemPosition = 1;
+  //分頁前後兩頁
+  int j = 2;
+  int itemPositionTemp = 0;
+  List<TWNewEgg.Models.ViewModels.Page.ShowPage> ShowPageList = Model.ShowPageList;
+    }
+
+@if (Model.TotalPage > 0)
+{
+    <div class="categoryTopBar">
+        <div class="navOrder categoryOrder">
+            <div class="orderList @if (Model.OrderBy == "CreatDate")
+                                  { @("active");
+                                  }" onclick="NextPage(null, 0, 1, 'CreatDate')" type="CreatDate">
+                <i class="icon new"></i>
+                <span>最新上架</span>
+            </div>
+            <div class="orderList @if (Model.OrderBy == "PopularityIndex")
+                                  { @("active");
+                                  }" onclick="NextPage(null, 0, 1, 'PopularityIndex')" type="PopularityIndex">
+                <i class="icon hot"></i>
+                <span>人氣排行榜</span>
+            </div>
+            <div class="orderList @if (Model.OrderBy == "Recommended")
+                                  { @("active");
+                                  }" onclick="NextPage(null, 0, 1, 'Recommended')" type="Recommended">
+                <i class="icon recom"></i>
+                <span>推薦排行</span>
+            </div>
+            <div class="orderList @if (Model.OrderBy == "HighPrice")
+                                  { @("active");
+                                  }" onclick="NextPage(null, 0, 1, 'HighPrice')" type="HighPrice">
+                <i class="icon priceH"></i>
+                <span>金額高</span>
+            </div>
+            <div class="orderList @if (Model.OrderBy == "LowPrice")
+                                  { @("active");
+                                  }" onclick="NextPage(null, 0, 1, 'LowPrice')" type="LowPrice">
+                <i class="icon priceL"></i>
+                <span>金額低</span>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    foreach (var item in Model.CategoryItemInfo_ViewList)
+    {
+        <div class="box">
+                <div class="pic">
+                    <a href="/item?itemid=@(item.ID)&categoryid=@(item.CategoryID)&StoreID=@(item.StoreID)">
+                        <img class="itemImgCen" src="@item.imgPath" alt="@item.Name" title="@item.Name" />
+                    </a>
+                </div>
+                <a href="/item?itemid=@(item.ID)&categoryid=@(item.CategoryID)&StoreID=@(item.StoreID)">
+                    <div class="txt">
+                        <div class="SpecialDeal">
+                        @if (item.SellingQty < 1) {
+                            <span class="SpecialDeal SpecialDealClass0">
+                                商品已售完
+                            </span>
+                        }
+                        </div>
+                        <h3 title="@item.Name">@item.Name</h3>
+                        <span class="marketPrice">
+                            @if (item.MarketPrice != null && item.MarketPrice != 0 && (item.MarketPrice > item.PriceCash))
+                            {
+                                @("$" + (item.MarketPrice ?? 0).ToString("#,##0"));
+                            }
+                        </span>
+                        <span class="price">$@(item.PriceCash.ToString("#,##0"))</span>
+                    </div>
+                </a>
+            </div>
+        itemPosition++;
+    }
+    <div class="pagination PageArea">
+    @if (Model.Page != 1)
+    {
+        <span class="arrow arrLeft prev" onclick="NextPage(null, 0, @(Model.Page - 1), null)"><</span>
+    }
+    @*<div class="pageArea">*@
+        @foreach (var temp in ShowPageList)
+        {
+            if (temp.PageNumberString.IndexOf("...") <= 0)
+            {
+            <span class="@if (temp.PageNumber == Model.Page)
+                         { @("SelectThePage") }
+                         else
+                         {@("GoToPage")}" 
+                   onclick="@if (temp.PageNumber == Model.Page)
+                         { @("") }
+                         else
+                         {@("NextPage(null, 0," + temp.PageNumber + ", null)")}" 
+                   style="@if (temp.PageNumber == Model.Page)
+                         { @("color:#EB8A51") }" 
+                   data-Pagevalue="@(temp.PageNumber)">
+            @Html.Raw(temp.PageNumberString)</span>}
+            else
+            {
+                if (temp.PageNumber == ShowPageList.LastOrDefault().PageNumber)
+                { 
+                <span class="default">...</span>
+                }
+                <span class="@if (temp.PageNumber == Model.Page)
+                             { @("SelectThePage") }
+                             else
+                             {@("GoToPage")}" 
+                   onclick="@if (temp.PageNumber == Model.Page)
+                             { @("") }
+                             else
+                             {@("NextPage(null, 0," + temp.PageNumber + ", null)")}" 
+                  style="@if (temp.PageNumber == Model.Page)
+                             { @("color:#EB8A51") }" 
+                  data-Pagevalue="@(temp.PageNumber)">
+                  @Html.Raw(temp.PageNumber)</span>
+                if (temp.PageNumber == ShowPageList.FirstOrDefault().PageNumber)
+                { 
+                <span class="default">...</span>
+                    itemPositionTemp++;
+                }
+            }
+        }
+    @*</div>*@
+    @if (Model.TotalPage != Model.Page)
+    {
+        <span class="arrow arrRight next" onclick="NextPage(null, 0, @(Model.Page + 1), null)">></span>
+    }
+    </div>
+}
+else
+{
+    <div><center style="margin-top:250px;font-size:24px;color:#49639e">抱歉，此處建構中，請先逛逛其他地方！</center></div>
+}
+
+
+@*↓↓↓暫時隱藏滑鼠移過圖片放大的效果↓↓↓*@
+@*<script>
+    $(function () {
+        $(".NEProductImage").each(function () {
+            $(this).attr("src", $(this).attr("src") + "?" + new Date().getTime());
+        }); 
+        $(".NEProductImage").load(function (index) {
+            var elem = { h: $(this).height(), w: $(this).width() };
+
+            $(this).css("width", elem.w);
+            $(this).css("height", elem.h);
+            $(this).css({ maxWidth: "none", maxHeight: "none" });
+            $(this).hover(function () {
+                $(this).stop().animate({ border: "1px", height: elem.h * 1.05, width: elem.w * 1.05, left: elem.w * -0.05 / 2, top: elem.w * -0.05 / 2 }, 100);
+            }, function () {
+                $(this).stop().animate({ border:0, height: elem.h, width: elem.w, left: 0, top: 0 }, 100);
+            });
+        });
+    });
+    
+</script>
+<style>
+    .pic {
+        position:relative;
+    }
+    .box .pic img {
+        position:absolute;
+        left:0px;
+        border:0 solid #ddd;
+    }
+</style>*@

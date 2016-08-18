@@ -1,0 +1,97 @@
+﻿@model List<TWNewEgg.Models.ViewModels.PromoActive.PromoActive>
+@{
+    ViewBag.Title = "ActivityList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var PageArea = ViewBag.pageData as List<TWNewEgg.Models.ViewModels.Page.ShowPage>;
+}
+@Styles.Render("~/Themes/css/ElementLibrary_Layout.css")
+@Styles.Render("~/Themes/css/ElementLibrary.css")
+@Styles.Render("~/Themes/css/Activity.css")
+<!--style="border: 5px double;"-->
+<style>
+    .TableLine tr th {
+        font-size:17px;
+        text-align:center;
+        border:1px solid;
+    }
+    .TableLine tr td {
+        font-size:15px;
+        text-align:center;
+        border:1px solid;
+    }
+</style>
+<br />
+<div>
+    <div>
+        <table class="table">
+            <tr class="tr">
+                <th class="th" style="width:89px;">活動狀態</th>
+                <th class="th" style="width:115px;">類型</th>
+                <th class="th" style="width:90px;">館別</th>
+                <th class="th" style="width:246px;">活動名稱</th>
+                <th class="th" style="width:95px;">開始時間</th>
+                <th class="th" style="width:95px;">結束時間</th>
+                <th class="th" style="width:284px;">活動贈品</th>
+            </tr>
+            @if (Model != null)
+            {
+                foreach(var item in Model)
+                {
+                    <tr class="tr">
+                        <td class="td">
+                            
+                                @if(item.Status == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityStatus.已結束)
+                                {
+                                    <p style="color:#c1272d" class="activityStatus">已結束</p>
+                                }
+                                else if (item.Status == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityStatus.進行中)
+                                {
+                                    <p class="activityStatus">進行中</p>
+                                    <p class="remaindate">(剩餘 @item.ActivityRemainDate 天)</p>
+                                }
+                                else
+                                {
+                                    <p></p>
+                                }
+
+                        </td>
+                        <td class="td">@item.Type_str</td>
+                        <td class="td">@item.categoryDescription</td>
+                        <td class="td">@item.Name</td>
+                        <td class="td">
+                            <p>@string.Format("{0:yyyy/MM/dd}", item.StartDate)</p>
+                            <p>@string.Format("{0: HH: mm}", item.StartDate)</p>
+                        </td>
+                        <td class="td" style="width:95px;">
+                            <p>@string.Format("{0:yyyy/MM/dd}", item.EndDate)</p>
+                            <p>@string.Format("{0: HH: mm}", item.EndDate)</p>
+                        </td>
+                        <td class="td" style="width:284px;">
+                            <span style="width:246px">@item.Description</span>
+                            <span style="width:38px; float:right; display:block;">
+                                <img src="~/Themes/img/PromoActive/icon_PromoActiveOut.png" onmouseover="changePictureOver(this, 'icon_PromoActiveOver.png')" onmouseout="changePictureOut(this, 'icon_PromoActiveOut.png')"/>
+                            </span>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
+@if (PageArea != null || PageArea.Count != 0)
+{
+    <div class="PageArea" data-TotalPagevalue="@ViewBag.totalPage">
+        @foreach (var item in PageArea)
+        {
+            <p>1</p>
+        }
+    </div>
+}
+<script>
+    function changePictureOver(obj, picUrl) {
+        obj.src = "../Themes/img/PromoActive/" + picUrl;
+    }
+    function changePictureOut(obj, picUrl) {
+        obj.src = "../Themes/img/PromoActive/" + picUrl;
+    }
+</script>

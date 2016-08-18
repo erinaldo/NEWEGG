@@ -1,0 +1,117 @@
+﻿@using TWNewEgg.ECWeb.Auth
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+    var Name = NEUser.NickName + NEUser.Name;
+
+    }
+
+@{
+	string _SecureNewegg = System.Configuration.ConfigurationManager.AppSettings["SecureNewegg"]; 
+}
+
+<style>
+    table {border-collapse: collapse;}
+    table.OrderTable td {padding: 0 5px;border:1px solid #000;}
+    table.OrderTable th {text-align: left;padding: 0 5px;border:1px solid #000;}
+    .auto-style1
+    {
+        color: #0066CC;
+    }
+    .auto-style2
+    {
+        color: #FF0000;
+    }
+    .auto-style3
+    {
+        border:3px solid #8000FF;
+        text-align:center;
+        font-size:20px;
+        font-family:Calibri;
+        letter-spacing:3px;
+        color: #FFFFFF;
+    }
+ p.MsoNormal
+	{margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri","sans-serif";
+	    margin-left: 0cm;
+        margin-right: 0cm;
+        margin-top: 0cm;
+    }
+p.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:24.0pt;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri","sans-serif";
+	}
+    ul.listStyle li
+    {
+        list-style-type:disc;
+        list-style-position:outside;
+    }
+</style>
+<html>
+<body>
+     <table width="795" border="0" cellspacing="0" cellpadding="0"  align="center">
+            <tr>
+                <td>
+                    <img src="@Model.Header" width="795" height="68" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    親愛的新蛋網會員  @Name 您好<br /><br />
+                    感謝您於@(WebSiteListWebSiteData.SiteName)註冊<br />
+                    日後我們將不定期寄發EDM至您的電子信箱，告知專屬優惠和折扣訊息，為了歡迎您的加入，我們已將專屬的150元<br />
+                    折價券<a href= "@_SecureNewegg/MyAccount/Coupon" target="_self">(@_SecureNewegg/MyAccount/Coupon)</a> 發送至您的帳戶，期待您在新蛋網的購物體驗，<br />
+                    能有個美好的開始，分享最美好的禮物，現在就到新蛋全球生活網<a href= "@_SecureNewegg/" target="_self">Newegg.com.tw</a>逛逛吧！<br />
+                    ※此信件為系統自動發送，請勿直接回覆。※
+                    <br /><br />
+                </td>
+            </tr>
+         <tr><td style="height:15px;"></td></tr>
+
+            <tr>
+                <td>注意事項 :<br />
+                            <table width="100%">
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">1.</td>
+                                    <td>折價券使用期限至2015/9/30，單品滿1,000元方可使用，其餘規則請參閱「折價券使用說明」<a href= "@_SecureNewegg/MyAccount/Coupon" target="_self">(@_SecureNewegg/MyAccount/Coupon)</a></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">2.</td>
+                                    <td>會員資料可於「我的帳戶>帳戶管理>個人資料修改」維護<a href= "@_SecureNewegg/MyAccount/EditPersonInfo" target="_self">(@_SecureNewegg/MyAccount/EditPersonInfo)</a>  </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">3.</td>
+                                    <td>為確保您不會遺漏優惠訊息，建議您將 promo@newegg.com.tw 加入電子郵件聯絡人。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">4.</td>
+                                    <td>若您有任何疑問，歡迎來信 <a href="mailto:service@newegg.com.tw">歡迎來信</a> 或致電(02-8006-8010)我們的客服人員(08:30 am ~ 17:30 pm)，若您未曾在新蛋全球生活網註冊會員，也請聯絡客服人員為您處理。</td>
+                                </tr>
+                            </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="margin-top:100px;">
+                        若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                        電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                        服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="@Model.Footer" width="795" height="40" />
+                </td>
+            </tr>
+        </table>
+</body>
+</html>
+

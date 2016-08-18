@@ -1,0 +1,613 @@
+//compileExpanded: ../css/StoreGeneral.css, includePath: includes/
+@import "compass";
+@import "_importSCSS";
+
+.topper {
+	.searchbar {
+		.input {
+			background:#fff;
+		}
+	}
+}
+
+section a,section a:hover,section a:visited {
+	border-bottom:0;
+}
+
+.toperHeaderBG {
+	position: absolute;
+	top:0;
+	z-index:-2;
+	margin-left:-50px;
+	width:100%;
+	height:195px;
+	background-color:#f2f0f1;
+	@media screen and (max-width: 1024px) {
+		width:$RWDMinWidth;
+	}
+}
+
+.mainPadding {
+	//分類頁-擁有側選單
+	.bread {
+		margin-left:0;
+	}
+}
+
+.pullDownUS {
+	.pullDownList li i {
+		background-position:0 -428px;
+	}
+}
+
+.banner-ad {
+	position: absolute;
+	top: 150px;
+	right: 150px;
+	z-index: 2;
+	width: 180px;
+	height: 180px;
+	overflow: hidden;
+	background-color: #fff;
+	border: 15px solid #fff;
+}
+
+$searchFilterAreaWidth:206px;
+.banner-title {
+	width:900px;
+	@media screen and (max-width: 1280px) {
+		width:748px;
+	}
+}
+.banner {
+	width:900px;
+	@media screen and (max-width: 1280px) {
+		width:748px;
+	}
+	.banner-img {
+		@media screen and (max-width: 1280px) {
+			width:748px;
+		}
+	}
+	.tab {
+		position:absolute;
+		bottom:0;
+		z-index:1;
+		width:100%;
+		ul {
+			li {
+				position:relative;
+				float:left;
+				padding:5px 9px;
+				width:18%;
+				height:26px;
+				background-color:#333;
+				background-color:rgba(0, 0, 0, .5);
+				line-height:25px;
+				text-align:center;
+				font-size:15px;
+				font-weight:bold;
+				color: #fff;
+				cursor:pointer;
+	@media screen and (max-width: 1280px) {
+		width:17.5%;
+	}
+				&:hover, &.selected {
+					background-color:#000;
+					background-color:rgba(0, 0, 0, 1);
+					.arrow {
+						display:block;
+					}
+				}
+				a,a:hover{border-bottom:0;color:#fff;}
+				.arrow {
+					display:none;
+					position:absolute;
+					top:-5px;
+					left:50%;
+					margin-left:-4px;
+					width: 0;
+					height: 0;
+					border-style: solid;
+					border-width: 0 4px 5px 4px;
+					border-color: transparent transparent #000 transparent;
+					line-height: 0px;
+					_border-color: #000000 #000000 #000 #000000;
+					_filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+				}
+			}
+		}
+	}
+}
+
+div.section-bg {
+	display: none;
+    margin-bottom:-65px;
+}
+
+section.section, section.section3 {
+    margin-bottom:0;
+}
+section.section3 {
+	margin-left:80px;
+}
+
+div.section-divider {
+    border:0;
+}
+.group2 {
+    margin-top:65px;
+}
+.group2 .box11 {
+    height:auto;
+}
+/*.group2 .caption4 { 12/14原group2下的產品名稱
+    font-size: 16px;
+    height: 54px;
+    padding: 0;
+    width: 160px;
+    float: right;
+    margin-right: 5px;
+    line-height: 18px;
+}*/
+/*.group2 .price { 12/14原group2下的價格
+    font-size: 16px;
+    height: 22px;
+    padding: 0;
+    margin-top: 10px;
+    width: 160px;
+    float: right;
+    margin-right: 5px;
+    line-height: 18px;
+}*/
+div.box-category3 ul li {
+    margin:0;
+}
+    div.box-category3 ul li+li {
+        margin-top:20px;
+    }
+.box13 img {
+    max-width: 280px;
+  max-height: 310px;
+}
+.box16 + .box16 {
+    border-left:1px solid;
+}
+div.box16 .divider {
+    display:none;
+}
+
+// 12/14 將 box16和box14轉成外框 box12作為裡面的itembox
+// .box16 .caption, .box14 .caption {
+//     font-size: 15px;
+//     height: 37px;
+// 	-webkit-line-clamp: 2;
+//     padding: 0;
+//     float: right;
+//     line-height: 18px;
+//     margin:5px 10px;
+// }
+// .box14 .caption {
+//     width:160px;
+// }
+// .box16 .price, .box14 .price {
+//     font-size: 16px;
+//     height: 22px;
+//     padding: 0;
+//     margin-top: 10px;
+//     float: right;
+//     margin:0 10px;
+//     line-height: 18px;
+// }
+
+.elevator a {
+	color: #fff;
+}
+.box11 > .box12,.box16 > .box12{ //分類頁館架內最左側的兩個itembox
+	position: relative;
+	float:none;
+	width:222px;
+	margin: 5px auto;
+	height:309px;
+	left:0;
+	.pic{
+		width:222px;
+		height:222px;
+		img{
+			max-width:222px;
+			max-height:222px;
+		}
+	}
+	.caption{
+		-webkit-line-clamp:2;
+		height: 37px;
+		width: 222px;
+		padding:0;
+		margin:10px 0 7px 0;
+	}
+}
+
+//分類頁館架內最右側的itembox
+.box14{
+		width: 100%;
+		height: 33.3%;
+	.caption{
+		-webkit-line-clamp:2;
+		height:32px;
+		width:160px;
+		margin:0 auto;
+	}
+	.price{
+		width:160px;
+		margin: 0 auto;
+	}
+}
+
+
+//writter: [vincent]
+//describe: category section3 new layout settings
+//sampleAddress: Store?StoreID=735
+
+$color-lists: 	   #3e3a39 #c07d2e #de7884 #75852e #c03f40 #80b870 #248c6a #e39300 #63b2af #339ecf #0757a2 #162c84 #e95b32 #f44d69 #A43A9D;
+$color-lists-lite: #b2b0b0 #e6cbab #f2c9ce #c8ceab #e6b2b3 #cde3c1 #a7d1c3 #f4d499 #c1e0df #add8ec #9cbcda #a2abce #f6bdad #fbb8c3 #d598d1;
+$store-colors-lite: #524e4e #c78942 #e28691 #839143 #c75353 #95c489 #389778 #e69e18 #74bab8 #4ba9d5 #2068ac #2e4291 #eb6e4a #f5637b #ad4ea8;
+//設計風尚.國際名品.美妝保養.保健養生.樂活時尚.運動健身.戶外休旅.親子寵物.居家用品.生活家電.數位3C.電腦周邊.美蛋直購.(預留)城市.尋找禮品
+.section3 {
+	position: relative;
+	margin-top: 40px;
+	// padding-bottom: 100px;
+	@include pie-clearfix;
+
+	.section-bg { display: none; }
+	.group2 { margin-top:0; }
+
+	.group2,
+	.group2 + .group3 {
+		height: 640px;
+		overflow: hidden;
+	}
+
+	// 12/11分類頁itembox 提到 .section3外面
+	// .group2 .box11,
+	// .group3 .box16 {
+	// 	.box12,
+	// 	.caption4,
+	// 	.price {
+	// 		position: relative;
+	// 		float:none;
+	// 		left: 50%;
+	// 		width: 222px;
+	// 		margin:5px auto 0 -111px;
+	// 	}
+	// 	.caption4 {
+	// 		font-size: 15px;
+	// 		text-align: left;
+	//
+	// 	}
+	// 	.box12{
+	// 		position: relative;
+	// 		float:none;
+	// 		width:222px;
+	// 		margin: 5px auto;
+	// 		height:309px;
+	// 		left:0;
+	// 		.pic{
+	// 			width:222px;
+	// 			height:222px;
+	// 			img{
+	// 				max-width:222px;
+	// 				max-height:222px;
+	// 			}
+	// 		}
+	// 		.caption{
+	// 			font-size: 15px;
+	// 			text-align: left;
+	// 			-webkit-line-clamp: 3;
+	// 			height: 55px;
+	// 			padding:0;
+	// 			margin:5px 0 0 0;
+	// 		}
+	// 		.price{
+	// 			margin:5px 0 0 0;
+	// 			left: 0;
+	// 		}
+	// 	}
+	// }
+
+	//分類頁有色邊框
+	.group2 .box11 {
+		width: 273px;
+		height:319px;
+		border-width: 1px 1px 0 1px;
+		border-style: solid;
+
+		& + .box11 {
+			border-width: 1px;
+			border-style: solid;
+			height: 317px;
+		}
+	}
+
+
+	.group2 + .group3 {
+		width: 491px;
+		@include pie-clearfix;
+
+		.box13 {
+			width: 346px;
+			height: 319px;
+			border-top: 1px solid;
+			border-bottom: 0;
+			a { display: block; }
+
+			img,
+			a,
+			a img {
+				width: 100%;
+				height: 100%;
+				max-width: 100%;
+				max-height: 100%;
+			}
+		}
+
+		.box15 {
+			margin-left: 0;
+			width: 145px;
+			height: 319.5px;
+		}
+
+		.box15 .title {
+			margin:0;
+			width: 100%;
+			height: 56px;
+
+			font-size: 30px;
+			line-height: 56px;
+			letter-spacing: 1px;
+			font-weight: lighter;
+			color:#fff;
+		}
+
+		.box15 .box-category3 {
+			width: 100%;
+			padding:0;
+			border:0;
+			@include border-radius(0px);
+
+			background: transparent;
+
+			@for $i from 1 through length($color-lists-lite) {
+				&.catcolorbg#{$i} li:nth-child(odd) { background: nth($store-colors-lite, $i); }
+			}
+
+
+		}
+
+
+		.box15 .box-category3 ul {
+			display: block;
+			width: 100%;
+			height: auto;
+			margin: 0;
+		}
+
+		.box15 .box-category3 ul li {
+			display: block;
+			width: 100%;
+			height: 33px;
+
+			margin-top:0px;
+
+			a {
+				display: block;
+				width: 100%;
+				height: 100%;
+
+				text-align: center;
+				line-height: 33px;
+			}
+		}
+
+		.box16 {
+			@include float(left);
+			width: 243.5px;
+			height: 317px;
+			border-bottom: 1px solid;
+		}
+
+	}
+
+	.img11 {
+		width: 135px;
+		height: 135px;
+		max-width: 135px;
+		max-height: 135px;
+	}
+
+	& > div.divider {  border-top: 0; }
+	.section-divider { display: none; }
+
+
+	.carousel4 {
+		position: absolute;
+		top: 0px;
+		right: 15px;
+		height: 638px;
+		background: #fff;
+
+		.listcontent {
+			width: 199px;
+			height: 99.8%;
+			border-width: 1px 1px 1px 0;
+			border-style: solid;
+			& > div { height: 100%; }
+		}
+
+		// 提到外層
+		// .box14 {
+		// 	width: 100%;
+		// 	height: 211px;
+		// }
+
+		.divider {
+			width: 100%;
+			height: 0;
+		}
+
+		.pagination {
+			position: absolute;
+			right: -10px;
+			margin-top: 220px;
+			z-index:3;
+
+
+		}
+
+		@for $i from 1 through length($color-lists-lite) {
+
+			&.catcolorleft#{$i} {
+				.more a {
+					&:hover,
+					&:visited {
+						color: nth($color-lists, $i);
+					}
+				}
+
+				li { background: nth($color-lists-lite, $i); }
+			}
+		}
+	}
+}
+
+
+//carousel-logo-wall
+.carousel-logo-cates {
+	@include float(left);
+	position: relative;
+	z-index:3;
+	bottom: 3px;
+	width: 882px;
+	height: 84px;
+
+	li {
+		width: 146.5px;
+		height: 65px;
+		margin:10px 0;
+
+	}
+}
+
+
+//shopUS
+$us-color: #e95b32;
+
+
+.section3.section_US {
+	margin-left: 140px;
+    margin-right: 140px;
+    // margin-bottom: 50px;
+
+	.group2,
+	.group2 + .group3 {
+		height: 639px;
+	}
+
+	.group2+.group3 .box13 { border-top: 1px solid $us-color; }
+
+	.box14 { border: 0px; }
+
+	.box15 {
+		background-color: $us-color;
+		overflow: hidden;
+		li:nth-child(odd) { background:rgba(255,255,255,.1); }
+	}
+
+	.box16.catcolorbottom {
+		border-bottom: 1px solid $us-color;
+	}
+
+	.carousel4 .divider {
+		float:left;
+		border-top: 1px solid;
+	}
+
+
+	.carousel4 {
+	    float: left;
+	    width: 221px;
+		height: 638.5px;
+		border-left: 1px solid;
+
+		.pagination {
+			float: right;
+			position: absolute;
+			right: -10px;
+			width: 20px;
+			margin-top: 220px;
+			z-index: 3;
+
+			li {
+				display: block;
+				width: 20px;
+				height: 20px;
+				margin: 10px 0;
+				background-color: #f6bdad;
+			}
+
+			li a {
+				display:block;
+				width: 20px;
+				height: 20px;
+				color: #fff;
+
+
+				text-align: center;
+				line-height: 20px;
+				text-decoration: none;
+				float: right;
+
+				&.catcolorbg { background-color: $us-color; }
+			}
+		}
+
+		.pagination .more a {
+			display: block;
+			width: 100%;
+			text-align: center;
+
+			&,
+			&:hover,
+			&:visited {	color: $us-color; }
+		}
+	}
+
+	.carousel4 .listcontent > div {
+		width: 100%;
+		height: 100%;
+	}
+
+
+
+	.box11,
+	.box16,
+	.carousel4,
+	.carousel4 .listcontent,
+	.carousel4 .divider,
+	.carousel-logo-wall {
+		border-color: $us-color;
+	}
+
+	.carousel-logo-cates .prev,
+	.carousel-logo-cates .next {
+		background-color: $us-color;
+	}
+
+}
+
+@media screen and (max-width: 1280px) {
+	.bg .section2,
+	.section3.section_US,
+	section.section3 {
+		margin-left:0;
+	}
+}

@@ -1,0 +1,113 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Cart.ItemGroup_View>
+
+@{
+    ViewBag.Title = "我的最愛清單" + "-新蛋全球生活網";
+    TWNewEgg.Models.ViewModels.Cart.ItemGroup_View ItemGroup_View = Model.Where(x=>x.TypeName == ViewBag.TypeName).FirstOrDefault();
+    List<TWNewEgg.Models.ViewModels.Page.ShowPage> ShowPageList = Model.Select(x=>x.ShowPageList).FirstOrDefault();
+}
+
+@*↓↓↓↓↓↓排序分類↓↓↓↓↓↓*@
+<div class="TabArea OrderBy grayBorder" name="grayBorderName" data-TypeNamevalue="@(ItemGroup_View.TypeName)" data-TypeIDvalue="@(ItemGroup_View.TypeID)">
+    <ul>
+        
+        <li class="Tab SmallBorderTab @if (ItemGroup_View.OrderBy == "LowPrice")
+                                     { @("SmallBorderTabSelected"); }" id="PriceLow" name="TabAreaOrderByName" data-OrderByvalue="LowPrice"><i class="icon OrderbyIcaon PriceLow"></i>價格低到高</li>
+        <li class="Tab SmallBorderTab @if (ItemGroup_View.OrderBy == "HighPrice")
+                                     { @("SmallBorderTabSelected"); }" id="PriceHigh" name="TabAreaOrderByName" data-OrderByvalue="HighPrice"><i class="icon OrderbyIcaon PriceHigh"></i>價格高到低</li>
+        <li class="Tab SmallBorderTab @if (ItemGroup_View.OrderBy == "CreatDate")
+                                     { @("SmallBorderTabSelected"); }" id="DateFar" name="TabAreaOrderByName" data-OrderByvalue="CreatDate"><i class="icon OrderbyIcaon DateFar"></i>放入日期遠到近</li>
+        <li class="Tab SmallBorderTab @if (ItemGroup_View.OrderBy == "DescCreatDate")
+                                     { @("SmallBorderTabSelected"); }" id="DateNear" name="TabAreaOrderByName" data-OrderByvalue="DescCreatDate"><i class="icon OrderbyIcaon DateNear"></i>放入日期近到遠</li>
+    </ul>
+</div>
+
+@*↓↓↓↓↓↓追蹤清單開始↓↓↓↓↓↓*@
+<table class="table grayBorder darkGray">
+    <tr class="tr grayBorder GrayBgColorth">
+        <th class="th Boldtext" style="width:100px;"><input type="checkbox" name="" value="" class="checkbox SelectAll"/><span class="Select TextAlign-left">全選<br/>取消全選</span></th>
+        <th class="th Boldtext"  style="width:500px;">商品名稱/折扣與贈品</th>
+        <th class="th Boldtext">加入日期</th>
+        <th class="th Boldtext">商品價格</th>
+        <th class="th Boldtext" style="width:140px;">加入購物車</th>
+    </tr>
+    @*↓↓↓↓↓↓一項產品↓↓↓↓↓↓*@
+    @foreach(var CartItem in ItemGroup_View.CartItemList){
+    <tr class="tr">
+        <td class="td"><input type="checkbox" name="" value="" class="checkbox SelectItem" data-Itemvalue="@(CartItem.ItemID)"/></td>
+        <td class="td">
+        	<div class="PicArtBox">
+            	@*<a href="~/item?itemid=@(CartItem.ItemID)">*@
+                <a href="@(string.Format("/item?itemid={0}&categoryid={1}&StoreID={2}", CartItem.ItemID, CartItem.CategoryID, CartItem.StoreID))">
+                    <div class="pic ItemListPic"><img src="@(CartItem.ImagePath)" alt=""></div>
+                </a>
+                @*<a href="~/item?itemid=@(CartItem.ItemID)">*@
+                <a href="@(string.Format("/item?itemid={0}&categoryid={1}&StoreID={2}", CartItem.ItemID, CartItem.CategoryID, CartItem.StoreID))">
+                    <h3 class="Boldtext">@(CartItem.ItemName)</h3>
+                </a>
+                <div class="SpecialDeal gray">
+                    @if (CartItem.GroupDiscount != null && CartItem.GroupDiscount.Count > 0)
+                    {
+                        <!--<p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass1-1">折扣</span>5/11~5/31品牌滿額最高折抵1000元</p>-->
+                        foreach (TWNewEgg.Models.ViewModels.Cart.GroupDiscount_View objDiscountItem in CartItem.GroupDiscount)
+                        {
+	    			        <p class="SpecialDeal"><span class="SpecialDeal @objDiscountItem.CSSStyle">@objDiscountItem.EventName</span>@objDiscountItem.Desc</p>
+                        }
+                    }              	
+                </div>
+            </div>
+        </td>
+        <td class="td grayBorder"><p class="Boldtext">@((CartItem.CreateDate).ToString("yyyy/MM/dd HH:mm"))</p></td>
+        <td class="td grayBorder"><p class="price Boldtext">@((CartItem.NTPrice).ToString("#,##0"))</p></td>
+        <td class="td grayBorder"><i class="icon PutInCart AddtoCart @if(CartItem.Qty==0){@("disabled NoStock")}" data-Itemvalue="@(CartItem.ItemID)" data-disabled="@(CartItem.Qty)"></i></td>
+        @*或是該項商品庫存為0，則將<i class="icon PutInCart"> 換成 <i class="icon NoStock"></i>*@
+    </tr>
+    }
+    @*↑↑↑↑↑↑↑↑↑一項產品↑↑↑↑↑↑↑↑↑*@
+
+</table>
+@*↑↑↑↑↑↑↑↑↑追蹤清單結束↑↑↑↑↑↑↑↑↑*@
+
+@*↓↓↓↓↓↓優惠通知、進貨通知、總計收藏↓↓↓↓↓↓*@
+<ul class="OneLine gray">
+    <li style="width:30%;text-align:left;"><p class="Delete CallDelete"><img src="/Themes/img/Icon/DeleteImg.png">刪除</p></li>
+@*    <li><p><input type="checkbox" name="" value="" class="checkbox"/>優惠通知</p></li>
+    <li><p><input type="checkbox" name="" value="" class="checkbox"/>進貨通知</p></li>*@
+    <li style="width:70%"><p class="TextAlign-right">您總共收藏<span>@(ItemGroup_View.TypeQty)</span>項商品</p></li>
+</ul>
+
+@*↓↓↓↓↓↓分頁↓↓↓↓↓↓*@
+@if (ItemGroup_View.TypeQty>0)
+{
+<div class="PageArea" id="PageArea" data-Pagevalue="@ItemGroup_View.ViewPage" data-TotalPagevalue="@ItemGroup_View.TotalPage">    
+    @if (ItemGroup_View.ViewPage != 1){
+        <a class="arrow arrLeft" name="ToNextPage" data-JumpPagevalue="-1"><</a>
+    }
+    @foreach (var temp in ShowPageList) { 
+        @*↓↓↓↓↓↓ 檢查 PageNumberString 是否有 ... 的字樣 ↓↓↓↓↓↓*@
+        if (temp.PageNumberString.IndexOf("...") == -1)
+        {
+            <a class="@if (temp.PageNumber == ItemGroup_View.ViewPage) { @("StopGoToPage" ) } else{@("GoToPage")}" style="@if (temp.PageNumber== ItemGroup_View.ViewPage) { @("color:#EB8A51") }" @if (temp.PageNumber == ItemGroup_View.ViewPage) { @("Selected" ) } data-Pagevalue="@(temp.PageNumber)">
+                @(temp.PageNumberString)</a>
+        }
+        else
+        {
+            @*↓↓↓↓↓↓ 將 PageNumberString 的 ... 字樣，與頁分開 ↓↓↓↓↓↓*@
+            if (temp.PageNumber == 1)
+            { 
+                @*↓↓↓↓↓↓ 第 1 頁 ↓↓↓↓↓↓*@
+                <a class="GoToPage" data-Pagevalue="1">1</a>
+                <span class="default">...</span>
+            }
+            else
+            {
+                @*↓↓↓↓↓↓ 最後頁 ↓↓↓↓↓↓*@
+                <span class="default">...</span>
+                <a class="GoToPage" data-Pagevalue="@(temp.PageNumber)">@(temp.PageNumber)</a>
+            }
+        }
+    }
+    @if (ItemGroup_View.TotalPage != ItemGroup_View.ViewPage){
+    <a class="arrow arrRight" name="ToNextPage" data-JumpPagevalue="1">></a>
+    }
+</div>
+}

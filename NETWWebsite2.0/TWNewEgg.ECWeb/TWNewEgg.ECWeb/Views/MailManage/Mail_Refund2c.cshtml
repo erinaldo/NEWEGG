@@ -1,0 +1,96 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+@{
+    List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput> SOList = ViewBag.SOList as List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput>;
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+}
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Header" width="795" height="68" />
+                    </div>
+                    <div>
+                        <br />
+                        @SOList.First().salesorder_name 先生/小姐，您好：
+                        <br/><br/>
+                        您的訂單: @ViewBag.LBO 
+                        @{
+                            if(ViewBag.PayType == "ATM.貨到付款")
+                            {
+                                <p>
+                                    <br/><br/>
+                                    我們已預計於 @ViewBag.RefundDate 退款到您所提供的帳號，
+                                    <br/><br/>
+                                    您可於退款日下午五點後或一個工作天後至指定銀行刷摺，查詢您的款項是否已入帳，
+                                    <br/><br/>
+                                    若退款日三天後仍未入帳完成，或是退款過程異常，請您再盡速與我們聯繫，
+                                    <br/><br/>
+                                    我們將立即為您處理，請您再留意Email通知。謝謝您
+                                    <br/><br/>
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                            if(ViewBag.PayType == "刷卡")
+                            {
+                                <p>
+                                    <br/><br/>
+                                    您的退款，我們已預計於 @ViewBag.RefundDate 透過您原來所提供的信用卡付款方式，並刷退給您。
+                                    <br/><br/>
+                                    由於銀行作業關係，您可於退款日後 3-7天與您的發卡銀行確認是否已刷退完成，
+                                    <br/><br/>
+                                    若退款日已過您的當月銀行結帳日，則退款金額將會於您的下一期信用卡帳單顯示，請您再詳細確認。
+                                    <br/><br/>
+                                    若有退款異常等問題，請您再盡速與我們聯繫，我們將立即為您處理，謝謝您。
+                                    <br/><br/>
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                            if(ViewBag.PayType == "歐付寶儲值")
+                            {
+                                <p>
+                                    <br/><br/>
+                                    您的退款申請，我們將透過您原 “歐付寶儲值支付”  付款方式，將款項退至您的 “歐付寶儲值帳戶”中。
+                                    <br/><br/>
+                                    由於歐付寶作業關係，您可於退款申請日後第8日  至您的歐付寶會員帳戶內確認或聯繫歐付寶客服確認是否已退款完成。
+                                    <br /><br />
+                                    <br/><br/>
+                                    若有退款異常等問題，請您再盡速與我們聯繫，我們將立即為您處理，謝謝您。
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                            if (ViewBag.PayType == "退款異常通知信")
+                            {
+                                <p>
+                                    <br/><br/>
+                                    經確認，您提供的退款資料有誤，故銀行無法為您正常退款，異常原因可能為銀行//分行/帳號/戶名等...有誤。
+                                    <br/><br/>
+                                    我們會再請專人與您聯繫後續情況，煩請手機暢通待聯繫。
+                                    <br /><br />
+                                    造成不便之處還請見諒，再次感謝您的支持與愛護！
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                        }
+                    </div>
+                    <div>
+                        <p>
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                            請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Fooer" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

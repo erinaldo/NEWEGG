@@ -1,0 +1,19 @@
+﻿<div style="overflow:visible;">
+    <div id="obj-editor-content" ng-switch on="PageData.ctrl.onEditComp.ObjectType">
+        <div ng-switch-when="Video">
+            <edit-video-object ng-component="PageData.ctrl.onEditComp"></edit-video-object>
+        </div>
+        <div ng-switch-when="Text">
+            <edit-text-object ng-component="PageData.ctrl.onEditComp"></edit-text-object>
+        </div>
+        <div ng-switch-when="CustomizedObject">
+            <div customized-object edit-cus-obj ng-object="PageData.ctrl.onEditComp.CustomizedObject.CustomizedObjects[PageData.ctrl.onEditComp.CustomizedObject.tabIndex]" edit-area="true"></div>
+        </div>
+        <div ng-switch-when="Image">
+            <edit-image-object ng-page="PageData.PageInfo" ng-component="PageData.ctrl.onEditComp"></edit-image-object>
+        </div>
+        <div ng-switch-when="Dynamic">
+            <edit-dynamic-object ng-component="PageData.ctrl.onEditComp"></edit-dynamic-object>
+        </div>
+    </div>
+</div>

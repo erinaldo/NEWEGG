@@ -1,0 +1,317 @@
+@charset "UTF-8";
+.clear {
+  clear: both;
+}
+
+/* nav.css */
+.yMenuListCon {
+  /*width:738px;*/
+  width: 566px;
+  height: 486px;
+  position: absolute;
+  top: 0px;
+  left: 382px;
+}
+.yMenuListCon:before {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  display: block;
+  content: "";
+  width: 550px;
+  height: 484px;
+  border-width: 1px 1px 1px 0;
+  border-style: solid;
+  border-color: #dcdcdc;
+  background-color: #fff;
+}
+
+.yMenuListConin h2, .yMenuListConin h2 a {
+  font-size: 24px;
+  color: #8dc88c;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  width: 550px;
+  border-bottom: 0;
+}
+
+.pullDownList li i {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *zoom: 1;
+  *display: inline;
+  -moz-transition-property: margin, color;
+  -o-transition-property: margin, color;
+  -webkit-transition-property: margin, color;
+  transition-property: margin, color;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  margin: -5px 10px 0 20px;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  background: url(/Themes/img/Icon/Store/category-icons.png) no-repeat;
+}
+.pullDownList li i.storeDesign {
+  background-position: 0px 0px;
+}
+.pullDownList li i.storeFashion {
+  background-position: 0px -25px;
+}
+.pullDownList li i.storeBeauty {
+  background-position: 0px -50px;
+}
+.pullDownList li i.storeHealthcare {
+  background-position: 0px -75px;
+}
+.pullDownList li i.storeFoods {
+  background-position: 0px -100px;
+}
+.pullDownList li i.storeSport {
+  background-position: 0px -125px;
+}
+.pullDownList li i.storeOutdoor {
+  background-position: 0px -150px;
+}
+.pullDownList li i.storeLovely {
+  background-position: 0px -175px;
+}
+.pullDownList li i.storeLiving {
+  background-position: 0px -200px;
+}
+.pullDownList li i.storeAppliance {
+  background-position: 0px -225px;
+}
+.pullDownList li i.storeDigital {
+  background-position: 0px -250px;
+}
+.pullDownList li i.storeComputer {
+  background-position: 0px -275px;
+}
+.pullDownList li i.storeNeweggUSA {
+  background-position: 0px -300px;
+}
+.pullDownList li i.storeGift {
+  background-position: 0px -325px;
+}
+.pullDownList li:hover i, .pullDownList li.menulihover i {
+  margin-left: 30px;
+}
+.pullDownList li:hover i.storeDesign, .pullDownList li.menulihover i.storeDesign {
+  background-position: -25px 0px;
+}
+.pullDownList li:hover i.storeFashion, .pullDownList li.menulihover i.storeFashion {
+  background-position: -25px -25px;
+}
+.pullDownList li:hover i.storeBeauty, .pullDownList li.menulihover i.storeBeauty {
+  background-position: -25px -50px;
+}
+.pullDownList li:hover i.storeHealthcare, .pullDownList li.menulihover i.storeHealthcare {
+  background-position: -25px -75px;
+}
+.pullDownList li:hover i.storeFoods, .pullDownList li.menulihover i.storeFoods {
+  background-position: -25px -100px;
+}
+.pullDownList li:hover i.storeSport, .pullDownList li.menulihover i.storeSport {
+  background-position: -25px -125px;
+}
+.pullDownList li:hover i.storeOutdoor, .pullDownList li.menulihover i.storeOutdoor {
+  background-position: -25px -150px;
+}
+.pullDownList li:hover i.storeLovely, .pullDownList li.menulihover i.storeLovely {
+  background-position: -25px -175px;
+}
+.pullDownList li:hover i.storeLiving, .pullDownList li.menulihover i.storeLiving {
+  background-position: -25px -200px;
+}
+.pullDownList li:hover i.storeAppliance, .pullDownList li.menulihover i.storeAppliance {
+  background-position: -25px -225px;
+}
+.pullDownList li:hover i.storeDigital, .pullDownList li.menulihover i.storeDigital {
+  background-position: -25px -250px;
+}
+.pullDownList li:hover i.storeComputer, .pullDownList li.menulihover i.storeComputer {
+  background-position: -25px -275px;
+}
+.pullDownList li:hover i.storeNeweggUSA, .pullDownList li.menulihover i.storeNeweggUSA {
+  background-position: -25px -300px;
+}
+.pullDownList li:hover i.storeGift, .pullDownList li.menulihover i.storeGift {
+  background-position: -25px -325px;
+}
+
+.yMenuListConin {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  /*width: 737px;*/
+  min-height: 486px;
+  /*background:#fff;*/
+  width: 550px;
+}
+.yMenuListConin .yMenuColLCinList {
+  /*margin: 20px 0 0 20px;*/
+  width: 550px;
+  height: 484px;
+}
+.yMenuListConin h2 a {
+  text-decoration: underline;
+  border-bottom: 0;
+}
+.pullDownUS .yMenuListConin {
+  height: 486px;
+  min-height: 486px;
+}
+.yMenuListConin .ListColor_red {
+  color: #D25E69;
+}
+
+.MenuListImg {
+  width: 566px;
+  height: 245px;
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  display: block;
+  z-index: 99;
+  /*margin:230px 0 0 -20px;*/
+}
+.MenuListImg > a, .MenuListImg > a:hover, .MenuListImg > a img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-bottom: 0px;
+}
+
+/*Category color*/
+a {
+  /*設計風尚*/
+  /*國際名品*/
+  /*家電用品*/
+  /*居家用品*/
+  /*運動健身*/
+  /*戶外休閒*/
+  /*電腦周邊*/
+  /*數位3C*/
+  /*樂活食尚*/
+  /*美蛋直購*/
+  /*美妝保養*/
+  /*保健養生*/
+  /*親子寵物*/
+  /*新增1/8城市檔  目前找不出來用在哪裡於防性增加*/
+}
+.yMenuListCon .yMenuListConin.storeDesign h2 a {
+  color: #C4C2C2;
+}
+.yMenuListCon .yMenuListConin.storeFashion h2 a {
+  color: #D6AE7A;
+}
+.yMenuListCon .yMenuListConin.storeAppliance h2 a {
+  color: #82C5ED;
+}
+.yMenuListCon .yMenuListConin.storeLiving h2 a {
+  color: #87CDCF;
+}
+.yMenuListCon .yMenuListConin.storeSport h2 a {
+  color: #8DC88C;
+}
+.yMenuListCon .yMenuListConin.storeOutdoor h2 a {
+  color: #8DCEA8;
+}
+.yMenuListCon .yMenuListConin.storeComputer h2 a {
+  color: #669BD3;
+}
+.yMenuListCon .yMenuListConin.store3C h2 a {
+  color: #70B0E1;
+}
+.yMenuListCon .yMenuListConin.storeFoods h2 a {
+  color: #F29F7F;
+}
+.yMenuListCon .yMenuListConin.storeNeweggUSA h2 a {
+  color: #EC7375;
+}
+.yMenuListCon .yMenuListConin.storeBeauty h2 a {
+  color: #EBAEB5;
+}
+.yMenuListCon .yMenuListConin.storeHealthcare h2 a {
+  color: #ACB682;
+}
+.yMenuListCon .yMenuListConin.storeLovely h2 a {
+  color: #EEBE66;
+}
+.yMenuListCon .yMenuListConin.storeCity h2 a {
+  color: #999;
+}
+
+.banner-ad2 {
+  background: #e6e4e7;
+  width: 206px;
+  height: 36px;
+  overflow: hidden;
+}
+
+/*美蛋直購nav*/
+.yMenuListConUS {
+  width: 550px;
+  height: 486px;
+  position: absolute;
+  top: 0px;
+  left: 206px;
+  overflow: hidden;
+}
+.yMenuListConUS .yMenuListConin .yMenuColLCinList {
+  padding: 20px 0 0 20px;
+  width: 529px;
+  height: 464px;
+  overflow: hidden;
+  border-top: 1px solid #b4b4b4;
+  border-bottom: 1px solid #b4b4b4;
+  border-right: 1px solid #b4b4b4;
+  border: 1px solid #dcdcdc;
+  margin-left: -1px;
+}
+.yMenuListConUS .yMenuListConin .yMenuColLCinList h3 {
+  font-size: 19px;
+  color: #444444;
+  position: relative;
+  width: auto;
+  margin: 0 auto 2px;
+  float: left;
+  font-weight: bold;
+  border-left: 5px solid #444444;
+  padding-left: 10px;
+}
+.yMenuListConUS .yMenuListConin .yMenuColLCinList p {
+  color: #444444;
+}
+.yMenuListConUS .yMenuListConin .yMenuColLCinList .ListColor_red {
+  color: #D25E69;
+}
+.yMenuListConUS .yMenuListConin .yMenuColLCinList a:hover {
+  color: #eda16f;
+}
+.yMenuListConUS .yMenuListConin .yMenuColLCinList .MenuListImg {
+  width: 550px;
+  height: 245px;
+  position: absolute;
+  bottom: -30px;
+  display: block;
+  z-index: 99;
+  left: 0;
+}
+.yMenuListConUS .yMenuListConin .yMenuColLCinList .MenuListImg > a {
+  border-bottom: 0px;
+}
+.yMenuListConUS .yMenuListConin .yMenuColLCinList .MenuListImg img {
+  width: 550px;
+  height: 245px;
+}
+
+.pullDownUS .pullDownList3 li .arrowhover_gray {
+  background-position: 0;
+}

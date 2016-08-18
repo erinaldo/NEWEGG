@@ -1,0 +1,86 @@
+﻿//compileExpanded: ../css/rwdGeneral.css,﻿  includePath: includes/﻿
+@import "compass";
+@import "_importSCSS";
+
+/*RWD頁面的mainPadding*/
+.mainPadding {
+	@include mainPaddingRWD;
+}
+/*.mainPadding {
+	margin-bottom:50px;
+}*/
+
+/*for首頁section*/
+// .section {
+// 	@media screen and (max-width: 1280px) {
+// 		width:$RWDMinWidth;
+// 	}
+// }
+
+$rwd-view-w: 1024;
+$rwd-content-w: 994;
+$gutter: 10;
+$box-w: 198.8;
+
+@media screen and (max-width:1280px) {
+	.wrapper {
+		width:100%;
+		min-width:1024px;
+		overflow-x: hidden;
+	}
+
+	.header,
+	.topper { width:1024px; }
+
+	.header-limiter,
+    .topper-limiter,
+    .footer-limiter {
+        margin-left:15px;
+        padding: 0;
+        width: $rwd-content-w#{px};
+    }
+
+	.toperHeaderBG {
+		left:0;
+		margin-left:0;
+		min-width:1024px;
+	}
+
+	.banner-bgcolor { min-width:1024px; }
+
+	.footer-limiter { margin:0 auto; }
+
+
+	//writer:vincent.c.su
+	//sampleAddress: none
+	//describe: logo牆for首頁(RWD使用)
+	.carousel-logo-index {
+		width: 900px;
+		li { width: 150px; }
+	}
+	.categoryPushSlider>.sliderContent { width: 1002px; }
+
+	//writer:vincent.c.su
+	//sampleAddress: none
+	//describe: 商品列表頁面上方輪播商品 RWD
+	.banner2 .list {
+		width: 1002px;
+		height: 351px;
+	}
+
+	.banner2 .list,
+	.pushProducts {
+		.box { width: 33.2%; }
+	}
+
+	.banner2 .list .box { margin: 28px 0; }
+}
+
+@media screen and (min-width:1281px) {
+	.toperHeaderBG {
+		left:0;
+		margin-left:0;
+		width:100%;
+		min-width:1024px;
+	}
+}

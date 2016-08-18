@@ -1,0 +1,305 @@
+﻿@{
+    ViewBag.Title = "購物車" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/content/css/base.00000")
+@Styles.Render("~/content/css/ShoppingCart")
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+
+<div class="clear"></div>
+<div class="ShoppingProcess">
+    @*↓↓↓↓↓↓付款步驟說明圖示↓↓↓↓↓↓*@
+    <div class="ShoppingProcess_step_1_IMG">
+        <img src="/Themes/img/ShoppingProcess/ShoppingProcess_step_1_IMG.jpg">
+    </div>
+
+    @*↓↓↓↓↓↓選擇折價方式↓↓↓↓↓↓*@ @*隱藏!!!*@
+    @*<div class="discountMethod ColorBarTit"><div class="icon"></div><p>選擇折價方式</p></div>
+    <div class="methods">
+        <form method="" action="">
+            <p><input type="radio" name="use" value="" checked  class="radio"/>不使用購物金與折價券</p>
+            <p><input type="radio" name="use" value=""  class="radio"/>購物金</p>
+            <p><input type="radio" name="use" value=""  class="radio"/>折價券</p>
+        </form>
+    </div>*@
+
+    @*↓↓↓↓↓↓商品列表↓↓↓↓↓↓*@
+    <div class="carts">
+        <div class="tip">
+            <div><div class="icon"></div><p>新蛋購物車</p></div>
+            <div><div class="icon"></div><p>海外購物車</p></div>
+            <div><div class="icon"></div><p>萊爾富購物車</p></div>
+        </div>
+        <div class="listTitle"><div class="icon"></div><p>訂單明細</p></div>
+        <div class="table">
+            <div class="tr">
+                <div class="th" style="width:119px;">發貨區域</div>
+                <div class="th" style="width:486px;">商品名稱/配件選購</div>
+                <div class="th" style="width:68px;">規格</div>
+                <div class="th" style="width:68px;">單價</div>
+                <div class="th" style="width:85px;">數量</div>
+                <div class="th">小計</div>
+                <div class="th" style="width:109px;">加入最愛/刪除</div>
+            </div>
+            <div class="tr">
+                <div class="td"><p class="area">台灣<br/><span>2天到貨</span></p></div>
+                <div class="td">
+                    <div class="pic"><img src="~/Themes/img/ShoppingCart/item.jpg" alt="" style="width:88px;height:89px;"></div>
+                    <p class="itemName">商品名稱</p>
+                    <p class="discount"><span class="icon"><img src="~/Themes/img/ShoppingCart/discountMethod.jpg" style="width:77px;height:18px;" ></span>折扣</p>
+                </div>
+                <div class="td"><p class="size">XXL</p></div>
+                <div class="td"><p class="price">13,600</p></div>
+                <div class="td"><span class="less">-</span><p class="quantity">1</p><span class="add">+</span></div>
+                <div class="td"><p class="itemsTotal">13,600</p></div>
+                <div class="td"><div class="love"></div><div class="delete"></div></div>
+            </div>
+        </div>
+    </div>
+
+    @*↓↓↓↓↓↓價格總計↓↓↓↓↓↓*@
+    <div class="total">
+        <div class="table">
+            <div class="tr">
+                <div class="th">總計：</div>
+                <div class="td">14,829</div>
+            </div>
+            <div class="tr">
+                <div class="th">滿額折優惠：</div>
+                <div class="td">-597</div>
+            </div>
+            <div class="tr">
+                <div class="th">回饋金優惠：</div>
+                <div class="td">-500</div>
+            </div>
+        </div>
+        <hr noshade />
+        <div class="needPay">應付金額　新台幣<span>13,336元</span></div>
+    </div>
+
+    @*↓↓↓↓↓↓選擇付款方式↓↓↓↓↓↓*@
+    <div class="pay">
+        <div class="payMethod ColorBarTit"><div class="icon"></div><p>選擇付款方式</p></div>
+        <form method="" action="">
+            <input type="radio" name="pay" value="" class="payMethodTit"/>信用卡<br/>
+            <div class="CreditCard">
+                <div class="CreditCardInstallment">
+                    <div>一次：<input type="radio" name="pay" value="" />一次付清</div>
+                    <div class="Installment">
+                        <div class="InstallmentLeft">
+                            <p class="InstallmentTit">分期：</p>
+                            <div class="InstallmentInput">
+                                <input type="radio" name="pay" value=""/>3期(0利率)<br/>
+                                <input type="radio" name="pay" value=""/>6期(0利率)<br/>
+                                <input type="radio" name="pay" value=""/>12期(0利率)<br/>
+                                <input type="radio" name="pay" value=""/>18期(0利率)<br/>
+                                <input type="radio" name="pay" value=""/>24期(0利率)<br/>
+                            </div>
+                        </div>
+                        <div class="InstallmentRight">
+                            <p class="BankTit">銀行：</p>
+                            <div class="Bank">
+                                <input type="radio" name="bank" value=""/>台新<br/>
+                                <input type="radio" name="bank" value=""/>中國信託<br/>
+                                <input type="radio" name="bank" value=""/>合庫<br/>
+                                <input type="radio" name="bank" value=""/>大眾<br/>
+                                <input type="radio" name="bank" value=""/>渣打<br/>
+                                <input type="radio" name="bank" value=""/>台新<br/>
+                                <input type="radio" name="bank" value=""/>遠東<br/>
+                                <input type="radio" name="bank" value=""/>合庫<br/>
+                                <input type="radio" name="bank" value=""/>大眾<br/>
+                                <input type="radio" name="bank" value=""/>渣打<br/>
+                            </div>
+                            <div class="Bank">
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>國泰<br/>
+                                <input type="radio" name="bank" value=""/>彰銀<br/>
+                                <input type="radio" name="bank" value=""/>匯豐<br/>
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>富邦<br/>
+                                <input type="radio" name="bank" value=""/>第一<br/>
+                                <input type="radio" name="bank" value=""/>彰銀<br/>
+                                <input type="radio" name="bank" value=""/>匯豐<br/>
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                            </div>
+                            <div class="Bank">
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>花旗<br/>
+                                <input type="radio" name="bank" value=""/>台中商銀<br/>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="RedText">
+                    <span>※</span>
+                    <p>為讓您享受網路安全購物樂趣，系統將進入信用卡3D安全認證視窗，以保障資料在傳送過程中的完整性及保密性，多了一道認證流程讓您網路交易更安全。</p>
+                </div>
+                <div class="clear"></div>
+                <div class="CreditCardTotalMoney">
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                         <div class="NeedPayMoney">NTD$ 13,336</div>
+                         <div class="clear"></div>
+                    </div>
+                    <div class="CreditCardInstallmentMoney">
+                        <p>信用卡分期金額：</p>
+                        <div class="InstallmentMoney">NTD$ 22,223 X 6期</div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="RedText">
+                        <span>提醒您：</span>
+                        <p>當您在進行訂購流程時，若於一小時內未完成付款表示未訂購成功，該單將會失效，如您仍需要該商品則須重新訂購，謝謝。</p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+@*                <div class="OkCancelButton">
+                        <div class="OkButton ButtonSpacing">
+                            <a href=""><img src="/Themes/img/ShoppingProcess/OkButton.jpg"></a>
+                        </div>
+                        <div class="CancelButton ButtonSpacing">
+                            <a href=""><img src="/Themes/img/ShoppingProcess/CancelButton.jpg"></a>
+                        </div>
+                </div>*@
+            </div>
+            <div class="clear"></div>
+
+            <input type="radio" name="pay" value="" class="payMethodTit"/>信用卡紅利折抵<br/>
+            <input type="radio" name="pay" value="" class="payMethodTit"/>貨到付款<br/>
+            <div class="CashOnDelivery">
+                <div class="CashOnDeliveryTotalMoney">
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                         <div class="NeedPayMoney">NTD$ 13,336</div>
+                         <div class="clear"></div>
+                    </div>
+                    <div class="CashOnDeliveryInstructions">
+                        <p>貨到付款使用說明：</p>
+                        <p>1.送貨收款時，僅收現金。</p>
+                        <p>2.商品送達前物流人員會與收件人電話聯絡，如配送三次都無法聯繫上收件人，訂單將會自動取消。</p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <input type="radio" name="pay" value="" class="payMethodTit"/>超商付款<br/>
+            <div class="MartPayments">
+                <div class="MartPaymentsTotalMoney">
+                    <div class="SelectMart">
+                         <p>請選擇：</p>
+                         <div class="HiLifeMart MartIMG">
+                             <a href=""><img src="/Themes/img/ShoppingProcess/HiLifeIMG.jpg"></a>
+                         </div>
+                         <div class="SevenElevenMart MartIMG">
+                             <a href=""><img src="/Themes/img/ShoppingProcess/SevenElevenIMG.jpg"></a>
+                         </div>
+                         <div class="FamilyMart MartIMG">
+                             <a href=""><img src="/Themes/img/ShoppingProcess/FamilyMartIMG.jpg"></a>
+                         </div>
+                         <div class="OkMart MartIMG">
+                             <a href=""><img src="/Themes/img/ShoppingProcess/OkMartIMG.jpg"></a>
+                         </div>
+                         <div class="clear"></div>
+                    </div>
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                         <div class="NeedPayMoney">NTD$ 13,336</div>
+                         <div class="clear"></div>
+                    </div>
+                    <div class="MartPaymentsInstructions">
+                        <p>超商付款使用說明：</p>
+                        <p>選用「萊爾富取貨付款」的買家僅需直接至櫃台繳費即可領取商品。</p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <input type="radio" name="pay" value="" class="payMethodTit"/>實體ATM<br/>
+            <div class="EntityATM">
+                <div class="EntityATMTotalMoney">
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                         <div class="NeedPayMoney">NTD$ 13,336</div>
+                         <div class="clear"></div>
+                    </div>
+                    <p>請選擇以下銀行付款，任何金融卡皆可使用：</p>
+                    <div class="EntityATMSelectBank">
+                        <div class="Bank">
+                            <input type="radio" name="bank" value="" class=""/>台新銀行<br/>
+                            <input type="radio" name="bank" value="" class=""/>台北富邦<br/>
+
+                        </div>
+                        <div class="Bank">
+                            <input type="radio" name="bank" value="" class=""/>玉山銀行<br/>
+                            <input type="radio" name="bank" value="" class=""/>中國信託<br/>
+                        </div>
+                        <div class="Bank">
+                            <input type="radio" name="bank" value="" class=""/>華南銀行<br/>
+                            <input type="radio" name="bank" value="" class=""/>第一銀行<br/>
+                        </div>
+                        <div class="Bank">
+                            <input type="radio" name="bank" value="" class=""/>台灣銀行<br/>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="EntityATMPrecautions">
+                        <p>注意事項：</p>
+                        <p>1.若您選擇以上任一家銀行金融卡付款，可免除跨行手續費。</p>
+                        <p>2.若您沒有使用以上銀行之金融卡付款，需負擔跨行手續費15元。</p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <input type="radio" name="pay" value="" class="payMethodTit"/>網路ATM<br/>
+            <div class="WebATM">
+                <div class="WebATMTotalMoney">
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                         <div class="NeedPayMoney">NTD$ 13,336</div>
+                         <div class="clear"></div>
+                    </div>
+                    <div class="WebATMInstructions">
+                        <p>網路ATM使用說明：</p>
+                        <p>1.請自備讀卡機。</p>
+                        <p>2.第一銀行以外的晶片金融卡，銀行會另加收跨行手續費$15。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <input type="radio" name="pay" value="" class="payMethodTit"/>儲值支付<br/>
+            <div class="PrepaidPayment">
+                <div class="AllPay">
+                    <div class="AllPayUseProcess">
+                        <p>歐付寶使用流程：</p>
+                        <p>您的歐付寶帳戶必須先前往歐付寶網站註冊會員，完成「申請開通」儲值後，才能於新蛋全球生活網上使用歐付寶儲值支付付款。</p>
+                    </div>
+                    <div class="PrepaidTeaching">
+                        <p>歐付寶開通儲值支付帳戶教學可參考：</p>
+                        <p>htp://www.allpay.com.tw/Service/FAQTopUp</p>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </form>
+    </div>
+
+    @*↓↓↓↓↓↓繼續購物或結帳↓↓↓↓↓↓*@
+    <div class="BottomButton">
+        <a href=""><div class="ContinueBtn Btn_lg">〈&nbsp;繼續購物</div></a>
+        <a href=""><div class="CheckoutBtn Btn_lg">結帳&nbsp;〉</div></a>
+    </div>
+</div>

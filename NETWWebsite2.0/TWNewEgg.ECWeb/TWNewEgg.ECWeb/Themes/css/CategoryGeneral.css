@@ -1,0 +1,300 @@
+@charset "UTF-8";
+.clear {
+  clear: both;
+}
+
+@media screen and (max-width: 1280px) {
+  .content {
+    margin-left: 52px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .content {
+    margin-left: 22px;
+  }
+}
+
+.categoryBanner {
+  width: 1176px;
+}
+@media screen and (max-width: 1280px) {
+  .categoryBanner {
+    width: 1004px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .categoryBanner .list .box {
+    width: 30%;
+    margin: 0 1%;
+  }
+}
+
+select {
+  /*padding-right:30px;*/
+}
+
+.categoryTopBar:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+
+.CategoryArea:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.CategoryArea .aside2 {
+  /*屬性篩選*/
+  float: left;
+  width: 206px;
+}
+.CategoryArea .subCategory {
+  /*float:right;
+  width:($RWDMaxWidth - $aside2Width);*/
+}
+@media screen and (max-width: 1280px) {
+  .CategoryArea .subCategory {
+    width: 798px;
+  }
+}
+.CategoryArea .subCategory .box {
+  /*不需要RWD效果 直接以3欄呈顯*/
+  /*width:24%;
+  margin-left:0.75%;
+  @media screen and (max-width: 1280px) {*/
+  width: 32%;
+  margin-left: 1%;
+  /*}*/
+}
+
+.pathLink {
+  height: 27px;
+  line-height: 27px;
+}
+
+.pathLink .selectText {
+  position: relative;
+  display: inline-block;
+  top: 8px;
+  width: 200px;
+  height: 26px;
+  margin: 0 5px;
+  padding-right: 25px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+.pathLink .selectText:before {
+  position: absolute;
+  content: "";
+  display: block;
+  top: 1px;
+  right: 2px;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  background: url(/Themes/img/Icon/SelectImg.png) center no-repeat;
+}
+.pathLink .selectText span {
+  position: relative;
+  left: 0;
+  top: 0;
+  display: inline-block;
+  width: 91.5%;
+  height: 26px;
+  padding: 0 5px;
+  border-right: 1px solid #ccc;
+  line-height: 26px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pathLink .selectText .selectLists {
+  position: absolute;
+  z-index: 101;
+  top: 26px;
+  left: -1px;
+  width: 100%;
+  height: auto;
+  padding: 5px 0;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  background: #fff;
+}
+.pathLink .selectText .selectLists li {
+  display: inline-block;
+  width: 100%;
+  height: 25px;
+  padding: 0 5px;
+  line-height: 25px;
+}
+.pathLink .selectText .selectLists li:hover {
+  background: #ececec;
+}
+
+.categoryBanner.banner2 {
+  margin-bottom: 0;
+}
+
+div#starItemTitle {
+  position: relative;
+  left: -1px;
+  width: 1176px;
+  padding: 2.5px 0 2.5px 5px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.categoryPushModules {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+.categoryPushModules.pushBannerModule, .categoryPushModules.pushBannerModule > a, .categoryPushModules.pushBannerModule > a img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-bottom: 0;
+}
+
+.categoryPushSlider {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+.categoryPushSlider > .sliderContent {
+  position: relative;
+  width: 1174px;
+  height: 410px;
+  border-width: 0 1px;
+  border-style: solid;
+  border-color: #ccc;
+}
+.categoryPushSlider > .sliderContent .modules {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  *zoom: 1;
+}
+.categoryPushSlider > .sliderContent .modules:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.categoryPushSlider > .sliderContent .modules:first-child {
+  display: block;
+}
+.categoryPushSlider > .tab {
+  position: absolute;
+  left: 1px;
+  bottom: 0;
+}
+.categoryPushSlider > .tab, .categoryPushSlider > .tab ul {
+  *zoom: 1;
+  display: block;
+  width: 1174px;
+  height: 36px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.categoryPushSlider > .tab:after, .categoryPushSlider > .tab ul:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.categoryPushSlider > .tab ul li {
+  position: relative;
+  float: left;
+  display: block;
+  width: 20%;
+  height: 100%;
+}
+.categoryPushSlider > .tab ul li a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-bottom: 0px;
+  font-size: 16px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.categoryPushSlider > .tab ul li:before {
+  position: absolute;
+  z-index: 3;
+  top: -7px;
+  left: 50%;
+  display: none;
+  content: "";
+  width: 0;
+  height: 0;
+  margin-left: -7.5px;
+  border-style: solid;
+  border-width: 0 7.5px 8px 7.5px;
+  border-color: transparent transparent #333 transparent;
+}
+.categoryPushSlider > .tab ul li.selected:before {
+  display: block;
+}
+.categoryPushSlider > .tab ul li.selected a {
+  background: #333;
+  color: #fff;
+}
+
+.pushProducts, .pushProducts > ul {
+  height: 100%;
+  overflow: hidden;
+  *zoom: 1;
+}
+.pushProducts:after, .pushProducts > ul:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.pushProducts > ul > li:first-child {
+  border-left: 0px;
+}
+.pushProducts .box {
+  width: 24.9%;
+  border-width: 0 0 0 1px;
+  margin: 46px 0 46px 0;
+}
+.pushProducts .box .pic {
+  width: 200px;
+  height: 200px;
+}
+.pushProducts .box a {
+  border-bottom: 0;
+}
+
+.pushBanner, .pushBanner > a {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  *zoom: 1;
+}
+.pushBanner:after, .pushBanner > a:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.pushBanner > a {
+  border-bottom: 0px;
+}
+.pushBanner img {
+  width: 100%;
+  height: 100%;
+}

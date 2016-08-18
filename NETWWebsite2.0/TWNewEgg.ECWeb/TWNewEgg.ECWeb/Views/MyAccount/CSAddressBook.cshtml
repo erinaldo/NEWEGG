@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "超商紀錄本" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/MyAccount")
+}
+@section scripts {
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    <script>
+        /*給子選單滑出滑入用的jquery*/
+        TabSelectArea();
+    </script>
+}
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/MyAccount">我的帳戶</a> >
+    <a href="/MyAccount/AddressBook">紀錄本修改</a> >
+    <span>統編紀錄本</span>
+</div>
+
+<div class="TopExplanationArea"></div>
+
+<div class="AccountArea">
+    <div class="TabArea Border grayBorder">
+        <ul>
+            <li class="Tab BorderTab" id="WishList"><a href="/Cart/WishCart"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+            @*<li class="Tab BorderTab" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>*@
+            <li class="Tab BorderTab" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+            <li class="Tab BorderTab" id="Order" onclick="TabOpenClose()">
+                <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                    @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+                </ul>
+            </li>
+            <li class="Tab BorderTab TabSelected" id="Account">
+                <a href="/MyAccount"><i class="icon ServiceIcon Account"></i>帳戶管理<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                    <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                    @*<li><a href="/MyAccount/AddressBook">紀錄本修改</a></li>*@
+                    <li><a href="/MyAccount/AskQuestion">問答中心</a></li>
+                    <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="serviceContentArea">
+        <div class="serviceContentBox">
+            <div class="Tit ClassTit"><i class="icon ServiceIcon UpdateInformation-2"></i>紀錄本修改</div>
+            <div style="margin:15px;">
+                <div@* class="TabArea grayBorder"*@>
+                    <ul>
+                        <li class="TabNoHover RadiusTab"><a href="/MyAccount/AddressBook">收件人紀錄本</a></li>
+                        <li class="TabNoHover RadiusTab TabSelected"><a href="/MyAccount/CSAddressBook">超商紀錄本</a></li>
+                        <li class="TabNoHover RadiusTab"><a href="/MyAccount/VATBook">統編紀錄本</a></li>
+                    </ul>
+                </div>
+                
+                <div class="TabArea grayBorder service_contentTable">
+                    <div class="sTit">
+                        <span class="tt">超商紀錄本</span>
+                        <span class="add"><a href="#add">新增超商</a></span>
+                    </div>
+                    <table style="margin:-1px 0;">
+                        <tr>
+                            <th style="width:40px;">預設</th>
+                            <th style="width:120px;">超商名曾</th>
+                            <th>門市地址</th>
+                            <th style="width:80px;">門市</th>
+                            <th style="width:40px;">功能</th>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" checked="checked" /></td>
+                            <td><i class="icon icon-shop icon-hiLife"><img src="/Themes/img/ShoppingProcess/HiLifeIMG.jpg" alt="萊爾富" />萊爾富超商</i></td>
+                            <td>台北市松山區民生東路三段133號</td>
+                            <td>民生門市</td>
+                            <td>
+                                <a href="#edit">編輯</a>
+                                <a href="#delete"><img src="/Themes/img/Icon/DeleteImg.png" alt="刪除" title="刪除" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" /></td>
+                            <td>
+                                <select class="input_sm selector-name">
+                                    <option>超商名稱</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select_sm selector-name">
+                                    <option>請選擇縣市</option>
+                                </select>
+                                <select class="select_md selector-name">
+                                    <option>請選擇鄉、鎮、行政區</option>
+                                </select>
+                                
+                                <select class="select_sm selector-name">
+                                    <option>請選擇路名</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select_sm selector-name">
+                                    <option>門市名稱</option>
+                                </select>
+                            <td>
+                                <a href="#save">儲存</a>
+                                <a href="#cancel">取消</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">目前尚無超商紀錄</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

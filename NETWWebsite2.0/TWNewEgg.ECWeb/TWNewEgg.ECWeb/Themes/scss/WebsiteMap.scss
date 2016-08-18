@@ -1,0 +1,107 @@
+@import "compass";
+@import "_importSCSS";
+
+//fontSize mixins
+$defFont: 16;
+
+$list: fashion luxury appli life sports leisure computer digital foods overseas;
+$color-lists: #C4C2C2 #D6AE7B #82C5ED #87CDCE #89C087 #8ECBA9 #669BD3 #70B0E0 #F29E7F #EC7375;
+
+@function calculateRem($size) {
+  $remSize: $size / 16;
+  @return #{$remSize}rem;
+}
+
+@mixin fontSize($size:16) {
+  font-size: $size#{px}; //Fallback in px
+  font-size: calculateRem($size);
+}
+
+.siteMap {
+    margin-top: 30px;
+    width:100%;
+    height:auto;
+
+	@include pie-clearfix;
+
+	& > .mapTitle {
+		position: relative;
+		display: inline-block;
+		height:35px;
+		padding-left: 40px;
+
+        @include fontSize($defFont + 8);
+		line-height: 35px;
+		letter-spacing: 2px;
+
+    }
+
+	.mapTitle:before {
+		position: absolute;
+		top: 2px;
+		left: 0;
+		display: inline-block;
+		content: "";
+		width: 35px;
+		height: 35px;
+		overflow: hidden;
+		background-image: url(/Themes/img/Icon/sitemapIcons.png);
+		background-repeat: no-repeat;
+	}
+
+}
+
+.siteMap ul > li {
+    margin-top: 20px;
+	height: auto;
+
+	&, & > h3.mapSubTitle {
+		display:block;
+		width: 100%;
+	}
+
+	h3.mapSubTitle {
+		margin-bottom: 10px;
+		height: 30px;
+		border-bottom: 1px solid #043041;
+
+		@include fontSize($defFont + 2);
+		line-height: 30px;
+		letter-spacing: 1px;
+		color: #043041;
+	}
+
+	& > .mapContent {
+		width: 100%;
+		height: auto;
+
+		@include pie-clearfix;
+	}
+
+	& > .mapContent a {
+		@include float(left);
+		margin-bottom:5px;
+		display: block;
+		height: 20px;
+		padding: 0 3px;
+		border-right: 1px solid #666;
+
+		@include fontSize($defFont - 1);
+		color:#666;
+		line-height: 20px;
+		letter-spacing: 1px;
+	}
+
+}
+
+@each $cate in $list {
+	$i: index( $list, $cate);
+	.map_#{$cate} > .mapTitle {
+		color: nth($color-lists, $i);
+		&:before {
+			background-position: 0 (-35 * ($i - 1))#{px};
+		}
+	}
+}
+
+

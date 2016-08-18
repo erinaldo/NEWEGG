@@ -1,0 +1,98 @@
+﻿<div class="I_Tt_i01">
+    <!-- 暫時性全域CSS -->
+    <style>
+        .itemBox, .itemBox * {
+            box-sizing:border-box;
+            transition:.5s;
+            font-family:微軟正黑體,"sans-serif";
+        }
+            .itemBox:after {
+                content:" ";
+                display:block;
+                clear:both;
+                width:100%;
+            }
+            .itemBox a, .itemBox a:hover, .itemBox a:visited {
+                text-decoration:none;
+                border:0;
+            }
+
+    </style>
+
+    <!-- 版型一CSS -->
+    <style>
+        .itemBox {
+            padding:10px;
+            width:100%;
+            background:#fff;
+            border:1px solid #000;
+        }
+            .itemBox .pic {
+                width:100%;
+            }
+                .itemBox .pic img {
+                    max-width:100%;
+                    min-width:100%; /*加此忽略圖片原尺寸 強制等比模糊放大*/
+                }
+            .itemBox .txt {
+                text-align:right;
+            }
+            .itemBox h3 {
+                height:40px;
+                text-overflow:ellipsis;
+                display:-webkit-box;
+                -webkit-line-clamp:2;
+                -webkit-box-orient:vertical;
+                line-height:1.3em;
+                font-size:16px;
+                color:#767676;
+            }
+            .itemBox .SubTitle {
+                margin:6px 0;
+                height:15px;
+                overflow:hidden;
+                white-space:nowrap;
+                text-overflow:ellipsis;
+                font-size:14px;
+                color:#f86d1f;
+            }
+            .itemBox .price {
+                float:right;
+                font-size:22px;
+                font-weight:bold;
+                color:#333;
+            }
+                .itemBox .price > span {
+                    margin-right:3px;
+                    font-size:16px;
+                    
+                    font-weight:normal;
+                }
+
+            .itemBox .buyNow {
+                float:left;
+                padding:4px 7px;
+                border:1px solid;
+                letter-spacing:1px;
+                color:#000;
+            }
+                .itemBox:hover .buyNow {
+                    background:#000;
+                    color:#fff;
+                }
+    </style>
+
+    <!-- 版型一HTML部分1 -->
+    <div class="itemBox">
+        <div class="pic"><a href="/item?itemid={{vModel.ID}}&categoryid={{vModel.CategoryID}}&StoreID={{vModel.StoreID}}" target="_blank">
+            <span class="vSpan"></span>
+            <img src="{{vModel.ImageUrl}}" alt="{{vModel.Title}}" class="itemImgCen">
+        </a></div>
+        <div class="txt"><a href="/item?itemid={{vModel.ID}}&categoryid={{vModel.CategoryID}}&StoreID={{vModel.StoreID}}" target="_blank">
+            <p class="SubTitle">{{vModel.SubTitle}}</p>
+            <h3 title="{{vModel.Title}}">{{vModel.Title}}</h3>
+            <div class="buyNow">立即購買</div>
+            <span class="price"><span>NTD</span>{{vModel.DisplayPrice}}</span>
+        </a></div>
+    </div>
+</div>

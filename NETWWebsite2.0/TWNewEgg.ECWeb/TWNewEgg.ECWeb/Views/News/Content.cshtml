@@ -1,0 +1,60 @@
+﻿@using System.Collections.Generic
+@using TWNewEgg.ECWeb.Utility
+@using TWNewEgg.Models.DomainModels.News
+@model NewsInfo
+
+@{
+    ViewBag.Title = "新聞內容頁" + "-新蛋全球生活網";
+}
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/NewsContent")
+
+<style>
+    strong {
+        font-size: 20px;
+    }
+    .ArticleName {
+        line-height: 1.5;
+        width: 650px;
+        margin: 0 auto;
+    }
+</style>
+
+<div class="bread"><a href="/">首頁</a> > <span>新聞中心</span></div>
+<br class="clear" />
+
+@*↓↓↓↓↓↓↓↓↓↓固定外框值↓↓↓↓↓↓↓↓↓↓*@
+<div style="width:1024px;margin:0 auto;position:relative;clear:both;">
+
+    @*↓↓↓↓↓↓↓↓↓↓左側選單↓↓↓↓↓↓↓↓↓↓*@
+    <ul class="LeftBlock">
+        <li class="Selected"><a href="/News/Index">新聞中心</a></li>
+        <li><a href="/News/Media">媒體報導</a></li>
+    </ul>
+
+    <div class="RightBlock">
+        @if (Model != null)
+        { 
+    @*↓↓↓↓↓↓↓↓↓↓新聞內容 ↓↓↓↓↓↓↓↓↓↓*@
+        <p class="Date blue">@(string.Format("{0}/{1}/{2}", Model.Date.Year, Model.Date.Month, Model.Date.Day))</p>
+        <p class="ArticleName">@(ArticleUtility.LimitDownText(Model.Title, 56))</p>
+        <!--div class="NewsBigIMG"></div-->
+        <div class="Article">
+            @Html.Raw(Model.Contents)
+        </div>
+    @*↑↑↑↑↑↑↑↑ 新聞內容 ↑↑↑↑↑↑↑*@
+
+    @*↓↓↓↓↓↓↓↓↓↓ 上下則 ↓↓↓↓↓↓↓↓↓↓*@
+    <div class="NextArticle">
+        @if(Model.PrevID > 0){
+        <div class="Left"><a href="/News/Content?newsID=@(Model.PrevID)"><div class="arrow arrowLeft">〈</div>上一篇</a></div>
+        }
+        @if(Model.NextID > 0){
+        <div class="Right"><a href="/News/Content?newsID=@(Model.NextID)"><div class="arrow arrowRight">〉</div>下一篇</a></div>
+        }
+    </div>
+    @*↑↑↑↑↑↑↑↑ 上下則 ↑↑↑↑↑↑↑*@
+        }
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "廢四機同意測試";
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/ElementLibrary")
+   
+    @*廢四機同意,使用優惠活動的活動贈品樣板-----add by bruce 20160513*@
+    @Styles.Render("~/content/css/Activity") 
+}
+
+@section scripts {
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")
+    @Scripts.Render("~/Scripts/NETW/netw-chooseany-1.0.0.0.js")
+    @Scripts.Render("~/Scripts/NETW/netw-additionalItem-1.0.0.0.js")
+
+    @*廢四機同意,js-----add by bruce 20160513*@
+    @*@Scripts.Render("~/Scripts/Discard4/Index.js")*@
+
+}
+
+@*<div class="btmBtnArea">
+    <input type="button" id="submitdata" value="確認" class="btn btn-submit OrgBgBtn" style="padding: 10px 18px; font-size: 18px;">
+    <input type="button" value="取消" class="btn btn-cancel OrgBgBtn" style="padding: 10px 18px; font-size: 18px;">
+</div>*@
+<hr />
+<div class="btmBtnArea">
+    <input type="button" value="同意" class="CheckoutBtn OrgBgBtn" id="sure">
+    <input type="button" value="不同意" class="CheckoutBtn OrgBgBtn" id="cancel">
+</div>
+<hr />
+<div class="BottomButton">
+    <input id="Checkoutbutton" type="button" value="下一步&nbsp;〉" class="CheckoutBtn OrgBgBtn">
+</div>
+
+<script>
+
+    $(function () {
+
+        var dd4 = new DisplayDiscard4();
+        dd4.init_data();
+       
+        //同意
+        $("#sure").click(function () {
+            dd4.set_discard4(true);
+        });
+
+        //不同意
+        $("#cancel").click(function () {
+            dd4.set_discard4(false);
+        });
+
+        //下一步
+        $("#Checkoutbutton").on("click", function () {
+
+            console.log('get_data:' + dd4.get_data());
+            console.log('is_discard4:' + dd4.is_discard4);
+            console.log('is_save:' + dd4.is_save);
+            console.log('agreeDiscard4:' + dd4.agreeDiscard4);
+            console.log('note_msg:' + dd4.note_msg);
+
+            var val = dd4.get_data();
+            alert(val);
+            dd4.show_note();
+
+        });
+
+
+    });
+
+    function Checkout() {
+        alert('Checkout');
+    }
+
+</script>
+

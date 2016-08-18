@@ -1,0 +1,47 @@
+﻿@using TWNewEgg.Models.DomainModels.Store
+@using TWNewEgg.ECWeb.Utility
+@model ListZone
+
+@{
+    string colorClass = (string)ViewData["colorClass"];
+    if (Model != null && Model.ItemList != null && Model.ItemList.Count > 0)
+    {
+        var itemPageCount = Model.ItemList.Count / 3 + ((Model.ItemList.Count % 3) == 0 ? 0 : 1);
+        var limitPageCount = itemPageCount <= 3 ? itemPageCount : 3;
+    <div class="carousel4 catcolorleft@(colorClass)">
+        <div class="pagination">
+            <div class="more"><a class="catcolortxt@(colorClass)" href="#nogo">更多商品</a></div>
+            <ul>
+        @for (int i = 0; i < limitPageCount; i++)
+        { 
+                <li><a href="#nogo" @(Html.Raw(i == 0 ? "class=\"catcolorbg" + colorClass + "\"" : ""))>@(i + 1)</a></li>
+        }
+            </ul>
+        </div>
+        <div class="listcontent catcolortop@(colorClass) catcolorbottom@(colorClass) catcolorright@(colorClass)">
+        @for (int i = 0; i < limitPageCount; i++)
+        {
+            <div @(Html.Raw(i > 0 ? "style=\"display: none;\"" : ""))>
+            @for (int j = i * 3; j < Model.ItemList.Count && j < (i + 1) * 3; j++)
+            {
+            <div class="box14" shopItemId="@(Model.ItemList[j].ID)">
+                <!--<a href="item?itemid=@(Model.ItemList[j].ItemID)" style="text-decoration: none;">-->
+                <a href="@(Model.ItemList[j].Url)" style="text-decoration: none;">
+                    <div class="img11 pic">
+                        <img src="@(TWNewEgg.ECWeb.Utility.ImageUtility.GetImagePath(Model.ItemList[j].ItemImage))" class="itemImgCen" />
+                    </div>
+                    <div class="caption">@(Model.ItemList[j].Title)</div>
+                    <div class="price">@(Model.ItemList[j].UnitPrice.AddCommas())</div>
+                </a>
+            </div>
+                if (j < ((i + 1) * 3) - 1)
+                {
+            <div class="divider catcolorbottom@(colorClass)"></div>
+                }
+            }
+            </div>
+        }
+        </div>
+    </div>
+    }
+}

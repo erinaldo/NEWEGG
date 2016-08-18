@@ -1,0 +1,177 @@
+﻿@import "compass/css3";
+@import "_colorStyle";
+@import "_base_BAK";
+@import "template";
+@import "_importSCSS";
+
+/*Login Width*/
+/*登入頁總寬*/$outterWidth:100%;
+/*左側廣告寬*/$login_adBoxWidth:55%;
+/*左側廣告最大寬*/$login_adBoxMaxWidth:572px;
+/*右側填表最大寬*/$login_formBoxMaxWidth:388px;
+
+/*Account Style*/
+$account_mainBg:url(/Themes/img/Account/account_image.jpg) no-repeat top right;
+$account_mainBgHeight:90px;
+$login_formBoxBg:#fff;
+
+.AccountArea {
+	@extend .clear;
+	@include clearAfter;
+	width:$outterWidth;
+	.serviceContentBox {
+		.neweggCashOrderNum, .couponPswArea {
+			font-size:15px;
+			color:$darkgrayStyle;
+			input[type="text"] {
+				width:210px;
+			}
+			.btn.btn-submit {
+				padding:3px 10px;
+			}
+		}
+		.couponPswArea {
+			margin:0 40px;
+			font-weight:bold;
+		}
+		.neweggCashState {
+			margin-left:90px;
+			input {
+				padding:5px;
+				width:40px;
+				border-width:1px;
+				border-style:solid;
+			}
+			th {
+				padding:10px 0;
+				font-size:15px;
+				color:#f17126;
+				input {
+					width:50px;
+					border-color:#f17126;
+				}
+			}
+			td {
+				padding:10px 0;
+				padding-right:30px;
+				font-size:13px;
+				color:#7f7f7f;
+				input {
+					border-color:#7f7f7f;
+				}
+			}
+		}
+		.neweggCashSFilterArea {
+			float:right;
+			margin:5px;
+			.neweggCashOrderNum {
+				float:right;
+			}
+			.neweggCashState {
+				@extend .clear;
+				@include clearAfter;
+				float:left;
+				/*.tit {
+					float:left;
+				}*/
+			}
+			.neweggCashDate {
+				@include clearAfter;
+				float:left;
+				/*.tit {
+					float:left;
+				}*/
+			}
+		}
+		/*.selector {*/
+			.selector-neweggCashState {
+				float:left;
+				/*width:90px;*/
+				.default {
+				}
+				ul {
+					li {
+						width:74px;
+					}
+				}
+			}
+			.selector-neweggCashDate {
+				float:left;
+				/*width:90px;*/
+				.default {
+				}
+				ul {
+					li {
+						width:74px;
+					}
+				}
+			}
+			.selector-coupon {
+				float:right;
+				margin-bottom:6px;
+				/*width:90px;*/
+				.default {
+				}
+				ul {
+					li {
+						width:74px;
+					}
+				}
+			}
+			.selector-birth {
+				float:left;
+				width:100px;
+				.default {
+				}
+				ul {
+					li {
+						width:64px;
+					}
+				}
+			}
+		/*}*/
+		.couponTipsArea {
+			margin:0 8px;
+			line-height:1.4em;
+			.couponTipsTit {
+				display:inline-block;
+				margin:15px 0;
+				padding:1px 7px;
+				background:$babyblueStyle;
+				 @include border-radius(5px);
+				color:#fff;
+				cursor:pointer;
+			}
+			.couponTxt {
+				display:none;
+				width:100% !important
+			}
+			ul {
+				margin:5px 0 15px 25px;
+				list-style-position:outside;
+				list-style-type:decimal;
+				font-size:15px;
+			}
+			ol {
+				margin-top:5px;
+				margin-left:25px;
+				list-style-position:outside;
+				list-style-type:disc;
+				font-size:14px;
+			}
+		}
+		.service_contentForm {
+			.service_contentList {
+				position:relative;
+				.tit {
+				}
+				.txt {
+					input[type="password"] {
+						width:300px;
+					}
+				}
+			}
+		}
+	}
+}
+

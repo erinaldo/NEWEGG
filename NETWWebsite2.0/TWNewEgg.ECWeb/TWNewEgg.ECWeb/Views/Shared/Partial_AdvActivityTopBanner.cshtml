@@ -1,0 +1,10 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>
+
+@{
+    string strImageServer = string.Empty;
+    strImageServer = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsImgDomain") ?? string.Empty;
+    if (Model != null)
+    {
+        @Html.Raw(String.Format("<a href='{0}' target='_blank'><img src='{1}'></a>",Model[0].LinkUrl, strImageServer + Model[0].ImgUrl))
+    }
+}

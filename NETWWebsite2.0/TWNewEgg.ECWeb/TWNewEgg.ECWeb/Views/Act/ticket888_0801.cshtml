@@ -1,0 +1,209 @@
+﻿@{
+    ViewBag.Title = "滿888抽機票";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/Act")
+    @* css style寫這邊 *@
+    <style>
+        body{
+	background-color: #fee3d9;
+	font-family:arial,Times New Roman/*,verdana*/,"Microsoft JhengHei","PMingLiU",微軟正黑體;
+}
+
+html, body, .content, .banner, .floor-1, .floor-2, .floor-3, .floor-4, .NotesRules, .CountDown{
+	width:100%;
+	min-width:1200px;
+}
+/*樓層，包含banner亦為一個樓層*/
+.banner{
+	background: url("/img/Activity/20150801_ticket888/banner.jpg") no-repeat top center;
+	width:100%;
+	min-width:1200px;
+}
+.Floor-1{
+	width:100%;
+	min-width:1200px;
+}
+table{
+	width: 100%;
+	background: url("/img/Activity/20150801_ticket888/nameList_Bg.png");
+	margin: 20px 0 50px 0;
+	padding-bottom: 30px;
+	background-size: 100% auto;
+}
+th{font-size: 23px;letter-spacing: 10px;line-height: 70px;color: #414042;}
+td{font-size: 21px;color: #3c2415;text-align: center;height: 50px;}
+/*當背景寬100%時，用此來抓內容的1004寬*/
+.Inside{
+	width:1200px;
+	position:relative;
+	margin:0 auto;
+	clear:both;
+}
+/*注意事項與規則*/
+.NotesRules{
+	color:#414042;
+}
+.NotesRules p{
+	margin:10px 0;
+	font-size:18px;
+	padding-top:20px;
+}
+.NotesRules li{
+	font-size:15px;
+	line-height:20px;
+	list-style-type:decimal;
+	margin:5px 0;
+}
+/*基本商品方框CSS*/
+.itemBox{
+	width: 270px;
+	height: 350px;
+	position: relative;
+	margin: 0 20px 90px 0;
+	float: left;
+}
+.itemBox .pic{
+	width: 270px;
+	height: 270px;
+	overflow: hidden;
+}
+.itemBox .pic img{
+	width: 100%;
+	height: auto;
+	max-width: 270px;
+	max-height: 270px;
+}
+a{
+	color:inherit;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/*Banner 中的引言*/
+.BannerWord{
+	position: absolute;
+	width:742px;
+	height:201px;
+}
+.BannerWord{top:230px;right:20px;}
+.BannerWord+.BannerWord{top: 960px;right:-35px;}
+
+/*Banner 中的三個小活動連結*/
+.Active{
+	position: absolute;
+	top:1200px;
+	display: block;
+	width: 396px;
+	height: 150px;
+}
+.Active{background: url("/img/Activity/20150801_ticket888/banner_item_01.png") no-repeat center bottom; left: 0;}
+.Active+.Active{background: url("/img/Activity/20150801_ticket888/banner_item_02.png") no-repeat center bottom; left: 392px;}
+.Active+.Active+.Active{background: url("/img/Activity/20150801_ticket888/banner_item_03.png") no-repeat center bottom; left:788px;}
+
+/*Banner 中的倒數計時*/
+.CountDown{
+	background: url("/img/Activity/20150801_ticket888/countDown.png") no-repeat center;
+	height: 71px;
+	position: absolute;
+	bottom: 0;
+	width: 1200px;
+}
+.CountDown span{
+	color: #ed1c24;
+	font-weight: bold;
+	font-size: 50px;
+	line-height: 70px;
+	position: absolute;
+	right: 275px;
+}
+    </style>
+}
+@section scripts {
+    @* js寫這邊 *@
+    <script>
+
+    </script>
+}
+
+<!-- start 活動內容 -->
+<div class="content">
+    
+    <!--穿插banner-->
+    <div class="banner">
+        <div class="Inside" style="height:1471px;">
+            <div class="BannerWord"><img src="/img/Activity/20150801_ticket888/banner_txt_01.png"></div>
+            <div class="BannerWord"><img src="/img/Activity/20150801_ticket888/banner_txt_02.png"></div>
+            <a class="Active" href="#"></a>
+            <a class="Active" href="#"></a>
+            <a class="Active" href="#"></a>
+            <div class="CountDown"><span>20</span></div>
+        </div>
+    </div>
+
+    <!--第一樓層
+    <div class="Floor-1">
+        <div class="Inside">
+            <table>
+                <tr>
+                    <th>日期</th>
+                    <th>得獎者</th>
+                    <th>會員帳號</th>
+                    <th>訂單編號</th>
+                </tr>
+                <tr>
+                    <td>8/1</td>
+                    <td>常威</td>
+                    <td>domo@demo.com</td>
+                    <td>LBO150801000000X</td>
+                </tr>
+            </table>
+        </div>
+    </div>-->
+
+    <!--注意事項與規則-->
+    <div class="NotesRules">
+        <div class="Inside">
+            <p>活動參加規範：</p>
+            <ul>
+                <li>下單滿額888抽機票(以下簡稱本活動)，活動辦法：凡台灣新蛋全球生活網(以下簡稱主辦單位)會員於8/1-8/9單次結帳滿新台幣888元就可參加抽獎，獎項為台北-日本大阪來回機票1張；當日獎項於隔日以電腦程式隨機抽出並公布於活動頁，例：8/1獎項將於8/2抽出並公布於本活動頁；當次沒有被抽中的訂單可參加下次抽獎，每筆訂單僅具1次獲獎機會與資格。活動獎項將於2015/9/14以後寄出。</li>
+                <li>本活動限主辦單位註冊之會員方可參加，參加者暨得獎者皆須完整填具會員資料含姓名、電話、地址以確保獲獎權益。會員資料請於「我的帳戶」的「我的帳戶_個人資料修改」中進行維護。</li>
+                <li>加者若有資格不符或在公布得獎以後取消訂單、退貨視同放棄中獎資格。主辦單位保留得以更換/遞補名單之權利。</li>
+                <li>為公平起見，新蛋集團之員工暨配偶與直系親屬、家屬皆不得參加本活動，如有違反情事，將取消其得獎資格。</li>
+            </ul>
+            <p>參加前同意事項：</p>
+            <ul>
+                <li>消費者於參加本活動之同時，即同意接受本活動之活動辦法與注意事項之規範，如有違反，主辦單位得取消其參加及得獎資格，並得就因此所產生之損害，向參加者請求損害賠償。</li>
+                <li>主辦單位將會向您索取個人資料(包括但不限於姓名、身分證字號、電話、地址與e-mail)，參加者同意提供之個人資料僅做為獎項寄送與開立(免)扣繳憑證之用。</li>
+                <li>參加本活動之參加者就所提供之個人資料，依個人資料保護法規定得行使查獲請求閱覽、請求製給複製本、請求補充或更正、停止蒐集、處理或利用以及請求刪除之權利。惟依法主辦單位因執行業務所必須者，得不依參加者請求為之。故參加者若在活動期間請求刪除個資，請詳述所要停止或刪除的個人資料，並說明您與主辦單位所締結的服務，以便依此要求妥善處理您的個資，避免不必要的延誤，資料刪除後您同時喪失參與活動與中獎的資格。</li>
+                <li>本活動僅限居住於台灣本島之中華民國國民參加，獎項寄送地址限於台灣本島。</li>
+                <li>本活動如有任何因為電腦、網路、電話或其他不可歸責於主辦單位之事由，造成系統誤送活動訊息或中獎通知，或者使參加人或中獎人所寄出或登錄之資料有延遲、遺失、錯誤、無法辨識或毀損之情況，主辦單位不負任何法律責任，參加者亦不得因此異議。</li>
+                <li>本活動如因不可抗力之特殊原因無法執行時，主辦單位有權決定取消、終止、修改或暫停本活動。</li>
+            </ul>
+            <p>兌獎須知：</p>
+            <ul>
+                <li>本活動結束後所進行之抽獎作業，會依照各活動得獎公告間，將得獎名單公布於該活動網頁，並以電子郵件專函通知（內附同意領獎回條及相關資料）會以電話通知確認身分，告知領獎方式。收到通知函後須填妥於同意領獎回條，並於一週內寄送回函(以郵戳為憑)，若超過一週未寄送回函者將視同放棄領獎資格。</li>
+                <li>所有獎項之聯絡及寄送以得獎者於註冊會員時填寫之資料為準，參加者請務必確認資料填寫正確。若因資料填寫不實、不完整或不正確，導致無法聯繫通知或無法寄送或寄送錯誤，則視同放棄權益並應自負其責，將不補發或重寄，主辦單位將不另行通知。如經發現偽造資料取消抽獎資格。</li>
+                <li>本活動獎項以公佈於本網站上的資料為準，且以實物為準，詳細使用辦法請參閱票券說明，得獎者不得要求將獎項折換現金、退換、轉售、交換等值商品。</li>
+                <li>本活動之贈品如因不可抗力之因素無法提供時，主辦單位保留有權更換其他等值獎項之權利。</li>
+                <li>得獎者於領獎時，另須檢附身分證影本以傳真或郵寄方式提供給主辦單位，以利兌獎手續。相關獎項兌贈使用方式請詳閱使用說明。獎項將直接寄送給得獎者，簽收即代表完成贈獎手續。</li>
+                <li>依中華民國稅法所規定，抽中獎項價值於1,001元至20,000元者免扣繳機會中獎所得稅，主辦單位將依法於2016年2月10日前將扣繳憑單寄發給得獎者以利申報。</li>
+                <li>依各類所得扣繳率標準之規定，中獎獎品價值超過20,000元(含)，其中獎者若為我國境內居住之個人或在我國境內有固定營業場所之營利事業，應扣繳10%機會中獎稅及繳交身分證影本。<br/>非我國境內居住之個人或在我國境內無固定營業場所之營利事業，中獎獎品價值應扣繳20%稅額。若得獎人須先扣繳稅額而不願繳納稅款者，視為放棄得獎資格。若有其他未盡事宜悉依稅法相關規定。</li>                
+            </ul>
+            <p>操縱活動規範：</p>
+            <ul>
+                <li>主辦單位有權檢視各活動參加者之活動參與行為及中獎情形是否涉及不法行為，如人為操縱活動抽獎結果、短時間內異常多筆註冊行為、透過任何電腦程式參與活動或以任何不正當的方式影響活動結果，活動參加者若因上述或其他不法行為所獲得之活動資格與獎項，主辦單位保有取消得獎資格的權利，並保留法律追訴權。</li>
+            </ul>
+            <p>其他：</p>
+            <ul>
+                <li>主辦單位保有修改或變更活動方式及更換活動獎項之權利，其他變更內容與注意事項請以本活動頁為準，若有異動及修改，將在本網站上公布，恕不另行個別通知。其他注意事項請詳見各活動頁及會員中心等說明。</li>
+            </ul>.
+            <p>再次感謝您對新蛋全球生活網的支持，祝您購物愉快，謝謝！</p>
+        </div>
+    </div>
+    
+</div>
+
+<!-- end 活動內容 -->

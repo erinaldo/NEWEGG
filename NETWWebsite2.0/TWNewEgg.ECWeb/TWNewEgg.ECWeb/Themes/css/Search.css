@@ -1,0 +1,81 @@
+@charset "UTF-8";
+.clear, .searchMainArea, .searchListArea .searchBox {
+  clear: both;
+}
+
+.searchMainArea:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+
+.filterList.searchFilterArea {
+  float: left;
+  width: 206px;
+}
+.filterList.searchFilterArea .groupTit .tit {
+  width: 110px;
+}
+.filterList.searchFilterArea .list li .subTit {
+  width: 120px;
+}
+
+.searchListArea {
+  /*float:right;
+  width:$searchListAreaWidth;*/
+}
+.searchListArea .searchTopBar {
+  margin-bottom: 10px;
+  /*.navOrder.searchOrder {
+  	max-width:($searchListAreaWidth - $searckAgainWidth - 10);
+  }*/
+}
+.searchListArea .searchTopBar:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.searchListArea .searchTopBar .searckKeyBar {
+  float: left;
+  max-width: 493px;
+  color: #f37225;
+}
+.searchListArea .searchTopBar .searchAgainArea {
+  float: right;
+  width: 452px;
+}
+.searchListArea .searchTopBar .searchAgainArea .searchAgainBar {
+  margin-right: 0;
+  padding: 6px 5px;
+  width: 360px;
+}
+.searchListArea .searchTopBar .searchAgainArea .searchAgain {
+  margin: -1px 0 0 -5px;
+  width: 38px;
+  height: 32px;
+  background: url(/Themes/img/Icon/searchAgain.jpg) no-repeat;
+  border: 0;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.searchListArea .searchBox:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.searchListArea .searchBox .box {
+  /*一列幾個*/
+  /*彼此間距*/
+  /*寬度(innnerWidth) = (總寬-間距-邊框)/3*/
+  margin-bottom: 10px;
+  /*margin-left:$searchBoxMargin;
+  width:$searchBoxWidth;*/
+  margin-left: 1%;
+  width: 32%;
+}

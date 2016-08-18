@@ -1,0 +1,46 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+
+<style>
+    table {border-collapse: collapse;}
+    table.OrderTable td {padding: 0 5px;border:1px solid #000;}
+    table.OrderTable th {text-align: left;padding: 0 5px;border:1px solid #000;}
+</style>
+<html>
+    <body>
+        <table width="795" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;">
+            <tr>
+                <td>
+                    <img src="@Model.DIC["Header"]" width="795" height="68" />
+                </td>
+            </tr>
+            <tr>
+                <td  style="padding:0 20px;">
+                    <p>@Model.CartList[0].Username 小姐/先生您好：<br /><br />
+                        您的訂單編號:@Model.DIC["SalesOrderCodes"]，
+                    </p>
+                    <p style="color:#F00">
+                        <span style="font-weight:bold; letter-spacing:1px; line-height:28px;">請注意！</span>
+                        經確認，您提供的退款資料有誤，故銀行無法為您正常退款，異常原因可能為銀行//分行/帳號/戶名等...有誤。
+                    </p>
+                    <p>我們會再請專人與您聯繫後續情況，煩請手機暢通待聯繫。</p>
+                    <p>造成不便之處還請見諒，再次感謝您的支持與愛護！</p>
+                    <p style="margin-top:50px;">
+                        若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                        電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                        服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                        請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                    </p>
+                    <p align="right">@(WebSiteListWebSiteData.Contact1)敬上 </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="@Model.DIC["Fooer"]" width="795" height="40" />
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

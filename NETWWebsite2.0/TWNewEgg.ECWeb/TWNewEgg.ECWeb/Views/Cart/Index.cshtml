@@ -1,0 +1,1173 @@
+﻿@model Dictionary<string, object>
+@{
+    ViewBag.Title = "購物車" + "-新蛋全球生活網";
+    List<TWNewEgg.Models.ViewModels.Redeem.Coupon> listActiveCoupon = null;
+    string strTemp = "";
+
+    if (Model != null && Model.ContainsKey("CouponList") && Model["CouponList"] != null)
+    {
+        listActiveCoupon = (List<TWNewEgg.Models.ViewModels.Redeem.Coupon>)Model["CouponList"];
+    }
+}
+
+@section addToFloatAccount {
+
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/Style_product")
+    @Styles.Render("~/content/css/ShoppingCart")
+    @Styles.Render("~/content/css/ShoppingProcess")
+    @Styles.Render("~/content/css/promotiongift")
+    @Styles.Render("~/content/css/AdditionalItem")
+}
+
+@section scripts {
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")
+    @Scripts.Render("~/Scripts/NETW/netw-chooseany-1.0.0.0.js")
+    @Scripts.Render("~/Scripts/NETW/netw-additionalItem-1.0.0.0.js")
+
+    @*廢四機同意,使用優惠活動的活動贈品樣板-----add by bruce 20160513*@
+    @*@Styles.Render("~/content/css/Activity") css會打架不用了 *@
+
+    @*廢四機同意,js-----add by bruce 20160513*@
+    @Scripts.Render("~/Scripts/Discard4/Index.min.js")
+
+    
+
+    <Script>   
+        var ItemDetail = [];
+        var PayTypeGroupID;
+        var PayType0rateNum;
+        var Paytype;
+        var BankID;
+        var PromotionPriceSum = 0;
+        var PostData;
+        var CartTypeID = parseInt($(".Tab.BorderTab.TabSelected").attr('data-TypeID'));
+        var AdditionalCartTypeID = 100;
+        var CouponList;
+        
+
+        if (typeof String.prototype.trim !== 'function') {
+            String.prototype.trim = function () {
+                return this.replace(/^\s+|\s+$/g, '');
+            }
+        }
+       
+        $(document).ready(function () {
+            $("div.LightBoxUnderLay").fadeIn();
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            InitializationScript();
+            LightBoxMsgAllHide();
+            $("div.LightBoxUnderLay").delay(168).hide();
+            twNewegg().cart().cartMethod("readFromCart", { categoryIds: [], categoryTypes: [], successMethods: [countCartNumber], successParas: [[]] });
+        });
+
+        //   LightBoxCenter();跳出視窗定位
+        function iniView() {
+            if (BankInfoArray.length == 0 || BankInfoArray.length == null) {
+                $("#bankAreaSelect").css("display", "none");
+                return false;
+            }
+            var needPayMoney = $("#MainNeedPayMoneyPrice").text();
+            if (needPayMoney.indexOf(",") >= 0) {
+                needPayMoney = needPayMoney.replace(",", "");
+            }
+            var needPayMoneyInt = parseInt(needPayMoney);
+            var needToShow = false;
+            for (var i = 0; i < BankInfoArray.length; i++) {
+                if (parseInt(BankInfoArray[i].bankMin) <= needPayMoneyInt) {
+                    needToShow = true;
+                    break;
+                }
+                else {
+                    needToShow = false;
+                }
+            }
+            if (needToShow == true) {
+                $("#bankAreaSelect").css("display", "");
+                reFreshBankInfo();
+            }
+            else {
+                $("#bankAreaSelect").css("display", "none");
+            }
+        }
+        function reFreshBankInfo() {
+            $("#BankInfoSelect").empty();
+            var needPayMoney = $("#MainNeedPayMoneyPrice").text();
+            if (needPayMoney.indexOf(",") >= 0) {
+                needPayMoney = needPayMoney.replace(",", "");
+            }
+            var needPayMoneyInt = parseInt(needPayMoney);
+            @*沒有紅利可以選*@
+            if (BankInfoArray == null || BankInfoArray.length == 0) {
+                $("#bankAreaSelect").css("display", "none");
+                return false;
+            }
+            for (var i = 0; i < BankInfoArray.length; i++) {
+                if (parseInt(BankInfoArray[i].bankMin) <= needPayMoneyInt) {
+                    if (i == 0) {
+                        $("#BankInfoSelect")
+                            .append($("<option selected=\"selected\"></option>")
+                            .attr("value", BankInfoArray[i].bankid).text(BankInfoArray[i].bankName + "(限最低消費" + BankInfoArray[i].bankMin + "元起，最高折抵上限" + BankInfoArray[i].bankMax + "%"));
+                    }
+                    else {
+                        $("#BankInfoSelect")
+                            .append($("<option></option>")
+                            .attr("value", BankInfoArray[i].bankid).text(BankInfoArray[i].bankName + "(限最低消費" + BankInfoArray[i].bankMin + "元起，最高折抵上限" + BankInfoArray[i].bankMax + "%"));
+                    }
+                }
+            }
+            @*先判斷組合出來的下拉式清單有沒有可以選*@
+            if ($("#BankInfoSelect").val() == null) {
+                $("#bankAreaSelect").css("display", "none");
+            }
+            else {
+                $("#bankAreaSelect").css("display", "");
+                $("#BankSelectDropList").css("display", "");
+            }
+
+            $("#BankInfoSelect").selectCustom();
+        }
+        /*-------------------------------------------------------------------------------------------------------*/
+        function SetPostData() {
+            var SerialNumber = $("#SerialNumber").val();
+            ItemDetail = [];
+            $(".CartItemListItem").each(function () {
+                var ItemID = $(this).attr('data-Itemvalue');
+                var ItemDetailtemp = {
+                    "ItemID": parseInt(ItemID),
+                    "Price": parseInt($("#" + ItemID + "_Qty").attr('data-itempricdsingle')),
+                    "Qty": parseInt($("#" + ItemID + "_Qty").html())
+                }
+                ItemDetail.push(ItemDetailtemp);
+            });
+
+            Paytype = {
+                "PayTypeGroupID": parseInt(PayTypeGroupID),
+                "PayType0rateNum": parseInt(PayType0rateNum),
+                "BankID": parseInt(BankID)
+            };
+
+            PromotionPriceSum = parseInt($("#PromotionPriceSum").html())
+            AmountsPayable = parseInt($("#MainNeedPayMoneyPrice").html().replace(/[^0-9\.]+/g, ""))
+            CouponList = GetCouponInfo();
+
+            //PostData = { "SerialNumber": SerialNumber, "CartItemDetailList_View": ItemDetail, "CartPaytype_View": Paytype, "CartTypeID": CartTypeID, "PromotionPriceSum": PromotionPriceSum, "CouponList": CouponList, "AmountsPayable": AmountsPayable };
+
+            /*廢四機同意-----------add by bruce 20160516*/
+            var AgreedDiscard4 = '';
+            dd4 = new DisplayDiscard4();
+            var val = dd4.get_data();
+            console.log('AgreedDiscard4:' + val);
+            PostData = { "AgreedDiscard4": val, "SerialNumber": SerialNumber, "CartItemDetailList_View": ItemDetail, "CartPaytype_View": Paytype, "CartTypeID": CartTypeID, "PromotionPriceSum": PromotionPriceSum, "CouponList": CouponList, "AmountsPayable": AmountsPayable };
+            //console.log(PostData);
+
+        }
+
+        function OpenErrorAlert(ErrorMessageString) {
+            $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+            $("#ErrorMessages").html(ErrorMessageString);
+            $("div.LightBoxMsg.RemindDialog").fadeIn();
+        }
+
+        function OpenAddtoCartAlert(ErrorMessageString) {            
+            $("#AddtoOtherCartAlert").html(ErrorMessageString);
+            $("div.LightBoxMsg.AddtoOtherCart").fadeIn();
+        }
+
+        function OpenDelayWindow() {
+            $("div.LightBoxUnderLay").fadeIn();
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            //$("div.LightBoxMsg.DelayWindow").delay(1888).fadeOut();
+            //$("div.LightBoxUnderLay").delay(1888).slideDown(888).fadeOut();
+        }
+
+        function Checkout() {
+            LightBoxMsgAllHide();
+
+            var ischeckout = true;
+            var OpenErrorAlertString = "";
+
+            $("div.chooseBorder").each(function () {
+                if ($(this).attr('data-ischeckout') == 'False') {
+                    if (OpenErrorAlertString == "") {
+                        OpenErrorAlertString = "<span class=\"blue\">" + $(this).attr('data-CartItemClass_Name') + "</span>";
+                    }
+                    else {
+                        OpenErrorAlertString = OpenErrorAlertString + "與" + "<span class=\"blue\">" + $(this).attr('data-CartItemClass_Name') + "</span>";
+                    }
+                    $(this).removeClass("noBorder");
+                    ischeckout = false;
+                }
+            });
+            $("tr.chooseRedTextRemind").each(function () {
+                if ($(this).attr('data-ischeckout') == 'False') {
+                    $(this).css("display", "block");
+                    ischeckout = false;
+                }
+            });
+
+            if (!ischeckout) {
+                OpenErrorAlert("提醒您，" + OpenErrorAlertString + "目前尚未符合額度，確認後請繼續點擊編修進行採購，謝謝！");
+                LightBoxCenter("div.LightBoxMsg.RemindDialog");
+                return false;
+            }
+            OpenErrorAlertString = "";
+
+            if ($("input[name='paytype']:checked").val() == "" || $("input[name='paytype']:checked").val() == null) {
+                OpenErrorAlert("提醒您，您並未選擇付款方式，請選擇後繼續完成結帳流程，感謝您！");
+                LightBoxCenter("div.LightBoxMsg.RemindDialog");
+                return false;
+            }
+            else if ($("input[name='paytype']:checked").val() == "@((int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.信用卡)") {
+                if ($("input[name='pay']:checked").val() == "" || $("input[name='pay']:checked").val() == null) {
+                    OpenErrorAlert("提醒您，您並未選擇刷卡方式，請選擇後繼續完成結帳流程，感謝您！");
+                    LightBoxCenter("div.LightBoxMsg.RemindDialog");
+                    return false;
+                }
+                
+                PayTypeGroupID = parseInt($("input[name='paytype']:checked").val());
+                PayType0rateNum = parseInt($("input[name='pay']:checked").val());
+
+
+                if ($("input[type='radio'][value='201'][name='pay']:checked").val() == "201") {
+                    if ($("#BankInfoSelect").val() == null || $("#BankInfoSelect").val() == "" || $("#BankInfoSelect").val() == undefined) {
+                        OpenErrorAlert("提醒您，您並未選擇銀行，請選擇後繼續完成結帳流程，感謝您 !");
+                        return false;
+                    }
+                    else {
+                        BankID = $("#BankInfoSelect").val();
+                    }
+                }
+                else {
+                    if ($("input[name='pay']:checked").val() != "1" && ($("input[name='bank']:checked").val() == "" || $("input[name='bank']:checked").val() == null)) {
+                        OpenErrorAlert("提醒您，您並未選擇銀行，請選擇後繼續完成結帳流程，感謝您！");
+                        LightBoxCenter("div.LightBoxMsg.RemindDialog");
+                        return false;
+                    }
+                    BankID = parseInt($("input[name='bank']:checked").val());
+                }
+            }
+            else if ($("input[name='paytype']:checked").val() == "@((int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.貨到付款)") {
+                PayTypeGroupID = parseInt($("input[name='paytype']:checked").val());
+                PayType0rateNum = parseInt($("input[name='paytype']:checked").attr('data-PayType0rateNum'));
+                BankID = 85;
+            }
+            else if ($("input[name='paytype']:checked").val() == "@((int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.實體ATM)") {
+                PayTypeGroupID = parseInt($("input[name='paytype']:checked").val());
+                PayType0rateNum = parseInt($("input[name='paytype']:checked").attr('data-PayType0rateNum'));
+                if ($("input[name='bank']:checked").val() == "" || $("input[name='bank']:checked").val() == null) {
+                    OpenErrorAlert("提醒您，您並未選擇銀行，請選擇後繼續完成結帳流程，感謝您！");
+                    LightBoxCenter("div.LightBoxMsg.RemindDialog");
+                    return false;
+                }
+                BankID = parseInt($("input[name='bank']:checked").val());
+            }
+            else {
+                PayTypeGroupID = parseInt($("input[name='paytype']:checked").val());
+                PayType0rateNum = parseInt($("input[name='paytype']:checked").attr('data-PayType0rateNum'));
+                BankID = 0;
+            }
+
+            $("div.LightBoxUnderLay").slideDown(888).fadeIn();
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            if (parseInt($('[name=TabAreagGrayBorder].TabSelected').attr('data-typeid')) == 2) {
+                @*send info to GA that user click buying oversea shoppingcart*@
+                ga('send', 'event', 'CartDelivType', 'OverSea', 'Open');
+                $("div.LightBoxMsg.CheckoutWarning").delay(888).slideDown(888).fadeIn();
+                LightBoxCenter("div.LightBoxMsg.CheckoutWarning");
+            }
+            else {
+                UpdateCartTemp();
+            }
+        }
+
+// 前往Step2
+        function GotoStep2() {
+    $.ajax({
+        type: "POST",
+        url: "/cart/step2",
+        contentType: "application/json",
+        data: JSON.stringify(PostData),
+        success: function (data) {
+            if (data.Status == 3) {
+                $("div.LightBoxUnderLay").show();
+                OpenAddtoCartAlert(data.Message);
+                LightBoxCenter("div.LightBoxMsg.AddtoOtherCart");
+                window.location.href = "/Cart";
+            }
+            else {
+                $(".mainPadding").html(data);
+                $("div.LightBoxUnderLay").hide();
+                LightBoxMsgAllHide();
+            }
+            //if (data.message != null && data.message.length > 0) {
+            //    $("div.LightBoxUnderLay").show();
+            //    LightBoxCenter("div.LightBoxMsg.AddtoOtherCart");
+            //    OpenAddtoCartAlert(data.message);
+            //    window.location.href = "/Cart";
+            //}
+            //else {
+            //    $(".mainPadding").html(data);
+            //    $("div.LightBoxUnderLay").hide();
+            //    LightBoxMsgAllHide();
+            //}
+            //$(".LightBoxMsg.DelayWindow").hide();
+        },
+        error: function () {
+            OpenAddtoCartAlert("系統錯誤");
+            LightBoxCenter("div.LightBoxMsg.AddtoOtherCart");
+            window.location.href = "/Cart";
+        }
+    });
+}
+
+function UpdateCartTemp() {
+    SetPostData();
+    $.ajax({
+        type: "POST",
+        url: "/api/cartstep2",
+        contentType: "application/json",
+        dateType: "json",
+        data: JSON.stringify(PostData),
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + jQuery.cookie("neui"));
+        },
+        success: function (data) {
+            if (data.Status == 1) {
+                $("div.LightBoxUnderLay").show();
+                OpenAddtoCartAlert(data.Message);
+                LightBoxCenter("div.LightBoxMsg.AddtoOtherCart");
+                window.location.href = "/Cart";
+            }
+            else if (data.Status == 0) {
+                GotoStep2();
+            }
+        },
+        error: function () {
+            OpenAddtoCartAlert("系統錯誤");
+            LightBoxCenter("div.LightBoxMsg.AddtoOtherCart");
+            window.location.href = "/Cart";
+        }
+    });
+}
+
+function LightBoxMsgAllHide() {
+    $("div.LightBoxMsg").each(function () {
+        $(this).hide();
+    });
+}
+
+// Price 格式化
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// GroupBy
+function GroupBy(xArray) {
+    var x = {};
+
+    for (var i = 0; i < xArray.length; ++i) {
+        var obj = xArray[i];
+
+        //If a property for this DtmStamp does not exist yet, create
+        if (x[obj] === undefined)
+            x[obj] = [obj]; //Assign a new array with the first element of DtmStamp.
+
+        //x will always be the array corresponding to the current DtmStamp. Push a value the current value to it.
+        x[obj].push(obj);
+    }
+
+    var xArraykeys = $.map(x, function (value, key) {
+        return key;
+    });
+
+    return xArraykeys;
+}
+
+function GetPromotionPrice(callback) {
+    var TotalPrice = 0;
+    $("span.quantity.Boldtext").each(function () {
+        var ItemIDtemp = $(this).attr('data-Itemvalue');
+        var itemQty = parseInt($(this).html());
+        var itemPrice = parseInt($(this).attr('data-itempricdsingle'));
+        $("#" + ItemIDtemp + "_PriceXQty").html(numberWithCommas(itemQty * itemPrice));
+        TotalPrice = TotalPrice + (itemQty * itemPrice);
+    });
+    $("#TotalPrice").html(numberWithCommas(TotalPrice));
+
+    SetPostData();
+
+    $("input[name='paytype']").each(function () {
+        $(this).prop('checked', false);
+    });
+    $("input[name='pay']").each(function () {
+        $(this).prop('checked', false);
+    });
+    $("input[name='bank']").each(function () {
+        $(this).prop('checked', false);
+        $("div.3DVerificationClass").hide();
+    });
+    $("div.PayTypeGroupDetail").each(function () {
+        $(this).fadeOut("slow");
+    });
+
+    $.ajax({
+        cache: false,
+        type: "POST",
+        url: "/cart/GetPromotionDetailPrice",
+        contentType: "application/json",
+        data: JSON.stringify(PostData),
+        success: function (data) {
+            $("#PromotionPriceSum").html(numberWithCommas(data.Price));
+            $("#PromotionItemIDList").html("[" + data.ItemIDList.toString() + "]");
+
+            // 先全部打開後隱藏
+            $("p.CouponSpecialDeal").each(function () {
+                $(this).show();
+            });
+
+            // 隱藏釋放不能用Coupon的選項
+            for (var i = 0; i < data.ItemIDList.length; i++) {
+                var CouponSpecialDealName="[name='CouponSpecialDeal_" + data.ItemIDList[i] + "']";
+                $(CouponSpecialDealName).hide();
+                RemoveCouponByItemId(data.ItemIDList[i]);
+                RefreshCouponTotal();
+            }
+
+            setTimeout(function () {
+                CreditCardListGroupShow();              
+                $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                LightBoxMsgAllHide();
+            }, 1000);
+
+            //$("span.NeedPayMoneyPrice").each(function () {
+            //    $(this).html(numberWithCommas(TotalPrice-data));
+            //});
+            RefeshNeedPay();
+            if (callback) {
+                callback();
+            }
+        },
+        error: function () {
+            CreditCardListGroupShow();
+            $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+            LightBoxMsgAllHide();
+        }
+    });
+    
+}
+
+// 顯示可刷信用卡方式
+function CreditCardListGroupShow() {
+    $(".CreditCardListGroup").each(function () {
+        if (parseInt($("#MainNeedPayMoneyPrice").html().replace(/[^0-9\.]+/g, "")) >= parseInt($(this).attr("data-Loweliminate"))) {
+            $(this).show();
+        }
+        else {
+            $(this).hide();
+        }
+    });
+}
+
+var Reload = function (Message) {
+    OpenAddtoCartAlert(Message);
+    LightBoxCenter("div.LightBoxMsg.AddtoOtherCart");
+    CartTypeID = $('[name=TabAreagGrayBorder].TabSelected').attr('data-typeid');
+    $.ajax({
+        cache: false,
+        url: "/Cart/NextCartListMenu",
+        type: "GET",
+        dataType: "JSON",
+        data: { "TypeID": CartTypeID },
+        success: function (data) {
+            $('#CartList').css("display", "none");
+            $('#CartList').html(data).slideDown(500).fadeIn("slow");
+            //$('#CartList')
+            InitializationScript();
+            $("div.LightBoxUnderLay").slideDown(600).fadeOut();
+            LightBoxMsgAllHide();
+            
+        },
+        error: function () {
+            $("div.LightBoxUnderLay").slideDown(600).fadeOut();
+            LightBoxMsgAllHide();
+        },
+        complete: function () {
+            twNewegg().cart().cartMethod("readFromCart", { categoryIds: [], categoryTypes: [], successMethods: [countCartNumber], successParas: [[]] });
+        }
+    });
+}
+
+function InitializationScript() {
+    $(".couponClick").off();
+    $("div.DialogBtn.couponUseDialogBtn input:button[value='取消']").off();
+    $("div.DialogBtn.couponUseDialogBtn input:button[value='確定']").off();
+    $("#Checkoutbutton").off();
+    $("span.onless").off();
+    $("span.onadd").off();
+    $("span.Additionalonless").off();
+    $("span.Additionalonadd").off();
+    $("div.onRevise").off();
+    $('[name=TabAreagGrayBorder]').off();
+    $("input.payMethodTit").off();
+    $("input.CreditCardTypes").off();
+    $("input.DialogBtnFunctionV1").off();
+    $("input.DialogBtnFunctionV2").off();
+    $('.neAddToFavorite').off();
+    $('.neDelteToCart').off();
+    $("input[name='bank']").off();
+    $("input[name='paytype']").off();
+    $("input.DisagreeCheckoutWarning").off();
+    $("input.AgreeCheckoutWarning").off();
+
+    //$("div.openItem").off();
+
+    $("div.AdditionalItemDetial").off();
+
+    CartTypeID = parseInt($(".Tab.BorderTab.TabSelected").attr('data-TypeID'));
+    AdditionalCartTypeID = 100;
+    switch(CartTypeID) {
+        case 1:
+            AdditionalCartTypeID = 100;
+            break;
+        case 2:
+            AdditionalCartTypeID = 101;
+            break;
+        case 3:
+            AdditionalCartTypeID = 102;
+            break;
+        default:
+            AdditionalCartTypeID = 100;
+    }
+    
+
+    var strTemp = "";
+    var ni = 0;
+    strTemp = $("#data_couponlist").val();
+    if (strTemp != null && strTemp != "" && typeof (strTemp) != "undefined") {
+        m_listCoupon = JSON.parse(strTemp);
+    }
+
+    //使用折價券
+    $(".couponClick").bind("click", function () { RefreshCouponListDisplay(this); });
+    //取消
+    $("div.DialogBtn.couponUseDialogBtn input:button[value='取消']").bind("click", function () { $("div.LightBoxUnderLay").hide(); $("div.couponUseDialog").hide(); });
+    //確定
+    $("div.DialogBtn.couponUseDialogBtn input:button[value='確定']").bind("click", function () { AddUsedCoupon(reFreshBankInfo); });
+
+    if ($(".CartItemListItem").length == 0) {
+        $("#Checkoutbutton").prop("disabled", true);
+    }
+    else {
+        $("#Checkoutbutton").prop("disabled", false);
+    }
+
+    // 顯示可刷信用卡方式
+    CreditCardListGroupShow();
+
+    //下一步
+    $("#Checkoutbutton").on("click", function () {
+        //Checkout();  
+        on_discard4(); /*執行廢四機同意工作*/
+    });    
+    
+    var dd4 = new DisplayDiscard4();
+    dd4.init_data();
+
+    /*執行廢四機同意工作*/
+    var on_discard4 = function () {
+
+        /*廢四機同意-----------add by bruce 20160516*/
+        var has_discard4_on_cart = false; /*購車裡有沒有廢四機*/
+        var val4 = $('#Discard4').val(); //確認廢四機商品
+        if (val4 == 'Y') has_discard4_on_cart = true;
+        //console.log(val4); return false;
+        //has_discard4_on_cart = true;
+        if (has_discard4_on_cart) {
+            dd4 = new DisplayDiscard4();
+            var val = dd4.get_data();
+            console.log('agreeDiscard4: ' + val);
+            if (val == null) {
+                dd4.show_note();
+                return false;
+            }
+            else
+                Checkout(); /*下一步*/
+        }
+        else
+            Checkout(); /*下一步*/
+    }
+
+    
+    $("span.onless").on("click", function () {
+        var ItemID = $(this).attr('data-Itemvalue');
+        var onaddName = "[name='onadd_" + ItemID + "']";
+        var onlessName = "[name='onless_" + ItemID + "']";
+        var maxQty = parseInt($("#" + ItemID + "_MaxQty").html());
+        var Qty = parseInt($("#" + ItemID + "_Qty").html());
+        Qty = Qty - 1;
+        var IsChange = false;
+        if (Qty <= 1) {
+            $("#" + ItemID + "_Qty").html(1);
+            if (Qty + 1 != 1) { IsChange = true; }
+        }
+        else if (Qty >= maxQty && maxQty != 1) {
+            $("#" + ItemID + "_Qty").html(maxQty - 1);
+            if (Qty + 1 != maxQty - 1) { IsChange = true; }
+        }
+        else if (Qty <= maxQty && maxQty != 1) {
+            $("#" + ItemID + "_Qty").html(Qty);
+            IsChange = true;
+        }
+
+        if (IsChange) {
+            if (1 == Qty) {
+                $(onlessName).addClass("notless");
+            }
+            $(onaddName).removeClass("notadd");
+            OpenDelayWindow();
+            twNewegg().cart().cartMethod("updateToCart", { itemIds: [ItemID], qtys: [parseInt($("#" + ItemID + "_Qty").html())], categoryIds: [], categoryTypes: [] });
+            GetPromotionPrice(reFreshBankInfo);
+        }
+
+    });
+
+    $("span.Additionalonless").on("click", function () {
+        var ItemID = $(this).attr('data-Itemvalue');
+        var onaddName = "[name='onadd_" + ItemID + "']";
+        var onlessName = "[name='onless_" + ItemID + "']";
+        var maxQty = parseInt($("#" + ItemID + "_MaxQty").html());
+        var Qty = parseInt($("#" + ItemID + "_Qty").html());
+        Qty = Qty - 1;
+        var IsChange = false;
+        if (Qty <= 1) {
+            $("#" + ItemID + "_Qty").html(1);
+            if (Qty + 1 != 1) { IsChange = true; }
+        }
+        else if (Qty >= maxQty && maxQty != 1) {
+            $("#" + ItemID + "_Qty").html(maxQty - 1);
+            if (Qty + 1 != maxQty - 1) { IsChange = true; }
+        }
+        else if (Qty <= maxQty && maxQty != 1) {
+            $("#" + ItemID + "_Qty").html(Qty);
+            IsChange = true;
+        }
+
+        if (IsChange) {
+            if (1 == Qty) {
+                $(onlessName).addClass("notless");
+            }
+            $(onaddName).removeClass("notadd");
+            OpenDelayWindow();
+            GetPromotionPrice();
+            twNewegg().cart().cartMethod("updateToAdditionalCart", { itemIds: [ItemID], qtys: [parseInt($("#" + ItemID + "_Qty").html())], categoryIds: [], categoryTypes: [], status: [AdditionalCartTypeID] });
+        }
+    });
+
+    $("span.onadd").on("click", function () {
+        var ItemID = $(this).attr('data-Itemvalue');
+        var onaddName = "[name='onadd_" + ItemID + "']";
+        var onlessName = "[name='onless_" + ItemID + "']";
+        var maxQty = parseInt($("#" + ItemID + "_MaxQty").html());
+        var Qty = parseInt($("#" + ItemID + "_Qty").html());
+        var IsChange = false;
+        if (Qty >= maxQty) {
+            $("#" + ItemID + "_Qty").html(maxQty);
+            if (Qty != maxQty) { IsChange = true; }
+        }
+        else if (Qty < maxQty) {
+            $("#" + ItemID + "_Qty").html(Qty + 1);
+            IsChange = true;
+        }
+        else if (Qty < 0) {
+            $("#" + ItemID + "_Qty").html(1);
+            if (Qty != 1) { IsChange = true; }
+        }
+
+        if (IsChange) {
+            if (maxQty == (Qty + 1)) {
+                $(onaddName).addClass("notadd");
+            }
+            $(onlessName).removeClass("notless");
+            OpenDelayWindow();
+            twNewegg().cart().cartMethod("updateToCart", { itemIds: [ItemID], qtys: [parseInt($("#" + ItemID + "_Qty").html())], categoryIds: [], categoryTypes: [] });
+            GetPromotionPrice(reFreshBankInfo);
+        }
+    });
+
+    $("span.Additionalonadd").on("click", function () {
+        var ItemID = $(this).attr('data-Itemvalue');
+        var onaddName = "[name='onadd_" + ItemID + "']";
+        var onlessName = "[name='onless_" + ItemID + "']";
+        var maxQty = parseInt($("#" + ItemID + "_MaxQty").html());
+        var Qty = parseInt($("#" + ItemID + "_Qty").html());
+        var IsChange = false;
+        if (Qty >= maxQty) {
+            $("#" + ItemID + "_Qty").html(maxQty);
+            if (Qty != maxQty) { IsChange = true; }
+        }
+        else if (Qty < maxQty) {
+            $("#" + ItemID + "_Qty").html(Qty + 1);
+            IsChange = true;
+        }
+        else if (Qty < 0) {
+            $("#" + ItemID + "_Qty").html(1);
+            if (Qty != 1) { IsChange = true; }
+        }
+
+        if (IsChange) {
+            if (maxQty == (Qty + 1)) {
+                $(onaddName).addClass("notadd");
+            }
+            $(onlessName).removeClass("notless");
+            OpenDelayWindow();
+            GetPromotionPrice();
+            twNewegg().cart().cartMethod("updateToAdditionalCart", { itemIds: [ItemID], qtys: [parseInt($("#" + ItemID + "_Qty").html())], categoryIds: [], categoryTypes: [], status: [AdditionalCartTypeID] });
+        }
+    });
+
+    $("div.onRevise").on("click", function () {
+        var CategoryIDvalue = $(this).attr('data-CategoryIDvalue');
+        $("div.LightBoxUnderLay").slideDown(888).fadeIn();
+        $("div.LightBoxMsg.DelayWindow").fadeIn();
+        LightBoxCenter("div.LightBoxMsg.DelayWindow");
+        window.location.href = "/Category/ChooseAny?CategoryID=" + CategoryIDvalue;
+    });
+
+    $('[name=TabAreagGrayBorder]').on("click", function () {
+        var TypeID = $(this).attr('data-typeid');
+        if ($(this).attr('data-typeid') != CartTypeID) {
+            $("div.LightBoxUnderLay").slideDown(888).fadeIn();
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            $.ajax({
+                cache: false,
+                url: "/Cart/NextCartListMenu",
+                type: "GET",
+                dataType: "JSON",
+                data: { "TypeID": TypeID },
+                success: function (data) {
+                    $('#CartList').css("display", "none");
+                    $('#CartList').html(data);
+                    $('#CartList').slideDown(888).fadeIn("slow");
+                    $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                    LightBoxMsgAllHide();
+                    InitializationScript();
+                },
+                error: function () {
+                    $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                    LightBoxMsgAllHide();
+                }
+            });
+        }
+    });
+
+    //$("input.payMethodTit").on("click", function () {
+
+    //});
+
+    $("input.CreditCardTypes").on("click", function () {
+        var installmentsNumber = parseInt($(this).attr('data-installmentsnumber'));
+        var installmentsInsrate = parseFloat($(this).attr('data-insrate'));
+        var installmentsPrice = parseInt(($(".NeedPayMoneyPrice").html().replace(/[^0-9\.]+/g, "")) * installmentsInsrate + 0.5);
+        var installmentsPrice_Monthly = parseInt(installmentsPrice / installmentsNumber);
+
+        $("input[name='bank']").each(function () {
+            $(this).prop('checked', false);
+            $("div.3DVerificationClass").hide();
+        });
+
+        $("div.CreditCardList").each(function () {
+            $(this).fadeOut();
+        });
+
+        var CreditCardTypesID = $(this).attr('data-PayType0rateNum');
+
+        if (CreditCardTypesID == 1 || CreditCardTypesID == 201) {
+            $("div.CreditCardInstallmentMoney").each(function () {
+                $(this).hide();
+            });
+            $("#CreditCardSinglePrice").show();
+            $("#CreditCardMultiPrice").hide();
+        }
+        else {
+            $("div.CreditCardInstallmentMoney").each(function () {
+                $(this).hide();
+            });
+            $("#CreditCardMultiPrice").show();
+            $("#CreditCardSinglePrice").hide();
+
+            //$("#" + "CreditCardTypes_" + CreditCardTypesID + "BankList").fadeIn("slow");
+            $("#CreditCardTotalMoneyID").html(numberWithCommas(installmentsPrice));
+            $("#InstallmentMoneyPrice").html(numberWithCommas(installmentsPrice_Monthly));
+            $("#InstallmentsNumber").html(installmentsNumber);
+        }
+    });
+
+    // 按下確認後,黑畫面全部消失
+    $("input.DialogBtnFunctionV1").on("click", function () {
+        $("div.LightBoxUnderLay").each(function () {
+            $(this).slideUp(888).fadeOut("slow");
+        });
+        $("div.LightBoxMsg").each(function () {
+            $(this).hide();
+        });
+    });
+
+    // 按下確認後,黑畫面不全部消失
+    $("input.DialogBtnFunctionV2").on("click", function () {
+        $("div.LightBoxMsg.AddtoOtherCart").each(function () {
+            $(this).slideUp(888).fadeOut("slow");
+        });
+    });
+
+    $('.neAddToFavorite').on('click', function () {
+        //移除使用的Coupon券
+        $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+        $("div.LightBoxMsg.DelayWindow").fadeIn();
+        LightBoxCenter("div.LightBoxMsg.DelayWindow");
+        var qtysArray = [];
+        var ItemvalueList = $(this).attr('data-Itemvalue').split(',');
+        var ItemvalueListkeys = GroupBy(ItemvalueList);
+
+        for (var i = 0; i < ItemvalueListkeys.length; i++) {
+            RemoveCouponByItemId(ItemvalueListkeys[i]);
+            ItemvalueListkeys[i] = parseInt(ItemvalueListkeys[i]);
+            qtysArray[i] = 1;
+        }
+
+        twNewegg().cart().cartMethod("updateToWish", { itemIds: ItemvalueListkeys, qtys: qtysArray, categoryIds: [], categoryTypes: [], successMethods: [Reload], successParas: [["加入最愛成功!"]] });
+    });
+
+
+    $('.neDelteToCart').on('click', function () {
+        //移除使用的Coupon券
+        $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+        $("div.LightBoxMsg.DelayWindow").fadeIn();
+        LightBoxCenter("div.LightBoxMsg.DelayWindow");
+        var ItemvalueList = $(this).attr('data-Itemvalue').split(',');
+        var IsAddtionalItemForCart = $(this).attr('data-CategoryType');
+        var neDelteToCartAdditionalCartTypeID = null;
+        if (IsAddtionalItemForCart == "AddtionalItemForCart") {
+            neDelteToCartAdditionalCartTypeID = AdditionalCartTypeID;
+        }
+        var ItemvalueListkeys = GroupBy(ItemvalueList);
+
+        for (var i = 0; i < ItemvalueListkeys.length; i++) {
+            RemoveCouponByItemId(ItemvalueListkeys[i]);
+            ItemvalueListkeys[i] = parseInt(ItemvalueListkeys[i]);
+        }
+
+        twNewegg.ChooseAny.RemoveItemFromCart(ItemvalueListkeys);
+        reFreshBankInfo();
+
+        twNewegg().cart().cartMethod("removeFromCart", { itemIds: ItemvalueListkeys,status: neDelteToCartAdditionalCartTypeID, successMethods: [Reload], successParas: [["刪除成功!"]] });
+    });
+
+    $("input[name='paytype']").on("change", function () {
+        $("input.payMethodTit").each(function () {
+            $("div.PayTypeGroupDetail").fadeOut("fast");
+            $(".InstallMentBank").remove();
+            $("#CreditCardSinglePrice, #CreditCardMultiPrice").hide();
+        });
+
+        var PayTypeGroupID = $(this).val();
+
+        $("#" + "PayTypeGroupID_" + PayTypeGroupID + "_Detail").fadeIn("fast");
+
+        $("input.CreditCardTypes").each(function () {
+            $(this).prop('checked', false);
+        });
+        $("input[name='bank']").each(function () {
+            $(this).prop('checked', false);
+        });
+
+        $("div.CreditCardList").each(function () {
+            $(this).hide();
+        });
+    });
+
+
+    $("input.DisagreeCheckoutWarning").on("click", function () {
+        @*send info to GA that user click buying oversea shoppingcart*@
+        ga('send', 'event', 'CartDelivType', 'OverSea', 'DisAgree');
+        $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+        LightBoxMsgAllHide();
+        //$("div.LightBoxMsg.CheckoutWarning").delay(888).fadeOut();
+    });
+
+
+    $("input.AgreeCheckoutWarning").on("click", function () {
+        @*send info to GA that user click buying oversea shoppingcart*@
+        ga('send', 'event', 'CartDelivType', 'OverSea', 'Agree');
+        $("div.LightBoxMsg.CheckoutWarning").delay(888).slideDown(888).fadeOut();
+        UpdateCartTemp();
+    });
+
+    $("input[type='radio']").change(function () {
+        if ($("input[type='radio'][name='pay'][value='201']").is(':checked') == false) {
+            $("#BankSelectDropList").css("display", "none");
+            //$("#CreditCardSinglePrice").css("display", "none");
+            //$("#CreditCardMultiPrice").css("display", "");
+        }
+        else {
+            $("#BankSelectDropList").css("display", "");
+            //$("#CreditCardSinglePrice").css("display", "");
+            //$("#CreditCardMultiPrice").css("display", "none");
+        }
+    });
+
+    $(".AdditionalItemDetial").on("click", function () {
+        var itemID = $(this).attr('data-ItemID');
+        twNewegg().checkState("loadWin", "/Item/Partial_AdditionalItemDetial?ItemId=" + itemID);
+    });
+
+    if ($("#AdditionalItem").length > 0) {
+        var AdditionalItem = $("#AdditionalItem");
+
+        $.ajax({
+            url: "/Cart/Partial_AdditionalItem",
+            data: { "CartType": CartTypeID },
+            method: "POST"
+        }).done(function (data) {
+
+            AdditionalItem.html(data);
+            $(".cartAdditionalBuy").slideDown(500);
+            AdditionalItemList();
+
+        }).fail(function () {
+            $("#loading").slideUp(500);
+        });
+    }
+
+    iniView();  //信用卡紅利折抵訊息
+
+    $("#BankInfoSelect").selectCustom();
+
+    $("#OKButton").click(function () {
+        $("div.LightBoxUnderLay").fadeOut();
+        $("div.LightBoxMsgError").fadeOut();
+    });
+}
+</script>
+
+    @if(ViewBag.errMsg != null){
+        <script>
+            $(document).ready(function () {
+                var errorMessage = '@ViewBag.errMsg';
+
+                $("#ErrorMessage").text(errorMessage);
+                $("div.LightBoxUnderLay").fadeIn();
+                $("div.LightBoxMsgError").fadeIn();
+                LightBoxCenter("div.LightBoxMsg.LightBoxMsgError");
+            });
+        </script>
+    }
+
+}
+
+
+
+<div>
+    @if (listActiveCoupon != null)
+    {
+        strTemp = @Json.Encode(listActiveCoupon);
+        <input type="hidden" id="data_couponlist" value="@strTemp" />
+    }
+    else
+    {
+        <input type="hidden" id="data_couponlist" value="" />
+    }
+    
+</div>
+@* 彈出錯誤視窗*@
+
+
+
+@**彈出對話視窗*@
+<div class="LightBoxUnderLay">
+    <div class="LightBoxMsg AdditionalItem">
+        <span class="close">X</span>
+        <div class="Remindtxt">
+            <span id=""><img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+    </div>
+    <div class="LightBoxMsg DelayWindow ProcessWindow">
+        <div class="Remindtxt">
+            <span id=""><img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+    </div>
+    <div class="LightBoxMsg Stlye-3 couponUseDialog" style="width:600px">
+        <div class="couponUseBox">
+            <div class="tit">共有<span class="red">3</span>張折價券符合使用規範<input type="hidden" id="chooseItemId" value="0" /></div>
+            <div class="txtBox">
+                <table class="couponUseTable">
+                    <tr class="list">
+                        <td style="width:27px;"><input type="checkbox" class="couponCheck checkbox" /></td>
+                        <td class="couponTit">
+                            <div class="couponUseName">敲開美好新世界活動折價券(滿2000折300)</div>
+                            <div class="couponUseInfo"><span class="red price">300元折價券</span>有效日：2015/10/01</div>
+                        </td>
+                    </tr>
+                    <tr class="list">
+                        <td style="width:27px;"><input type="checkbox" class="couponCheck checkbox" /></td>
+                        <td class="couponTit">
+                            <div class="couponUseName">1/6~1/31開站慶全館單品現折$200</div>
+                            <div class="couponUseInfo"><span class="red price">200元折價券</span>有效日：2014/01/31</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="DialogBtn couponUseDialogBtn">
+            <input type="button" value="確定" class="BluBtn DialogConfirmBtn">
+            <input type="button" value="取消" class="LightBluBtn DialogCancelBtn">
+        </div>
+    </div>
+    <div class="LightBoxMsg Stlye-3 RemindDialog" style="display:none;">
+        <div class="Remindtxt">
+            <span id="ErrorMessages"></span>
+        </div>
+        <div class="DialogBtn">
+            <label><input name="" type="button" value="確認" class="DialogConfirmBtn OrgBtn DialogBtnFunctionV1"></label>
+        </div>
+    </div>
+    <div class="LightBoxMsg Stlye-3 AddtoOtherCart" style="display:none;">
+        <div class="Remindtxt">
+            <span id="AddtoOtherCartAlert"></span>
+        </div>
+        <div class="DialogBtn">
+            <label><input name="" type="button" value="確認" class="DialogConfirmBtn OrgBtn DialogBtnFunctionV2"></label>
+        </div>
+    </div>
+    <div class="LightBoxMsg LightBoxMsgError Stlye-3">
+        <span id="ErrorMessage"></span>
+        <br />
+        <span id="OKButton"><img src="~/Themes/img/ShoppingProcess/OkButton.jpg" /></span>
+    </div>
+
+    @*點選海外購物車Tab後出現的視窗*@
+    <div class="LightBoxMsg Stlye-3 CheckoutWarning" style="display:none;">
+        <div class="Remindtxt" style="margin:50px 50px 0px 50px;">
+            <span style="line-height:1.5;">提醒您：<br>訂購海外直購商品，於進口時需視商品種類提供相關文件包含身分證影本、個案委任書、自用切結書、電信射頻類器具自用切結書等，此時即須您協助提供該等文件，以利進行商品的報關程序。如有疑問歡迎先行洽詢客服，以便為您服務及說明。您也可以參考聯結：</span>         
+        </div>
+        <div class="Remindtxt" style="margin:20px 50px;"><span><a href="/Service/AboutShopping#q4" target="_blank">《美國新蛋值購商品規範》</a></span></div>
+        <div class="Remindtxt" style="margin:20px 50px;"><span><a href="http://web.customs.gov.tw/ct.asp?xItem=19931&ctNode=13115" target="_blank">《財政部關務署/進口貨物報關應檢具之文件》</a></span></div>
+        <div class="DialogBtn" style="margin:20px 50px;">
+            <label><input name="" type="button" value="〈我不同意" class="DialogDisagreeBtn BluBgBtn DisagreeCheckoutWarning"></label>
+            <label><input name="" type="button" value="我同意&nbsp;〉" class="DialogAgreeBtn OrgBgBtn AgreeCheckoutWarning"></label>
+        </div>
+    </div>
+</div>
+@**彈出對話視窗*@
+
+<div class="ShoppingProcess darkGray" style="width:1004px;margin:0 auto;">
+    @*↓↓↓↓↓↓付款步驟說明圖示↓↓↓↓↓↓*@
+    <div class="ShoppingProcess_step_1_IMG">
+        <img src="/Themes/img/ShoppingProcess/ShoppingProcess_step_1_IMG.jpg">
+    </div>
+
+    @*↓↓↓↓↓↓選擇折價方式↓↓↓↓↓↓*@ @*隱藏!!!*@
+    @*<div class="ChoseMethod ColorBarTit"><div class="icon"></div>選擇折價方式</div>
+        <ul class="OneLine">
+            <li>
+                <label><input type="radio" name="method" value="" class="radio">不使用購物金與折價券</label>
+            </li>
+            <li>
+                <label><input type="radio" name="method" value="" class="radio">購物金</label>
+            </li>
+            <li>
+                <label><input type="radio" name="method" value="" class="radio">折價券</label>
+            </li>
+        </ul>*@
+    <div id="CartList">
+    @Html.Action("NewEggCartList", "Cart", new { TypeID = ViewBag.TypeID } )
+    </div>
+
+     
+    @*↓↓↓↓↓↓繼續購物或結帳↓↓↓↓↓↓*@
+    <div class="BottomButton">
+        <span></span>@*預載圖片*@
+        <span></span>@*預載圖片*@
+        <a href="/Home"><label><input name="" id="GoBackShopping" type="button" value="〈&nbsp;&nbsp;&nbsp;繼續購物" class="ContinueBtn BluBgBtn"></label></a>
+        <a id="Checkout"><label><input id="Checkoutbutton" type="button" value="下一步&nbsp;〉" class="CheckoutBtn OrgBgBtn"></label></a>
+    </div>
+</div>
+@*↓↓↓↓↓↓選擇銀行的紅利↓↓↓↓↓↓*@
+@*<div>
+    <select id="BackInfoSelect" style="width:350px">
+    </select>
+</div>*@
+@section refScripts{
+    <script type="text/javascript" src="/Scripts/TWEC/Coupon.js"></script>
+}
+
+
+
+@*信用卡紅利折抵Select star*@
+<script>
+    $.fn.selectCustom = function () {
+     var _select = this,
+         _selectLength = _select.find("option").length,
+         
+         _orgText = _select.find("option:selected").text();
+     _select.hide();
+
+     var _selectSize = $(".selectText").length;
+     if (_selectSize > 0) {
+         $(".selectText").remove();
+         createElement();
+     } else {
+         createElement();
+     }
+
+     function createElement() {
+         _select.parent().append("<div class='selectText'>\
+                <span></span>\
+                <ul class='selectLists'></ul>\
+                </div>");
+
+
+         var _lists = $("ul.selectLists"),
+             _nowText = $(".selectText");
+         _lists.hide();
+         _nowText.find("span").text(_orgText);
+
+         for (i = 0; i < _selectLength; i++) {
+             var _text = _select.find("option").eq(i).text();
+             _lists.append("<li>" + _text + "</li>");
+         }
+
+
+         _nowText.hover(function () {
+             _lists.fadeIn("fast");
+         }, function () {
+             _lists.hide();
+         });
+
+
+         _lists.find("li").hover(function () {
+             $(this).addClass("mOver").siblings("li").removeClass("mOver");
+         });
+
+
+         _lists.find("li").click(function () {
+             var _index = $(this).index(),
+                 _liText = $(this).text();
+             $(".selectText > span").text(_liText);
+             _select.find("option").eq(_index).attr("selected", true).siblings("option").removeAttr("selected");
+         });
+
+     }
+
+ }
+</script>
+@*信用卡紅利折抵Select end*@

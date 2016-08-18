@@ -1,0 +1,91 @@
+﻿@model  TWNewEgg.Models.ViewModels.Activity.ActivityVM
+
+@{
+    ViewBag.Title = string.IsNullOrEmpty(Model.MetaTitle) ? Model.Name : Model.MetaTitle + "-新蛋全球生活網";
+}
+
+@section metatags{
+    @if (string.IsNullOrEmpty(Model.MetaTitle) == false)
+    { 
+        <meta name="title" content="@(Model.MetaTitle)" />
+    }
+    @if (string.IsNullOrEmpty(Model.MetaKeyWord) == false)
+    { 
+        <meta name="keywords" content="@(Model.MetaKeyWord)" />
+    }
+    @if (string.IsNullOrEmpty(Model.MetaDescription) == false)
+    { 
+        <meta name="description" content="@(Model.MetaDescription)" />
+    }
+}
+
+@section styleSheets{
+    @Styles.Render("~/content/css/Act")
+}
+
+@*@section addToFloatMenu {
+
+}*@
+
+@*@Html.Raw(Model.HtmlContext)*@
+
+@Html.Raw(Model.HtmlContext)
+
+@if (Model.Header == "false")
+{
+    @section addToHeader{
+    }
+}
+
+@if (Model.Topper == "false")
+{
+    @section addToTopper{
+    }
+}
+
+@if (Model.Bottomer == "false")
+{
+    @section addToBottomer{
+    }
+}
+
+@if (Model.Footer == "false")
+{
+    @section addToFooter{
+    }
+}
+
+@*@if (Model.FloatMenu != "true")
+{
+	@section addToFloatMenu{
+	}
+}*@
+
+<!--20150722_3C01
+<div class="itemBox" data-itemid="117681" style="background-color:red;">
+    {{itemAddToSC}}
+    @*{{itemSubTitle}}*@
+</div><br />
+-->
+
+@section scripts{
+    <script src="~/scripts/netw/netw-activity-1.0.0.0.js"></script>
+    <script>
+        //function netwActivityPage() {
+        //    console.log('custom dispose.');
+        //    $('body')
+        //    .netwActivityPage('init', {
+        //        itemMarketPrice: '<span style="color:blue;">{0}</span>'
+        //    })
+        //    .netwActivityPage('dispose');
+        //};
+
+        $(function () {
+            if (typeof(netwActivityPage) == 'function'){
+                netwActivityPage();                
+            }else{
+                $('body').netwActivityPage('dispose');
+            }
+        });
+    </script>    
+}

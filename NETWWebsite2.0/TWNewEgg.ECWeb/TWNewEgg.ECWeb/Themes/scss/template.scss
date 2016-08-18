@@ -1,0 +1,200 @@
+﻿@charset "utf-8";
+@import "compass/css3";
+@import "_colorStyle";
+
+/*基本框架*/
+body {
+	background:$mainColorBg;
+	color:#666;
+}
+.wrapper {
+}
+.mainPadding {
+}
+
+/*水平線*/
+hr {
+	border-color:$grayStyle;
+}
+
+/*ICON*/
+i.icon {
+}
+
+/*輸入框*/
+input, input[type="text"], input[type="password"], textarea {
+	border-color:$inputBorderColor;
+	color:$inputTextColor;
+}
+input[type="checkbox"] {
+}
+input[type="radio"] {
+}
+input[type="button"], input[type="submit"], .btn {
+	background:$apricotStyle;
+	color:$btnDarkBgColor;
+	&:hover {
+		background:darken($apricotStyle,5%);
+	}
+	&.gray {
+		background:#ccc;
+		cursor:default;
+	}
+}
+
+/*超連結*/
+/*a, a:visited {
+	color:$alinkColor;
+	&:hover {
+		color:$alinkHover;
+	}
+	&:active {
+		color:$alinkActive;
+	}
+}*/
+
+/*常用樣式*/
+.red {
+	color:$redStyle;
+}
+.bold {
+	font-weight:bold;
+}
+
+/*麵包屑*/
+/*.pathLink {
+	a, a:visited {
+		color:$pathLinlStyle;
+		&:hover {
+			color:darken($pathLinlStyle, 30%);
+		}
+		&:active {
+			color:lighten($pathLinlStyle, 10%);
+		}
+	}
+	span {
+		color:$pathLinlStyle;
+	}
+}*/
+
+/*頁籤樣式:我的回饋金.我的折價券.我的訂單.我的最愛清單.我的帳戶*/
+.serviceTabArea {
+	.tab {
+		background:$serviceTabBg;
+		border-color:$serviceTabBorder;
+		color:$serviceTabStyle;
+		+.tab {
+		}
+		&:hover {
+			background:$serviceTabHoverBg;
+			border-color:$serviceTabHoverBorder;
+			color:$serviceTabHoverStyle;
+		}
+		&.active {
+			background-color:$serviceTabActiveBg;
+			border-color:$serviceTabActiveBorder;
+			color:$serviceTabActiveStyle;
+		}
+		i.icon {
+		}
+	}
+}
+
+/*頁籤內容*/
+.serviceContentBox {
+	color:$serviceContentStyle;
+	.mainTit {
+		color:$serviceContentTitStyle;
+		.icon {
+		}
+	}
+	.service_contentForm {
+		.service_contentList {
+			.tit {
+			}
+			.txt {
+				input {
+				}
+			}
+		}
+	}
+	.btmBtnArea {
+		.btn {
+			&+.btn {
+			}
+		}
+
+	}
+}
+
+/*登入註冊區塊*/
+.fillFormArea {
+	border-color:$fillFormBorder;
+	.mainTitBar {
+		background:$apricotStyle;
+		color:#fff;
+		.icon {
+		}
+	}
+	.fillFormBox {
+		.fillForm_contentList {
+			@include clearAfter;
+			.tit {
+				color:$darkgrayStyle;
+			}
+			.txt {
+			}
+		}
+	}
+
+	@mixin inputSelectStyle {
+	}
+	input {
+		&[type="text"], &[type="password"] {
+			@include inputSelectStyle;
+		}
+	}
+	.selector {
+		@include inputSelectStyle;
+	}
+	input, .selector, input[type="button"], .btn {
+		+ input {
+		}
+	}
+
+	@mixin selectorStyle {
+		.default , li {
+			background:#fff;
+			border-color:$inputBorderColor;
+			/*&.active {
+				background:#fff;
+			}*/
+			.icon-arrow {
+				border-color:$inputBorderColor;
+			}
+		}
+		&:hover {
+			.icon-arrow {
+			}
+			ul {
+				li {
+					&:hover {
+						background:#999;
+					}
+				}
+			}
+		}
+	}
+	.selector {
+		@include selectorStyle;
+		&:hover {
+			
+		}
+		.default {
+		}
+		ul {
+			li {
+			}
+		}
+	}
+}

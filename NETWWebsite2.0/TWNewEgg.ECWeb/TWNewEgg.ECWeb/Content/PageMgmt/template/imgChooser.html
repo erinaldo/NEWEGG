@@ -1,0 +1,17 @@
+﻿<div class="viewwindow">
+    <img ng-repeat="img in AlbumImages" style="width: 80px;" ng-click="useImg(img)" ng-src="{{subpath}}{{img.FileName}}" />
+
+    <div class="conTop" style="width:100%;">
+        <div class="page" style="width:100%;">
+            <a href="javascript:;" class="arr st01" ng-click="getAlbumImages(1)">第一頁</a>
+            <a ng-show="page != 1" href="javascript:;" class="arr st02" ng-click="getAlbumImages(page-1)">前一頁</a>
+            <span ng-repeat="p in pages">
+                <a ng-class="{active: p == page}" href="javascript:;" ng-click="getAlbumImages(p)">{{p}}</a>
+                <img ng-show="p != PageCnt" src="/Content/PageMgmt/img/page_dot.gif" />
+            </span>
+            <a ng-show="page != PageCnt" href="javascript:;" class="arr st03" ng-click="getAlbumImages(page+1)">下一頁</a>
+            <a href="javascript:;" class="arr st04" ng-click="getAlbumImages(PageCnt)">最末頁</a>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

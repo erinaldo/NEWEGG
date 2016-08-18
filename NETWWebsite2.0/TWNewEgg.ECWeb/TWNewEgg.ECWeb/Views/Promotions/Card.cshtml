@@ -1,0 +1,312 @@
+﻿@{
+    ViewBag.Title = "信用卡優惠" + "-新蛋全球生活網";
+}
+
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/Card")
+
+@section addToTopper {
+
+}
+@section addToBottomer {
+
+}
+@section addToHeader {
+    
+}
+@section addToFloatMenu {
+
+}
+@section addToFooter {
+    @{Html.RenderPartial("_FooterSimple");}
+}
+
+@section scripts {
+
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+}
+
+@*↓↓↓↓↓↓↓↓↓↓廣告方塊↓↓↓↓↓↓↓↓↓↓*@
+<div class="grayBorder AdBox" style="background-color:#EA7C01;border-bottom: 3px solid #ec8B54;">
+	<div class="AdImg"><h1><a href="/"><img class="logo" src="/Themes/img/Common/logo.jpg"></a></h1></div>
+</div>
+
+@*↓↓↓↓↓↓↓↓↓↓固定外框值↓↓↓↓↓↓↓↓↓↓*@
+<div style="width:1004px;margin:0 auto;position:relative;">
+
+@*↓↓↓↓↓↓↓↓↓↓頁籤↓↓↓↓↓↓↓↓↓↓*@
+    <div class="TabArea">
+        <ul>
+            <li class="Tab gray TabSelected"><a href="/Promotions/Card">刷卡優惠</a></li>
+            <li class="Tab gray"><a href="/Promotions/CardInstallment">聰明分期</a></li>
+            <li class="Tab gray"><a href="/Promotions/CardRedeem">紅利折抵</a></li>
+            @*<li class="Tab RadiusTab gray"><a href="/Promotions/CardMore">更多回饋</a></li>*@
+        </ul>
+    </div>
+@*↓↓↓↓↓↓↓↓↓↓ 刷卡優惠框集合 ↓↓↓↓↓↓↓↓↓↓*@    
+    <div class="BoxsGroup">   
+        @*↓↓↓↓↓↓↓↓↓↓ 刷卡優惠框 ↓↓↓↓↓↓↓↓↓↓*@ 
+
+        @*花旗銀行*@
+        <div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_28.jpg"></div>
+            <div class="Program">
+                <p>月月抽<span class="red" style="font-weight: bolder">東京迪士尼雙人行</span></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                	<li class="RemarkLeft">限6/10期，限量，需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('CITIBankView', '謹慎理財 信用至上', 'http://www.citibank.com.tw/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>
+
+        @*中國信託銀行*@
+        <!--<div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_27.jpg"></div>
+            <div class="Program">
+                <p>5筆888 <span class="red">送7-11電子兌換券</span></p>
+                <p>8筆888且滿額1萬5 <span class="red">送南極熊抱枕毯</span></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">限量，需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('CTBCBankView', '謹慎理財 信用至上', 'https://www.ctbcbank.com/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>-->
+
+        @*玉山銀行*@
+        <div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_12.jpg"></div>
+            <div class="Program">
+                <p>單月累積滿兩千， <span class="red">送1.5%刷卡金，最高贈800元刷卡金</span></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">限量，需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('ESUNBankView', '謹慎理財 信用無價', 'https://www.esunbank.com.tw/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>
+
+        @*聯邦銀行*@
+        <div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_24.jpg"></div>
+            <div class="Program" style="color:#000">
+                <p>偶數日單筆滿888 <span class="red">送2%刷卡金，最高回饋10,000元</span>(奇數日任三天需各1筆消費)</p>
+                <p>單月累積滿8000<span class="red">加贈2%抵用金，最高回饋300元</span>(限指定購物網站抵用)</p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('UBOTBankView', '謹慎理財 信用至上', 'https://card.ubot.com.tw/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>
+
+        @*華南銀行*@
+        <div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_19.jpg"></div>
+            <div class="Program">
+                <p><span class="red">樂刷7筆888、華南好禮5選1</span></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">限量，需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('HUA_NANBankView', '謹慎理財 信用至上', 'http://www.wonderful-food.com.tw/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>
+
+        @*永豐銀行*@
+        <!--<div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_05.jpg"></div>
+            <div class="Program">
+                <p>單筆滿168<span class="red">最高抽6,666元刷卡金</span></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">限量，需下載APP</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('SinopacBankView', '謹慎理財 信用至上', 'https://bank.sinopac.com/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>-->
+
+        @*澳盛銀行*@
+        <div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_16.jpg"></div>
+            <div class="Program">
+                <p>單筆滿6千  送<span class="red">200元刷卡金</span></p>
+                <p>單筆滿1萬5  送<span class="red">500元刷卡金</span></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">限6期以上，限量，需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('ANZBankView', '謹慎理財 信用至上', 'http://anz.tw/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>
+
+        @*國泰銀行*@
+        <div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_09.jpg"></div>
+            <div class="Program">
+                <p>單月累計滿NT$2,000，送<span class="red">1.5%刷卡金，最高回饋750元</span></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">限量，需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('CathayBankView', '謹慎理財 信用至上', 'https://www.cathayholdings.com')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>
+
+        @*新光銀行*@
+        <div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_08.jpg"></div>
+            <div class="Program">
+                <p>單月單筆999達5筆以上 送<span class="red">翰林茶棧/茶館 外帶珍奶大杯兌換券</span></p>
+                <p>單月單筆2,999達5筆以上 送<span class="red">Mr. Onion 巴BQ燒烤牛排一客兌換券</span></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">限量，需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('SkBankView', '謹慎理財 信用至上', 'http://www.scsb.com.tw/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>
+
+        <!--
+        @*凱基銀行*@
+        <div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_13.jpg"></div>
+            <div class="Program">
+                <p>當月累積消費每滿五千  送<span class="red">50元刷卡金</span></p>
+                <p>登錄當月起累積滿三十萬  再送<span class="red">3000元刷卡金</span></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">限量，需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('KGIBankView', '謹慎理財 信用至上', 'https://www.kgibank.com/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>
+        -->
+
+        @*上海銀行*@
+        <div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_25.jpg"></div>
+            <div class="Program">
+                <p>單筆滿三千(含)以上，<span class="red">送1.5%刷卡金，最高回饋1,000元</span></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">限量，需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('SCSBBankView', '謹慎理財 信用至上', 'http://www.scsb.com.tw/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>
+
+        @*遠東銀行*@
+        <!--<div class="TwoBoxsInRow">
+        	<div class="BankName"><img src="/Themes/img/CreditCaredProgram/Bank_06.jpg"></div>
+            <div class="Program">
+                <p>累計滿2萬元 <span class="red">送2%刷卡金</span></br></p>
+            </div>
+            <div class="OtherDetail">
+            	<ul class="OneLine">
+                    <li class="RemarkLeft">限量，需登錄</li>
+                    <li class="RemarkRight"><a onclick="BankInfo('FEIBBankView', '謹慎理財 信用至上', 'https://www.feib.com.tw/')"><div class="ConfirmBtn Btn_radius Description">詳情</div></a></li>@*點按詳情有LightBox顯示*@
+                </ul>
+            </div>
+        </div>-->
+
+        @*↑↑↑↑↑↑↑↑↑↑ 刷卡優惠框 ↑↑↑↑↑↑↑↑↑↑*@
+
+    </div>
+@*↑↑↑↑↑↑↑↑ 刷卡優惠框集合 ↑↑↑↑↑↑↑↑*@
+</div>
+
+@*↓↓↓↓↓↓↓↓↓↓ LightBox 詳情框 ↓↓↓↓↓↓↓↓↓↓*@
+    <div class="LightBoxUnderLay">
+        <div class="LightBoxMsg Stlye-2">
+            <button class="CloseBtn"></button>
+            <div id="BankInfoCreditCardPromotion">
+            </div>
+        </div>
+    </div>
+@*↑↑↑↑↑↑↑↑ LightBox 詳情框 ↑↑↑↑↑↑↑↑*@
+
+
+@*LightBox star*@
+<script>
+
+    $('.LightBoxMsg').hide(0);
+    $('.LightBoxUnderLay').hide(0);
+
+    $('.Description').click(function () {
+        $('.LightBoxUnderLay').show(0);
+        $('.LightBoxMsg').fadeIn(300);
+    });
+    $('.LightBoxMsg .CloseBtn').click(function () {
+        $('.LightBoxUnderLay').hide(0);
+        $('.LightBoxMsg').hide(0);
+    });
+    function NoteMsg(obj) {
+        var Msg = obj.getAttribute("data-DescriptionFormat")
+        var BankName = obj.getAttribute("data-BankName");
+        $("#BankName").text(BankName);
+        //$("div[class='DescriptionContent']").text(Msg);
+        $("div[class='DescriptionContent']").html(Msg).text();
+        removeStyleWidth();
+        $('.LightBoxUnderLay').show(0);
+        $('.LightBoxMsg').fadeIn(300);
+    }
+    function removeStyleWidth() {
+        if ($("div[class='DescriptionContent']").children()[0] == undefined) {
+        }
+        else {
+            if ($("div[class='DescriptionContent']").children()[0].style == undefined) {
+            }
+            else {
+                if ($("div[class='DescriptionContent']").children()[0].style.width == undefined) {
+                }
+                else {
+                    $("div[class='DescriptionContent']").children()[0].style.width = "";
+                    $("div[class='DescriptionContent']").children()[0].style.width = "100%";
+                }
+            }
+        }
+    }
+    function BankInfo(bankName, bankSlogan, bankURL) {
+        var viewPath = "~/Promotions/" + bankName;
+        $.ajax({
+            url: "/Content/BankInfo/" + bankName + ".html",
+            type: 'GET',
+            contentType: "application/json",
+            success: function (response) {
+                $("#BankInfoCreditCardPromotion").html("");
+                $("#BankInfoCreditCardPromotion").html(response);
+                var bankMsg = '<div id="SloganAndUrl"><p class="BankSlogan TextAlign-center Boldtext">'
+                    + bankSlogan + '</p><p class="TextAlign-center Boldtext Announcement">詳情請上 <a href="' + bankURL + '" target="_blank">' + bankURL + '</a> (銀行活動以各銀行公告為主)</p>';
+                if ($("#SloganAndUrl") == undefined) {
+                    $("#BankInfoCreditCardPromotion").after(bankMsg);
+                }
+                else {
+                    $("#SloganAndUrl").remove();
+                    $("#BankInfoCreditCardPromotion").after(bankMsg);
+                }
+                
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+                $("#BankInfoCreditCardPromotion").html("");
+            }
+        });
+    }
+</script>
+
+@*LightBox end*@

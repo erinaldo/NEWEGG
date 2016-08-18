@@ -1,0 +1,249 @@
+﻿@model List<TWNewEgg.Models.ViewModels.GroupBuy.GroupBuyViewInfo>
+@{
+    ViewBag.Title = "天天閃購" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets{
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/Flash")
+}
+
+
+@section scripts{
+    @Scripts.Render("~/Scripts/masonry/masonry.pkgd.min.js")
+    @Scripts.Render("~/Scripts/masonry/imagesloaded.pkgd.min.js")
+    @Scripts.Render("~/Scripts/masonry/scrollpagination.js")
+    <script>
+        var disableImageUrl = "@ViewBag.gbBuyDisableImageUrl";
+        var enableImageUrl = "@ViewBag.gbBuyImageUrl";
+        var endImageUrl = "@ViewBag.gbEndImageUrl";
+        var soldOutImageUrl = "@ViewBag.gbSoldOutImageUrl";
+        var gbPageNumber = parseInt("@(ViewBag.gbPageNumber)", 10);
+        @*Fixed it, because pagesize in first page is 8 and pagesize in another pages is 9.*@
+        var iPageNumber = 0;
+
+        function Countdown() {
+            var boxCount = $(".shopcontent .box").length;
+            var countdownBefore = "<span class=\"month\"></span>月<span class=\"day\"></span>日<span class=\"hour\"></span>:<span class=\"minute\"></span> "; @*開賣*@
+        var countdownAfter = "<span class=\"day\"></span>天<span class=\"hour\"></span>:<span class=\"minute\"></span>:<span class=\"second\"></span> "; @*截止*@
+
+
+        $(".shopcontent .box").each(function (index) {
+
+            var box = this;
+            var element = $(".countdown", this)[0];
+            var beginDate = $(element).attr("begindate");
+            var endDate = $(element).attr("enddate");
+            var isSoldOut = $(element).attr("isSoldOut");
+            var sellingQty = $(this).attr("sellingqty");
+            if (beginDate) {
+                beginDate = new Date(beginDate);
+            }
+            if (endDate) {
+                endDate = new Date(endDate);
+            }
+            var beginGap = GetDateTimeGap(beginDate);
+            var endGap = GetDateTimeGap(endDate);
+            if (beginGap.isExpired == false) {
+                $(element).html(countdownBefore);
+                $(".itemlinkbuttonimage", this).attr("src", disableImageUrl);
+                $(".month", element).html(padLeft(beginDate.getMonth() + 1, 2));
+                $(".day", element).html(padLeft(beginDate.getDate(), 2));
+                $(".hour", element).html(padLeft(beginDate.getHours(), 2));
+                $(".minute", element).html(padLeft(beginDate.getMinutes(), 2));
+            }
+            else if (endGap.isExpired) {
+                $(element).html("");
+                $(".itemlinkbuttonimage", this).attr("src", endImageUrl);
+            }
+            else if (endGap.isExpired == false) {
+                var groupBuyID = $(this).attr("groupBuyID");
+                var html = $(".price", this).html();
+                if (html.indexOf("X") >= 0) {
+                    $.ajax({
+                        method: "POST",
+                        url: "/NeweggFlash/Get",
+                        data: { GroupBuyID: groupBuyID }
+                    }).done(function (res) {
+                        $(".price span", box).html(res[0].GroupBuyPrice);
+                        $(".diff span", box).html(res[0].Discount);
+                        if (res[0].IsShowNew) {
+                            $(".new", box).css("display", "");
+                        }
+                        if (res[0].IsShowHot) {
+                            $(".hot", box).css("display", "");
+                        }
+                        if (res[0].IsShowExclusive) {
+                            $(".ex", box).css("display", "");
+                        }
+                        if (res[0].IsShowNeweggUSASync) {
+                            $(".sync", box).css("display", "");
+                        }
+                    });
+                }
+                $(element).html(countdownAfter);
+                //$(".itemlinkbuttonimage", this).attr("src", enableImageUrl);
+                $(".itemlinkbuttonimage", this).css("display", "none");
+                $(".day", element).html(padLeft(endGap.day, 2));
+                $(".hour", element).html(padLeft(endGap.hour, 2));
+                $(".minute", element).html(padLeft(endGap.minute, 2));
+                $(".second", element).html(padLeft(endGap.second, 2));
+            }
+            if (typeof sellingQty != "undefined" && sellingQty === "0") {
+                isSoldOut = "1";
+            }
+            if (typeof isSoldOut != "undefined" && isSoldOut === "1") {
+                if ($('.pic > .SoldOut', this).length == 0) {
+                    $('.pic', this).prepend("<div class='SoldOut'></div>");
+                }
+                //$(element).html("");
+                //$(".itemlinkbuttonimage", this).attr("src", soldOutImageUrl);
+            }
+
+            if (index == (boxCount - 1)) {
+                setTimeout("Countdown()", 1000);
+            }
+        });
+    }
+
+    function GetDateTimeGap(date) {
+        var gap = {
+            isExpired: false,
+            day: 0,
+            hour: 0,
+            minute: 0,
+            second: 0
+        }
+        var now = new Date();
+        var ms = date - now;
+        if (ms <= 0) {
+            gap.isExpired = true;
+        }
+        else {
+            var day = 0;
+            var hour = 0;
+            var minute = 0;
+            var second = 0;
+            if (ms > 0) {
+                day = Math.floor(ms / 86400000);
+                ms = ms - (day * 86400000);
+            }
+            if (ms > 0) {
+                hour = Math.floor(ms / 3600000);
+                ms = ms - (hour * 3600000);
+            }
+            if (ms > 0) {
+                minute = Math.floor(ms / 60000);
+                ms = ms - (minute * 60000);
+            }
+            if (ms > 0) {
+                second = Math.floor(ms / 1000);
+            }
+            gap.day = day;
+            gap.hour = hour;
+            gap.minute = minute;
+            gap.second = second;
+            if ((gap.day + gap.hour + gap.minute + gap.second) <= 0) {
+                gap.isExpired = true;
+            }
+        }
+        return gap;
+    }
+
+    function padLeft(str, length) {
+        var str = "" + str;
+        while (str.length < length) {
+            str = "0" + str;
+        }
+        return str;
+    }
+
+    $(function () {
+        Countdown();
+    });
+    </script>
+    <script>
+        // or with jQuery
+        var $container = $('#shopcontent');
+        @*Fixed it, because pagesize in first page is 8 and pagesize in another pages is 9.*@
+        //var gbPostData = { GroupBuyID: 0, pageSize: 9, pageNumber: gbPageNumber };
+        var gbPostData = { GroupBuyID: 0, pageSize: 99, pageNumber: 2 };
+        // initialize Masonry after all images have loaded  
+
+
+        $container.imagesLoaded(function () {
+            $container.masonry({
+                //columnWidth: 20,
+                itemSelector: '.box'
+            });
+        });
+        $container.scrollPagination({
+            'contentPage': '/Flash/GetGBData',
+            'contentData': gbPostData,
+            'scrollTarget': $(window),
+            'heightOffset': 10,
+            'beforeLoad': function () {
+                $container.stopScrollPagination();
+                //$("#loadingWaterFlow").css("display", "");
+            },
+            'afterLoad': function (elementsLoaded) {
+                if ($container.children().size() > 100) {
+                    $container.stopScrollPagination();
+                }
+                $container.append(elementsLoaded).masonry('appended', elementsLoaded);
+                if (elementsLoaded.length > 0) {
+                    gbPostData.pageNumber++;
+                    $container.attr('scrollPagination', 'enabled');
+                } else {
+                    $container.stopScrollPagination();
+                }
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#Pagetop").click(function () {
+                jQuery("html,body").animate({
+                    scrollTop: 0
+                }, 500);
+            });
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 850) {
+                    $('#Pagetop').fadeIn("fast");
+                } else {
+                    $('#Pagetop').stop().fadeOut("fast");
+                }
+            });
+
+
+        });
+    </script>
+
+}
+
+
+@*↓↓↓↓↓↓閃購區外包覆↓↓↓↓↓↓*@
+<div class="FlashArea">
+
+    @*↓↓↓↓↓↓閃購區主題框↓↓↓↓↓↓*@
+    @*    <div class="box flashTitle">
+        <img src="~/Themes/img/Flash.jpg" alt="">
+    </div>*@
+
+
+    @*↓↓↓↓↓↓產品方格↓↓↓↓↓↓*@
+    <div class="shopcontent" id="shopcontent">
+        <div class="box flashTitle">
+            @*<img src="~/Themes/img/Flash.jpg" alt=""></div>*@
+            @* ↓↓↓2016/4/25-5/1限時優惠↓↓↓ *@
+                <img src="~/Themes/img/Flash_1605.jpg" alt="1限時優惠"></div>
+            @* ↑↑↑2016/4/25-5/1限時優惠↑↑↑ *@
+
+
+        @Html.Partial("GBItem", Model)
+
+    </div>
+    @*↑↑↑↑↑↑產品方格↑↑↑↑↑↑*@
+    <div id="loadingWaterFlow" style="display:none; text-align:center" ><img src="~/Themes/img/loading.gif" />Loading</div>
+</div>

@@ -1,0 +1,16 @@
+﻿@using TWNewEgg.Models.DomainModels.Home
+@model WindowBlock
+@if (Model.CellList != null && Model.CellList.Count >= 3)
+{
+    string cssType = !string.IsNullOrEmpty((string)ViewData["cssType"]) ? (string)ViewData["cssType"] : "1";
+    @* 注意GroupLink要改變背景顏色 *@
+    <div class="@HomeShareFuns.GenerateBoxStyleClass("box1 none", Model.CellList[0].Type, cssType)">
+        @Html.Partial("Cell/Partial_Cell" + Model.CellList[0].Type, Model.CellList[0])
+    </div>
+    <div class="@HomeShareFuns.GenerateBoxStyleClass("box2 box2Top", Model.CellList[1].Type, cssType)">
+        @Html.Partial("Cell/Partial_Cell" + Model.CellList[1].Type, Model.CellList[1])
+    </div>
+    <div class="@HomeShareFuns.GenerateBoxStyleClass("box2", Model.CellList[2].Type, cssType)">
+        @Html.Partial("Cell/Partial_Cell" + Model.CellList[2].Type, Model.CellList[2])
+    </div>
+}

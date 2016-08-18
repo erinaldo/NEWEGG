@@ -1,0 +1,89 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+@{
+    List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput> SOList = ViewBag.SOList as List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput>;
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+}
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Header" width="795" height="68" />
+                    </div>
+                    <div>
+                        <br />
+                        @SOList.First().salesorder_name 先生/小姐，您好：
+                        <br/><br/>
+                        您的訂單: @ViewBag.LBO 
+                        <br/><br/>
+                        已於 @SOList.First().salesorder_createdate.ToShortDateString() 申請取消此訂單，為您查詢此商品目前尚未出貨
+                        <br/><br/>
+                        為維護您的權益，會直接為您取消此筆訂單且執行退款作業
+                        <br/><br/>
+                        @{
+                            if(ViewBag.PayType == "ATM.貨到付款")
+                            {
+                                <p>
+                                    您的付款方式為:ATM/貨到付款，故會再用匯款方式退款給您
+                                    <br/><br/>
+                                    請您提供原訂購人的銀行帳號資訊，以方便後續退款作業，待收到您的資料後，約2-5個工作天內會
+                                    <br/><br/>
+                                    退款給您退款時會再發信通知您
+                                    <br/><br/>
+                                    銀行：
+                                    <br/><br/>
+                                    分行：
+                                    <br/><br/>
+                                    帳號：
+                                    <br/><br/>
+                                    戶名：（原訂購人姓名）
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                            if(ViewBag.PayType == "刷卡")
+                            {
+                                <p>
+                                    <br/><br/>
+                                    您的付款方式為:ATM/貨到付款，故會再用匯款方式退款給您
+                                    <br/><br/>
+                                    退款作業完成後3-5個工作天內取消您的交易，建議您可再向您的刷卡銀行確認
+                                    <br/><br/>
+                                    若您欲購買別款商品，請再重新直接訂購即可，謝謝您
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                            if(ViewBag.PayType == "歐付寶儲值")
+                            {
+                                <p>
+                                    <br/><br/>
+                                    退款申請作業將於2-3個工作天內(不含假日)處理完成，會將款項退至您的 “歐付寶儲值帳戶”中
+                                    <br/><br/>
+                                    建議您可到歐付寶會員帳戶中心查詢或向您的發卡銀行確認
+                                    <br/><br/>
+                                    若您欲購買別款商品，請再重新直接訂購即可，謝謝您
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                        }
+                    </div>
+                    <div>
+                        <p>
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                            請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Fooer" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

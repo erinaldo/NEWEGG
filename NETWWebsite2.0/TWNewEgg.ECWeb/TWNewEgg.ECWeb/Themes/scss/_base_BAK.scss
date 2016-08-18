@@ -1,0 +1,413 @@
+﻿@charset "utf-8";
+@import "_importSCSS";
+
+@mixin serviceTableThTd {
+	padding:5px;
+	border-collapse:collapse;
+	border-width:1px;
+	border-style:solid;
+	border-color:#d5d5d5;
+	line-height:1.2em;
+	text-align:center;
+}
+
+/*Main Width*/
+$wrapperWidth:1024px;
+$mainContentPadding:10px;
+$mainContentWidth:($wrapperWidth - $mainContentPadding * 2); 
+
+.wrapper {
+	@extend .clear; 
+	@include clearAfter;
+	margin:0 auto;
+	/*width:$wrapperWidth;*/
+}
+/*.mainPadding {
+	@extend .clear;
+	@include clearAfter;
+	padding:$mainContentPadding;
+	width:$mainContentWidth;
+}*/
+
+/*水平線*/
+hr {
+	border:0;
+	border-top-width:1px;
+	border-style:solid;
+	&.verticalDir {
+		display:inline-block;
+		position:relative;
+		top:-1px;
+		border-left:1px solid;
+		vertical-align:middle;
+		width:0;
+		height:100%;
+	}
+}
+
+/*ICON*/
+i.icon {
+	/*display:inline-block;
+	vertical-align:middle;*/
+}
+
+/*輸入框*/
+input, input[type="text"], input[type="password"], input[type="tel"], textarea {
+	/*padding:5px 10px;
+	border-width:1px;
+	border-style:solid;
+	vertical-align:middle;
+	font-family:$mainFontStyle;*/
+}
+input, .selector, input[type="button"], .btn {
+	+ input, + .btn {
+		margin-left:10px;
+	}
+}
+input[type="checkbox"] {
+	width:20px;
+	height:20px;
+	vertical-align:middle;
+}
+input[type="radio"] {
+}
+input[type="button"], input[type="submit"], .btn {
+	margin:5px 0;
+	padding:10px 0;
+	border:0;
+	font-size:18px;
+	letter-spacing:2px;
+	text-align:center;
+	vertical-align:middle;
+	cursor:pointer;
+	@include transition(200);
+	&:hover {
+		@include transition(100);
+	}
+	
+	$halfMargin:6px;
+	@mixin halfWidthBtn {
+		@include clearAfter;
+		float:left;
+		margin:0;
+		&+.btn {
+			margin-left:$halfMargin;
+		}
+	}
+}
+
+/*麵包屑*/
+.pathLink {
+	font-size:15px;
+	span {
+		margin:0 3px;
+	}
+}
+
+/*頁碼*/
+.btmPageArea {
+	@include clearAfter;
+	position:relative;
+
+	text-align:center;
+	a {
+		display:inline-block;
+		/*float:left;*/
+		padding:5px;
+		vertical-align:middle;
+		background:#fff;
+		color:#777;
+		&:hover {
+			background:#f78d51;
+			color:#fff;
+		}
+	}
+	.arrow {
+		position:relative;
+		padding:0;
+		width:30px;
+		height:30px;
+		background:#f78d51;
+		&:hover {
+			background:darken(#f78d51,10%);
+			color:#fff;
+		}
+	}
+	.arrLeft {
+		left:-25px;
+	}
+	.arrRight {
+		right:-25px;
+	}
+}
+
+/*自製select*/
+@mixin selectorStyle {
+	@include box-sizing(border-box);
+	width:100%;
+	*width:90%;
+	position:relative;
+	padding:5px;
+	border-style:solid;
+}
+.selector {
+	position:relative;
+	cursor:pointer;
+	&:active, &:focus, &.active {
+		ul {
+			z-index:1;
+			background:#fff;
+			li {
+				display:block;
+			}
+		}
+	}
+	.default {
+		@include selectorStyle;
+		border-width:1px;
+		.icon-arrow {
+			position:absolute;
+			top:-1px;
+			right:-1px;
+			width:33px;
+			height:100%;
+			background:url(/Themes/img/Icon/SelectImg.png) no-repeat center;
+			border-width:1px;
+			border-style:solid;
+		}
+	}
+	ul {
+		position:absolute;
+		top:28px;
+		z-index:0;
+		overflow:auto;
+		overflow-x:hidden;
+		width:100%;
+		max-height:90px;
+		border-width:1px;
+		border-style:solid;
+		li {
+			@include selectorStyle;
+			display:none;
+			margin-top:-1px;
+		}
+	}
+}
+.selector-birth {
+	/*position:relative; 
+	.icon-arrow {
+		display:block;
+		position:absolute;
+		top:0;
+		right:0;
+		width:26px;
+		height:29px;*/
+		input {
+			background-image:url("/Themes/img/Icon/DateFarToNearImg.png");
+			background-repeat:no-repeat; 
+			background-position:right;
+		} 
+	/*}*/
+}
+
+/*頁籤樣式:我的回饋金.我的折價券.我的訂單.我的最愛清單.我的帳戶*/
+	/*頁籤Width*/$serviceTabWidth:100%;
+	/*頁籤maxWidth*/$serviceTabMaxWidth:130px;
+	/*頁籤Height*/$serviceTabHeight:45px;
+	/*頁籤Padding*/$serviceTabPadding:3px;
+	/*頁籤innerHeight*/$serviceTabInnerHeight:($serviceTabHeight - $serviceTabPadding);
+.serviceTabArea {
+	@include clearAfter;
+	width:$serviceTabWidth;
+	.tab {
+		@include transition(200);
+		float:left;
+		padding:$serviceTabPadding 35px;
+		max-width:$serviceTabMaxWidth;
+		height:$serviceTabInnerHeight;
+		overflow:hidden;
+		border-width:1px;
+		border-style:solid;
+		line-height:$serviceTabInnerHeight;
+		font-size:20px;
+		font-weight:bold;
+		cursor:pointer;
+		+.tab {
+			margin-left:-1px;
+		}
+		&:hover {
+			@include transition(100);
+			i.icon {
+				background-position:-10px 0;
+			}
+		}
+		&.active {
+			background-repeat:no-repeat;
+			background-position:right;
+		}
+		i.icon {
+			margin-right:10px;
+			/*background-image:url(/Themes/img/header-icon.png);*/
+			background-repeat:no-repeat;
+			background-position:0 0;
+		}
+	}
+}
+
+/*頁籤內容*/
+.serviceContentBox {
+	@extend .clear;
+	margin-top:-1px;
+	padding:20px 40px;
+	padding:20px 0;
+	overflow:hidden;
+	border:1px solid #d5d5d5;
+	border-top:0;
+	font-size:16px;
+	.mainTit {
+		.icon {
+			margin-right:5px;
+			width:35px;
+			height:35px;
+		}
+	}
+	.sTit {
+		@extend .clear;
+		@include clearAfter;
+		padding:10px 6px;
+		font-size:15px;
+		font-weight:bold;
+		.tt {
+			float:left;
+		}
+		.add {
+			float:right;
+		}
+	}
+	.service_contentForm {
+		margin:40px 40px 40px 91px;
+		.service_contentList {
+			@include clearAfter;
+			margin-bottom:15px;
+			min-height:35px;
+			line-height:35px;
+			.tit {
+				float:left;
+				margin-right:30px;
+				width:140px;
+				min-height:35px;
+				line-height:35px;
+				font-weight:bold;
+			}
+			.txt {
+				float:left;
+				input {
+					/*margin-right:15px;*/
+					height:20px;
+				}
+			}
+		}
+	}
+	.service_contentTable {
+		@extend .clear;
+		width:100%;
+		color:#666;
+		word-wrap:break-word;
+		word-break:break-all;
+		table {
+			border-collapse:collapse;
+			width:100%;
+		}
+
+
+		th,
+		td {
+			@include serviceTableThTd;
+		}
+
+		th {
+			background:#f0f0f0;
+			border-left:0;
+			border-right:0;
+		}
+		td {
+			border-left:0;
+			font-size: 15px;
+			height: 18px;
+			&[colspan="6"] {
+				padding:30px 0;
+				text-align:center;
+			}
+		}
+		.icon-shop { 
+			width:35px;
+			height:35px;
+			img {
+				max-width:35px;
+				max-height:35px;
+				vertical-align:text-bottom;
+			}
+		}
+		.highline {
+			color:#f72;
+		}
+	}
+	.btmBtnArea {
+		text-align:center; 
+		margin:20px 0; 
+		.btn {
+			&+.btn {
+				margin-left:50px;
+			}
+		}
+
+	}
+}
+
+/*登入註冊區塊*/
+.fillFormArea {
+	@include clearAfter;
+	border-width:1px;
+	border-style:solid;
+	$fillFormTitHeight:48px;
+	.mainTitBar {
+		padding:0 30px;
+		height:$fillFormTitHeight;
+		line-height:($fillFormTitHeight + 2);
+		font-size:20px;
+		.icon {
+			display:block;
+			float:left;
+			margin-right:25px;
+		}
+		img {
+			vertical-align:text-bottom;
+		}
+	}
+	/*填表區高&行高*/$fillFormListHeight:32px;
+	.fillFormBox {
+		.fillForm_contentList {
+			@include clearAfter;
+			
+			.tit {
+				float:left;
+				margin-bottom:20px;
+				overflow:hidden;
+				height:$fillFormListHeight;
+				line-height:$fillFormListHeight;
+				font-weight:bold;
+			}
+			.txt {
+				float:left;
+				margin-bottom:20px;
+				height:100%;
+			}
+		}
+		input[type="checkbox"] {
+			margin-right:3px;
+			width:16px;
+			height:16px;
+			border-color:#666;
+		}
+	}
+}

@@ -1,0 +1,1640 @@
+﻿@model  TWNewEgg.Models.ViewModels.Item.ItemBasic
+@{
+    ViewBag.Title = Model.Name + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
+    string strTemp = "";
+    List<TWNewEgg.Models.ViewModels.Item.ItemMarketGroup> listItemMarketGroup = null;
+    string strJsonItemGroup = "";
+    List<TWNewEgg.Models.ViewModels.Promotion.PromotionDetail_View> listPromotionBasic = null;
+    if (Model.DictItemMarketGroup != null)
+    {
+        listItemMarketGroup = Model.DictItemMarketGroup[Model.DictItemMarketGroup.Keys.First()];
+        strJsonItemGroup = Newtonsoft.Json.JsonConvert.SerializeObject(listItemMarketGroup);
+    }
+    if (Model.PromotionBasicList != null)
+    {
+        listPromotionBasic = Model.PromotionBasicList;
+    }
+}
+@*iprospect feeds start*@
+
+<script>
+    dataLayer.push({
+        'event':'productDetail',
+        'sitetype':'d',
+        'productid':'@(Model.Id)',
+         'prices':'@(Model.PromotionPrice)'
+     });
+</script>
+
+
+
+@*iprospect feeds end*@
+@*criteo feeds start*@
+
+<script>
+    dataLayer.push({
+        'PageType': 'ProductPage',
+        'email': '' + twNewegg().loginMail(),
+        'ProductID': '@(Model.Id)'
+    });
+</script>
+
+
+
+@*criteo feeds end*@
+
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/Style_product")
+    @Styles.Render("~/content/css/Item")
+    @Styles.Render("~/content/css/CategoryGeneral")
+}
+
+@section addToBottomer {
+
+}
+
+
+@if (Model != null)
+{
+    @section metaTags{
+        @Html.Raw("<meta property='og:url' content='https://secure.newegg.com.tw/Item?ItemId=" + Model.Id.ToString() + "' />")
+        @Html.Raw("<meta property='og:title' content='" + Model.Name + "' />")
+        @Html.Raw("<meta property='og:description' content='" + ((string.IsNullOrWhiteSpace(Model.Title) == true) ? "新蛋全球生活網熱銷商品" : Model.Title) + "' />")
+        @Html.Raw("<meta property='og:site_name' content='新蛋全球生活網' />")
+        @if (Model.ImgUrlList != null && Model.ImgUrlList.Count > 0)
+        {
+            @Html.Raw("<meta property='og:image' content='" + Model.ImgUrlList[0] + "' />")
+        }
+        else
+        {
+            @Html.Raw("<meta property='og:image' content='https://secure.newegg.com.tw/Themes/img/Common/logo.jpg' />")
+        }
+    }
+    if (Model.Status == (int)TWNewEgg.DB.TWSQLDB.Models.Item.status.已上架)
+    {
+    <div class="pathLink"></div>
+    <p id="ShowId" class="ShowId">
+        @Html.Raw(Model.ProuctId + " " + Model.SellerProductID + " - D" + Model.ItemDeliveryType)
+    </p>
+    <div class="clear"></div>
+
+    <!--↓↓↓↓↓↓倒數↓↓↓↓↓↓-->
+        if (Model.Countdown != null)
+        {
+    @Html.Raw(String.Format("<input type='hidden' id='data_countdown' value='{0:s}' />", @Model.Countdown))
+    <div class="countdown">
+        <div class="icon"></div>
+        倒數計時：<span id="countdown_clock"></span></div>
+        }
+        else
+        {
+@*<input type='hidden' id='data_item_countdown' value='' />
+    <div class="countdown"><div class="icon"></div>倒數計時：<span id="countdown_clock"></span></div>*@
+        }
+    
+    <div id="fb-root"></div>
+    }
+    <div class="outwidth">
+        @if (Model.Status == (int)TWNewEgg.DB.TWSQLDB.Models.Item.status.已上架)
+        {
+            <!--↓↓↓↓↓↓產品詳細上半部↓↓↓↓↓↓-->
+            <div class="productTop">
+                <!--↓↓↓↓↓↓產品右側欄位：產品圖、縮圖、FB分享、加入最愛↓↓↓↓↓↓-->
+                <div class="productLeft">
+                    <div class="productPic">
+                        @if (Model.ImgUrlList != null && Model.ImgUrlList.Count > 0)
+                        {
+                            <div class="pic" id="BigPic">
+                                <img class="itemImgCen" src="@(Model.ImgUrlList[0])"@*原圖*@ alt="@Model.Name" jqimg="@(Model.ImgUrlList[0])"@*放大圖*@ />
+                            </div>
+                        }
+                    </div>
+                    <div class="productPics">
+                        <button class="btnleft"></button>
+                        <button class="btnright"></button>
+                        <div class="showArea">
+                            <ul>
+                                @if (Model.ImgUrlList != null @*&& Model.ImgUrlList.Count > 1*@)
+                                {
+                                    for (i = 0; i < Model.ImgUrlList.Count; i++)
+                                    {
+                                        if (i < 4)
+                                        {
+                                    <li class="pic">
+                                        <img src="@Model.ImgUrlList[i]" class="itemImgCen" /></li>
+                                        }
+                                        else
+                                        {
+                                    <li class="pic">
+                                        <img src="@Model.ImgUrlList[i]" class="itemImgCen" /></li>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btmShare">
+                        <div class="shareToFB">
+                            <img src="/Themes/img/FBbtn.png" /><a>分享到FB</a></div>
+                        <div class="addToFavorite" id="neAddToFavorite">
+                            <img src="/Themes/img/Love.png" /><a>加入最愛</a></div>
+                    </div>
+                    <!--海外購物說明文件下載 -->
+                    <div class="shoppingProcess" style="display: none;">
+                        <p>美國新蛋直購專區的商品在報關時需提供<a href="/Service/AboutShopping#q4" target="_blank">規定文件</a>，以利商品順利完成清關作業。</p>
+                        <a href="/Content/Files/報關文件.zip" target="_blank">
+                            <img src="~/Themes/img/Icon/Overseas_06.png"></a>
+                    </div>
+                    <!--end of 海外購物說明文件下載 -->
+                </div>
+
+                <!--↓↓↓↓↓↓產品左側欄位：產品名稱、價格、數量、放入購物車↓↓↓↓↓↓-->
+                <div class="productRight">
+                    <div class="productContent">
+                        <h3 class="itemName">@Model.Name</h3>
+                        <p class="special">@Model.Title</p>
+                        <p class="explanation">@Model.PromotionMessage</p>
+                        @if (@Model.Price > @Model.PromotionPrice)
+                        {
+                            <p class="market">價格：<span class="small">NTD</span><span class="marketPrice">@Html.Raw(String.Format("{0:N0}", @Model.Price))</span></p>
+                        }
+                        @if (Model.PromotionPrice != null && Model.PromotionPrice > 0)
+                        {
+                            <p class="productPrice">特價：<span class="small">NTD</span>@Html.Raw(String.Format("{0:N0}", @Model.PromotionPrice))</p>
+                        }
+                        @if (listPromotionBasic == null || listPromotionBasic.Count == 0)
+                        {
+                            <div class="SpecialDeal">
+                                <p class="SpecialDeal"><span style="background:yellow;padding:0 5px;">※</span> 本商品不適用優惠活動</p>
+                            </div>
+                            <p class="activityExplanation">實際優惠以購物車計算為主</p>
+                        }
+                        else if (listPromotionBasic != null && listPromotionBasic.Count > 0)
+                        {
+                            <div class="SpecialDeal">
+
+                                <p class="SpecialDeal">
+                                    優惠活動：
+                                    @foreach (TWNewEgg.Models.ViewModels.Promotion.PromotionDetail_View objPromotionBasic in listPromotionBasic)
+                                    {
+                                        <span class="@objPromotionBasic.CSS">@objPromotionBasic.Description</span>
+                                    }
+                                </p>
+                                <div class="clear"></div>
+
+                            </div>
+                            <p class="activityExplanation">實際優惠以購物車計算為主</p>
+                        }
+                        <div class="introduction">
+                            <ul>
+                                @if (Model.Slogan.Length > 0)
+                                {
+                                    @Html.Raw(Model.Slogan)
+                                }
+                                @*美蛋商品交易模式為間配的商品加註特色說明(是間配1、美蛋商品)*@
+                                @if (Model.IsUSRemark)
+                                { 
+                                    <li>
+                                        <font color="#ff0000">
+                                            『本產品為原廠真品平行輸入之原裝進口產品』
+                                        </font>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+
+                        <div id="item_group_area">
+                        </div>
+                        <!--
+                <p class="ChoseStyle">顏色：<span>粉嫩藍</span>、<span>亮麗紅</span></p>
+                <p class="size">尺寸： XS    S    M    L    XL    XXL</p>
+                    -->
+
+                        <p class="Modified">
+                            <span>數量：</span>
+                            @if (Model.Amount > 0)
+                            {
+                                if (Model.ItemDeliveryType == 3 || Model.ItemDeliveryType == 6)
+                                {
+                                <input type="hidden" id="item_qty" value="1" />
+                                <span class="less notless"></span><span class="quantity" id="item_buyqty">1</span><span class="add notadd"></span>
+                                }
+                                else if (Model.Amount > 10)
+                                {
+                                <input type="hidden" id="item_qty" value="10" />
+                                <span class="less notless"></span><span class="quantity" id="item_buyqty">1</span><span class="add"></span>
+                                }
+                                else
+                                {
+                                <input type="hidden" id="item_qty" value="@Model.Amount" />
+                                <span class="less notless"></span><span class="quantity" id="item_buyqty">1</span><span class="add"></span>
+                                }
+                
+                    
+                                <span class="red" id="sold_out" style="display: none;">商品已售完</span>
+                            }
+                            else
+                            {
+                                <input type="hidden" id="item_qty" value="0" />
+                                <span class="less notless" style="display: none;"></span>
+                                <span class="number" id="item_buyqty" style="display: none;">1</span>
+                                <span class="add" style="display: none;"></span>
+                                <span class="red" id="sold_out">商品已售完</span>
+                            }
+                            @*<span class="red">剩餘10個</span>*@
+                            <br style="clear: both;">
+                        </p>
+
+                        <div class="payType">
+                            付款方式：
+                @if (Model.PaymentType != null)
+                {
+                    strTemp = "";
+                    foreach (TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption objOption in Model.PaymentType)
+                    {
+                        if (objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.二十四期分期) || objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.二十四期零利率) || objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十二期分期) || objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十二期零利率) || objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十八期分期) || objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十八期零利率) || objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十期分期) || objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十期零利率) || objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.三期零利率) || objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.六期零利率))
+                        {
+                            if (strTemp.IndexOf("分期") < 0)
+                            {
+                                strTemp += "分期";
+                                strTemp += "<!-- 分期說明方框 -->" +
+                                    "<div class='InsExp'><span class='blue'style='margin-left:3px;'>(說明)</span>" +
+                                        "<div class='Installment' style='display:none;'>" +
+                                            "<table class='Instable'>" +
+                                                "<tr class='Instr'>" +
+                                                    "<th class='Insth'>信用卡<br/>分期　</th>" +
+                                                    "<th class='Insth' style='width:67px;'>利率</th>" +
+                                                    "<th class='Insth' style='width:97px;'><img style='float:right;margin-top:3px;margin-left:-9px;' src='/Themes/img/Icon/ItemBank.jpg'>僅限台灣<br/>地區發行</th>" +
+                                                "</tr>" +
+                                                "<tr class='Instr'>" +
+                                                    "<td class='Instd'>3期</td>" +
+                                                    "<td class='Instd'>0利率</td>" +
+                                                    "<td class='Instd'>" +
+                                                        "<div class='banks'><span class='blue'>26家</span>" +
+                                                        "<!--↓↓↓↓↓↓銀行顯示方框↓↓↓↓↓-->" +
+                                                            "<div class='BankName' style='display:none;'>" +
+                                                                "<span>分期限以下銀行：</span>" +
+                                                                "<p>中信、富邦、國泰、台新、合庫、第一、彰化、永豐、遠東、兆豐、新光、花旗、台企行、大眾、匯豐、玉山、凱基、台中、渣打、日盛、澳盛、華南、安泰、上海、陽信、聯邦</p>" +
+                                                            "</div>" +
+                                                        "<!--↑↑↑↑↑↑↑銀行顯示方框↑↑↑↑↑↑↑-->" +
+                                                        "</div>" +
+                                                    "</td>" +
+                                                "</tr>" +
+                                                "<tr class='Instr'>" +
+                                                    "<td class='Instd'>6期</td>" +
+                                                    "<td class='Instd'>0利率</td>" +
+                                                    "<td class='Instd'>" +
+                                                        "<div class='banks'>" +
+                                                            "<span class='blue'>26家</span>" +
+                                                            "<!--↓↓↓↓↓↓銀行顯示方框↓↓↓↓↓-->" +
+                                                            "<div class='BankName' style='display:none;'>" +
+                                                                "<span>分期限以下銀行：</span>" +
+                                                                "<p>中信、富邦、國泰、台新、合庫、第一、彰化、永豐、遠東、兆豐、新光、花旗、台企行、大眾、匯豐、玉山、凱基、台中、渣打、日盛、澳盛、華南、安泰、上海、陽信、聯邦</p>" +
+                                                            "</div>" +
+                                                            "<!--↑↑↑↑↑↑↑銀行顯示方框↑↑↑↑↑↑↑-->" +
+                                                        "</div>" +
+                                                    "</td>" +
+                                                "</tr>" +
+                                                "<tr class='Instr'>" +
+                                                    "<td class='Instd'>10期</td>" +
+                                                    "<td class='Instd'>0利率</td>" +
+                                                    "<td class='Instd'>" +
+                                                        "<div class='banks'>" +
+                                                            "<span class='blue'>1家</span>" +
+                                                            "<!--↓↓↓↓↓↓銀行顯示方框↓↓↓↓↓-->" +
+                                                            "<div class='BankName' style='display:none;'>" +
+                                                                "<span>分期限以下銀行：</span>" +
+                                                                "<p>花旗</p>" +
+                                                            "</div>" +
+                                                            "<!--↑↑↑↑↑↑↑銀行顯示方框↑↑↑↑↑↑↑-->" +
+                                                        "</div>" +
+                                                    "</td>" +
+                                                "</tr>" +
+                                                    "<td colspan='3'>" +
+                                                        "<span>1. 請選擇適用的銀行卡別來做信用卡分期。<br />2. 除不盡餘數於第一期收取。<br />3. 可接受VISA Master JCB 信用卡。<br />4. 實際分期金額將依各發卡銀行規定略有調整。</span>" +
+                                                    "</td>" +
+                                                "</tr>" +
+                                            "</table>" +
+                                        "</div>" +
+                                        "</div>" +
+                                        "<!-- end of 分期說明方框 -->";
+                                strTemp += "/ ";
+                            }
+                            continue;
+                        }
+                        else if (objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.信用卡一次付清))
+                        {
+                            if (strTemp.IndexOf("一次付清") < 0)
+                            {
+                                strTemp += "信用卡一次付清";
+                                strTemp += "<!-- 信用卡紅利折抵 -->" +
+                                    "<div class='InsExp'><span class='blue'style='margin-left:3px;'>(信用卡紅利折抵" + ViewBag.BankCount + "家銀行)</span>" +
+                                        "<div class='Installment' style='display:none; padding: 5px 7px;'>" +
+                                        ViewBag.BankList +
+                                        "</div>" +
+                                        "</div>" +
+                                        "<!-- end of 信用卡紅利折抵 -->";
+                                strTemp += "/ ";
+                            }
+                            continue;
+                        }
+                        else if (objOption.Equals(TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.信用卡紅利折抵))
+                        {
+                            continue;
+                        }
+                        strTemp += objOption.ToString() + " / ";
+                    }
+                    strTemp = strTemp.Trim().TrimEnd('/').Trim();
+                    @Html.Raw(strTemp);
+                }
+                        </div>
+
+                        <p class="getType">
+                            配送方式：
+                @if (Model.DeliveryType != null)
+                {
+                    strTemp = "";
+                    foreach (TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemDeliveryOption objOption in Model.DeliveryType)
+                    {
+                        strTemp += objOption.ToString() + " / ";
+                    }
+                    strTemp = strTemp.Trim().TrimEnd('/').Trim();
+                    @Html.Raw(strTemp);
+                }
+                        </p>
+
+                        @if (Model.ItemDeliveryType == 1 || Model.ItemDeliveryType == 3)
+                        {
+                            <p class="productSource">發貨區域：@Model.ItemSource.ToString()</p>
+                            <p class="arrivalTime">預計到貨時間：@Model.ArrivalTime</p>
+                        }
+                        else
+                        {
+                            <p class="productSource" style="display: none;">發貨區域：@Model.ItemSource.ToString()</p>
+                            <p class="arrivalTime" style="display: none;">預計到貨時間：@Model.ArrivalTime</p>
+                        }
+
+                        @* ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 我要發問先隱藏 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ *@
+                        <a href="/MyAccount/AskQuestion?itemid=@Model.Id">
+                            <div class="questions" id="questionsDiv">
+                                <img src="~/Themes/img/questionOut.jpg" style="width: 72px; height: 75px" onmouseover="changeOver(this, 'questionOver.jpg')" onmouseout="changeOut(this, 'questionOut.jpg')"></div>
+                        </a>
+                        @* ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 我要發問先隱藏 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ *@
+                    </div>
+                    <div class="btnArea">
+                        @if (Model.Status == (int)TWNewEgg.DB.TWSQLDB.Models.Item.status.已上架)
+                        {
+
+                            if (Model.DateStart <= DateTime.UtcNow.AddHours(8) && Model.DateEnd >= DateTime.UtcNow.AddHours(8))
+                            {
+                                if (Model.Amount > 0)
+                                {
+                                    if (Model.IsChooseAny == 1)
+                                    { 
+                            <a id="neAddToChooseAny" class="BluBgBtn putInChooseAny" data-itemPrice="@(Model.PromotionPrice)" data-cateoryID="@(Model.Category)">
+                                <img src="/Themes/img/Icon/ChooseAnyImg.png">放入選購清單</a>
+                                    }
+                                    else
+                                    {
+                            <a id="neAddToCart" class="BluBgBtn putInCart">
+                                <img src="/Themes/img/ShoppingProcess/PutInCart.png">放入購物車</a>
+                            <a id="neAddToSC" class="OrgBgBtn HavenIt">立即結帳</a>
+                                    }
+                                }
+                                else
+                                {
+                            <a class="GryBtn HavenIt">已售完，補貨中</a>
+                                }
+                            }
+                            else if (Model.DateStart > DateTime.UtcNow.AddHours(8) && Model.DateEnd >= DateTime.UtcNow.AddHours(8))
+                            {
+                            @Html.Raw(String.Format("<input type='hidden' id='btn_data_countdown' value='{0:s}' />", @Model.DateStart))
+                            <div class="TextAlign-center StartSolid"><span id="btn_countdown_clock"></span></div>
+                            }
+                            else
+                            {
+                            <a class="GryBtn HavenIt">尚未開賣</a>
+                            }
+                        }
+                        else
+                        {
+                        }
+                        @*<input type="button" id="neAddToCart" value="貨到通知我" class="BluBgBtn putInCart" />*@
+                        @*<input type="button" id="neAddToCart" value="已售完，補貨中" class="GryBtn putInCart" />*@
+                        @*<div class="TextAlign-center StartSolid">距離開賣2天1時0分0秒</div>*@
+                        @*<button class="BluBgBtn putInCart"><img src="/Themes/img/Icon/Gray_ShoppingCartImg.png" style="vertical-align: text-bottom;margin-right: 5px;">放入購物車</button>*@
+                    </div>
+                </div>
+            </div>
+
+@*↓↓↓↓↓↓產品詳細TAB↓↓↓↓↓↓*@
+            <div class="itemdetail">
+                <div class="tabs">
+                    @if (Model.BrandStory == null || Model.BrandStory.Length <= 0)
+                    {
+                        <div class="tab" id="item_brand_story" style="display: none;">品牌故事</div>
+                        <div class="tab hover" id="item_description">商品說明</div>
+                    }
+                    else
+                    {
+                        <div class="tab hover" id="item_brand_story">品牌故事</div>
+                        <div class="tab" id="item_description">商品說明</div>
+                    }
+
+                    <div class="tab" id="item_sourcedescription">商品原文說明</div>
+                    @if (Model.Spec == null || Model.Spec.Trim().Length <= 0)
+                    {
+                        <div class="tab" id="item_spec" style="display: none;">規格說明</div>
+                    }
+                    else
+                    {
+                        <div class="tab" id="item_spec">規格說明</div>
+                    }
+                    <div class="tab" id="item_warranty">運送 / 保固 / 退換貨</div>
+                    <div class="tab" id="item_userreviews">網友留言</div>
+                </div>
+
+                <!-- 品牌故事 -->
+                @if (Model.BrandStory == null || Model.BrandStory.Length <= 0)
+                {
+                    <!-- 品牌故事 -->
+                    <div class="detail ckeditorstyle" style="display: none;">
+                        @Html.Raw(Model.BrandStory)
+                    </div>
+                                       
+                    <!--商品說明 -->                    
+                    <div class="detail ckeditorstyle">
+                        @*
+                        廢四機說明
+                        依據 BSATW-173 廢四機需求增加
+                        廢四機賣場商品, Y=是廢四機 ---------------add by bruce 20160519
+                        *@
+                    @if (Model.Discard4 != null && (Model.Discard4 == "Y" || Model.Discard4=="y"))
+                    { 
+                        <div class="discard4"></div>
+                    } 
+                        @Html.Raw(Model.Description)
+                    </div>
+                }
+                else
+                {
+                    <!-- 品牌故事 -->
+                    <div class="detail ckeditorstyle">
+                        @Html.Raw(Model.BrandStory)
+                    </div>
+                    <!--商品說明 -->
+                    <div class="detail ckeditorstyle" style="display: none;">
+                        @Html.Raw(Model.Description)
+                    </div>
+                }
+
+
+                <!--商品原文說明 -->
+                <div class="detail ckeditorstyle" style="display: none;">
+                    <div id="google_translate_element" style="float: right;"></div>
+                    @Html.Raw(Model.SourceDescription)
+                </div>
+                <!--規格說明 -->
+                <div class="detail" style="display: none;">
+                    @Html.Raw(Model.Spec)
+                </div>
+                <!-- 保固/退換貨 -->
+                <div class="detail returnSer" style="display: none;">
+                    <!--直購商品的Warranty !-->
+                    <div class="outer-buying" style="display: none;">
+                        <ul>
+                            <li>送貨範圍：我們提供的商品配送區域僅限於台灣本島。</li>
+                            <li>到貨天數：於美國新蛋直購專區下單且訂單成立(即確認交易條件無誤、付款完成且仍有庫存)後，正常約9~14個工作天可以收到商品，少數訂單因天候或通關因素可能會延遲1~2個工作天。</li>
+                            <li>正品保證：美國新蛋直購專區所有商品都是精選自全球品牌商及美蛋優質賣家，百分之百正品保證。</li>
+                            <li>換貨說明：若您收到的新品有瑕疵、破損、規格不符或是零件短缺的狀況，請您於收到貨後7天內， 至「我的帳戶>我的訂單」頁面點選「我要換貨」，填寫需換貨的原因/事由，我們將會回覆您辦理換貨事宜。<br />
+                                <br />
+                                若需更換新品，換貨廠商將於收到您退回的商品後更換給您。(換貨商品必須為全新狀態且完整包裝，包括且不限於主機、附件、內外包裝、原廠紙箱、隨機文件或資料之完整性等)</li>
+                            <li>退貨說明：根據《消費者保護法》，於新蛋全球生活網購物的會員，可享有商品貨到次日起7天猶豫期的權益。 提醒您猶豫期並非試用期，您所退回的商品必須是全新狀態(不得有刮傷、破損、受潮)，並且保持完整包裝， 意即必須恢復至您收到商品時的原始狀態(包括且不限於商本體、配件、原廠包裝、保護袋、保麗龍、保證書、隨附文件、贈品等)。 否則將影響您的退貨權益，也可能依照損毀程度扣除回復原狀之必要費用。<span class="blue UnderLine"><a href="/Policies/Return" target="_blank">(各類商品退貨規定說明)</a></span></li>
+                            <li>待商品收回並驗收無誤後，我們將進行退款，並於退款日當天發送E-mail通知您。</li>
+                            <li>保固與維修：於新蛋全球生活網訂購之美國新蛋直購商品（限筆電、平板、智能穿載、儲存設備、電競專區、腕錶、耳機）在正常使用狀況下，自購買日起一年內，皆享有新蛋一年保固維修服務。<br />
+                                若已經超過保固期或屬於意外或人為因素造成的損壞等則不在保固維修服務範圍內，將會由客服人員與您聯繫檢修費用後，再依照您的意願進行維修或是終止維修服務。</li>
+                        </ul>
+                        <p>其它更多有關美國新蛋直購說明請至<span class="blue">首頁>服務說明 >購物相關說明><a href="/Service/AboutShopping#q4" target="_blank">美國新蛋直購商品規範</a></span></p>
+                    </div>
+                    <!-- 非直購商品的Warranty -->
+                    <div class="inner-buying" style="display: none;">
+                        <ul>
+                            <li>送貨範圍：我們提供的商品配送區域僅限於台灣本島。</li>
+                            <li>到貨天數：商品預計訂單成立(即確認交易條件無誤、付款完成且仍有庫存)後 7 個工作天內送達(不含週六日及國定假日)。如廠商有約定日將於約定日期內送達，約定日期需於訂單成立後 14天內。</li>
+                            <li>換貨說明：若您收到的新品有瑕疵、破損、規格不符或是零件短缺的狀況，請您於收到貨後7天內， 至「我的帳戶>我的訂單」頁面點選「我要換貨」，填寫需換貨的原因/事由，我們將會回覆您辦理換貨事宜。<br />
+                                若需更換新品，換貨廠商將於收到您退回的商品後更換給您。(換貨商品必須為全新狀態且完整包裝，包括且不限於主機、附件、內外包裝、原廠紙箱、隨機文件或資料之完整性等)</li>
+                            <li>退貨說明：根據《消費者保護法》，於新蛋全球生活網購物的會員，可享有商品貨到次日起7天猶豫期的權益。 提醒您猶豫期並非試用期，您所退回的商品必須是全新狀態(不得有刮傷、破損、受潮)，並且保持完整包裝， 意即必須恢復至您收到商品時的原始狀態(包括且不限於商品本體、配件、原廠包裝、保護袋、保麗龍、保證書、隨附文件、贈品等)。 否則將影響您的退貨權益，也可能依照損毀程度扣除回復原狀之必要費用。<span class="blue UnderLine"><a href="/Policies/Return" target="_blank">(各類商品退貨規定說明)</a></span></li>
+                            <li>待商品收回並驗收無誤後，我們將進行退款，並於退款日當天發送E-mail通知您。</li>
+                            <li>商品保固：依原廠/出貨廠商標示為主。</li>
+                            <li>本網站全館免運費。</li>
+                        </ul>
+                        <p>其它更多有關台灣新蛋生活網說明請至<span class="blue">首頁>服務說明><a href="/Service/AboutService" target="_blank">售後服務</a></span></p>
+                    </div>
+                </div>
+                <!-- 網友留言-->
+                <div class="detail" style="display: none;">
+                    @*@Html.Raw(Model.UserReviews)*@
+                    <div id="disqus_thread"></div>
+                </div>
+            </div>
+        }
+        else
+        {
+    
+            <div id="ShelvesMessage" style="color: #808080; text-align: center; padding-top: 150px; width: 1000px;">
+                <span style="font-size: 30px;">本商品已下架，請至新蛋全球生活網搜尋其他新品 </span>
+            </div>
+            <div style="text-align: center; padding-top: 50px; padding-bottom: 50px;">
+                <input type="button" id ="HomeUrlBtn" value="回首頁" class ="OrgBgBtn" style="font-size:21px; height:50px; width:150px;" onclick="location.href='@Url.Action("Index", "Home")    '"/>
+            </div>
+        }
+        @*↓↓↓↓↓↓新蛋推薦↓↓↓↓↓↓*@
+        @*<div class="SkimItemBox">
+    <div class="title">新蛋推薦：</div>
+    <div class="items">
+        <div class="left"></div>
+        <div class="right"></div>
+        <ul>
+            <li class="productItem">
+                <div class="pic"><img src="/Themes/img/temp/item2.jpg"></div>
+                <p class="itemName">紅色全皮防刮全皮橢圓是牌手提包1</p>
+                <p class="price">
+                    <span class="org">$125544</span>
+                    <span class="NTprice">$125,544</span>
+                </p>
+            </li>
+            <li class="productItem">
+                <div class="pic"><img src="/Themes/img/temp/item2.jpg"></div>
+                <p class="itemName">紅色全皮防刮全皮橢圓是牌手提包2</p>
+                <p class="price">
+                    <span class="org">$125544</span>
+                    <span class="NTprice">$125,544</span>
+                </p>
+            </li>
+            <li class="productItem">
+                <div class="pic"><img src="/Themes/img/temp/item2.jpg"></div>
+                <p class="itemName">皮橢圓是牌手提包3</p>
+                <p class="price">
+                    <span class="org">$125544</span>
+                    <span class="NTprice">$125,544</span>
+                </p>
+            </li>
+            <li class="productItem">
+                <div class="pic"><img src="/Themes/img/temp/item2.jpg"></div>
+                <p class="itemName">紅色全皮防刮全皮橢圓是牌手提包4</p>
+                <p class="price">
+                    <span class="org">$125544</span>
+                    <span class="NTprice">$125,544</span>
+                </p>
+            </li>
+            <br style="clear:both;">
+        </ul>
+    </div>
+</div>*@
+
+        @*↓↓↓↓↓↓看過此產品的人也看了的產品↓↓↓↓↓↓*@
+        @*<div class="SkimItemBox">
+    <div class="title">看過此商品的人也看了的商品：</div>
+    <div class="items">
+        <div class="left"></div>
+        <div class="right"></div>
+        <ul>
+            <li class="productItem">
+                <div class="pic"><img src="/Themes/img/temp/item2.jpg"></div>
+                <p class="itemName">紅色全皮防刮全皮橢圓是牌手提包a</p>
+                <p class="price">
+                    <span class="org">$125544</span>
+                    <span class="NTprice">$125,544</span>
+                </p>
+            </li>
+            <li class="productItem">
+                <div class="pic"><img src="/Themes/img/temp/item2.jpg"></div>
+                <p class="itemName">紅色全皮防刮全皮橢圓是牌手提包b</p>
+                <p class="price">
+                    <span class="org">$125544</span>
+                    <span class="NTprice">$125,544</span>
+                </p>
+            </li>
+            <li class="productItem">
+                <div class="pic"><img src="/Themes/img/temp/item2.jpg"></div>
+                <p class="itemName">皮橢圓是牌手提包c</p>
+                <p class="price">
+                    <span class="org">$125544</span>
+                    <span class="NTprice">$125,544</span>
+                </p>
+            </li>
+            <li class="productItem">
+                <div class="pic"><img src="/Themes/img/temp/item2.jpg"></div>
+                <p class="itemName">紅色全皮防刮全皮橢圓是牌手提包d</p>
+                <p class="price">
+                    <span class="org">$125544</span>
+                    <span class="NTprice">$125,544</span>
+                </p>
+            </li>
+            <br style="clear:both;">
+        </ul>
+    </div>
+</div>*@
+        <div id="div_outer-buying-info">
+        </div>
+        <!--↓↓↓↓↓↓看過此產品的人也看了的產品↓↓↓↓↓↓ -->
+        <div class="SkimItemBox" id="lately_reviews">
+            <div class="title">我看過的商品：</div>
+            <div class="arrow prev left" style="display: none;"></div>
+            <div class="arrow next right" style="display: none;"></div>
+            <div class="items">
+                <ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 此區為隱藏性資料 -->
+    <div style="display: none;">
+        <input id="data_item_id" type="hidden" value="@Model.Id" />
+        <input id="data_main_category" type="hidden" value="@Model.Category" />
+        <input id="data_item_brandstory" type="hidden" value="@Model.BrandStory" />
+        <input id="data_item_description" type="hidden" value="@Model.Description"/>
+        <input id="data_item_sourcedescription" type="hidden" value="@Model.SourceDescription"/>
+        <input id="data_item_spec" type="hidden" value="@Model.Spec" />
+        <input id="data_item_warranty" type="hidden" value="@Model.Warranty"/>
+        <input id="data_item_userreviews" type="hidden" value="@Model.UserReviews"/>
+        <input id="data_item_deliveryType" type="hidden" value="@Model.ItemDeliveryType" />
+        <input id="data_item_group" type="hidden" value="@strJsonItemGroup" />
+    </div>
+    
+    <!----海外直購說明 ---->
+    <div id="tb_outer-buying-info" style="display: none;">
+        <table class="table">
+            <tr class="tr">
+                <th colspan="5" class="th">
+                    <p class="ColorBarTit">美國新蛋直購專區</p>
+                </th>
+            </tr>
+            <tr class="tr">
+                <td class="td">
+                    <img src="~/Themes/img/Icon/Overseas_01.jpg">
+                    <p>讓您享受如臨國外當地購物的樂趣， 所有海外溝通聯繫均由新蛋全球生活網團隊為您處理。</p>
+                </td>
+                <td class="td">
+                    <img src="~/Themes/img/Icon/Overseas_02.jpg">
+                    <p>美國新蛋直購專區之商品售價已含國際運費及台灣進口相關稅賦。</p>
+                </td>
+                <td class="td">
+                    <img src="~/Themes/img/Icon/Overseas_03.jpg">
+                    <p>美國新蛋直購專區下單後,正常約7-14天可以收到商品，少數訂單因天候或通關因素可能會延遲1-2天。</p>
+                </td>
+                <td class="td">
+                    <img src="~/Themes/img/Icon/Overseas_04.jpg">
+                    <p>美國新蛋直購專區所有商品都是精選自全球品牌商及美蛋優質賣家，保證百分之百正品保證。</p>
+                </td>
+                <td class="td">
+                    <img src="~/Themes/img/Icon/Overseas_05.jpg">
+                    <p>新蛋全球生活網提供美國新蛋直購商品(限品項)在正常使用狀況下，皆享有新蛋一年保固維修服務，詳請見保固說明。</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!----end海外直購說明 ---->
+}
+
+@section refScripts{
+    <script type="text/javascript" src="/Scripts/NETW/netw-ItemBox.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.countdown.js"></script>
+    <script>
+        $(document).ready(function ()
+        {
+            //顯示倒數
+            var objCountdown = null;
+            objCountdown = $("#data_countdown").val();
+            if(objCountdown != null && typeof(objCountdown) != "undefined")
+            {
+                objCountdown = new Date(objCountdown);
+                var objCountdownUtc = new Date( objCountdown.getTime() + (objCountdown.getTimezoneOffset() * 60000));
+                $("#countdown_clock").countdown(objCountdownUtc, function(event){
+                    var dateFormat = "%H:%M:%S";
+                    if(event.offset.days > 0)
+                    {
+                        dateFormat = '%-D 天 ' + dateFormat;
+                    }
+                    $(this).html(event.strftime(dateFormat));
+                });
+            }
+
+            // 賣場頁button開賣倒數計時
+            var btnCountdown = null;
+            btnCountdown = $("#btn_data_countdown").val();
+            if (btnCountdown != null && typeof (btnCountdown) != "undefined") {
+                btnCountdown = new Date(btnCountdown);
+                var btnCountdownUtc = new Date(btnCountdown.getTime() + (btnCountdown.getTimezoneOffset() * 60000));
+                $("#btn_countdown_clock").countdown(btnCountdownUtc, function (event) {
+                    if (event.offset.days > 0) {
+                        dateFormat = "%-D天%H時%M分%S秒";
+                    }
+                    else if (event.offset.hours > 0) {
+                        dateFormat = "%-H時%M分%S秒";
+                    }
+                    else if (event.offset.minutes > 0) {
+                        dateFormat = "%-M分%S秒";
+                    }
+                    else if (event.offset.seconds > 0) {
+                        dateFormat = "%-S秒";
+                    }
+                    else {
+                        window.location.reload();
+                    }
+                    $(this).html(event.strftime("距離開賣 " + dateFormat));
+                });
+            }
+
+            var numItemDeliveryType = $("#data_item_deliveryType").val();
+            //海外直購商品說明tb_outer-buying-info
+            if(numItemDeliveryType == "3" || numItemDeliveryType == "6"||numItemDeliveryType == "1")
+            {
+                //console.log("info:",$("#tb_outer-buying-info").html());
+                $("div#div_outer-buying-info").html($("#tb_outer-buying-info").html());
+                //$("div.itemdetail div#item_description").append($("#tb_outer-buying-info").html());
+            }
+            //商品原文說明與保固頁籤
+            if(numItemDeliveryType != null && typeof(numItemDeliveryType) != "undefined")
+            {
+                //商品原文說明
+                if(numItemDeliveryType == "1" || numItemDeliveryType == "3" || numItemDeliveryType == "6")
+                    $("div#item_sourcedescription").show();
+                else
+                    $("div#item_sourcedescription").hide();
+
+                //保固說明 & 報關文件
+                if(numItemDeliveryType == "1" || numItemDeliveryType == "3" || numItemDeliveryType == "6")
+                {
+                    //保固說明
+                    $("div.outer-buying").show();
+                    $("div.inner-buying").hide();
+                
+                }
+                else
+                {
+                    $("div.outer-buying").hide();
+                    $("div.inner-buying").show();
+                }
+                if(numItemDeliveryType == "3" || numItemDeliveryType == "6")
+                {
+                    //報關文件下載
+                    $(".shoppingProcess").show();
+                }
+                else
+                {
+                    //報關文件下載
+                    $(".shoppingProcess").hide();
+                }
+            }
+
+            //顯示最近瀏覽記錄
+            GetLatelyReviews();
+
+            //加入此商品至最近瀏覽記錄
+            var objItem = {
+                "Id": parseInt("@Model.Id"),
+            "Name" : "@(Model.Name.Replace("\r\n", "").Replace("\n\r", ""))",
+            @if (Model.ImgUrlList != null && Model.ImgUrlList.Count > 0)
+            {
+                @Html.Raw("\"ImgUrl\":\"" + @Model.ImgUrlList[0] + "\",")
+            }
+            else
+            {
+                @Html.Raw("\"ImgUrl\" : \"\",")
+            }
+            "Amount" : parseInt("@Model.Amount"),
+            "LinkUrl" : "/Item?itemId=" + $("#data_item_id").val(),
+            "Price" : parseFloat("@Model.Price"),
+            "PromotionPrice" : parseFloat("@Model.PromotionPrice")
+        };
+        AddItemIntoLatelyReviews(objItem);
+
+        if($("div.productPics div.showArea ul li").length <= 4)
+        {
+            $("button.btnleft").hide();
+            $("button.btnright").hide();
+        }
+
+        //賣場頁的麵包屑
+        Breadcrumbs(@Model.Category);
+
+        //FB分享功能postToWall
+        $(".shareToFB").on("click", function(){ postToWall();});
+
+        //信用卡說明
+        $(".InsExp").on("click", function(){
+            $(this).children(".Installment").toggle();
+        });
+        $(".InsExp").on("mouseleave", function(){
+            $(this).children(".Installment").hide();
+            $(this).find(".BankName").hide();
+        });
+        $(".banks").on("mouseenter", function(){
+            $(this).children(".BankName").show();
+        });
+        $(".banks").on("mouseleave", function(){
+            $(this).children(".BankName").hide();
+        });
+
+    });
+    /* ------ 購買數量 ------ */
+    $("span.add").bind("click", function(){ QtyMore();});
+    $("span.less").bind("click", function(){QtyLess();});
+
+    /* ------ 說明標籤 ------ */
+    $("div.itemdetail div.tabs div.tab").bind("click", function (){
+        var strTagName = $(this).attr("id");
+        var strDetail = "";
+        var numIndex = -1;
+        $(this).addClass("hover").siblings().removeClass("hover");
+        numIndex = $(this).index();
+
+        if(numIndex >= 0)
+        {
+            $(this).parent("div.tabs").parent("div.itemdetail").children("div.detail").eq(numIndex).show().siblings("div.detail").hide();
+        }
+    });
+
+    /* ------ 商品縮圖 ------ */
+    $("div.showArea ul li").bind("click", function(){ShowPic(this);});
+    $("div.productPics button.btnleft").bind("click", function(){ShowPicLeft();});
+    $("div.productPics button.btnright").bind("click", function(){
+        ShowPicRight();
+
+    });
+
+    @*var startDate = new Date("@Model.DateStart.ToString("yyyy/MM/dd HH:mm:ss")");
+    var Today = new Date();
+    var spantime = (startDate - Today) / 1000;
+    function showTime() {
+        if (spantime > 0) {
+            spantime--;
+            var getDay = Math.floor(spantime / (24 * 3600));
+            var getHour = Math.floor((spantime % (24 * 3600)) / 3600);
+            var getMinute = Math.floor((spantime % 3600) / (60));
+            var getSecond = Math.floor(spantime % 60);
+            var showDay = "";
+            var showHour = "";
+            var showMinute = "";
+            if (getDay > 0) {
+                showDay = getDay + "天";
+            }
+            if (getHour > 0) {
+                showHour = getHour + "時";
+            }
+            if (getMinute > 0) {
+                showMinute = getMinute + "分";
+            }
+            var setTime = showDay + showHour + showMinute + getSecond + "秒";
+            $("#StartedSellingTime").html(setTime);
+            //每秒執行一次,showTime()
+            setTimeout("showTime()", 1000);
+        } else {
+            $("#StartedSellingTime").html("開賣");
+        }
+    }*@
+
+        function ShowPicRight()
+        {
+            //按右鍵
+            var listShowPics = null;
+            var listVisiblePics = null;
+            var numFirstShowIndex = 0;
+            listShowPics = $("div.productPics div.showArea ul li");
+            listVisiblePics = $("div.productPics div.showArea ul li:visible");
+            if (listVisiblePics != null && typeof (listVisiblePics) != "undefined")
+            {
+                numFirstShowIndex = $(listVisiblePics[0]).index();
+                if (numFirstShowIndex + 4 < listShowPics.length)
+                {
+                    $(listShowPics[numFirstShowIndex]).hide('fast');
+                    $(listShowPics[numFirstShowIndex + 4]).show('fast');
+                }
+            }
+        }
+
+        function ShowPicLeft()
+        {
+            //按左鍵
+            var listShowPics = null;
+            var listVisiblePics = null;
+            var numFirstShowIndex = 0;
+            listShowPics = $("div.productPics div.showArea ul li");
+            listVisiblePics = $("div.productPics div.showArea ul li:visible");
+            if (listVisiblePics != null && typeof (listVisiblePics) != "undefined")
+            {
+                numFirstShowIndex = $(listVisiblePics[listVisiblePics.length - 1]).index();
+                if (numFirstShowIndex - 4 >= 0)
+                {
+                    $(listShowPics[numFirstShowIndex]).hide('fast');
+                    $(listShowPics[numFirstShowIndex - 4]).show('fast');
+                }
+            }
+        }
+
+        function ShowPic(objItem)
+        {
+            //按產品圖
+            if (objItem == null || typeof (objItem) == "undefined" || $(objItem).children("img") == null)
+            {
+                return;
+            }
+            $("div.productPic img").attr("src", $(objItem).children("img").eq(0).attr("src"));
+            $("div.productPic img").attr("jqimg", $(objItem).children("img").eq(0).attr("src"));
+
+            //重算長寬高的margin
+            resetImgVerticalAlignCenter($("#BigPic"));
+        }
+
+        /* ------ 商品數量 ------ */
+        function QtyLess()
+        {
+            var numBuyQty = 0;
+            var numTotalQty = 0;
+            var numBuyMaxQty = 10;
+            numTotalQty = parseInt($("#item_qty").val());
+            numBuyQty = parseInt($("#item_buyqty").html());
+
+            if (numBuyQty <= 1)
+                return;
+            else
+                numBuyQty--;
+            if (numBuyQty <= 1)
+            {
+                $(".less").removeClass("notless").addClass("notless");
+
+            }
+            if(numBuyQty < numTotalQty && numBuyQty < numBuyMaxQty)
+            {
+                $(".add").removeClass("notadd");
+            }
+
+            $("#item_buyqty").html(numBuyQty);
+        }
+        function QtyMore()
+        {
+            var numBuyQty = 0;
+            var numTotalQty = 0;
+            var numBuyMaxQty = 10;
+
+            numTotalQty = parseInt($("#item_qty").val());
+            numBuyQty = parseInt($("#item_buyqty").html());
+            if (numBuyQty >= numTotalQty || numBuyQty >= numBuyMaxQty)
+                return;
+            else
+                numBuyQty++;
+            if (numBuyQty >= numTotalQty || numBuyQty >= numBuyMaxQty)
+                $(".add").addClass("notadd");
+            else
+                $(".add").removeClass("notadd");
+            $(".less").removeClass("notless");
+
+            $("#item_buyqty").html(numBuyQty);
+        }
+
+        /* ------ 商品群組 ------ */
+        var m_objItemGroup = null;
+        var m_numMasterValueId = 0;
+        var m_numSecondValueId = 0;
+        $(document).ready(function ()
+        {
+            RenderItemGroup();
+        });
+        function RenderItemGroup()
+        {
+            //console.log("RenderItemGroup");
+            //<p class="ChoseStyle">顏色：<span>粉嫩藍</span>、<span>亮麗紅</span></p>
+            var listKeys = null;
+            var strTemp = "";
+            var strJson = $("#data_item_group").val();
+            var strMasterHtml = "";
+            var strMasterIdList = "";
+            var strSecondHtml = "";
+            var strSecondIdList = "";
+            var ni = 0;
+            var boolSelected = false;
+            //console.log("render item group:", strJson);
+            if(strJson == null || typeof(strJson) == "undefined" || strJson.length <= 0)
+            {
+                m_objItemGroup = null;
+                return;
+            }
+            strJson = strJson.replace(/&quot;/g, '"');
+            m_objItemGroup = JSON.parse(strJson);
+            //console.log("m_objItemGroup:", m_objItemGroup);
+
+            //找到目前Id的資料
+            for(ni = 0; ni < m_objItemGroup.length; ni++)
+            {
+                if(m_objItemGroup[ni].ItemId == $("#data_item_id").val())
+                {
+                    m_numMasterValueId = m_objItemGroup[ni].MasterPropertyValueId;
+                    m_numSecondValueId = m_objItemGroup[ni].SecondPropertyValueId;
+                    break;
+                }
+            }
+
+            //console.log("num:", {"MasterValueId":m_numMasterValueId, "SecondValueId":m_numSecondValueId});
+            //組合字串
+            for(ni = 0; ni < m_objItemGroup.length; ni++)
+            {
+        
+                //Master Property Value
+                if(strMasterIdList.indexOf(";" + m_objItemGroup[ni].MasterPropertyValueId + ";") < 0)
+                {
+                    strMasterHtml += "<span Level='1' LevelData='" + m_objItemGroup[ni].MasterPropertyValueId + "'>" + m_objItemGroup[ni].MasterPropertyValueDisplay + "</span>、";
+                    strMasterIdList += ";" + m_objItemGroup[ni].MasterPropertyValueId + ";";
+                }
+
+                //Second Property Value, 只抓與主屬性相同的資料
+                if(m_objItemGroup[ni].MasterPropertyValueId == m_numMasterValueId && m_numSecondValueId > 0 && m_objItemGroup[ni].SecondPropertyValueDisplay != null && strSecondIdList.indexOf(";" + m_objItemGroup[ni].SecondPropertyValueId + ";") < 0)
+                {
+                    if(m_objItemGroup[ni].SellingQty <= 0)
+                    {
+                        strSecondHtml += "<span title='已售完' class='gray' Level='2' LevelData='" + m_objItemGroup[ni].SecondPropertyValueId + "'>" + m_objItemGroup[ni].SecondPropertyValueDisplay + "</span>、";
+                    }
+                    else
+                    {
+                        strSecondHtml += "<span Level='2' LevelData='" + m_objItemGroup[ni].SecondPropertyValueId + "'>" + m_objItemGroup[ni].SecondPropertyValueDisplay + "</span>、";
+                    }
+                    strSecondIdList += ";" + m_objItemGroup[ni].SecondPropertyValueId + ";";
+                }
+            }
+            
+            //console.log("string:", {"MasterHtml": strMasterHtml, "SecondHtml": strSecondHtml});
+            //去除最後面的頓號, 組好html, 組Title, 找第一筆資料來處理即可
+            strMasterHtml = strMasterHtml.substr(0, strMasterHtml.length - 1);
+            strMasterHtml = "<p class='ChoseStyle'>" + m_objItemGroup[0].MasterPropertyDisplay + "：" + strMasterHtml + "</p>";
+            if(m_objItemGroup[0].SecondPropertyValueDisplay != null && typeof( m_objItemGroup[0].SecondPropertyValueDisplay) != "undefined" && m_numSecondValueId > 0)
+            {
+                strSecondHtml = strSecondHtml.substr(0, strSecondHtml.length - 1);
+                strSecondHtml = "<p class='ChoseStyle'>" + m_objItemGroup[0].SecondPropertyDisplay + "：" + strSecondHtml + "</p>";
+            }
+            $("#item_group_area").html(strMasterHtml + strSecondHtml);
+
+            //與賣場相同的規格的標籤設定css
+            $("p.ChoseStyle span").each(function(value, key){
+                if($(this).attr("LevelData") == m_numMasterValueId || $(this).attr("LevelData") == m_numSecondValueId){
+                    $(this).addClass("selected");
+                }
+            });
+
+            //將Group綁定事件
+            $("p.ChoseStyle span").click(function(){
+                var numItemId = 0;
+                //console.log("span data:", {"level": $(this).attr("Level"), "leveldata": $(this).attr("LevelData")});
+                $(this).removeClass("selected").addClass("selected").siblings("span").removeClass("selected");
+                numItemId = GetItemGroupId($(this).attr("Level"), $(this).attr("LevelData"));
+                if(numItemId > 0)
+                {
+                    twNewegg().checkState("loadingNoClose", "頁面跳轉中，請稍候....");    
+                    //先用跳頁的方式
+                    document.location.href="/Item?ItemId=" + numItemId;
+                    return;
+                    //RefreshItem();跳頁暫不使用
+                }
+                else
+                {
+                    twNewegg().checkState("tips", "所選擇商品不存在");
+                }
+            });
+        }
+
+
+        /* ------ 取得所選擇的ItemGroup的ItemId ------ */
+        function GetItemGroupId(argLevel, argLevelValue)
+        {
+            if(argLevel == null || typeof(argLevel) == "undefined" || !$.isNumeric(argLevel)
+                || argLevelValue == null || typeof(argLevelValue) == "undefined" || !$.isNumeric(argLevelValue)
+                || m_objItemGroup == null || typeof(m_objItemGroup) == "undefined" || m_objItemGroup.length <= 0){
+                return 0;
+            }
+
+            var numItemId = 0;
+            var numDefaultItemId = 0;
+            var ni = 0;
+            var numTempMasterValueId = m_numMasterValueId;
+            var numTempSecondValueId = m_numSecondValueId;
+
+            if(argLevel == 1)
+                numTempMasterValueId = argLevelValue;
+            else if(argLevel == 2)
+                numTempSecondValueId = argLevelValue;
+
+            for(ni = 0; ni < m_objItemGroup.length; ni++)
+            {
+                //有找到資料就暫存起來
+                if(m_objItemGroup[ni].MasterPropertyValueId == numTempMasterValueId && m_objItemGroup[ni].SecondPropertyValueId == numTempSecondValueId){
+                    numItemId = m_objItemGroup[ni].ItemId;
+                    $("#data_item_id").val(m_objItemGroup[ni].ItemId);
+                    //console.log("GetSubItemGroup - data_item_id:", numItemId);
+                    m_numMasterValueId = numTempMasterValueId;
+                    m_numSecondValueId = numTempSecondValueId;
+                    break;
+                }
+                else if(numDefaultItemId <= 0 && m_objItemGroup[ni].MasterPropertyValueId == numTempMasterValueId && m_objItemGroup[ni].SecondPropertyValueId != null && m_objItemGroup[ni].SecondPropertyValueId > 0)
+                {
+                    //取副屬性的第1個資料
+                    numDefaultItemId = m_objItemGroup[ni].ItemId;
+                }
+            }
+
+            //若有對應ItemId即回傳對應的ItemId, 否則就回傳其他副屬性的資料
+            if(numItemId > 0)
+            {
+                return numItemId;
+            }
+            else
+            {
+                return numDefaultItemId;
+            }
+        }
+
+        /* ------取得下一層資料的函式, 並替換區塊 ------ */
+        function RefreshItem()
+        {
+            //檢查參數
+            if (m_objItemGroup == null || typeof (m_objItemGroup) == "undefined")
+            {
+                return;
+            }
+            var numItemId = 0;
+            var strTemp = "";
+            var i = 0, j = 0, k = 0;
+            var listPColor = $("#item_group_area p.color");
+            var objSelectSpanIndex = 0;
+            var objItemGroup = null;
+            var strSubTemp = "";
+        
+            numItemId = $("#data_item_id").val();
+            if(numItemId == null || typeof(numItemId) == "undefined" || !$.isNumeric(numItemId))
+            {
+                alert('選擇品項資料有誤');
+            }
+            else
+            {
+                $.ajax({
+                    //url : "/api/item?ItemId=" + ItemId,
+                    url: "/api/item/GetItemDetailByItemId?ItemId=" + numItemId,
+                    type: "get",
+                    dataType : "html",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", "Basic " + jQuery.cookie("neui"));
+                    },
+                    error: function(xhr){
+                    },
+                    success: function(response){
+                        //console.log("RefreshItem - response string:", response);
+                        var objData = JSON.parse(response);
+                        //console.log("response data:", objData);
+
+                        //更新顯示畫面的資訊
+                        CleanItemDetailDisplay();
+                        RenderItemDetailDisplay(objData);
+
+                        var ImgUrl = "";
+                        if(objData.ImgUrlList != null && objData.ImgUrlList.length > 0)
+                            ImgUrl =  objData.ImgUrlList[0];
+
+                        //加入最近瀏覽資訊
+                        var objItem = {
+                            "Id": objData.Id,
+                            "Name" : objData.Name,
+                            "Amount" : objData.Amount,
+                            "LinkUrl" : "/Item?itemID=" + objData.Id,
+                            "Price" : objData.Price,
+                            "PromotionPrice" : objData.PromotionPrice,
+                            "ImgUrl" : ImgUrl
+                        };
+                        AddItemIntoLatelyReviews(objItem);
+                    }
+                });
+            }
+
+        }
+
+
+        /* ------ 最近瀏覽清單 ------ */
+        function GetLatelyReviews()
+        {
+            var strLiTemplate = '<li class="productItem box"><div class="pic"><a href="{$LinkUrl}"><img src="{$ImgUrl}" class="itemImgCen" /></a></div><a href="{$LinkUrl}"><div class="txt"><div class="SpecialDeal">{$SoldOut}</div><h3 class="itemName">{$Name}</h3><p><span class="marketPrice">{$Price}</span><span class="price">{$PromotionPrice}</span></p></div></a></li>';
+            var strTemp = "";
+            var strContent = "";
+            var listItems = null;
+            var group_name = "lately_reviews";
+            var group_maxlength = 8;
+            var Settings = { "group_name": group_name, "group_maxlength": group_maxlength };
+            var ni = 0;
+
+            //設定Cookie
+            twNewegg().ReviewItems.Settings(Settings);
+
+            //取得清單
+            listItems = twNewegg().ReviewItems.GetAll();
+
+            if(listItems != null && typeof(listItems) != "undefined")
+            {
+                for(ni = 0; ni < listItems.length; ni++)
+                {
+                    strTemp = strLiTemplate;
+
+                    strTemp = strTemp.replace(/{\$LinkUrl}/g, listItems[ni].LinkUrl);
+                    strTemp = strTemp.replace(/{\$ImgUrl}/g, listItems[ni].ImgUrl);
+                    strTemp = strTemp.replace(/{\$Name}/g, listItems[ni].Name);
+                    if(listItems[ni].Amount < 1){
+                        strTemp = strTemp.replace(/{\$SoldOut}/g, "<span class=\"SpecialDeal SpecialDealClass0\">商品已售完</span>");
+                    }else{
+                        strTemp = strTemp.replace(/{\$SoldOut}/g, "");
+                    }
+                    if(listItems[ni].Price != null && typeof(listItems[ni].Price) != "undefined" && parseInt(listItems[ni].Price) > 0)
+                        strTemp = strTemp.replace(/{\$Price}/g, "$" + Commafy(listItems[ni].Price));
+                    else
+                        strTemp = strTemp.replace(/{\$Price}/g, "");
+                    if(listItems[ni].PromotionPrice != null && typeof(listItems[ni].PromotionPrice) != "undefined" && parseInt(listItems[ni].PromotionPrice) > 0)
+                        strTemp = strTemp.replace(/{\$PromotionPrice}/g, "$" + Commafy(listItems[ni].PromotionPrice));
+                    else
+                        strTemp = strTemp.replace(/{\$PromotionPrice}/g, "");
+
+                    strContent += strTemp;
+                }
+                $("div#lately_reviews div.items ul").empty().html(strContent);
+            }
+            else
+            {
+                $("div#lately_reviews div.items ul").empty();
+                $("div#lately_reviews").hide();
+            }
+
+        }
+
+        /* ------ 將商品加入最新瀏覽清單 ------ */
+        function AddItemIntoLatelyReviews(arg_objItem)
+        {
+            if (arg_objItem == null && typeof (arg_objItem) == "undefined")
+                return;
+
+            var group_name = "lately_reviews";
+            var group_maxlength = 4;
+            var Settings = { "group_name": group_name, "group_maxlength": group_maxlength };
+
+            //設定Cookie
+            twNewegg().ReviewItems.Settings(Settings);
+            //加入資料
+            twNewegg().ReviewItems.AddItem(arg_objItem);
+            /*
+            //加入測試資料
+            for(i = 0; i < 5; i++)
+            {
+                arg_objItem.Id = i,
+                arg_objItem.Name = arg_objItem.Name + i;
+                twNewegg().ReviewItems.AddItem(arg_objItem);
+            }
+            */
+
+        }
+
+        /* ------ 數值千分位 ------ */
+        function Commafy(num) {
+            num = num + "";
+            var re = /(-?\d+)(\d{3})/
+            while (re.test(num)) {
+                num = num.replace(re, "$1,$2")
+            }
+            return num;
+        }
+
+        /* ------ select to div ------ */
+        $.fn.selectCustom = function () {
+            var _select = this,
+                _selectLength = _select.find("option").length,
+                _orgText = _select.find("option:selected").text();
+
+
+            this.on("change", function () {
+                $( "select option:selected" ).each(function() {
+                    window.location.href = this.value;
+                });
+            });
+
+            _select.hide();
+            _select.parent().append("<div class='selectText'>\
+                <span></span>\
+                <ul class='selectLists'></ul>\
+                </div><span>&gt;</span><span>賣場編號:" + "@(Model.Id)" + "</span>");
+
+        var _lists = $("ul.selectLists"),
+            _nowText = $(".selectText");
+
+        _lists.hide();
+        _nowText.find("span").text(_orgText);
+
+        for (i = _selectLength - 1; i >= 0; i--) {
+            var _text = _select.find("option").eq(i).text();
+            _lists.prepend("<li>" + _text + "</li>");
+        }
+
+
+        _nowText.hover(function () {
+            _lists.show();
+        }, function () {
+            _lists.hide();
+        });
+
+
+        _lists.find("li").hover(function () {
+            $(this).addClass("mOver").siblings("li").removeClass("mOver");
+        });
+
+        $(".selectText > span").click(function () {
+            _select.find("option:selected").each(function() {
+                window.location.href = this.value;
+            });
+        });
+
+        _lists.find("li").click(function () {
+            var _index = $(this).index(),
+                _liText = $(this).text();
+            $(".selectText > span").text(_liText);
+            _select.find("option").eq(_index).attr("selected", true).siblings("option").removeAttr("selected");
+            _select.find("option:selected").each(function() {
+                window.location.href = this.value;
+            });
+        });
+    }
+
+    /* ------ 賣場頁用的麵包屑 ------ */
+    function Breadcrumbs(argCategoryId)
+    {
+        $.ajax({
+            //url : "/api/item?ItemId=" + ItemId,
+            url: "/api/item/GetItemParentCategories?CategoryId=" + argCategoryId,
+            type: "get",
+            dataType : "html",
+            error: function(xhr){
+                //console.log("Breadcrumbs-error:", xhr);
+            },
+            success: function(response){
+                var objData = JSON.parse(response);
+                var strTemp = "<a href='/Home'>首頁</a><span>&gt;</span>";
+                //console.log("BreadCrumbs data:", objData);
+                if(objData != null && typeof(objData) != "undefined")
+                {
+                    var listParentCategories = objData.ListParentCategories;
+                    var listDropdownItems = objData.DropDownItems;
+                    var ni = 0;
+
+                    if(listParentCategories != null && typeof(listParentCategories) != "undefined"){
+                        for(ni = 0; ni < listParentCategories.length - 1; ni++){
+                            if(listParentCategories[ni].category_layer == "0")
+                                strTemp += "<a href='/Store?StoreID=" + listParentCategories[ni].category_id + "' categoryID='" + listParentCategories[ni].category_id + "'>" + listParentCategories[ni].category_description + "</a><span>&gt;</span>";
+                            else if(listParentCategories[ni].category_layer == "1")
+                                strTemp += "<span>" + listParentCategories[ni].category_description + "</span><span>&gt;</span>";
+                            else
+                                strTemp += "<a href='/Category?CategoryID=" + listParentCategories[ni].category_id + "'>" + listParentCategories[ni].category_description + "</a><span>&gt;</span>";
+
+                        }//end for ni
+                    }//end if
+
+                    if(listDropdownItems != null && typeof(listDropdownItems) != "undefined"){
+                        strTemp += "<select class='select_other'>";
+                        for(ni = 0; ni < listDropdownItems.length; ni++){
+                            if(listDropdownItems[ni].CategoryID == argCategoryId)
+                                strTemp += "<option value='/Category?CategoryID=" + listDropdownItems[ni].CategoryID + "' selected='true'>" + listDropdownItems[ni].Title + "</option>";
+                            else
+                                strTemp += "<option value='/Category?CategoryID=" + listDropdownItems[ni].CategoryID + "'>" + listDropdownItems[ni].Title + "</option>";
+                        }
+                        strTemp += "</select>"
+                    }
+                }
+                $("div.pathLink").html(strTemp);
+                $(".pathLink select").selectCustom();
+
+            }
+        });
+    }
+
+    </script>
+
+    <script type="text/javascript">
+        /* ------ 分享至FB ------ */
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/zh_TW/all.js#xfbml=1&appId=695768887110336";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        //登入後可以抓取FB帳號資料，可以參考 Graph API
+        function postToWall()
+        {
+            var strHref = window.document.location.href;
+
+            FB.ui({
+                method: 'share_open_graph',
+                action_type: 'og.likes',
+                action_properties: JSON.stringify({
+                    object: strHref,
+                })
+            }, function(response){
+                // Debug response (optional)
+                //console.log(response);
+            });
+        }
+ 
+        function onPostToWallCompleted(response) {
+            if (!response || response.error)
+            {
+            
+                //alert('Facebook發佈失敗！\n' + response.error.message);
+                alert('Facebook發佈失敗！');
+                //document.getElementById('msg').innerHTML = 'Error occured: ' + response.error.message;
+            } else {
+                //alert('Facebook發佈成功！\n' +response.id);
+                alert('Facebook發佈成功！');
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'neweggtaiwan'; // required: replace example with your forum shortname
+        var disqus_identifier = 'ItemID@(Model.Id)';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'zh-TW', multilanguagePage: true, gaTrack: true, gaId: 'UA-46873337-1'}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+}
+@section scripts{
+    @*@Scripts.Render("/Scripts/TWEC/jquery.jqzoom-2.js")*@
+    <script src="/Scripts/NETW/netw-chooseany-1.0.0.0.js" type="text/javascript"></script>
+    <script>
+        $(function(){
+            //// 設定 xzoom 及 yzoom 等值
+            //$("#BigPic").jqueryzoom({
+            //    zoomWidth:$('#BigPic img').width*2,
+            //    zoomHeight:$('#BigPic img').height*2,
+            //    xOffset:0,
+            //    yOffset:0
+            //});
+        });
+        var countall = function(data){
+            //console.log(JSON.stringify(data));
+        };
+        var addToCart = function(){
+            twNewegg().cart().cartMethod("readFromCart", {categoryIds: [], categoryTypes: [], successMethods: [countCartNumber], successParas: [[]]});
+        };
+        var addToWish = function(){
+            twNewegg().cart().cartMethod("readFromCart", {categoryIds: [], categoryTypes: [], successMethods: [countCartNumber], successParas: [[]]});
+        };
+        var addToSC = function(){
+            window.location.href = "/Cart";
+        };
+        var openerreload = function(CateoryID){
+            if (window.opener) { 
+                @*重新讀取父畫面*@   
+                window.opener.twNewegg().checkState('loadingNoClose', "");
+                window.opener.location.reload(); 
+                window.close(); 
+            }
+            else{
+                var CategoryChooseAnyURL = "/Category/ChooseAny?CategoryID=" + CateoryID;
+                location.href = CategoryChooseAnyURL;  
+            }
+        };
+
+        $( document ).ready(function() {
+            $('#neAddToFavorite').on('click', function () {
+                twNewegg().cart().cartMethod("addToWish", {itemIds: [@(Model.Id)], qtys: [1], categoryIds: [], categoryTypes: [], successMethods: [addToWish], successParas: [[]]});
+                alert('已加入我的最愛');
+            });
+
+            $('#neAddToCart').on('click', function () {
+                //設定來源Category
+                SetReferCategory();
+                var itemQty = parseInt($('#item_buyqty').text(), 10);
+                dataLayer.push({
+                    'event':'addToCart',
+                    'productid':'@(Model.Id)',
+                    'prices':'@(Model.PromotionPrice)',
+                    'quantities':itemQty
+                });
+                twNewegg().cart().cartMethod("addToCart", {itemIds: [@(Model.Id)], qtys: [itemQty], categoryIds: [], categoryTypes: [], successMethods: [addToCart], successParas: [[]]});
+                jQuery("html,body").animate({ scrollTop: 0 }, 500);
+                $("#headerCartBtn").addClass("active");
+                setTimeout(function(){
+                    $("#headerCartBtn").removeClass('active');
+                    setTimeout(function(){
+                        $("#headerCartBtn").addClass('active');
+                        setTimeout(function(){
+                            $("#headerCartBtn").removeClass('active');
+                        },500);  
+                    },500);  
+                },500);
+            });
+
+            $('#neAddToSC').on('click', function () {
+                var itemQty = parseInt($('#item_buyqty').text(), 10);
+                dataLayer.push({
+                    'event':'addToCart',
+                    'productid':'@(Model.Id)',
+                    'prices':'@(Model.PromotionPrice)',
+                    'quantities':itemQty
+                });
+                twNewegg().cart().cartMethod("addToCart", {itemIds: [@(Model.Id)], qtys: [itemQty], categoryIds: [], categoryTypes: [], successMethods: [addToSC], successParas: [[]]});
+            });
+
+            $('#neAddToChooseAny').on('click', function () {
+                var itemID = parseInt(@(Model.Id));
+                var itemQty = parseInt($('#item_buyqty').text(), 10);
+                var itemPrice = parseInt($(this).attr('data-itemPrice'));
+                var CateoryID = parseInt($(this).attr('data-cateoryID'));
+                if(twNewegg.ChooseAny.AddItemFromItemIndex(CateoryID, itemID, itemQty, itemPrice ))
+                {
+                    setTimeout(function() { openerreload(CateoryID);}, 2500);
+                }
+
+                //if(twNewegg.ChooseAny.AddItemFromItemIndex(CateoryQty, itemID, itemQty, itemPrice )){
+                //    twNewegg().checkState("tips", "已放入任選館");
+                //}
+                //else{
+                //    twNewegg().checkState("tips", "任選館已滿");
+                //}            
+            });
+
+            //twNewegg().cart().readFromCart(5, countall, []);
+            //twNewegg().cart().readFromWish(null, countall, []);
+            //twNewegg().cart().readAllCart(null, countall, []);
+            //twNewegg().cart().readAllWish(null, countall, []);
+
+
+            //twNewegg().cart().cartMethod("readFromCart", {categoryIds: [], categoryTypes: [1], successMethods: [countall], successParas: [[]]});
+            //twNewegg().cart().cartMethod("readFromCart", {categoryIds: [5], categoryTypes: [1], successMethods: [countall], successParas: [[]]});
+
+            //twNewegg().cart().cartMethod("addToCart", {itemIds: [5], qtys: [1], categoryIds: [5], categoryTypes: [0]});
+            //twNewegg().cart().cartMethod("addToWish", {itemIds: [5], qtys: [2], categoryIds: [5], categoryTypes: [1]});
+            //twNewegg().cart().cartMethod("updateToCart", {itemIds: [5], qtys: [3], categoryIds: [5], categoryTypes: [0]});
+            //twNewegg().cart().cartMethod("updateToWish", {itemIds: [5], qtys: [4], categoryIds: [5], categoryTypes: [1]});
+            //twNewegg().cart().cartMethod("removeFromCart", {itemIds: [5]});
+            //twNewegg().cart().cartMethod("removeFromWish", {itemIds: [5]});
+
+            
+            //twNewegg().cart().cartMethod("readFromCart", {categoryIds: [], categoryTypes: [], successMethods: [countall], successParas: [[]]});
+            //twNewegg().cart().cartMethod("readFromCart", {categoryIds: [5], categoryTypes: [1], successMethods: [countall], successParas: [[]]});
+            //twNewegg().cart().cartMethod("addToCart", {itemIds: [6], qtys: [9], categoryIds: [4], categoryTypes: [0], successMethods: [countall], successParas: [[]]});
+            //twNewegg().cart().cartMethod("updateToCart", {itemIds: [5], qtys: [3], categoryIds: [5], categoryTypes: [0], couponIds: ["5,4"]});
+            //twNewegg().cart().cartMethod("removeFromCart", {itemIds: [6], successMethods: [countall], successParas: [[]]});
+
+        });
+        $(window).load(function() {
+            ga('send', 'event', 'DelivType', 'visits', '@((Model.ItemDeliveryType == 1 || Model.ItemDeliveryType == 3) ? "F" : "L")');
+        });
+        function changeOver(obj, picUrl){
+            obj.src = "../Themes/img/" + picUrl;
+        }
+        function changeOut(obj, picUrl){
+            obj.src = "../Themes/img/" + picUrl;
+        }
+    </script>
+    @*<script type="text/javascript">
+        // 目前時間
+        function showtime() {
+            var now, year, month, day, hours, minutes, seconds, timeValue;
+            now = new Date();
+            year = now.getFullYear();
+            month = now.getMonth() + 1;
+            day = now.getDate();
+            hours = now.getHours();
+            minutes = now.getMinutes();
+            seconds = now.getSeconds();
+            timeValue = (hours >= 12) ? "下午 " : "上午 ";
+            timeValue += ((hours > 12) ? hours - 12 : hours) + " 點";
+            timeValue += ((minutes < 10) ? " 0" : " ") + minutes + " 分";
+            timeValue += ((seconds < 10) ? " 0" : " ") + seconds + " 秒";
+            timeValue = year + "年" + month + "月" + day + "日" + timeValue;
+            clock.innerHTML = timeValue;
+            setTimeout("showtime()", 1000);
+        }
+    </script>*@
+}

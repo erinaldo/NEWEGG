@@ -1,0 +1,55 @@
+﻿@using TWNewEgg.Models.DomainModels.Home
+@model WindowBlock
+@if (Model != null && Model.CellList.Count > 0)
+{
+    string cssType = !string.IsNullOrEmpty((string)ViewData["cssType"]) ? (string)ViewData["cssType"] : "1";
+        <div class="box2Top @HomeShareFuns.GenerateBoxStyleClass((string)ViewData["boxType"], Model.CellList[0].Type, Convert.ToString(0))">
+            @*接到消息是只有block9又是 SingleImage 才會有此 div Class border *@
+            @if (Model.CellList[0].Type == TWNewEgg.Models.DomainModels.Home.BlockCell.CellType.SingleImage.ToString())
+            {
+                <div class="border">
+                    @Html.Partial("Cell/Partial_Cell" + Model.CellList[0].Type, Model.CellList[0])
+                </div>
+            }
+            else
+            { 
+                @Html.Partial("Cell/Partial_Cell" + Model.CellList[0].Type, Model.CellList[0])
+            }
+        </div>
+        <div class="box2Top @HomeShareFuns.GenerateBoxStyleClass((string)ViewData["boxType"], Model.CellList[1].Type, Convert.ToString(1))">
+            @if (Model.CellList[1].Type == TWNewEgg.Models.DomainModels.Home.BlockCell.CellType.SingleImage.ToString())
+            {
+                <div class="border">
+                    @Html.Partial("Cell/Partial_Cell" + Model.CellList[1].Type, Model.CellList[1])
+                </div>
+            }
+            else
+            { 
+                @Html.Partial("Cell/Partial_Cell" + Model.CellList[1].Type, Model.CellList[1])
+            }
+        </div>
+        <div class="@HomeShareFuns.GenerateBoxStyleClass((string)ViewData["boxType"], Model.CellList[2].Type, Convert.ToString(2))">
+            @if (Model.CellList[2].Type == TWNewEgg.Models.DomainModels.Home.BlockCell.CellType.SingleImage.ToString())
+            {
+                <div class="border">
+                    @Html.Partial("Cell/Partial_Cell" + Model.CellList[2].Type, Model.CellList[2])
+                </div>
+            }
+            else
+            { 
+                @Html.Partial("Cell/Partial_Cell" + Model.CellList[2].Type, Model.CellList[2])
+            }
+        </div>
+        <div class="@HomeShareFuns.GenerateBoxStyleClass((string)ViewData["boxType"], Model.CellList[3].Type, Convert.ToString(3))">
+            @if (Model.CellList[3].Type == TWNewEgg.Models.DomainModels.Home.BlockCell.CellType.SingleImage.ToString())
+            {
+                <div class="border">
+                    @Html.Partial("Cell/Partial_Cell" + Model.CellList[3].Type, Model.CellList[3])
+                </div>
+            }
+            else
+            { 
+                @Html.Partial("Cell/Partial_Cell" + Model.CellList[3].Type, Model.CellList[3])
+            }
+        </div>
+}

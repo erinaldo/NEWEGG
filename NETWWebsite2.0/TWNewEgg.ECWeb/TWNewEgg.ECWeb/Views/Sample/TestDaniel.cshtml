@@ -1,0 +1,15 @@
+﻿@{
+    Layout = null;    
+}
+
+<h2>Daniel Test</h2>
+
+@if (ViewBag.Result != null)
+{
+    <ul>
+    @foreach (var item in ViewBag.Result)
+    {
+        <li>@item.Index</li>
+    }
+    </ul>
+}

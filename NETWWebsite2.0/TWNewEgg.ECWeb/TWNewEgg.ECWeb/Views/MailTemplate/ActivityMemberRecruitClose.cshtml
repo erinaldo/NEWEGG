@@ -1,0 +1,75 @@
+﻿@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+<style>
+    table {border-collapse: collapse;}
+    table.OrderTable td {padding: 0 5px;border:1px solid #000;}
+    table.OrderTable th {text-align: left;padding: 0 5px;border:1px solid #000;}
+
+    .auto-style3
+    {
+        border:3px solid #8000FF;
+        text-align:left;
+        font-size:15px;
+        font-family:Calibri;
+        letter-spacing:3px;
+       
+    }
+    </style>
+    @{
+        List<string> finalStatusList = Model as List<string>;
+        string _SecureNewegg = System.Configuration.ConfigurationManager.AppSettings["SecureNewegg"];
+    }
+
+
+<html>
+<body>
+     <table width="795" border="0" cellspacing="0" cellpadding="0"  align="center">
+            <tr>
+                <td>
+                    <img src= "@_SecureNewegg/Themes/2013/img/header.png" width="795" height="68" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                            親愛的蛋友您好，<br />謝謝您熱烈邀請好友參與本次會員揪團活動，<br />
+                            您於本次活動之推薦結果出爐了。<br /><br />
+                </td>
+            </tr>
+            <tr>       
+                    <td class="auto-style3" style="width:300px;height:40px; vertical-align:middle;border:1px solid #2A3664;text-align:left;">
+                        @{
+                            
+                            for (int i = 1; i <= 3; i++)
+			                {
+                                <span>推薦信箱@(i) </span><span>&nbsp;@(finalStatusList[i].Split(',')[0])</span><span>@(" " + finalStatusList[i].Split(',')[3])</span><br />
+			                }
+                                
+                        }<br />
+                    </td>
+            </tr>
+            <tr>
+                <td ><br />
+                    成功推薦１位朋友，您與您的好友皆可以獲得200元折價券1張<br />
+                    成功推薦２位朋友，您可以獲得200元折價券2張，您的2位好友皆可以獲得200元折價券1張<br />
+                    成功推薦３位朋友，您可以獲得200元折價券3張，您的3位好友皆可以獲得200元折價券1張<br /><br />
+                </td>
+            </tr>            
+              <tr>
+                <td>
+                        4/12(日)23:59前符合推薦成功條件之推薦人與被推薦人，折價券歸戶將於4/27(一)歸戶，並於5/17(日)到期。<br />
+                        4/13(一)至4/20(一) 符合推薦成功條件之推薦人與被推薦人，折價券歸戶將於5/5(二)歸戶，並於5/24(日)到期。<br />
+                        趕快回@(WebSiteListWebSiteData.SiteName)找好康吧！ <br /><br />
+                        折價券請於「會員中心」中的「回饋專區」，點擊「折價券清單」查詢。<br /><br />                          
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src= "@_SecureNewegg/Themes/2013/img/footer.png" width="795" height="40" />
+                </td>
+            </tr>
+        </table>
+
+</body>
+</html>

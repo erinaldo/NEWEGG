@@ -1,0 +1,562 @@
+/* Starter CSS for Flyout Menu */
+* {
+    margin:0;
+}
+body {
+	background: none;
+}
+a:hover {
+    text-decoration:underline;
+}
+
+#sitemap {
+	z-index: 3000;
+	position: absolute;
+	left: 5px;
+	top: 5px;
+}
+#cssmenu {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+#cssmenu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#cssmenu ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#cssmenu ul {
+  position: relative;
+  z-index: 597;
+  float: left;
+}
+#cssmenu ul li {
+  float: left;
+  min-height: 1px;
+  line-height: 1em;
+  vertical-align: middle;
+}
+#cssmenu ul li.hover,
+#cssmenu ul li:hover {
+  position: relative;
+  z-index: 599;
+  cursor: default;
+}
+#cssmenu ul ul {
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 598;
+  width: 100%;
+}
+#cssmenu ul ul li {
+  float: none;
+}
+#cssmenu ul li:hover > ul {
+  visibility: visible;
+}
+#cssmenu ul ul {
+  top: 0;
+  left: 100%;
+}
+#cssmenu ul li {
+  float: none;
+}
+/* Custom Stuff */
+#cssmenu {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -moz-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15);
+  width: 200px;
+}
+#cssmenu span,
+#cssmenu a {
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  text-decoration: none;
+}
+#cssmenu:after,
+#cssmenu ul:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#cssmenu > ul > li:first-child {
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#cssmenu > ul > li:last-child {
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#cssmenu > ul > li ul ul {
+  -moz-border-radius: 0 6px 6px 0;
+  -webkit-border-radius: 0 6px 6px 0;
+  border-radius: 0 6px 6px 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#cssmenu > ul > li ul ul li:first-child {
+  -moz-border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
+  border-radius: 0 5px 0 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#cssmenu > ul > li ul ul li:last-child {
+  -moz-border-radius: 0 0 5px 0;
+  -webkit-border-radius: 0 0 5px 0;
+  border-radius: 0 0 5px 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#cssmenu ul,
+#cssmenu li {
+  width: 100%;
+}
+#cssmenu li {
+  background: #dddddd repeat-x;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e5e5e5), color-stop(1, #dddddd));
+  background-image: -webkit-linear-gradient(top, #e5e5e5, #dddddd);
+  background-image: -moz-linear-gradient(top, #e5e5e5, #dddddd);
+  background-image: -ms-linear-gradient(top, #e5e5e5, #dddddd);
+  background-image: -o-linear-gradient(top, #e5e5e5, #dddddd);
+  background-image: linear-gradient(#e5e5e5, #dddddd);
+}
+#cssmenu li:hover {
+  background: #f6f6f6;
+}
+#cssmenu a {
+  color: #666666;
+  line-height: 160%;
+  padding: 5px 20px 5px 20px;
+	width: 160px;
+}
+	#cssmenu .createbutton:hover {
+		cursor:pointer;
+	}
+	#cssmenu .createbutton{
+		display: inline-block;
+		color: #666666;
+		line-height: 160%;
+		padding: 5px 20px 5px 20px;
+		width: 160px;
+	}
+#cssmenu ul ul {
+  width: 140px;
+  border: 1px solid #dddddd;
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+#cssmenu ul ul li {
+  background: #f6f6f6;
+}
+#cssmenu ul ul li:hover {
+  background: #dddddd;
+}
+#cssmenu ul ul li:hover a {
+  color: #AE0001;
+}
+#cssmenu ul ul li a {
+  width:84px;
+}
+#cssmenu ul ul li ul li {
+  background: #dddddd;
+}
+#cssmenu ul ul li ul li:hover {
+  background: #b7b7b7;
+}
+#cssmenu .has-sub {
+  position: relative;
+}
+#cssmenu .has-sub:after,
+#cssmenu .has-sub > ul > .has-sub:hover:after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 9px;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  margin-top: -5px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAJCAMAAAA8eE0hAAAAUVBMVEX////MzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzNzc3l5eXg4ODZ2dnMzMzi4uLS0tLe3t7Q0NDV1dXj4+PW1tbk5OTc3NzPz8/R0dH0Zv5RAAAAC3RSTlMAM2YekAmlPHuEAwArv7wAAAA/SURBVHheY2Dl5mdigABGKV5BNnYok4dHQpKFGcrkEefj5gAzQUBABM7kFYQyRcX4mUBMkEpOLrA2IWGwfgYAn0UDZszv8IwAAAAASUVORK5CYII=);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+#cssmenu .has-sub > ul > .has-sub:after,
+#cssmenu .has-sub:hover:after {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAJCAMAAAA8eE0hAAAAUVBMVEX////d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3e3t729vbx8fHq6urd3d3z8/Pj4+Pv7+/h4eHm5ub09PTn5+f19fXt7e3g4ODi4uLUsVdlAAAAC3RSTlMAM2YekAmlPHuEAwArv7wAAAA/SURBVHheY2Dl5mdigABGKV5BNnYok4dHQpKFGcrkEefj5gAzQUBABM7kFYQyRcX4mUBMkEpOLrA2IWGwfgYAn0UDZszv8IwAAAAASUVORK5CYII=);
+}
+
+.obj {
+	position: absolute !important;
+	border: 1px solid rgba(0,0,0,0);
+	overflow: hidden;
+}
+.showBorder {
+    border:1px solid #333;
+}
+#obj-editor{
+	
+}
+#ytPlayer {
+width: 480px;
+height: 295px;
+}
+.wrapper {
+	width:auto;
+	padding-top: 55px;
+}
+
+.pagestatus {
+	float:right;
+}
+#toolbar {
+	position:fixed;
+	top:0px;
+	z-index:2999;
+	width:1000px;
+	text-align:right;
+}
+#toolbar-functions {
+	height: 40px;
+	background: rgba(241, 241, 241, 0.82);
+	border-bottom: 1px solid #D3B5B5;
+}
+.comp-header {
+	position: absolute;
+	background: rgba(190, 190, 190, 0.82);
+	top: 0px;
+	left:0px;
+	z-index: 1000;
+	width:100%;
+}
+.comp-header a {
+	float:right;
+}
+.obj-data {
+	display:none;
+}
+#menu {
+	position:fixed;
+	top:10px;
+	left:10px;
+	z-index:9999999;
+	width:200px;
+}
+#easel {
+	position: relative;
+	overflow: hidden;
+	min-width: 500px;
+	min-height: 500px;
+	margin: 0 auto;
+}
+#main-resize { cursor: e-resize; width:5px; height:500px; border:solid 1px; position:relative; float:left}
+#property {
+	position:fixed;
+	right:5px;
+	top:5px;
+	z-index:99999;
+	width:200px;
+}
+.ui-accordion .ui-accordion-header {
+display: block;
+cursor: pointer;
+position: relative;
+margin-top: 2px;
+padding: .5em .5em .5em .7em;
+min-height: 0;
+
+}
+.ui-accordion-content{ padding: 5px 10px 15px 10px !important; }
+.ui-state-disabled {
+    opacity: initial !important;
+}
+
+#property input[type="text"] {
+	width:50px;
+}
+#property .page-ctrl {
+	width:100%;
+	height:200px;
+}
+#property .comp-ctrl {
+	width:100%;
+	height:500px;
+}
+#property .page-ctrl input, #property .comp-ctrl input {
+	margin:0 10px 0 3px;
+	border-radius:5px;
+}
+.v-thumb-list {
+	width: 100px;
+}
+.v-thumb {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	float: left;
+	width: 100%;
+}
+.obj-video-img {
+    min-width:100%;
+	max-height:100%;
+}
+.ui-widget-header {
+	border:0px;
+	background:white;
+}
+.v-duration {
+	padding: 0 4px;
+	font-weight: bold;
+	font-size: 11px;
+	background-color: #000;
+	color: #fff!important;
+	height: 14px;
+	line-height: 14px;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	display: -moz-inline-stack;
+	vertical-align: top;
+	zoom: 1;
+	display: inline-block;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	right: 2px;
+	bottom: 2px;
+	position: absolute;
+}
+.v {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	color: #333;
+	zoom: 1;
+}
+#tabs {
+    width:100%;
+    padding:10px 0 10px 0;
+    height:30px;
+}
+.tab {
+    width: 80px;
+    position: relative;
+    float: left;
+}
+    input[type="radio"] {
+        vertical-align:middle;
+    }
+
+.thumbsshell {
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+}
+
+.thumbswrapper {
+	margin:20px auto;
+	float: right;
+}
+
+.viewwindow li {
+	list-style:none;
+	display:inline-block;
+    vertical-align: middle;
+}
+
+.viewwindow ul{
+	padding:0;
+	margin:0;
+	white-space:nowrap;
+}
+.viewwindow {
+	width:100%;
+	overflow-y: hidden;
+}
+
+.fullsizelist{
+	position:absolute;
+	top:0;
+	left:0;
+	transition:  left .8s ease;
+	-ms-transition:  left .8s ease;
+	-o-transition:  left .8s ease;
+	-webkit-transition:  left .8s ease;
+	-moz-transition:  left .8s ease;
+}
+.img-desc {
+	font-size: 13px;
+    font-weight:bold;
+	background-color:rgba(255,255,255,0.9);
+	color:#000;
+	line-height:20px;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	display: -moz-inline-stack;
+	vertical-align: top;
+	zoom: 1;
+	display: inline-block;
+	top: 0;
+    left:0;
+	position: absolute;
+}
+
+.thumbnail {
+	height:50px;
+	padding:2px;
+}
+
+.fullsize {
+	width:100%;
+}
+
+.onfocus {
+	background: rgba(147, 255, 220, 0.82);
+}
+
+.MyDialog {
+	background: rgba(255, 255, 255, 0.82) !important;
+}
+.MyDialog .ui-dialog-buttonpane {
+	background: none;
+}
+.MyDialog .ui-widget-header {
+	border: 1px solid #DBCCCC /*{borderColorHeader}*/;
+	background: rgba(231, 231, 231, 0.8);
+}
+.mainimageshell {
+	background-color:#fff;
+	border-radius:8px;
+	float:left;
+	width:100%;
+}
+.conTop, .page{
+    /*float:none;
+    margin:0;*/
+    float: right;
+    margin: 30px 20px 20px 0;
+    height: 30px;
+    text-align: center;
+}
+/*MgmtPage*/
+/* line 4042, allModel.scss */
+.mgmt_icon, input.mgmt_icon {
+  border: 0;
+  cursor: pointer;
+}
+/* line 4045, allModel.scss */
+.mgmt_icon.edit, input.mgmt_icon.edit {
+  width: 20px;
+  height: 20px;
+  background: url("../img/edit2.png") 0 3px no-repeat;
+}
+/* line 4049, allModel.scss */
+.mgmt_icon.edit:hover, input.mgmt_icon.edit:hover {
+  background: url("../img/edit3.png") 0 3px no-repeat;
+}
+/* line 4053, allModel.scss */
+.mgmt_icon.delete, input.mgmt_icon.delete {
+  width: 17px;
+  height: 20px;
+  background: url("../img/delete2.png") no-repeat;
+}
+/* line 4057, allModel.scss */
+.mgmt_icon.delete:hover, input.mgmt_icon.delete:hover {
+  background: url("../img/delete3.png") no-repeat;
+}
+/* line 4061, allModel.scss */
+.mgmt_icon.add, input.mgmt_icon.add {
+  margin-right: 5px;
+  padding-left: 14px;
+  min-width: 30px;
+  height: 13px;
+  background: url("../img/add.png") 0 1px no-repeat;
+  font-weight: bold;
+}
+/* line 4068, allModel.scss */
+.mgmt_icon.add:hover, input.mgmt_icon.add:hover {
+  background: url("../img/add2.png") 0 1px no-repeat;
+  text-decoration: none;
+  color: #d02020;
+}
+/* line 4074, allModel.scss */
+.mgmt_icon.del, input.mgmt_icon.del {
+  margin-right: 5px;
+  padding-left: 14px;
+  min-width: 30px;
+  height: 13px;
+  background: url("../img/del.png") 0 1px no-repeat;
+  font-weight: bold;
+}
+/* line 4081, allModel.scss */
+.mgmt_icon.del:hover, input.mgmt_icon.del:hover {
+  background: url("../img/del.png") 0 1px no-repeat;
+  text-decoration: none;
+  color: #d02020;
+}
+/* line 4087, allModel.scss */
+.mgmt_icon.cross, input.mgmt_icon.cross {
+  /*position:absolute;
+  top:5px;
+  right:13px;*/
+  width: 13px;
+  height: 13px;
+  background: url("../img/cross.png") no-repeat;
+  /*達人社區-left列表*/
+}
+/* line 4094, allModel.scss */
+.mgmt_icon.cross:hover, input.mgmt_icon.cross:hover {
+  background: url("../img/cross2.png") no-repeat;
+  text-decoration: none;
+}
+/* line 4099, allModel.scss */
+.mgmt_icon.cross.articleDel, input.mgmt_icon.cross.articleDel {
+  position: absolute;
+  bottom: 16px;
+  right: 7px;
+  text-indent: -99999px;
+  *text-indent: 0;
+  *font-size: 0;
+  *line-height: 0;
+}
+/* line 4109, allModel.scss */
+.mgmt_icon.menuBtn, input.mgmt_icon.menuBtn {
+  margin: 0 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 12px;
+  vertical-align: baseline;
+  cursor: pointer;
+}

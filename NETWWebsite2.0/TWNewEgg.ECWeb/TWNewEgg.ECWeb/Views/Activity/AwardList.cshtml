@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "中獎名單-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/Activity")
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <span>中獎名單</span>
+</div>
+    @*置頂廣告*@
+    <div class="AdBox" data-url="/AdvEvent/Partial_AdvActivityTopBanner">
+         <img src="~/Themes/img/loading.gif" /> Loading ...
+    </div>
+<div style="width:1004px;margin:0 auto;">
+    <div class="TabArea TabAreaNoBorder">
+        <ul>
+            <li class="Tab BorderTab" id="ActivityList"><a href="/Activity/Index"><i class="icon ServiceIcon ActivityList"></i>活動清單</a></li>
+            <li class="Tab BorderTab TabSelected" id="AwardList"><i class="icon ServiceIcon NameList"></i>中獎名單</li>
+        </ul>
+    </div>
+    
+    <div id="awardList"></div>
+
+    <div class="BottomExplanationArea">    
+        <p class="Tit Boldtext">會員權益說明</p>   
+        <ul>    	
+            <li class="list">上述相關活動規則，可點選「活動名稱」至該活動網頁查詢，活動清單查詢僅保留至活動結束後7天，中獎名單查詢僅保留至公告結束後45天。</li>        
+            <li class="list">活動贈品發放完成後，將會E-Mail通知您，若您欲查詢發送進度，請點選「<a class="blue UnderLine" href="/MyAccount">我的帳戶</a>&gt;<a class="blue UnderLine" href="/MyAccount/Coupon">我的折價券</a>」中查詢。</li>        
+            <li class="list">若活動贈品屬實體商品者，將於活動結束後二週內進行寄發，得獎者須完整填寫具會員資料，含姓名、電話、地址以確保中獎權益。會員資料請於「<a class="blue UnderLine" href="/MyAccount">我的帳戶</a>&gt;<a class="blue UnderLine" href="/MyAccount/EditPersonInfo">帳戶管理</a>」中進行維護。活動贈品配送需要約2~3個工作天，若您欲查詢 贈品寄送進度，可於寄送日過後3個工作天連絡客服中心查詢。</li>        
+            <li class="list">新蛋全球生活網保留每項活動修改與解釋之權利，其他注意事項請詳見各活動頁及<a class="blue UnderLine" href="/MyAccount">我的帳戶</a>等說明。</li>    
+        </ul>
+    </div>
+</div> 
+
+@section scripts{
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetAwardList(0, 1, false);
+
+            $("body").append("<div class='LightBoxUnderLay' style='display:none;'></div>\
+                <div class='LightBoxMsg Stlye-1 showOrder'  style='width:700px; height:80%; font-size:18px; z-index:101;'>\
+                    <div class='MsgContent'>\
+                        <img src='/Themes/img/img_trans.gif' alt='close' class='closeWindowBtn' />\
+                        <div id='msgNote'></div>\
+                    </div>\
+                </div>\
+                <div class='LightBoxMsg DelayWindow ProcessWindow' style='z-index:101;'>\
+                    <div class='Remindtxt'>\
+                        <span><img src='/Themes/img/System/ProcessWindow.gif'></span>\
+                    </div>\
+                </div>\
+            </div>");
+
+            $(".closeWindowBtn, .LightBoxUnderLay").on("click", function () {
+                $(".LightBoxUnderLay").fadeOut();
+                $(".LightBoxUnderLay , .LightBoxMsg").not('.DelayWindow').fadeOut();
+
+            });
+            $("div[class='AdBox']").each(function (index, item) {
+                var url = $(item).data("url");
+                if (url && url.length > 0) {
+                    $(item).load(url);
+                }
+            });
+        });
+
+        @*切換排序*@
+        function ChangeOrderBy(orderByType) {
+            GetAwardList(orderByType, 1, false);
+        }
+
+        @*切換分頁*@
+        function ChangePage(pageIndex) {
+            GetAwardList($(".SmallBorderTabSelected").val(), pageIndex, true);
+        }
+
+        @*取得中獎清單*@
+        function GetAwardList(orderByType, pageIndex, isSwitchPage) {
+
+            @*切換分頁時，才顯示讀取畫面*@
+            if (isSwitchPage == true) {
+                Loading_Start();
+            }
+
+            $.ajax({
+                url: "/Activity/GetAwardList",
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    "OrderBy": orderByType,
+                    "PageIndex": pageIndex
+                },
+                success: function (result) {
+                    if (result.isSuccess) {
+                        $("#awardList").html(result.html);
+                    }
+                    else {
+                        window.location.replace("/Error/Error");
+                    }
+
+                    @*切換分頁時，才關閉取畫面*@
+                    if (isSwitchPage == true) {
+                        Loading_End();
+                    }
+                },
+                error: function (result) {
+                    console.log("error");
+                    console.log(result.isSuccess + ";" + result.html);
+
+                    @*切換分頁時，才關閉取畫面*@
+                    if (isSwitchPage == true) {
+                        Loading_End();
+                    }
+                }
+            });
+        }
+
+
+        @*開啟讀取畫面*@
+        function Loading_Start()
+        {
+            $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+            $("div.LightBoxMsg.DelayWindow.ProcessWindow").show();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow.ProcessWindow")
+        }
+
+        @*關閉讀取畫面*@
+        function Loading_End()
+        {
+            $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+            LightBoxMsgAllHide();
+        }
+
+        function LightBoxMsgAllHide() {
+            $("div.LightBoxMsg").each(function () {
+                $(this).hide();
+            });
+        }
+
+        function NoteMsg(obj) {
+            $("#msgNote").val("");
+            var NoteContent = obj.getAttribute("noteValue");
+            clickLightBoxCenter(".LightBoxMsg.showOrder");
+            $(".LightBoxMsg.showOrder").css("top", "");
+            var msgNote = $(".LightBoxUnderLay .showOrder .MsgContent #msgNote")
+            msgNote.html(NoteContent.replace(/\n\r?/g, '<br />'));        }
+    </script>
+}

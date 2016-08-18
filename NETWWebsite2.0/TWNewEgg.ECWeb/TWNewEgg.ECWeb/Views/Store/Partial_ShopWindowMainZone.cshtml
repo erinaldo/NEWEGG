@@ -1,0 +1,122 @@
+﻿@using TWNewEgg.Models.DomainModels.Store
+@using TWNewEgg.ECWeb.Utility
+@model MainZone
+
+@{
+    string colorClass = (string)ViewData["colorClass"];
+    int itemCount = Model.ItemList.Count;
+    if (Model != null && Model.ItemList.Any())
+    {
+    <div class="group2">
+        @if (Model.ItemList[0].ItemID != 0)
+        {
+            <div class="box11 catcolorright@(colorClass)  catcolortop@(colorClass)  catcolorleft@(colorClass)">
+                 <div class="box12">
+                     <div class="pic">
+                        <!--<a href="item?itemid=@(Model.ItemList[0].ItemID)">-->
+                        <a href="@(Model.ItemList[0].Url)">
+                            <img src="@(ImageUtility.GetImagePath(Model.ItemList[0].ItemImage))" class="itemImgCen" />
+                        </a>
+                     </div>
+                     <div class="txt">
+                         <!--<a href="item?itemid=@(Model.ItemList[0].ItemID)">-->
+                         <a href="@(Model.ItemList[0].Url)">
+                            <div class="caption">@(Model.ItemList[0].Title)</div>
+                            <div class="price">@(Model.ItemList[0].UnitPrice.AddCommas())</div>
+                         </a>
+                     </div>
+                </div>
+            </div>
+        }else{<div class="box11 catcolorright@(colorClass)  catcolortop@(colorClass)  catcolorleft@(colorClass)"></div>}
+        @if (itemCount > 1 && Model.ItemList[1].ItemID != 0)
+        {
+            <div class="box11 catcolorright@(colorClass) catcolortop@(colorClass)">
+                 <div class="box12">
+                     <div class="pic">
+                        <!--<a href="item?itemid=@(Model.ItemList[1].ItemID)">-->
+                        <a href="@(Model.ItemList[1].Url)">
+                            <img src="@(ImageUtility.GetImagePath(Model.ItemList[1].ItemImage))" class="itemImgCen" />
+                        </a>
+                     </div>
+                     <div class="txt">
+                         <!--<a href="item?itemid=@(Model.ItemList[1].ItemID)">-->
+                         <a href="@(Model.ItemList[1].Url)">
+                            <div class="caption">@(Model.ItemList[1].Title)</div>
+                            <div class="price">@(Model.ItemList[1].UnitPrice.AddCommas())</div>
+                         </a>
+                     </div>
+                </div>
+            </div>
+        }else{<div class="box11 catcolorright@(colorClass) catcolortop@(colorClass)"></div>}
+    </div>
+    <div class="group3">
+        <div class="box15  catcolorbg@(colorClass)">
+            <div class="title catcolortxt@(colorClass)">@(Model.Title)</div>
+            @Html.Partial("Partial_SubGroup", Model.GroupLinkList, new ViewDataDictionary() { { "colorId", colorClass } })
+        </div>
+        
+        @if ((Model.ItemList.Where(x => x.ItemID == 0).FirstOrDefault() != null))
+        {
+           
+            <div class="box13 pic catcolorbottom@(colorClass)  catcolortop@(colorClass)" shopItemId="@(Model.ItemList.First(x => x.ItemID == 0)))">
+                @if (!string.IsNullOrEmpty(Model.ItemList.First(x => x.ItemID == 0).Url))
+                {
+                    <a href="@(Model.ItemList.First(x => x.ItemID == 0).Url)">
+                        <img src="@(ImageUtility.GetImagePath(Model.ItemList.First(x=>x.ItemID == 0).ItemImage))" />
+                    </a>
+                }
+                else
+                {
+                    <img src="@(ImageUtility.GetImagePath(Model.ItemList.First(x=>x.ItemID == 0).ItemImage))" />
+                }
+            </div>
+        }else{<div class="box13 pic catcolorbottom@(colorClass)  catcolortop@(colorClass)"></div>}
+        @{
+        if (itemCount > 2 && Model.ItemList[2].ItemID != 0)
+        {
+            <div class="box16 catcolortop@(colorClass) catcolorbottom@(colorClass)" shopItemId="@(Model.ItemList[2].ID)">
+                <div class="box12">
+                    <div class="pic">
+                        <!--<a href="item?itemid=@(Model.ItemList[2].ItemID)">-->
+                        <a href="@(Model.ItemList[2].Url)">
+                            <img src="@(ImageUtility.GetImagePath(Model.ItemList[2].ItemImage))" class="itemImgCen" />
+                        </a>
+                    </div>
+                    <div class="txt">
+                        <!--<a href="item?itemid=@(Model.ItemList[2].ItemID)">-->
+                        <a href="@(Model.ItemList[2].Url)">
+                            <div class="caption">@(Model.ItemList[2].Title)</div>
+                            <div class="price">@(Model.ItemList[2].UnitPrice.AddCommas())</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }else{<div class="box16 catcolortop@(colorClass) catcolorbottom@(colorClass)"></div>}
+        if (itemCount > 3 && Model.ItemList[3].ItemID != 0)
+        {
+            <div class="box16 catcolortop@(colorClass) catcolorbottom@(colorClass)" shopItemId="@(Model.ItemList[3].ID)">
+                <div class="divider catcolorleft@(colorClass)"></div>
+                <div class="box12">
+                    <div class="pic">
+                        <!--<a href="item?itemid=@(Model.ItemList[3].ItemID)">-->
+                        <a href="@(Model.ItemList[3].Url)">
+                            <img src="@(ImageUtility.GetImagePath(Model.ItemList[3].ItemImage))" class="itemImgCen" />
+                        </a>
+                    </div>
+                    <div class="txt">
+                        <!--<a href="item?itemid=@(Model.ItemList[3].ItemID)">-->
+                        <a href="@(Model.ItemList[3].Url)">
+                            <div class="caption">@(Model.ItemList[3].Title)</div>
+                            <div class="price">@(Model.ItemList[3].UnitPrice.AddCommas())</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }else{<div class="box16 catcolortop@(colorClass) catcolorbottom@(colorClass)"></div>}
+        }
+    </div>
+    }
+    if (Model.LogoList.Any()) { 
+        @Html.Partial("Partial_LogoList", Model.LogoList, new ViewDataDictionary() { { "colorId", colorClass } })
+    }
+}

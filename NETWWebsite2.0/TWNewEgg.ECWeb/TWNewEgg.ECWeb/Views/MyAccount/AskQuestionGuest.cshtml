@@ -1,0 +1,356 @@
+﻿@{
+    ViewBag.Title = "我要發問" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/MyAccount")
+}
+<script src="~/Scripts/NETW/netw-problem-1.0.0.0.js"></script>
+@section scripts {
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+
+    <script>
+        @*給子選單滑出滑入用的jquery*@
+        TabSelectArea();
+        var urlComeFrom = document.referrer;
+        $(document).ready(function () {
+            
+        });
+        //function checkImport()
+        //{
+        //    $('input[name="Orderlist"]:checked').val();
+        //}
+        function showlabel()
+        {
+           var OrderlistValue= $('input[name="Orderlist"]:checked').val();
+            $('div[name="contentList"]').each(function (obj) {
+                $(this).hide();
+                var OrderlistValueID = "#contentList" + OrderlistValue;
+                $(OrderlistValueID).show();
+            });
+            if (OrderlistValue == "Item") {
+                $("input[type='radio'][value='113']").prop('checked', true)
+            }
+            else if (OrderlistValue == "Other") {
+                $("input[type='radio'][value='123']").prop('checked', true)
+            }
+        }
+        $("#cancel").on("click", function () {
+            $("#name").val("");
+            $("#mobile").val("");
+            $("#email").val("");
+            $("#itemid").val("");
+            $("#message").val("");
+            checkMaxInput(document.getElementById('message'), 600);
+        });
+        $("#sure").on("click", function () {
+            sendPrldm();
+        });
+        function sendPrldm()
+        {
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            var emailRule = /^([\w-\.\+\-\_]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4})$/;
+            var faqtypeval = $('input[name="faqType"]:checked').val();
+            var reg = /^[\u4e00-\u9fa5]+$/i;
+            var OrderlistValue = $('input[name="Orderlist"]:checked').val();
+            var isCheckNoError = CheckProblemType(OrderlistValue, faqtypeval);
+            if (isCheckNoError == false) {
+                alert("請選填正確的問題類型與問題主旨");
+                return false;
+            }
+            if ($("#name").val() == "") {
+                $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                $(".LightBoxUnderLay").hide();
+                alert("請填寫姓名!!");
+                return false;
+            }
+            else {
+                var namestr = $("#name").val().replace(/^\s+|\s+$/gm, '');
+                if (namestr == "" || namestr == null) {
+                    alert("請填寫姓名!!");
+                    return false;
+                }
+            }
+            if ($("#mobile").val() != "") {
+                if ($("#mobile").val().search(/[+]{0,1}[2-8]{0,3}[0]{0,1}[2-8]{1}[-+]{0,1}[0-9]{7,8}$/) < 0 && $("#mobile").val().search(/09[0-9]{8}$/) < 0) {
+                    $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                    $(".LightBoxUnderLay").hide();
+                    alert("請填寫正確電話號碼!!");
+                    return false;
+                }
+            }
+            if ($("#message").val() == "") {
+                alert("問題尚未填寫!!");
+                return false;
+            }
+            else {
+                var mes = $("#message").val().replace(/^\s+|\s+$/gm, '');
+                if (mes == "" || mes == null) {
+                    alert("問題尚未填寫!!");
+                    return false;
+                }
+            }
+            if (!$("#email").val().match(emailRule)) {
+                $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                $(".LightBoxUnderLay").hide();
+                alert("連絡E-mail必須為完整的e-mail，如xxx@xxx.xxx.xx");
+                return false;
+            }
+            if (faqtypeval != null) {
+                
+                $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+                $("div.LightBoxMsg").show();
+                LightBoxCenter("div.LightBoxMsg");
+
+                var maintext = $("#message").val();
+                //if ($("#SalesOrder_code") != null) {
+                //    SalesOrder_code = $("#SalesOrder_code").val();
+                //}
+                //else {
+                //    SalesOrder_code = "";
+                //}
+                
+                
+                itemid = parseInt($("#itemid").val(), 10);
+                name = $("#name").val();
+                mobile = $("#mobile").val();
+                email = $("#email").val();
+
+                var json = JSON.stringify({
+                    faqtypeval: faqtypeval,
+                    maintext: maintext,
+                    OrderlistValue:OrderlistValue,
+                    ReturnPostString: JSON.stringify({ "Code": "", "ItemID": itemid, "RecvName": name, "RecvMobile": mobile, "Email": email })
+                });
+
+                $.ajax({
+                    url: "/MyAccount/AddAskQestionGuest",
+                    cache: false,
+                    data: json,
+                    type: 'Post',
+                    dataType: "Json",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        if (data == "SalesOrder_code_error") {
+                            $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                            $("div.LightBoxMsg").hide();
+                            alert("您輸入的訂單號碼有錯,請查明後再試!!\n若沒有\"訂單號碼\"請留空白!!");
+                            $("#SalesOrder_code").val("");
+
+                        }
+                        else if (data == "SalesOrder_Account_error") {
+                            $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                            $("div.LightBoxMsg").hide();
+                            alert("您輸入的訂單號碼有錯,非您本人帳號,請查明後再試!!\n若沒有\"訂單號碼\"請留空白!!");
+                            $("#SalesOrder_code").val("");
+
+                        }
+                        else if (data == "False") {
+                            alert("系統錯誤");
+                            $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                            $("div.LightBoxMsg").hide();
+                            
+                        }
+                        else if (data.indexOf("[Error]") >= 0) {
+                            alert(data.replace("[Error]: ", ""));
+                            $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                            $("div.LightBoxMsg").hide();
+                        }
+                        else {
+                            $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeIn();
+                            $("div.LightBoxMsg").show();
+                            LightBoxCenter("div.LightBoxMsg");
+                            alert("我們已收到您的問題,客服人員會盡快答覆您!!");
+                            
+                            if (urlComeFrom == "" || urlComeFrom == null) {
+                                window.location.href = '/';
+                            }
+                            else {
+                                window.location.href = urlComeFrom;
+                            }
+                            
+                        }
+                    }
+                })
+            .fail(
+                function (xhr, textStatus, err) {
+                    alert("失敗");
+                    $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                    $(".LightBoxUnderLay").hide();
+                    $('#state').html('Error: ' + err);
+                });
+            }
+            else {
+                alert("請勾選問題主旨!!");
+            }
+        }
+        function checkMaxInput(objElement, fixlength) {
+            var intCount = objElement.value.length;
+            var err = "";
+            var numChar = 0;
+            var tmp_str = "";
+            for (var i = 0; i < intCount; i++) {
+                if (objElement.value.charCodeAt(i) > 256) {
+                    numChar += 2;
+                    if (numChar > fixlength) {
+                        err = "over";
+                        numChar = 600;
+                    }
+                }
+                else {
+                    numChar++;
+                    if (numChar > fixlength) {
+                        err = "over";
+                        numChar = 600;
+                    }
+                }
+                if (err != "over") tmp_str += objElement.value.substr(i, 1);
+             
+            }
+
+            if (err == "over") {
+                if (fixlength == 600) {
+                    alert("內容不可超過300個中文字");
+                    objElement.value = tmp_str;
+                }
+            }
+            $("#remLen").html(Math.ceil(fixlength / 2) - parseInt(numChar / 2));
+
+        }
+
+
+
+     
+    </script>
+}
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/MyAccount">我的帳戶</a> >
+    <a href="/MyAccount/AskQuestion">問答中心</a> >
+    <span>我要發問</span>
+</div>
+
+<div class="TopExplanationArea"></div>
+
+<div class="AccountArea">
+    <div class="TabArea Border grayBorder">
+        <ul>
+            <li class="Tab BorderTab" id="WishList"><a href="/Cart/WishCart"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+            @*<li class="Tab BorderTab" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>*@
+            <li class="Tab BorderTab" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+            <li class="Tab BorderTab" id="Order" onclick="TabOpenClose()">
+                <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                    @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+                </ul>
+            </li>
+            <li class="Tab BorderTab TabSelected" id="Account">
+                <a href="/MyAccount"><i class="icon ServiceIcon Account"></i>帳戶管理<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                    <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                    @*<li><a href="/MyAccount/AddressBook">紀錄本修改</a></li>*@
+                    <li><a href="/MyAccount/AskQuestion">問答中心</a></li>
+                    <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="serviceContentArea">
+        <div class="serviceContentBox">
+            <div class="Tit ClassTit"><i class="icon ServiceIcon QuestionCenter-2"></i>問答中心</div>
+            <div style="margin:10px 90px;">
+                <div><p style="margin: 10px 50px">請填寫正確的姓名及聯絡E-mail，如欲查詢詳細問答紀錄，請先加入會員或登入。</p></div>
+                <br />
+                <div@* class="TabArea grayBorder"*@>
+                    <ul>
+                        <li class="TabNoHover RadiusTab TabSelected"><a href="/MyAccount/AskQuestion">我要發問</a></li>
+                        <li class="TabNoHover RadiusTab"><a href="/MyAccount/QuestionRecord">問答紀錄</a></li>
+                    </ul>
+                </div>
+                <div class="TabArea grayBorder service_contentTable">
+                    <div class="service_contentForm">
+                        <div class="service_contentList">
+                            <div class="tit"><span class="red">*</span>問題類型</div>
+                            <div class="txt">
+                                <label><input type="radio" class="radio" id="Item" name="Orderlist" value="Item" checked="checked" onclick=" showlabel();"/>賣場相關</label>
+                                <label><input type="radio" class="radio"  id="Other"  name="Orderlist" value="Other" onclick=" showlabel();"/>其他問題</label>
+                            </div>
+                        </div>
+                        <div class="service_contentList">
+                            <div class="tit"><span class="red">*</span>姓名</div>
+                            <div class="txt">
+                                <input type="text" placeholder="" class="input_md" id="name" value=""/>
+                            </div>
+                        </div>
+                        <div class="service_contentList">
+                            <div class="tit"> 聯絡電話</div>
+                            <div class="txt">
+                                <input type="tel" placeholder="" class="input_md" id="mobile" value="" />
+                            </div>
+                        </div>
+                        <div class="service_contentList">
+                            <div class="tit"><span class="red">*</span>聯絡E-mail</div>
+                            <div class="txt">
+                                <input type="text" placeholder="" class="input_md" id="email" value="" />
+                            </div>
+                        </div>
+                        @* 賣場相關 *@
+                        <div class="service_contentList" id="contentListItem"   name="contentList">
+                            <div class="tit"><span class="red">*</span>問題主旨</div>
+                            <div class="txt">
+                                <label><input type="radio" checked class="radio"  name="faqType" value="113"/>商品規格</label>
+                                <label><input type="radio" class="radio" name="faqType" value="121"/>訂購及付款方式</label>
+                                <label><input type="radio" class="radio"  name="faqType" value="105"/>行銷活動諮詢</label>
+                            </div>
+                        </div>
+                        @* 其他問題 *@
+                        <div class="service_contentList" id="contentListOther"  name="contentList" style="display:none">
+                            <div class="tit"><span class="red">*</span>問題主旨</div>
+                            <div class="txt">
+                                <label><input type="radio" class="radio" name="faqType" value="123"/>詐騙相關問題</label>
+                                <label><input type="radio" class="radio"  name="faqType" value="122"/>其他問題</label>
+                                <label><input type="radio" class="radio" name="faqType" value="106"/>系統網頁問題</label>
+                            </div>
+                        </div>
+                        @* 賣場相關 *@
+                        <div class="service_contentList">
+                            <div class="tit">　賣場編號</div>
+                            <div class="txt">
+                                <input type="text" placeholder="" class="input_md" id="itemid" value="@(ViewBag.itemid == null ? string.Empty: ViewBag.itemid)"  />
+                            </div>
+                        </div>
+                        <div class="service_contentList">
+                            <div class="tit"><span class="red">*</span>請說明</div>
+                            <div class="txt" style="width:80%">
+                                <textarea  id="message" onKeyUp="checkMaxInput(this,600)" rows="4" style="width:90%;"></textarea>
+                                <p class="gray">尚可輸入<span id="remLen">300</span>字</p>
+                                <p><span style="color:red">*</span><span>為必填欄位</span></p>
+                            </div>
+                                
+                        </div>
+                    </div>
+                    <div class="btmBtnArea">
+                        <input type="button" value="送出" class="btn btn-submit" id="sure" />
+                        <input type="button" value="取消" class="btn btn-cancel" id="cancel"/>
+                    </div>
+                </div>
+                    <div class="questionTipsArea">
+                        客服問答中心的問題紀錄將保存三個月，三個月以上的訂單問題，請至<a href="/MyAccount/QuestionRecord">問答中心</a>裡查看客服問答紀錄，您的寶貴意見，我們將盡速於1~2日內(不含例假日)E-mail回覆您，並多利用問答中心查詢最新回覆內容，如欲詢問新問題，請點選<a href="/MyAccount/AskQuestion">我要發問</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@**彈出對話視窗*@
+<div class="LightBoxUnderLay" style="display:none;">
+    <div class="LightBoxMsg DelayWindow ProcessWindow">
+        <div class="Remindtxt">
+            <span id=""><img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+    </div>
+</div>

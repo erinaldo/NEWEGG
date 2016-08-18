@@ -1,0 +1,11 @@
+﻿<div ng-show="show || isSelected()" ng-class="{onfocus:isSelected()}" >
+    <div ng-show="ctrl.isObjEditable">
+        <span ng-show="component.Index">ID: {{component.Index}}</span>
+        <a href="javascript:;" ng-click="editComp()">
+            <img src="/Content/PageMgmt/img/img_trans.gif" title="edit" class="mgmt_icon edit" />
+        </a>
+        <a href="javascript:;" ng-confirm="deleteComp()" msg="確定刪除此物件?">
+            <img src="/Content/PageMgmt/img/img_trans.gif" title="delete" class="mgmt_icon delete" />
+        </a>
+    </div>
+</div>

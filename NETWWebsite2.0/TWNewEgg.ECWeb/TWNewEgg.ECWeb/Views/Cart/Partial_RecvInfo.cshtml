@@ -1,0 +1,80 @@
+﻿@model TWNewEgg.Models.ViewModels.Cart.CartResults_View
+@{
+    //var SalesOrder_ViewList = Model.SalesOrder_ViewList;
+    //var CartPayType_View = Model.CartPayType_View;
+    var SalesOrder_ViewListFirst = Model.SalesOrder_ViewList.FirstOrDefault();
+}
+@if (SalesOrder_ViewListFirst != null)
+{
+    if (Model.IsConsignee == 0)
+    {
+        <div class="PurchaserInformation">
+            <div class="PurchaserInformationTit ColorBarTit">
+                <div class="icon"></div>
+                <p>訂購人資訊</p>
+            </div>
+            <div class="ShoppingAddressContent">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th class="Name_Left_Tit th LeftTitStyle">姓名</th>
+                            <th class="Name_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.Name)</th>
+                        </tr>
+                        <tr>
+                            <th class="Cellphone_Left_Tit th LeftTitStyle">手機</th>
+                            <th class="Cellphone_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.Mobile)</th>
+                        </tr>
+                        <tr>
+                            <th class="Address_Left_Tit th LeftTitStyle">地址</th>
+                            <th class="Address_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.CardZip + SalesOrder_ViewListFirst.CardLOC + SalesOrder_ViewListFirst.CardADDR)</th>
+                        </tr>
+                        <tr>
+                            <th class="ReceivingTime_Left_Tit th LeftTitStyle">希望收貨時間</th>
+                            <th class="ReceivingTime_Right_Content th RightContentStyle">@(Model.TimeofReceipt)</th>
+                        </tr>
+                        <tr>
+                            <th class="Remark_Left_Tit th LeftTitStyle">備註</th>
+                            <th class="Remark_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.Note)</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="PurchaserInformation">
+            <div class="PurchaserInformationTit ColorBarTit">
+                <div class="icon"></div>
+                <p>收件人資訊</p>
+            </div>
+            <div class="ShoppingAddressContent">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th class="Name_Left_Tit th LeftTitStyle">姓名</th>
+                            <th class="Name_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.RecvName)</th>
+                        </tr>
+                        <tr>
+                            <th class="Cellphone_Left_Tit th LeftTitStyle">手機</th>
+                            <th class="Cellphone_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.RecvMobile)</th>
+                        </tr>
+                        <tr>
+                            <th class="Address_Left_Tit th LeftTitStyle">地址</th>
+                            <th class="Address_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.DelivZip + SalesOrder_ViewListFirst.DelivLOC + SalesOrder_ViewListFirst.DelivADDR)</th>
+                        </tr>
+                        <tr>
+                            <th class="ReceivingTime_Left_Tit th LeftTitStyle">希望收貨時間</th>
+                            <th class="ReceivingTime_Right_Content th RightContentStyle">@(Model.TimeofReceipt)</th>
+                        </tr>
+                        <tr>
+                            <th class="Remark_Left_Tit th LeftTitStyle">備註</th>
+                            <th class="Remark_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.Note)</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}
+

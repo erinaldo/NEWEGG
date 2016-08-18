@@ -1,0 +1,44 @@
+﻿.I_Tt_Ta_Tt_i01  {
+  padding: 10px 0;
+}
+.I_Tt_Ta_Tt_i01 .pic {
+  width: 100%;
+  overflow: hidden;
+}
+.I_Tt_Ta_Tt_i01 .pic img {
+  display: block;
+}
+.I_Tt_Ta_Tt_i01 .txtBox {
+  padding: 0 15px 20px 15px;
+  background:#fff;
+}
+.I_Tt_Ta_Tt_i01 .txtBox .headLine {
+  margin-bottom: 17px;
+  padding-top: 17px;
+  /*height: 41px;*/
+  overflow: hidden;
+  color: #000;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 23px;
+}
+.I_Tt_Ta_Tt_i01 .txtBox .text {
+  overflow: hidden;
+  color: #636363;
+  font-size: 13px;
+  line-height: 20px;
+}
+.I_Tt_Ta_Tt_i01 .bottomTxt {
+  padding-bottom: 10px;
+  height: 23px;
+  overflow: hidden;
+  color: #000;
+  text-align: right;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.icon {
+background: url(/Themes/2013/img/TaiwanBackpacker/icon.png) no-repeat;
+}

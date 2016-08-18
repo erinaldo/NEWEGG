@@ -1,0 +1,1615 @@
+.clear {
+  clear: both;
+}
+
+.Required {
+  color: #C3181F;
+  margin-right: 5px;
+}
+
+.RedText {
+  color: #753334;
+}
+
+.ShoppingProcessSecondTit {
+  height: 35px;
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+  padding: 15px 0 0 30px;
+  *padding: 15px 0 0 30px;
+  font-weight: bold;
+  color: #666666;
+  cursor: pointer;
+}
+
+input:checked + span {
+  font-weight: bolder;
+}
+
+.UpBorderLine {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 1px 0px 0px 0px;
+}
+
+.RightBorderLine {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 1px 0px 0px;
+}
+
+.BottomBorderLine {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+}
+
+.LeftBorderLine {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 0px 0px 1px;
+}
+
+NoBorderLine {
+  border: 0;
+}
+
+/*RemindDialog*/
+	/*.RemindDialog , .AddtoOtherCart{
+		.Remindtxt {
+		margin: 60px;
+			span { 
+				font-size:21px;
+				font-weight:bold;
+			}
+		}
+		.DialogBtn {
+			margin: 150px auto 0 auto;
+			text-align: center;
+			.Btn {
+				width:106px;
+				height:44px;
+				margin:20px; 
+				font-size: 14px;
+				letter-spacing:5px;
+			}
+			.DialogConfirmBtn  {
+				background:#EC8B54;
+			}
+			.DialogDisagreeBtn {
+				background: url("/Themes/img/ShoppingProcess/BlueBigBtnBG.jpg") no-repeat;
+				width: 150px;
+				height: 55px;
+				font-size: 18px;
+			}
+			.DialogAgreeBtn {
+				background: url("/Themes/img/ShoppingProcess/OrangeBigBtnBG.jpg") no-repeat;
+				width: 150px;
+				height: 55px;
+				font-size: 18px;
+			}
+		}
+}*/
+/*.AddtoOtherCart{
+		.Remindtxt {
+		margin: 60px;
+			span {
+				font-size:21px;
+				font-weight:bold;
+			}
+		}
+		.DialogBtn {
+			margin: 150px auto 0 auto;
+			width:150px;
+			.Btn {
+				width:106px;
+				height:44px;
+				margin:20px;
+				font-size: 14px;
+				letter-spacing:5px;
+			}
+			.DialogConfirmBtn  {
+				background:#EC8B54;
+			}
+		}
+}*/
+/*Outer*/
+.ShoppingProcess {
+  margin: 0 auto;
+  width: 1004px;
+  font-family: Microsoft JhengHei;
+  /**Dialog*/
+  /*Top*/
+  /*First*/
+  /*StoreReceiving*/
+  /*PurchaserInformation*/
+  /*CreditCardPayment*/
+  /*RecipientInformation*/
+  /*InvoiceInformation*/
+  /*PaymentStatus*/
+  /*Specification*/
+  /*BottomButton*/
+  /*Pay*/
+}
+.ShoppingProcess .LightBoxUnderLay {
+  /*CouponDialog*/
+}
+.ShoppingProcess .LightBoxUnderLay .TableScroll {
+  overflow: auto;
+  height: 325px;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .AddPurchaser {
+  width: 897px;
+  margin: 20px auto;
+  text-align: right;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .AddPurchaser .UnderLine {
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable {
+  width: 920px;
+  margin: 0 auto;
+  border: 1px solid #D5D5D5;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table {
+  width: 100%;
+  margin: 0 auto;
+  /*.BorderLine {
+	  border: #D5D5D5;
+	  border-style: solid;
+	  border-width: 1px 0px 0px 0px;
+  }*/
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table .BgColor {
+  background: #F0F0F0;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table .BgColor .TitBolder {
+  font-weight: bolder;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table .PurchaserInput th {
+  padding: 10px 0;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table tr th {
+  padding: 20px 0;
+  *padding: 20px 0;
+  /*IE7*/
+  text-align: center;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table tr th .SmallHiLifeImg {
+  display: inline;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table tr th .SmallHiLifeImg img {
+  width: 34px;
+  height: 37px;
+  vertical-align: middle;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table tr th .HiLifeText {
+  display: inline;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table tr th .Delete {
+  display: block;
+  margin: 15px 0;
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table tr th .Editor, .ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table tr th .Stockpile, .ShoppingProcess .LightBoxUnderLay .PurchaserDialog .PurchaserTable table tr th .Cancel {
+  color: #666666;
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .DialogBtn {
+  margin: 0px auto 0 auto;
+  width: 300px;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .DialogBtn .OrgBtn {
+  width: 106px;
+  height: 44px;
+  float: left;
+  /*line-height: 44px;*/
+  margin: 20px;
+  letter-spacing: 5px;
+  font-size: 15px;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .DialogBtn .DialogConfirmBtn {
+  background: rgba(236, 139, 84, 0.9);
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .DialogBtn .DialogConfirmBtn:hover {
+  background: #EC8B54;
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .DialogBtn .DialogCancelBtn {
+  background: rgba(236, 139, 84, 0.9);
+}
+.ShoppingProcess .LightBoxUnderLay .PurchaserDialog .DialogBtn .DialogCancelBtn:hover {
+  background: #EC8B54;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .AddRecipient {
+  width: 897px;
+  margin: 20px auto;
+  text-align: right;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .AddRecipient .UnderLine {
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable {
+  width: 920px;
+  margin: 0 auto;
+  border: 1px solid #D5D5D5;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table {
+  width: 100%;
+  margin: 0 auto;
+  /*.BorderLine {
+	  border: #D5D5D5;
+	  border-style: solid;
+	  border-width: 1px 0px 0px 0px;
+  }*/
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table .BgColor {
+  background: #F0F0F0;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table .BgColor .TitBolder {
+  font-weight: bolder;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table .RecipientInput th {
+  padding: 10px 0;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table tr th {
+  padding: 20px 0;
+  *padding: 20px 0;
+  /*IE7*/
+  text-align: center;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table tr th .SmallHiLifeImg {
+  display: inline;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table tr th .SmallHiLifeImg img {
+  width: 34px;
+  height: 37px;
+  vertical-align: middle;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table tr th .HiLifeText {
+  display: inline;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table tr th .Delete {
+  display: block;
+  margin: 15px 0;
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table tr th .Editor, .ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table tr th .Stockpile, .ShoppingProcess .LightBoxUnderLay .RecipientDialog .RecipientTable table tr th .Cancel {
+  color: #666666;
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .DialogBtn {
+  margin: 0px auto 0 auto;
+  width: 300px;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .DialogBtn .OrgBtn {
+  width: 106px;
+  height: 44px;
+  float: left;
+  /*line-height: 44px;*/
+  margin: 20px;
+  letter-spacing: 5px;
+  font-size: 15px;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .DialogBtn .DialogConfirmBtn {
+  background: rgba(236, 139, 84, 0.9);
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .DialogBtn .DialogConfirmBtn:hover {
+  background: #EC8B54;
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .DialogBtn .DialogCancelBtn {
+  background: rgba(236, 139, 84, 0.9);
+}
+.ShoppingProcess .LightBoxUnderLay .RecipientDialog .DialogBtn .DialogCancelBtn:hover {
+  background: #EC8B54;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog p {
+  width: 897px;
+  margin: 0 auto;
+  line-height: 1.5;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 20px 0;
+  *padding: 20px 0;
+  /*IE7*/
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification {
+  width: 897px;
+  margin: 0 auto;
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationTit {
+  background-color: #698EB8;
+  height: 47px;
+  padding-left: 16px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 47px;
+  font-weight: bold;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationTit .icon {
+  width: 40px;
+  height: 33px;
+  background: url("/Themes/img/Icon/NewsletterCertificationImg.png") no-repeat;
+  margin: 7px 15px 0px 15px;
+  display: block;
+  float: left;
+  vertical-align: text-bottom;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentLeft {
+  float: left;
+  width: 180px;
+  line-height: 186px;
+  font-weight: bold;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentLeft .Certification_Left_Tit {
+  text-align: center;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentRight {
+  width: 677px;
+  float: left;
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 0px 0px 1px;
+  padding-left: 20px;
+  *padding-left: 20px;
+  /*IE7*/
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentRight .Certification_Right_Content .SMS {
+  float: right;
+  padding-top: 15px;
+  *padding-top: 15px;
+  /*IE7*/
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentRight .Certification_Right_Content .CertificationInput {
+  margin: 30px 0 0 0;
+  float: left;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentRight .Certification_Right_Content .CertificationInput .input_radius_md {
+  float: left;
+  height: 28px;
+  font-size: 18px;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentRight .Certification_Right_Content .CertificationInput .ConfirmBtn {
+  float: left;
+  height: 40px;
+  /*line-height: 40px;*/
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bolder;
+  background: rgba(105, 142, 184, 0.9);
+  margin: 0;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentRight .Certification_Right_Content .CertificationInput .ConfirmBtn:hover {
+  background: #698EB8;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentRight .Certification_Right_Content .CertificationReminder .Resend {
+  width: 570px;
+  line-height: 1.5;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentRight .Certification_Right_Content .CertificationReminder .Resend a {
+  text-decoration: underline;
+  color: #698EB8;
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentRight .Certification_Right_Content .CertificationReminder .CustomerService {
+  line-height: 3;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .NewsletterCertification .NewsletterCertificationContent .ContentRight .Certification_Right_Content .CertificationReminder .CustomerService a {
+  text-decoration: underline;
+  color: #698EB8;
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .DialogBtn {
+  margin: 0 auto;
+  width: 300px;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .DialogBtn .Btn {
+  width: 106px;
+  height: 44px;
+  float: left;
+  /*line-height: 44px;*/
+  margin: 20px;
+  font-size: 18px;
+  letter-spacing: 5px;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .DialogBtn .DialogConfirmBtn {
+  background: rgba(105, 142, 184, 0.9);
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .DialogBtn .DialogConfirmBtn:hover {
+  background: #698EB8;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .DialogBtn .DialogCancelBtn {
+  background: rgba(165, 187, 212, 0.9);
+  color: #666666;
+}
+.ShoppingProcess .LightBoxUnderLay .CertificationDialog .DialogBtn .DialogCancelBtn:hover {
+  background: #A5BBD4;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .AddStore {
+  width: 897px;
+  margin: 20px auto;
+  text-align: right;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .AddStore .UnderLine {
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable {
+  width: 920px;
+  margin: 0 auto;
+  border: 1px solid #D5D5D5;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table {
+  width: 100%;
+  margin: 0 auto;
+  /*.BorderLine {
+	  border: #D5D5D5;
+	  border-style: solid;
+	  border-width: 1px 0px 0px 0px;
+  }*/
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table .BgColor {
+  background: #F0F0F0;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table .BgColor .TitBolder {
+  font-weight: bolder;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table tr th {
+  padding: 20px 0;
+  *padding: 20px 0;
+  /*IE7*/
+  text-align: center;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table tr th .SmallHiLifeImg {
+  display: inline;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table tr th .SmallHiLifeImg img {
+  width: 34px;
+  height: 37px;
+  vertical-align: middle;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table tr th .HiLifeText {
+  display: inline;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table tr th .Delete {
+  display: block;
+  margin: 15px 0;
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table tr th .Editor, .ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table tr th .Stockpile, .ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .StoreReceivingTable table tr th .Cancel {
+  color: #666666;
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .DialogBtn {
+  margin: 0px auto 0 auto;
+  width: 300px;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .DialogBtn .Btn {
+  width: 106px;
+  height: 44px;
+  float: left;
+  /*line-height: 44px;*/
+  margin: 20px;
+  letter-spacing: 5px;
+  font-size: 15px;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .DialogBtn .DialogConfirmBtn {
+  background: rgba(236, 139, 84, 0.9);
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .DialogBtn .DialogConfirmBtn:hover {
+  background: #EC8B54;
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .DialogBtn .DialogCancelBtn {
+  background: rgba(236, 139, 84, 0.9);
+}
+.ShoppingProcess .LightBoxUnderLay .StoreReceivingDialog .DialogBtn .DialogCancelBtn:hover {
+  background: #EC8B54;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .AddInvoice {
+  width: 897px;
+  margin: 20px auto;
+  text-align: right;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .AddInvoice .UnderLine {
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable {
+  width: 920px;
+  margin: 0 auto;
+  border: 1px solid #D5D5D5;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table {
+  width: 100%;
+  margin: 0 auto;
+  /*.BorderLine {
+	  border: #D5D5D5;
+	  border-style: solid;
+	  border-width: 1px 0px 0px 0px;
+  }*/
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table .BgColor {
+  background: #F0F0F0;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table .BgColor .TitBolder {
+  font-weight: bolder;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table .InvoiceInput th {
+  padding: 10px 0;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table tr th {
+  padding: 20px 0;
+  *padding: 20px 0;
+  /*IE7*/
+  text-align: center;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table tr th .SmallHiLifeImg {
+  display: inline;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table tr th .SmallHiLifeImg img {
+  width: 34px;
+  height: 37px;
+  vertical-align: middle;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table tr th .HiLifeText {
+  display: inline;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table tr th .Delete {
+  display: block;
+  margin: 15px 0;
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table tr th .Editor, .ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table tr th .Stockpile, .ShoppingProcess .LightBoxUnderLay .InvoiceDialog .InvoiceTable table tr th .Cancel {
+  color: #666666;
+  cursor: pointer;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .DialogBtn {
+  margin: 0px auto 0 auto;
+  width: 300px;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .DialogBtn .OrgBtn {
+  width: 106px;
+  height: 44px;
+  float: left;
+  /*line-height: 44px;*/
+  margin: 20px;
+  letter-spacing: 5px;
+  font-size: 15px;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .DialogBtn .DialogConfirmBtn {
+  background: rgba(236, 139, 84, 0.9);
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .DialogBtn .DialogConfirmBtn:hover {
+  background: #EC8B54;
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .DialogBtn .DialogCancelBtn {
+  background: rgba(236, 139, 84, 0.9);
+}
+.ShoppingProcess .LightBoxUnderLay .InvoiceDialog .DialogBtn .DialogCancelBtn:hover {
+  background: #EC8B54;
+}
+.ShoppingProcess .SelectDelivery {
+  /*height:198px;*/
+}
+.ShoppingProcess .SelectDelivery .SelectDeliveryTit .icon {
+  width: 40px;
+  height: 33px;
+  background: url("/Themes/img/Icon/DeliveryMethodsImg.png") no-repeat;
+  margin: 7px 15px 0px 15px;
+  display: block;
+  float: left;
+  vertical-align: text-bottom;
+}
+.ShoppingProcess .SelectDelivery .PurchaserTable {
+  float: left;
+}
+.ShoppingProcess .SelectDelivery .DeliveryContent {
+  line-height: 2;
+  padding: 35px;
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+}
+.ShoppingProcess .StoreReceiving {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+  margin-bottom: 77px;
+}
+.ShoppingProcess .StoreReceiving .StoreReceivingTit .icon {
+  width: 40px;
+  height: 34px;
+  background: url("/Themes/img/Icon/StorePickupInformationImg.png") no-repeat;
+  margin: 7px 15px 0px 15px;
+  display: block;
+  float: left;
+  vertical-align: text-bottom;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent {
+  line-height: 2.5;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentLeft {
+  float: left;
+  width: 169px;
+  text-align: center;
+  margin-top: 20px;
+  line-height: 5;
+  font-weight: bold;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentLeft .VerificationIdentity_Left_Tit {
+  margin-top: 180px;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentRight {
+  float: left;
+  width: 830px;
+  /*padding-top: 20px;*/
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 0px 0px 1px;
+  /*padding-left: 20px;*/
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentRight .ContentSpacing {
+  margin: 20px 0 0 10px;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentRight .ContentSpacing .SelectStreetName_Right_Content .txt {
+  float: left;
+  margin-top: 15px;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentRight .ContentSpacing .SelectStoretName_Right_Content {
+  margin-top: 40px;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentRight .ContentSpacing .SelectStoretName_Right_Content .StorenameAddress {
+  margin: 20px 0;
+  font-weight: bolder;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentRight .ContentSpacing .SelectStoretName_Right_Content .StoreRecords {
+  float: left;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentRight .ContentSpacing .SelectStoretName_Right_Content .GoogleMap {
+  float: right;
+  margin: 0px 30px 20px 0;
+  width: 491px;
+  height: 360px;
+  background: url("/Themes/img/ShoppingProcess/GoogleMap.jpg");
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentRight .ContentSpacing .VerificationIdentity_Right_Content {
+  float: left;
+  width: 280px;
+  margin-top: 20px;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentRight .ContentSpacing .VerificationIdentity_Right_Content .RedText {
+  line-height: 1.5;
+  margin-top: 10px;
+}
+.ShoppingProcess .StoreReceiving .StoreAddressContent .ContentRight .ContentSpacing .VerificationIdentity_Right_Content .RedText p {
+  float: left;
+}
+.ShoppingProcess .PurchaserInformation {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+  margin-bottom: 77px;
+}
+.ShoppingProcess .PurchaserInformation .PurchaserInformationTit .icon {
+  width: 40px;
+  height: 34px;
+  background: url("/Themes/img/Icon/PersonalInformationImg.png") no-repeat;
+  margin: 7px 15px 0px 15px;
+  display: block;
+  float: left;
+  vertical-align: text-bottom;
+}
+.ShoppingProcess .PurchaserInformation .PurchaserInformationTit p {
+  float: left;
+  margin: 0 30px 0 0;
+}
+.ShoppingProcess .PurchaserInformation .PurchaserInformationTit span {
+  float: left;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent {
+  line-height: 3;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .ContentLeft {
+  float: left;
+  width: 169px;
+  text-align: center;
+  font-weight: bold;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .ContentRight {
+  float: left;
+  width: 830px;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .ContentRight .PurchaserContent {
+  clear: both;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .ContentRight .PurchaserContent .SelectAppellation {
+  display: inline;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .ContentRight .PurchaserContent .NameInput {
+  display: inline;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .ContentRight .PurchaserContent .CellphoneInput {
+  /*display:inline;*/
+  float: left;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .ContentRight .PurchaserContent .LocalCallsInput {
+  display: inline;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .ContentRight .PurchaserContent .SelectAddress {
+  display: inline;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .ContentRight .PurchaserContent .AddressInput {
+  display: inline;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .UpdatesMemberProfile p {
+  line-height: 1.5;
+  float: left;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .table .LeftTitStyle {
+  width: 169px;
+  text-align: center;
+  font-weight: bolder;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .table .RightContentStyle {
+  text-align: left;
+  width: 843px;
+  padding-left: 20px;
+}
+.ShoppingProcess .PurchaserInformation .ShoppingAddressContent .table .th {
+  border: 1px solid #D5D5D5;
+}
+.ShoppingProcess .NoCheckout {
+  position: relative;
+}
+.ShoppingProcess .NoCheckout .RedText {
+  position: absolute;
+  right: 270px;
+  top: -20px;
+  font-weight: bolder;
+}
+.ShoppingProcess .CreditCardPayment {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+  margin-bottom: 77px;
+}
+.ShoppingProcess .CreditCardPayment .CreditCardPaymentTit .icon {
+  width: 40px;
+  height: 34px;
+  background: url("/Themes/img/Icon/CreditCardPaymentImg.png") no-repeat;
+  margin: 7px 15px 0px 15px;
+  display: block;
+  float: left;
+  vertical-align: text-bottom;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentLeft {
+  float: left;
+  width: 169px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 4;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight {
+  float: left;
+  width: 830px;
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 0px 0px 1px;
+  line-height: 4;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight .ContentSpacing {
+  margin-left: 10px;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight .ContentSpacing .DataRetention label {
+  float: left;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight .ContentSpacing .DataRetention p {
+  float: left;
+  width: 660px;
+  line-height: 1.3;
+  font-size: 14px;
+  margin: 25px 0 0 15px;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight .ContentSpacing .EndThreeNumber_Right_Content {
+  /*.ExplainIMG {
+  	display:inline;
+  	img {
+  		  vertical-align: middle;
+  		  cursor: pointer;
+  	}
+  }*/
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight .ContentSpacing .EndThreeNumber_Right_Content div {
+  display: inline;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight .ContentSpacing .EndThreeNumber_Right_Content .ExplainIMG {
+  position: relative;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight .ContentSpacing .EndThreeNumber_Right_Content img {
+  vertical-align: middle;
+  cursor: pointer;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight .ContentSpacing .EndThreeNumber_Right_Content .CreditBackSideIMG {
+  display: none;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight .ContentSpacing .EndThreeNumber_Right_Content .ExplainIMG:hover .CreditBackSideIMG {
+  display: block;
+  position: absolute;
+  left: -5px;
+  z-index: 2;
+}
+.ShoppingProcess .CreditCardPayment .ShoppingCreditCardContent .ContentRight .ContentSpacing .EndThreeNumber_Right_Content .RedText {
+  font-size: 10px;
+}
+.ShoppingProcess .RecipientInformation {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+  margin-bottom: 34px;
+}
+.ShoppingProcess .RecipientInformation .RecipientInformationTit .icon {
+  width: 40px;
+  height: 34px;
+  background: url("/Themes/img/Icon/PersonalInformationImg.png") no-repeat;
+  margin: 7px 15px 0px 15px;
+  display: block;
+  float: left;
+  vertical-align: text-bottom;
+}
+.ShoppingProcess .RecipientInformation .RecipientInformationTit p {
+  float: left;
+  margin: 0 30px 0 0;
+}
+.ShoppingProcess .RecipientInformation .RecipientInformationTit span {
+  float: left;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent {
+  line-height: 2.5;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentLeft {
+  float: left;
+  width: 169px;
+  text-align: center;
+  margin-top: 43px;
+  font-weight: bold;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentLeft .ReceivingTime_Left_Tit {
+  margin-top: 70px;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight {
+  float: left;
+  width: 830px;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .Ditto {
+  font-weight: bolder;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .PurchaserContent .SelectAppellation {
+  display: inline;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .PurchaserContent .NameInput {
+  display: inline;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .PurchaserContent .CellphoneInput {
+  display: inline;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .PurchaserContent .CellphoneRedText {
+  display: inline;
+  width: 50%;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .PurchaserContent .LocalCallsInput {
+  display: inline;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .PurchaserContent .SelectAddress {
+  display: inline;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .PurchaserContent .AddressInput {
+  display: inline;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .PurchaserContent .SelectReceivingTime {
+  display: inline;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .PurchaserContent .RemarkInput {
+  display: inline;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .PurchaserContent .RemarkInput #txtTest {
+  padding: 3px;
+  overflow: hidden;
+  width: 430px;
+  min-height: 21px;
+  height: 21px;
+  border: 1px solid #ccc;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .ContentRight .ReceivingTimeRedText p {
+  float: left;
+}
+.ShoppingProcess .RecipientInformation .ShoppingAddressContent .Remark {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 1px 0px 0px 0px;
+  line-height: 3;
+  clear: both;
+}
+.ShoppingProcess .InvoiceInformation {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+}
+.ShoppingProcess .InvoiceInformation .InvoiceInformationTit .icon {
+  width: 40px;
+  height: 34px;
+  background: url("/Themes/img/Icon/InvoiceInformationImg.png") no-repeat;
+  margin: 7px 15px 0px 15px;
+  display: block;
+  float: left;
+  vertical-align: text-bottom;
+}
+.ShoppingProcess .InvoiceInformation .ContentLeft {
+  float: left;
+  width: 169px;
+  text-align: center;
+  font-weight: bold;
+}
+.ShoppingProcess .InvoiceInformation .ContentLeft .Invoice_Left_Tit {
+  margin-top: 70px;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight {
+  float: left;
+  width: 830px;
+  line-height: 3;
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 0px 0px 0px 1px;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceFirst li {
+  display: inline;
+  font-weight: bolder;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceFirst .VAT_Number {
+  margin-left: 140px;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content span {
+  display: inline;
+  margin-left: 10px;
+  font-weight: bold;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond {
+  margin-left: 40px;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond .RemindRedTxt {
+  line-height: 1.5;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond .RemindRedTxt span {
+  float: left;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond .RemindRedTxt p {
+  float: left;
+  font-weight: bold;
+  letter-spacing: 1px;
+  width: 745px;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond .input_Spacing {
+  margin-left: 20px;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond .HopeFoundation label {
+  float: left;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond .HopeFoundation .SmallText {
+  font-size: 10px;
+  float: left;
+  width: 650px;
+  line-height: 2;
+  margin-top: 15px;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond li .ExplainIMG {
+  position: relative;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond li img {
+  vertical-align: middle;
+  cursor: pointer;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond li .NaturalCredentialsIMG {
+  display: none;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond li .MobileBarcodeIMG {
+  display: none;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond li .CreditBackSideIMG {
+  display: none;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond li .ExplainIMG:hover .NaturalCredentialsIMG {
+  display: block;
+  position: absolute;
+  left: 0px;
+  z-index: 2;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond li .ExplainIMG:hover .MobileBarcodeIMG {
+  display: block;
+  position: absolute;
+  left: -5px;
+  z-index: 2;
+}
+.ShoppingProcess .InvoiceInformation .ContentRight .Invoice_Right_Content .ElectronicInvoiceSecond li .ExplainIMG:hover .CreditBackSideIMG {
+  display: block;
+  position: absolute;
+  left: -5px;
+  z-index: 2;
+}
+.ShoppingProcess .PaymentStatus {
+  margin-bottom: 50px;
+  line-height: 1.5;
+}
+.ShoppingProcess .PaymentStatus .PaymentStatusTit .icon {
+  width: 40px;
+  height: 34px;
+  background: url("/Themes/img/Icon/CreditCardPaymentImg.png") no-repeat;
+  margin: 7px 15px 0px 15px;
+  display: block;
+  float: left;
+  vertical-align: text-bottom;
+}
+.ShoppingProcess .PaymentStatus .PaymentStatusTit p {
+  float: left;
+  margin: 0 30px 0 0;
+}
+.ShoppingProcess .PaymentStatus .PaymentStatusContent {
+  *padding: 30px;
+  /*IE7*/
+  padding: 20px 0 0 95px;
+}
+.ShoppingProcess .PaymentStatus .PaymentStatusContent .ATMAccount {
+  margin: 15px 0;
+  font-size: 18px;
+  font-weight: bolder;
+}
+.ShoppingProcess .PaymentStatus .PaymentStatusContent .ATMAccount p {
+  font-weight: bolder;
+  float: left;
+}
+.ShoppingProcess .PaymentStatus .PaymentStatusContent .ATMAccount .ATMNumber {
+  color: #CB4042;
+  font-weight: bolder;
+  float: left;
+}
+.ShoppingProcess .PaymentStatus .PaymentStatusContent .TitNumber {
+  float: left;
+}
+.ShoppingProcess .PaymentStatus .PaymentStatusContent .Text {
+  width: 790px;
+  margin-left: 20px;
+}
+.ShoppingProcess .Specification {
+  line-height: 1.5;
+  padding: 15px;
+  font-size: 18px;
+}
+.ShoppingProcess .Specification .RedText {
+  margin-left: 30px;
+}
+.ShoppingProcess .Specification .RedText .ForeignDirectPurchase {
+  color: #698EB8;
+  font-weight: bold;
+}
+.ShoppingProcess .BottomButton {
+  height: 134px;
+  text-align: center;
+  margin: 30px auto;
+  width: 550px;
+  /*.PreviousBtn:hover {
+  	  background: url("/Themes/img/ShoppingProcess/BlueBigBtnBGDark.jpg") no-repeat;
+  }*/
+  /*.CheckoutBtn:hover {
+  	  background: url("/Themes/img/ShoppingProcess/OrangeBigBtnBGDark.jpg") no-repeat;
+  }*/
+  /*.ContinueBtn:hover {
+  	  background: url("/Themes/img/ShoppingProcess/BlueBigBtnBGDark.jpg") no-repeat;
+  }*/
+}
+.ShoppingProcess .BottomButton .PreviousBtn {
+  float: left;
+  margin: 0 30px;
+  background: url("/Themes/img/ShoppingProcess/BlueBigBtnBG.jpg") no-repeat;
+  width: 212px;
+  height: 81px;
+  line-height: 81px;
+  letter-spacing: 5px;
+  font-size: 22px;
+  padding: 0;
+}
+.ShoppingProcess .BottomButton .CheckoutBtn {
+  float: left;
+  margin: 0 30px;
+  letter-spacing: 5px;
+  font-size: 22px;
+  padding: 0px 0 0 10px;
+}
+.ShoppingProcess .BottomButton #CheckoutBtn {
+  background: url("/Themes/img/ShoppingProcess/OrangeBigBtnBGDark.jpg") no-repeat;
+  width: 0;
+  height: 0;
+}
+.ShoppingProcess .BottomButton .ContinueBtn {
+  float: left;
+  margin: 0 30px;
+  font-size: 22px;
+  padding: 0;
+}
+.ShoppingProcess .BottomButton #ContinueBtn {
+  background: url("/Themes/img/ShoppingProcess/BlueBigBtnBGDark.jpg") no-repeat;
+  width: 0;
+  height: 0;
+}
+.ShoppingProcess .Remind {
+  margin-top: 50px;
+}
+.ShoppingProcess .Remind .TextRemind {
+  float: left;
+  line-height: 1.4;
+}
+.ShoppingProcess .Remind .TextRemind p {
+  display: block;
+  width: 680px;
+}
+.ShoppingProcess .Remind .ImgDialogRemind {
+  float: right;
+  width: 320px;
+}
+.ShoppingProcess .Remind .ImgDialogRemind .ImgRemind {
+  width: 138px;
+  height: 132px;
+  background: url("/Themes/img/ShoppingProcess/NoRemind.png") no-repeat;
+  float: left;
+}
+.ShoppingProcess .Remind .ImgDialogRemind .DialogRemind {
+  width: 181px;
+  height: 111px;
+  float: left;
+  line-height: 1.5;
+  font-weight: bolder;
+  background: url("/Themes/img/ShoppingProcess/TextRemind.png") no-repeat;
+  margin-top: -40px;
+}
+.ShoppingProcess .Remind .ImgDialogRemind .DialogRemind .NoCheckoutNumber {
+  margin: 10px;
+}
+.ShoppingProcess .Printer {
+  float: right;
+  top: -40px;
+  cursor: pointer;
+  position: relative;
+}
+.ShoppingProcess .Printer span {
+  float: left;
+  background: url("/Themes/img/Icon/PrinterImg.png") no-repeat;
+  width: 33px;
+  height: 33px;
+}
+.ShoppingProcess .Printer p {
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+.ShoppingProcess .pay {
+  width: 1004px;
+  font-size: 18px;
+}
+.ShoppingProcess .pay .NeedPayMoney {
+  color: #CB4042;
+}
+.ShoppingProcess .pay .payMethod {
+  height: 47px;
+  background: #EC8B54;
+  color: #fff;
+  clear: left;
+}
+.ShoppingProcess .pay .payMethod .icon {
+  width: 40px;
+  height: 33px;
+  background: url("/Themes/img/Icon/CreditCardPaymentImg.png") no-repeat;
+  margin: 7px 22px 7px 16px;
+  display: block;
+  float: left;
+}
+.ShoppingProcess .pay .payMethod p {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 47px;
+  color: #fff;
+  float: left;
+}
+.ShoppingProcess .pay input {
+  margin: 0 25px 0 10px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+.ShoppingProcess .pay .payMethodTit {
+  margin-left: 70px;
+}
+.ShoppingProcess .pay .OkCancelButton {
+  text-align: center;
+  margin-top: 10px;
+}
+.ShoppingProcess .pay .OkCancelButton .ButtonSpacing {
+  display: inline;
+  padding: 10px;
+  *padding: 10px;
+  /*IE7*/
+}
+.ShoppingProcess .pay .RadioForm {
+  line-height: 3;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 1px 0px 1px 0px;
+  padding-bottom: 20px;
+  *padding-bottom: 20px;
+  /*IE7*/
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment {
+  padding-left: 50px;
+  *padding-left: 50px;
+  /*IE7*/
+  font-size: 18px;
+  font-weight: bolder;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .InstallMentBank {
+  float: right;
+  width: 440px;
+  margin-top: 10px;
+  z-index: 99;
+  position: relative;
+  margin: 0 15px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .InstallMentBank .BankTit {
+  float: left;
+  font-size: 19px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .InstallMentBank .Bank {
+  float: left;
+  margin: 8px 10px;
+  width: 350px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .InstallMentBank .Bank label {
+  width: 115px;
+  display: block;
+  float: left;
+  font-size: 19px;
+  height: 40px;
+  line-height: 40px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .InstallMentBank .Bank label input {
+  margin-right: 10px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .InstallMentBank .Bank .RedText {
+  float: right;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .InstallMentBank .Bank .RedText p {
+  color: #753334;
+  width: 350px;
+  font-size: 15px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect {
+  padding-left: 58px;
+  line-height: 30px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect label {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect label .RedText {
+  font-size: 17px;
+  display: block;
+  margin-left: 10px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect #BankSelectDropList {
+  float: right;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect #BankSelectDropList .BankTit {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect #BankSelectDropList #BankInfoSelect {
+  width: 390px;
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect #BankSelectDropList .selectText {
+  position: relative;
+  display: inline-block;
+  width: 450px;
+  height: 30px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  float: left;
+  font-size: 15px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect #BankSelectDropList .selectText:before {
+  position: absolute;
+  content: "";
+  display: block;
+  top: 0;
+  right: 2px;
+  width: 25px;
+  height: 30px;
+  overflow: hidden;
+  border-left: 1px solid #ccc;
+  background: url(/Themes/img/Icon/SelectImg.png) center no-repeat;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect #BankSelectDropList .selectText span {
+  position: relative;
+  left: 0;
+  top: 0;
+  display: inline-block;
+  width: 91.5%;
+  height: 30px;
+  padding: 0 5px;
+  line-height: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect #BankSelectDropList .selectText .selectLists {
+  position: absolute;
+  z-index: 101;
+  top: 30px;
+  left: -1px;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  background: #fff;
+  overflow-y: auto;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect #BankSelectDropList .selectText .selectLists li {
+  display: inline-block;
+  width: 98%;
+  height: auto;
+  padding: 0 5px;
+  line-height: 30px;
+  font-size: 15px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment #bankAreaSelect #BankSelectDropList .selectText .selectLists li:hover {
+  background: #ececec;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment {
+  line-height: 2;
+  position: relative;
+  margin: 10px 0;
+  /*height: 470px;*/
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentLeft {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentLeft .InstallmentTit {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentLeft .InstallmentInput {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentLeft .InstallmentInput input[type="radio"] {
+  margin-right: 10px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentRight {
+  position: absolute;
+  left: 500px;
+  top: 0;
+  width: 440px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentRight .BankTit {
+  float: left;
+  font-size: 19px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentRight .Bank {
+  float: left;
+  margin: 0 10px;
+  width: 360px;
+  /*height: 500px;
+  overflow: hidden;*/
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentRight .Bank label {
+  width: 115px;
+  display: block;
+  float: left;
+  font-size: 19px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentRight .Bank .RedText {
+  float: right;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentRight .Bank .RedText p {
+  color: #753334;
+  width: 350px;
+  font-size: 15px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardInstallment .Installment .InstallmentRight .Bank input[type="radio"] {
+  margin-right: 10px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardTotalMoney {
+  line-height: 2;
+  padding-left: 70px;
+  margin-top: 30px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardTotalMoney .NeedPay {
+  font-size: 19px;
+  font-weight: bolder;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardTotalMoney .NeedPay p {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardTotalMoney .NeedPay .NeedPayMoney {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardTotalMoney .CreditCardInstallmentMoney {
+  font-size: 19px;
+  font-weight: bolder;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardTotalMoney .CreditCardInstallmentMoney p {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardTotalMoney .CreditCardInstallmentMoney .InstallmentMoney {
+  float: left;
+  color: #CB4042;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardTotalMoney .RedText {
+  float: none;
+  font-size: 15px;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardTotalMoney .RedText span {
+  clear: both;
+}
+.ShoppingProcess .pay .RadioForm .CreditCard .CreditCardTotalMoney .RedText p {
+  clear: both;
+  width: 100%;
+}
+.ShoppingProcess .pay .RadioForm .CashOnDelivery {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 1px 0px 1px 0px;
+  padding: 10px 0px 20px 0;
+  *padding: 10px 0px 20px 0;
+  /*IE7*/
+}
+.ShoppingProcess .pay .RadioForm .CashOnDelivery .CashOnDeliveryTotalMoney {
+  margin-left: 120px;
+  font-size: 18px;
+  font-weight: bolder;
+}
+.ShoppingProcess .pay .RadioForm .CashOnDelivery .CashOnDeliveryTotalMoney .NeedPay p {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CashOnDelivery .CashOnDeliveryTotalMoney .NeedPay .NeedPayMoney {
+  color: #CB4042;
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .CashOnDelivery .CashOnDeliveryTotalMoney .CashOnDeliveryInstructions {
+  line-height: 2;
+}
+.ShoppingProcess .pay .RadioForm .CashOnDelivery .CashOnDeliveryTotalMoney .CashOnDeliveryInstructions span {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .MartPayments {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 1px 0px 1px 0px;
+  padding: 10px 0px 20px 0;
+  *padding: 10px 0px 20px 0;
+  /*IE7*/
+}
+.ShoppingProcess .pay .RadioForm .MartPayments .MartPaymentsTotalMoney {
+  margin: 20px 0 10px 120px;
+  font-size: 18px;
+  font-weight: bolder;
+}
+.ShoppingProcess .pay .RadioForm .MartPayments .MartPaymentsTotalMoney .SelectMart p {
+  float: left;
+  line-height: 98px;
+}
+.ShoppingProcess .pay .RadioForm .MartPayments .MartPaymentsTotalMoney .SelectMart .MartIMG {
+  float: left;
+  margin: 0 10px;
+  padding: 5px;
+  *padding: 5px;
+  /*IE7*/
+  border: 1px solid rgba(255, 0, 0, 0);
+}
+.ShoppingProcess .pay .RadioForm .MartPayments .MartPaymentsTotalMoney .SelectMart .MartIMG:hover {
+  border: 1px solid #F37225;
+}
+.ShoppingProcess .pay .RadioForm .MartPayments .MartPaymentsTotalMoney .NeedPay p {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .MartPayments .MartPaymentsTotalMoney .NeedPay .NeedPayMoney {
+  color: #CB4042;
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .MartPayments .MartPaymentsTotalMoney .MartPaymentsInstructions {
+  line-height: 2;
+}
+.ShoppingProcess .pay .RadioForm .EntityATM {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 1px 0px 1px 0px;
+  padding: 10px 0px 20px 0;
+}
+.ShoppingProcess .pay .RadioForm .EntityATM .EntityATMTotalMoney {
+  margin-left: 120px;
+  line-height: 2.3;
+  font-size: 18px;
+  font-weight: bolder;
+}
+.ShoppingProcess .pay .RadioForm .EntityATM .EntityATMTotalMoney .NeedPay p {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .EntityATM .EntityATMTotalMoney .NeedPay .NeedPayMoney {
+  color: #CB4042;
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .EntityATM .EntityATMTotalMoney .EntityATMSelectBank .Bank {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .EntityATM .EntityATMTotalMoney .EntityATMSelectBank .Bank label {
+  display: block;
+  width: 120px;
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .EntityATM .EntityATMTotalMoney .EntityATMSelectBank .Bank label input {
+  margin: 0 10px 0 15px;
+}
+.ShoppingProcess .pay .RadioForm .EntityATM .EntityATMTotalMoney .EntityATMPrecautions {
+  clear: both;
+}
+.ShoppingProcess .pay .RadioForm .WebATM {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 1px 0px 1px 0px;
+  padding: 10px 0px 20px 0;
+}
+.ShoppingProcess .pay .RadioForm .WebATM .WebATMTotalMoney {
+  margin-left: 120px;
+  line-height: 2.3;
+  font-size: 18px;
+  font-weight: bolder;
+}
+.ShoppingProcess .pay .RadioForm .WebATM .WebATMTotalMoney .NeedPay p {
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .WebATM .WebATMTotalMoney .NeedPay .NeedPayMoney {
+  color: #CB4042;
+  float: left;
+}
+.ShoppingProcess .pay .RadioForm .WebATM .WebATMTotalMoney .WebATMInstructions {
+  clear: both;
+  margin: 10px 0;
+}
+.ShoppingProcess .pay .RadioForm .PrepaidPayment {
+  border: #D5D5D5;
+  border-style: solid;
+  border-width: 1px 0px 1px 0px;
+  padding: 10px 0px 20px 0;
+}
+.ShoppingProcess .pay .RadioForm .PrepaidPayment .AllPay {
+  margin-left: 120px;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bolder;
+}
+.ShoppingProcess .pay .RadioForm .PrepaidPayment .AllPay .AllPayUseProcess {
+  line-height: 2;
+}
+.ShoppingProcess .pay .RadioForm .PrepaidPayment .AllPay .PrepaidTeaching {
+  line-height: 2;
+  margin: 20px 0;
+}

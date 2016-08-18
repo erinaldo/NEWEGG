@@ -1,0 +1,134 @@
+﻿@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+<style>
+    table {border-collapse: collapse;}
+    table.OrderTable td {padding: 0 5px;border:1px solid #000;}
+    table.OrderTable th {text-align: left;padding: 0 5px;border:1px solid #000;}
+    .auto-style1
+    {
+        color: #0066CC;
+    }
+    .auto-style2
+    {
+        color: #FF0000;
+    }
+    .auto-style3
+    {
+        border:3px solid #8000FF;
+        text-align:center;
+        font-size:20px;
+        font-family:Calibri;
+        letter-spacing:3px;
+        color: #FFFFFF;
+    }
+ p.MsoNormal
+	{margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri","sans-serif";
+	    margin-left: 0cm;
+        margin-right: 0cm;
+        margin-top: 0cm;
+    }
+p.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:24.0pt;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri","sans-serif";
+	}
+    ul.listStyle li
+    {
+        list-style-type:disc;
+        list-style-position:outside;
+    }
+</style>
+<html>
+<body>
+     <table width="795" border="0" cellspacing="0" cellpadding="0"  align="center">
+            <tr>
+                <td>
+                    <img src="@Model.Header" width="795" height="68" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    親愛的會員 您好<br /><br />
+                    歡迎您加入@(WebSiteListWebSiteData.SiteName)與True Yoga合作推出<br />
+                    【True Yoga x Newegg】活動<br /><br />
+                </td>
+            </tr>
+         <tr><td style="height:15px;"></td></tr>
+            <tr>
+                <td><span class="auto-style1">
+                    恭喜您獲得全台True Yoga、True Dance、True Fitness雙人同行7天體驗課程，<br />
+                    請持本列印憑證(即此封Email 通知函)至各門市據點出示領取兌換。<br /><br />
+                    再次感謝您對新蛋全球生活網的支持，謝謝！<br /><br />
+                </td>
+            </tr>
+@*            <tr>
+                <td>
+                    <img src="http://images.newegg.com.tw/pic/activity/omusic01.jpg"  width="795" height="224"/><br />
+                    <img src="http://images.newegg.com.tw/pic/activity/omusic02.jpg"  width="795" height="224" /><br /><br />
+                </td>
+            </tr>*@
+            <tr>
+                <td>體驗卡使用規範及注意事項 :<br />
+                            <table width="100%">
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">1.</td>
+                                    <td>活動期間104年8月1日起至104年8月31日，成功註冊為@(WebSiteListWebSiteData.SiteName)，即可獲得全台TRUE YOGA、TRUE DANCE、或TRUE FITNESS雙人同行7天免費體驗課程。兌換日期至104年9月30日止。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">2.</td>
+                                    <td>成功註冊為@(WebSiteListWebSiteData.SiteName)，TRUE YOGA、TRUE DANCE、或TRUE FITNESS雙人同行7天免費體驗課程憑證將以Email方式寄至會員註冊電子郵件帳號，會員須完整填具會員資料含姓名、電話、地址以確保獲獎權益；請持本列印憑證((即此封Email 通知函)至各門市據點出示領取兌換。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">3.</td>
+                                    <td>選擇True Yoga、True Dance限7天內2堂課程使用，選擇True Fitness可7 天內每日進出一次使用健身器材，不適用私人教練課程。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">4.</td>
+                                    <td>請擇一會館使用，並於3天前來電預約課程，進入使用時請出示本卡與身分證件。並請於課程開始前20分鐘前到館報到，以利課程之準備。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">5.</td>
+                                    <td>僅限於非會員、且超過六個月為體驗中心者，須年滿20歲。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">6.</td>
+                                    <td>僅限於使用期限前使用，逾期則視為作廢，課程預約後未實際使用者仍視為已經使用。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">7.</td>
+                                    <td>設施使用需遵守本中心規定。本中心保留隨時調整或終止活動內容之權利。</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;width:20px;">8.</td>
+                                    <td>體驗課程前應自行評估身體狀況適於課程活動，如有必要，並請先向醫生諮詢；課程中如身體不適，建議應停止體驗課程。會館對於因運動過量致運動傷害或個人體質或個人疾病(如心血管疾病)導致之症狀所造成的傷害，不負賠償責任，<span style="color:red">如有懷孕請先行告知<span>。</td>
+                                </tr>
+                            </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p style="margin-top:100px;">
+                        若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                        電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                        服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                        請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="@Model.Footer" width="795" height="40" />
+                </td>
+            </tr>
+        </table>
+</body>
+</html>
+

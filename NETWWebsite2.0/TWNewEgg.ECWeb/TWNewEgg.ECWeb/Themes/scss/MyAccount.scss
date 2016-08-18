@@ -1,0 +1,469 @@
+﻿@import "compass/css3";
+@import "_colorStyle";
+@import "_base_BAK";
+@import "template";
+@import "_importSCSS";
+
+@mixin defaultPage {
+	position:absolute;
+	background-repeat:no-repeat;
+}
+.serviceContentBox {
+	padding: 0;
+	.defaultPage {
+		position:relative;
+		min-height:400px;
+	}
+	.egg {
+		@include defaultPage;
+		top:185px;
+		left:265px; 
+		width:204px;
+		height:210px;
+		background-image:url(/Themes/img/MyAccount/defaultEgg.jpg);
+	}
+	.pop {
+		@include defaultPage;
+		top:70px;
+		left:430px;
+		width:300px;
+		height:176px;
+		background-image:url(/Themes/img/MyAccount/defaultPop.jpg); 
+		p {
+			margin:40px 0 0 40px;
+			line-height:1.2em;
+			font-size:22px;
+			color:#aeaeae;
+			font-weight: bolder;
+		} 
+	}
+	.recordsTit {
+		margin:30px 0 10px;
+		height:1em;
+		line-height:1em;
+	}
+	.service_contentTable {
+		td {
+			.UnderLine {display:inline-block;cursor: pointer;} 
+		}
+		.csReplyBox {
+			background:#fae8dc;
+			td {
+				.tit {
+					float:left;
+					margin-left: 10px;
+				}
+				.txt {
+					float:left;
+					width:80%;
+					text-align: left;
+				}
+			}
+		}
+		.cuQuesBox {
+			border-bottom:1px solid #fff;
+			td {
+				padding:15px;
+				text-align:left;
+				.tit {
+					float:left;
+				}
+				.txt {
+					float:left;
+					width:87%;
+				} 
+			}
+		} 
+
+			.myOrderArea {
+				table {
+					margin: 20px 0px;
+					th {
+						border-width: 0px;
+						background: #FFFFFF;
+						text-align: right;
+						padding: 0 10px;
+						border: 0;
+						line-height: 1.5;
+}
+					td {
+						border-width: 0px;
+						background: #FFFFFF;
+						text-align: left;
+						padding: 0 10px;
+						border: 0;
+						line-height: 1.5;
+					}
+				}
+				.TopArrow {
+					width: 30px;
+					height: 30px;
+					background: url(/Themes/img/MyAccount/TopArrow.png) no-repeat;
+					float: right;
+					cursor: pointer;
+					margin: 20px;
+				}
+			}
+	}
+	
+		.btmBtnArea {
+			input {
+				&[type="button"], &[type="submit"], &.btn {
+					padding:2px 10px;
+				}
+			}
+		}
+	
+}
+
+.editAccount {
+	width:700px;
+	height:260px;
+}
+.showInvoice {
+	width:700px;
+	height:520px;
+	.MsgContent {
+		@include clearAfter;
+		margin:50px auto;
+		width:540px;
+		.invoiceBox {
+			position:relative;
+			float:left;
+			margin-bottom:50px;
+			padding:10px;
+			width:230px;
+			height:320px;
+			border:1px solid #000;
+			line-height:2em;
+			text-align:left;
+			font-size:13px;
+			color:#000;
+			&+.invoiceBox {
+				float:right;
+			}
+			.invoiceTit {
+				margin:5px 0;
+				font-size:24px;
+				text-align:center;
+				font-weight:bold;
+			}
+			.invoiceMon {
+				font-size:22px;
+				text-align:center;
+				font-weight:bold;
+			}
+			.invoiceNum {
+				margin:3px 0 10px 0;
+				font-size:22px;
+				text-align:center;
+				font-weight:bold;
+			}
+			.randomNum {
+				
+			}
+			.sellerNum {
+				
+			}
+			.totalPrice {
+				/*margin:20px 0;*/
+			}
+			.invoiceWar {
+				position:absolute;
+				bottom:0;
+				width:90%;
+				text-align:center;
+				font-size:14px;
+			}
+			.invoiceDetial {
+				.detialDate {
+					font-size:12px;
+				}
+				.detialName {
+					line-height:1.2em;
+				}
+				.detialPrice {}
+				.detialNum {}
+				.detialTPrice {}
+			}
+			.invoiceWar.detialTTprice {margin-bottom:20px;font-size:22px;font-weight:bold;}
+		}
+	}
+	
+}
+.showOrder {
+	width:700px;
+	height:440px;
+	.closeWindowBtn {
+		position:absolute;
+		top:10px;
+		right:10px;
+		width:20px;
+		height:20px;
+		background:url(/Themes/img/Icon/closeIcon.png) no-repeat;
+		cursor:pointer;
+	}
+}
+.selector-question {
+	/*float:right;*/
+}
+
+.questionTipsArea {
+	margin:20px 0;
+	font-size:16px;
+    line-height:1.5em;
+}
+
+.DeliveryInformation {
+	@include clearAfter;
+	/*border-top: 1px solid #d5d5d5;
+	padding:10px;*/
+	.DeliveryText {  float: left; line-height:70px;margin-right:10px;}
+.deliverState {
+		float: left;
+		width:700px;
+	ul {
+		@include clearAfter;
+		li {
+			float:left;
+			width:60px;
+			text-align:center;
+			font-size:12px;
+			color:#d8d8d8;
+			font-weight:bold;
+			&+li {
+				padding-left:20px;
+				background:url(/Themes/img/MyAccount/orderArr.jpg) no-repeat center left;
+			}
+			img {
+				margin-bottom:5px;
+				width:60px;
+				height:50px;
+				background-image:url(/Themes/img/MyAccount/orderIcon.jpg);
+				background-repeat:no-repeat;
+				&.step01 {
+					background-position:0 0;
+				}
+				&.step02 {
+					background-position:0 -50px;
+				}
+				&.step03 {
+					background-position:0 -101px;
+				}
+				&.step04 {
+					background-position:0 -151px;
+				}
+				&.step05 {
+					background-position:0 -200px;
+				}
+				&.step06 {
+					background-position:0 -250px;
+				}
+				&.step07 {
+					background-position:0 -300px;
+				}
+				&.step08 {
+					background-position:0 -350px;
+				}
+			}
+			&.active {
+				color:#f47226;
+				img.step01 {
+					background-position:-60px 0;				
+				}
+				img.step02 {
+					background-position:-60px -50px;
+				}				
+				img.step03 {
+					background-position:-60px -101px;
+				}
+				img.step04 {
+					background-position:-60px -151px;
+				}
+				img.step05 {
+					background-position:-60px -200px;
+				}
+				img.step06 {
+					background-position:-60px -250px;
+				}
+				img.step07 {
+					background-position:-60px -300px;
+				}
+				img.step08 {
+					background-position:-60px -350px;
+				}
+			}
+		}
+		}
+	}
+
+	.ShippingInformation {
+		float: left;
+		margin: 10px 0 0 0;
+		width:150px;
+		text-align:left;
+		line-height:1.2em;
+	}
+}
+	.orderTipsArea {
+		margin:50px 0 0 0;
+		line-height:1.3em;
+		ul {
+			list-style-type: square;
+		}
+	}
+			/*密碼強度*/
+			.serviceContentBox .service_contentList {
+				&.pswBar {
+					position:relative;
+					/*密碼規則*/
+					&.focus {
+						.pswRuleBox {
+							display:block;
+						}
+					}
+					.pswSecure {
+						position:absolute;
+						top:30px;
+						left:190px;
+						width:33%;
+						p {
+							width:0;
+							height:2px;
+							background:#f00;
+							text-indent:-9999px;
+							letter-spacing:-999px;
+							font-size:0;
+							color:#fff;
+						}
+						&.step1 p {
+							width:33%;
+						}
+						&.step2 p {
+							width:66%;
+						}
+						&.step3 p {
+							width:100%;
+							background:green;
+						}
+					}
+				}
+			}
+
+/*ForgetPassword*/
+.ForgetPassword {
+	.ForgetPasswordTit {
+		margin: 30px;
+		img {float:left;}
+		p {float:left;  font-weight: bold;  font-size: 37px; line-height: 47px;  margin-left: 20px;}
+	}
+	.ForgetPasswordContent {
+		border: 1px solid #D5D5D5;
+		height: 560px;
+		.fillForm_contentList  {
+			width: 500px;
+			margin: 50px auto 0 auto;
+			.tit {
+				padding: 0 5px;
+				width: 50px;
+				float: left;
+				overflow: hidden;
+				height: 32px;
+				line-height: 32px;
+				font-weight: bold;
+				color: #666666;
+			}
+			.txt  {
+			padding: 0 10px;
+		    width: 258px;
+			float: left;
+		    height: 100%;
+			}
+			input {  width: 345px;}
+		}
+	}
+	.RedText {
+		color:#510000;
+		width: 250px;
+		margin: 0 330px;
+	}
+	.ForgetPasswordBtn {
+		margin: 50px auto 0 auto;
+		width: 205px;
+		.OrgBtn {
+			width:80px; 
+			height:32px;
+			padding: 0;
+			margin:10px;
+		}
+	}
+}
+
+/*ResetPassword*/
+.ResetPassword {
+	.ResetPasswordTit {
+		margin: 30px;
+		img {float:left;}
+		p {float:left;  font-weight: bold;  font-size: 37px; line-height: 47px;  margin-left: 20px;}
+	}
+	.ResetPasswordContent {
+		border: 1px solid #D5D5D5;
+		height: 560px;
+		.fillForm_contentList  {
+			width: 500px;
+			margin: 50px auto 0 auto;
+			.passwordinput {
+				margin:20px 0;
+				.tit {
+					padding: 0 5px;
+					width: 100px;
+					float: left;
+					overflow: hidden;
+					height: 32px;
+					line-height: 32px;
+					font-weight: bold;
+					color: #666666;
+				}
+				.txt  {
+				padding: 0 10px;
+				width: 258px;
+				float: left;
+				height: 100%;
+				}
+				.newpassword {
+					position:relative;
+					input[type="button"] {
+						width: 80px;
+						position: absolute;
+						top: -3px;
+						height: 25px;
+						font-size: 10px;
+						left: 300px;
+						line-height: 0;
+						background:rgba(105, 142, 184, 0.9);
+					}
+					input[type="button"]:hover {background:#698EB8;}
+				}
+				input {  width: 345px;}
+			}
+			.passwordremid {
+			width: 345px;
+			margin: -15px 125px;
+			font-size: 14px;
+			border: 1px solid #D5D5D5;	
+				.passwordremidtext {  background: #698EB8; color:#FFFFFF;padding:10px;}
+				.passwordremidcheckbox {  line-height: 2em;}
+			}
+		}
+	}
+	.ResetPasswordBtn {
+		margin: 50px auto 0 auto;
+		width: 205px;
+		.OrgBtn {
+			width:80px; 
+			height:32px;
+			padding: 0;
+			margin:10px;
+		}
+	}
+}

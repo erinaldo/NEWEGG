@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+    
+    
+    var ccts = ViewBag.ccTimeStart as DateTime?;
+    var cc = ViewBag.cc  as string;
+    var ccte = ViewBag.ccTimeEnd as DateTime?;
+    var ddts = ViewBag.ddTimeStart as DateTime?;
+    var dd = ViewBag.dd as List<string>;
+    var ddte = ViewBag.ddTimeEnd  as DateTime?;
+    var eets = ViewBag.eeTimeStart as DateTime?;
+    var ee = ViewBag.ee as TWNewEgg.Models.DomainModels.Product.ProductDetailDM;
+    var eete = ViewBag.eeTimeEnd as DateTime?;
+    var ffts = ViewBag.ffTimeStart  as DateTime?;
+    var ff = ViewBag.ff  as List<TWNewEgg.Models.DomainModels.Product.ProductDetailDM>;
+    var ffte = ViewBag.ffTimeEnd  as DateTime?;
+    var ggts = ViewBag.ggTimeStart  as DateTime?;
+    var gg = ViewBag.gg as List<TWNewEgg.Models.DomainModels.Product.ProductDetailDM>;
+    var ggte = ViewBag.ggTimeEnd  as DateTime?;
+    var totalCount = gg.Count;
+    gg = gg.Take(50).ToList();
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <h6>func 1</h6>
+        <h5>@(ccts.ToString() + "~~~~" + ccte.ToString())</h5>
+        @(cc.ToString())
+        <br />
+        <br />
+        <br />
+        <h6>func 2</h6>
+        <h5>@(ddts.ToString() + "~~~~" + ddte.ToString())</h5>
+        @foreach (var singledd in dd)
+        {
+            @(singledd);
+            <br />
+        }
+        <br />
+        <br />
+        <br />
+        <h6>func 3</h6>
+        <h5>@(eets.ToString() + "~~~~" + eete.ToString())</h5>
+        @(ee.ID)
+        <br />
+        @(ee.Name)
+        <br />
+        @(ee.ManufactureID)
+        <br />
+        <br />
+        <br />
+        <h6>func 4</h6>
+        <h5>@(ffts.ToString() + "~~~~" + ffte.ToString())</h5>
+        @foreach (var singleff in ff)
+        {
+            @(singleff.ID);
+            <br />
+            @(singleff.Name);
+            <br />
+            @(singleff.ManufactureID);
+            <br />
+        }
+        <br />
+        <br />
+        <br />
+        <h6>func 5</h6>
+        <h5>@(ggts.ToString() + "~~~~" + ggte.ToString())</h5>
+        <h4>@(totalCount)</h4>
+        @foreach (var singlegg in gg)
+        {
+            @(singlegg.ID);
+            <br />
+            @(singlegg.Name);
+            <br />
+            @(singlegg.NameTW);
+            <br />
+            @(singlegg.Description);
+            <br />
+            @(singlegg.DescriptionTW);
+            <br />
+        }
+
+    </div>
+</body>
+</html>

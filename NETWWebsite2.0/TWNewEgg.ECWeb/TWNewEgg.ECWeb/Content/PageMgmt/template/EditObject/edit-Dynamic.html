@@ -1,0 +1,8 @@
+﻿<div>
+    類型:<select ng-model="myType" ng-options="type.name for type in types"></select><br />
+    來源:<select ng-model="myApi" ng-options="api.name for api in apis"></select>
+    <div ng-repeat="paramName in myApi.params">
+        {{paramName}}<input type="text" ng-model="params[paramName]" />
+    </div>
+    <button ng-show="params" ng-click="search()">查詢</button>
+</div>

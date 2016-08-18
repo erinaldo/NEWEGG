@@ -1,0 +1,139 @@
+﻿@model TWNewEgg.Models.DomainModels.Store.OptionStoreListZone
+
+@{
+    if(Model != null && Model.ItemList != null && Model.ItemList.Count > 0) 
+    {
+        for (int itemCellCount = 0; itemCellCount < Model.ItemList.Count && itemCellCount < Model.PageItemCount; itemCellCount++)
+        {
+@Html.Partial("Partial_ChooseItemCell", Model.ItemList[itemCellCount])
+        }
+
+        if (Model.TotalPageCount > 1)
+        {
+            int curIndex = ((int)ViewData["ListPageIndex"]) > 0 ? (int)ViewData["ListPageIndex"] : 1;
+            int prevIndex = curIndex > 1 ? curIndex - 1 : 1;
+            int nextIndex = curIndex < Model.TotalPageCount ? curIndex + 1 : Model.TotalPageCount;
+<div class="pagination PageArea">
+    @if ((curIndex - 1) >= 1)
+    {
+        <span class="arrow arrLeft prev" data-choose-page-index="@(prevIndex)"></span>
+    }
+        @{
+            int ranger = 3;
+            bool hasFirstLink = curIndex - ranger > 1 && (ranger * 2) + 1 <= Model.TotalPageCount;
+            bool hasPreFixLink = curIndex - ranger + 1 > 1 && (ranger * 2) + 1 <= Model.TotalPageCount;
+            bool hasPostFixLink = curIndex + ranger <= Model.TotalPageCount && (ranger * 2) + 1 <= Model.TotalPageCount; 
+            bool hasLastLink = curIndex + ranger < Model.TotalPageCount && (ranger * 2) + 1 <= Model.TotalPageCount;
+            int startIndex = 1;
+            int endIndex = Model.TotalPageCount;
+            }
+        @*First page link.*@
+        @if (hasFirstLink)
+          {
+            <span href="#nogo" data-choose-page-index="1"> 1</span> 
+            <span class="default">...</span>
+          }
+
+        @*Prefix page link*@
+        @if (hasPreFixLink && hasPostFixLink)
+        {
+            startIndex = curIndex - ranger == 1 ? 1 : curIndex - ranger + 1;
+            endIndex = curIndex + ranger < Model.TotalPageCount ? curIndex + ranger - 1 : Model.TotalPageCount;
+        }
+        else if (hasPreFixLink && !hasPostFixLink)
+        {
+            if (curIndex - ranger > 1)
+            {
+                startIndex = curIndex - ranger + 1;
+            }
+            if (Model.TotalPageCount < (ranger * 2))
+            {
+                startIndex = 1;
+            }
+            if (Model.TotalPageCount - ranger * 2 <= startIndex)
+            {
+                startIndex = Model.TotalPageCount - ranger * 2 + 2;
+            }
+
+            endIndex = Model.TotalPageCount;
+        }
+        else if (!hasPreFixLink && !hasPostFixLink)
+        {
+            startIndex = 1;
+            endIndex = Model.TotalPageCount;
+        }
+        else if (!hasPreFixLink && hasPostFixLink)
+        {
+            startIndex = 1;
+            endIndex = curIndex + ranger <= ranger * 2 - 1 ? ranger * 2 - 1 : curIndex + ranger - 1;
+        }
+
+        
+        
+            @for (int i = startIndex; i <= endIndex; i++)
+                {
+                if (i == curIndex)
+                    {
+        <span class="SelectThePage" style="color: #EB8A51">@(curIndex)</span> 
+                    }
+                        else
+                        {
+        <span href="#nogo" data-choose-page-index="@(i)"> @(i)</span> 
+                        }
+                    }
+
+        @*Last page link.*@
+        @if (hasLastLink)
+                {
+            <span class="default">...</span>
+            <span data-choose-page-index="@(Model.TotalPageCount)">@(Model.TotalPageCount)</span> 
+                }
+    @if ((curIndex + 1) <= Model.TotalPageCount)
+    {
+        <span class="arrow arrRight next" data-choose-page-index="@(nextIndex)">></span>
+    }
+</div>
+        }
+    }
+    else
+    {
+<div><center style="margin-top:250px;font-size:24px;color:#49639e">抱歉，此處建構中，請先逛逛其他地方！</center></div>
+    }
+}
+
+<script>
+    $(document).ready(function () {
+        $('div.chooseBar > div.status > input').click(function () {
+            var itemBox = $(this).parent().parent().parent();
+            var listIndex = twNewegg.ChooseAny.ListIndex;
+            var itemID = $(this).attr('data-choose-item-id');
+            var qty = itemBox.find('.select_sm').val();
+            var unitPrice = $(this).attr('data-choose-unit-price');
+            twNewegg.ChooseAny.AddItem(parseInt(listIndex), parseInt(itemID), parseInt(qty), parseInt(unitPrice));
+        });
+
+        $('div.pagination span').click(function () {
+            var isCurrentPage = $(this).hasClass("SelectThePage");
+            if (!isCurrentPage)
+            {
+                twNewegg.ChooseAny.LoadLightBoxUnderLay();
+                twNewegg.ChooseAny.PageChooseList(this);
+            }
+        });
+
+        var allList = twNewegg.ChooseAny.ReadAllList();
+        if (allList != undefined && allList != null && allList.length > 0) {
+            $.grep(allList, function (item) {
+                if (item != undefined && item != null && item.cid == twNewegg.ChooseAny.ListIndex) {
+                    var divBox = $('div.productListArea input[data-choose-item-id=' + item.iid + ']');
+                    if (divBox != undefined && divBox != null) {
+                        var qtyObj = divBox.parent().parent().find('.numTxt select');
+                        $(qtyObj).val(item.qty);
+                        divBox.parent().parent().parent().addClass('choose');
+                        divBox.addClass('btn-selected');
+                    }
+                }
+            });
+        }
+    });
+</script>

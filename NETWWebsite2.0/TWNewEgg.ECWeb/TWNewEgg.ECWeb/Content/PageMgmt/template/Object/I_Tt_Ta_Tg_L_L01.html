@@ -1,0 +1,17 @@
+﻿<div class="I_Tt_Ta_Tg_L_L01">
+    <a ng-href="{{vModel.Url}}">
+        <img class="pic" ng-show="show" no-image="{{vModel.ErrImage}}" ng-src="{{vModel.Image}}" />
+    </a>
+    <div class="txtBox">
+        <a ng-href="{{vModel.Url}}">
+            <div class="headLine" ng-bind="vModel.Title"></div>
+            <p class="text" ng-bind="vModel.Content"></p>
+        </a>
+    </div>
+    <div ng-show="vModel.ShowButtom" class="RecomInfo">
+        <div class="location">
+            {{vModel.Tag}}
+        </div>
+        <div like-cnt item="vModel"></div>
+    </div>
+</div>

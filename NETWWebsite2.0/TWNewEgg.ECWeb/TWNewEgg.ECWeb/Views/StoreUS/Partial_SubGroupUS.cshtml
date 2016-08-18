@@ -1,0 +1,18 @@
+﻿@using TWNewEgg.Models.DomainModels.Store
+@model List<GroupLink>
+@{
+    string colorId = (string)ViewData["colorId"];
+    if (Model != null && Model.Count > 0)
+    {
+    <div class="box-category3 catcolorbg@(colorId)">
+        <ul>
+            @{
+        foreach (var groupItem in Model)
+        {
+                <li groupId="@(groupItem.ID)"><a href="@(groupItem.Url)">@(groupItem.Title)</a></li>
+        }
+            }
+        </ul>
+    </div>
+    }
+}

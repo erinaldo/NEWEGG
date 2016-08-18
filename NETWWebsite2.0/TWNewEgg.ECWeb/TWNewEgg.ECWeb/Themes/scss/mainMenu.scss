@@ -1,0 +1,256 @@
+//compileExpanded: ../css/mainMenu.css, includePath: includes/
+@import "compass";
+@import "_importSCSS";
+
+/* nav.css */
+.yMenuListCon {
+	/*width:738px;*/
+	width:566px;
+	height:486px;
+	position: absolute;
+	top: 0px;
+	left: 382px;
+
+	&:before {
+		position: absolute;
+		z-index: -1;
+		left: 0;
+		top: 0;
+		display: block;
+		content: "";
+		width: 550px;
+		height: 484px;
+		border-width: 1px 1px 1px 0;
+		border-style: solid;
+		border-color: #dcdcdc;
+		background-color: #fff;
+	}
+
+}
+
+.yMenuListConin h2, .yMenuListConin h2 a {
+	font-size: 24px;
+	color: #8dc88c;
+	margin-top: 20px;
+	margin-bottom: 15px;
+	width: 550px;
+	border-bottom:0;
+}
+
+// @import "Icon/Store/CategoryMenu/*.png";
+// @import "Icon/Store/CategoryMenu/hover/*.png";
+$StoreCategoryMenuIconList: Design Fashion Beauty Healthcare Foods Sport Outdoor Lovely Living Appliance Digital Computer NeweggUSA Gift;
+
+.pullDownList {
+
+	li {
+		i {
+			@include inline-block;
+			@include transition-property(margin, color);
+			@include transition-duration(.2s);
+			margin:-5px 10px 0 20px;
+			width:25px;
+			height:25px;
+			overflow:hidden;
+			background: url(/Themes/img/Icon/Store/category-icons.png) no-repeat;
+
+
+			@for $i from 1 through length($StoreCategoryMenuIconList) {
+				$cate-name: nth($StoreCategoryMenuIconList, $i);
+
+				&.store#{$cate-name} {
+					background-position: #{0px} (($i - 1)*-25)#{px};
+				}
+			}
+
+			// @each $categoryIcon in $StoreCategoryMenuIconList {
+			// 	&.store#{$categoryIcon} {
+			// 		@include CategoryMenu-sprite(#{$categoryIcon});
+			// 	}
+			// }
+		}
+		&:hover, &.menulihover {
+			i {
+				margin-left:30px;
+
+				@for $i from 1 through length($StoreCategoryMenuIconList) {
+					$cate-name: nth($StoreCategoryMenuIconList, $i);
+
+					&.store#{$cate-name} { background-position: #{-25px} (($i - 1)*-25)#{px}; }
+				}
+
+				// @each $categoryIcon in $StoreCategoryMenuIconList {
+				// 	&.store#{$categoryIcon} {
+				// 		@include hover-sprite(#{$categoryIcon});
+				// 	}
+				// }
+			}
+		}
+	}
+}
+
+.yMenuListConin {
+	display:none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	/*width: 737px;*/
+	min-height:486px;
+	/*background:#fff;*/
+	width: 550px;
+	.yMenuColLCinList {
+		/*margin: 20px 0 0 20px;*/
+		width: 550px;
+		height: 484px;
+	}
+	h2 {
+		a {
+			text-decoration:underline;
+			border-bottom:0;
+		}
+	}
+	.pullDownUS & {
+		height:486px;
+		min-height: 486px;
+	}
+	.ListColor_red {color:#D25E69;}
+}
+.MenuListImg {
+	width:566px;
+	height:245px;
+	position:absolute;
+	bottom:-15px;
+	left: 0;
+	display: block;
+	z-index:99;
+	/*margin:230px 0 0 -20px;*/
+
+	& > a,
+	& > a:hover,
+	& > a img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		border-bottom: 0px;
+	}
+}
+
+/*Category color*/
+a {
+	/*設計風尚*/.yMenuListCon .yMenuListConin.storeDesign h2 & {
+		color:#C4C2C2;
+	}
+	/*國際名品*/.yMenuListCon .yMenuListConin.storeFashion h2 & {
+		color:#D6AE7A;
+	}
+	/*家電用品*/.yMenuListCon .yMenuListConin.storeAppliance h2 & {
+		color:#82C5ED;
+	}
+	/*居家用品*/.yMenuListCon .yMenuListConin.storeLiving h2 & {
+		color:#87CDCF;
+	}
+	/*運動健身*/.yMenuListCon .yMenuListConin.storeSport h2 & {
+		color:#8DC88C;
+	}
+	/*戶外休閒*/.yMenuListCon .yMenuListConin.storeOutdoor h2 & {
+		color:#8DCEA8;
+	}
+	/*電腦周邊*/.yMenuListCon .yMenuListConin.storeComputer h2 & {
+		color:#669BD3;
+	}
+	/*數位3C*/.yMenuListCon .yMenuListConin.store3C h2 & {
+		color:#70B0E1;
+	}
+	/*樂活食尚*/.yMenuListCon .yMenuListConin.storeFoods h2 & {
+		color:#F29F7F;
+	}
+	/*美蛋直購*/.yMenuListCon .yMenuListConin.storeNeweggUSA h2 & {
+		color:#EC7375;
+	}
+	/*美妝保養*/.yMenuListCon .yMenuListConin.storeBeauty h2 & {
+		color:#EBAEB5;
+	}
+	/*保健養生*/.yMenuListCon .yMenuListConin.storeHealthcare h2 & {
+		color:#ACB682;
+	}
+	/*親子寵物*/.yMenuListCon .yMenuListConin.storeLovely h2 & {
+		color:#EEBE66;
+	}
+	/*新增1/8城市檔  目前找不出來用在哪裡於防性增加*/.yMenuListCon .yMenuListConin.storeCity h2 & {
+		color:#999;
+	}
+}
+
+.banner-ad2 {
+	background:#e6e4e7;
+	width:206px;
+	height:36px;
+	overflow:hidden;
+}
+
+/*美蛋直購nav*/
+.yMenuListConUS {
+	width:550px;
+	height:486px;
+	position: absolute;
+	top: 0px;
+	left: 206px;
+	overflow: hidden;
+	.yMenuListConin {
+		.yMenuColLCinList {
+			padding: 20px 0 0 20px;
+			width:529px;
+			height: 464px;
+			overflow: hidden;
+			border-top: 1px solid #b4b4b4;
+			border-bottom: 1px solid #b4b4b4;
+			border-right: 1px solid #b4b4b4;
+			border:1px solid #dcdcdc;
+			margin-left:-1px;
+			h3 {
+				font-size: 19px;
+				color: #444444;
+				position: relative;
+				width: auto;
+				margin: 0 auto 2px;
+				float: left;
+				font-weight: bold;
+				border-left: 5px solid #444444;
+				padding-left: 10px;
+			}
+
+			p { color: #444444; }
+
+			.ListColor_red {color:#D25E69;}
+
+			a:hover { color: #eda16f; }
+
+			.MenuListImg {
+				width:550px;
+				height:245px;
+				position:absolute;
+				bottom:-30px;
+				display: block;
+				z-index:99;
+				left: 0;
+
+				& > a { border-bottom: 0px; }
+
+				img {
+					width:550px;
+					height:245px;
+				}
+			}
+		}
+	}
+}
+
+.pullDownUS {
+	.pullDownList3 {
+		li {
+			.arrowhover_gray {
+				background-position: 0 ;
+			}
+		}
+	}
+}

@@ -1,0 +1,43 @@
+﻿<!-- 最新瀏覽的商品 -->
+<script>
+    var m_ReviewItem = null;
+    function AddReviewItem(argItemId, argName, argImgUrl, argPrice, argPromotionPrice)
+    {
+        /* ReviewItem format:
+            ItemId
+            Name
+            ImgUrl
+            Price
+            PromotionPrice
+        */
+        var strReviewItem = "";
+        var strJson = "";
+        var objItem = new Object();
+        objItem.ItemId = argItemId;
+        objItem.Name = argName;
+        objItem.ImgUrl = argImgUrl;
+        if (argPrice != null)
+            objItem.Price = argPrice;
+        else
+            objItem.Price = "";
+        if (argPromotionPrice != null)
+            objItem.PromotionPrice = argPromotionPrice;
+        else
+            objItem.PromotionPrice = "";
+
+        if (typeof ($.cookie("ReviewItems")) == "undefined")
+        {
+            m_ReviewItem = '{"ReviewItems":{$Content}}';
+        }
+        else
+        {
+            strReviewItem = $.cookie("ReviewItems");
+        }
+    }
+
+    function RemoveReviewItem()
+    {
+        
+    }
+
+</script>

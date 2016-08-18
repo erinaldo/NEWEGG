@@ -1,0 +1,37 @@
+﻿<div id="frame" ng-style="{height:PageData.PageInfo.Height , 'background': PageData.PageInfo.BackgroundImg}">
+    <div id="easel" ng-style="{height:PageData.PageInfo.Height, width: PageData.PageInfo.Width}" ng-click="easelClick()">
+        <div id="GridBG" ng-class="{GridBG:PageData.ctrl.isGrid}" ng-style="{height:PageData.PageInfo.Height, width: PageData.PageInfo.Width}">
+            <div id="toolbar" ng-show="PageData.PageInfo.ext.isEditPage" ng-style="{width: PageData.PageInfo.Width}">
+                <a id="toolbar-show" ng-click="show()" href="javascript:;">show</a>
+                <div id="toolbar-functions">
+                    <a ng-click="DataService.insert('Text')" href="javascript:;" class="mgmt_icon add">{{pagemgmtResx.TextObject}}</a>
+                    <a ng-click="DataService.insert('Image')" href="javascript:;" class="mgmt_icon add">{{pagemgmtResx.ImageObject}}</a>
+                    <a ng-click="DataService.insert('Dynamic')" href="javascript:;" class="mgmt_icon add">{{pagemgmtResx.DynamicObject}}</a>
+                    <a ng-show="inEdit()" href="javascript:;" >
+                        <input type="button" value="{{pagemgmtResx['Clean']}}" class="mgmt_icon menuBtn" ng-click="newPage()" />
+                    </a>
+                    <a ng-show="inEdit()" href="javascript:;">
+                        <input type="button" value="{{pagemgmtResx['Save']}}" class="mgmt_icon menuBtn"  ng-click="savePage()" />
+                    </a>
+                    <a ng-show="inEdit()" href="javascript:;">
+                        <input type="button" value="{{pagemgmtResx['Cancel']}}" class="mgmt_icon menuBtn" ng-click="cancelPage()" />
+                    </a>
+                    <a ng-show="inEdit()" href="javascript:;">
+                        <input type="button" value="{{pagemgmtResx['Recover']}}" class="mgmt_icon menuBtn" ng-click="recoverPage()" />
+                    </a>
+                    <a ng-show="inEdit()" href="javascript:;">
+                        <input type="button" value="{{pagemgmtResx['A']}}" class="mgmt_icon menuBtn" ng-click="launchPage()" />
+                    </a>
+                </div>
+            </div>
+     
+            <div id="{{comp.Index}}" class='obj' ng-class="{multidrag:picked, showBorder:PageData.ctrl.isGrid}" ng-controller="ComponentController" ng-repeat="comp in PageData.PageInfo.ComponentInfo" ng-init="init(comp)" style="position:relative"
+                ng-style="{height:comp.Height, width:comp.Width, top:comp.YIndex+'px', left:comp.XIndex+'px', zIndex:comp.ZIndex}"
+                ng-mousedown="focus($event)" ng-mouseover="show = true" ng-mouseleave="show = false" ng-hide="comp.Status == componentStatus.DELETE">
+                <component-option class="comp-header" component="comp" show="Component.ext.picked||(PageData.PageInfo.ext.isEditPage && show)"></component-option>
+                <div ng-include="componentUrl"></div>
+            </div>
+            <obj-editor id="obj-editor"></obj-editor>
+        </div>
+    </div>
+</div>

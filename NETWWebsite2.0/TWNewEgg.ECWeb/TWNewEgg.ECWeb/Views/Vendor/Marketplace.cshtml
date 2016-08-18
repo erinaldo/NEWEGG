@@ -1,0 +1,303 @@
+﻿@{
+    ViewBag.Title = "成為合作夥伴" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section addToFloatAccount {
+
+}
+
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/Marketplace")
+
+<p class="bread"><a href="/">首頁</a>><a href="/Vendor">成為合作夥伴</a>><a href="/Vendor/Marketplace">廠商合作專區</a></p>
+
+<div style="clear: both;">
+
+<div class="TopExplanationArea">
+    <h4 class="Boldtext">
+        <i class="icon Marketplace"></i>新蛋全球生活網招商說明
+    </h4>
+</div>
+<div class="Border">
+    <p class="Boldtext">新蛋全球生活網竭誠歡迎您加入產品供應商的行列，我們擁有成功的國際化電子商務經驗及專業行銷團隊，
+        提供付款機制和物流倉儲系統，與廠商共同創造銷售佳績。
+        您可以透過以下的招商表格申請或直接來電(02)8175-5986、Email:<a href="mailto:marketplace@newegg.com.tw?subject=【廠商合作】">marketplace@newegg.com.tw</a>，
+        我們會盡快與您聯繫的。</p>
+</div>
+
+    <div class="Border">
+    <h5 class="Tit Boldtext"><i class="icon BasicInformation"></i>廠商基本資料</h5>
+    <table id="tbForm">
+        <tr>
+            <th><span class="red">*</span>公司名稱</th>
+            <td><input type="text" id="CompanyName" value="" class="input_md jqvRequired" title="公司名稱"></td>
+        </tr>
+        <tr>
+            <th><span class="red">*</span>統一編號</th>
+            <td><input type="text" id="CompanyUnifiedNumber" value="" class="input_md jqvRequired" title="統一編號"></td>
+        </tr>
+        <tr>
+            <th><span class="red">*</span>公司電話</th>
+            <td><input type="text" id="CompanyPhone" value="" class="input_md jqvRequired" title="公司電話"></td>
+        </tr>
+        <tr>
+            <th>公司網址</th>
+            <td><input type="text" id="CompanyOfficialSiteUrl" value="" class="input_md jqv" title="公司網址"></td>
+        </tr>
+        <tr>
+            <th><span class="red">*</span>聯絡人</th>
+            <td><input type="text" id="CompanyContact" value="" class="input_md jqvRequired" title="聯絡人"></td>
+        </tr>
+        <tr>
+            <th><span class="red">*</span>聯絡電話</th>
+            <td><input type="text" id="CompanyContactPhone" value="" class="input_md jqvRequired" title="聯絡電話"></td>
+        </tr>
+        <tr>
+            <th><span class="red">*</span>聯絡EMAIL</th>
+            <td><input type="text" id="CompanyContactEmail" value="" class="input_md jqvEmail" title="聯絡EMAIL"></td>
+        </tr>
+        <tr>
+            <th><span class="red">*</span>希望上架類別</th>
+            <td>
+                <select class="select_md jqvRequired" id="Category" title="希望上架類別">
+                    <option value="">請選擇</option>
+                    @{
+                        if (ViewBag.Categories!=null){
+                            foreach(TWNewEgg.Models.ViewModels.Category.Category_TreeItem item in ViewBag.Categories){
+                                <option value="@item.category_description">@item.category_description</option>
+                            }   
+                        }                   
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>其他說明@*<br/>尚可輸入<span>300</span>字*@</th>@*需有300字限制*@
+            <td><textarea  placeholder="尚可輸入300字" id="Remark" maxlength="300"></textarea></td>
+        </tr>
+        <!--<tr>
+            <th><span class="red">*</span>驗證碼</th>
+            <td>
+                <input type="text" name="" value="" class="input_md">
+                <div class="SecurityCode"><img src="XXX.jpg"></div>@*驗證碼產生區*@<span class="blue">重新產生</span>
+            </td>
+        </tr>-->
+        <tr>
+            <td colspan="2" class="TextAlign-center" style="padding-top:50px;">
+                <input type="button" id="btnSave" class="OrgBtn Btn" value="確 定">
+                <input type="button" id="btnReset" class="LightOrgBtn Btn" value="取 消">
+            </td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+@**彈出對話視窗*@
+<div class="LightBoxUnderLay" style="display:none;">
+    <div class="LightBoxMsg DelayWindow ProcessWindow">
+        <div class="Remindtxt">
+            <span id=""><img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+    </div>
+    <div class="LightBoxMsg Stlye-3 RemindDialog" style="display:none;">
+        <div class="Remindtxt">
+            <span id="ErrorMessages"></span>
+        </div>
+        <div class="DialogBtn">
+            <label><input name="" type="button" value="確認" class="DialogConfirmBtn OrgBtn DialogBtnFunctionV1"></label>
+        </div>
+    </div>
+</div>
+@**彈出對話視窗*@
+
+@section scripts {
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+<script>
+    $(function () {
+        $('#btnSave').click(function () {
+            if (!checkForm($('#tbForm'))) return false;
+
+            var strRemark = $('#Remark').val();
+            if (strRemark == null || typeof (strRemark) == "undefined" || strRemark.length <= 0)
+            {
+                strRemark = " ";
+            }
+            var mailInfo = {
+                CompanyName: $('#CompanyName').val(),
+                CompanyUnifiedNumber: $('#CompanyUnifiedNumber').val(),
+                CompanyPhone: $('#CompanyPhone').val(),
+                CompanyOfficialSiteUrl: $('#CompanyOfficialSiteUrl').val(),
+                CompanyContact: $('#CompanyContact').val(),
+                CompanyContactPhone: $('#CompanyContactPhone').val(),
+                CompanyContactEmail: $('#CompanyContactEmail').val(),
+                Category: $('#Category').val(),
+                Remark: strRemark
+            };
+            $("div.LightBoxUnderLay").fadeIn();
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg");
+            $.ajax({
+                url: '/Vendor/SendMarketMail',
+                data: JSON.stringify(mailInfo),
+                type: 'POST',
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    //$("div.LightBoxUnderLay").fadeOut();
+                    //$("div.LightBoxMsg.DelayWindow").fadeOut();
+
+                    showMessage(res.Msg);
+                    if (res.IsSuccess) {
+                        var btn = $("input.DialogBtnFunctionV1");
+                        btn.unbind('click').click(function () {
+                            location.replace('@Url.Content("~/Home/Index")');
+                            $(this).attr('disabled', 'disabled');
+                        });
+                    }                    
+                },
+                error: function (jqXHR, ajaxOptions, thrownError) {
+                    if (jqXHR.status === 0) {
+                        alert('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        alert('Requested page not found. [404]');
+                    } else if (jqXHR.status == 500) {
+                        alert('Internal Server Error [500].');
+                    } else {
+                        alert('Uncaught Error.\n' + thrownError);
+                    }
+                },
+                complete: function (data) {
+
+                }
+            })
+        });
+
+        $('#btnReset').click(function () {
+            $(':text, textarea, select').val('');
+        });
+    });
+
+    function checkForm(form) {
+        var emailRule = /^([\w-\.\+\-\_]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4})$/;
+        var msg = {
+            req: '',
+            mail: '',
+            result: ''
+        };
+
+        form.find("input[class*='jqv'], select[class*='jqv']").each(function () {
+            var el = $(this);
+
+            if (el.hasClass('jqvRequired') && $.trim(el.val()) == '') {
+                if ($.trim(msg.req) != '') msg.req += '、';
+                msg.req += el.attr('title');
+
+            } else if (el.hasClass('jqvEmail')) {
+                if ($.trim(el.val()) == '') {
+                    if ($.trim(msg.req) != '') msg.req += '、';
+                    msg.req += el.attr('title');
+                } else if (!el.val().match(emailRule)) {
+                    if ($.trim(msg.mail) != '') msg.mail += '、';
+                    //驗證email
+                    msg.mail += el.attr('title');
+                }
+            }
+
+            //額外判斷
+            var tmpValue = el.val();
+            switch (el.attr('id')) {
+                case 'CompanyUnifiedNumber':
+                    if ($.trim(tmpValue) != '' && !checkCompanyUnifiedNumber(tmpValue)) {
+                        if ($.trim(msg.mail) != '') msg.mail += '、';
+                        //驗證統一編號
+                        msg.mail += el.attr('title');
+                    }
+                    break;
+                case 'CompanyOfficialSiteUrl':
+                    if ($.trim(tmpValue) != '' && !validateURL(tmpValue)) {
+                        if ($.trim(msg.mail) != '') msg.mail += '、';
+                        //驗證公司網址
+                        msg.mail += el.attr('title');
+                    }
+                    break;
+            }
+        });
+
+        //必填欄位
+        if ($.trim(msg.req) != '') {
+            msg.req = '「' + msg.req + '」';
+            if (msg.req.indexOf('、') == -1)
+                msg.result = msg.req + '資料尚未填寫!';
+            else
+                msg.result = msg.req + '等資料尚未填寫!';
+        }
+
+        //Email
+        if ($.trim(msg.mail) != '') {
+            if ($.trim(msg.result) != '') msg.result += '<br>';
+
+            msg.mail = '「' + msg.mail + '」';
+            msg.result += msg.mail + '格式錯誤!';
+        }
+        
+        //錯誤訊息
+        if ($.trim(msg.result) != '') {
+            showMessage(msg.result);
+            return false;
+        }
+
+        return true;
+    }
+
+    function checkCompanyUnifiedNumber(uniNumber) {
+        // 驗證統一編號規則的程式碼
+        var tbNum = new Array(1, 2, 1, 2, 1, 2, 4, 1);
+        var temp = 0;
+        var total = 0;
+  
+        if (!uniNumber.match(/^\d{8}$/) || eval(uniNumber) == 0) {
+            return false;
+        }
+
+        for (var i = 0; i < tbNum.length ; i++) {
+            temp = uniNumber.charAt(i) * tbNum[i];
+            total += Math.floor(temp / 10) + temp % 10;
+        }
+
+        if (total % 10 == 0 || (uniNumber.charAt(6) == 7 && total % 10 == 9)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function validateURL(url) {
+        var regUrl = /^(((ht|f){1}(tp:[/][/]){1})|((www.){1}))[-a-zA-Z0-9@@:%_\+.~#?&//=]+$/;
+
+        if (regUrl.test(url))
+            return true;
+        else
+            return false;
+    }
+
+    function showMessage(msg) {
+        $("div.LightBoxUnderLay").fadeIn();
+        $("div.LightBoxMsg.DelayWindow").fadeIn();
+        LightBoxCenter("div.LightBoxMsg");
+
+        $("#ErrorMessages").css({'line-height':'1.2'}).html(msg);
+        $("div.LightBoxMsg.RemindDialog").fadeIn();
+        LightBoxCenter("div.LightBoxMsg.RemindDialog");
+
+        // 按下確認後,黑畫面全部消失
+        var btn=$("input.DialogBtnFunctionV1");
+        btn.unbind('click').click(function () {
+            $("div.LightBoxUnderLay").slideUp(888).fadeOut("slow");
+            $("div.LightBoxMsg").hide();
+        });
+    }
+</script>
+}

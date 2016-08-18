@@ -1,0 +1,808 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Cart.ItemGroup_View>
+@using Newtonsoft.Json;
+@section styleSheets {
+    @Styles.Render("~/content/css/AdditionalItem")
+}
+
+
+@{    
+    // 依據 BSATW-173 廢四機需求增加
+    // 廢四機賣場商品, Y=是癈四機 ---------------add by bruce 20160517
+    string Discard4 = string.Empty;
+    
+    var ItemGroup_Viewtemp = Model.Where(x => x.TypeID == ViewBag.TypeID).FirstOrDefault();
+    var CartItemList = Model.Where(x => x.TypeID == ViewBag.TypeID).Select(x => x.CartItemList).FirstOrDefault();
+    var CartItemClass_ViewList = Model.Where(x => x.TypeID == ViewBag.TypeID).Select(x => x.CartItemClass_ViewList).FirstOrDefault();
+    var PaytypeList = Model.Where(x => x.TypeID == ViewBag.TypeID).Select(x => x.CartPayTypeGroupList).FirstOrDefault();
+    List<int> PaytypeList_LowEliminateEightThousand = new List<int>() { 12, 24, 112, 118, 124 };
+
+    var bankInfo1 = PaytypeList.Where(p => p.PayTypeGroupID == 2).Select(p => p.CartPayType_View).FirstOrDefault();
+    var bankInfo = PaytypeList.Where(p => p.PayTypeGroupID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.信用卡).Select(p => p.CartPayType_View).FirstOrDefault().Where(p => p.PayType0rateNum == 201).ToList();
+    //for iprospect feeds start
+    List<TWNewEgg.Models.ViewModels.Cart.CartItem_View> foriprospectItems = new List<TWNewEgg.Models.ViewModels.Cart.CartItem_View>();
+    if (CartItemClass_ViewList != null)
+    {
+        foreach (var CartItemClass in CartItemClass_ViewList)
+        {
+            if (CartItemClass != null)
+            {
+                foreach (var item in CartItemClass.CartItemList)
+                {
+                    foriprospectItems.Add(item);
+
+                    // 依據 BSATW-173 廢四機需求增加
+                    // 廢四機賣場商品, Y=是癈四機 ---------------add by bruce 20160517
+                    //if (string.IsNullOrEmpty(Discard4)) Discard4 = item.Discard4;
+                    
+                }
+
+                
+            }
+        }
+    }
+    //for iprospect feeds end
+    
+  }
+<div>@ViewBag.test</div>
+<input type="hidden" id="SerialNumber" value="@ViewBag.SerialNumber" />
+@*依據 BSATW-173 廢四機需求增加 // 廢四機賣場商品, Y=是癈四機 ---------------add by bruce 20160516*@
+<input type="hidden" id="Discard4" value="@ViewBag.Discard4" />
+
+@*↓↓↓↓↓↓商品列表↓↓↓↓↓↓*@
+<div class="carts">
+    @*↓↓↓↓↓↓各購物車頁籤↓↓↓↓↓↓*@
+    <div class="TabArea grayBorder">
+        <ul>
+            <li data-TypeID="@((int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.新蛋購物車)" Name="TabAreagGrayBorder" class="Tab BorderTab @if (ViewBag.TypeID == (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.新蛋購物車)
+                                                                                                                                                     { @("TabSelected");
+                                                                                                                                                     } "><i class="icon CartIcon CartIconPo"><span class="@(Model.Where(x => x.TypeID == (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.新蛋購物車).Select(x => x.TypeQty).FirstOrDefault() == 0 ? "empty" : "")">@(Model.Where(x => x.TypeID == (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.新蛋購物車).Select(x => x.TypeQty).FirstOrDefault())</span></i>新蛋購物車</li>
+            <li data-TypeID="@((int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.海外購物車)" Name="TabAreagGrayBorder" class="Tab BorderTab @if (ViewBag.TypeID == (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.海外購物車)
+                                                                                                                                                     { @("TabSelected");
+                                                                                                                                                     } "><i class="icon CartIcon CartIconPo"><span class="@(Model.Where(x => x.TypeID == (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.海外購物車).Select(x => x.TypeQty).FirstOrDefault() == 0 ? "empty" : "")">@(Model.Where(x => x.TypeID == (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.海外購物車).Select(x => x.TypeQty).FirstOrDefault())</span></i>海外購物車</li>
+            @*<li data-TypeID="" Name="TabAreagGrayBorderDisabled" class="Tab BorderTab @if (ViewBag.TypeID == 8)
+                                     { @("TabSelected"); } " ><i class="icon CartIcon CartIconPo"><span></span></i>萊爾富購物車</li>*@
+            <li data-TypeID="@((int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.任選館購物車)" Name="TabAreagGrayBorder" class="Tab BorderTab @if (ViewBag.TypeID == (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.任選館購物車)
+                                                                                                                                                      { @("TabSelected");
+                                                                                                                                                      } "><i class="icon CartIcon CartIconPo"><span class="@(Model.Where(x => x.TypeID == (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.任選館購物車).Select(x => x.TypeQty).FirstOrDefault() == 0 ? "empty" : "")">@(Model.Where(x => x.TypeID == (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.任選館購物車).Select(x => x.TypeQty).FirstOrDefault())</span></i>任選館購物車</li>
+        </ul>
+    </div>
+@*↓↓↓↓↓↓訂單明細↓↓↓↓↓↓*@
+    <div class="Tit Boldtext grayBorder"><i class="icon ServiceIcon Order-2"></i>訂單明細</div>
+
+<table class="ItemListTable darkGray">
+    <tr class="ItemListTr">
+            <th class="ItemListTh BorderRight Boldtext" style="width: 110px;">發貨區域</th>
+            <th class="ItemListTh Boldtext" style="width:460px;">商品名稱/配件選購</th>
+            <th class="ItemListTh Boldtext" style="width: 80px;">規格</th>
+        <th class="ItemListTh Boldtext">單價</th>
+            <th class="ItemListTh Boldtext" style="width: 110px;">數量</th>
+        <th class="ItemListTh Boldtext">小計</th>
+            <th class="ItemListTh BorderLeft Boldtext" style="width: 109px;">@*加入最愛/*@刪除</th>
+    </tr>
+    @{if (CartItemClass_ViewList != null)
+      {
+          foreach (var CartItemClass in CartItemClass_ViewList)
+          {
+              if (CartItemClass != null)
+              {
+                      foreach (var item in CartItemClass.CartItemList.Where(x => x.ShowOrder != (int)TWNewEgg.Models.DomainModels.Cart.CartItem.ShowOrderStatus.AddtionalItemForCart).ToList())
+                  {
+            <tr class="ItemListTr CartItemListItem" data-Itemvalue="@(item.ItemID)" data-ItemCategory="@(item.CategoryID)">
+                <td class="ItemListTd BorderRight">
+                    <p class="Area">@item.CountryofOrigin<br />
+                        <span>@(item.DelvDate)天到貨</span></p>
+                </td>
+                <td class="ItemListTd">
+                    <div class="PicArtBox">
+                        @*<a href="~/item?itemid=@(item.ItemID)">*@
+                        <a href="@(string.Format("/item?itemid={0}&categoryid={1}&StoreID={2}", item.ItemID, item.CategoryID, item.StoreID))">
+                            <div class="pic ItemListPic">
+                                <img src="@(item.ImagePath)" alt=""></div>
+                        </a>@*產品圖片*@
+                        @*<a href="~/item?itemid=@(item.ItemID)">*@
+                        <a href="@(string.Format("/item?itemid={0}&categoryid={1}&StoreID={2}", item.ItemID, item.CategoryID, item.StoreID))">
+                            <h3 class="Boldtext">@(item.ItemName)</h3>
+                        </a>@*產品名稱*@
+                        <div class="SpecialDeal gray">@*折扣優惠方案放置div*@
+                            @if (item.GroupDiscount == null || item.GroupDiscount.Count == 0)
+                            {
+                                <p class="SpecialDeal"><span style="background:yellow;padding:0 5px;">※</span> 本商品不適用優惠活動</p>
+                            }
+                            else if (item.GroupDiscount != null && item.GroupDiscount.Count > 0)
+                            {
+                                <!--<p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass1-1">折扣</span>5/11~5/31品牌滿額最高折抵1000元</p>-->
+                                foreach (TWNewEgg.Models.ViewModels.Cart.GroupDiscount_View objDiscountItem in item.GroupDiscount)
+                                {
+                                   <p class="SpecialDeal"><span class="SpecialDeal @objDiscountItem.CSSStyle">@objDiscountItem.EventName</span>@objDiscountItem.Desc</p>
+                                }
+                            }
+
+                            <p class="SpecialDeal CouponSpecialDeal" name="CouponSpecialDeal_@(item.ItemID)" style="@if (ItemGroup_Viewtemp.PromotionItemIDList.Where(x => x == item.ItemID).Count() != 0)
+                                                                                                                    {@("display:none")}">
+                                <span class="SpecialDeal SpecialDealClass2-1 couponClick" itemid="@item.ItemID" itemcategory="@item.CategoryID.ToString()" itemprice="@item.NTPrice">點選折價券</span>活動折抵:$<span id="CouponDiscount_@item.ItemID">0</span>
+                            </p>
+                        </div>
+                    </div>
+                </td>
+                <td class="ItemListTd" style="min-width: 30px">@(item.ItemPropertyName)</td>@*產品規格*@
+                <td class="ItemListTd">@(item.NTPrice.ToString("#,##0"))</td>@*單價*@
+                <td class="ItemListTd">
+                    <p id="@(item.ItemID)_MaxQty" style="display:none">@(item.MaxQty)</p>
+                    <p class="Modified">@*數量加減*@
+                        @if (ViewBag.TypeID == (int)TWNewEgg.Models.DomainModels.Cart.ShoppingCartDM.CartType.海外購物車)
+                        {
+                        <span class="less notless" data-Itemvalue="@(item.ItemID)"></span>
+                        <span id="@(item.ItemID)_Qty" class="quantity Boldtext"  data-Itemvalue="@(item.ItemID)" data-ItemPricdSingle="@(item.NTPrice)">@(item.Qty)</span>
+                        <span class="add notadd" data-Itemvalue="@(item.ItemID)"></span>
+                        }
+                        else
+                        {
+                        <span class="less onless @if (item.Qty == 1)
+                                                 { @("notless") }" data-Itemvalue="@(item.ItemID)" name="@("onless_" + item.ItemID)"></span>
+                        <span id="@(item.ItemID)_Qty" class="quantity Boldtext"  data-Itemvalue="@(item.ItemID)" data-ItemPricdSingle="@(item.NTPrice)">@(item.Qty)</span>
+                        <span class="add onadd @if (item.Qty == item.MaxQty)
+                                               { @("notadd") }" data-Itemvalue="@(item.ItemID)" name="@("onadd_" + item.ItemID)"></span>
+                        }
+                    </p>               
+                </td>
+                <td class="ItemListTd Boldtext red" id="@(item.ItemID)_PriceXQty">@((item.NTPrice * item.Qty).ToString("#,##0"))</td>@*小計*@
+                <td class="ItemListTd BorderLeft">
+                    <!-- 因我的最愛頁,尚未完成,我的最愛先暫停使用 -->
+                    <div class="Love neAddToFavorite" data-Itemvalue="@(item.ItemID)"></div>
+                    <div class="Delte neDelteToCart" data-Itemvalue="@(item.ItemID)"></div>
+                </td>
+            </tr>       
+                  }
+              }
+          }
+      }}    
+</table>
+
+
+    @{if (CartItemClass_ViewList != null)
+      {
+          foreach (var CartItemClass in CartItemClass_ViewList)
+          {
+              if (CartItemClass != null && CartItemClass.CartItemList.Where(x => x.ShowOrder == (int)TWNewEgg.Models.DomainModels.Cart.CartItem.ShowOrderStatus.AddtionalItemForCart).ToList().Count != 0)
+              {
+        <div class="Tit Boldtext grayBorder cartAddList"><i class="icon ServiceIcon Order-2"></i>加購明細</div>
+        <table class="ItemListTable darkGray">
+            @foreach (var item in CartItemClass.CartItemList.Where(x => x.TrackStatus == (int)TWNewEgg.Models.DBModels.TWSQLDB.Track.TrackStatus.國內購物車加價商品 || x.TrackStatus == (int)TWNewEgg.Models.DBModels.TWSQLDB.Track.TrackStatus.海外購物車加價商品 || x.TrackStatus == (int)TWNewEgg.Models.DBModels.TWSQLDB.Track.TrackStatus.任選館購物車加價商品).ToList())
+            {
+                <tr class="ItemListTr CartItemListItem" data-Itemvalue="@(item.ItemID)" data-ItemCategory="@(item.CategoryID)">
+                    <td class="ItemListTd BorderRight" style="width: 110px;">
+                        <p class="Area">@item.CountryofOrigin<br />
+                            <span>@(item.DelvDate)天到貨</span></p>
+                    </td>
+                    <td class="ItemListTd" style="width: 460px;">
+                        <div class="PicArtBox AdditionalItemDetial"   id="@("AdditionalItemDetial" + item.ItemID)" data-qty="@(item.Qty)"  data-ItemID="@item.ItemID">
+@*                            <a href="~/item?itemid=@(item.ItemID)"></a>*@
+                                <div class="pic ItemListPic" data-ItemID="@item.ItemID">
+                                    <img src="@(item.ImagePath)" alt=""></div>
+                            @*產品圖片*@
+                            @*<a href="~/item?itemid=@(item.ItemID)"></a>*@
+                                <h3 class="Boldtext">@(item.ItemName)</h3>
+                            @*產品名稱*@
+                            <div class="SpecialDeal gray">@*折扣優惠方案放置div*@
+                                @if (item.GroupDiscount == null || item.GroupDiscount.Count == 0)
+                                {
+                                    <p class="SpecialDeal"><span style="background:yellow;padding:0 5px;">※</span> 本商品不適用優惠活動</p>
+                                }
+                                else if (item.GroupDiscount != null && item.GroupDiscount.Count > 0)
+                                {
+                                <!--<p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass1-1">折扣</span>5/11~5/31品牌滿額最高折抵1000元</p>-->
+                                    foreach (TWNewEgg.Models.ViewModels.Cart.GroupDiscount_View objDiscountItem in item.GroupDiscount)
+                                    {
+                                   <p class="SpecialDeal"><span class="SpecialDeal @objDiscountItem.CSSStyle">@objDiscountItem.EventName</span>@objDiscountItem.Desc</p>
+                                    }
+                                }
+</div>
+                        </div>
+                    </td>
+                    <td class="ItemListTd" style="width: 80px;">@(item.ItemPropertyName)</td>@*產品規格*@
+                    <td class="ItemListTd">@(item.NTPrice.ToString("#,##0"))</td>@*單價*@
+                    <td class="ItemListTd" style="width: 110px;">
+                        <p id="@(item.ItemID)_MaxQty" style="display:none">@(item.MaxQty)</p>
+                        <p class="Modified">@*數量加減*@
+                            <span class="less Additionalonless @if (item.Qty == 1)
+                                                               { @("notless") }" data-Itemvalue="@(item.ItemID)" name="@("onless_" + item.ItemID)"></span>
+                            <span id="@(item.ItemID)_Qty" class="quantity Boldtext"  data-Itemvalue="@(item.ItemID)" data-ItemPricdSingle="@(item.NTPrice)">@(item.Qty)</span>
+                            <span class="add Additionalonadd @if (item.Qty == item.MaxQty)
+                                                             { @("notadd") }" data-Itemvalue="@(item.ItemID)" name="@("onadd_" + item.ItemID)"></span>
+                        </p>
+                    </td>
+                    <td class="ItemListTd Boldtext red" id="@(item.ItemID)_PriceXQty">@((item.NTPrice * item.Qty).ToString("#,##0"))</td>@*小計*@
+                    <td class="ItemListTd BorderLeft" style="width: 109px;">
+                        <!-- 因我的最愛頁,尚未完成,我的最愛先暫停使用 -->
+                        <div class="Delte neDelteToCart" data-Itemvalue="@(item.ItemID)" data-CategoryType="AddtionalItemForCart"></div>
+                    </td>
+                </tr>       
+            }
+        </table>
+              }
+          }
+      }}
+
+</div>
+
+@*↓↓↓↓↓↓符合特價活動商品列表↓↓↓↓↓↓*@
+<div id="PromotionItemIDList" style="display: none">@JsonConvert.SerializeObject(ItemGroup_Viewtemp.PromotionItemIDList)</div>
+
+@*↓↓↓↓↓↓價格總計↓↓↓↓↓↓*@
+<table class="TotalTable" id="CartTotal">
+    <tr class="TotalTr">
+        <th class="TotalTh Boldtext">總計：</th>
+        <td class="TotalTd Boldtext red" id="TotalPrice">
+            @if (CartItemList != null)
+            {
+                @(CartItemList.Sum(x => (x.NTPrice * x.Qty)).ToString("#,##0"))
+            }
+            else
+            {
+                @("0");
+            }
+        </td>
+    </tr>
+
+    <tr class="TotalTr">
+        <th class="TotalTh Boldtext">滿額折優惠：</th>
+        <td class="TotalTd Boldtext red" id="PromotionPriceSum">            
+            @if (CartItemList != null)
+            {
+                @(Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.DiscountSum).ToString("#,##0"))
+            }
+            else
+            {
+                @("0");
+            }</td>
+    </tr>
+    <tr class="TotalTr" style="display: none;">
+        <th class="TotalTh Boldtext">回饋金優惠：</th>
+        <td class="TotalTd Boldtext red">0</td>
+    </tr>
+    <tr class="TotalTr" style="display: none;">
+        <th class="TotalTh Boldtext">折價券優惠：</th>
+        <td id="TotalCouponValue" class="TotalTd Boldtext red">0</td>
+    </tr>
+</table>
+<hr />
+<p class="needPay Boldtext TextAlign-right">
+    應付金額　新台幣<span class="red NeedPayMoneyPrice" id="MainNeedPayMoneyPrice">
+    @if (CartItemList != null)
+    {
+        @((CartItemList.Sum(x => (x.NTPrice * x.Qty)) - Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.DiscountSum)).ToString("#,##0"))
+    }
+    else
+    {
+        @("0");
+    }</span><span>元</span>
+</p>
+
+@*↓↓↓↓↓↓加價購↓↓↓↓↓↓*@
+@if (Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.TypeQty) > 0)
+{
+    <div id="AdditionalItem">
+        <div id="loading" style="text-align:center; line-height:50px; "><img src="~/Themes/img/loading.gif" /> Loading ...</div>
+    </div>	 
+}
+
+  
+
+
+
+<div class="pay">
+    <div class="payMethod ColorBarTit">
+        <div class="icon"></div>
+        <p>選擇付款方式</p>
+    </div>
+    @{if (CartItemList != null)
+      {
+          if (CartItemList.Count > 0)
+          {
+    <div class="RadioForm">
+    @foreach (var item in PaytypeList)
+    {
+        if (item.CartPayType_View.Count > 0)
+        {
+            if (item.PayTypeGroupID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.信用卡)
+            {
+            <div class="CreditCardTit">
+                    <label>
+                        <input type="radio" name="paytype" value="@item.PayTypeGroupID" class="payMethodTit"/><span>@(item.PayTypeGroupName)</span></label>
+            </div>
+            <div class="CreditCard PayTypeGroupDetail" id="@("PayTypeGroupID_" + item.PayTypeGroupID + "_Detail")" style="display:none">
+                <div class="CreditCardInstallment">
+                    @{var SinglePayment = item.CartPayType_View.Where(x => x.PayType0rateNum == ((int)TWNewEgg.DB.TWSQLDB.Models.PayType.nPayType.信用卡一次付清) || x.PayType0rateNum == (int)TWNewEgg.DB.TWSQLDB.Models.PayType.nPayType.信用卡紅利折抵).ToList();
+                      var InstallmentPayment = item.CartPayType_View.Where(x => x.PayType0rateNum != ((int)TWNewEgg.DB.TWSQLDB.Models.PayType.nPayType.信用卡一次付清) && x.PayType0rateNum != (int)TWNewEgg.DB.TWSQLDB.Models.PayType.nPayType.信用卡紅利折抵).ToList();
+                      var InstallmentPaymentID = 0;
+                      if (SinglePayment != null)
+                      { 
+                        <div class="PayOff">一次：@*※*@
+                            @foreach (var SinglePayment_item in SinglePayment)
+                            {
+                                if (SinglePayment_item.PayType0rateNum == (int)TWNewEgg.DB.TWSQLDB.Models.PayType.nPayType.信用卡紅利折抵)
+                                {
+                                    <div id="bankAreaSelect">
+                                        <label>
+                                            <input type="radio" name="pay" class="CreditCardTypes"
+                                                value="@SinglePayment_item.PayType0rateNum" data-PayType0rateNum="@SinglePayment_item.PayType0rateNum"
+                                                data-insrate="@(1 + SinglePayment_item.InsRate)" data-installmentsnumber="@(SinglePayment_item.Installments)"/>@SinglePayment_item.Name
+                                                <br />
+                                                <span class="RedText">※信用卡紅利資料只記錄在發卡銀行，<br />實際折抵金額須由銀行精算後才能確定。<br />
+                                                    <a href="/Promotions/CardRedeem" target="_blank">(紅利折抵銀行規章)</a>
+                                                </span>
+                                        </label>
+                                        <div id="BankSelectDropList" style="display:none">
+                                            <p class="BankTit">銀行：</p>
+                                            <select id="BankInfoSelect"></select>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <label><input type="radio" name="pay" class="CreditCardTypes"
+                                        value="@SinglePayment_item.PayType0rateNum" data-PayType0rateNum="@SinglePayment_item.PayType0rateNum"
+                                        data-insrate="@(1 + SinglePayment_item.InsRate)" data-installmentsnumber="@(SinglePayment_item.Installments)"/>@SinglePayment_item.Name
+                                    </label><br />
+                                }
+                                @*<label><input type="radio" name="pay" class="CreditCardTypes"
+                                value="@SinglePayment_item.PayType0rateNum" data-PayType0rateNum="@SinglePayment_item.PayType0rateNum"
+                                data-insrate="@(1 + SinglePayment_item.InsRate)" data-installmentsnumber="@(SinglePayment_item.Installments)"/>@SinglePayment_item.Name
+                                </label><br />*@
+                            }
+                                @*<div id="backAreaSelect" style="display:none">
+                                    <select id="BackInfoSelect" style="width:450px">
+                                    </select>
+                                </div>*@
+                            @*<label><input type="radio" name="pay" class="CreditCardTypes"
+                                value="@SinglePayment.PayType0rateNum" data-PayType0rateNum="@SinglePayment.PayType0rateNum"
+                                data-insrate="@(1+SinglePayment.InsRate)" data-installmentsnumber="@(SinglePayment.Installments)"/>一次付清
+                            </label>*@
+
+@*                            <label><input type="radio" name="pay" class="CreditCardTypes"
+                                value="@SinglePayment.PayType0rateNum" data-PayType0rateNum="@SinglePayment.PayType0rateNum"
+                                data-insrate="@(1+SinglePayment.InsRate)" data-installmentsnumber="@(SinglePayment.Installments)"/>一次付清
+                            </label>*@
+                        </div>
+                        
+                      }
+                    <div class="Installment">
+                        <div class="InstallmentLeft">
+                            <p class="InstallmentTit">分期：</p>
+                            <div class="InstallmentInput">
+                                @foreach (var InstallmentPaymenttemp in InstallmentPayment)
+                                {
+                                <div class="CreditCardListGroup" data-Loweliminate="@if (PaytypeList_LowEliminateEightThousand.Where(x => x == InstallmentPaymenttemp.PayType0rateNum).ToList().Count > 0)
+                                                                                    { @("8000") }
+                                                                                    else
+                                                                                    { @("0") }">
+                                <label>
+                                    <input type="radio" name="pay" class="CreditCardTypes" 
+                                        value="@InstallmentPaymenttemp.PayType0rateNum" data-PayType0rateNum="@InstallmentPaymenttemp.PayType0rateNum" data-insrate="@(1 + InstallmentPaymenttemp.InsRate)" 
+                                        data-installmentsnumber="@(InstallmentPaymenttemp.Installments)"/>@InstallmentPaymenttemp.Name</label><br/>
+                                <div class="InstallmentRight CreditCardList" id="@("CreditCardTypes_" + InstallmentPaymenttemp.PayType0rateNum + "BankList")" style="display:none;">
+                                    <p class="BankTit">銀行：</p>
+                                    <div class="Bank">                                     
+                                    @foreach (var Banktemp in InstallmentPaymenttemp.BankIDwithName)
+                                    {
+                                                            <label>
+                                                                <input type="radio" name="bank" value="@Banktemp.BankID" data-verification="@Banktemp.PaymentVerification"/>@(Banktemp.BankName)</label>
+                                    }
+                                                        <div class="RedText 3DVerificationClass" id="3DVerification" style="display: none">
+                                        <p>1. 請選擇適用的銀行卡別來做信用卡分期。</p>
+                                        <p>2. 除不盡餘數於第一期收取。</p>
+                                        <p>3. 可接受VISA Master JCB 信用卡。</p>
+                                        <p>4. 實際分期金額將依各發卡銀行規定略有調整。</p>
+                                        <p>※為讓您享受網路安全購物樂趣，系統將進入信用卡3D安全認證視窗，以保障資料在傳送過程中的完整性及保密性，多了一道認證流程讓您網路交易更安全。</p>
+                                    </div>
+                                    </div>
+                                </div>                               
+                                </div>
+                                    InstallmentPaymentID++;
+                                }
+                            </div>
+                        </div>                       
+                        <div class="clear"></div>
+                    </div>
+                    
+                    }
+                </div>
+
+                <div class="clear"></div>
+                <div class="CreditCardTotalMoney">
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                            <div class="NeedPayMoney">
+                                NTD$ 
+                            <span class="NeedPayMoneyPrice" id="CreditCardTotalMoneyID">
+                            @if (CartItemList != null)
+                            {
+                                @((CartItemList.Sum(x => (x.NTPrice * x.Qty)) - Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.DiscountSum)).ToString("#,##0"))
+                            }
+                            else
+                            {
+                                @("NULL");
+                            }
+                            </span>
+                         </div>
+                         <div class="clear"></div>
+                    </div>
+                        <div class="CreditCardInstallmentMoney" id="CreditCardSinglePrice" style="display: none">
+                        <p>信用卡應付金額：</p>
+                            <div class="NeedPayMoney">
+                                NTD$ 
+                            <span class="NeedPayMoneyPrice">
+                            @if (CartItemList != null)
+                            {
+                                @((CartItemList.Sum(x => (x.NTPrice * x.Qty)) - Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.DiscountSum)).ToString("#,##0"))
+                            }
+                            else
+                            {
+                                @("NULL");
+                            }
+                            </span>
+                         </div>
+                        <div class="clear"></div>
+                    </div>
+                        <div class="CreditCardInstallmentMoney" id="CreditCardMultiPrice" style="display: none">
+                        <p>信用卡分期金額：</p>
+                            <div class="InstallmentMoney">NTD$ <span id="InstallmentMoneyPrice"></span>X <span id="InstallmentsNumber"></span>期</div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="RedText">
+                        <span>提醒您：</span>
+                        <p>當您在進行訂購流時程時，若於一小時內未完成付款表示未訂購成功，該訂單將會失效，如您仍需要該商品則需重新訂購，謝謝！</p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            }
+
+            else if (item.PayTypeGroupID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.信用卡紅利折抵)
+            {
+            <div class="BonusRedeemedTit">
+                <label>
+                    <input type="radio" name="paytype" value="@item.PayTypeGroupID" data-PayType0rateNum="@item.CartPayType_View.FirstOrDefault().PayType0rateNum" class="payMethodTit"/>
+                    <span>@(item.PayTypeGroupName)</span>
+                </label>
+
+            </div>
+            }
+
+            else if (item.PayTypeGroupID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.貨到付款)
+            {
+            <div class="CashOnDeliveryTit">
+                    <label>
+                        <input type="radio" name="paytype" value="@item.PayTypeGroupID" data-PayType0rateNum="@item.CartPayType_View.FirstOrDefault().PayType0rateNum" class="payMethodTit"/><span>@(item.PayTypeGroupName)</span></label>
+            </div>
+            <div class="CashOnDelivery PayTypeGroupDetail" id="@("PayTypeGroupID_" + item.PayTypeGroupID + "_Detail")" style="display:none">
+                <div class="CashOnDeliveryTotalMoney">
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                            <div class="NeedPayMoney">
+                                NTD$ 
+                            <span class="NeedPayMoneyPrice">
+                            @if (CartItemList != null)
+                            {
+                                @((CartItemList.Sum(x => (x.NTPrice * x.Qty)) - Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.DiscountSum)).ToString("#,##0"))
+                            }
+                            else
+                            {
+                                @("NULL");
+                            }
+                            </span>
+                         </div>
+                         <div class="clear"></div>
+                    </div>
+                    <div class="CashOnDeliveryInstructions">
+                        <p>貨到付款使用說明：</p>
+                        <span>1.</span>
+                        <span>送貨收款時，僅收現金。</span>
+                        <div class="clear"></div>
+                        <span>2.</span>
+                        <span style="width: 705px;">商品送達前物流人員會與收件人電話聯絡，如配送三次都無法聯繫上收件人，訂單將會自動取消。</span>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            }
+
+            else if (item.PayTypeGroupID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.超商付款)
+            {
+            <div class="MartPaymentsTit">
+                    <label>
+                        <input type="radio" name="paytype" value="@item.PayTypeGroupID" data-PayType0rateNum="@item.CartPayType_View.FirstOrDefault().PayType0rateNum" data-BankID="@item.CartPayType_View.FirstOrDefault().BankID" class="payMethodTit"/><span>@(item.PayTypeGroupName)</span></label>
+            </div>
+            <div class="MartPayments PayTypeGroupDetail" id="@("PayTypeGroupID_" + item.PayTypeGroupID + "_Detail")" style="display:none">
+                <div class="MartPaymentsTotalMoney">
+                    <div class="SelectMart">
+                         <p>請選擇：</p>
+                         <div class="HiLifeMart MartIMG">
+                                <a href="#">
+                                    <img src="/Themes/img/ShoppingProcess/HiLifeIMG.jpg"></a>
+                         </div>
+                         <div class="SevenElevenMart MartIMG">
+                                <a href="#">
+                                    <img src="/Themes/img/ShoppingProcess/SevenElevenIMG.jpg"></a>
+                         </div>
+                         <div class="FamilyMart MartIMG">
+                                <a href="#">
+                                    <img src="/Themes/img/ShoppingProcess/FamilyMartIMG.jpg"></a>
+                         </div>
+                         <div class="OkMart MartIMG">
+                                <a href="#">
+                                    <img src="/Themes/img/ShoppingProcess/OkMartIMG.jpg"></a>
+                         </div>
+                         <div class="clear"></div>
+                    </div>
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                            <div class="NeedPayMoney">
+                                NTD$ 
+                            <span class="NeedPayMoneyPrice">
+                            @if (CartItemList != null)
+                            {
+                                @((CartItemList.Sum(x => (x.NTPrice * x.Qty)) - Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.DiscountSum)).ToString("#,##0"))
+                            }
+                            else
+                            {
+                                @("NULL");
+                            }
+                            </span>
+                         </div>
+                         <div class="clear"></div>
+                    </div>
+                    <div class="MartPaymentsInstructions">
+                        <p>超商付款使用說明：</p>
+                        <p>選用「萊爾富取貨付款」的買家僅需直接至櫃檯繳費即可領取商品。</p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            }
+
+            else if (item.PayTypeGroupID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.實體ATM)
+            {
+            <div class="EntityATMTit">
+                    <label>
+                        <input type="radio" name="paytype" value="@item.PayTypeGroupID" data-PayType0rateNum="@item.CartPayType_View.FirstOrDefault().PayType0rateNum" class="payMethodTit"/><span>@(item.PayTypeGroupName)</span></label>
+            </div>
+            <div class="EntityATM PayTypeGroupDetail" id="@("PayTypeGroupID_" + item.PayTypeGroupID + "_Detail")" style="display:none">
+                <div class="EntityATMTotalMoney">
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                            <div class="NeedPayMoney">
+                                NTD$ 
+                            <span class="NeedPayMoneyPrice">
+                            @if (CartItemList != null)
+                            {
+                                @((CartItemList.Sum(x => (x.NTPrice * x.Qty)) - Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.DiscountSum)).ToString("#,##0"))
+                            }
+                            else
+                            {
+                                @("NULL");
+                            }
+                            </span>
+                         </div>
+                         <div class="clear"></div>
+                    </div>
+                    <p>請選擇以下銀行付款，任何金融卡皆可使用：</p>
+                    <div class="EntityATMSelectBank">
+                        @foreach (var CartPayType_Viewtemp in item.CartPayType_View)
+                        {
+                            foreach (var Banktemp in CartPayType_Viewtemp.BankIDwithName)
+                            {
+                                <label>
+                                    <input type="radio" name="bank" value="@Banktemp.BankID"/>@(Banktemp.BankName)</label>
+                            }
+                        }
+                        <div class="clear"></div>
+                    </div>
+                    <div class="EntityATMPrecautions">
+                        <p>注意事項：</p>
+                        <p>1.若您選擇以上任一家銀行金融卡付款，可免除跨行手續費。</p>
+                        <p>2.若您沒有使用以上銀行之金融卡付款，需負擔跨行手續費15元。</p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            }
+
+            else if (item.PayTypeGroupID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.網路ATM)
+            {
+            <div class="WebATMTit">
+                    <label>
+                        <input type="radio" name="paytype" value="@item.PayTypeGroupID" data-PayType0rateNum="@item.CartPayType_View.FirstOrDefault().PayType0rateNum" data-BankID="@item.CartPayType_View.FirstOrDefault().BankID" class="payMethodTit"/><span>@(item.PayTypeGroupName)</span></label>
+            </div>
+            <div class="WebATM PayTypeGroupDetail" id="@("PayTypeGroupID_" + item.PayTypeGroupID + "_Detail")" style="display:none">
+                <div class="WebATMTotalMoney">
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                            <div class="NeedPayMoney">
+                                NTD$
+                            <span class="NeedPayMoneyPrice">
+                            @if (CartItemList != null)
+                            {
+                                @((CartItemList.Sum(x => (x.NTPrice * x.Qty)) - Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.DiscountSum)).ToString("#,##0"))
+                            }
+                            else
+                            {
+                                @("NULL");
+                            }
+                            </span>
+                         </div>
+                         <div class="clear"></div>
+                    </div>
+                    <div class="WebATMInstructions">
+                        <p>網路ATM使用說明：</p>
+                        <p>1.請自備讀卡機。</p>
+                        <p>2.第一銀行以外的晶片金融卡，銀行會另加收跨行手續費$15。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            }
+
+            else if (item.PayTypeGroupID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.儲值支付)
+            {
+            <div class="PrepaidPaymentTit">
+                    <label>
+                        <input type="radio" name="paytype" value="@item.PayTypeGroupID" data-PayType0rateNum="@item.CartPayType_View.FirstOrDefault().PayType0rateNum" data-BankID="@item.CartPayType_View.FirstOrDefault().BankID" class="payMethodTit"/><span>@(item.PayTypeGroupName)</span></label>
+            </div>
+            <div class="PrepaidPayment PayTypeGroupDetail" id="@("PayTypeGroupID_" + item.PayTypeGroupID + "_Detail")" style="display:none">
+                <div class="AllPay">
+                    <div class="AllPayUseProcess">
+                        <p>歐付寶流程：</p>
+                        <p style="width: 695px;">使用歐付寶付款，需先註冊成為會員，完成「申請開通」儲值後，才能於新蛋全球生活網上使用歐付寶儲值支付付款。</p>
+                    </div>
+                    <div class="PrepaidTeaching">
+                        <p>歐付寶開通儲值支付教學可參考：</p>
+                        <p>http://www.allpay.com.tw/Service/FAQTopUp</p>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            }
+
+            else if (item.PayTypeGroupID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.電匯)
+            {
+            <div class="WebATMTit">
+                    <label>
+                        <input type="radio" name="paytype" value="@item.PayTypeGroupID" data-PayType0rateNum="@item.CartPayType_View.FirstOrDefault().PayType0rateNum" data-BankID="@item.CartPayType_View.FirstOrDefault().BankID" class="payMethodTit"/><span>@(item.PayTypeGroupName)</span></label>
+            </div>
+            <div class="WebATM PayTypeGroupDetail" id="@("PayTypeGroupID_" + item.PayTypeGroupID + "_Detail")" style="display:none">
+                <div class="WebATMTotalMoney">
+                    <div class="NeedPay">
+                         <p>應付金額：</p>
+                            <div class="NeedPayMoney">
+                                NTD$
+                            <span class="NeedPayMoneyPrice">
+                            @if (CartItemList != null)
+                            {
+                                @((CartItemList.Sum(x => (x.NTPrice * x.Qty)) - Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.DiscountSum)).ToString("#,##0"))
+                            }
+                            else
+                            {
+                                @("NULL");
+                            }
+                            </span>
+                         </div>
+                         <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            }
+        }
+    }
+    </div>
+          }
+      }}
+</div>
+
+@*iprospect feeds start*@
+
+<script>
+    dataLayer.push({
+        'event': 'myCart',
+        'sitetype': 'd',
+        'productid': '@(string.Join("|", foriprospectItems.Select(x => x.ItemID)))',
+        'prices': '@(string.Join("|", foriprospectItems.Select(x => x.NTPrice)))',
+        'quantities': '@(string.Join("|", foriprospectItems.Select(x => x.Qty)))',
+        'totalValue': '@((CartItemList.Sum(x => (x.NTPrice * x.Qty)) - Model.Where(x => x.TypeID == ViewBag.TypeID).Sum(x => x.DiscountSum)))'
+    });
+</script>
+
+
+
+@*iprospect feeds end*@
+
+@*criteo feeds start*@
+
+<script>
+    var criteoProductList = [];
+    criteoProductList.push(
+        @for (int i = 0; i < foriprospectItems.Count; i++)
+        {
+            @Html.Raw("{" + (string.Format("id:\"{0}\",price:{1},quantity:{2}", foriprospectItems[i].ItemID, foriprospectItems[i].NTPrice, foriprospectItems[i].Qty)) + "}");
+                                                                                                                                                                            if (i != foriprospectItems.Count - 1)
+                                                                                                                                                                            { 
+                @Html.Raw(",");
+                                                                                                                                                                            }
+        }
+        );
+    dataLayer.push({
+        'PageType': 'BasketPage',
+        'email': '' + twNewegg().loginMail(),
+        'ProductBasketProducts': criteoProductList
+    });
+
+    var BankInfoArray = [];
+    @if (bankInfo != null)
+    {
+        foreach (var backitem in bankInfo)
+        {
+            foreach (var itemBankIDwithName in backitem.BankIDwithName)
+            {
+            <text>
+    BankInfoArray.push({
+                'bankid': '@itemBankIDwithName.BankID',
+                'bankMax': '@itemBankIDwithName.ConsumeMax',
+        'bankName': '@itemBankIDwithName.BankName',
+        'bankMin': '@itemBankIDwithName.ConsumeMin'
+
+            });
+    </text>
+            }
+        }
+    }
+
+</script>
+
+
+
+@*criteo feeds end*@
+
+
+@*Bank structur Move start*@
+
+<script>
+    $(function () {
+        $(".PayOff>label , #bankAreaSelect>label").click(function () {
+            $(".InstallMentBank").remove();
+        });
+        $(".CreditCardListGroup").each(function () {
+            $(this).children("label").click(function () {
+                var _parent = $(this).parent(".CreditCardListGroup");
+
+                structureMove(_parent);
+
+            });
+            
+        });
+
+        function structureMove(obj) {
+            var _content = obj.find(".CreditCardList").html();
+             
+            $(".CreditCardInstallment").find(".InstallMentBank").remove();
+            $(".PayOff").after("<div class='InstallMentBank'>" + _content + "</div>");
+            obj.find(".CreditCardList").hide();
+
+            // 按下銀行後,出現認證文字
+            $("input[name='bank']").on("change", function () {
+                $("div.3DVerificationClass").fadeOut();
+                if ($(this).attr('data-verification') == "@((int)TWNewEgg.DB.TWSQLDB.Models.PayType.PaymentVerification.三Ｄ驗證)") {
+                    $("div.3DVerificationClass").fadeIn();
+                }
+            });
+
+        }
+    });
+</script>
+
+@*Bank structur Move end*@

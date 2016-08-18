@@ -1,0 +1,428 @@
+.clear {
+  clear: both;
+}
+
+.topper .searchbar .input {
+  background: #fff;
+}
+
+.banner {
+  float: left;
+  margin-left: 0;
+  width: 744px;
+  height: 522px;
+}
+@media screen and (max-width: 1280px) {
+  .banner {
+    width: 545px;
+  }
+}
+.banner .banner-img {
+  position: relative;
+  width: 744px;
+  height: 486px;
+}
+.banner .banner-img a {
+  border-bottom: 0;
+}
+.banner .banner-img img {
+  width: 744px;
+  height: 486px;
+}
+.banner .tab {
+  margin: 0 6px;
+  height: 36px;
+}
+.banner .tab ul:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.banner .tab li {
+  position: relative;
+  float: left;
+  width: 16.6%;
+  height: 26px;
+  color: #fff;
+  background: #9d9d9d;
+  border-left: 2px solid #9d9d9d;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+.banner .tab li + li {
+  border: 0;
+}
+.banner .tab li:hover, .banner .tab li.selected {
+  background: #606060;
+  border-color: #606060;
+}
+.banner .tab li:hover .arrow, .banner .tab li.selected .arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 4px 5px 4px;
+  border-color: transparent transparent #606060 transparent;
+  line-height: 0px;
+  _border-color: #000 #000 #606060 #000;
+  _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000');
+}
+.banner .tab li .arrow {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 4px 5px 4px;
+  border-color: transparent transparent #9d9d9d transparent;
+  line-height: 0px;
+  _border-color: #000 #000 #9d9d9d #000;
+  _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000');
+}
+
+.IndexRightBanner {
+  position: relative;
+  z-index: 1;
+  width: 223px;
+  height: 520px;
+  overflow: hidden;
+}
+.IndexRightBanner img {
+  display: block;
+}
+
+.indexBoxArea {
+  margin-bottom: 25px;
+}
+.indexBoxArea:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+
+.limitedArea {
+  float: left;
+  width: 205px;
+  background: #FFFFFF;
+  cursor: pointer;
+}
+.limitedArea .tit {
+  width: 203px;
+  height: 47px;
+  color: #fff;
+  background: url(/Themes/img/limitedAreaBG.jpg) no-repeat -1px top;
+  font-weight: bold;
+  font-size: 23px;
+  text-align: center;
+  line-height: 50px;
+  border: 2px solid #C95B66;
+  border-bottom: 0;
+  border-top: 0;
+}
+.limitedArea .tit img {
+  vertical-align: middle;
+  padding: 0 10px 7px 0;
+}
+.limitedArea .limited {
+  width: 203px;
+  height: 307px;
+  border: 2px solid #C95B66;
+  border-top: 0;
+}
+.limitedArea .limited .box {
+  margin: 0;
+  border: 0;
+  position: relative;
+  width: 100%;
+}
+.limitedArea .limited .box .discount {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*background: url(/Themes/img/NewEggFlash/FlashDiscountHomeBg.png) no-repeat top -2px left -1px;*/
+  width: 78px;
+  height: 87px;
+  z-index: 100;
+}
+.limitedArea .limited .box .discount p {
+  position: absolute;
+  top: 7px;
+  left: 6px;
+  font-size: 13px;
+  border-bottom: 2px solid #EDBFC3;
+  font-weight: bolder;
+}
+.limitedArea .limited .box .discount p span {
+  left: -2px;
+  position: relative;
+  font-size: 30px;
+  color: #CD4754;
+  font-weight: normal;
+}
+.limitedArea .limited .box .TimeHeight {
+  height: 40px;
+}
+.limitedArea .limited .box .TimeHeight .Time .countdowntxt {
+  margin-top: 9px;
+  width: 12px;
+  float: right;
+  font-size: 13px;
+  white-space: normal;
+  margin-right: 5px;
+  font-weight: bolder;
+  padding: 1px 0;
+}
+.limitedArea .limited .box .TimeHeight .Time .countdown {
+  max-width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: right;
+  float: right;
+  margin-top: 9px;
+  font-size: 18px;
+}
+.limitedArea .limited .box .TimeHeight .Time .countdown .countdownnumber {
+  float: right;
+}
+.limitedArea .limited .box .TimeHeight .Time .countdown span {
+  display: inline-block;
+  margin: 0 1px;
+  padding: 5px 0px;
+}
+.limitedArea .limited .box .TimeHeight .Time .countdown .hour, .limitedArea .limited .box .TimeHeight .Time .countdown .minute, .limitedArea .limited .box .TimeHeight .Time .countdown .second {
+  background: #929292;
+  padding: 5px 3px;
+  border-radius: 4px;
+  display: inline-block;
+  color: #FFFFFF;
+}
+.limitedArea .limited .box h3 {
+  height: 37px;
+  line-height: 18px;
+  white-space: pre-line;
+}
+.limitedArea .limited .box .pic {
+  margin: 10px auto 5px;
+  width: 170px;
+  height: 170px;
+  text-align: center;
+}
+.limitedArea .limited .box .pic img {
+  max-width: 170px;
+  max-height: 170px;
+}
+.limitedArea .limited .box .txt {
+  margin: 0 5px;
+}
+.limitedArea .limited .box .txt a, .limitedArea .limited .box .txt a:hover, .limitedArea .limited .box .txt a:visited {
+  border-bottom: 0;
+  color: inherit;
+}
+.limitedArea .limited .box .MoreProduct {
+  width: 100%;
+  height: 16px;
+  background-color: #DB7E87;
+  text-align: right;
+  color: #FFFFFF;
+  padding: 2px 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+.limitedArea .limited .box .MoreProduct .doublearrow {
+  display: block;
+  width: 13px;
+  height: 11px;
+  background: url(/Themes/img/doublearrow.png) no-repeat;
+  float: right;
+  margin-top: 2px;
+  margin-right: 5px;
+}
+.limitedArea .limited .box .MoreProduct p {
+  float: right;
+  line-height: 16px;
+}
+.limitedArea .limited .box .price {
+  float: right;
+  /*height:18px;*/
+  overflow: hidden;
+  font-size: 15px;
+  white-space: pre-line;
+  text-align: right;
+  /*color:#9C6666;*/
+}
+
+.mainClassification {
+  float: right;
+  width: 956px;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 3px solid #EB8A54;
+}
+@media screen and (max-width: 1280px) {
+  .mainClassification {
+    width: 784px;
+  }
+}
+.mainClassification .tab .tabBG {
+  display: block;
+  width: 176px;
+  height: 100%;
+  float: left;
+  background: url("/Themes/img/tabBG.png") no-repeat;
+  line-height: 47px;
+  font-size: 23px;
+  color: #fff;
+  font-weight: bolder;
+}
+@media screen and (max-width: 1280px) {
+  .mainClassification .tab .tabBG {
+    width: 148px;
+    background-position: -10px;
+  }
+}
+.mainClassification .tab ul {
+  float: left;
+  margin-top: 6px;
+}
+.mainClassification .tab ul li {
+  float: left;
+  width: 130px;
+  height: 31px;
+  color: #666666;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: lighter;
+  text-align: center;
+  padding: 5px 0;
+  line-height: 31px;
+  cursor: pointer;
+  background: #fbd9c6;
+  position: relative;
+}
+.mainClassification .tab ul li i {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 25px;
+  overflow: hidden;
+  border-left: 1px dashed #969797;
+  margin: 3px 0;
+  line-height: 25px;
+}
+.mainClassification .tab ul li:first-child i {
+  border-left: 0px;
+}
+.mainClassification .tab ul li:hover, .mainClassification .tab ul li.active {
+  color: #EB8A54;
+  font-weight: bold;
+  background-color: #fff;
+  border-left: 3px solid #EB8A54;
+  border-right: 3px solid #EB8A54;
+  width: 124px;
+}
+.mainClassification .tab ul li:hover > i, .mainClassification .tab ul li:hover + li > i, .mainClassification .tab ul li.active > i, .mainClassification .tab ul li.active + li > i {
+  border-left: 0px;
+}
+@media screen and (max-width: 1280px) {
+  .mainClassification .tab ul li {
+    width: 106px;
+  }
+  .mainClassification .tab ul li:hover, .mainClassification .tab ul li.active {
+    width: 100px;
+  }
+}
+.mainClassification .boxArea {
+  /*padding:40px 0 0 0;*/
+  background-color: #FFFFFF;
+}
+.mainClassification .boxArea:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.mainClassification .boxArea ul {
+  width: 100%;
+  height: 256px;
+  overflow: hidden;
+  padding: 49px 0 0 0;
+}
+.mainClassification .box {
+  width: 170px;
+  padding: 0px 34px;
+  border: 0;
+  position: relative;
+}
+.mainClassification .box + .box {
+  border-left: 1px dashed #d5d5d5;
+}
+.mainClassification .box .pic {
+  margin: 0;
+  width: 170px;
+  height: 170px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.mainClassification .box .pic img {
+  max-width: 170px;
+  max-height: 170px;
+}
+.mainClassification .box .txt {
+  height: 60px;
+  text-align: left;
+}
+.mainClassification .box .price {
+  float: right;
+}
+.mainClassification .TOP1::before, .mainClassification .TOP2::before, .mainClassification .TOP3::before, .mainClassification .TOP4::before {
+  content: "";
+  border: 1px solid #EB8A54;
+  width: 76px;
+  height: 26px;
+  margin: 0 auto;
+  display: block;
+  line-height: 27px;
+  color: #ff5835;
+  font-weight: bold;
+  font-size: 18px;
+  position: absolute;
+  top: -40px;
+  left: 80px;
+}
+.mainClassification .TOP1::before {
+  content: "TOP 1";
+}
+.mainClassification .TOP2::before {
+  content: "TOP 2";
+}
+.mainClassification .TOP3::before {
+  content: "TOP 3";
+}
+.mainClassification .TOP4::before {
+  content: "TOP 4";
+}
+.mainClassification .divider {
+  float: left;
+  margin: 20px 0 18px;
+  width: 1px;
+  height: 200px;
+  border-left: thin solid #D5D5D5;
+  margin-left: 18px;
+}
+@media screen and (max-width: 1280px) {
+  .mainClassification .box {
+    padding: 0px 45px;
+    margin-bottom: 70px;
+  }
+}

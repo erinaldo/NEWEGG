@@ -1,0 +1,148 @@
+﻿@model Dictionary<int, Dictionary<TWNewEgg.Models.ViewModels.Advertising.AdvEventType, List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>>>
+
+@{
+    Layout = null;
+    List<int> listShowOrder = null;
+    List<string> picValue = null;
+    TWNewEgg.Models.ViewModels.Advertising.AdvEventType objAdvEventType = null;
+    List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay> listAdvEventDisplay = null;
+    Dictionary<TWNewEgg.Models.ViewModels.Advertising.AdvEventType, List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>> objGridDictItem = null;
+    string strImageServer = "";
+    List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay> listShowAdvEventDisply = null;
+    string strGridBannerTab = "";
+    int i = 0;
+
+    if (Model != null)
+    {
+        //listShowOrder =>6
+        listShowOrder = new List<int>(Model.Keys);
+
+        // 根據連線方式決定圖檔機
+        strImageServer = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsImgDomain") ?? string.Empty;
+        listShowAdvEventDisply = new List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>();
+
+        foreach (int num in listShowOrder)
+        {
+            objGridDictItem = Model[num];
+            objAdvEventType = objGridDictItem.Keys.FirstOrDefault();
+
+            //先組合好Image的標籤
+            strGridBannerTab += "<li>" + "<i>" + objAdvEventType.AdvTypeName + "</i>" + "<span class='tabarrow'></span>" + "</li>";
+        }
+    }
+}
+
+<div class="slider mainClassification">
+    <!-- 顯示標籤 -->
+    <div class="tab">
+        <span class="tabBG">熱銷排行榜</span>
+        <ul>
+            @if (strGridBannerTab.Length > 0)
+            {
+                @Html.Raw(@strGridBannerTab)
+            }
+        </ul>
+    </div>
+    <!-- end of 顯示標籤 -->
+
+    <!-- 顯示標籤下的圖檔 -->
+    @if (listShowOrder != null)
+    {
+        i = 0;
+        foreach (int num in listShowOrder)
+        {
+            objGridDictItem = Model[num];
+            objAdvEventType = objGridDictItem.Keys.FirstOrDefault();
+            listAdvEventDisplay = objGridDictItem[objAdvEventType];
+
+            //預設顯示第一組標籤下的圖檔
+            if (i == 0)
+            {
+                i++;
+                @Html.Raw("<div class='boxArea' style='display:none;'>")
+            }
+            else
+            {
+                @Html.Raw("<div class='boxArea' style='display:none;'>")
+            }
+        <ul>
+            @if (listAdvEventDisplay != null)
+            {
+                //共幾張圖
+                for (int j = 0; j < listAdvEventDisplay.Count; j++)
+                {
+                    /*string divline = "<div class='divider'></div>";*/ //每張圖旁邊的線
+                    string divline = " ";
+
+                    //預設顯示4張
+                    if (j < 4)
+                    { 
+                        @Html.Raw(String.Format("<li class=\"box TOP{6}\"><div class=\"pic\"><a href='{0}'><img src='{1}' alt='{2}' title='{2}' class=\"itemImgCen\" /></a></div><a href='{0}'><div class=\"txt\"><h3>{2}</h3><span class='price'>{3}</span><span class='marketPrice'>{5}</span></div></a></li>{4}", listAdvEventDisplay[j].LinkUrl, strImageServer + listAdvEventDisplay[j].ImgUrl, listAdvEventDisplay[j].Title, listAdvEventDisplay[j].SalePrice==0?"":(listAdvEventDisplay[j].SalePrice).ToString("C0",new System.Globalization.CultureInfo("en-US")), j<3?(listAdvEventDisplay.Count<3?(j<=(listAdvEventDisplay.Count-1)?"":divline):divline):"",listAdvEventDisplay[j].MarketPrice==0?"":listAdvEventDisplay[j].MarketPrice.ToString("C0",new System.Globalization.CultureInfo("en-US")), j + 1)) 
+                    }
+                    else
+                    {
+                        @*Don't load too much image at homepage.*@
+                        @*@Html.Raw(String.Format("<li class=\"box\" style=\"display:none;\"><div class=\"pic\"><a href='{0}'><img src='{1}' class=\"itemImgCen\" /></a></div><a href='{0}'><div class=\"txt\"><h3>{2}</h3><span class='price'>{3}</span><span class='marketPrice'>{4}</span></div></a></li>", listAdvEventDisplay[j].LinkUrl, strImageServer +"/"+ listAdvEventDisplay[j].ImgUrl, listAdvEventDisplay[j].Title, listAdvEventDisplay[j].SalePrice==0?"":(listAdvEventDisplay[j].SalePrice).ToString("C0",new System.Globalization.CultureInfo("en-US")),listAdvEventDisplay[j].MarketPrice==0?"":listAdvEventDisplay[j].MarketPrice.ToString("C0",new System.Globalization.CultureInfo("en-US"))))*@
+                    }
+                }
+            }
+        </ul>
+        @Html.Raw("</div>")
+        }
+    }
+
+    <!-- end of 顯示標籤下的圖檔 -->
+
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var startNumber = Math.floor((Math.random() * @(listShowOrder == null ? 0 : listShowOrder.Count)));
+        $("div.slider div.boxArea").eq(startNumber).show(); //第一次進來顯示第一個Tab的圖
+        $(".slider .tab ul li").eq(startNumber).addClass("active");
+        var numIndex = 0;
+        var width = screen.width; //取得螢幕寬度
+
+        //點標籤時, 顯示相對應的圖檔區
+        $(".slider .tab ul li").bind("mouseenter", function () {
+            numIndex = $(this).index();
+            $(".slider .boxArea").hide();
+            var section = $(".slider .boxArea").eq(numIndex);
+            //section.find('img').css('margin-top', 0);
+            section.show();
+        });
+
+        $(".slider .tab ul li").hover(function () {
+            numIndex = $(this).index();
+            /*var bgColor = "";
+            switch (numIndex) {
+                case (numIndex = 0):
+                    bgColor = "D6AE7A";
+                    break;
+                case (numIndex = 1):
+                    bgColor = "87CDCF";
+                    break;
+                case (numIndex = 2):
+                    bgColor = "82B964";
+                    break;
+                case (numIndex = 3):
+                    bgColor = "669BD3";
+                    break;
+                case (numIndex = 4):
+                    bgColor = "C4C2C2";
+                    break;
+                case (numIndex = 5):
+                    bgColor = "EC7375";
+                    break;
+                default:
+                    bgColor = "D6AE7A";
+            }
+            $(".slider .tab ul li a").removeAttr("style").attr("style", "").eq(numIndex).removeAttr("style").attr("style", "background-color:#" + bgColor);*/
+            $(".slider .tab ul li").removeClass("active").eq(numIndex).addClass("active");
+
+        });
+
+        /* ------ 產品圖放大1.5倍 ------ */
+        sectionImgVerticalAlignCenter($("div.slider .boxArea"));
+    });
+</script>

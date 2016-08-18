@@ -1,0 +1,256 @@
+﻿@model TWNewEgg.Models.ViewModels.Cart.CartResults_View
+@{
+    var SalesOrder_ViewList = Model.SalesOrder_ViewList;
+    var CartPayType_View = Model.CartPayType_View;
+    var SalesOrder_ViewListFirst = Model.SalesOrder_ViewList.FirstOrDefault();
+  }
+
+@Styles.Render("~/Themes/css/ShoppingProcess.css")
+@Styles.Render("~/Themes/css/ElementLibrary.css")
+@Styles.Render("~/Themes/css/ElementLibrary_Layout.css")
+@Styles.Render("~/Themes/css/ShoppingCart.css")
+
+<Script>
+    $(document).ready(function () {
+        jQuery("html,body").animate({ scrollTop: 0 }, 500);
+        twNewegg().cart().cartMethod("readFromCart", { categoryIds: [], categoryTypes: [], successMethods: [countCartNumber], successParas: [[]] });
+    });
+</Script>
+
+<div class="ShoppingProcess darkGray" style="width:1004px;margin:0 auto;">
+    @*↓↓↓↓↓↓付款步驟說明圖示↓↓↓↓↓↓*@
+    <div class="ShoppingProcess_step_1_IMG">
+        <img src="/Themes/img/ShoppingProcess/ShoppingProcess_step_3_IMG.jpg">
+    </div>
+
+    <div class="Remind">
+       <div class="TextRemind">
+            <p>感謝您的購買</p><br/>
+            <p>別忘了下一步：</p>
+            <p>台灣新蛋會直接將商品寄送至您家，提醒買家僅於3─5天時間內直接繳費領取商品喔！</p>
+       </div>
+       @*<div class="ImgRemind">
+            <span>
+                <p>提醒您：</p>
+                <p>還有一台購物車尚未結帳唷！</p>
+            </span>
+       </div>*@
+       <div class="ImgDialogRemind">
+            <div class="ImgRemind"></div>
+            @if(Model.OtherCartNumber != 0)
+            {
+            <div class="DialogRemind">
+                    <div class="NoCheckoutNumber">
+                        <p>提醒您：</p>
+                        <span>還有</span>
+                        <span>@(Model.OtherCartNumber)</span>
+                        <span>台購物車尚未結帳唷！</span>
+                    </div>
+            </div>
+            }
+       </div>
+       <div class="clear"></div>
+
+       <div class="Printer" onclick="window.print()">
+            <span class="PrinterIMG"></span>
+            <p>列印本頁</p>
+            <div class="clear"></div>
+       </div>
+    </div>
+    
+    @*↓↓↓↓↓↓訂單確認明細↓↓↓↓↓↓*@
+    <div class="OrderDetails ColorBarTit"><div class="icon"></div>訂單確認明細</div>
+
+
+    @*↓↓↓↓↓↓商品列表↓↓↓↓↓↓*@
+    <div class="carts">
+    <table class="ItemListTable darkGray">
+       <tr class="ItemListTr">
+            <th class="ItemListTh NoBorder Boldtext BorderRight" style="width:110px;">發貨區域</th>
+            <th class="ItemListTh NoBorder Boldtext BorderRight" style="width:110px;">訂單編號</th>
+            <th class="ItemListTh NoBorder Boldtext" style="width:500px;">商品名稱/配件選購</th>
+            <th class="ItemListTh NoBorder Boldtext" style="width:50px;">規格</th>
+            <th class="ItemListTh NoBorder Boldtext">單價</th>
+            <th class="ItemListTh NoBorder Boldtext" style="width:100px;">數量</th>
+            <th class="ItemListTh NoBorder Boldtext">小計</th>
+        </tr>
+        @foreach(var SalesOrder_ViewListtemp in SalesOrder_ViewList){
+            var SalesOrderItem_ViewListItemGroup = SalesOrder_ViewListtemp.SalesOrderItem_ViewList.GroupBy(x=>x.ItemID).ToList();
+            foreach (var SalesOrderItem_ViewListItemGrouptemp in SalesOrderItem_ViewListItemGroup) {
+                var SalesOrderItem_ViewListtemp = SalesOrderItem_ViewListItemGrouptemp.FirstOrDefault();
+                <tr class="ItemListTr">
+                    <td class="ItemListTd BorderRight"><p class="Area">@(SalesOrderItem_ViewListtemp.CartItem_View.CountryofOrigin)<br/><span>@(SalesOrderItem_ViewListtemp.CartItem_View.CartItemBase.DelvDate)天到貨</span></p></td>
+                    <td class="ItemListTd BorderRight"><p class="OrderNumber">LBO123456789</p></td>
+                    <td class="ItemListTd">
+              	        <div class="PicArtBox">
+                   	        <a href="~/item?itemid=@(SalesOrderItem_ViewListtemp.ItemID)"><div class="pic ItemListPic"><img src="@(SalesOrderItem_ViewListtemp.CartItem_View.ImagePath)" alt=""></div></a>@*產品圖片*@
+                            <a href="~/item?itemid=@(SalesOrderItem_ViewListtemp.ItemID)"><h3 class="Boldtext">@(SalesOrderItem_ViewListtemp.CartItem_View.CartItemBase.Name)</h3></a>@*產品名稱*@
+                            <!--<div class="SpecialDeal gray">@*折扣優惠方案放置div*@
+                    	        <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass1-1">折扣</span>5/11~5/31品牌滿額最高折抵1000元</p>            	
+                            </div>-->
+                        </div>
+                    </td>
+                    <td class="ItemListTd"></td>@*產品規格*@
+                    <td class="ItemListTd">@((SalesOrderItem_ViewListtemp.DisplayPrice ?? 0).ToString("#,##0"))</td>@*單價*@
+                    <td class="ItemListTd">
+                        <p class="Modified">@*數量加減*@
+                            <span class="Boldtext" style="float:none;">@(SalesOrderItem_ViewListItemGrouptemp.Sum(x=>x.Qty))</span>
+                        </p>
+                
+                    </td>
+                    <td class="ItemListTd Boldtext red">@(((SalesOrderItem_ViewListtemp.DisplayPrice ?? 0) * SalesOrderItem_ViewListItemGrouptemp.Sum(x=>x.Qty)).ToString("#,##0"))</td>@*小計*@
+                </tr>            
+            }    
+        }
+    </table>
+
+    </div>
+
+
+    @*↓↓↓↓↓↓價格總計↓↓↓↓↓↓*@
+    <table class="TotalTable">
+        <tr class="TotalTr">
+            <th class="TotalTh Boldtext">總計：</th>
+            <td class="TotalTd Boldtext red">@((Model.TotalPrice).ToString("#,##0"))</td>
+        </tr>
+        <tr class="TotalTr">
+            <th class="TotalTh Boldtext">滿額折優惠：</th>
+            <td class="TotalTd Boldtext red">@((Model.PromotionPriceSum * -1).ToString("#,##0"))</td>
+        </tr>
+        <tr class="TotalTr">
+            <th class="TotalTh Boldtext">購物金優惠：</th>
+            <td class="TotalTd Boldtext red">@((Model.CouponePriceSum * -1).ToString("#,##0"))</td>
+        </tr>
+        @if (Model.InstallmentFeeSum!=0){
+        <tr class="TotalTr">
+            <th class="TotalTh Boldtext">分期手續費：</th>
+            <td class="TotalTd Boldtext red">@((Model.InstallmentFeeSum).ToString("#,##0"))</td>
+        </tr>}
+    </table>
+    <hr />
+    <p class="needPay Boldtext TextAlign-right">應付金額　新台幣<span class="red">@((Model.NeedPayMoneyPriceSum).ToString("#,##0"))元</span></p>
+
+    @if(CartPayType_View != null){
+    @*↓↓↓↓↓↓選擇付款方式↓↓↓↓↓↓*@
+    <div class="PaymentStatus">
+        <div class="PaymentStatusTit ColorBarTit">
+            <div class="icon"></div>
+            <p>付款狀態</p>
+            <p>@(CartPayType_View.GroupName)：@(Model.Status)</p>
+            <div class="clear"></div>
+        </div>
+        @if (CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.實體ATM)
+        { 
+            <div class="PaymentStatusContent">
+                <div class="ATMAccount">
+	                <p>ATM付款帳號：</p>
+                    <span class="ATMNumber">@(CartPayType_View.ATMNumber)</span>
+                <div class="clear"></div>
+                </div>
+            
+                <p>注意事項：</p>
+                <p class="TitNumber">1.</p><p class="Text">虛擬帳號的繳費期間為2天，請務必於期間內進行繳款。例：2015/02/01的20：15分購買，則須於2015/02/03的23：59分之內完成繳費。</p>
+                <p class="TitNumber">2.</p><p class="Text">轉帳成功後。系統將於成功後的1至2個小時，發送繳款成功通知。</p>
+                <p class="TitNumber">3.</p><p class="Text">若您於此段時間未收到「繳款成功通知」，請於上班時間來電或利用官網的線上回報通報客服。</p>
+                <p class="TitNumber">4.</p><p class="Text">晚上12點至凌晨1點之間為銀行固定維護時間，如於此時間進行轉帳，將於凌晨1點後入帳。</p>
+                <p class="TitNumber">5.</p><p class="Text">若使用實體ATM，請選擇「轉帳/轉出」功能；若為使用第一銀行實體ATM，請選擇「繳費」按鈕。</p>
+                <div class="clear"></div>
+            </div>
+        }
+    </div>
+    }
+
+    @if(SalesOrder_ViewListFirst != null){
+    if (Model.IsConsignee==0){
+    <div class="PurchaserInformation">
+        <div class="PurchaserInformationTit ColorBarTit">
+            <div class="icon"></div>
+            <p>訂購人資訊</p>
+        </div>
+        <div class="ShoppingAddressContent">
+            <table class="table">
+                <tbody>
+                  <tr>
+                      <th class="Name_Left_Tit th LeftTitStyle">姓名</th>
+                      <th class="Name_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.Name)</th>
+                  </tr>
+                  <tr>
+                      <th class="Cellphone_Left_Tit th LeftTitStyle">手機</th>
+                      <th class="Cellphone_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.Mobile)</th>
+                  </tr>
+                  <tr>
+                      <th class="Address_Left_Tit th LeftTitStyle">地址</th>
+                      <th class="Address_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.CardZip + SalesOrder_ViewListFirst.CardLOC+SalesOrder_ViewListFirst.CardADDR)</th>
+                  </tr>
+                  <tr>
+                      <th class="ReceivingTime_Left_Tit th LeftTitStyle">希望收貨時間</th>
+                      <th class="ReceivingTime_Right_Content th RightContentStyle">@(Model.TimeofReceipt)</th>
+                  </tr>
+                  <tr>
+                      <th class="Remark_Left_Tit th LeftTitStyle">備註</th>
+                      <th class="Remark_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.Note)</th>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+    else{       
+    <div class="PurchaserInformation">
+    <div class="PurchaserInformationTit ColorBarTit">
+        <div class="icon"></div>
+        <p>收件人資訊</p>
+    </div>
+        <div class="ShoppingAddressContent">
+            <table class="table">
+                <tbody>
+                  <tr>
+                      <th class="Name_Left_Tit th LeftTitStyle">姓名</th>
+                      <th class="Name_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.RecvName)</th>
+                  </tr>
+                  <tr>
+                      <th class="Cellphone_Left_Tit th LeftTitStyle">手機</th>
+                      <th class="Cellphone_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.RecvMobile)</th>
+                  </tr>
+                  <tr>
+                      <th class="Address_Left_Tit th LeftTitStyle">地址</th>
+                      <th class="Address_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.DelivZip + SalesOrder_ViewListFirst.DelivLOC + SalesOrder_ViewListFirst.DelivADDR)</th>
+                  </tr>
+                  <tr>
+                      <th class="ReceivingTime_Left_Tit th LeftTitStyle">希望收貨時間</th>
+                      <th class="ReceivingTime_Right_Content th RightContentStyle">@(Model.TimeofReceipt)</th>
+                  </tr>
+                  <tr>
+                      <th class="Remark_Left_Tit th LeftTitStyle">備註</th>
+                      <th class="Remark_Right_Content th RightContentStyle">@(SalesOrder_ViewListFirst.Note)</th>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>}
+    }
+
+    @if(Model.OtherCartNumber != 0)
+    {
+    <div class="NoCheckout">
+        <div class="RedText">
+            <span>尚有</span>
+            <span>@(Model.OtherCartNumber)</span>
+            <span>個購物車尚未結帳</span>
+        </div>
+    </div>
+    }
+
+    @*↓↓↓↓↓↓繼續購物或結帳↓↓↓↓↓↓*@
+@*    <div class="BottomButton">
+        <a href="#"><div class="ContinueBtn Btn_lg">〈&nbsp;回首頁繼續購物</div></a>
+        <a href="#"><div class="CheckoutBtn Btn_lg">回購物車結帳&nbsp;〉</div></a>
+
+        <label><input name="" type="button" value="〈&nbsp;回首頁繼續購物" class="PreviousBtn Btn"></label>
+        <label><input name="" type="button" value="回購物車結帳&nbsp;〉" class="CheckoutBtn Btn"></label>
+    </div>*@
+    <div class="BottomButton">
+        <label><input name="" type="button" value="〈&nbsp;回首頁繼續購物" class="ContinueBtn Btn"></label>
+        <label><input name="" type="button" value="回購物車結帳〉" class="CheckoutBtn Btn" @if(Model.OtherCartNumber == 0){@("disabled");} onclick="javascript:location.href = '/Cart'"></label>
+    </div>
+</div>

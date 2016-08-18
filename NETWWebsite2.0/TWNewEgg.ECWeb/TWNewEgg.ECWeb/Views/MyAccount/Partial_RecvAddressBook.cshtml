@@ -1,0 +1,238 @@
+﻿@model TWNewEgg.Models.ViewModels.Account.CartMemberInfoVM
+@{
+    TWNewEgg.Models.ViewModels.Account.CartMemberInfoVM getCartMemberInfo = null;
+    int deliverAddressBookID = 0;
+    if (Model != null || ViewBag.GetCartMemberInfo != null)
+    {
+        if (Model != null)
+        {
+            getCartMemberInfo = Model;
+        }
+        if (ViewBag.GetCartMemberInfo != null)
+        {
+            getCartMemberInfo = ViewBag.GetCartMemberInfo as TWNewEgg.Models.ViewModels.Account.CartMemberInfoVM;
+        }
+        if (getCartMemberInfo.DeliverAddressBookList.Count > 0)
+        {
+            deliverAddressBookID = getCartMemberInfo.DeliverAddressBookList.Where(x => x.DefaultSetting == 1).FirstOrDefault().ID;
+        }
+    }
+}
+<div class="sTit">
+    <span class="tt">收件人紀錄本</span>
+    <span class="add NewMemberAddressBook" bookName="deliver_"><a>新增收件人</a></span>
+</div>
+<div>
+    <input type="hidden" id="deliver_DefaultID" value="@deliverAddressBookID" />
+    <table style="margin:-1px 0;">
+        <tr>
+            <th style="width:40px;">預設</th>
+            <th style="width:80px;">姓名</th>
+            <th>地址</th>
+            <th style="width:120px;">電話</th>
+            <th style="width:120px;">手機</th>
+            <th style="width:40px;">功能</th>
+        </tr>
+        @{
+            if(getCartMemberInfo != null)
+            {
+                foreach (var delivAddress in getCartMemberInfo.DeliverAddressBookList)
+                {
+                    string tempTelDay = string.Empty;
+                    if (!string.IsNullOrEmpty(delivAddress.TelZip))
+                    {
+                        tempTelDay += "(" + delivAddress.TelZip + ")";
+                    }
+                    if (!string.IsNullOrEmpty(delivAddress.TelDay))
+                    {
+                        tempTelDay += delivAddress.TelDay;
+                    }
+                    if (!string.IsNullOrEmpty(delivAddress.TelExtension))
+                    {
+                        tempTelDay += "#" + delivAddress.TelExtension;
+                    }
+                    bool defaultSetting = false;
+                    if (delivAddress.DefaultSetting == 1)
+                    {
+                        defaultSetting = true;
+                    }
+                    <tr id="display_deliver_@delivAddress.ID">
+                        <td>
+                            <input type="radio" id="Radio_deliver_@delivAddress.ID" name="deliver_Radio" value="@delivAddress.ID" class="radio" checked="@defaultSetting">
+                        </td>
+                        <td>
+                            @{
+                                string addressName = string.Empty;
+                                if (delivAddress.RecvSex == 1)
+                                {
+                                    addressName = delivAddress.RecvLastName + delivAddress.RecvFirstName + " 先生";
+                                }
+                                else if (delivAddress.RecvSex == 0)
+                                {
+                                    addressName = delivAddress.RecvLastName + delivAddress.RecvFirstName + " 女士";
+                                }
+                            }
+                            <span id="deliver_tempName_@delivAddress.ID">@addressName</span>
+                            <input type="hidden" id="hidden_deliver_Sex_@delivAddress.ID" value="@delivAddress.RecvSex" />
+                            <input type="hidden" id="hidden_deliver_lastName_@delivAddress.ID" value="@delivAddress.RecvLastName" />
+                            <input type="hidden" id="hidden_deliver_firstName_@delivAddress.ID" value="@delivAddress.RecvFirstName" />
+                        </td>
+                        <td>
+                            @{
+                                string tempZip = delivAddress.DelivZip != null ? delivAddress.DelivZip.Trim() : "";
+                                string tempZipName = delivAddress.DelivZipName != null ? delivAddress.DelivZipName.Trim() : "";
+                            }
+                            <span id="deliver_AllAddress_@delivAddress.ID">@(tempZip + " " + delivAddress.DelivLOC + delivAddress.DelivZipName + delivAddress.DelivAddress)</span>
+                            <input type="hidden" id="hidden_deliver_Zip_@delivAddress.ID" value="@tempZip" />
+                            <input type="hidden" id="hidden_deliver_Loc_@delivAddress.ID" value="@delivAddress.DelivLOC" />
+                            <input type="hidden" id="hidden_deliver_ZipName_@delivAddress.ID" value="@tempZipName" />
+                            <input type="hidden" id="hidden_deliver_Address_@delivAddress.ID" value="@delivAddress.DelivAddress" />
+                        </td>
+                        <td>
+                            <span id="deliver_tempTelDay_@delivAddress.ID">@tempTelDay</span>
+                            <input type="hidden" id="hidden_deliver_TelZip_@delivAddress.ID" value="@delivAddress.TelZip" />
+                            <input type="hidden" id="hidden_deliver_TelDay_@delivAddress.ID" value="@delivAddress.TelDay" />
+                            <input type="hidden" id="hidden_deliver_TelExtension_@delivAddress.ID" value="@delivAddress.TelExtension" />
+                        </td>
+                        <td>
+                            <span id="deliver_tempMobile_@delivAddress.ID">@delivAddress.RecvMobile</span>
+                            <input type="hidden" id="hidden_deliver_Mobile_@delivAddress.ID" value="@delivAddress.RecvMobile" />
+                        </td>
+                        <td>
+                            <a class="editAddressBook" bookName="deliver_" bookID="@delivAddress.ID" zipID="salesorder_delivzip" memberflag="0">編輯</a>
+                            <a class="deleteAddressBook" bookName="deliver_" bookID="@delivAddress.ID" memberflag="0">
+                                <img src="/Themes/img/Icon/DeleteImg.png" alt="刪除" title="刪除" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr id="editbook1_deliver_@delivAddress.ID" style="display:none;">
+                        <td>@*<input type="radio" />*@</td>
+                        <td>
+                            <select class="select_sm" id="sex_deliver_@delivAddress.ID" style="width:150px;">
+                                <option value="2">請選擇稱謂</option>
+                                <option value="1">先生</option>
+                                <option value="0">女士</option>
+                            </select>
+                            <br />
+                            <label><input type="text" id="lastName_deliver_@delivAddress.ID" maxlength="10" placeholder="姓氏" value="@delivAddress.RecvLastName" class="input_xs input_Spacing"></label>
+                            <label><input type="text" id="firstName_deliver_@delivAddress.ID" maxlength="10" placeholder="名字" value="@delivAddress.RecvFirstName" class="input_xs input_Spacing"></label>
+                        </td>
+                        <td>
+                            <select class="select_sm locSelect" style="width:110px;" id="loc_deliver_@delivAddress.ID" bookName="deliver_" bookID="@delivAddress.ID" memberflag="0">
+                                <option value="">請選擇縣市</option>
+                                <option value="基隆市">基隆市</option>
+                                <option value="台北市">台北市</option>
+                                <option value="新北市">新北市</option>
+                                <option value="桃園市">桃園市</option>
+                                <option value="新竹市">新竹市</option>
+                                <option value="新竹縣">新竹縣</option>
+                                <option value="苗栗縣">苗栗縣</option>
+                                <option value="台中市">台中市</option>
+                                <option value="彰化縣">彰化縣</option>
+                                <option value="南投縣">南投縣</option>
+                                <option value="雲林縣">雲林縣</option>
+                                <option value="嘉義市">嘉義市</option>
+                                <option value="嘉義縣">嘉義縣</option>
+                                <option value="台南市">台南市</option>
+                                <option value="高雄市">高雄市</option>
+                                <option value="屏東縣">屏東縣</option>
+                                <option value="台東縣">台東縣</option>
+                                <option value="花蓮縣">花蓮縣</option>
+                                <option value="宜蘭縣">宜蘭縣</option>
+                            </select>
+                            <select class="select_md ZipNameSelect" style="width:175px;" id="zipName_deliver_@delivAddress.ID" bookName="deliver_" bookID="@delivAddress.ID" memberflag="0">
+                                <option value="">請選擇鄉、鎮、行政區</option>
+                            </select>
+                            <br />
+                            <label><input type="text" id="address_deliver_@delivAddress.ID" placeholder="限台灣本島 , 且不接受郵政信箱" value="@delivAddress.DelivAddress" maxlength="120" class="input_md input_Spacing" style="width:280px;"></label>
+                        </td>
+                        <td>
+                            <label><input type="text" id="telZip_deliver_@delivAddress.ID" placeholder="區碼" value="@delivAddress.TelZip" maxlength="4" class="input_xs input_Spacing" numberrule="true" style="width:25px;"></label>─
+                            <label><input type="text" id="telDay_deliver_@delivAddress.ID" placeholder="市話" value="@delivAddress.TelDay" maxlength="8" class="input_xs input_Spacing" numberrule="true" style="width:70px;"></label>
+                            <br />
+                            <label><input type="text" id="telExt_deliver_@delivAddress.ID" placeholder="分機#" value="@delivAddress.TelExtension" maxlength="10" class="input_xs input_Spacing" numberrule="true" style="width:95px;"></label> 
+                        </td>
+                        <td>
+                            <label><input type="text" id="mobile_deliver_@delivAddress.ID" placeholder="手機號碼" value="@delivAddress.RecvMobile" maxlength="10" numberrule="true" class="input_sm input_Spacing"></label>
+                        </td>
+                        <td>
+                            <span class="Stockpile">
+                                <a class="updateAddressBook" bookName="deliver_" bookID="@delivAddress.ID">儲存</a>
+                            </span>
+                            <br />
+                            <span class="Cancel">
+                                <a class="cancelAddressBook" bookName="deliver_" bookID="@delivAddress.ID" memberflag="0">取消</a>
+                            </span>
+                        </td>
+                    </tr>
+                }
+                <tr id="deliver_AddNewAddressBook" style="display:none;">
+                    <td>@*<input type="radio" />*@</td>
+                    <td>
+                        <select class="select_sm" id="sex_addNewDeliver" style="width:150px;">
+                            <option value="2">請選擇稱謂</option>
+                            <option value="1">先生</option>
+                            <option value="0">女士</option>
+                        </select>
+                        <br />
+                        <label><input type="text" id="lastName_addNewDeliver" name="" placeholder="姓氏" value="" maxlength="10" class="input_xs input_Spacing"></label>
+                        <label><input type="text" id="firstName_addNewDeliver" name="" placeholder="名字" value="" maxlength="10" class="input_xs input_Spacing"></label>
+                    </td>
+                    <td>
+                        <select class="select_sm locSelect" style="width:110px;" id="loc_addNewDeliver" bookName="addNewDeliver" bookID="" memberflag="0">
+                            <option value="">請選擇縣市</option>
+                            <option value="基隆市">基隆市</option>
+                            <option value="台北市">台北市</option>
+                            <option value="新北市">新北市</option>
+                            <option value="桃園市">桃園市</option>
+                            <option value="新竹市">新竹市</option>
+                            <option value="新竹縣">新竹縣</option>
+                            <option value="苗栗縣">苗栗縣</option>
+                            <option value="台中市">台中市</option>
+                            <option value="彰化縣">彰化縣</option>
+                            <option value="南投縣">南投縣</option>
+                            <option value="雲林縣">雲林縣</option>
+                            <option value="嘉義市">嘉義市</option>
+                            <option value="嘉義縣">嘉義縣</option>
+                            <option value="台南市">台南市</option>
+                            <option value="高雄市">高雄市</option>
+                            <option value="屏東縣">屏東縣</option>
+                            <option value="台東縣">台東縣</option>
+                            <option value="花蓮縣">花蓮縣</option>
+                            <option value="宜蘭縣">宜蘭縣</option>
+                        </select>
+                        <select class="select_md ZipNameSelect" style="width:175px;" id="zipName_addNewDeliver" bookName="addNewDeliver" bookID="" memberflag="0">
+                            <option value="">請選擇鄉、鎮、行政區</option>
+                        </select>
+                        <br />
+                        <label><input type="text" id="address_addNewDeliver" name="" placeholder="限台灣本島 , 且不接受郵政信箱" value="" maxlength="120" class="input_md input_Spacing" style="width:280px;"></label>
+                    </td>
+                    <td>
+                        <label><input type="text" id="telZip_addNewDeliver" name="" placeholder="區碼" value="" maxlength="4" class="input_xs input_Spacing" numberrule="true" style="width:25px;"></label>─
+                        <label><input type="text" id="telDay_addNewDeliver" name="" placeholder="市話" value="" maxlength="8" class="input_xs input_Spacing" numberrule="true" style="width:70px;"></label>
+                        <br />
+                        <label><input type="text" id="telExt_addNewDeliver" name="" placeholder="分機#" value="" maxlength="10" class="input_xs input_Spacing" numberrule="true" style="width:140px;"></label> 
+                    </td>
+                    <td>
+                        <label><input type="text" id="mobile_addNewDeliver" name="" placeholder="手機號碼" value="" maxlength="10" class="input_sm input_Spacing" numberrule="true"></label>
+                    </td>
+                    <td>
+                        <span class="Stockpile">
+                            <a class="addAddressBook" addbookName="addNewDeliver" bookName="deliver_" bookID="">儲存</a>
+                        </span>
+                        <br />
+                        <span class="Cancel">
+                            <a class="CancelNewAddressBook" bookName="addNewDeliver" bookID="" memberflag="0">取消</a>
+                        </span>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">目前尚無收件人紀錄</td>
+                </tr>
+            }
+        }
+    </table>
+</div>

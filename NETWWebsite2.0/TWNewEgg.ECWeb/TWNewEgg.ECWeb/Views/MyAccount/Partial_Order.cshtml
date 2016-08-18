@@ -1,0 +1,240 @@
+﻿@using TWNewEgg.DB.TWSQLDB.Models
+@using TWNewEgg.Website.ECWeb.Models
+@model TWNewEgg.Models.ViewModels.MyAccount.OrderHistory
+@{
+    Model.SalceOrderList = Model.SalceOrderList.OrderByDescending(x => x.Code).ToList();
+    TWNewEgg.Models.ViewModels.Cart.ItemGroup_View ItemGroup_View = ViewBag.ItemGroup_View;
+    List<TWNewEgg.Models.ViewModels.Page.ShowPage> ShowPageList = ViewBag.Calcular;
+    
+}
+
+<div class="serviceContentBox">
+    <div class="Tit ClassTit"><i class="icon ServiceIcon Order-2"></i>我的訂單狀態</div>
+    <div class="service_contentTable ">
+        <table>
+            <tr>
+                <th style="width: 110px;">訂購日期</th>
+                <th style="width: 180px;">訂單編號</th>
+                <th style="width: 80px;">訂單狀態</th>
+                <th>商品名稱</th>
+                <th style="width: 70px;">總價</th>
+                <th style="width: 90px;">訂單明細</th>
+                <th style="width: 50px;">發票</th>
+                <th style="width: 50px;">問答</th>
+                <th style="width: 90px">訂單處理</th>
+            </tr>
+            @if (Model.totalpage > 0)
+            {
+                int orderGroupId = 0, rowSpan = 1, intCnt = 0;
+                decimal piceSum = 0;
+                bool grpMarge = false;
+                IEnumerable<TWNewEgg.Models.ViewModels.MyAccount.SalceOrder> grpList = null;
+                foreach (TWNewEgg.Models.ViewModels.MyAccount.SalceOrder SOGroup in Model.SalceOrderList)
+                {
+                    <tr>
+                        @{
+                    /* 訂單日期 */
+                    rowSpan = 1;
+                    if (orderGroupId != SOGroup.SalesOrderGroupID)
+                    {
+                        orderGroupId = SOGroup.SalesOrderGroupID;
+                        grpList = Model.SalceOrderList.Where(x => x.SalesOrderGroupID == SOGroup.SalesOrderGroupID);
+                        rowSpan = grpList.Count();
+                        grpMarge = false;
+                        intCnt = 0;
+                                
+                            <td rowspan="@rowSpan">@DateTime.Parse(SOGroup.CreateDate).ToString("yyyy/MM/dd")</td>
+                    }
+                    else
+                    {
+                        grpMarge = true;
+                    }
+                    intCnt += 1;      
+                        }
+
+                        <td>@SOGroup.Code</td>
+                        <td>@SOGroup.Status</td>
+                        <td> <a href="@SOGroup.ItemUrl">@SOGroup.SalesOrderItemDetil.Select(x => x.Name).FirstOrDefault()</a></td>
+
+                        @{
+                    /* 總價 */
+                    if (!grpMarge)
+                    {
+                        piceSum = grpList.Sum(x => x.PiceSum);
+
+                            <td @(rowSpan > 1 ? "rowspan=" + rowSpan.ToString() : "")>@piceSum.ToString("#,##0")</td>
+                    }
+                        }
+                        <td>@Html.Raw(SOGroup.SalesOrderItemDetil.Count == 0 ? " - " : "<p class=\"UnderLine blue\" onclick=\"GetDetail(this);\" CartID=\"" + SOGroup.Code + "\">訂單明細</p>")</td>
+                        <td>@Html.Raw((SOGroup.SalesOrderItemDetil.Count == 0 || string.IsNullOrWhiteSpace(SOGroup.InvoiceNo) || string.IsNullOrWhiteSpace(SOGroup.SalesOrderItemDetil[0].DelivNO) && SOGroup.Delivtype != (int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.三角) ? " - " : "<p class=\"UnderLine blue\" onclick=\"GetOrderInvoice('" + @SOGroup.Code + "')\">發票內容</p>")</td>
+                        <td>
+                            <p class="UnderLine blue" AskCartID="@SOGroup.Code" onclick="GetAskDetail(this);">詢問</p>
+                            <p class="UnderLine blue"  AskCartID="@SOGroup.Code" onclick="GetRecord(this);">紀錄</p>
+                        </td>
+                        @if (SOGroup.IsRefund)
+                        {
+                            if (!grpMarge)
+                            {
+                        <td @(rowSpan > 1 ? "rowspan=" + rowSpan.ToString() : "")>
+                            <p class="UnderLine blue" onclick="GetRefundDetail(this);" RefundCartID="@grpList.First().Code" style="@if (SOGroup.IsRefund == false)
+                                                                                                                                   { @("display:none");
+                                                                                                                                   }">我要取消</p>
+
+                            @*<a href="#">我要換貨</a><br /><a href="#">我要換貨</a>*@
+                        </td>
+                            }
+                        }
+                        else
+                        {
+                        <td>
+                            <p class="UnderLine blue" onclick="GetReturnDetail(this);" ReturnCartID="@SOGroup.Code" style="@if (SOGroup.IsReturnd == false)
+                                                                                                                           { @("display:none");
+                                                                                                                           }">我要退貨</p>
+                            <p class="UnderLine blue" onclick="GetChageDetail(this);" ChageCartID="@SOGroup.Code" style="@if (SOGroup.IsReturnd == false)
+                                                                                                                         { @("display:none");
+                                                                                                                         }">我要換貨</p>
+                            <p class="UnderLine blue" onclick="GetFixDetail(this);" FixCartID="@SOGroup.Code" style="@if (SOGroup.IsFix == false)
+                                                                                                                     { @("display:none");
+                                                                                                                     }">我要維修</p>
+                        </td>   
+                        }            
+                    </tr>
+                        /* 顯示物流配送狀態 */
+                        if (intCnt == grpList.Count())
+                        {
+                            foreach (TWNewEgg.Models.ViewModels.MyAccount.SalceOrder soItem in grpList)
+                            {
+                        <tr>
+                            <td colspan="9">
+                                <div class="DeliveryInformation">                        
+                                    <div class="deliverState">
+                                        <div class="DeliveryText">配送狀態</div>
+                                            <ul>
+                                                <li class="@(soItem.Status == "訂單成立" ? "active" : "")"  >
+                                                    <img src="/Themes/img/img_trans.gif" class="step01" />訂單成立</li>
+                                                <li class="@if (soItem.Status == "付款完成")
+                                                           { @("active");
+                                                           }">
+                                                    <img src="/Themes/img/img_trans.gif" class="step02" />付款完成</li>
+                                                <li class= "@if (soItem.Status == "待出貨")
+                                                            { @("active");
+                                                            }">
+                                                    <img src="/Themes/img/img_trans.gif" class="step03" />待出貨</li>
+                                                <li class= "@if (soItem.Status == "海外轉運中")
+                                                            { @("active");
+                                                            }">
+                                                    <img src="/Themes/img/img_trans.gif" class="step04" />海外轉運中</li>
+                                                <li class=" @if (soItem.Status == "空運中")
+                                                            { @("active");
+                                                            }">
+                                                    <img src="/Themes/img/img_trans.gif" class="step05" />空運中</li>
+                                                <li class= "@if (soItem.Status == "清關中")
+                                                            { @("active");
+                                                            }">
+                                                    <img src="/Themes/img/img_trans.gif" class="step06" />清關中</li>
+                                                <li class=" @if (soItem.Status == "配送中")
+                                                            { @("active");
+                                                            }" >
+                                                    <img src="/Themes/img/img_trans.gif" class="step07" />配送中</li>
+                                                <li class=" @if (soItem.Status == "已配達")
+                                                            { @("active");
+                                                            }">
+                                                    <img src="/Themes/img/img_trans.gif" class="step08" />已送達</li>
+                                            </ul>
+                                    </div>
+                      
+                                    <div class="ShippingInformation" style="width:260px;font-size:90%;">
+                                        <span>訂單編號：</span>
+                                        <span>@soItem.Code</span><br />
+                                        <span>出貨日期：</span>
+                                        <span>@(soItem.SalesOrderItemDetil.Count == 0 ? "" : soItem.SalesOrderItemDetil[0].ProcOut.ToString())</span><br/>
+                                        @if (soItem.SalesOrderItemDetil.Count > 0 && soItem.DelivType != 1 && soItem.DelivType != 3)
+                                        {
+                                            TWNewEgg.Models.ViewModels.MyAccount.SalesOrderItem soItemDetail = soItem.SalesOrderItemDetil[0];
+                                        <span>出貨方式：</span>
+                                            @Html.Raw(soItemDetail.DeliverName == null ? "" : "<a href=" + soItemDetail.DeliverWebSite + " target=\"_blank\">" + soItemDetail.DeliverName + "</a>")<br />
+                                        <span>配送單號：</span>
+                                        <span>@soItemDetail.DelivNO</span>                             
+                                        }
+                                    </div>
+                                </div>
+                                        <!--<div class="clear"></div>-->
+                            </td>
+                        </tr>
+                        <tr><td colspan="9" id="myOrderArea3_@soItem.Code" style="display:none;"></td></tr>
+                            }
+                        <tr><td colspan="9" id="myOrderArea2_@grpList.First().Code" style="display:none;"></td></tr>
+                        }
+
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" style="height:40px;">目前尚無購買記錄</td>
+                </tr>   
+            }
+        </table>
+    </div>    
+</div>
+
+@*↓↓↓↓↓↓分頁↓↓↓↓↓↓*@
+@if (Model.totalpage > 0)
+{
+    <div class="PageArea" id="PageArea" data-Pagevalue="@ItemGroup_View.ViewPage" data-TotalPagevalue="@ItemGroup_View.TotalPage">    
+        @if (ItemGroup_View.ViewPage != 1)
+        {
+            <a class="arrow arrLeft" name="ToNextPage" data-JumpPagevalue="-1" data-Pagevalue="@(ItemGroup_View.ViewPage - 1)"><</a>
+        }
+        @foreach (var temp in ShowPageList)
+        { 
+            @*↓↓↓↓↓↓ 檢查 PageNumberString 是否有 ... 的字樣 ↓↓↓↓↓↓*@
+            if (temp.PageNumberString.IndexOf("...") == -1)
+            {
+                <a class="@if (temp.PageNumber == ItemGroup_View.ViewPage){ @("StopGoToPage") } else { @("GoToPage") }"
+                   style="@if (temp.PageNumber == ItemGroup_View.ViewPage){ @("color:#EB8A51") }" @if (temp.PageNumber == ItemGroup_View.ViewPage){ @("Selected") }
+                   data-Pagevalue="@(temp.PageNumber)">
+
+                    @(temp.PageNumberString)
+
+                </a>
+               
+            }
+            else
+            {
+                @*↓↓↓↓↓↓ 將 PageNumberString 的 ... 字樣，與頁分開 ↓↓↓↓↓↓*@
+                if (temp.PageNumber == 1)
+                { 
+                    @*↓↓↓↓↓↓ 第 1 頁 ↓↓↓↓↓↓*@
+                    <a class="GoToPage" data-Pagevalue="1">1</a>
+                    <span class="default">...</span>
+                }
+                else
+                {
+                    @*↓↓↓↓↓↓ 最後頁 ↓↓↓↓↓↓*@
+                    <span class="default">...</span>
+                    <a class="GoToPage" data-Pagevalue="@(temp.PageNumber)">@(temp.PageNumber)</a>
+                }
+            }
+            
+        }
+        @if (ItemGroup_View.TotalPage != ItemGroup_View.ViewPage)
+        {
+        <a class="arrow arrRight" name="ToNextPage" data-JumpPagevalue="1" data-Pagevalue="@(ItemGroup_View.ViewPage + 1)">></a>
+        }
+    </div>
+}
+<script>
+    $(function () {
+        $('.GoToPage').on("click", function () {
+            var OrderBy = $('[name=TabAreaOrderByName].SmallBorderTabSelected').attr('data-OrderByvalue');
+            ChangePageReload(parseInt($(this).attr('data-Pagevalue')), OrderBy);
+        });
+        $('.arrLeft').on("click", function () {
+            ChangePageReload(parseInt($(this).attr('data-Pagevalue')), 0);
+        });
+        $('.arrRight').on("click", function () {
+            ChangePageReload(parseInt($(this).attr('data-Pagevalue')), 0);
+        });
+    });
+</script>

@@ -1,0 +1,1621 @@
+﻿@import "_importSCSS";
+
+	.Required {
+        color:#C3181F;
+		margin-right: 5px;
+    }
+	.RedText {
+		color:#753334;
+	}
+
+	.ShoppingProcessSecondTit {
+		height:35px;
+		border: #D5D5D5;
+		border-style: solid;
+		border-width: 0px 0px 1px 0px;
+		padding: 15px 0 0 30px;
+		*padding: 15px 0 0 30px;
+		font-weight:bold;
+		color:#666666;
+		cursor: pointer;
+	}
+	input:checked + span {
+		font-weight:bolder;
+	}
+	.UpBorderLine {
+		border: #D5D5D5;
+		border-style: solid;
+		border-width: 1px 0px 0px 0px;
+	}
+	.RightBorderLine {
+		border: #D5D5D5;
+		border-style: solid;
+		border-width: 0px 1px 0px 0px;
+	}
+	.BottomBorderLine {
+		border: #D5D5D5;
+		border-style: solid;
+		border-width: 0px 0px 1px 0px;
+	}
+	.LeftBorderLine {
+		border: #D5D5D5;
+		border-style: solid;
+		border-width: 0px 0px 0px 1px;
+	}
+	NoBorderLine {
+		border:0;
+	}
+
+	/*RemindDialog*/
+	/*.RemindDialog , .AddtoOtherCart{
+		.Remindtxt {
+		margin: 60px;
+			span { 
+				font-size:21px;
+				font-weight:bold;
+			}
+		}
+		.DialogBtn {
+			margin: 150px auto 0 auto;
+			text-align: center;
+			.Btn {
+				width:106px;
+				height:44px;
+				margin:20px; 
+				font-size: 14px;
+				letter-spacing:5px;
+			}
+			.DialogConfirmBtn  {
+				background:#EC8B54;
+			}
+			.DialogDisagreeBtn {
+				background: url("/Themes/img/ShoppingProcess/BlueBigBtnBG.jpg") no-repeat;
+				width: 150px;
+				height: 55px;
+				font-size: 18px;
+			}
+			.DialogAgreeBtn {
+				background: url("/Themes/img/ShoppingProcess/OrangeBigBtnBG.jpg") no-repeat;
+				width: 150px;
+				height: 55px;
+				font-size: 18px;
+			}
+		}
+}*/
+/*.AddtoOtherCart{
+		.Remindtxt {
+		margin: 60px;
+			span {
+				font-size:21px;
+				font-weight:bold;
+			}
+		}
+		.DialogBtn {
+			margin: 150px auto 0 auto;
+			width:150px;
+			.Btn {
+				width:106px;
+				height:44px;
+				margin:20px;
+				font-size: 14px;
+				letter-spacing:5px;
+			}
+			.DialogConfirmBtn  {
+				background:#EC8B54;
+			}
+		}
+}*/
+
+
+	/*Outer*/
+	.ShoppingProcess {            
+        margin: 0 auto;
+        width:$RWDMinWidth;
+		font-family: Microsoft JhengHei;
+			
+			/**Dialog*/
+			.LightBoxUnderLay {
+				.TableScroll {
+					overflow:auto;
+					height:325px;
+				} 
+				.PurchaserDialog {
+					  .AddPurchaser {
+							width: 897px;
+							margin: 20px auto;
+							text-align: right;
+							.UnderLine {
+								cursor: pointer;
+							}
+					  }
+					  .PurchaserTable {
+						  width: 920px;
+						  margin: 0 auto;
+						  border: 1px solid #D5D5D5;
+						table {
+							  width: 100%;
+							  margin: 0 auto;
+							  .BgColor {
+								background:#F0F0F0;
+								.TitBolder {
+									font-weight:bolder; 
+									padding-left: 10px;
+									padding-right: 10px;
+								}
+							  }
+							  /*.BorderLine {
+								  border: #D5D5D5;
+								  border-style: solid;
+								  border-width: 1px 0px 0px 0px;
+							  }*/
+							  .PurchaserInput {
+								  th {
+									  padding: 10px 0;
+								  }
+							  }
+							  tr {
+								th {
+									  padding: 20px 0;
+									  *padding: 20px 0;		/*IE7*/
+									  text-align: center;
+									  .SmallHiLifeImg {
+										display:inline;
+										  img {
+											width:34px;
+											height:37px;
+											vertical-align: middle;
+										  }
+									  }
+									  .HiLifeText {
+										display:inline;
+									  }
+									  .Delete {
+											  display: block;	
+											  margin: 15px 0;
+											  cursor: pointer;
+									  }
+									  .Editor , .Stockpile , .Cancel{
+											color:#666666; 
+											cursor: pointer;
+									  }
+								}
+							}
+						}
+					  }
+					  .DialogBtn {
+						  margin: 0px auto 0 auto;
+						  width: 300px;
+						  .OrgBtn {
+						  	  width:106px;
+							  height:44px;
+							  float:left;
+							  /*line-height: 44px;*/
+							  margin:20px;
+							  letter-spacing: 5px;
+							  font-size: 15px;
+						  }
+						  .DialogConfirmBtn  {
+							  background:rgba(236, 139, 84, 0.9);
+						  }
+						  .DialogConfirmBtn:hover {
+							  background:#EC8B54;
+						  }
+						  .DialogCancelBtn {
+						 	  background:rgba(236, 139, 84, 0.9);
+						  }
+						  .DialogCancelBtn:hover {
+							  background:#EC8B54;
+						  }
+					  }				
+				}
+
+				.RecipientDialog {
+					  .AddRecipient {
+							width: 897px;
+							margin: 20px auto;
+							text-align: right;
+							.UnderLine {
+								cursor: pointer;
+							}
+					  }
+					  .RecipientTable {
+						  width: 920px;
+						  margin: 0 auto;
+						  border: 1px solid #D5D5D5;
+						table {
+							  width: 100%;
+							  margin: 0 auto;
+							  .BgColor {
+								background:#F0F0F0;
+								.TitBolder {
+									font-weight:bolder;
+									padding-left: 10px;
+									padding-right: 10px;
+								}
+							  }
+							  /*.BorderLine {
+								  border: #D5D5D5;
+								  border-style: solid;
+								  border-width: 1px 0px 0px 0px;
+							  }*/
+							  .RecipientInput {
+								  th {
+									  padding: 10px 0;
+								  }
+							  }
+							  tr {
+								th {
+									  padding: 20px 0;
+									  *padding: 20px 0;		/*IE7*/
+									  text-align: center;
+									  .SmallHiLifeImg {
+										display:inline;
+										  img {
+											width:34px;
+											height:37px;
+											vertical-align: middle;
+										  }
+									  }
+									  .HiLifeText {
+										display:inline;
+									  }
+									  .Delete {
+											  display: block;	
+											  margin: 15px 0;
+											  cursor: pointer;
+									  }
+									  .Editor , .Stockpile , .Cancel{
+											color:#666666;
+											cursor: pointer;
+									  }
+								}
+							}
+						}
+					  }
+					  .DialogBtn {
+						  margin: 0px auto 0 auto;
+						  width: 300px;
+						  .OrgBtn {
+						  	  width:106px;
+							  height:44px;
+							  float:left;
+							  /*line-height: 44px;*/
+							  margin:20px;
+							  letter-spacing: 5px;
+							  font-size: 15px;
+						  }
+						  .DialogConfirmBtn  {
+							  background:rgba(236, 139, 84, 0.9);
+						  }
+						  .DialogConfirmBtn:hover {
+							  background:#EC8B54;
+						  }
+						  .DialogCancelBtn {
+						 	  background:rgba(236, 139, 84, 0.9);
+						  }
+						  .DialogCancelBtn:hover {
+							  background:#EC8B54;
+						  }
+					  }				
+				}
+
+				.CertificationDialog {
+					p {width:897px; margin:0 auto; line-height: 1.5; font-size: 22px;  font-weight: bold; padding:20px 0; *padding:20px 0; /*IE7*/}
+					.NewsletterCertification {
+						width:897px;
+						margin: 0 auto;
+						border: #D5D5D5;
+						border-style: solid;
+						border-width: 1px 1px 1px 1px;
+						.NewsletterCertificationTit {
+							  background-color: #698EB8;
+							  height: 47px;
+							  padding-left: 16px;
+							  color: #fff;
+							  font-size: 18px;
+							  line-height: 47px;
+							  font-weight: bold;
+							.icon {
+									width: 40px;
+									height: 33px;
+									background: url("/Themes/img/Icon/NewsletterCertificationImg.png") no-repeat;
+									margin: 7px 15px 0px 15px;
+									display: block;
+									float: left;
+									vertical-align: text-bottom;
+							}
+						}
+						.NewsletterCertificationContent {
+							.ContentLeft {
+								float:left;
+								width:180px;
+								line-height: 186px;
+								font-weight: bold;
+								.Certification_Left_Tit {text-align:center;}
+							}
+							.ContentRight {
+								width: 677px;
+								float:left;
+								border: #D5D5D5;
+								border-style: solid;
+								border-width: 0px 0px 0px 1px;
+								padding-left: 20px;
+								*padding-left: 20px;			/*IE7*/
+								.Certification_Right_Content {
+									.SMS {
+										float:right;
+										padding-top:15px;
+										*padding-top:15px;		/*IE7*/
+									}
+									.CertificationInput {
+										margin:30px 0 0 0;
+										float: left;
+										.input_radius_md {
+											float:left;
+											height:28px;
+											font-size: 18px;
+										}
+										.ConfirmBtn {
+											float:left;
+											height:40px;
+											/*line-height: 40px;*/
+											cursor: pointer;
+											font-size: 18px;
+											font-weight: bolder;
+											background: rgba(105, 142, 184, 0.9);
+											margin:0;
+										}
+										.ConfirmBtn:hover {
+											background: #698EB8;
+										}
+									}
+									.CertificationReminder {
+										.Resend {
+											width:570px;
+											line-height: 1.5;
+											a {
+												 text-decoration: underline;
+												 color: #698EB8;
+												 cursor: pointer;
+											}
+										}
+										.CustomerService {
+											line-height: 3;
+											a {
+												text-decoration: underline;
+												color: #698EB8;
+												cursor: pointer;
+											}
+										}
+									}	
+								}	
+							}
+						}
+					}
+					.DialogBtn {
+						margin: 0 auto;
+						width: 300px;
+						.Btn {
+							width:106px;
+							height:44px;
+							float:left;
+							/*line-height: 44px;*/
+							margin:20px;
+							font-size: 18px;
+							letter-spacing:5px;
+						}
+						.DialogConfirmBtn  {
+							background:rgba(105, 142, 184, 0.9);
+						}
+						.DialogConfirmBtn:hover {
+							
+							background:#698EB8;
+						}
+						.DialogCancelBtn {
+							background:rgba(165, 187, 212, 0.9);
+							color: #666666;
+						}
+						.DialogCancelBtn:hover {
+							background:#A5BBD4;
+						}
+					}
+				}
+				
+				.StoreReceivingDialog {
+					  .AddStore {
+							width: 897px;
+							margin: 20px auto;
+							text-align: right;
+							.UnderLine {
+								cursor: pointer;
+							}
+					  }
+					  .StoreReceivingTable {
+						  width: 920px;
+						  margin: 0 auto;
+						  border: 1px solid #D5D5D5;
+						table {
+							  width: 100%;
+							  margin: 0 auto;
+							  .BgColor {
+								background:#F0F0F0;
+								.TitBolder {
+									font-weight:bolder;
+									padding-left: 10px;
+									padding-right: 10px;
+								}
+							  }
+							  /*.BorderLine {
+								  border: #D5D5D5;
+								  border-style: solid;
+								  border-width: 1px 0px 0px 0px;
+							  }*/
+							  tr {
+								th {
+									  padding: 20px 0;
+									  *padding: 20px 0;		/*IE7*/
+									  text-align: center;
+									  .SmallHiLifeImg {
+										display:inline;
+										  img {
+											width:34px;
+											height:37px;
+											vertical-align: middle;
+										  }
+									  }
+									  .HiLifeText {
+										display:inline;
+									  }
+									  .Delete {
+											  display: block;	
+											  margin: 15px 0;
+											  cursor: pointer;
+									  }
+									  .Editor , .Stockpile , .Cancel{
+											color:#666666;
+											cursor: pointer;
+									  }
+									  
+								}
+							}
+						}
+					  }
+					  .DialogBtn {
+						  margin: 0px auto 0 auto;
+						  width: 300px;
+						  .Btn {
+						  	  width:106px;
+							  height:44px;
+							  float:left;
+							  /*line-height: 44px;*/
+							  margin:20px;
+							  letter-spacing: 5px;
+							  font-size: 15px;
+						  }
+						  .DialogConfirmBtn  {
+							  background:rgba(236, 139, 84, 0.9);
+						  }
+						  .DialogConfirmBtn:hover {
+							  background:#EC8B54;
+						  }
+						  .DialogCancelBtn {
+						 	  background:rgba(236, 139, 84, 0.9);
+						  }
+						  .DialogCancelBtn:hover {
+							  background:#EC8B54;
+						  }
+					  }				
+				}
+
+				.InvoiceDialog {
+					  .AddInvoice {
+							width: 897px;
+							margin: 20px auto;
+							text-align: right;
+							.UnderLine {
+								cursor: pointer;
+							}
+					  }
+					  .InvoiceTable {
+						  width: 920px;
+						  margin: 0 auto;
+						  border: 1px solid #D5D5D5;
+						table {
+							  width: 100%;
+							  margin: 0 auto;
+							  .BgColor {
+								background:#F0F0F0;
+								.TitBolder {
+									font-weight:bolder;
+									padding-left: 10px;
+									padding-right: 10px;
+								}
+							  }
+							  /*.BorderLine {
+								  border: #D5D5D5;
+								  border-style: solid;
+								  border-width: 1px 0px 0px 0px;
+							  }*/
+							  .InvoiceInput {
+								  th {
+									  padding: 10px 0;
+								  }
+							  }
+							  tr {
+								th {
+									  padding: 20px 0;
+									  *padding: 20px 0;		/*IE7*/
+									  text-align: center;
+									  .SmallHiLifeImg {
+										display:inline;
+										  img {
+											width:34px;
+											height:37px; 
+											vertical-align: middle;
+										  }
+									  }
+									  .HiLifeText {
+										display:inline;
+									  }
+									  .Delete {
+											  display: block;	
+											  margin: 15px 0 ;
+											  cursor: pointer; 
+									  }
+									  .Editor , .Stockpile , .Cancel{
+											color:#666666;
+											cursor: pointer; 
+									  }
+								}
+							}
+						}
+					  }
+					  .DialogBtn {
+						  margin: 0px auto 0 auto;
+						  width: 300px;
+						  .OrgBtn {
+						  	  width:106px;
+							  height:44px;
+							  float:left;
+							  /*line-height: 44px;*/
+							  margin:20px;
+							  letter-spacing: 5px;
+							  font-size: 15px;
+						  }
+						  .DialogConfirmBtn  {
+							  background:rgba(236, 139, 84, 0.9);
+						  }
+						  .DialogConfirmBtn:hover {
+							  background:#EC8B54;
+						  }
+						  .DialogCancelBtn {
+						 	  background:rgba(236, 139, 84, 0.9);
+						  }
+						  .DialogCancelBtn:hover {
+							  background:#EC8B54;
+						  }
+					  }				
+				}
+
+				/*CouponDialog*/
+				.couponUseDialog {
+					.couponUseBox {
+					
+					}
+					.couponUseDialogBtn {
+						.DialogConfirmBtn {}
+						.DialogCancelBtn {}
+					}
+				}
+			}
+			/*Top*/
+			.OrderInformation {              
+			}
+			
+			/*First*/
+			.SelectDelivery {               
+				/*height:198px;*/
+					.SelectDeliveryTit {
+						.icon {
+							width: 40px;
+							height: 33px;
+							background: url("/Themes/img/Icon/DeliveryMethodsImg.png") no-repeat;
+							margin: 7px 15px 0px 15px;
+							display: block;
+							float: left;
+							vertical-align: text-bottom;
+						}
+					}
+					.PurchaserTable {
+						  float: left;
+					}
+					.DeliveryContent {
+						line-height: 2;
+					    padding: 35px;
+						border: #D5D5D5;
+						border-style: solid;
+						border-width: 0px 0px 1px 0px;
+					}
+			} 
+			
+			/*StoreReceiving*/
+			.StoreReceiving {
+				 border: #D5D5D5;
+				 border-style: solid;
+				 border-width: 0px 1px 1px 1px;
+				 margin-bottom: 77px;	
+				 .StoreReceivingTit {
+						.icon {
+							width: 40px;
+							height: 34px;
+							background: url("/Themes/img/Icon/StorePickupInformationImg.png") no-repeat;
+							margin: 7px 15px 0px 15px;
+							display: block;
+							float: left;
+							vertical-align: text-bottom;
+						}					
+				 }
+				 .StoreAddressContent {
+						line-height:2.5;
+						.ContentLeft {
+							float:left;
+							width:169px;
+							text-align:center;
+							margin-top: 20px;
+							line-height: 5;
+							font-weight: bold;
+							.VerificationIdentity_Left_Tit {
+								margin-top: 180px;
+							}
+						}
+						.ContentRight {
+							float:left;
+							width:830px;
+							/*padding-top: 20px;*/
+							border: #D5D5D5;
+							border-style: solid;
+							border-width: 0px 0px 0px 1px;
+							/*padding-left: 20px;*/
+							.ContentSpacing {
+								margin:20px 0 0 10px;
+								.SelectStreetName_Right_Content {
+									.txt {
+										float:left;
+										margin-top: 15px;
+									}
+								}
+								.SelectStoretName_Right_Content {
+									margin-top: 40px;
+									.StorenameAddress {
+										margin:20px 0;
+										font-weight:bolder;
+									}
+									.StoreRecords {
+										float:left;
+									}
+									.GoogleMap {
+										float:right;
+										margin: 0px 30px 20px 0;
+										width: 491px;
+										height: 360px;
+										background: url("/Themes/img/ShoppingProcess/GoogleMap.jpg");
+									}
+								}
+								.VerificationIdentity_Right_Content {
+									  float: left;
+									  width: 280px;
+									  margin-top: 20px;
+									  .RedText {
+										line-height:1.5;
+										margin-top: 10px;
+										p {float:left;}
+									  }
+								}
+							}
+						}
+				 }	
+			}  
+
+			/*PurchaserInformation*/
+			.PurchaserInformation {         
+				 border: #D5D5D5;
+				 border-style: solid;
+				 border-width: 0px 1px 1px 1px;
+				 margin-bottom: 77px;
+				 .PurchaserInformationTit {
+						.icon {
+							width: 40px;
+							height: 34px;
+							background: url("/Themes/img/Icon/PersonalInformationImg.png") no-repeat;
+							margin: 7px 15px 0px 15px;
+							display: block;
+							float: left;
+							vertical-align: text-bottom;
+						}
+						p {float:left; margin:0 30px 0 0;}
+						span {float:left;}					
+				 }
+				 .ShoppingAddressContent {
+						line-height:3;
+						.ContentLeft {
+							float:left;
+							width:169px;
+							text-align:center;
+							font-weight: bold;
+						}
+						.ContentRight {
+							float:left;
+							width:830px;
+							.PurchaserContent {
+								clear:both;
+								.SelectAppellation {
+									display:inline;
+								}
+								.NameInput {
+									display:inline;
+								}
+								.CellphoneInput {
+									/*display:inline;*/
+									float:left;
+								}
+								.LocalCallsInput {
+									display:inline;
+								}
+								.SelectAddress {
+									display:inline;
+								}
+								.AddressInput {
+									display:inline;
+								}
+							}
+						}
+						.UpdatesMemberProfile { 
+							p {
+								line-height:1.5;
+								float:left;
+							}
+						}
+						.table {
+							.LeftTitStyle {width:169px;  text-align: center; font-weight: bolder;}
+							.RightContentStyle {text-align:left;  width: 843px;  padding-left: 20px;}
+							.th {border: 1px solid #D5D5D5;}
+						}
+				 }
+			}
+
+			.NoCheckout {
+				position: relative;
+				.RedText {
+					position: absolute;
+					right: 270px;
+					top: -20px;
+					font-weight: bolder;
+				}
+			}
+
+			/*CreditCardPayment*/
+			.CreditCardPayment {
+				 border: #D5D5D5;
+				 border-style: solid;
+				 border-width: 0px 1px 1px 1px;
+				 margin-bottom: 77px;	
+				 .CreditCardPaymentTit {
+						.icon {
+							width: 40px;
+							height: 34px;
+							background: url("/Themes/img/Icon/CreditCardPaymentImg.png") no-repeat;
+							margin: 7px 15px 0px 15px;
+							display: block;
+							float: left;
+							vertical-align: text-bottom;
+						}					
+				 }
+				 .ShoppingCreditCardContent {
+						.ContentLeft {
+							float:left;
+							width:169px;
+							text-align:center;
+							font-weight: bold;
+							line-height: 4;
+						}
+						.ContentRight {
+							float:left;
+							width:830px;
+							border: #D5D5D5;
+							border-style: solid;
+							border-width: 0px 0px 0px 1px;
+							line-height: 4;
+							.ContentSpacing {
+								margin-left:10px;
+								.DataRetention {
+									label {
+										float:left;
+									}
+									p {
+										float:left;
+										width: 660px;
+										line-height: 1.3;
+										font-size: 14px;
+										margin: 25px 0 0 15px;
+									}
+								}
+								.EndThreeNumber_Right_Content {
+									div {
+										display:inline;
+									}
+									/*.ExplainIMG {
+										display:inline;
+										img {
+											  vertical-align: middle;
+											  cursor: pointer;
+										}
+									}*/
+									.ExplainIMG {position:relative;}
+									img {vertical-align: middle;   cursor: pointer;}
+									.CreditBackSideIMG {display: none;}
+									.ExplainIMG:hover{
+										.CreditBackSideIMG {display:block; position: absolute;     left: -5px; z-index:2;}
+									}
+									.RedText {
+										font-size:10px;
+									}
+								}
+							}
+						}
+				 }
+			}
+			
+			/*RecipientInformation*/
+			.RecipientInformation {         
+				border: #D5D5D5;
+				border-style: solid;
+				border-width: 0px 1px 1px 1px;
+				margin-bottom: 34px;
+				.RecipientInformationTit {
+						.icon {
+							width: 40px;
+							height: 34px;
+							background: url("/Themes/img/Icon/PersonalInformationImg.png") no-repeat;
+							margin: 7px 15px 0px 15px;
+							display: block;
+							float: left;
+							vertical-align: text-bottom;
+						}
+						p {float:left; margin:0 30px 0 0;}
+						span {float:left;}
+				}
+				.ShoppingAddressContent {
+						line-height:2.5;
+						.ContentLeft {
+							float:left;
+							width:169px;
+							text-align:center;
+							margin-top: 43px;
+							font-weight: bold;
+							.ReceivingTime_Left_Tit {
+								  margin-top: 70px;
+							}
+						}
+						.ContentRight {
+							float:left;
+							width:830px;
+							.Ditto {
+								font-weight:bolder;
+							}
+							.PurchaserContent {
+								.SelectAppellation {
+									display:inline;
+								}
+								.NameInput {
+									display:inline;
+								}
+								.CellphoneInput {
+									display:inline;
+								}
+								.CellphoneRedText {
+									display:inline;
+									width:50%;
+								}
+								.LocalCallsInput {
+									display:inline;
+								}
+								.SelectAddress {
+									display:inline;
+								}
+								.AddressInput {
+									display:inline;
+								}
+								.SelectReceivingTime {
+									display:inline;
+								}
+								.RemarkInput {
+									display:inline;
+									#txtTest {
+										padding: 3px; 
+										overflow: hidden; 
+										width: 430px; 
+										min-height: 21px; 
+										height: 21px; 
+										border: 1px solid #ccc;
+									}
+								}
+							}
+							.ReceivingTimeRedText {
+								p {float:left;}
+							}
+						}
+						.Remark {
+							 border: #D5D5D5;
+							 border-style: solid;
+							 border-width: 1px 0px 0px 0px;
+							 line-height: 3;
+							 clear:both;
+						}						
+				 }
+			 }
+			
+			 /*InvoiceInformation*/
+			 .InvoiceInformation {           
+				border: #D5D5D5;
+				border-style: solid;
+				border-width: 0px 1px 1px 1px;
+				.InvoiceInformationTit {
+					.icon {
+						width: 40px;
+						height: 34px;
+						background: url("/Themes/img/Icon/InvoiceInformationImg.png") no-repeat;
+						margin: 7px 15px 0px 15px;
+						display: block;
+						float: left;
+						vertical-align: text-bottom;
+					}
+				}
+				.ContentLeft {
+					float:left;
+					width:169px;
+					text-align:center;
+					font-weight: bold;
+					.Invoice_Left_Tit {
+						  margin-top: 70px;
+					}
+				}
+				.ContentRight {
+					float:left;
+					width:830px;
+					line-height:3;
+					border: #D5D5D5;
+					border-style: solid;
+					border-width: 0px 0px 0px 1px;
+						.Invoice_Right_Content {
+							.ElectronicInvoiceFirst {
+								li {
+									display:inline;
+									font-weight: bolder;
+								}
+								.VAT_Number {
+									margin-left:140px;
+								}
+							}
+							span {
+								display:inline;
+								margin-left: 10px;
+								font-weight: bold;
+							}
+							.ElectronicInvoiceSecond {
+								margin-left:40px;
+								.RemindRedTxt {
+									line-height:1.5;
+									span {
+										float:left;
+									}
+									p {
+										float:left;
+										font-weight:bold;
+										letter-spacing: 1px;
+										width: 745px;
+									}
+								}
+								.input_Spacing {
+									margin-left:20px;
+								}
+								.HopeFoundation {
+									label {
+										float:left;
+									}
+									.SmallText {
+										font-size:10px;
+										float:left;
+										width:650px;
+										line-height: 2;
+										margin-top: 15px;
+									}
+								}
+
+								li {
+									.ExplainIMG {position:relative;}
+									img {vertical-align: middle;   cursor: pointer;}
+									.NaturalCredentialsIMG {display: none;}
+									.MobileBarcodeIMG {display: none;}
+									.CreditBackSideIMG {display: none;}
+									.ExplainIMG:hover{
+										.NaturalCredentialsIMG{display:block; position: absolute;     left: 0px; z-index:2;} 
+										.MobileBarcodeIMG {display:block; position: absolute;     left: -5px; z-index:2;} 
+										.CreditBackSideIMG {display:block; position: absolute;     left: -5px; z-index:2;}
+									}
+								}
+							}
+						}
+				}
+			 }
+	
+			 /*PaymentStatus*/
+			 .PaymentStatus {
+				margin-bottom: 50px;
+				line-height: 1.5;           
+				.PaymentStatusTit {
+					.icon {
+						width: 40px;
+						height: 34px;
+						background: url("/Themes/img/Icon/CreditCardPaymentImg.png") no-repeat;
+						margin: 7px 15px 0px 15px;
+						display: block;
+						float: left;
+						vertical-align: text-bottom;
+					}
+					p {
+						float:left;
+						margin: 0 30px 0 0;
+					}
+				}
+				.PaymentStatusContent {
+					*padding:30px;/*IE7*/
+					padding: 20px 0 0 95px;
+					.ATMAccount {
+						margin: 15px 0;
+						font-size: 18px;
+						font-weight: bolder;
+						p {font-weight:bolder; float:left;}
+						.ATMNumber {color:#CB4042; font-weight:bolder;float:left;}	
+					}
+					.TitNumber {float: left;}
+					.Text {  width: 790px; margin-left: 20px;}
+				}
+			}
+
+			 /*Specification*/
+			 .Specification {
+				line-height: 1.5;
+				padding: 15px; 
+				font-size: 18px;	
+				.RedText {
+					margin-left: 30px;
+					.ForeignDirectPurchase {
+						color:#698EB8;
+						font-weight: bold;
+					}
+				}
+			 }
+
+			 /*BottomButton*/
+			 .BottomButton {
+				height:134px;
+				text-align: center;
+				margin: 30px auto;
+				width:550px;
+				.PreviousBtn {
+					  float: left;
+					  margin: 0 30px;
+					  background: url("/Themes/img/ShoppingProcess/BlueBigBtnBG.jpg") no-repeat;
+					  width: 212px;
+					  height: 81px;
+					  line-height: 81px;
+					  letter-spacing: 5px;
+					  font-size: 22px;
+					  padding:0;
+				}
+				/*.PreviousBtn:hover {
+					  background: url("/Themes/img/ShoppingProcess/BlueBigBtnBGDark.jpg") no-repeat;
+				}*/
+				.CheckoutBtn {
+					  float: left;
+					  margin: 0 30px;
+					  letter-spacing: 5px;
+					  font-size: 22px;
+					  padding: 0px 0 0 10px;
+				}
+				#CheckoutBtn {background: url("/Themes/img/ShoppingProcess/OrangeBigBtnBGDark.jpg") no-repeat; width: 0; height: 0;}
+				/*.CheckoutBtn:hover {
+					  background: url("/Themes/img/ShoppingProcess/OrangeBigBtnBGDark.jpg") no-repeat;
+				}*/
+				.ContinueBtn {
+					  float: left;
+					  margin: 0 30px;
+					  font-size: 22px;
+					  padding: 0;
+				}
+				#ContinueBtn {background: url("/Themes/img/ShoppingProcess/BlueBigBtnBGDark.jpg") no-repeat; width: 0; height: 0;}
+				/*.ContinueBtn:hover {
+					  background: url("/Themes/img/ShoppingProcess/BlueBigBtnBGDark.jpg") no-repeat;
+				}*/
+			 }
+			  
+			 .Remind {
+				margin-top: 50px;
+				.TextRemind {
+					float:left; 
+					line-height: 1.4;
+					p {
+						display: block;
+						width: 680px;
+					}
+				}
+				.ImgDialogRemind {
+					float:right;
+					width:320px;
+					.ImgRemind {
+						width: 138px;
+						height: 132px;
+						background: url("/Themes/img/ShoppingProcess/NoRemind.png") no-repeat;
+						float: left;
+					}
+					.DialogRemind {
+						width: 181px;
+						height: 111px;
+						float: left;
+						line-height: 1.5;
+						font-weight: bolder; 
+						background: url("/Themes/img/ShoppingProcess/TextRemind.png") no-repeat;
+						margin-top: -40px;
+						.NoCheckoutNumber {
+							margin:10px;
+						}
+					}
+				}
+			 }
+			 .Printer {
+				float:right;
+				top: -40px;
+				cursor: pointer;
+				position: relative;
+				span {
+					float:left;
+					background: url("/Themes/img/Icon/PrinterImg.png") no-repeat;
+					width: 33px;
+					height: 33px;
+				}
+				p {
+					float:left;
+					margin-top: 5px;
+					margin-left: 10px;
+				}
+			 }
+
+			 /*Pay*/
+			.pay{
+				width: $RWDMinWidth;
+				font-size:18px;
+				.NeedPayMoney {
+					 color: #CB4042;
+				}
+				.payMethod{
+					height:47px;
+					background:#EC8B54;
+					color:#fff;
+					clear:left;
+					.icon{
+						width:40px;
+						height:33px;
+						background:url("/Themes/img/Icon/CreditCardPaymentImg.png") no-repeat;
+						margin:7px 22px 7px 16px;
+						display:block;
+						float:left;
+					}
+					p {
+						display:inline-block;
+						font-size:18px;
+						line-height:47px;
+						color:#fff;
+						float:left;
+					}
+				}
+				input{
+					margin: 0 25px 0 10px;
+					width: 20px;
+					height: 20px;
+					vertical-align: middle;
+				}
+				.payMethodTit {
+					margin-left:70px;
+				}
+				.OkCancelButton {
+					text-align: center;
+					margin-top:10px;
+					.ButtonSpacing {
+						display:inline;
+						padding:10px;
+						*padding:10px;		/*IE7*/
+					}
+				}
+				.RadioForm {
+					line-height: 3;
+					.CreditCard {
+						  border: #D5D5D5;
+						  border-style: solid;
+						  border-width: 1px 0px 1px 0px;
+						  padding-bottom: 20px;		
+						  *padding-bottom: 20px;		/*IE7*/
+							.CreditCardInstallment{
+								padding-left: 50px;
+								*padding-left: 50px;		/*IE7*/
+								font-size: 18px;
+								font-weight: bolder;
+								.InstallMentBank {
+									float: right;
+									width: 440px;
+									margin-top: 10px;
+									z-index: 99;
+									position: relative;
+									margin: 0 15px;
+									.BankTit {
+										float: left;
+										font-size: 19px;
+									}
+									.Bank {
+										float: left;
+										margin: 8px 10px;
+										width: 350px;
+										label {
+											width: 115px;
+											display: block;
+											float: left;
+											font-size: 19px;
+											height: 40px;
+											line-height: 40px;
+											input {
+												margin-right:10px;
+											}
+										}
+										.RedText {
+										    float: right;
+											line-height: 1.5;
+											margin-top: 10px;
+											p {
+												color: #753334;
+												width: 350px;
+												font-size: 15px;
+											}
+										}
+									}
+								}
+								#bankAreaSelect {
+								    padding-left: 58px;
+									line-height: 30px;
+									label { 
+										float: left;
+										.RedText {
+											font-size:17px;
+											display: block;
+											margin-left: 10px;
+										}
+									}
+									#BankSelectDropList { 
+										float: right; 
+										.BankTit { 
+											float: left;
+										}
+										#BankInfoSelect { 
+											width: 390px; 
+											float: left;
+										}
+										.selectText {
+											position: relative;
+											display:inline-block;
+											width: 450px;
+											height: 30px;
+											margin:0 5px;
+											border: 1px solid #ccc;
+											background: #fff;
+											cursor: pointer;
+											float: left;
+											font-size: 15px;
+											&:before {
+												position: absolute;
+												content:"";
+												display: block;
+												top:0;
+												right: 2px;
+												width: 25px;
+												height: 30px;
+												overflow: hidden;
+												border-left: 1px solid #ccc;
+												background: url(/Themes/img/Icon/SelectImg.png) center no-repeat;
+											}
+											span {
+												position: relative;
+												left:0;
+												top:0;
+												display: inline-block;
+												width: 91.5%;
+												height: 30px;
+												padding: 0 5px;
+												line-height: 30px;
+												@include ellipsis;
+											}
+											.selectLists {
+												position: absolute;
+												z-index: 101;
+												top:30px;
+												left:-1px;
+												width: 100%;
+												height: auto;
+												max-height: 300px;
+												border: 1px solid #ccc;
+												overflow: hidden;
+												background: #fff;
+												overflow-y: auto;
+												li {
+													display: inline-block;
+													width: 98%;
+													height: auto;
+													padding:0 5px;
+													line-height:30px;
+													font-size: 15px;
+													&:hover { background: #ececec; }
+												}
+											}
+										}
+									}
+								}
+								.Installment {
+									line-height: 2;
+									position: relative;
+									margin: 10px 0;
+									/*height: 470px;*/
+									.InstallmentLeft {
+										float:left;
+										.InstallmentTit {
+											float:left;
+										}
+										.InstallmentInput {
+											float:left;
+											input[type="radio"] {
+												  margin-right: 10px;
+											}
+										}
+									}
+									.InstallmentRight {
+										position: absolute;
+										left:500px;
+										top: 0;
+										width:440px;
+										.BankTit {
+											float:left;
+											font-size: 19px;
+										}
+										.Bank {
+											float:left;
+											margin: 0 10px;
+											width: 360px;
+											/*height: 500px;
+											overflow: hidden;*/
+											label {
+												width: 115px;
+												display: block;
+												float: left;
+												font-size: 19px;
+											}
+											.RedText {
+												float:right;
+												line-height: 1.5;
+												margin-top:10px;
+												p {
+													color:#753334;
+													width:350px;
+													font-size: 15px;
+												}
+											}
+											input[type="radio"] {
+												  margin-right: 10px;
+											}
+										}
+									}
+								}
+							}
+
+							.CreditCardTotalMoney {
+								line-height: 2;
+								padding-left: 70px;
+								margin-top: 30px;
+								.NeedPay {
+									font-size: 19px;
+									font-weight: bolder;
+									p {
+										float:left;
+									}
+									.NeedPayMoney {
+										float:left;
+									}
+								}
+								.CreditCardInstallmentMoney {
+									font-size: 19px;
+									font-weight: bolder;
+									p {
+										float:left;
+									}
+									.InstallmentMoney {
+										float:left;
+										color:#CB4042;
+									}
+								}
+								.RedText {
+									float:none;
+									font-size: 15px;
+									span {
+										clear:both;
+									}
+									p {
+										clear:both;
+										width:100%;
+									}
+								}
+							}
+					}
+					.CashOnDelivery {
+						border: #D5D5D5;
+						border-style: solid;
+						border-width: 1px 0px 1px 0px;
+						padding: 10px 0px 20px 0;
+						*padding: 10px 0px 20px 0;		/*IE7*/
+						.CashOnDeliveryTotalMoney {
+							 margin-left: 120px;
+							 font-size: 18px;
+							 font-weight: bolder;
+							.NeedPay {
+								p {
+									float:left;
+								}
+								.NeedPayMoney {
+									color:#CB4042;
+									float: left;
+								}
+							}
+							.CashOnDeliveryInstructions {
+								  line-height: 2;
+								  span {
+									float:left;
+								  }
+							}
+						}
+					}
+					.MartPayments {
+						border: #D5D5D5;
+						border-style: solid;
+						border-width: 1px 0px 1px 0px;
+						padding: 10px 0px 20px 0;
+						*padding: 10px 0px 20px 0;		/*IE7*/
+						.MartPaymentsTotalMoney {
+							margin: 20px 0 10px 120px;
+							font-size: 18px;
+							font-weight: bolder;
+							.SelectMart {
+								p {
+									float:left;
+									line-height: 98px;
+								}
+								.MartIMG {
+									float:left;
+									margin: 0 10px;
+									padding: 5px;
+									*padding: 5px;		/*IE7*/
+									border: 1px solid rgba(255, 0, 0, 0);
+								}
+								.MartIMG:hover {
+									border: 1px solid #F37225;
+								}
+								.HiLifeMart {}
+								.SevenEleven {}
+								.FamilyMart {}
+								.OkMart {}
+							}
+							.NeedPay {
+								p {
+									float:left;
+								}
+								.NeedPayMoney {
+									color:#CB4042;
+									float: left;
+								}
+							}
+							.MartPaymentsInstructions {
+								line-height:2;
+							}
+						}
+					}
+					.EntityATM {
+						border: #D5D5D5;
+						border-style: solid;
+						border-width: 1px 0px 1px 0px;
+						padding: 10px 0px 20px 0;
+						.EntityATMTotalMoney {
+							margin-left:120px;
+							line-height: 2.3;
+							font-size: 18px;
+							font-weight: bolder;
+							.NeedPay {
+								p {
+									float:left;
+								}
+								.NeedPayMoney {
+									color:#CB4042;
+									float: left;
+								}
+							}
+							.EntityATMSelectBank {
+								.Bank {
+										float:left;
+										label {
+											display:block;
+											width:120px;
+											float:left;
+											input {
+												margin:0 10px 0 15px;
+											}
+										}
+								}
+							}
+							.EntityATMPrecautions {
+								clear:both;
+							}
+						}
+					}
+					.WebATM {
+						border: #D5D5D5;
+						border-style: solid;
+						border-width: 1px 0px 1px 0px;
+						padding: 10px 0px 20px 0;
+						.WebATMTotalMoney {
+							margin-left:120px;
+							line-height: 2.3;
+							font-size: 18px;
+							font-weight: bolder;
+							.NeedPay {
+								p {
+									float:left;
+								}
+								.NeedPayMoney {
+									color:#CB4042;
+									float: left;
+								}
+							}
+							.WebATMInstructions {
+								clear:both;
+								margin: 10px 0;
+							}
+						}
+					}
+					.PrepaidPayment {
+						border: #D5D5D5;
+						border-style: solid;
+						border-width: 1px 0px 1px 0px;
+						padding: 10px 0px 20px 0;
+						.AllPay {
+							margin-left: 120px;
+							margin-top: 10px;
+							font-size: 18px;
+							font-weight: bolder;
+							.AllPayUseProcess {
+								line-height:2;	
+							}
+							.PrepaidTeaching {
+								line-height:2;
+								margin: 20px 0;
+							}
+						}
+					}
+				}
+			}
+    }
+
+
+
+	

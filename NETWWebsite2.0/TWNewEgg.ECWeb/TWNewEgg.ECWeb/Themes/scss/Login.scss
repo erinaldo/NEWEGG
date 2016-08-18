@@ -1,0 +1,136 @@
+﻿@import "_colorStyle";
+@import "_base_BAK";
+@import "template";
+@import "_importSCSS";
+
+.mainPadding { /*確定不做RWD的內頁*/
+	margin:0 auto;
+	width:$RWDMinWidth;
+}
+
+/*Login Width*/
+$outterWidth:100%;
+$login_adBoxWidth:58%;
+$login_adBoxMaxWidth:572px;
+$login_formBoxMaxWidth:388px;
+
+body {
+	background:url(/Themes/img/MyAccount/LoginMainBg.jpg) no-repeat center top;
+}
+
+.loginArea {
+	margin-top:70px;
+	.login_adBox {
+		float:left;
+		width:$login_adBoxWidth;
+		max-width:$login_adBoxMaxWidth;
+		height:564px;
+		img {
+			max-width:$login_adBoxMaxWidth;
+			max-height:564px;
+		}
+	}
+	.fillFormArea {
+		@include clearAfter;
+		float:right;
+		/*width:($outterWidth - $login_adBoxWidth);*/
+		max-width:$login_formBoxMaxWidth;
+		.mainTitBar {
+			.icon {
+			}
+		}
+		$login_fillFormPadding:25px;
+		$login_fillForm_innerWidth:($login_formBoxMaxWidth - $login_fillFormPadding *2);
+		.fillFormBox {
+			padding:20px $login_fillFormPadding;
+			width:$login_fillForm_innerWidth;
+			$login_fillFormTitPadding:5px;
+			$login_fillFormTitWidth:60px;
+			$login_fillFormTit_innerWidth:($login_fillFormTitWidth - $login_fillFormTitPadding * 2);
+			.fillForm_contentList {
+				.tit {
+					padding:0 $login_fillFormTitPadding;
+					width:$login_fillFormTit_innerWidth;
+				}
+				$login_fillFormTxtPadding:10px;
+				/*填表表單寬*/$login_fillFormTxtWidth:($login_fillForm_innerWidth - $login_fillFormTitWidth);
+				$login_fillFormTxt_innerWidth:($login_fillForm_innerWidth - $login_fillFormTitWidth - $login_fillFormTxtPadding * 2);
+				.txt {
+					padding:0 $login_fillFormTxtPadding;
+					width:$login_fillFormTxt_innerWidth;
+				}
+				input {
+					width:($login_fillFormTxt_innerWidth - $login_fillFormTxtPadding * 2);
+				}
+			}
+		}
+		.btn {
+			width:$login_fillForm_innerWidth;
+			font-size:18px;
+			/*按鈕並排*/
+			/*並排按鈕外距*/$halfMargin:6px;
+			/*並排按鈕寬*/$halfWidth:($login_fillForm_innerWidth / 2 - $halfMargin / 2);
+			&.halfWidthBtn {
+				float:left;
+				width:$halfWidth;
+				&+.btn {
+					margin-left:$halfMargin;
+				}
+			}
+			&.btn-login {
+				background:$apricotorangeStyle;
+				outline:0;
+				&:hover {background:darken($apricotorangeStyle,5%);}
+			}
+			&.btn-fb {
+				background:$skyBlueStyle no-repeat;
+				background-image: url(/Themes/img/Icon/LoginFBicon.png);
+				background-position-x: 15px;
+				padding-left: 50px;
+				font-weight: bold;
+				&:hover {
+					background:darken($skyBlueStyle,10%) no-repeat;
+					background-image: url(/Themes/img/Icon/LoginFBicon.png);
+					background-position-x: 15px;
+					font-weight: bold;
+				}
+			}
+			&.btn-nonMember {
+				background:$babyblueStyle;
+				&:hover {
+					background:darken($babyblueStyle,10%);
+				}
+			}			
+			&.btn-register {
+				background: url("/Themes/img/ShoppingProcess/OrangeBigBtnBG.jpg");/*$lightorangeStyle;*/
+				height:60px;
+				/*&:hover {background:darken($lightorangeStyle,5%);}*/
+			}
+		}
+		.tipsRemember {
+			clear:both;
+			input[type="checkbox"] {
+				width:20px;
+				height:20px;
+				vertical-align:middle;
+			}
+		}
+		.tipsForgot {
+			float:right;
+		}
+	}
+	.tipsConnect {
+		float:right;
+		margin-top:10px;
+		width:($outterWidth - $login_adBoxWidth);
+		max-width:$login_formBoxMaxWidth;
+		height:30px;
+		text-align:center;
+		hr {
+			margin:0 10px;
+			border-left:1px solid $grayStyle;
+		}
+		
+	}
+}
+

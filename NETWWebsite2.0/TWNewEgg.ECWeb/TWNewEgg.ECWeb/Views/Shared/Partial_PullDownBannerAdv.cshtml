@@ -1,0 +1,17 @@
+﻿@if (Model.PullDownAdvList != null && Model.PullDownAdvList.Count > 0)
+{
+    if (!string.IsNullOrEmpty(TWNewEgg.ECWeb.Utility.ImageUtility.GetImagePath(Model.PullDownAdvList[0].Image)))
+    {
+    <div class="banner-ad img8">
+        <a href="@(Model.PullDownAdvList[0].Url)">
+            <img src="@(TWNewEgg.ECWeb.Utility.ImageUtility.GetImagePath(Model.PullDownAdvList[0].Image))"></a>
+    </div>
+    }
+    if (Model.PullDownAdvList.Count > 1 && !string.IsNullOrEmpty(Model.PullDownAdvList[1].Image))
+    {
+    <div class="banner-ad2 img8">
+        <a href="@(Model.PullDownAdvList[1].Url)">
+            <img src="@(TWNewEgg.ECWeb.Utility.ImageUtility.GetImagePath(Model.PullDownAdvList[1].Image))"></a>
+    </div>
+    }
+}

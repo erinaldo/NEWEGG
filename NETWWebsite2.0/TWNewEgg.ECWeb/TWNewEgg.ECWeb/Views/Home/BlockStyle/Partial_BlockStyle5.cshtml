@@ -1,0 +1,13 @@
+﻿@using TWNewEgg.Models.DomainModels.Home
+@model WindowBlock
+@if (Model != null && Model.CellList.Count >= 2)
+{
+    string cssType = !string.IsNullOrEmpty((string)ViewData["cssType"]) ? (string)ViewData["cssType"] : "1";
+    
+    for (int i = 0; i < 2; i++)
+    {
+        <div class="@HomeShareFuns.GenerateBoxStyleClass("box1", Model.CellList[i].Type, cssType)">
+            @Html.Partial("Cell/Partial_Cell" + Model.CellList[i].Type, Model.CellList[i])       
+        </div>
+    }
+}

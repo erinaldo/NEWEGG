@@ -1,0 +1,840 @@
+@charset "UTF-8";
+.clear, .wrapper, .serviceContentBox, .serviceContentBox .sTit, .serviceContentBox .service_contentTable {
+  clear: both;
+}
+
+/*Main Width*/
+.wrapper {
+  margin: 0 auto;
+  /*width:$wrapperWidth;*/
+}
+.wrapper:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+
+/*.mainPadding {
+	@extend .clear;
+	@include clearAfter;
+	padding:$mainContentPadding;
+	width:$mainContentWidth;
+}*/
+/*水平線*/
+hr {
+  border: 0;
+  border-top-width: 1px;
+  border-style: solid;
+}
+hr.verticalDir {
+  display: inline-block;
+  position: relative;
+  top: -1px;
+  border-left: 1px solid;
+  vertical-align: middle;
+  width: 0;
+  height: 100%;
+}
+
+/*ICON*/
+i.icon {
+  /*display:inline-block;
+  vertical-align:middle;*/
+}
+
+/*輸入框*/
+input, input[type="text"], input[type="password"], input[type="tel"], textarea {
+  /*padding:5px 10px;
+  border-width:1px;
+  border-style:solid;
+  vertical-align:middle;
+  font-family:$mainFontStyle;*/
+}
+
+input + input, input + .btn, .selector + input, .selector + .btn, input[type="button"] + input, input[type="button"] + .btn, .btn + input, .btn + .btn {
+  margin-left: 10px;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+input[type="button"], input[type="submit"], .btn {
+  margin: 5px 0;
+  padding: 10px 0;
+  border: 0;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+input[type="button"]:hover, input[type="submit"]:hover, .btn:hover {
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+
+/*麵包屑*/
+.pathLink {
+  font-size: 15px;
+}
+.pathLink span {
+  margin: 0 3px;
+}
+
+/*頁碼*/
+.btmPageArea {
+  position: relative;
+  text-align: center;
+}
+.btmPageArea:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.btmPageArea a {
+  display: inline-block;
+  /*float:left;*/
+  padding: 5px;
+  vertical-align: middle;
+  background: #fff;
+  color: #777;
+}
+.btmPageArea a:hover {
+  background: #f78d51;
+  color: #fff;
+}
+.btmPageArea .arrow {
+  position: relative;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  background: #f78d51;
+}
+.btmPageArea .arrow:hover {
+  background: #f56d20;
+  color: #fff;
+}
+.btmPageArea .arrLeft {
+  left: -25px;
+}
+.btmPageArea .arrRight {
+  right: -25px;
+}
+
+/*自製select*/
+.selector {
+  position: relative;
+  cursor: pointer;
+}
+.selector:active ul, .selector:focus ul, .selector.active ul {
+  z-index: 1;
+  background: #fff;
+}
+.selector:active ul li, .selector:focus ul li, .selector.active ul li {
+  display: block;
+}
+.selector .default {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  *width: 90%;
+  position: relative;
+  padding: 5px;
+  border-style: solid;
+  border-width: 1px;
+}
+.selector .default .icon-arrow {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 33px;
+  height: 100%;
+  background: url(/Themes/img/Icon/SelectImg.png) no-repeat center;
+  border-width: 1px;
+  border-style: solid;
+}
+.selector ul {
+  position: absolute;
+  top: 28px;
+  z-index: 0;
+  overflow: auto;
+  overflow-x: hidden;
+  width: 100%;
+  max-height: 90px;
+  border-width: 1px;
+  border-style: solid;
+}
+.selector ul li {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  *width: 90%;
+  position: relative;
+  padding: 5px;
+  border-style: solid;
+  display: none;
+  margin-top: -1px;
+}
+
+.selector-birth {
+  /*position:relative; 
+  .icon-arrow {
+  	display:block;
+  	position:absolute;
+  	top:0;
+  	right:0;
+  	width:26px;
+  	height:29px;*/
+  /*}*/
+}
+.selector-birth input {
+  background-image: url("/Themes/img/Icon/DateFarToNearImg.png");
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+/*頁籤樣式:我的回饋金.我的折價券.我的訂單.我的最愛清單.我的帳戶*/
+/*頁籤Width*/
+/*頁籤maxWidth*/
+/*頁籤Height*/
+/*頁籤Padding*/
+/*頁籤innerHeight*/
+.serviceTabArea {
+  width: 100%;
+}
+.serviceTabArea:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.serviceTabArea .tab {
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
+  float: left;
+  padding: 3px 35px;
+  max-width: 130px;
+  height: 42px;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  line-height: 42px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.serviceTabArea .tab + .tab {
+  margin-left: -1px;
+}
+.serviceTabArea .tab:hover {
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+.serviceTabArea .tab:hover i.icon {
+  background-position: -10px 0;
+}
+.serviceTabArea .tab.active {
+  background-repeat: no-repeat;
+  background-position: right;
+}
+.serviceTabArea .tab i.icon {
+  margin-right: 10px;
+  /*background-image:url(/Themes/img/header-icon.png);*/
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+/*頁籤內容*/
+.serviceContentBox {
+  margin-top: -1px;
+  padding: 20px 40px;
+  padding: 20px 0;
+  overflow: hidden;
+  border: 1px solid #d5d5d5;
+  border-top: 0;
+  font-size: 16px;
+}
+.serviceContentBox .mainTit .icon {
+  margin-right: 5px;
+  width: 35px;
+  height: 35px;
+}
+.serviceContentBox .sTit {
+  padding: 10px 6px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.serviceContentBox .sTit:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.serviceContentBox .sTit .tt {
+  float: left;
+}
+.serviceContentBox .sTit .add {
+  float: right;
+}
+.serviceContentBox .service_contentForm {
+  margin: 40px 40px 40px 91px;
+}
+.serviceContentBox .service_contentForm .service_contentList {
+  margin-bottom: 15px;
+  min-height: 35px;
+  line-height: 35px;
+}
+.serviceContentBox .service_contentForm .service_contentList:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.serviceContentBox .service_contentForm .service_contentList .tit {
+  float: left;
+  margin-right: 30px;
+  width: 140px;
+  min-height: 35px;
+  line-height: 35px;
+  font-weight: bold;
+}
+.serviceContentBox .service_contentForm .service_contentList .txt {
+  float: left;
+}
+.serviceContentBox .service_contentForm .service_contentList .txt input {
+  /*margin-right:15px;*/
+  height: 20px;
+}
+.serviceContentBox .service_contentTable {
+  width: 100%;
+  color: #666;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.serviceContentBox .service_contentTable table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.serviceContentBox .service_contentTable th,
+.serviceContentBox .service_contentTable td {
+  padding: 5px;
+  border-collapse: collapse;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d5d5d5;
+  line-height: 1.2em;
+  text-align: center;
+}
+.serviceContentBox .service_contentTable th {
+  background: #f0f0f0;
+  border-left: 0;
+  border-right: 0;
+}
+.serviceContentBox .service_contentTable td {
+  border-left: 0;
+  font-size: 15px;
+  height: 18px;
+}
+.serviceContentBox .service_contentTable td[colspan="6"] {
+  padding: 30px 0;
+  text-align: center;
+}
+.serviceContentBox .service_contentTable .icon-shop {
+  width: 35px;
+  height: 35px;
+}
+.serviceContentBox .service_contentTable .icon-shop img {
+  max-width: 35px;
+  max-height: 35px;
+  vertical-align: text-bottom;
+}
+.serviceContentBox .service_contentTable .highline {
+  color: #f72;
+}
+.serviceContentBox .btmBtnArea {
+  text-align: center;
+  margin: 20px 0;
+}
+.serviceContentBox .btmBtnArea .btn + .btn {
+  margin-left: 50px;
+}
+
+/*登入註冊區塊*/
+.fillFormArea {
+  border-width: 1px;
+  border-style: solid;
+  /*填表區高&行高*/
+}
+.fillFormArea:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.fillFormArea .mainTitBar {
+  padding: 0 30px;
+  height: 48px;
+  line-height: 50px;
+  font-size: 20px;
+}
+.fillFormArea .mainTitBar .icon {
+  display: block;
+  float: left;
+  margin-right: 25px;
+}
+.fillFormArea .mainTitBar img {
+  vertical-align: text-bottom;
+}
+.fillFormArea .fillFormBox .fillForm_contentList:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.fillFormArea .fillFormBox .fillForm_contentList .tit {
+  float: left;
+  margin-bottom: 20px;
+  overflow: hidden;
+  height: 32px;
+  line-height: 32px;
+  font-weight: bold;
+}
+.fillFormArea .fillFormBox .fillForm_contentList .txt {
+  float: left;
+  margin-bottom: 20px;
+  height: 100%;
+}
+.fillFormArea .fillFormBox input[type="checkbox"] {
+  margin-right: 3px;
+  width: 16px;
+  height: 16px;
+  border-color: #666;
+}
+
+/*所有顏色統一管理*/
+/*全站背景色*/
+/*深色按鈕文字*/
+/*a & a:visited*/
+/*a:hover*/
+/*a:active*/
+/*麵包屑顏色*/
+/*表單文字顏色*/
+/*表單框框顏色*/
+/*禁止使用的灰灰字*/
+/*淺灰色*/
+/*深灰色*/
+/*杏黃色*/
+/*淺橘色*/
+/*杏橘色*/
+/*藍靛色*/
+/*淺藍色*/
+/*天藍*/
+/*鋼青色*/
+/*紅色*/
+/*頁籤樣式*/
+/*tab框線*/
+/*tab文字*/
+/*tab背景色*/
+/*tabHover背景色*/
+/*tabHover文字*/
+/*tabHover框線*/
+/*tabActive背景色*/
+/*tabActive文字*/
+/*tabActive框線*/
+/*tabActive框線*/
+/*tabActive框線*/
+/*登入註冊區塊*/
+/*區塊外框*/
+/*基本框架*/
+body {
+  background: white;
+  color: #666;
+}
+
+/*水平線*/
+hr {
+  border-color: #cccccc;
+}
+
+/*ICON*/
+/*輸入框*/
+input, input[type="text"], input[type="password"], textarea {
+  border-color: gray;
+  color: black;
+}
+
+input[type="button"], input[type="submit"], .btn {
+  background: #ec8b54;
+  color: white;
+}
+input[type="button"]:hover, input[type="submit"]:hover, .btn:hover {
+  background: #e97b3d;
+}
+input[type="button"].gray, input[type="submit"].gray, .btn.gray {
+  background: #ccc;
+  cursor: default;
+}
+
+/*超連結*/
+/*a, a:visited {
+	color:$alinkColor;
+	&:hover {
+		color:$alinkHover;
+	}
+	&:active {
+		color:$alinkActive;
+	}
+}*/
+/*常用樣式*/
+.red {
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+/*麵包屑*/
+/*.pathLink {
+	a, a:visited {
+		color:$pathLinlStyle;
+		&:hover {
+			color:darken($pathLinlStyle, 30%);
+		}
+		&:active {
+			color:lighten($pathLinlStyle, 10%);
+		}
+	}
+	span {
+		color:$pathLinlStyle;
+	}
+}*/
+/*頁籤樣式:我的回饋金.我的折價券.我的訂單.我的最愛清單.我的帳戶*/
+.serviceTabArea .tab {
+  background: white;
+  border-color: #d5d5d5;
+  color: #bfbfbf;
+}
+.serviceTabArea .tab:hover {
+  background: #ec8b54;
+  border-color: #ec8b54;
+  color: white;
+}
+.serviceTabArea .tab.active {
+  background-color: #ec8b54;
+  border-color: #ec8b54;
+  color: white;
+}
+
+/*頁籤內容*/
+.serviceContentBox {
+  color: #666666;
+}
+.serviceContentBox .mainTit {
+  color: #666666;
+}
+
+/*登入註冊區塊*/
+.fillFormArea {
+  border-color: #d5d5d5;
+}
+.fillFormArea .mainTitBar {
+  background: #ec8b54;
+  color: #fff;
+}
+.fillFormArea .fillFormBox .fillForm_contentList:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.fillFormArea .fillFormBox .fillForm_contentList .tit {
+  color: #666666;
+}
+.fillFormArea .selector .default, .fillFormArea .selector li {
+  background: #fff;
+  border-color: gray;
+  /*&.active {
+  	background:#fff;
+  }*/
+}
+.fillFormArea .selector .default .icon-arrow, .fillFormArea .selector li .icon-arrow {
+  border-color: gray;
+}
+.fillFormArea .selector:hover ul li:hover {
+  background: #999;
+}
+
+.clear, .wrapper, .serviceContentBox, .serviceContentBox .sTit, .serviceContentBox .service_contentTable {
+  clear: both;
+}
+
+/*@media screen and (max-width: 1024px) {
+		$chooseAreaWidth:1004px;
+}*/
+@media screen and (max-width: 1280px) {
+  .caroufredsel_wrapper {
+    width: 100%;
+  }
+
+  .chooseArea .chooseBox .box {
+    width: 210px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .caroufredsel_wrapper {
+    width: 100%;
+  }
+
+  .chooseArea .chooseBox .box {
+    width: 195px;
+  }
+}
+.CategoryArea:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.CategoryArea .subCategory {
+  /*@media screen and (max-width: 1024px) {
+  		$chooseAreaWidth:1004px;
+  		$subCategoryWidth:($chooseAreaWidth - $aside2Width - 20);
+  		width:$subCategoryWidth;
+  }*/
+}
+.CategoryArea .subCategory .box {
+  /*width:($subCategoryWidth - 4 * ( 2 + 10 ) ) / 4;
+  @media screen and (max-width: 1024px) {
+  		$chooseAreaWidth:1004px;
+  		$subCategoryWidth:($chooseAreaWidth - $aside2Width - 20);
+  		width:($subCategoryWidth - 3 * ( 2 + 10 ) ) / 3;
+  }*/
+}
+.CategoryArea .subCategory .box a {
+  border-bottom: 0;
+}
+.CategoryArea .subCategory .box .txt {
+  margin-bottom: 10px;
+}
+.CategoryArea .subCategory .box .chooseBar .status .btn {
+  padding: 3px 10px;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.productListArea:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+
+/*任選館Banner廣告*/
+.chooseBN img {
+  width: 100%;
+  max-height: 450px;
+}
+
+/*任選館購物車*/
+.chooseArea {
+  margin: 20px 0;
+}
+.chooseArea .activityNameTit {
+  margin: 10px 0;
+  line-height: 1.2em;
+  font-size: 20px;
+  color: #cb4043;
+}
+.chooseArea .titBar {
+  padding-left: 90px;
+  height: 63px;
+  background-image: url(/Themes/img/Category/chooseAreaTit.jpg);
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-color: #f2f2f2;
+  border: 1px solid #698eb8;
+  line-height: 63px;
+  font-size: 20px;
+  color: #333;
+}
+.chooseArea .titBar .ttIcon {
+  display: none;
+  padding-left: 15px;
+  background-color: #698eb8;
+  color: #fff;
+}
+.chooseArea .titBar .ttIcon .solid {
+  display: block;
+  width: 20px;
+  background-color: #698eb8;
+}
+.chooseArea .titBar .tit {
+  float: left;
+  margin-left: 25px;
+}
+.chooseArea .titBar .tit span {
+  margin: 0 3px;
+}
+.chooseArea .titBar .buyBtn {
+  float: right;
+  margin-top: -2px;
+  margin-right: 15px;
+}
+.chooseArea .titBar .buyBtn .btn {
+  padding: 10px 35px;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+.chooseArea .chooseBox {
+  position: relative;
+  /*width:100%;*/
+  height: 280px;
+  border: 1px solid #698eb8;
+  border-bottom-width: 3px;
+  padding: 0 15px;
+}
+.chooseArea .chooseBox:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.chooseArea .chooseBox .tipsTxt {
+  text-align: center;
+  line-height: 280px;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.chooseArea .chooseBox .arrow {
+  position: absolute;
+  top: 50%;
+  margin-top: -15px;
+  width: 30px;
+  height: 30px;
+  background-image: url(/Themes/img/icon/chooseArrow.jpg);
+  background-repeat: no-repeat;
+  text-indent: -99999px;
+  *text-indent: 0;
+  font-size: 0;
+  color: #fff;
+  cursor: pointer;
+}
+.chooseArea .chooseBox .arrow.prev {
+  left: 0px;
+}
+.chooseArea .chooseBox .arrow.next {
+  right: 0px;
+  background-position: -30px 0;
+}
+.chooseArea .chooseBox .box {
+  float: left;
+  margin: 20px 5px;
+  padding: 0 15px;
+  /*width:($chooseAreaWidth - 50 - 4 - $boxPadding * 2 * 5) / 5;*/
+  border: 0 solid #d5d5d5;
+}
+.chooseArea .chooseBox .box + .box {
+  margin-left: 0;
+  border-left-width: 1px;
+}
+.chooseArea .chooseBox .box .pic {
+  margin: 0 auto;
+  width: 160px;
+  height: 160px;
+  text-align: center;
+}
+.chooseArea .chooseBox .box .pic img {
+  max-width: 160px;
+  max-height: 160px;
+}
+.chooseArea .chooseBox .box .txt {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #666;
+  /*.marketPrice {
+  	
+  	font-size:13px;
+  	color:#b3b3b3;
+  }*/
+}
+.chooseArea .chooseBox .box .txt h3 {
+  margin-bottom: 3px;
+  height: 40px;
+  overflow: hidden;
+  line-height: 18px;
+}
+.chooseArea .chooseBox .box .txt .price {
+  float: none;
+  color: #c94141;
+}
+.chooseArea .chooseBox .box .txt .buyNum {
+  color: #c94141;
+}
+.chooseArea .chooseBox .box .txt .icon-delete {
+  float: right;
+  margin: 0;
+  width: 20px;
+  height: 23px;
+  background-image: url(/Themes/img/icon/DeleteImg2.jpg);
+}

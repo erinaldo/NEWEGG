@@ -1,0 +1,282 @@
+﻿@{
+    ViewBag.Title = "Lottery";
+}
+
+@section metaTags{
+    <!-- 活動正式網址 -->
+    <meta property='og:url' content='http://www.newegg.com.tw/activity/20150930_neweggbirthday' />
+    <!-- 活動Title -->
+    <meta property='og:title' content='新蛋全球生活網' />
+    <!-- 活動描述 -->
+    <meta property='og:description' content='9月入會抽專屬籤詩再抽好禮' />
+    <!-- 活動示意圖 -->
+    <meta property='og:image' content='https://ssl-images.newegg.com.tw/pic/AdvImage/0/0/31/974/StartImg.jpg' />
+    <!-- 活動網站(此屬性已取消) -->
+    <meta property='og:site_name' content='新蛋全球生活網' />
+}
+
+<h2>Lottery</h2>
+<!-- 功能鈕 --->
+<input type="button" id="btn_Lottery" value ="測試抽獎" /><br />
+<input type="button" id="btn_FB_ShareActivity" value="FB分享活動" /><br />
+<input type="button" id="btn_FB_ShareAward" value="FB分享獎項" /><br />
+
+<div>
+    隱藏項目:<br />
+    award_name: <input type="text" id="award_name" /><br />
+    award_desc: <input type="text" id="award_desc" /><br />
+</div>
+
+<!-- FB的必要項目 -->
+<div id="fb-root"></div>
+
+@section refScripts{
+<script type="text/javascript">
+
+(function (d, s, id)
+{
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=987744281246127";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+    //var _fbAppId = '695768887110336';
+    var _fbAppId = '987744281246127';
+    var _uid = "";
+    var _fbAccessToken = "";
+
+    function checkFBStatus()
+    {
+        FB.init({
+            appId: '987744281246127',                        // App ID from the app dashboard
+            channelUrl: '//WWW.neweegg.com.tw/', // Channel file for x-domain comms
+            status: true,                                 // Check Facebook Login status
+            xfbml: true,                                  // Look for social plugins on the page
+            cookie: true,
+            oauth: true,
+            version: 'v2.4' // or v2.0, v2.1, v2.0
+        });
+
+
+        FB.login(function (response)
+        {
+            if (response.status == "connected")
+            {  // 程式有連結到 Facebook 帳號
+                //console.log("auth status", response.authResponse);
+                _uid = response.authResponse.userID; // 取得 UID
+                _fbAccessToken = response.authResponse.accessToken; //get access token, and save it in local storage
+
+                /*
+                console.log("fb response", response);
+                console.log("logion response:", response.authResponse);
+                console.log("_uid1", _uid);
+                console.log("_fbAccessToken1", _fbAccessToken);
+                */
+                FB.api("/me", "GET", function (response)
+                {
+                    _uid = response.authResponse.userID; // 取得 UID
+                    //console.log("_uid3", _uid);
+                    var email = response.email;
+
+                });
+                postToWall();
+            } else if (response.status == "not_authorized")
+            {  // 帳號沒有連結到 Facebook 程式
+                FB_login();
+            } else
+            {    // 帳號沒有登入
+                FB_login();
+            }
+        }, { scope: "publish_actions"});
+    }
+    //如果已經登入但還沒允許APP存取的話，可以使用 FB.login() 來請使用者允許存取
+    //其中存取權限要加上 publish_stream，才可以貼文或刪文
+
+
+    function FB_login()
+    {
+        FB.login(function (response)
+        {
+            if (response.authResponse)
+            {
+                _uid = response.authResponse.userID; // 取得 UID
+                _fbAccessToken = response.authResponse.accessToken; //get access token, and save it in local storage
+                init();
+
+                postToWall();
+            }
+        }, { scope: 'publish_actions'});
+    }
+
+    //登入後可以抓取FB帳號資料，可以參考 Graph API
+    //FB.api('/me', function(response) { $('#info').html("<div><img src='https://graph.facebook.com/" + response.id + "/picture/' /></div><div>" + response.name + "</div>");
+    function postToWall()
+    {
+        var strMsg = "我抽中的幸運籤詩是{$award_desc}新蛋送上「{$award_name}」快來新蛋抽取您的幸運籤餅";
+        var strAwardName = $("#award_name").val();
+        var strAwardDesc = $("#award_desc").val();
+
+        if (strAwardName == null || typeof (strAwardName) == "undefined" || strAwardName.length <= 0
+            || strAwardDesc == null || typeof (strAwardDesc) == "undefined" || strAwardDesc.length <= 0)
+        {
+            alert('請先抽獎');
+            return;
+        }
+
+        strMsg = strMsg.replace("{$award_desc}", strAwardDesc);
+        strMsg = strMsg.replace("{$award_name}", strAwardName);
+
+        var args = {
+            access_token: _fbAccessToken,
+            //method: 'feed',
+            //name: '入會試手氣 扭蛋抽好禮',
+            
+            message: strMsg,
+            link: 'https://secure.newegg.com.tw/activity/20150930_neweggbirthday',
+            picture: 'https://ssl-images.newegg.com.tw/pic/AdvImage/0/0/31/974/StartImg.jpg',
+            description: '活動期間內，加入新蛋會員即可參加「入會試手氣 扭蛋抽好禮」活動，就有可能獲得新蛋千元折價券、新蛋造型8G隨身碟！',
+            caption: '入會試手氣 扭蛋抽好禮'
+        };
+
+        console.log("args:", args);
+        console.log("_uid:", _uid);
+        console.log("_token:", _fbAccessToken);
+        FB.api('/' + _uid + '/feed', 'post', args, onPostToWallCompleted);
+    }
+
+    function onPostToWallCompleted(response)
+    {
+        console.log("response:", response);
+        if (!response || response.error)
+        {
+            //console.log("FB error message:", response.error);
+            //alert('Facebook發佈失敗！\n' + response.error.message);
+            alert('Facebook發佈失敗！');
+            //document.getElementById('msg').innerHTML = 'Error occured: ' + response.error.message;
+        } else
+        {
+            //alert('Facebook發佈成功！\n' +response.id);
+            alert('Facebook發佈成功！');
+        }
+    }
+
+    function postActivity()
+    {
+        //var strHref = window.document.location.href;
+        var strHref = "http://www.newegg.com.tw/item?itemid=473674";
+
+        FB.ui({
+            method: 'share_open_graph',
+            action_type: 'og.likes',
+            action_properties: JSON.stringify({
+                object: strHref,
+            })
+        }, function (response)
+        {
+            // Debug response (optional)
+            //console.log(response);
+        });
+    }
+
+
+
+    /* ----- btn:抽獎 ------ */
+    $("#btn_Lottery").click(function ()
+    {
+        GetLottery();
+    });
+
+    /* ------ btn:分享活動 ------ */
+    $("#btn_FB_ShareActivity").click(function ()
+    {
+        postActivity();
+    });
+
+    /* ------ btn: 分享獎項 ------ */
+    $("#btn_FB_ShareAward").click(function ()
+    {
+        checkFBStatus();
+    });
+
+    /* ========================================== function ========================================== */
+    /* ------ 抽獎 ------ */
+    function GetLottery()
+    {
+        twNewegg().checkNGO(function (auchk)
+        {
+            if (!auchk)
+            {
+                window.location = "/MyAccount/Login?ReturnUrl=/Deals/Lottery";
+                return;
+            }
+            else
+            {
+                var objResult = null;
+                $.ajax({
+                    url: "/api/Deals/GetLotteryResult",
+                    cache: false,
+                    type: 'post',
+                    dataType: "html",
+                    beforeSend: function (xhr)
+                    {
+                        xhr.setRequestHeader("Authorization", "Basic " + jQuery.cookie("neui"));
+                    },
+                    success: function (data)
+                    {
+                        //alert(JSON.stringify(data));
+                        console.log("data:", data);
+                        console.log("data.Award", data.Award);
+                        if (data != null && data.length > 0)
+                        {
+                            var objResult = JSON.parse(data);
+                            console.log("objResult:", objResult);
+                            if (objResult.Award != null && typeof (objResult.Award) != "undefined")
+                            {
+                                //有獎項
+                                $("#award_name").val(objResult.Award.Name);
+                                $("#award_desc").val(objResult.Award.Description);
+                            }
+                            else
+                            {
+                                switch (objResult.State)
+                                {
+                                    case "1":
+                                        //活動不存在
+                                        alert("活動不存在");
+                                        break;
+                                    case "2":
+                                        //活動尚未開始
+                                        alert("活動尚未開始");
+                                        break;
+                                    case "3":
+                                        //活動已過期
+                                        alert("活動已過期");
+                                        break;
+                                    case "4":
+                                        alert("");
+                                        break;
+                                    case "5":
+                                        //已抽過獎
+                                        alert("已抽過獎");
+                                        break;
+                                    case "6":
+                                        //Error
+                                        alert("Error");
+                                        break;
+                                }
+                            }
+                        }
+                    },//end success
+                    error: function ()
+                    {
+                        alert("抽獎失敗，請稍候再試");
+                    },
+                });
+            }// end if(!auchk)
+        }, []);
+    }
+</script>
+}
+

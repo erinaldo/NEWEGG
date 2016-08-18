@@ -1,0 +1,78 @@
+﻿@model List<TWNewEgg.Website.ECWeb.Models.ResultCart>
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+    TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput UserData = ViewBag.UserData as TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput;
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+    int delivtype = ViewBag.delivtype;
+    string DelivType = "";
+    switch (delivtype)
+    {
+        case 0: DelivType = "2";
+            break;
+        default: DelivType = "6-11";
+            break;
+    }
+}
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Header" width="795" height="68" />
+                    </div>
+                    <div>
+                        <br />
+                        @UserData.salesorder_name 先生/小姐，您好：
+                        <br/><br/>
+                        您的訂單: @ViewBag.SalesOrderCodes 
+                        <br/><br/>
+                        已於 @UserData.salesorder_date 訂購成功
+                        <br/><br/>
+                        商品出貨後預計 @DelivType 個工作天內，配達到您指定的收件地址
+                        <br/><br/>
+                        商品寄出時，我們將會發信通知您，請您留意配送狀況，感謝您的支持與配合
+                        <br/><br/>
+                        若商品有無法如期出貨的情況，我們也會另發信通知，請您放心
+                        <br/><br/>
+                    </div>
+                    <div>
+                        @{
+                            if(delivtype == 0)
+                            {
+                                <p style="color:#f00">注意事項：</p>
+                                <p>
+                                    1. 若您選擇的為【貨到付款】，請您先將款項備妥，於收到商品時，一併將款項交給新竹物流人員，<br />
+                                       並請務必在約定收貨時間內，確定有人收貨付款，商品送達時同時委由新竹貨運代收商品的全額貨款。<br />
+                                    2. 商品若已出貨，即無法更改其他配送地址，請於原留地址取件，並手機暢通待物流人員與您聯繫。<br /><br /><br />
+                                </p>
+                            }
+                            else
+                            {
+                                <p style="color:#f00">提醒您：</p>
+                                <p>
+                                    1. 需請您手機暢通，待新竹貨運人員與您電聯確認，並方便簽收商品。<br />
+                                    2. 商品已出貨，無法更改其他配送地址，請於原留地址取件。<br /><br /><br />
+                                </p>
+                            }
+                        }
+                    </div>
+                    <div>
+                        <p>
+                            <b>建議您亦可於台灣新蛋網頁正上方「我的訂單」，進入後可即時線上參考訂單的出貨狀況</b>
+                            <br /><br /><br /><br />
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                            請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Fooer" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

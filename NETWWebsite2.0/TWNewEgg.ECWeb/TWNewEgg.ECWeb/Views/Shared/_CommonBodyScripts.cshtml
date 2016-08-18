@@ -1,0 +1,116 @@
+﻿<script>
+    (function (twNewegg) {
+        var audioMethods = function (path) {
+            @*private*@
+            var audioPath = "";
+            var audioElement;
+            var audioStatus = false;
+            var init = function (path) {
+                audioPath = path;
+                audioElement = new Audio(audioPath);
+            };
+            @*public*@
+            this.getStatus = function () {
+                return audioStatus;
+            };
+            this.play = function () {
+                if (audioPath === "") {
+                    init(path);
+                }
+                audioStatus = true;
+                audioElement.play();
+                $("#siteMusic").css({ "background-image": "url(/Themes/img/music-on.gif)", "background-size": "37px 34px" });
+            };
+            this.stop = function () {
+                audioStatus = false;
+                audioElement.pause();
+                $("#siteMusic").attr("style", "");
+            };
+        };
+        twNewegg.prototype.siteMusic = function (path) {
+            if (typeof path === 'string') {
+                return new audioMethods(path);
+            } else {
+                $.error("Path type must be string.");
+            }
+        }
+    })(twNewegg);
+    var countCartNumber = function (scData) {
+        var countNumber = 0;
+        if ($.isArray(scData)) {
+            for (i = 0; i < scData.length; i++) {
+                if (scData[i].stu == 0 ||
+                    scData[i].stu == 100 ||
+                    scData[i].stu == 101 ||
+                    scData[i].stu == 102) {
+                    countNumber++;
+                }
+            }
+        }
+        if ($('#neSCHead').length) {
+            $('#neSCHead').text((countNumber > 0) ? countNumber : "");
+        }
+        if ($('#neSCBody').length) {
+            $('#neSCBody').text((countNumber > 0) ? countNumber : "");
+        }
+       @*scDom.text(countNumber);*@
+    };
+    $(document).ready(function () {
+        if ($('#siteMusic').length) {
+            var audioController = twNewegg().siteMusic('/Themes/media/wtf.mp3');
+            
+            $('#siteMusic').on('click', function () {
+                if (audioController.getStatus() === false) {
+                    audioController.play();
+                } else {
+                    audioController.stop();
+                }
+            });
+        }
+        @*if ($('#neSCHead').length) {
+            var neSCHead = $('#neSCHead');
+            twNewegg().cart().cartMethod("readFromCart", { categoryIds: [], categoryTypes: [], successMethods: [countHeadCartNumber], successParas: [[neSCHead]] });
+        }*@
+
+        $('#goneMobile').on('click', function () {
+            if (!twNewegg().mobileDevice().detectMethod("isMobile", null)) {
+                return;
+            }
+            twNewegg().mobileDevice().detectMethod("set2NEMobile", null);
+            window.location = twNewegg().twNeweggMoURL;
+        });
+
+        twNewegg().cart().cartMethod("readFromCart", { categoryIds: [], categoryTypes: [], successMethods: [countCartNumber], successParas: [[]] });
+
+        @*Header我的帳戶下拉*@
+        myDropAccount();
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        imgVerticalAlignCenter();
+        
+        $(".footer-limiter").append("<div class=\"pageTop\">");
+    
+        $(".pageTop").click(function () {
+            jQuery("html,body").animate({
+                scrollTop: 0
+            }, 500);
+        });
+    });
+</script>
+
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+    window.$zopim || (function (d, s) {
+        var z = $zopim = function (c) { z._.push(c) }, $ = z.s =
+        d.createElement(s), e = d.getElementsByTagName(s)[0]; z.set = function (o) {
+            z.set.
+            _.push(o)
+        }; z._ = []; z.set._ = []; $.async = !0; $.setAttribute("charset", "utf-8");
+        $.src = "//v2.zopim.com/?3cu9WZegL4NqJ03IiegrowAjpJ2Bt7bH"; z.t = +new Date; $.
+        type = "text/javascript"; e.parentNode.insertBefore($, e)
+    })(document, "script");
+</script>
+<!--End of Zopim Live Chat Script-->

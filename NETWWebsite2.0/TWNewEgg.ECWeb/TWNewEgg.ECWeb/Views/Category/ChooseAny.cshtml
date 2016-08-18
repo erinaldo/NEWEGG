@@ -1,0 +1,166 @@
+﻿@using TWNewEgg.ECWeb.Utility
+@model TWNewEgg.Models.DomainModels.Store.OptionStoreInfo
+@{
+    ViewBag.Title = Model.Title + "-新蛋全球生活網";
+    string breadString = "";
+    int ViewCategoryID = ViewBag.CategoryID;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/rwdGeneral")
+    @Styles.Render("~/content/css/subcategory")
+    @Styles.Render("~/content/css/filterList")
+    @Styles.Render("~/content/css/Style_product")
+    @Styles.Render("~/content/css/CategoryGeneral")
+    @Styles.Render("~/content/css/ChooseAny")
+}
+
+
+@section scripts{
+    <!--<script src="/Scripts/RWD/jquery.js" type="text/javascript"></script>-->
+    <script src="~/Scripts/historyjs/jquery.history.js"></script>
+    <script src="~/Scripts/historyjs/netw-history-1.0.0.0.js"></script>
+    <script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>   
+    <script src="/Scripts/RWD/jquery.carouFredSel.6.2.1-packed.js"></script>
+    <script src="/Scripts/NETW/netw-cart-1.0.0.0.js" type="text/javascript"></script>
+    <script src="/Scripts/NETW/netw-chooseany-1.0.0.0.js" type="text/javascript"></script>
+    <script src="/Scripts/TWEC/WebEffect.js" type="text/javscript"></script>
+    
+
+    @*Choost item cookie operations.*@
+    <script>
+        InitializationScript();
+        twNewegg.ChooseAny.LimitAmount = parseInt('@(Model.LimitAmount)');
+        twNewegg.ChooseAny.ListIndex = parseInt('@(ViewCategoryID)');
+        ChooseAnyHistory();
+    </script>
+}
+
+@if (Model != null && Model.Breadcurmbs != null)
+{
+    <div class="pathLink"><a href="/">首頁</a> > 
+        <a href="/Store?StoreID=@(Model.Breadcurmbs.ListParentCategories
+                .Where(x => x.category_layer == 0)
+                .FirstOrDefault() == null ?
+                0 : Model.Breadcurmbs.ListParentCategories.Where(x => x.category_layer == 0).FirstOrDefault().category_id)">
+            @{string layer0CategoryTitle = Model.Breadcurmbs.ListParentCategories
+                .Where(x => x.category_layer == 0)
+                .FirstOrDefault() == null ?
+                "" : Model.Breadcurmbs.ListParentCategories.Where(x => x.category_layer == 0).FirstOrDefault().category_description;}
+            @layer0CategoryTitle
+        </a> > 
+        <span>@{string layer1CategoryTitle = Model.Breadcurmbs.ListParentCategories
+                .Where(x => x.category_layer == 0)
+                .FirstOrDefault() == null ?
+                "" : Model.Breadcurmbs.ListParentCategories.Where(x => x.category_layer == 1).FirstOrDefault().category_description;}
+            @layer1CategoryTitle
+        </span> > 
+        @{breadString = layer0CategoryTitle + ">" + layer1CategoryTitle;}
+        <select class="select_other">
+        @foreach (var breadItem in Model.Breadcurmbs.DropDownItems)
+        {
+            if (ViewCategoryID == breadItem.CategoryID)
+            {
+                breadString += ">" + breadItem.Title;
+                <option value="@(breadItem.CategoryID)" data-is-choose-store="@(breadItem.IsOptionStore)" selected="true">@(breadItem.Title)</option>
+            }
+            else
+            {
+                <option value="@(breadItem.CategoryID)" data-is-choose-store="@(breadItem.IsOptionStore)">@(breadItem.Title)</option>
+            }
+        }
+        </select>
+	</div>
+}
+
+<!--Single Banner.-->
+@if (Model != null && Model.SingleBanner != null && !string.IsNullOrEmpty(Model.SingleBanner.Image))
+{
+<div class="chooseBN">
+    @* SA文件:最上面會有一個banner放到圖片及可設定是否要超連結 *@
+    <a href="@(Model.SingleBanner.Url)"><img src="@(ImageUtility.GetImagePath(Model.SingleBanner.Image))" alt="" /></a>
+</div>
+}
+<!--已選中的商品-->
+<div class="chooseArea">
+    @(Html.Action("GetChooseArea", new RouteValueDictionary { { "CategoryID", ViewCategoryID }, { "LimitAmount", Model.LimitAmount }, { "SubPageIndex", 0 }, { "CategoryTitle", Model.Title } }))
+</div>
+<div class="CategoryArea">
+    <div class="aside2">
+        @Html.Action("GetPropertyMenu", "Category", new { CategoryID = ViewCategoryID })
+
+        @*↓↓↓廣告區塊↓↓↓*@
+        <div class="subCategory-ad" name="advBannerLeft" data-url="/AdvEvent/Partial_CategoryLeftBanner">
+            <img src="~/Themes/img/loading.gif" /> Loading ...
+        </div>
+        @if (Model.PullDownAdvList != null && Model.PullDownAdvList.Any())
+        {
+            foreach (var pullDownAdvItem in Model.PullDownAdvList)
+            {
+                StringWriter sw = new StringWriter();
+                string imageTag = string.Format("<img src=\"{0}\" />", ImageUtility.GetImagePath(pullDownAdvItem.Image));
+                if (!string.IsNullOrEmpty(pullDownAdvItem.Url))
+                {
+                    sw.WriteLine(string.Format(" <a href=\"{0}\" target=\"_blank\"> {1} </a> ", pullDownAdvItem.Url, imageTag));
+                }
+                else
+                {
+                    sw.WriteLine(imageTag);
+                }
+            <div class="subCategory-ad">@(Html.Raw(sw.ToString()))</div>
+            }
+        }
+        @*↑↑↑廣告區塊↑↑↑*@
+
+    </div>
+    <div class="subCategory">
+        <!--排序選項-->
+        <div class="categoryTopBar">
+            <div class="navOrder categoryOrder">
+                <div class="orderList @(ViewData["SortValue"] == "Latest" ? "active" : "")" onclick="twNewegg.ChooseAny.LoadLightBoxUnderLay();twNewegg.ChooseAny.SortChooseList(this);" type="Latest">
+                    <i class="icon new"></i>
+                    <span>最新上架</span>
+                </div>
+                <div class="orderList @(ViewData["MostBuy"] == "MostBuy" || ViewData["MostBuy"] == null ? "active" : "")" onclick="twNewegg.ChooseAny.LoadLightBoxUnderLay();twNewegg.ChooseAny.SortChooseList(this);" type="MostBuy">
+                    <i class="icon hot"></i>
+                    <span>人氣排行榜</span>
+                </div>
+                <div class="orderList @(ViewData["SortValue"] == "Recommended" ? "active" : "")" onclick="twNewegg.ChooseAny.LoadLightBoxUnderLay();twNewegg.ChooseAny.SortChooseList(this);" type="Recommended">
+                    <i class="icon recom"></i>
+                    <span>推薦排行</span>
+                </div>
+                <div class="orderList @(ViewData["SortValue"] == "PriceDesc" ? "active" : "")" onclick="twNewegg.ChooseAny.LoadLightBoxUnderLay();twNewegg.ChooseAny.SortChooseList(this);" type="PriceDesc">
+                    <i class="icon priceH"></i>
+                    <span>金額高</span>
+                </div>
+                <div class="orderList @(ViewData["SortValue"] == "PriceAsc" ? "active" : "")" onclick="twNewegg.ChooseAny.LoadLightBoxUnderLay();twNewegg.ChooseAny.SortChooseList(this);" type="PriceAsc">
+                    <i class="icon priceL"></i>
+                    <span>金額低</span>
+                </div>
+            </div>
+        </div>
+        <!--產品清單-->
+        <div class="productListArea">
+            @Html.Partial("Partial_ChooseListArea", Model.ListZone)
+        </div>
+    </div>
+</div>
+@**彈出對話視窗*@
+<div class="LightBoxUnderLay" style="display:none;">
+    <div class="LightBoxMsg DelayWindow ProcessWindow">
+        <div class="Remindtxt">
+            <span id=""><img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$("div[name^='advBanner']").each(function (index, item) {
+        var url = $(item).data("url");
+        if (url && url.length > 0) {
+            $(item).load(url);
+        }
+});
+</script>

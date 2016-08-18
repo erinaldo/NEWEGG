@@ -1,0 +1,445 @@
+﻿@{
+    ViewBag.Title = "搜尋結果" + "-新蛋全球生活網";
+    string keyWords = ViewBag.Keywords;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string filterUrl = ViewBag.searchUrl ?? "";
+    filterUrl = filterUrl.Replace("/search/result?", "/search/filter?");
+    filterUrl = filterUrl.Substring(0, filterUrl.IndexOf('&'));
+}
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/rwdGeneral")
+    @Styles.Render("~/content/css/filterList")
+    @Styles.Render("~/content/css/Style_product")
+    @Styles.Render("~/content/css/Search")
+}
+@section scripts{
+    @Scripts.Render("~/Scripts/historyjs/jquery.history.js")
+    @Scripts.Render("~/Scripts/historyjs/netw-history-1.0.0.0.js")
+    <script type="text/javascript">
+        var SKW = "@(keyWords)";
+        var LightBoxMsgAllHide = function () {
+            $("div.LightBoxMsg").each(function () {
+                $(this).hide();
+            });
+        }
+        /*彈跳視窗自動偵測位置*/
+        var LightBoxCenter = function (aa) {
+            var h = $(window).height();
+            var w = $(window).width();
+            var $LightBoxMsg = $('.LightBoxMsg');
+            if (aa != null && aa != "") {
+                $LightBoxMsg = $(aa);
+            }
+            $underLay = $('.LightBoxUnderLay');
+            var MsgTop = h / 2 - $LightBoxMsg.outerHeight() / 2;
+            var MsgLeft = w / 2 - $LightBoxMsg.outerWidth() / 2;
+            $LightBoxMsg.css({ top: MsgTop, left: MsgLeft });
+        }
+        var loadSR = function (first) {
+            $("div.LightBoxUnderLay").slideDown(888).fadeIn();
+            $("div.LightBoxMsg.DelayWindow").fadeIn();
+            LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            var resultUrl = $("#searchResults").data("url");
+            if (resultUrl && resultUrl.length > 0) {
+                $("#searchResults").load(resultUrl, function () {
+                    if (first) {
+                        loadFR();
+                    }
+                    $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                    LightBoxMsgAllHide();
+                    $(".GoToPage").each(function () {
+                        $(this).on("click", function () {
+                            nextPage($(this));
+                        $("html,body").animate({
+                            scrollTop: 175
+                        }, 0);
+                        });
+                    });
+                    $(".orderList").each(function () {
+                        $(this).removeClass("active");
+                        $(this).on("click", function () {
+                            orderCondition($(this));
+                        });
+                        var order = getUrlParameterByName("order");
+                        var thisOrder = $(this).data("orderc");
+                        if (order.toString() === thisOrder.toString()) {
+                            $(this).addClass("active");
+                        }
+                    });
+                    $("#searchInButton").on("click", function () {
+                        searchIn($("#searchIn"));
+                    });
+                    $("#srPrev").on("click", function () {
+                        nextPage($(this));
+                        $("html,body").animate({
+                            scrollTop: 175
+                        }, 0);
+                    });
+                    $("#srNext").on("click", function () {
+                        nextPage($(this));
+                        $("html,body").animate({
+                            scrollTop: 175
+                        }, 0);
+                    });
+                    var srIn = getUrlParameterByName("srchin");
+                    if (srIn !== "") {
+                        $("#searchIn").val(srIn);
+                    }
+                });
+            }
+        };
+        var loadFR = function () {
+            var resultUrl = $("#searchFilters").data("url");
+            if (resultUrl && resultUrl.length > 0) {
+                $("#searchFilters").load(resultUrl, function () {
+                    $("input[name=filterCats]").each(function () {
+                        $(this).on("click", function () {
+                            filterCategory($(this));
+                        });
+                    });
+                    $("input[name=filterPrice]").each(function () {
+                        $(this).on("click", function () {
+                            filterPrice($(this));
+                        });
+                    });
+                    $("#categoryHead").on("click", function () {
+                        expendAllCategory();
+                    });
+                    $(".groupTit").each(function () {
+                        $(this).on("click", function () {
+                            expendCategory($(this));
+                        });
+                    });
+                    $("#priceHead").on("click", function () {
+                        expendAllPrice();
+                    });
+
+                    filterCheckBoxHistory(location.search);
+                });
+            }
+        };
+        var settingSearchBar = function () {
+            var textArea = document.createElement('textarea');
+            textArea.innerHTML = SKW;
+            $("#searchword").val(textArea.textContent);
+            textArea.textContent = "";
+        };
+        var expendAllCategory = function () {
+            if ($("#categoryHead").hasClass("close")) {
+                $("#categoryHead").removeClass("close").addClass("open");
+                $("#categoryHead").html("-");
+                $(".srCategoryList .list").each(function (e) {
+                    $(this).show();
+                });
+                $(".srCategoryList .showArrow").each(function (e) {
+                    $(this).removeClass("top").addClass("down");
+                });
+            }
+            else {
+                $("#categoryHead").removeClass("open").addClass("close");
+                $("#categoryHead").html("+");
+                $(".srCategoryList .list").each(function (e) {
+                    $(this).hide();
+                });
+                $(".srCategoryList .showArrow").each(function (e) {
+                    $(this).removeClass("down").addClass("top");
+                });
+            }
+        };
+        var expendCategory = function (categoryItem) {
+            if (categoryItem.parent().children(".list").first().css("display") !== "none") {
+                categoryItem.parent().children(".list").each(function (e) {
+                    $(this).hide();
+                });
+                categoryItem.parent().children(".groupTit").children(".showArrow").each(function (e) {
+                    $(this).removeClass("down").addClass("top");
+                });
+            } else {
+                categoryItem.parent().children(".list").each(function (e) {
+                    $(this).show();
+                });
+                categoryItem.parent().children(".groupTit").children(".showArrow").each(function (e) {
+                    $(this).removeClass("top").addClass("down");
+                });
+            }
+            var allClosed = true;
+            $(".srCategoryList .list").each(function (e) {
+                if ($(this).css("display") !== "none") {
+                    allClosed = false;
+                }
+            });
+            if (allClosed) {
+                $("#categoryHead").removeClass("open").addClass("close");
+                $("#categoryHead").html("+");
+            } else {
+                $("#categoryHead").removeClass("close").addClass("open");
+                $("#categoryHead").html("-");
+            }
+        };
+        var expendAllPrice = function () {
+            if ($("#priceHead").hasClass("close")) {
+                $("#priceHead").removeClass("close").addClass("open");
+                $("#priceHead").html("-");
+                $(".srPriceList .list").each(function (e) {
+                    $(this).show();
+                });
+                $(".srPriceList .showArrow").each(function (e) {
+                    $(this).removeClass("top").addClass("down");
+                });
+            }
+            else {
+                $("#priceHead").removeClass("open").addClass("close");
+                $("#priceHead").html("+");
+                $(".srPriceList .list").each(function (e) {
+                    $(this).hide();
+                });
+                $(".srPriceList .showArrow").each(function (e) {
+                    $(this).removeClass("down").addClass("top");
+                });
+            }
+        };
+        var nextPage = function (pageItem) {
+                @*var newUrl = window.location.pathname + "/result";*@
+                var newUrl = "";
+                newUrl += "?searchword=" + encodeURIComponent(SKW);
+                var srIn = getUrlParameterByName("srchin");
+                if (srIn !== "") {
+                    newUrl += "&srchin=" + encodeURIComponent(srIn);
+                }
+                var minPrice = getUrlParameterByName("minprice");
+                if (minPrice !== "") {
+                    newUrl += "&minprice=" + minPrice;
+                }
+                var maxPrice = getUrlParameterByName("maxprice");
+                if (maxPrice !== "") {
+                    newUrl += "&maxprice=" + maxPrice;
+                }
+                var page = pageItem.data("pagevalue");
+                var pageInt = parseInt(page, 10);
+                if (pageInt !== undefined && !isNaN(pageInt)) {
+                    newUrl += "&page=" + (page - 1);
+                }
+                var order = getUrlParameterByName("order");
+                if (order !== "") {
+                    newUrl += "&order=" + order;
+                }
+                var orderCats = getUrlParameterByName("orderCats");
+                if (orderCats !== "") {
+                    newUrl += "&orderCats=" + orderCats;
+                }                               
+                twNewegg.History.pushStateURLlocation({ "v": SKW + page, "resultURL": newUrl }, "", newUrl);
+                $("#searchResults").data("url", "/search/result" + newUrl);
+
+                loadSR(false);
+            }
+            var searchIn = function (sreachInItem) {
+                @*var newUrl = window.location.pathname + "/result";*@
+                var newUrl = "";
+                newUrl += "?searchword=" + encodeURIComponent(SKW);
+                var srIn = sreachInItem.val();
+                if (srIn !== "") {
+                    newUrl += "&srchin=" + encodeURIComponent(srIn);
+                }
+                var minPrice = getUrlParameterByName("minprice");
+                if (minPrice !== "") {
+                    newUrl += "&minprice=" + minPrice;
+                }
+                var maxPrice = getUrlParameterByName("maxprice");
+                if (maxPrice !== "") {
+                    newUrl += "&maxprice=" + maxPrice;
+                }
+                var order = getUrlParameterByName("order");
+                if (order !== "") {
+                    newUrl += "&order=" + order;
+                }
+                var orderCats = getUrlParameterByName("orderCats");
+                if (orderCats !== "") {
+                    newUrl += "&orderCats=" + orderCats;
+                }
+                
+                twNewegg.History.pushStateURLlocation({ "v": SKW + srIn, "resultURL": newUrl }, "", newUrl);
+                $("#searchResults").data("url", "/search/result" + newUrl);
+
+                loadSR(false);
+            }
+            var orderCondition = function (orderItem) {
+                @*var newUrl = window.location.pathname + "/result";*@
+                orderItem.addClass("active");
+                var newUrl = "";
+                newUrl += "?searchword=" + encodeURIComponent(SKW);
+                var srIn = getUrlParameterByName("srchin");
+                if (srIn !== "") {
+                    newUrl += "&srchin=" + encodeURIComponent(srIn);
+                }
+                var minPrice = getUrlParameterByName("minprice");
+                if (minPrice !== "") {
+                    newUrl += "&minprice=" + minPrice;
+                }
+                var maxPrice = getUrlParameterByName("maxprice");
+                if (maxPrice !== "") {
+                    newUrl += "&maxprice=" + maxPrice;
+                }
+                var order = orderItem.data("orderc");
+                var orderInt = parseInt(order, 10);
+                if (orderInt !== undefined && !isNaN(orderInt)) {
+                    newUrl += "&order=" + orderInt;
+                }
+                var orderCats = getUrlParameterByName("orderCats");
+                if (orderCats !== "") {
+                    newUrl += "&orderCats=" + orderCats;
+                }
+                
+                twNewegg.History.pushStateURLlocation({ "v": SKW + order, "resultURL": newUrl }, "", newUrl);
+                $("#searchResults").data("url", "/search/result" + newUrl);
+
+                loadSR(false);
+            }
+            var filterCategory = function (filterItem) {
+                var newUrl = "";
+                newUrl += "?searchword=" + encodeURIComponent(SKW);
+                var srIn = getUrlParameterByName("srchin");
+                if (srIn !== "") {
+                    newUrl += "&srchin=" + encodeURIComponent(srIn);
+                }
+                var minPrice = getUrlParameterByName("minprice");
+                if (minPrice !== "") {
+                    newUrl += "&minprice=" + minPrice;
+                }
+                var maxPrice = getUrlParameterByName("maxprice");
+                if (maxPrice !== "") {
+                    newUrl += "&maxprice=" + maxPrice;
+                }
+                var order = getUrlParameterByName("order");
+                if (order !== "") {
+                    newUrl += "&order=" + order;
+                }
+                var orderCats = "";
+                $("input[name=filterCats]").each(function () {
+                    if ($(this).is(":checked")) {
+                        orderCats += $(this).data("cat") + ",";
+                    }
+                });
+                if (orderCats !== "") {
+                    orderCats = orderCats.substring(0, orderCats.length - 1);
+                    newUrl += "&orderCats=" + orderCats;
+                }
+                
+                twNewegg.History.pushStateURLlocation({ "v": SKW + order, "resultURL": newUrl }, "", newUrl);
+                $("#searchResults").data("url", "/search/result" + newUrl);
+
+                loadSR(false);
+            }
+            var filterPrice = function (filterItem) {
+                @*var newUrl = window.location.pathname + "/result";*@
+                var minPrice = NaN;
+                var maxPrice = NaN;
+
+                if (filterItem.is(":checked")) {
+                    //$(this).prop("checked", false);
+                    $("input[name=filterPrice]").each(function () {
+                        $(this).prop('checked', false);
+                    });
+                    var minp = filterItem.data("minprice");
+                    minPrice = parseInt(minp, 10);
+                    var maxp = filterItem.data("maxprice");
+                    maxPrice = parseInt(maxp, 10);
+                    filterItem.prop('checked', true);
+                } else {
+
+                }
+
+                var newUrl = "";
+                newUrl += "?searchword=" + encodeURIComponent(SKW);
+                var srIn = getUrlParameterByName("srchin");
+                if (srIn !== "") {
+                    newUrl += "&srchin=" + encodeURIComponent(srIn);
+                }
+                if (minPrice !== undefined && !isNaN(minPrice)) {
+                    newUrl += "&minprice=" + minPrice;
+                }
+                if (maxPrice !== undefined && !isNaN(maxPrice)) {
+                    newUrl += "&maxprice=" + maxPrice;
+                }
+                var order = getUrlParameterByName("order");
+                if (order !== "") {
+                    newUrl += "&order=" + order;
+                }
+                var orderCats = getUrlParameterByName("orderCats");
+                if (orderCats !== "") {
+                    newUrl += "&orderCats=" + orderCats;
+                }
+                twNewegg.History.pushStateURLlocation({ "v": SKW + order, "resultURL": newUrl }, "", newUrl);
+                $("#searchResults").data("url", "/search/result" + newUrl);
+
+                loadSR(false);
+            }
+            var getUrlParameterByName = function (name, objURL) {
+                if (typeof (objURL) == "undefined" || objURL == null)
+                {
+                    objURL = location.search;
+                }
+
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(objURL);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+            
+            var obj_Html5 = function (event) {
+                $("#searchResults").data("url", "/search/result" + location.search);
+                filterCheckBoxHistory(location.search);
+                loadSR(false);
+            }
+
+            twNewegg.History.onPopState(obj_Html5, null);
+            var filterCheckBoxHistory = function (UrlValueSearch) {                
+                var maxPrice = this.getUrlParameterByName("maxprice", UrlValueSearch);
+                var orderCats = this.getUrlParameterByName("orderCats", UrlValueSearch);
+                $('input[name="filterCats"]').prop('checked', false);
+                $('input[name="filterPrice"]').prop('checked', false);
+                
+                if (orderCats != null || typeof (orderCats) != "undefined")
+                {                    
+                    var orderCats_array = orderCats.split(",");
+                    $.each(orderCats_array, function (index, value) {
+                        CatOrderCheckbox(value);
+                    });
+                }
+
+                if (maxPrice != null || typeof (maxPrice) != "undefined")
+                {                    
+                    $('input[name="filterPrice"][data-maxprice="' + maxPrice + '"]').prop("checked", true);
+                }
+            }
+
+            var CatOrderCheckbox = function (catID) {
+                $('input[name="filterCats"][data-cat="' + catID + '"]').parents('ul').show();
+                $('input[name="filterCats"][data-cat="' + catID + '"]').prop("checked", true);
+            }
+
+            $(document).ready(function () {               
+                settingSearchBar();
+                loadSR(true);
+            });
+    </script>
+}
+
+<div class="searchMainArea">
+    <div class="filterList searchFilterArea" id="searchFilters" data-url="@Html.Raw(filterUrl)">
+    </div>
+    <div class="searchListArea"  id="searchResults" data-url="@Html.Raw(ViewBag.searchUrl ?? "")">
+    </div>
+</div>
+
+@**彈出對話視窗*@
+<div class="LightBoxUnderLay" style="display: none;">
+    <div class="LightBoxMsg DelayWindow ProcessWindow">
+        <div class="Remindtxt">
+            <span id="">
+                <img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+    </div>
+</div>
+@**彈出對話視窗*@

@@ -1,0 +1,103 @@
+@import "_importSCSS";
+
+.LeftBlock{
+	float:left;
+	width:142px;
+	li{
+		border:1px solid #d5d5d5;
+		text-align:center;
+		a,a:visited{
+			display:block;
+			color:#666;
+			font-size:23px;
+			line-height:55px;
+			border-bottom: 0;
+		}
+	}
+	li:hover,li.Selected{
+		border:1px solid #d5d5d5;
+		background-color:#ec8B54;
+		a,a:visited{
+			color:#fff; 
+		}
+	}
+}
+.RightBlock{
+	float:right;
+	width:847px;
+	@include clearAfter;
+	.NewsBigIMG {
+		height:510px;
+	    margin-top: 18px;
+	}
+}
+$darkGray:#373d3f;
+.Date{
+	border-left:3px solid #d5d5d5;
+	padding-left:15px;
+	line-height:37px;
+	font-size:27px;
+	margin-top:35px;
+}
+.ArticleName{
+	font-size:25px;
+	color: $darkGray;
+	padding-left:15px;
+	height: 95px;
+	border-bottom:1px solid #d5d5d5;
+    letter-spacing: 4px;
+	text-align: center;
+    font-weight: bolder;
+}
+.Article{
+	font-size:15px;
+	line-height:25px;
+	border-bottom:1px solid #d5d5d5;
+	margin:30px 0;
+    color: #333333;
+	text-align: justify;
+	img{
+		max-width:100%;
+		display:block;
+		margin:30px auto;
+	}
+}
+
+.NextArticle{
+	@include clearAfter;
+	.Left{
+		width:136px;
+		float:left;
+	}
+	.Right{
+		width:136px;
+		float:right;
+	}
+	a,a:hover,a:visited{
+		display:block;
+		color:#808183;
+		font-size:21px;
+		line-height:52px;
+	    border-bottom: 0;
+	}
+	.arrow{
+		width:30px;
+		height:40px;
+		font-size:36px;
+		line-height:40px; 
+		text-align:center;
+		vertical-align:middle;
+		padding:6px 10px;
+		color:#fff;
+		background:#f78d51;
+	}
+	.arrow:hover{background:#f56d20;color:#fff;}
+	.arrowLeft{
+		float:left;
+		margin-right:10px;
+	}
+	.arrowRight{
+		float:right;
+		margin-left:10px;
+	}
+}

@@ -1,0 +1,19 @@
+﻿@using TWNewEgg.Models.DomainModels.Store
+@model ShopWindow
+<section class="section3" id="item@(Model.Index)" shopwindowId="@(Model.ID)">
+    <a id="shop@(Model.Index)"></a>
+    <div class="section-bg section-bg-img@(StoreShareFuns.GetCssType((int)ViewData["storeId"]))"></div>
+    <div class="clear"></div>
+
+    @{
+        if (Model.MainZone != null)
+        {
+        @Html.Partial("Partial_ShopWindowMainZone", Model.MainZone, new ViewDataDictionary() { { "colorClass", StoreShareFuns.GetCssType((int)ViewData["storeId"]) } })
+        }
+        if (Model.ListZone != null)
+        {
+        @Html.Partial("Partial_ShopWindowListZone", Model.ListZone, new ViewDataDictionary() { { "colorClass", StoreShareFuns.GetCssType((int)ViewData["storeId"]) } })
+        }
+    }
+    <div class="section-divider"></div>
+</section>

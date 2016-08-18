@@ -1,0 +1,164 @@
+﻿@import "compass/css3";
+@import "_colorStyle";
+@import "_base_BAK";
+@import "template";
+@import "_importSCSS";
+
+
+body {
+	background:url(/Themes/img/MyAccount/SignupMainBg.jpg) no-repeat center top;
+}
+
+/*Register Width*/
+$outterWidth:455px;
+
+.registerArea {
+	@extend .clear;
+	@include clearAfter;
+	float:right;
+	margin:20px -20px 0 0;
+	width:$outterWidth;
+	min-height:700px;
+	.fillFormArea {
+		@include clearAfter;
+		float:right;
+		width:$outterWidth;
+		background:#fff;
+		.mainTitBar {
+			.icon {
+			}
+		}
+		$register_fillFormPadding:25px;
+		$register_fillForm_innerWidth:($outterWidth - $register_fillFormPadding *2);
+		.fillFormBox {
+			padding:20px $register_fillFormPadding;
+			width:$register_fillForm_innerWidth;
+			$register_fillFormTitPadding:5px;
+			$register_fillFormTitWidth:60px;
+			$register_fillFormTit_innerWidth:($register_fillFormTitWidth - $register_fillFormTitPadding * 2);
+			.fillForm_contentList {
+				.tit {
+					padding:0 $register_fillFormTitPadding;
+					width:$register_fillFormTit_innerWidth;
+				}
+				$register_fillFormTxtPadding:10px;
+				$register_fillFormTxt_innerWidth:($register_fillForm_innerWidth - $register_fillFormTitWidth - $register_fillFormTxtPadding * 2);
+				.txt {
+					padding:0 $register_fillFormTxtPadding;
+					width:$register_fillFormTxt_innerWidth;
+				}
+				input {
+					&[type="text"], &[type="password"], &[type="tel"] {
+						width:($register_fillFormTxt_innerWidth - $register_fillFormTxtPadding * 2);
+					}
+				}
+				/*預設表單的標題皆等寬，以下為例外的處理狀況*/
+				&.pswHighBar {
+					.tit {
+						width:($register_fillFormTit_innerWidth + 20);
+					}
+					.txt {
+						width:($register_fillFormTxt_innerWidth - 20);
+					}
+				}
+				
+				&.rePswBar {
+					.tit {
+						width:$register_fillFormTit_innerWidth * 2 - 20;
+					}
+					.txt {
+						$register_fillFormTxt_innerWidthRePswBar:($register_fillFormTxt_innerWidth - 40);
+						width:$register_fillFormTxt_innerWidthRePswBar;
+						input {
+							width:($register_fillFormTxt_innerWidthRePswBar - $register_fillFormTxtPadding * 2);
+						}
+					}
+				}
+				&.telBar {
+					.tit {
+						width:$register_fillFormTit_innerWidth * 2 - 20;
+					}
+					.txt {
+						width:($register_fillFormTxt_innerWidth - 40);
+					}
+				}
+				&.nameBar {
+					input {
+						&[type="text"].fillSurname {
+							width:60px;
+						}
+						&[type="text"].fillName {
+							width:90px;
+						}
+					}
+					.selector-name {
+						width:70px;
+					}
+				}
+			}
+		}
+
+		.selector {
+			&.selector-name {
+				float:left;
+				/*width:90px;*/
+			}
+		}
+
+		input.btn {
+			width:$register_fillForm_innerWidth;
+			&.btn-signup {
+				background: url("/Themes/img/ShoppingProcess/OrangeBigBtnBG.jpg");
+				height:60px;
+			}
+			&.gray{background:#ccc;}
+			&.btn-pswHide {
+				position:absolute;
+				top:-3px;
+				right:5px;
+				padding:4px 10px;
+				width:auto;
+				height:25px;
+				background:$SteelBlueStyle;
+				font-size:14px;
+				&:hover {
+					background:darken($SteelBlueStyle,5%);
+				}
+				&:active {
+					background:lighten($SteelBlueStyle,5%);
+				}
+			}
+			&.btn-pswShow {
+				@extend .btn-pswHide;
+			}
+		}
+	}
+	.tipsOrder {
+		margin:0 5px;
+		font-weight:bold;
+		color:$darkgrayStyle;
+		input {
+			&[type="checkbox"] {
+				margin-right:15px;
+			}
+		}
+	}
+}
+
+.pswRuleBox {
+	opacity:0;
+	height:0;
+	position:static;
+	float:left;
+	margin:10px 5px;
+	/*left:450px;*/
+	.ruleTerm {
+		background:$SteelBlueStyle;
+		color:#fff;
+	}
+	input[type="checkbox"] {
+	}
+}
+
+
+

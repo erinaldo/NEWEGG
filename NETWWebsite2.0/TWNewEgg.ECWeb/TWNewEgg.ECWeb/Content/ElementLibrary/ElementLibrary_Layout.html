@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>ElementLibrary_Layout</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Themes/css/ElementLibrary_Layout.css" />
+</head>
+<body>
+
+<h3 style="font-size:30px; font-weight:bold;">字的顏色樣式</h3>
+    <p class="red">我是紅色字</p>
+    <p class="darkGray">我是深灰色字</p>
+    <p class="gray">我是灰色字</p>
+    <p class="lightGray">我是淺灰色字</p>
+    <p class="blue">我是藍色字</p>
+    <p class="garkOrange">我是深橘色字</p>
+    <p class="orange">我是橘色字</p>
+    <p>我是<span class="UnderLine">有底線</span>的字</p>
+    <p>我是<span class="ThroughLine">有刪除線</span>的字</p>
+    <strong>我是粗體字</strong> 
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">抬頭標題Tit</h3>
+    <div class="Tit">我是小標題原型  Tit</div>
+    <div class="Tit ColorBarTit">我是有背景色的標題字 ColorBarTit</div>
+    <div class="Tit ClassTit">我是無背景色的類別分類標題字 ClassTit</div>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">標題 + icon</h3>
+    <div class="Tit ClassTit"><i class="icon ServiceIcon WishList-2"></i>我的最愛清單 icon ServiceIcon WishList-2</div>
+    <div class="Tit ClassTit"><i class="icon ServiceIcon ShoppingCash-2"></i>我的購物金 icon ServiceIcon ShoppingCash-2</div>
+    <div class="Tit ClassTit"><i class="icon ServiceIcon Coupons-2"></i>我的折價券 icon ServiceIcon Coupons-2</div>
+    <div class="Tit ClassTit"><i class="icon ServiceIcon Order-2"></i>我的訂單 icon ServiceIcon Order-2</div>
+    <div class="Tit ClassTit"><i class="icon ServiceIcon Account-2"></i>我的帳戶 icon ServiceIcon Account-2</div>
+    <div class="Tit ClassTit"><i class="icon ServiceIcon Invoice-2"></i>發票查詢 icon ServiceIcon Invoice-2</div>
+    <div class="Tit ClassTit"><i class="icon ServiceIcon QuestionCenter-2"></i>問答中心 icon ServiceIcon QuestionCenter-2</div>
+    <div class="Tit ClassTit"><i class="icon ServiceIcon UpdateInformation-2"></i>資料修改 icon ServiceIcon UpdateInformation-2</div>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">頁籤Tab</h3>
+    <div class="TabArea grayBorder">
+        <ul>
+            <li class="Tab BorderTab TabSelected"><a href="#">Tab BorderTab</a></li>
+            <li class="Tab BorderTab"><a href="#">頁籤二</a></li>
+            <li class="Tab BorderTab"><a href="#">頁籤三</a></li>
+            <li class="Tab BorderTab"><a href="#">頁籤四</a></li>
+            <li class="Tab BorderTab"><a href="#">頁籤五</a></li>
+        </ul>
+    </div>
+    <div class="TabArea grayBorder">
+        <ul>
+            <li class="Tab RadiusTab TabSelected"><a href="#">Tab RadiusTab</a></li>
+            <li class="TabNoHover RadiusTab"><a href="#">圓角頁籤二</a></li>
+            <li class="TabNoHover RadiusTab"><a href="#">圓角頁籤三</a></li>
+            <li class="TabNoHover RadiusTab"><a href="#">圓角頁籤四</a></li>
+        </ul>
+    </div>
+    <div class="TabArea grayBorder">
+        <ul>
+            <li class="Tab SmallBorderTab SmallBorderTabSelected"><a href="#">Tab SmallBorderTab</a></li>
+            <li class="Tab SmallBorderTab"><a href="#">頁籤二</a></li>
+            <li class="Tab SmallBorderTab"><a href="#">頁籤三</a></li>
+        </ul>
+    </div>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">頁籤Tab + icon</h3>
+    <div class="TabArea grayBorder">
+        <ul>
+            <li class="Tab BorderTab TabSelected" id="WishList"><a href="#"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+            <li class="Tab BorderTab" id="ShoppingCash"><a href="#"><i class="icon ServiceIcon ShoppingCash"></i>我的購物金</a></li>
+            <li class="Tab BorderTab" id="Coupons"><a href="#"><i class="icon ServiceIcon Coupons"></i>我得折價券</a></li>
+            <li class="Tab BorderTab" id="Order">
+                <i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Down"></i>
+                <ul class="SubMenu">
+                    <li><a href="#">訂單狀態</a></li>
+                    <li><a href="#">發票查詢</a></li>
+                </ul>
+            </li>
+            <li class="Tab BorderTab" id="Account">
+                <i class="icon ServiceIcon Account"></i>我的帳戶<i class="icon Up"></i>
+                <ul class="SubMenu">
+                    <li><a href="#">個人資料修改</a></li>
+                    <li><a href="#">密碼修改</a></li>
+                    <li><a href="#">紀錄本修改</a></li>
+                    <li><a href="#">問答中心</a></li>
+                    <li><a href="#">帳號修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        //給子選單滑出滑入用的jquery
+       $(document).ready(function () {
+           $('.Tab>.SubMenu').hide();
+           $('.Tab>.SubMenu').hide();
+        })
+       $('#Order').click(function () {
+           $('#Order>.SubMenu').slideToggle(200);
+       })
+       $('#Account').click(function () {
+           $('#Account>.SubMenu').slideToggle(300);
+       })
+    </script>
+
+    <div class="TabArea grayBorder">
+        <ul>
+            <li class="Tab BorderTab TabSelected" id="ActivityList"><a href="#"><i class="icon ServiceIcon ActivityList"></i>活動清單</a></li>
+            <li class="Tab BorderTab" id="NameList"><a href="#"><i class="icon ServiceIcon NameList"></i>中獎名單</a></li>
+        </ul>
+    </div>
+    <div class="TabArea grayBorder">
+        <ul>
+            <li class="Tab SmallBorderTab" id="DateNear"><i class="icon OrderbyIcaon DateNear"></i>放入日期進到遠</li>
+            <li class="Tab SmallBorderTab" id="DateFar"><i class="icon OrderbyIcaon DateFar"></i>放日日期遠到近</li>
+            <li class="Tab SmallBorderTab" id="PriceHigh"><i class="icon OrderbyIcaon PriceHigh"></i>價格高到低</li>
+            <li class="Tab SmallBorderTab" id="PriceLow"><i class="icon OrderbyIcaon PriceLow"></i>價格低到高</li>
+        </ul>
+    </div>
+    <div class="TabArea grayBorder">
+        <ul>
+            <li class="Tab SmallBorderTab" id="LatestActivity"><i class="icon OrderbyIcaon LatestActivity"></i>最新活動</li>
+            <li class="Tab SmallBorderTab" id="ComingtoEndActivity"><i class="icon OrderbyIcaon ComingtoEndActivity"></i>即將結束</li>
+        </ul>
+    </div>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">表格table</h3>
+    <table class="table">
+        <tr>
+            <th class="th">我是表格欄位th</th>
+            <th class="th">我是表格欄位th</th>
+            <th class="th">我是表格欄位th</th>
+            <th class="th">我是表格欄位th</th>
+            <th class="th">我是表格欄位v</th>
+        </tr>
+        <tr>
+            <td class="td">我是表格欄位td</td>
+            <td class="td">我是表格欄位td</td>
+            <td class="td">我是表格欄位td</td>
+            <td class="td">我是表格欄位td</td>
+            <td class="td">我是表格欄位td</td>
+        </tr>
+    </table>
+    <br/>
+    <table class="table ColorBorder">
+        <tr class="Colortr">
+            <th class="th ColorBorder">th欄位不會變色 邊框是灰色 .ColorBorder</th>
+            <th class="th ColorBorder">th欄位不會變色</th>
+            <th class="th ColorBorder">th欄位不會變色</th>
+            <th class="th ColorBorder">th欄位不會變色</th>
+            <th class="th ColorBorder">th欄位不會變色</th>
+        </tr>
+        <tr class="Colortr">
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+        </tr>
+        <tr class="Colortr ColorBorder">
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+        </tr>
+        <tr class="Colortr ColorBorder">
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+            <td class="td ColorBorder">偶數tr會有背景色 tr.ColorBorder</td>
+        </tr>
+    </table>
+    <br/>
+    <table class="table">
+        <tr>
+            <th class="th Boldtext">粗體字的th Boldtext </th>
+            <th class="th GrayBgColorth">有背景色的th BgColorth</th>
+            <th class="th GrayBgColorth Boldtext">有背景色也有粗體th BgColorth Boldtext</th>
+            <th class="th DarkGrayBG Boldtext">有深灰背景色也有粗體th BgColorth Boldtext</th>
+            <th class="th Boldtext">粗體字的th Boldtext</th>
+            <th class="th GrayBgColorth">有背景色的th BgColorth</th>
+        </tr>
+        <tr>
+            <td class="td">我是資料格位~</td> 
+            <td class="td MaxWidthtd">我的內容超多~~~~~我的內容超多~~~~~我的內容超多~~~~~我的內容超多~~~~~我的內容超多~~~~~我的內容超多~~~~~我的內容超多~~~~~我的內容超多~~~~~我的內容超多~~~~~<br/>但是最寬不能超過全寬的65% MaxWidthtd</td>
+            <td class="td">我是資料格位~我是資料格位~</td>
+            <td class="td">我是資料格位~</td>
+            <td class="td">我是資料格位~我是資料格位~</td>
+        </tr>
+    </table>
+    <br/>
+     <table class="table">
+        <tr>
+            <th class="th GrayBgColorth NoBorder">有背景色無邊框th GrayBgColorth NoBorder</th>
+            <th class="th GrayBgColorth NoBorder">有背景色無邊框</th>
+            <th class="th GrayBgColorth NoBorder">有背景色無邊框</th>
+            <th class="th GrayBgColorth NoBorder">有背景色無邊框</th>
+            <th class="th GrayBgColorth NoBorder">有背景色無邊框</th>
+        </tr>
+        <tr>
+            <td class="td BgColortd">有背景色的td BgColortd</td>
+            <td class="td BgColortd">有背景色的td BgColortd</td>
+            <td class="td BgColortd">有背景色的td BgColortd</td>
+            <td class="td BgColortd">有背景色的td BgColortd</td>
+            <td class="td BgColortd">有背景色的td BgColortd</td>
+        </tr>
+    </table>
+    <br/>
+     <table class="table">
+        <tr>
+            <th class="th SmallWidthth TextAlign-right GrayBgColorth">我是小表格欄位th SmallWidthth<br/>文字靠右TextAlign-right</th><td class="td">我是表格欄位td</td>
+        </tr>
+         <tr>
+            <th class="th SmallWidthth TextAlign-right GrayBgColorth">我是表格欄位th<br/>文字靠右TextAlign-right</th><td class="td">我是表格欄位td</td>
+        </tr>
+        <tr>
+            <th class="th TextAlign-left GrayBgColorth">我是表格欄位th<br/>文字靠左TextAlign-left</th><td class="td">我是表格欄位td</td>
+        </tr>
+        <tr>
+            <th class="th TextAlign-left GrayBgColorth">我是表格欄位th<br/>文字靠左TextAlign-left</th><td class="td">我是表格欄位td</td>
+        </tr>
+    </table>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">圖+文框架</h3>
+    <div class="PicArtBox">
+        <div class="pic ArticPic">圖片放入框pic 文章用圖框ArticPic</div>
+        <p class="ArticleName">是名稱Name 並且是文章的名稱ArticleName是名稱Name 並且是文章的名稱ArticleName是名稱Name 並且是文章的名稱ArticleName是名稱Name 並且是文章的名稱ArticleName是名稱Name 並且是文章的名稱ArticleName是名稱Name 並且是文章的名稱ArticleName是名稱Name 並且是文章的名稱ArticleName</p>
+        <p class="blue">2015/6/24</p>
+        <p class="Article">了歡慶端午，台灣彩券昨宣布加碼活動，累計總加碼獎金達5億元，活動自16日起開始，大樂透、大福彩頭獎分別各加碼1億元，威力彩頭獎加碼1億元。最特別的是，端午節前夕（19日）開獎的大樂透，今年首度擴及2至6獎，也分別加了歡</p>
+    </div>
+    <div class="PicArtBox">
+        <div class="pic ItemListPic">圖片放入框pic 物品用圖框ItemListPic</div>
+        <p class="ItemName">是名稱Name 並且是物品的名稱ItemName是名稱Name 並且是物品的名稱ItemName是名稱Name 並且是物品的名稱ItemName是名稱Name 並且是物品的名稱ItemName是名稱Name 並且是物品的名稱ItemName</p>
+        <div class="SpecialDeal">
+            <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass1-1">折扣</span>5/11~5/31品牌滿額最高折抵1000元</p>
+            <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass2-1">網路購物館79折</span>5/11~5/31品牌滿額最高折抵1000元</p>
+            <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass3-1">滿額折優惠</span>5/11~5/31品牌滿額最高折抵1000元</p>
+            <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass4-1">買就送</span>5/11~5/31品牌滿額最高折抵1000元</p>
+            <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass4-1">折價券使用說明></span>5/11~5/31品牌滿額最高折抵1000元</p>
+            <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass5-1">折扣</span>5/11~5/31品牌滿額最高折抵1000元</p>
+            <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass6-1">買就送</span>5/11~5/31品牌滿額最高折抵1000元</p>
+            <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass7-1">折價券使用說明></span>5/11~5/31品牌滿額最高折抵1000元</p>
+            <p class="SpecialDeal"><span class="SpecialDeal SpecialDealClass8-1">折扣</span>5/11~5/31品牌滿額最高折抵1000元</p>
+        </div>
+    </div>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">優惠活動小標示</h3>
+    <div class="SpecialDeal">
+        <p class="SpecialDeal">優會活動：
+            <span class="SpecialDeal SpecialDealClass1-2">滿額折(現折)</span>
+            <span class="SpecialDeal SpecialDealClass2-2">折價券</span>
+            <span class="SpecialDeal SpecialDealClass3-2">回饋金</span>
+            <span class="SpecialDeal SpecialDealClass4-2">紅利點數</span>
+            <span class="SpecialDeal SpecialDealClass5-2">抽獎</span>
+            <span class="SpecialDeal SpecialDealClass6-2">贈獎(獎品)</span>
+            <span class="SpecialDeal SpecialDealClass7-2">銀行</span>
+            <span class="SpecialDeal SpecialDealClass8-2">折扣</span>
+        </p>
+    </div>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">分頁頁碼樣式PageArea</h3>
+    <div class="PageArea">
+        <a href="#" class="arrow arrLeft"><</a>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">7</a>
+        <a href="#">8</a>
+        <a href="#" class="arrow arrRight">></a>
+    </div>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">賣場頁選擇規格的樣式ChoseStyle</h3>
+    <p class="ChoseStyle">尺寸：
+        <span>XS</span>
+        <span>S</span>
+        <span>M</span>
+        <span>L</span>
+        <span class="selected">XL</span>
+        <span>XXL</span>
+    </p>
+    <p  class="ChoseStyle">顏色：
+        <span class="selected">粉紅色</span>
+        <span>紫羅蘭色</span>
+    </p>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">會員中心上方的蛋蛋背景圖TopExplanationArea</h3>
+    <div class="TopExplanationArea">
+        <p class="Boldtext">
+            您好 .<br/>
+            這是您的追蹤清單 , 您可從下方管理功能選單中查看屬於您個人的商品存放紀錄 ,  或是將商品加入至購物車。
+        </p>
+    </div>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">用ul讓一行分段 OneLine</h3>
+    <ul class="OneLine">
+        <li>我是第一段 寬20%</li>
+        <li>我是第二段 寬20%</li>
+        <li>我是第三段 寬20%</li>
+    </ul>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">廣告展示盒子AdBox</h3>
+<div class="AdBox" style="background:#efd77a;">
+    廣告展示盒子AdBox廣告展示盒子AdBox廣告展示盒子AdBox<br/>
+    廣告展示盒子AdBox廣告展示盒子AdBox廣告展示盒子AdBox<br/>
+    廣告展示盒子AdBox廣告展示盒子AdBox廣告展示盒子AdBox
+</div>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">數個方框在一排中的排版</h3>
+    <div class="BoxsGroup">
+        <div class="TwoBoxsInRow" style="height:100px;">第一格</div>
+        <div class="TwoBoxsInRow" style="height:100px;">第二格</div>
+        <div class="TwoBoxsInRow" style="height:100px;">第三格</div>
+        <div class="TwoBoxsInRow" style="height:100px;">第四格</div>
+    </div>
+
+    <div class="BoxsGroup">
+        <div class="FourBoxsInRow" style="height:100px;">第一格</div>
+        <div class="FourBoxsInRow" style="height:100px;">第二格</div>
+        <div class="FourBoxsInRow" style="height:100px;">第三格</div>
+        <div class="FourBoxsInRow" style="height:100px;">第四格</div>
+    </div>
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">加減數量按鍵Modified</h3>
+    <p class="Modified">
+        <span class="less"></span><span class="quantity">1</span><span class="add"></span>
+    </p>
+    <p class="Modified">
+        <span class="less"></span><span class="quantity">10</span><span class="add"></span>
+    </p>
+
+<hr/>
+<br/>
+    <h3 style="font-size:30px; font-weight:bold;">LightBox</h3>
+    <button id='lightbox'> 點我 </button>
+    <div class="LightBoxUnderLay">
+        <div class="LightBoxMsg-1">
+            <div class="MsgContent">
+                <p class="Boldtext">發票載具歸戶</p>
+                <p>提醒您!您將前往「財政部電子發票整合服務平台」進行會員發票載具歸戶作業。完成歸戶後,將由平台進行發票對獎、領獎相關通知及作業,如您同意,請點選「確定」。</p>
+                <div class="BtnArea">
+                    <div class="InquiryBtn Btn">確認</div><div class="InquiryBtn Btn">取消</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<hr/>
+<br/>
+
+<h3 style="font-size:30px; font-weight:bold;">頁籤Tab</h3>
+    <div class="bread">
+        <a href="#">首頁</a>><a href="#">國際風尚</a>
+    </div>
+
+
+    <script>
+$(window).ready(function () {
+    var h =$(window).height();
+    var w =$(window).width();
+    var MsgTop = h/2- (h * 65/100)/2;
+    var MsgLeft = w/2 - (w * 50/100)/2;
+    alert(MsgTop + "," + MsgLeft);
+    $('.LightBoxMsg-1').css({ top: MsgTop, left: MsgLeft });
+})
+$('#lightbox').click(function () {
+    $('.LightBoxUnderLay').show();
+})
+    </script>
+ </body>
+</html>

@@ -1,0 +1,261 @@
+﻿@{
+    TWNewEgg.Models.ViewModels.Account.CartMemberInfoVM getCartMemberInfo = null;
+    TWNewEgg.Models.ViewModels.Account.AddressBookVM memberAddressBook = new TWNewEgg.Models.ViewModels.Account.AddressBookVM();
+    int defaultMemberBookID = 0;
+    if (ViewBag.GetCartMemberInfo != null)
+    {
+        getCartMemberInfo = ViewBag.GetCartMemberInfo as TWNewEgg.Models.ViewModels.Account.CartMemberInfoVM;
+        if (getCartMemberInfo.MemberAddressBookList.Count > 0)
+        {
+            defaultMemberBookID = getCartMemberInfo.MemberAddressBookList.Where(x => x.DefaultSetting == 1).FirstOrDefault().ID;
+        }
+    }
+}
+<input type="hidden" id="member_DefaultID" value="@defaultMemberBookID" />
+<div class="AddPurchaser">
+    <span class="UnderLine blue NewMemberAddressBook" bookName="member_">新增訂購人</span>
+</div>
+<div class="PurchaserTable">
+    <div class="TableScroll">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th colspan="7"></th>
+            </tr>
+            <tr class="BgColor BottomBorderLine">
+                <th class="TitBolder">預設</th>
+                <th class="TitBolder">姓名</th>
+                <th colspan="2" class="TitBolder">地址</th>
+                <th class="TitBolder">市話</th>
+                <th class="TitBolder">手機</th>
+                <th class="TitBolder">功能</th> 
+            </tr>
+            @{
+                if (getCartMemberInfo != null)
+                {
+                    foreach (var memberAddress in getCartMemberInfo.MemberAddressBookList)
+                    {
+                        string tempTelDay = string.Empty;
+                        if (!string.IsNullOrEmpty(memberAddress.TelZip))
+                        {
+                            tempTelDay += "(" + memberAddress.TelZip + ")";
+                        }
+                        if (!string.IsNullOrEmpty(memberAddress.TelDay))
+                        {
+                            tempTelDay += memberAddress.TelDay;
+                        }
+                        if (!string.IsNullOrEmpty(memberAddress.TelExtension))
+                        {
+                            tempTelDay += "#" + memberAddress.TelExtension;
+                        }
+                        bool defaultSetting = false;
+                        if (memberAddress.DefaultSetting == 1)
+                        {
+                            defaultSetting = true;
+                        }
+                        <tr class="UpBorderLine" id="display_member_@memberAddress.ID">
+                            <th class="">
+                                <label><input type="radio" id="Radio_member_@memberAddress.ID" name="member_Radio" value="@memberAddress.ID" class="radio" checked="@defaultSetting"></label>
+                            </th>
+                            <th class="">
+                                <span class="Name">
+                                    @{
+                                        string addressName = string.Empty;
+                                        if (memberAddress.RecvSex == 1)
+                                        {
+                                            addressName = memberAddress.RecvLastName + memberAddress.RecvFirstName + " 先生";
+                                        }
+                                        else if (memberAddress.RecvSex == 0)
+                                        {
+                                            addressName = memberAddress.RecvLastName + memberAddress.RecvFirstName + " 女士";
+                                        }
+                                    }
+                                    <span id="member_tempName_@memberAddress.ID">@addressName</span>
+                                    <input type="hidden" id="hidden_member_Sex_@memberAddress.ID" value="@memberAddress.RecvSex" />
+                                    <input type="hidden" id="hidden_member_lastName_@memberAddress.ID" value="@memberAddress.RecvLastName" />
+                                    <input type="hidden" id="hidden_member_firstName_@memberAddress.ID" value="@memberAddress.RecvFirstName" />
+                                </span>
+                            </th>
+                            <th colspan="2" class="">
+                                @{
+                                    string tempZip = memberAddress.DelivZip != null ? memberAddress.DelivZip.Trim() : "";
+                                    string tempZipName = memberAddress.DelivZipName != null ? memberAddress.DelivZipName.Trim() : "";
+                                }
+                                <span id="member_AllAddress_@memberAddress.ID">@(tempZip + " " + memberAddress.DelivLOC + memberAddress.DelivZipName + memberAddress.DelivAddress)</span>
+                                <input type="hidden" id="hidden_member_Zip_@memberAddress.ID" value="@tempZip" />
+                                <input type="hidden" id="hidden_member_Loc_@memberAddress.ID" value="@memberAddress.DelivLOC" />
+                                <input type="hidden" id="hidden_member_ZipName_@memberAddress.ID" value="@tempZipName" />
+                                <input type="hidden" id="hidden_member_Address_@memberAddress.ID" value="@memberAddress.DelivAddress" />
+                            </th>
+                            <th class="">
+                                <span id="member_tempTelDay_@memberAddress.ID">@tempTelDay</span>
+                                <input type="hidden" id="hidden_member_TelZip_@memberAddress.ID" value="@memberAddress.TelZip" />
+                                <input type="hidden" id="hidden_member_TelDay_@memberAddress.ID" value="@memberAddress.TelDay" />
+                                <input type="hidden" id="hidden_member_TelExtension_@memberAddress.ID" value="@memberAddress.TelExtension" />
+                            </th>
+                            <th class="">
+                                <span id="member_tempMobile_@memberAddress.ID">@memberAddress.RecvMobile</span>
+                                <input type="hidden" id="hidden_member_Mobile_@memberAddress.ID" value="@memberAddress.RecvMobile" />
+                            </th>
+                            <th class="">
+                                <span class="Editor editAddressBook" bookName="member_" bookID="@memberAddress.ID" zipID="salesorder_cardzip" memberflag="1">編輯</span>
+                                <span class="Delete deleteAddressBook" bookName="member_" bookID="@memberAddress.ID" memberflag="1">
+                                    <img src="/Themes/img/Icon/DeleteImg.png">
+                                </span>
+                            </th>
+                        </tr>
+                        <tr class="UpBorderLine PurchaserInput" id="editbook1_member_@memberAddress.ID" style="display:none;">
+                            <th rowspan="2">
+                                @*<label><input type="radio" name="" value="" class="radio"></label>*@
+                            </th>
+                            <th>
+                                <select class="select_sm" id="sex_member_@memberAddress.ID" style="width:150px;">
+                                    <option value="2">請選擇稱謂</option>
+                                    <option value="1">先生</option>
+                                    <option value="0">女士</option>
+                                </select>
+                            </th>
+                            <th colspan="1">
+                                <select class="select_sm locSelect" style="width:110px;" id="loc_member_@memberAddress.ID" bookName="member_" bookID="@memberAddress.ID" memberflag="1">
+                                    <option value="">請選擇縣市</option>
+                                    <option value="基隆市">基隆市</option>
+                                    <option value="台北市">台北市</option>
+                                    <option value="新北市">新北市</option>
+                                    <option value="桃園市">桃園市</option>
+                                    <option value="新竹市">新竹市</option>
+                                    <option value="新竹縣">新竹縣</option>
+                                    <option value="苗栗縣">苗栗縣</option>
+                                    <option value="台中市">台中市</option>
+                                    <option value="彰化縣">彰化縣</option>
+                                    <option value="南投縣">南投縣</option>
+                                    <option value="雲林縣">雲林縣</option>
+                                    <option value="嘉義市">嘉義市</option>
+                                    <option value="嘉義縣">嘉義縣</option>
+                                    <option value="台南市">台南市</option>
+                                    <option value="高雄市">高雄市</option>
+                                    <option value="屏東縣">屏東縣</option>
+                                    <option value="台東縣">台東縣</option>
+                                    <option value="花蓮縣">花蓮縣</option>
+                                    <option value="宜蘭縣">宜蘭縣</option>
+                                    <option value="澎湖縣">澎湖縣</option>
+                                    <option value="金門縣">金門縣</option>
+                                    <option value="連江縣">連江縣</option>
+                                </select>
+                                <select class="select_md ZipNameSelect" style="width:175px;" id="zipName_member_@memberAddress.ID" bookName="member_" bookID="@memberAddress.ID" memberflag="1">
+                                    <option value="">請選擇鄉、鎮、行政區</option>
+                                </select>
+                            </th>
+                                <th colspan="2">
+                                    <label><input type="text" id="telZip_member_@memberAddress.ID" placeholder="區碼" value="@memberAddress.TelZip" maxlength="4" class="input_xs input_Spacing" numberrule="true" style="width:25px;"></label>─
+                                    <label><input type="text" id="telDay_member_@memberAddress.ID" placeholder="市話" value="@memberAddress.TelDay" maxlength="8" class="input_xs input_Spacing" numberrule="true" style="width:70px;"></label>
+                                </th>
+                                <th>
+                                    <label><input type="text" id="mobile_member_@memberAddress.ID" placeholder="手機號碼" value="@memberAddress.RecvMobile" maxlength="10" numberrule="true" class="input_sm input_Spacing"></label>
+                                </th>
+                                <th>
+                                    <span class="Stockpile updateAddressBook" bookName="member_" bookID="@memberAddress.ID">儲存</span>
+                                </th>
+                        </tr>
+                        <tr class="PurchaserInput" id="editbook2_member_@memberAddress.ID" style="display:none;">
+                                <th>
+                                    <label><input type="text" id="lastName_member_@memberAddress.ID" maxlength="10" placeholder="姓氏" value="@memberAddress.RecvLastName" class="input_xs input_Spacing"></label>
+                                    <label><input type="text" id="firstName_member_@memberAddress.ID" maxlength="10" placeholder="名字" value="@memberAddress.RecvFirstName" class="input_xs input_Spacing"></label>
+                                </th>
+                                <th colspan="2">
+                                    <label><input type="text" id="address_member_@memberAddress.ID" placeholder="請輸入地址，且不接受郵政信箱" value="@memberAddress.DelivAddress" maxlength="120" class="input_md input_Spacing" style="width:280px;"></label>
+                                </th>
+                                <th colspan="1">
+                                    <label><input type="text" id="telExt_member_@memberAddress.ID" placeholder="分機#" value="@memberAddress.TelExtension" maxlength="10" class="input_xs input_Spacing" numberrule="true" style="width:140px;"></label> 
+                                </th>
+                                <th>&nbsp;</th>
+                                <th>
+                                    <span class="Cancel cancelAddressBook" bookName="member_" bookID="@memberAddress.ID" memberflag="1">取消</span>
+                                </th>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+    </div> 
+    <div class="clear"></div>
+</div>
+<div class="PurchaserTable">
+    <table>
+        <tbody>
+            <tr class="PurchaserInput AddNewAddressBook" style="display:none;">
+                <th rowspan="2">
+                    @*<label><input type="radio" name="" value="" class="radio"></label>*@
+                </th>
+                <th>
+                    <select class="select_sm" id="sex_addNewMember" style="width:150px;">
+                        <option value="2">請選擇稱謂</option>
+                        <option value="1">先生</option>
+                        <option value="0">女士</option>
+                    </select>
+                </th>
+                <th colspan="1">
+                    <select class="select_sm locSelect" style="width:110px;" id="loc_addNewMember" bookName="addNewMember" bookID="" memberflag="1">
+                        <option value="">請選擇縣市</option>
+                        <option value="基隆市">基隆市</option>
+                        <option value="台北市">台北市</option>
+                        <option value="新北市">新北市</option>
+                        <option value="桃園市">桃園市</option>
+                        <option value="新竹市">新竹市</option>
+                        <option value="新竹縣">新竹縣</option>
+                        <option value="苗栗縣">苗栗縣</option>
+                        <option value="台中市">台中市</option>
+                        <option value="彰化縣">彰化縣</option>
+                        <option value="南投縣">南投縣</option>
+                        <option value="雲林縣">雲林縣</option>
+                        <option value="嘉義市">嘉義市</option>
+                        <option value="嘉義縣">嘉義縣</option>
+                        <option value="台南市">台南市</option>
+                        <option value="高雄市">高雄市</option>
+                        <option value="屏東縣">屏東縣</option>
+                        <option value="台東縣">台東縣</option>
+                        <option value="花蓮縣">花蓮縣</option>
+                        <option value="宜蘭縣">宜蘭縣</option>
+                        <option value="澎湖縣">澎湖縣</option>
+                        <option value="金門縣">金門縣</option>
+                        <option value="連江縣">連江縣</option>
+                    </select>
+                    <select class="select_md ZipNameSelect" style="width:175px;" id="zipName_addNewMember" bookName="addNewMember" bookID="" memberflag="1">
+                        <option value="">請選擇鄉、鎮、行政區</option>
+                    </select>
+                </th>
+                <th colspan="2">
+                    <label><input type="text" id="telZip_addNewMember" name="" placeholder="區碼" value="" maxlength="4" class="input_xs input_Spacing" numberrule="true" style="width:25px;"></label>─
+                    <label><input type="text" id="telDay_addNewMember" name="" placeholder="市話" value="" maxlength="8" class="input_xs input_Spacing" numberrule="true" style="width:70px;"></label>
+                </th>
+                <th>
+                    <label><input type="text" id="mobile_addNewMember" name="" placeholder="手機號碼" value="" maxlength="10" class="input_sm input_Spacing" numberrule="true"></label>
+                </th>
+                <th>
+                    <span class="Stockpile addAddressBook" addbookName="addNewMember" bookName="member_" bookID="">儲存</span>
+                </th>
+            </tr>
+            <tr class="PurchaserInput AddNewAddressBook" style="display:none;">
+                <th>
+                    <label><input type="text" id="lastName_addNewMember" name="" placeholder="姓氏" value="" maxlength="10" class="input_xs input_Spacing"></label>
+                    <label><input type="text" id="firstName_addNewMember" name="" placeholder="名字" value="" maxlength="10" class="input_xs input_Spacing"></label>
+                </th>
+                <th colspan="2">
+                    <label><input type="text" id="address_addNewMember" name="" placeholder="請輸入地址，且不接受郵政信箱" value="" maxlength="120" class="input_md input_Spacing" style="width:280px;"></label>
+                </th>
+                <th colspan="1">
+                    <label><input type="text" id="telExt_addNewMember" name="" placeholder="分機#" value="" maxlength="10" class="input_xs input_Spacing" numberrule="true" style="width:140px;"></label> 
+                </th>
+                <th>&nbsp;</th>
+                <th>
+                    <span class="Cancel CancelNewAddressBook" bookName="addNewMember" bookID="" memberflag="1">取消</span>
+                </th>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+<div class="DialogBtn">
+    <label><input name="" type="button" value="確認" class="DialogConfirmBtn OrgBtn" id="memberBooksChoose"></label>
+    <label><input name="" type="button" value="取消" class="DialogCancelBtn OrgBtn booksClose" bookName="member_" id="memberBooksCancel"></label>
+    <div class="clear"></div>
+</div>

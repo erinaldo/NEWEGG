@@ -1,0 +1,205 @@
+﻿@{
+    TWNewEgg.Models.ViewModels.Activity.Award viewModel= new TWNewEgg.Models.ViewModels.Activity.Award();
+    if(ViewBag.viewModel != null && ViewBag.viewModel as TWNewEgg.Models.ViewModels.Activity.Award != null)
+    {
+        viewModel = ViewBag.viewModel;
+    }
+}
+
+<div class="TabArea grayBorder">
+    <ul>
+        <li id="ComingtoEndActivity"
+            @if (viewModel.OrderBy == (int)TWNewEgg.Models.ViewModels.Activity.ActivityListOrderByType.即將結束)
+            {
+                <text>class="Tab SmallBorderTab SmallBorderTabSelected" value="@((int)TWNewEgg.Models.ViewModels.Activity.ActivityListOrderByType.即將結束)"</text>
+            }
+            else
+            {
+                <text>class="Tab SmallBorderTab" onclick="ChangeOrderBy('@((int)TWNewEgg.Models.ViewModels.Activity.ActivityListOrderByType.即將結束)')";</text>
+            }
+        >
+            <i class="icon OrderbyIcaon ComingtoEndActivity"></i>
+            即將結束
+        </li>
+        <li id="LatestActivity"
+            @if (viewModel.OrderBy == (int)TWNewEgg.Models.ViewModels.Activity.ActivityListOrderByType.最新活動)
+            {
+                <text>class="Tab SmallBorderTab SmallBorderTabSelected" value="@((int)TWNewEgg.Models.ViewModels.Activity.ActivityListOrderByType.最新活動)"</text>
+            }
+            else
+            {
+                <text>class="Tab SmallBorderTab" onclick="ChangeOrderBy('@((int)TWNewEgg.Models.ViewModels.Activity.ActivityListOrderByType.最新活動)')";</text>
+            }
+        >
+            <i class="icon OrderbyIcaon LatestActivity"></i>
+            最新活動
+        </li>
+    </ul>
+</div>
+<table class="table ColorBorder darkGray">
+    <tr class="tr">
+        <th class="th grayBorder Boldtext" style="width:113px;">類型</th>
+        <th class="th grayBorder Boldtext" style="width:88px;">館別</th>
+        <th class="th grayBorder Boldtext" style="width:241px;">活動名稱</th>
+        <th class="th grayBorder Boldtext" style="width:96px;">開始時間</th>
+        <th class="th grayBorder Boldtext" style="width:96px;">結束時間</th>
+        <th class="th grayBorder Boldtext" style="width:111px;">得獎公告日</th>
+        <th class="th grayBorder Boldtext" style="width:92px;">領獎方式</th>
+        <th class="th grayBorder Boldtext" style="width:93px;">中獎名單</th>
+        <th class="th grayBorder Boldtext" style="width:76px;">備註</th>
+    </tr>
+
+    @if (viewModel.ActivityList != null && viewModel.ActivityList.Count > 0)
+    {
+        @*計算目前資料是第幾筆，用來計算 row 是單數還是雙數，雙數 row 的格子要加灰色背景色*@
+        int count = 1;
+
+        foreach (TWNewEgg.Models.ViewModels.Activity.PromoActive awardData in viewModel.ActivityList)
+        {
+            @*雙數 row 的格子要加灰色背景色*@
+            <tr class="tr
+                @if((count % 2) == 0)
+                {
+                    @("ColorBgTr")
+                }">
+                @*↓↓↓因類型的不同，SpecialDealClass會有1-1、2-1、3-1、4-1、5-1、6-1、7-1、8-1的差別，需請注意↓↓↓*@
+                <td class="td grayBorder">
+                    <div class="SpecialDeal">
+                        <span class="SpecialDeal
+                            @switch(awardData.TypeName)
+                            {
+                                case "滿額折(現折)":
+                                    {
+                                        @("SpecialDealClass1-1");
+                                        break;
+                                    }
+                                case "折價券":
+                                    {
+                                        @("SpecialDealClass2-1");
+                                        break;
+                                    }
+                                case "回饋金":
+                                    {
+                                        @("SpecialDealClass3-1");
+                                        break;
+                                    }
+                                case "紅利點數":
+                                    {
+                                        @("SpecialDealClass4-1");
+                                        break;
+                                    }
+                                case "抽獎":
+                                    {
+                                        @("SpecialDealClass5-1");
+                                        break;
+                                    }
+                                case "贈獎(獎品)":
+                                    {
+                                        @("SpecialDealClass6-1");
+                                        break;
+                                    }
+                                case "銀行":
+                                    {
+                                        @("SpecialDealClass7-1");
+                                        break;
+                                    }
+                                case "折扣":
+                                    {
+                                        @("SpecialDealClass8-1");
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        break;
+                                    }
+                            }">
+                            @(awardData.TypeName)
+                        </span>
+
+                    </div>
+                </td>
+                @*↑↑↑因類型的不同，SpecialDealClass會有差別↑↑↑*@
+                <td class="td grayBorder">
+                    @if (string.IsNullOrEmpty(awardData.CategoryLink) == false)
+                    {
+                        <a href="@(awardData.CategoryLink)">@(awardData.CategoryName)</a>
+                    }
+                    else
+                    {
+                        @(awardData.CategoryName)
+                    }
+                </td>
+                <td class="td grayBorder ActivityName">
+                    @if(string.IsNullOrEmpty(awardData.NameLink) == false)
+                    {
+                        <a href="@(awardData.NameLink)">@(awardData.Name)</a>
+                    }
+                    else
+                    {
+                        @(awardData.Name)
+                    }
+                </td>
+                <td class="td grayBorder gray">@awardData.StartDate.ToString("yyyy/MM/dd")<br/>@awardData.StartDate.ToString("HH:mm")</td>
+                <td class="td grayBorder gray">@awardData.EndDate.ToString("yyyy/MM/dd")<br/>@awardData.EndDate.ToString("HH:mm")</td>
+                <td class="td grayBorder">@awardData.DeclareDate.ToString("yyyy/MM/dd")<br/>@awardData.DeclareDate.ToString("HH:mm")</td>
+                <td class="td grayBorder">@awardData.TakeTypeName</td>
+                <td class="td grayBorder"><a href="/Activity/AwardDetial?id=@(awardData.ID)" class="awardListIcon"><img src="/Themes/img/img_trans.gif"></a></td>
+                <td class="td grayBorder"><span class="noteIcon" noteValue="@(awardData.Note)" onclick="NoteMsg(this)"><img src="/Themes/img/img_trans.gif"></span></td>
+            </tr>
+            count++;
+        }
+    }
+    @*↑↑↑↑↑因考慮樣式問題，請以一組來做迴圈↑↑↑↑↑*@
+        
+</table>
+
+<div class="PageArea">
+
+    @*前一頁*@
+    @if(viewModel.PageIndex > 1)
+    {
+        <span class="arrow arrLeft prev" onclick="ChangePage('@(viewModel.PageIndex - 1)')"><</span>
+    }
+    
+    @if (viewModel.ShowPage.Count > 0)
+    { 
+        foreach(TWNewEgg.Models.ViewModels.Page.ShowPage showPage in viewModel.ShowPage)
+        {
+            if(showPage.PageNumber == viewModel.PageIndex)
+            {
+                <span class="SelectThePage" style="color:#EB8A51" data-pagevalue="@(showPage.PageNumber)">@(showPage.PageNumberString)</span>
+            }
+            else
+            {
+                if (showPage.PageNumberString.IndexOf("...") != -1)
+                {
+                    if(showPage.PageNumberString.IndexOf("1") == 0)
+                    {
+                        <span class="GoToPage" onclick="ChangePage(1)"  data-pagevalue="1">1</span>
+                        <span class="default">...</span>
+                    }
+                    else
+                    {
+                        <span class="default">...</span>
+                        <span class="GoToPage" onclick="ChangePage('@(viewModel.MaxPage)')"  data-pagevalue="@(viewModel.MaxPage)">@(viewModel.MaxPage)</span>
+                    }
+                }
+                else
+                {
+                    <span class="GoToPage" onclick="ChangePage('@(showPage.PageNumber)')"  data-pagevalue="@(showPage.PageNumberString)">@(showPage.PageNumberString)</span>
+                }
+            }
+        }
+    }
+    else{
+        <span class="SelectThePage" style="color:#EB8A51" data-pagevalue="1">1</span>
+    }
+
+    @*下一頁*@
+    @if(viewModel.PageIndex < viewModel.MaxPage)
+    {
+        <span class="arrow arrRight next" onclick="ChangePage('@(viewModel.PageIndex + 1)')">></span>
+    }
+</div>
+
+

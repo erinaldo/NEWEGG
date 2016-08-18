@@ -1,0 +1,228 @@
+﻿@using TWNewEgg.ECWeb.Utility
+@model TWNewEgg.Models.DomainModels.Store.StoreInfo
+@{
+    ViewBag.Title = Model.Title + "-新蛋全球生活網";
+}
+
+@section metaTags {
+    <meta name="title" content="@(StoreMetaShareFuns.GetMetaTitle((int)ViewData["storeId"]))" />
+    <meta name="description" content="@(StoreMetaShareFuns.GetMetaDesc((int)ViewData["storeId"]))" />
+    <meta name="keywords" content="@(StoreMetaShareFuns.GetMetaKey((int)ViewData["storeId"]))" />
+    <meta name="author" content="@(StoreMetaShareFuns.GetMetaNetw((int)ViewData["storeId"]))" />
+    <meta name="subject" content="@(StoreMetaShareFuns.GetMetaSubject((int)ViewData["storeId"]))" />
+    <meta http-equiv="content-language" content="Tradition Chinese" />
+    <meta name="abstract" content="@(StoreMetaShareFuns.GetMetaNetw((int)ViewData["storeId"]))" />
+    <meta name="copyright" content="@(StoreMetaShareFuns.GetMetaNetw((int)ViewData["storeId"]))" />
+    <meta name="designer" content="@(StoreMetaShareFuns.GetMetaNetw((int)ViewData["storeId"]))" />
+    <meta name="publisher" content="@(StoreMetaShareFuns.GetMetaNetw((int)ViewData["storeId"]))" />
+}
+
+@section styleSheets {
+    
+    @Styles.Render("~/content/css/categoryUS")
+    @Styles.Render("~/content/css/custom")
+    @Styles.Render("~/content/css/StoreGeneral")
+    @Styles.Render("~/content/css/rwdGeneral")
+}
+
+<!--[if lt IE 9]>
+    <script src="/Scripts/RWD/js/css3-mediaqueries.js" type="text/javascript"></script>
+    <script src="/Scripts/RWD/js/html5shiv.js" type="text/javascript"></script>
+    <script src="/Scripts/RWD/rem.js" type="text/javascript"></script>
+    <script src="/Scripts/RWD/js/respond.js" type="text/javascript"></script>
+    <script src="/Scripts/RWD/selectivizr.js" type="text/javascript"></script>
+<![endif]-->
+
+@section scripts{
+    <script src="/Scripts/jquery-ui-1.11.4.min.js" type="text/javascript"></script>
+    <script src="/Scripts/RWD/nav.js" type="text/javascript"></script>
+    <script src="/Scripts/RWD/jquery.carouFredSel-5.5.0-packed.js" type="text/javascript"></script>
+
+    <script>
+        $(".pullDownUS").load('@(Url.Action("GetLeftMenu"))');
+        /*var ScrollDownToBottom = function () {
+            $('html, body').animate({ scrollTop: $(document).height() });
+        };*/
+        /* ------ Top Banner 輪播 ------ */
+        var numIndex = 0;
+        var strBgColor = "";
+        var numNowSlideIndex = 0;
+        var _animateSpeed = 100,
+            timer;
+        var _speed = 4000;
+        var $slides = $("div.banner a:eq(0)");
+        var $liTab = $("div.banner div.tab ul li");
+        var _isOver = false;
+        var _mouseTab = false;
+        var _mouseImg = false;
+        //預設選擇第一個標籤與背景
+        $("div.banner div.tab ul li").eq(0).addClass("selected");
+        $("div.banner div.tab ul li").bind("mouseenter", function () {
+            clearTimeout(timer);
+            _mouseTab = true;
+            _isOver = true;
+            numIndex = $(this).index();
+
+            $(this).addClass("selected");
+            $(this).siblings().removeClass();
+            //顯示相對應的圖片
+            var imageUrl = "url('" + $(this).children("a").eq(0).attr('banner-src') + "') no-repeat 0 0";
+            var linkUrl = $(this).children("a").eq(0).attr('banner-url').trim();
+            $('div.banner-img').css('background', imageUrl);
+            $('div.banner > a').attr('href', linkUrl);
+        }).mouseleave(function () {
+            clearTimeout(timer);
+            _isOver = false;
+            timer = setTimeout(TopBannerMoveNext, _speed);
+        });
+
+        //當滑鼠移到時停止輪播
+        $("div.banner div.banner-img").bind("mouseenter", function () {
+            clearTimeout(timer);
+            _isOver = true;
+            _mouseImg = true;
+        }).mouseleave(function () {
+            clearTimeout(timer);
+            timer = setTimeout(TopBannerMoveNext, _speed);
+            _isOver = false;
+        });
+        //啟動第一次輪播
+        timer = setTimeout(TopBannerMoveNext, _speed);
+
+        // 用來控制Banner移動的函式
+        function TopBannerMoveNext() {
+            //var _now = $("div.banner div.tab ul li.selected").index();
+            var _now = $("div.banner div.tab ul li.selected").eq(0).index();
+            var _nextIndex = (_now + 1) % $liTab.length;
+            $($liTab).eq(_nextIndex).mouseenter();
+            timer = setTimeout(TopBannerMoveNext, _speed);
+        }
+    </script>
+}
+
+<script>
+    $(document).ready(function () {
+        /*電梯顯示*/
+        elevatorStore();
+
+        var storeColor = $('.box-category3').css('background-color');
+        var storeColorLite = $('.box15 ul li').css('background-color');
+
+        $('div.carousel-logo2').each(function () {
+            var prev = $(this).find('a.prev');
+            var next = $(this).find('a.next');
+            $($(this).find('ul')).carouFredSel({
+                width: 300,
+                height: 148,
+                ////items: 3,
+                ////align: "left",
+                prev: prev,
+                next: next,
+                auto: false
+            });
+        });
+
+        $('.carousel-logo-cates').each(function () {
+            var prev = $(this).find('a.prev');
+            var next = $(this).find('a.next');
+            var elem = $($(this).find('ul'));
+            elem.carouFredSel({
+                circular: false,
+                infinite: false,
+                width: 887,
+                height: 85,
+                items: 6,
+                align: "left",
+                prev: {
+                    button: prev,
+                    onBefore: function () {
+                        next.show();
+                    },
+                    onEnd: function (direction) {
+                        prev.hide();
+                    }
+                },
+                next: {
+                    button: next,
+                    onBefore: function () {
+                        prev.show();
+                    },
+                    onEnd: function () {
+                        next.hide();
+                    }
+                },
+                auto: false
+            });
+            prev.hide();
+        });
+
+        $('div.banner > div.tab > ul > li > a').hover(function () {
+            var imageUrl = "url('" + $(this).attr('banner-src') + "') no-repeat 0 0";
+            var linkUrl = $(this).attr('banner-url').trim();
+            $('div.banner-img').css('background', imageUrl);
+            $('div.banner > a').attr('href', linkUrl);
+        });
+
+        $('div.carousel4 > div.pagination > ul > li a').hover(function () {
+            var tabIndex = $(this).text();
+            var listZone = $(this).parent().parent().parent().parent();
+
+            $(this).parent().siblings("li").find('a').removeClass('catcolorbg');
+            $(this).addClass('catcolorbg');
+            listZone.find('.listcontent > div').hide();
+            listZone.find('.listcontent > div:eq(' + (tabIndex - 1) + ')').show();
+            //imgVerticalAlignCenter();
+        });
+
+        /*$('div.elevator').css({ 'position': 'fixed', 'display': 'none' });
+        $(window).scroll(function () {
+            var $elevator = $('div.elevator');
+            if ($('html body').scrollTop() >= 500) {
+                $elevator.css('display', 'block');
+            }
+            else {
+                $elevator.css('display', 'none');
+            }
+        });*/
+    });
+</script>
+
+<div class="bg">
+    <div class="content">
+        <section class="section">
+            <!-- Nav -->
+            <div class="pullDown pullDownUS"></div>
+            <!-- Nav end -->
+
+            @if (Model.Title != null && !string.IsNullOrEmpty(Model.Title))
+            {
+                <div class="bread">
+                    <a href="/">首頁</a> > @(Model.Title)
+                </div>
+            }
+
+            @{
+                if (Model != null)
+                {
+                @Html.Partial("Partial_PullDownBannerAdv")
+                @Html.Partial("Partial_PullDownBanner")
+                }
+            }
+        </section>
+        @*Shop window*@
+        @Html.Partial("Partial_SingleBanner")
+        @{
+            if (Model != null &&
+                Model.ShopWindowList != null &&
+                Model.ShopWindowList.Count > 0)
+            {
+                foreach (var ShopWindowInfo in Model.ShopWindowList)
+                {
+            @(Html.Partial("Partial_ShopWindowUS", ShopWindowInfo))
+                }
+            }  
+        }
+    </div>
+</div>
+
+@Html.Partial("Partial_ShopWindowElevator", Model.Elevator)

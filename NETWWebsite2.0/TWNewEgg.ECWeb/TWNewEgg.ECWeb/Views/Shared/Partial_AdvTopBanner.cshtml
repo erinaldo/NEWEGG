@@ -1,0 +1,209 @@
+﻿@model Dictionary<int, Dictionary<TWNewEgg.Models.ViewModels.Advertising.AdvEventType, List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>>>
+
+@{
+    Layout = null;
+    List<int> listShowOrder = null;
+    TWNewEgg.Models.ViewModels.Advertising.AdvEventType objAdvEventType = null;
+    List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay> listAdvEventDisplay = null;
+    Dictionary<TWNewEgg.Models.ViewModels.Advertising.AdvEventType, List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>> objDictItem = null;
+    string strImageServer = "";
+    
+    List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay> listShowAdvEventDisply = null;
+    string strTopBannerTab = "";
+    string strImgBgColor = "";
+    int i = 0;
+    int numCacheMins = 4;
+    
+    if(Model != null)
+    {
+        listShowOrder = new List<int>(Model.Keys);
+        
+        // 根據連線方式決定圖檔機
+        strImageServer = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsImgDomain") ?? string.Empty;
+        /*
+        if (this.Request.Url.Host.ToUpper().Equals(System.Configuration.ConfigurationManager.AppSettings["ECSSLDomain"].ToUpper()))
+        {
+            //strImageServer = System.Configuration.ConfigurationManager.AppSettings.Get("SSLImages");
+            strImageServer = "http://10.16.131.45";
+        }
+        else
+        {
+           //strImageServer = System.Configuration.ConfigurationManager.AppSettings.Get("Images");
+            strImageServer = "http://10.16.131.45";
+        }
+         */
+
+        listShowAdvEventDisply = new List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>();
+        foreach (int num in listShowOrder)
+        {
+            objDictItem = Model[num];
+        
+            objAdvEventType = objDictItem.Keys.FirstOrDefault();
+            if(objAdvEventType != null && objAdvEventType.CacheMins != null && objAdvEventType.CacheMins > 0)
+            {
+                numCacheMins = Convert.ToInt32(objAdvEventType.CacheMins);
+            }
+        
+            //先組合好Image的標籤
+            strTopBannerTab += "<li>" + objAdvEventType.AdvTypeName + "<span class=\"arrow\"></span></li>";
+    
+            //再把圖列出來, 但每個標籤只抓第一筆
+            listAdvEventDisplay = objDictItem[objAdvEventType];
+            if (listAdvEventDisplay != null)
+            {
+                listShowAdvEventDisply.Add(listAdvEventDisplay[0]);
+                strImgBgColor += "<div style='display:none;'>" + listAdvEventDisplay[0].SCN2 + "</div>";
+            }
+        }
+    }
+}
+
+
+
+    <!-- Top Banner Image -->
+    <div class="banner-img">
+        @if (listShowAdvEventDisply != null)
+        {
+            i = 0;
+            for(i = 0; i < listShowAdvEventDisply.Count; i++)
+            {
+                if(i == 0)
+                {
+                    //預設顯示第一張
+                    @Html.Raw(String.Format("<a href='{0}'><img src='{1}' /></a>", listShowAdvEventDisply[i].LinkUrl, @strImageServer + listShowAdvEventDisply[i].ImgUrl))
+                }
+                else
+                {
+                    //其他張預設隱藏
+                    @Html.Raw(String.Format("<a href='{0}' style='display:none;' ><img src='{1}'/></a>", listShowAdvEventDisply[i].LinkUrl, @strImageServer + listShowAdvEventDisply[i].ImgUrl))
+                }
+            }
+
+        }
+
+    </div>
+    <!-- Top Banner Tab -->
+    <div class="tab">
+        <ul>
+            @if(strTopBannerTab.Length > 0)
+            {
+                @Html.Raw(@strTopBannerTab);
+            }
+        </ul>
+    </div>
+
+
+<!-- Top Banner Bg -->
+<div id="banner-bg" class="banner-bg">
+    @Html.Raw(strImgBgColor)
+</div>
+
+
+<!-- Source Html
+<div class="banner">
+
+    <div class="banner-img"><img src="/Themes/img/temp/banner.jpg"></div>
+    <div class="banner-tab">
+        <ul>
+            <li><a href="#nogo">美國閃購精選</a></li>
+            <li><a href="#nogo">寵愛媽咪5月天</a></li>
+            <li><a href="#nogo">國際時尚熱潮</a></li>
+            <li><a href="#nogo">家電嚴選特賣</a></li>
+            <li><a href="#nogo">自然人文輕旅行</a></li>
+        </ul>
+</div>
+</div>
+<div class="banner-bg">@*banner-bg*@</div>
+--> 
+
+<script>
+    var numNowSlideIndex = 0;
+    var _animateSpeed = 100,
+        timer;
+    var _speed = @numCacheMins * 1000;
+    var $slides = $("div.banner div.banner-img a");
+    var $liTab = $("div.banner div.tab ul li");
+    var _isOver = false;
+    var _mouseTab = false;
+    var _mouseImg = false;
+    $(document).ready(function ()
+    {
+        /* ------ Top Banner 輪播 ------ */
+        var numIndex = 0;
+        var strBgColor = "";
+
+        //預設選擇第一個標籤與背景
+        $("div.banner div.tab ul li").eq(0).addClass("selected");
+        strBgColor = $("#banner-bg div").eq(0).html();
+        $("#banner-bg").attr("style", "background-color:" + strBgColor);
+
+        $("div.banner div.tab ul li").bind("mouseenter", function ()
+        {
+            clearTimeout(timer);
+            _mouseTab = true;
+            _isOver = true;
+            numIndex = $(this).index();
+
+            $(this).addClass("selected");
+            $(this).siblings().removeClass();
+            //顯示相對應的圖片
+            //$("div.banner div.banner-img a").eq(numIndex).show().siblings().hide();
+
+            //取得相對應的bgcolor
+            strBgColor = $("#banner-bg div").eq(numIndex).html();
+            $("#banner-bg").removeAttr("style").attr("style", "background-color:" + strBgColor);
+
+            //$($slides).eq(numIndex).fadeIn(_animateSpeed, function () { if (!_isOver) timer = setTimeout(TopBannerMoveNext, _speed); }).siblings().hide();
+            $($slides).eq(numIndex).fadeIn(_animateSpeed, function () { }).siblings().hide();
+        }).mouseleave(function ()
+        {
+            clearTimeout(timer);
+            _isOver = false;
+            timer = setTimeout(TopBannerMoveNext, _speed);
+        });
+
+        //當滑鼠移到時停止輪播
+        $("div.banner div.banner-img a").bind("mouseenter", function ()
+        {
+            clearTimeout(timer);
+            _isOver = true;
+            _mouseImg = true;
+        }).mouseleave(function ()
+        {
+            clearTimeout(timer);
+            timer = setTimeout(TopBannerMoveNext, _speed);
+            _isOver = false;
+        });
+        $("div.banner div.banner-img a img").bind("mouseenter", function ()
+        {
+            clearTimeout(timer);
+            _isOver = true;
+            _mouseImg = true;
+        }).mouseleave(function ()
+        {
+            clearTimeout(timer);
+            _isOver = false;
+            timer = setTimeout(TopBannerMoveNext, _speed);
+        });
+
+        //啟動第一次輪播
+        timer = setTimeout(TopBannerMoveNext, _speed);
+    });
+
+    // 用來控制Banner移動的函式
+    function TopBannerMoveNext()
+    {
+        //var _now = $("div.banner div.tab ul li.selected").index();
+        var _now = $("div.banner div.banner-img a:visible").index();
+        var _nextIndex = (_now + 1) % $slides.length;
+        //console.log("now:" + _now + " -- next:" + _nextIndex);
+        $($liTab).eq(_nextIndex).mouseenter();
+        timer = setTimeout(TopBannerMoveNext, _speed);
+    }
+</script>
+
+
+
+
+
+

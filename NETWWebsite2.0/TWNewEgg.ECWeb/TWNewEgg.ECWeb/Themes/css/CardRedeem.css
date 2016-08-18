@@ -1,0 +1,221 @@
+.clear {
+  clear: both;
+}
+
+.AdBox {
+  height: 613px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  margin: 0;
+  background-color: #0ca39a;
+  position: relative;
+}
+.AdBox .AdImg {
+  width: 100%;
+  height: 613px;
+  margin: 0 auto;
+  background: url(/Themes/img/CreditCaredProgram/CardInstallment_Bg_04.jpg) no-repeat top center;
+  position: relative;
+}
+
+.ShoppingGoBtn {
+  position: absolute;
+  top: 28px;
+  right: 50px;
+}
+
+.logo {
+  position: absolute;
+  display: block;
+  left: 53px;
+}
+
+.mainPadding {
+  min-width: 1004px;
+  width: 100%;
+  padding: 0;
+}
+
+.TabArea {
+  margin-top: -51px;
+  margin-bottom: 20px;
+  border: 0;
+  width: 1004px;
+}
+
+.Tit {
+  font-weight: bolder;
+}
+
+.Tab {
+  width: 200px;
+  border: 0;
+  background: #f0f0f0;
+  margin: 0 2px;
+  font-size: 21px;
+}
+
+.RadiusTab {
+  background-color: #fff;
+  border-bottom: 0;
+}
+.RadiusTab a, .RadiusTab a:visited {
+  color: #8a8a8a;
+}
+.RadiusTab a:hover {
+  color: #fff;
+}
+
+.TabSelected {
+  background: #ec8B54;
+  height: 50px;
+  margin-top: -5px;
+}
+.TabSelected a, .TabSelected a:visited {
+  color: #fff;
+  line-height: 50px;
+}
+
+.table {
+  width: 1004px;
+  border: none;
+}
+
+.tr {
+  border: 1px solid;
+}
+
+.th {
+  text-align: center;
+  height: 48px;
+  border-left: 1px solid #D5D5D5;
+}
+
+.td {
+  border: 1px solid;
+  height: 98px;
+  text-align: center;
+  text-align: center;
+}
+.td img {
+  display: block;
+  margin: 0 auto;
+}
+
+.grayBorder {
+  border-color: #d5d5d5;
+}
+
+.UnderLine {
+  cursor: pointer;
+}
+
+.BottomExplanationArea > p {
+  font-size: 18px;
+  line-height: 25px;
+}
+.BottomExplanationArea li.list {
+  list-style-type: none;
+  font-weight: bolder;
+  margin-left: 0;
+  letter-spacing: 2px;
+}
+
+.BankName {
+  border-bottom: 1px solid #d5d5d5;
+}
+.BankName p {
+  float: left;
+  margin: 10px 5px;
+  font-weight: bolder;
+  font-size: 18px;
+}
+.BankName img {
+  display: block;
+  margin: 0 auto;
+  height: 50px;
+  width: auto;
+}
+
+.Style-2 img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+.Style-2 p {
+  font-size: 16px;
+}
+.Style-2 p span {
+  font-size: 16px;
+  margin: 0 5px;
+  color: #000;
+}
+.Style-2 .ul {
+  margin: 30px 0;
+}
+.Style-2 .ul .item {
+  list-style-type: decimal;
+  list-style-position: inside;
+  margin: 10px 22px;
+  line-height: 18px;
+  font-size: 14px;
+}
+
+/*footer CSS*/
+.simpleFooterArea {
+  text-align: center;
+  padding: 5px auto;
+}
+.simpleFooterArea h2, .simpleFooterArea p {
+  display: inline;
+  margin-right: 10px;
+}
+
+/*LightBox*/
+.LightBoxUnderLay .LightBoxMsg {
+  border: 0;
+  overflow-y: hidden;
+  height: auto;
+  padding-bottom: 20px;
+}
+.LightBoxUnderLay .LightBoxMsg .CloseBtn {
+  border-radius: 2px;
+  outline: none;
+  position: relative;
+  left: 95%;
+  top: 30px;
+  background: url(/Themes/img/XBtn.png) no-repeat center;
+  background-color: #B3B3B3;
+}
+.LightBoxUnderLay .LightBoxMsg .CloseBtn .Xbutton {
+  background-color: #fff;
+  width: 2%;
+  height: 85%;
+  position: absolute;
+  /*left: 50%;*/
+  right: 15px;
+  top: 5%;
+}
+.LightBoxUnderLay .LightBoxMsg .CloseBtn:hover {
+  background-color: #ec8B54;
+}
+.LightBoxUnderLay .LightBoxMsg .DescriptionContent {
+  overflow-y: auto;
+  max-height: 62vh;
+  line-height: 2;
+  list-style-type: decimal;
+  padding: 20px 10px 0 35px;
+  /*ul::-webkit-scrollbar {
+  		
+  		background: #F1F1F1;
+  		height: 50px;
+  }
+  ul::-webkit-scrollbar-thumb {
+  		background: #B3B3B3;
+  		cursor: pointer;
+  }
+  ul::-webkit-scrollbar {
+  width: 35px;
+  height:50px;
+  }*/
+}

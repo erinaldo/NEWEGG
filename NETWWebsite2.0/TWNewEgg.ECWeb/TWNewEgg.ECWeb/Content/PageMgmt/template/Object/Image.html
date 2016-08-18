@@ -1,0 +1,25 @@
+﻿<div ng-switch on="images[0].Effect">
+    <div ng-switch-when="N">
+        <a ng-href="{{images[0].Hyperlink}}" target="{{images[0].Target}}">
+            <img class="fullsize" ng-src="{{images[0].Path}}" />
+        </a>
+    </div>
+    <div ng-switch-when="T" ng-mouseenter="show = true" ng-mouseleave="show = false">
+        <img class="fullsize" ng-src="{{images[0].Path}}" />
+        <a ng-href="{{images[0].Hyperlink}}" target="{{images[0].Target}}">
+        <div class="img-desc" ng-show="show" ng-style="{width: ngComponent.Width, height: ngComponent.Height}">
+            <pre style="margin:4px;">{{images[0].Description}}</pre>
+        </div>
+        </a>
+    </div>
+    <div ng-switch-when="R">
+        <ul id="slider{{ngComponent.ComponentID}}" class="bxslider" ng-style="listposition" >
+            <li ng-repeat="img in images | filter:filterImg | orderBy:'EffectGroupOrder'" repeat-done="setSlider()">
+                <a ng-href="{{img.Hyperlink}}" target="{{img.Target}}">
+                    <img class="fullsize" ng-src="{{img.Path}}" ng-style="{width: ngComponent.Width}" />
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+

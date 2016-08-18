@@ -1,0 +1,75 @@
+﻿@import "_importSCSS";
+
+.searchMainArea {
+	@extend .clear;
+	@include clearAfter;
+}
+$searchFilterAreaWidth:206px;
+.filterList {
+	&.searchFilterArea {
+		float:left;
+		width:$searchFilterAreaWidth ;
+		.groupTit {
+			.tit {
+				width:110px;
+			}
+		}
+		.list {
+			li {
+				.subTit {
+					width:120px;
+				}
+			}
+		}
+	}
+}
+$searchListAreaWidth:($RWDMaxWidth - $searchFilterAreaWidth - 15);
+.searchListArea {
+	/*float:right;
+	width:$searchListAreaWidth;*/
+	.searchTopBar {
+		@include clearAfter;
+		margin-bottom:10px;
+		$searckAgainWidth:452px;
+		.searckKeyBar {
+			float:left;
+			max-width:($searchListAreaWidth - $searckAgainWidth - 10);
+			color:#f37225;
+		}
+		.searchAgainArea {
+			float:right;
+			width:$searckAgainWidth;
+			.searchAgainBar {
+				margin-right:0;
+				padding:6px 5px;
+				width:360px;
+			}
+			.searchAgain {
+				margin:-1px 0 0 -5px;
+				width:38px;
+				height:32px;
+				background:url(/Themes/img/Icon/searchAgain.jpg) no-repeat;
+				border:0;
+				vertical-align:middle;
+				cursor: pointer;
+			}
+		}
+		/*.navOrder.searchOrder {
+			max-width:($searchListAreaWidth - $searckAgainWidth - 10);
+		}*/
+	}
+	.searchBox {
+		@extend .clear;
+		@include clearAfter;
+		.box {
+			$boxNum:4; /*一列幾個*/
+			$searchBoxMargin:10px; /*彼此間距*/
+			$searchBoxWidth:($searchListAreaWidth - $searchBoxMargin * $boxNum - ($boxNum * 2)) / 3; /*寬度(innnerWidth) = (總寬-間距-邊框)/3*/
+			margin-bottom:10px;
+			/*margin-left:$searchBoxMargin;
+			width:$searchBoxWidth;*/
+			margin-left:1%;
+			width:32%;
+		}	
+	}
+}

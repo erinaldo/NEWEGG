@@ -1,0 +1,842 @@
+﻿@model TWNewEgg.Models.ViewModels.Account.CartMemberInfoVM
+@{
+    
+    ViewBag.Title = "收件人紀錄本" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/MyAccount")
+}
+@section scripts {
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    <script>
+        /*給子選單滑出滑入用的jquery*/
+        TabSelectArea();
+    </script>
+}
+<style>
+    .Finger {
+        cursor:pointer;
+    }
+</style>
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/MyAccount">我的帳戶</a> >
+    @*<a href="/MyAccount/AddressBook">紀錄本修改</a> > <span>收件人紀錄本</span>*@
+    @*<span>紀錄本修改</span>*@
+</div>
+
+<div class="TopExplanationArea"></div>
+
+<div class="AccountArea">
+    <div class="TabArea Border grayBorder">
+        <ul>
+            <li class="Tab BorderTab" id="WishList"><a href="/Cart/WishCart"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+            @*<li class="Tab BorderTab" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>*@
+           <li class="Tab BorderTab" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+            <li class="Tab BorderTab" id="Order" onclick="TabOpenClose()">
+                <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                    @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+                </ul>
+            </li>
+            <li class="Tab BorderTab TabSelected" id="Account">
+                <a href="/MyAccount"><i class="icon ServiceIcon Account"></i>帳戶管理<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                    <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                    @*<li><a href="/MyAccount/RecordBooks">紀錄本修改</a></li>*@
+                    <li><a href="/MyAccount/AskQuestion">問答中心</a></li>
+                    <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="serviceContentArea">
+        <div class="serviceContentBox">
+            @*<div class="Tit ClassTit"><i class="icon ServiceIcon UpdateInformation-2"></i>紀錄本修改</div>
+            <div style="margin:15px;">
+                <div>
+                    <ul>
+                        <li class="TabNoHover RadiusTab BookChoose TabSelected" bookName="member_"><a class="Finger">訂購人紀錄本</a></li>
+                        <li class="TabNoHover RadiusTab BookChoose" bookName="deliver_"><a class="Finger">收件人紀錄本</a></li>
+                        <li class="TabNoHover RadiusTab BookChoose" bookName="companyBook_"><a >統編紀錄本</a></li>
+                    </ul>
+                </div>
+                <div class="TabArea grayBorder service_contentTable BookBody" id="member_bookWindow">
+                    @Html.Partial("Partial_MemberAddressBook", Model)
+                </div>
+                <div class="TabArea grayBorder service_contentTable BookBody" id="deliver_bookWindow" style="display:none;">
+                    @Html.Partial("Partial_RecvAddressBook", Model)
+                </div>
+                <div class="TabArea grayBorder service_contentTable BookBody" id="companyBook_bookWindow" style="display:none;">
+                    @Html.Partial("VATBook", Model)
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        InitializationStep2Script();
+    });
+
+    @*鄉鎮市區*@
+    function CityChoose(loc, zipName, zipID, islandFlag) { // loc 縣市，zipName，islandFlag 是否啟用離島陣列
+        islandFlag = parseInt(islandFlag);
+        var Address = new Array(22);
+        if (islandFlag) {
+            Address = [
+                ["基隆市", "200 仁愛區", "201 信義區", "202 中正區", "203 中山區", "204 安樂區", "205 暖暖區", "206 七堵區"]
+                , ["台北市", "100 中正區", "103 大同區", "104 中山區", "105 松山區", "106 大安區", "108 萬華區", "110 信義區", "111 士林區", "112 北投區", "114 內湖區", "115 南港區", "116 文山區"]
+                , ["新北市", "207 萬里區", "208 金山區", "220 板橋區", "221 汐止區", "222 深坑區", "223 石碇區", "224 瑞芳區", "226 平溪區", "227 雙溪區", "228 貢寮區", "231 新店區", "232 坪林區", "233 烏來區", "234 永和區", "235 中和區", "236 土城區", "237 三峽區", "238 樹林區", "239 鶯歌區", "241 三重區", "242 新莊區", "243 泰山區", "244 林口區", "247 蘆洲區", "248 五股區", "249 八里區", "251 淡水區", "252 三芝區", "253 石門區"]
+                , ["桃園市", "320 中壢區", "324 平鎮區", "325 龍潭區", "326 楊梅區", "327 新屋區", "328 觀音區", "330 桃園區", "333 龜山區", "334 八德區", "335 大溪區", "336 復興區", "337 大園區", "338 蘆竹區"]
+                , ["新竹市", "300 東區", "300 北區", "300 香山區"]
+                , ["新竹縣", "302 竹北市", "303 湖口鄉", "304 新豐鄉", "305 新埔鎮", "306 關西鎮", "307 芎林鄉", "308 寶山鄉", "310 竹東鎮", "311 五峰鄉", "312 橫山鄉", "313 尖石鄉", "314 北埔鄉", "315 峨眉鄉"]
+                , ["苗栗縣", "350 竹南鎮", "351 頭份鎮", "352 三灣鄉", "353 南庄鄉", "354 獅潭鄉", "356 後龍鎮", "357 通霄鎮", "358 苑裡鎮", "360 苗栗市", "361 造橋鄉", "362 頭屋鄉", "363 公館鄉", "364 大湖鄉", "365 泰安鄉", "366 銅鑼鄉", "367 三義鄉", "368 西湖鄉", "369 卓蘭鎮"]
+                , ["台中市", "400 中區", "401 東區", "402 南區", "403 西區", "404 北區", "406 北屯區", "407 西屯區", "408 南屯區", "411 太平區", "412 大里區", "413 霧峰區", "414 烏日區", "420 豐原區", "421 后里區", "422 石岡區", "423 東勢區", "424 和平區", "426 新社區", "427 潭子區", "428 大雅區", "429 神岡區", "432 大肚區", "433 沙鹿區", "434 龍井區", "435 梧棲區", "436 清水區", "437 大甲區", "438 外埔區", "439 大安區"]
+                , ["彰化縣", "500 彰化市", "502 芬園鄉", "503 花壇鄉", "504 秀水鄉", "505 鹿港鎮", "506 福興鄉", "507 線西鄉", "508 和美鎮", "509 伸港鄉", "510 員林鎮", "511 社頭鄉", "512 永靖鄉", "513 埔心鄉", "514 溪湖鎮", "515 大村鄉", "516 埔鹽鄉", "520 田中鎮", "521 北斗鎮", "522 田尾鄉", "523 埤頭鄉", "524 溪州鄉", "525 竹塘鄉", "526 二林鎮", "527 大城鄉", "528 芳苑鄉", "530 二水鄉"]
+                , ["南投縣", "540 南投市", "541 中寮鄉", "542 草屯鎮", "544 國姓鄉", "545 埔里鎮", "546 仁愛鄉", "551 名間鄉", "552 集集鎮", "553 水里鄉", "555 魚池鄉", "556 信義鄉", "557 竹山鎮", "558 鹿谷鄉"]
+                , ["雲林縣", "630 斗南鎮", "631 大埤鄉", "632 虎尾鎮", "633 土庫鎮", "635 東勢鄉", "634 褒忠鄉", "636 台西鄉", "637 崙背鄉", "638 麥寮鄉", "640 斗六市", "643 林內鄉", "646 古坑鄉", "647 莿桐鄉", "648 西螺鎮", "649 二崙鄉", "651 北港鎮", "652 水林鄉", "653 口湖鄉", "654 四湖鄉", "655 元長鄉"]
+                , ["嘉義市", "600 東區", "600 西區"]
+                , ["嘉義縣", "602 番路鄉", "603 梅山鄉", "604 竹崎鄉", "605 阿里山鄉", "606 中埔鄉", "607 大埔鄉", "608 水上鄉", "611 鹿草鄉", "612 太保市", "613 朴子市", "614 東石鄉", "615 六腳鄉", "616 新港鄉", "621 民雄鄉", "622 大林鎮", "623 溪口鄉", "624 義竹鄉", "625 布袋鎮"]
+                , ["台南市", "700 中西區", "701 東區", "702 南區", "704 北區", "708 安平區", "709 安南區", "710 永康區", "711 歸仁區", "712 新化區", "713 左鎮區", "714 玉井區", "715 楠西區", "717 仁德區", "718 關廟區", "716 南化區", "719 龍崎區", "720 官田區", "721 麻豆區", "722 佳里區", "723 西港區", "724 七股區", "725 將軍區", "726 學甲區", "727 北門區", "730 新營區", "731 後壁區", "732 白河區", "733 東山區", "734 六甲區", "735 下營區", "736 柳營區", "737 鹽水區", "741 善化區", "742 大內區", "744 新市區", "745 安定區", "743 山上區"]
+                , ["高雄市", "800 新興區", "801 前金區", "802 苓雅區", "803 鹽埕區", "804 鼓山區", "805 旗津區", "806 前鎮區", "807 三民區", "811 楠梓區", "812 小港區", "813 左營區", "814 仁武區", "815 大社區", "817 東沙群島", "820 岡山區", "821 路竹區", "819 南沙群島", "822 阿蓮區", "823 田寮區", "824 燕巢區", "825 橋頭區", "826 梓官區", "827 彌陀區", "829 湖內區", "828 永安區", "830 鳳山區", "831 大寮區", "832 林園區", "833 鳥松區", "840 大樹區", "842 旗山區", "843 美濃區", "844 六龜區", "845 內門區", "847 甲仙區", "846 杉林區", "848 桃源區", "852 茄萣區", "851 茂林區", "849 那瑪夏區"]
+                , ["屏東縣", "900 屏東市", "901 三地門鄉", "902 霧台鄉", "903 瑪家鄉", "904 九如鄉", "905 里港鄉", "906 高樹鄉", "907 鹽埔鄉", "908 長治鄉", "909 麟洛鄉", "911 竹田鄉", "912 內埔鄉", "913 萬丹鄉", "920 潮州鎮", "921 泰武鄉", "923 萬巒鄉", "922 來義鄉", "924 崁頂鄉", "925 新埤鄉", "926 南州鄉", "927 林邊鄉", "928 東港鎮", "929 琉球鄉", "931 佳冬鄉", "932 新園鄉", "940 枋寮鄉", "941 枋山鄉", "943 獅子鄉", "944 車城鄉", "945 牡丹鄉", "946 恆春鎮", "947 滿州鄉", "942 春日鄉"]
+                , ["台東縣", "950 台東市", "951 綠島鄉", "952 蘭嶼鄉", "954 卑南鄉", "955 鹿野鄉", "956 關山鎮", "957 海端鄉", "958 池上鄉", "953 延平鄉", "959 東河鄉", "961 成功鎮", "962 長濱鄉", "963 太麻里鄉", "965 大武鄉", "966 達仁鄉", "964 金峰鄉"]
+                , ["花蓮縣", "970 花蓮市", "971 新城鄉", "972 秀林鄉", "973 吉安鄉", "974 壽豐鄉", "975 鳳林鎮", "976 光復鄉", "977 豐濱鄉", "978 瑞穗鄉", "981 玉里鎮", "979 萬榮鄉", "983 富里鄉", "982 卓溪鄉"]
+                , ["宜蘭縣", "260 宜蘭市", "261 頭城鎮", "262 礁溪鄉", "263 壯圍鄉", "264 員山鄉", "265 羅東鎮", "266 三星鄉", "267 大同鄉", "268 五結鄉", "269 冬山鄉", "270 蘇澳鎮", "272 南澳鄉", "290 釣魚台"]
+                , ["澎湖縣", "880 馬公市", "881 西嶼鄉", "882 望安鄉", "885 湖西鄉", "883 七美鄉", "884 白沙鄉"]
+                , ["金門縣", "890 金沙鎮", "891 金湖鎮", "892 金寧鄉", "893 金城鎮", "894 烈嶼鄉", "896 烏坵鄉"]
+                , ["連江縣", "209 南竿鄉", "210 北竿鄉", "211 莒光鄉", "212 東引鄉"]
+            ]
+        } else {
+            Address = [
+                ["基隆市", "200 仁愛區", "201 信義區", "202 中正區", "203 中山區", "204 安樂區", "205 暖暖區", "206 七堵區"]
+                , ["台北市", "100 中正區", "103 大同區", "104 中山區", "105 松山區", "106 大安區", "108 萬華區", "110 信義區", "111 士林區", "112 北投區", "114 內湖區", "115 南港區", "116 文山區"]
+                , ["新北市", "207 萬里區", "208 金山區", "220 板橋區", "221 汐止區", "222 深坑區", "223 石碇區", "224 瑞芳區", "226 平溪區", "227 雙溪區", "228 貢寮區", "231 新店區", "232 坪林區", "233 烏來區", "234 永和區", "235 中和區", "236 土城區", "237 三峽區", "238 樹林區", "239 鶯歌區", "241 三重區", "242 新莊區", "243 泰山區", "244 林口區", "247 蘆洲區", "248 五股區", "249 八里區", "251 淡水區", "252 三芝區", "253 石門區"]
+                , ["桃園市", "320 中壢區", "324 平鎮區", "325 龍潭區", "326 楊梅區", "327 新屋區", "328 觀音區", "330 桃園區", "333 龜山區", "334 八德區", "335 大溪區", "336 復興區", "337 大園區", "338 蘆竹區"]
+                , ["新竹市", "300 東區", "300 北區", "300 香山區"]
+                , ["新竹縣", "302 竹北市", "303 湖口鄉", "304 新豐鄉", "305 新埔鎮", "306 關西鎮", "307 芎林鄉", "308 寶山鄉", "310 竹東鎮", "311 五峰鄉", "312 橫山鄉", "313 尖石鄉", "314 北埔鄉", "315 峨眉鄉"]
+                , ["苗栗縣", "350 竹南鎮", "351 頭份鎮", "352 三灣鄉", "353 南庄鄉", "354 獅潭鄉", "356 後龍鎮", "357 通霄鎮", "358 苑裡鎮", "360 苗栗市", "361 造橋鄉", "362 頭屋鄉", "363 公館鄉", "364 大湖鄉", "365 泰安鄉", "366 銅鑼鄉", "367 三義鄉", "368 西湖鄉", "369 卓蘭鎮"]
+                , ["台中市", "400 中區", "401 東區", "402 南區", "403 西區", "404 北區", "406 北屯區", "407 西屯區", "408 南屯區", "411 太平區", "412 大里區", "413 霧峰區", "414 烏日區", "420 豐原區", "421 后里區", "422 石岡區", "423 東勢區", "424 和平區", "426 新社區", "427 潭子區", "428 大雅區", "429 神岡區", "432 大肚區", "433 沙鹿區", "434 龍井區", "435 梧棲區", "436 清水區", "437 大甲區", "438 外埔區", "439 大安區"]
+                , ["彰化縣", "500 彰化市", "502 芬園鄉", "503 花壇鄉", "504 秀水鄉", "505 鹿港鎮", "506 福興鄉", "507 線西鄉", "508 和美鎮", "509 伸港鄉", "510 員林鎮", "511 社頭鄉", "512 永靖鄉", "513 埔心鄉", "514 溪湖鎮", "515 大村鄉", "516 埔鹽鄉", "520 田中鎮", "521 北斗鎮", "522 田尾鄉", "523 埤頭鄉", "524 溪州鄉", "525 竹塘鄉", "526 二林鎮", "527 大城鄉", "528 芳苑鄉", "530 二水鄉"]
+                , ["南投縣", "540 南投市", "541 中寮鄉", "542 草屯鎮", "544 國姓鄉", "545 埔里鎮", "546 仁愛鄉", "551 名間鄉", "552 集集鎮", "553 水里鄉", "555 魚池鄉", "556 信義鄉", "557 竹山鎮", "558 鹿谷鄉"]
+                , ["雲林縣", "630 斗南鎮", "631 大埤鄉", "632 虎尾鎮", "633 土庫鎮", "635 東勢鄉", "634 褒忠鄉", "636 台西鄉", "637 崙背鄉", "638 麥寮鄉", "640 斗六市", "643 林內鄉", "646 古坑鄉", "647 莿桐鄉", "648 西螺鎮", "649 二崙鄉", "651 北港鎮", "652 水林鄉", "653 口湖鄉", "654 四湖鄉", "655 元長鄉"]
+                , ["嘉義市", "600 東區", "600 西區"]
+                , ["嘉義縣", "602 番路鄉", "603 梅山鄉", "604 竹崎鄉", "605 阿里山鄉", "606 中埔鄉", "607 大埔鄉", "608 水上鄉", "611 鹿草鄉", "612 太保市", "613 朴子市", "614 東石鄉", "615 六腳鄉", "616 新港鄉", "621 民雄鄉", "622 大林鎮", "623 溪口鄉", "624 義竹鄉", "625 布袋鎮"]
+                , ["台南市", "700 中西區", "701 東區", "702 南區", "704 北區", "708 安平區", "709 安南區", "710 永康區", "711 歸仁區", "712 新化區", "713 左鎮區", "714 玉井區", "715 楠西區", "717 仁德區", "718 關廟區", "716 南化區", "719 龍崎區", "720 官田區", "721 麻豆區", "722 佳里區", "723 西港區", "724 七股區", "725 將軍區", "726 學甲區", "727 北門區", "730 新營區", "731 後壁區", "732 白河區", "733 東山區", "734 六甲區", "735 下營區", "736 柳營區", "737 鹽水區", "741 善化區", "742 大內區", "744 新市區", "745 安定區", "743 山上區"]
+                , ["高雄市", "800 新興區", "801 前金區", "802 苓雅區", "803 鹽埕區", "804 鼓山區", "805 旗津區", "806 前鎮區", "807 三民區", "811 楠梓區", "812 小港區", "813 左營區", "814 仁武區", "815 大社區",/* "817 東沙群島",*/ "820 岡山區", "821 路竹區",/* "819 南沙群島",*/ "822 阿蓮區", "823 田寮區", "824 燕巢區", "825 橋頭區", "826 梓官區", "827 彌陀區", "829 湖內區", "828 永安區", "830 鳳山區", "831 大寮區", "832 林園區", "833 鳥松區", "840 大樹區", "842 旗山區", "843 美濃區", "844 六龜區", "845 內門區", "847 甲仙區", "846 杉林區", "848 桃源區", "852 茄萣區", "851 茂林區", "849 那瑪夏區"]
+                , ["屏東縣", "900 屏東市", "901 三地門鄉", "902 霧台鄉", "903 瑪家鄉", "904 九如鄉", "905 里港鄉", "906 高樹鄉", "907 鹽埔鄉", "908 長治鄉", "909 麟洛鄉", "911 竹田鄉", "912 內埔鄉", "913 萬丹鄉", "920 潮州鎮", "921 泰武鄉", "923 萬巒鄉", "922 來義鄉", "924 崁頂鄉", "925 新埤鄉", "926 南州鄉", "927 林邊鄉", "928 東港鎮",/* "929 琉球鄉",*/ "931 佳冬鄉", "932 新園鄉", "940 枋寮鄉", "941 枋山鄉", "943 獅子鄉", "944 車城鄉", "945 牡丹鄉", "946 恆春鎮", "947 滿州鄉", "942 春日鄉"]
+                , ["台東縣", "950 台東市", /*"951 綠島鄉", "952 蘭嶼鄉",*/ "954 卑南鄉", "955 鹿野鄉", "956 關山鎮", "957 海端鄉", "958 池上鄉", "953 延平鄉", "959 東河鄉", "961 成功鎮", "962 長濱鄉", "963 太麻里鄉", "965 大武鄉", "966 達仁鄉", "964 金峰鄉"]
+                , ["花蓮縣", "970 花蓮市", "971 新城鄉", "972 秀林鄉", "973 吉安鄉", "974 壽豐鄉", "975 鳳林鎮", "976 光復鄉", "977 豐濱鄉", "978 瑞穗鄉", "981 玉里鎮", "979 萬榮鄉", "983 富里鄉", "982 卓溪鄉"]
+                , ["宜蘭縣", "260 宜蘭市", "261 頭城鎮", "262 礁溪鄉", "263 壯圍鄉", "264 員山鄉", "265 羅東鎮", "266 三星鄉", "267 大同鄉", "268 五結鄉", "269 冬山鄉", "270 蘇澳鎮", "272 南澳鄉"/*, "290 釣魚台"*/]
+            ]
+        }
+        var number = 0;
+        for (var i = 0; i < 22; i++) {
+            if (Address[i][0] == loc) {
+                number = i;
+                break;
+            }
+        }
+        $("#" + zipName).find("optgroup").remove();
+        $("#" + zipName).find("option").remove();
+        for (var i = 0; i < Address[number].length; i++) {
+            if (i == 0) {
+                $("#" + zipName).append('<optgroup id = "' + Address[number][0] + '" label = "' + Address[number][0] + '">');
+            }
+            else {
+                $("#" + zipName).append('<option value = "' + Address[number][i] + '">' + Address[number][i] + '</option>');
+            }
+        }
+        $("#" + zipName).append('</optgroup>');
+        var getZipNameValue = $("#" + zipName).val();
+        var getZip = "";
+        if (getZipNameValue.length > 0) {
+            getZip = getZipNameValue.substring(0, 3);;
+        }
+        $("#" + zipID).val(getZip);
+    }
+
+    function ClearNewAddressBook(bookName, memberflag) {
+        $("#sex_" + bookName).val(2);
+        $("#loc_" + bookName).val("");
+        $("#zipName_" + bookName).find("optgroup").remove();
+        $("#zipName_" + bookName).find("option").remove();
+        $("#zipName_" + bookName).append('<option value = "" selected="selected">請選擇鄉、鎮、行政區</option>');
+        $("#" + bookName + "AddNewAddressBook input[type='text']").val("");
+        $("#" + bookName + "AddNewAddressBook").hide();
+    }
+
+    function changeLoc(bookName, bookID, memberflag) {
+        var locValue = $("#loc_" + bookName + bookID).val();
+        var zipNameID = "zipName_" + bookName + bookID;
+        var zipID = $(this).attr("zipID");
+        //var zipID = "hidden_" + bookName + "Zip_" + bookID;
+        if (locValue == "") {
+            $("#zipName_" + bookName + bookID).find("optgroup").remove();
+            $("#zipName_" + bookName + bookID).find("option").remove();
+            $("#zipName_" + bookName + bookID).append('<option value = "" selected="selected">請選擇鄉、鎮、行政區</option>');
+            $("#hidden_" + bookName + "Zip_" + bookID).val("");
+        }
+        else {
+            CityChoose(locValue, zipNameID, zipID, memberflag);
+        }
+        //if (str == "連江縣" || str == "澎湖縣" || str == "金門縣") {
+        //    Islands();
+        //} else {
+        //    document.getElementById("CombineSalesOrderRule").innerHTML = "";
+        //}
+    }
+
+    function RecoverAddress(bookName, bookID, memberflag) {
+        if (bookID > 0) {
+            $("input[name='" + bookName + "Radio']").show();
+            $("#display_" + bookName + bookID).show();
+            $("#editbook1_" + bookName + bookID).hide();
+            //$("#editbook2_" + bookName + bookID).hide();
+            if (bookName != "companyBook_") {
+                var getSexValue = $("#hidden_" + bookName + "Sex_" + bookID).val();
+                var getLastNameValue = $("#hidden_" + bookName + "lastName_" + bookID).val();
+                var getFirstNameValue = $("#hidden_" + bookName + "firstName_" + bookID).val();
+                var getZipValue = $("#hidden_" + bookName + "Zip_" + bookID).val();
+                var getLocValue = $("#hidden_" + bookName + "Loc_" + bookID).val();
+                var getZipNameValue = $("#hidden_" + bookName + "ZipName_" + bookID).val();
+                var getAddressValue = $("#hidden_" + bookName + "Address_" + bookID).val();
+                var getTelZipValue = $("#hidden_" + bookName + "TelZip_" + bookID).val();
+                var getTelDayValue = $("#hidden_" + bookName + "TelDay_" + bookID).val();
+                var getTelExtValue = $("#hidden_" + bookName + "TelExtension_" + bookID).val();
+                var getMobileValue = $("#hidden_" + bookName + "Mobile_" + bookID).val();
+                getZipValue = getZipValue != null ? getZipValue.trim() : "";
+                getZipNameValue = getZipNameValue != null ? getZipNameValue.trim() : "";
+
+                $("#sex_" + bookName + bookID).val(getSexValue);
+                $("#lastName_" + bookName + bookID).val(getLastNameValue);
+                $("#firstName_" + bookName + bookID).val(getFirstNameValue);
+                $("#loc_" + bookName + bookID).val(getLocValue);
+                $("#zipName_" + bookName + bookID).val(getZipValue + " " + getZipNameValue);
+                $("#address_" + bookName + bookID).val(getAddressValue);
+                $("#telZip_" + bookName + bookID).val(getTelZipValue);
+                $("#telDay_" + bookName + bookID).val(getTelDayValue);
+                $("#telExt_" + bookName + bookID).val(getTelExtValue);
+                $("#mobile_" + bookName + bookID).val(getMobileValue);
+                changeLoc(bookName, bookID, memberflag);
+                $("#zipName_" + bookName + bookID).val(getZipValue + " " + getZipNameValue);
+            }
+        }
+    }
+
+    function RecoverCompanyBook(bookID) {
+        $("input[name='companyBook_Radio']").show();
+        $("#display_companyBook_" + bookID).show();
+        $("#editbook1_companyBook_" + bookID).hide();
+        var getTempTitleValue = $("#hidden_companyBook_tempTitle_" + bookID).val();
+        $("#Title_companyBook_" + bookID).val(getTempTitleValue);
+        var getTempNumberValue = $("#hidden_companyBook_tempNumber_" + bookID).val();
+        $("#Number_companyBook_" + bookID).val(getTempNumberValue);
+    }
+
+    function InvoidCheck(inputID) {
+        var returnMsg = { IsSuccess: true, ErrorMsg: "" };
+        var tbNum = new Array(1, 2, 1, 2, 1, 2, 4, 1);
+        var temp = 0;
+        var total = 0;
+        if (!$("#" + inputID).val().match(/^\d{8}$/) || $("#" + inputID).val() == "請輸入統一編號") {
+            returnMsg.IsSuccess = false;
+            returnMsg.ErrorMsg = "營利事業統一編號長度不夠或格式有誤!請注意營利事業統一編號格式為八碼數字!";
+            //Remind("營利事業統一編號長度不夠或格式有誤!請注意營利事業統一編號格式為八碼數字!");
+            //return false;
+        }
+        else {
+            for (var i = 0; i < tbNum.length ; i++) {
+                temp = $("#" + inputID).val().charAt(i) * tbNum[i];
+                total += Math.floor(temp / 10) + temp % 10;
+            }
+            if (parseInt($("#" + inputID).val()) == 0) {
+                returnMsg.IsSuccess = false;
+                returnMsg.ErrorMsg = "營利事業統一編號錯誤!";
+                //Remind("營利事業統一編號錯誤!"); return false;
+            }
+            if (total % 10 == 0 || (total % 10 == 9 && $("#" + inputID).val().charAt(6) == 7)) {
+
+            }
+            else {
+                returnMsg.IsSuccess = false;
+                returnMsg.ErrorMsg = "營利事業統一編號錯誤!";
+                //Remind("營利事業統一編號錯誤!"); return false;
+            }
+        }
+        return returnMsg;
+    }
+
+    function InitializationStep2Script() {
+        $(".BookChoose").off();
+        $("input[name='member_Radio']").off();
+        $("input[name='deliver_Radio']").off();
+        $("input[name='companyBook_Radio']").off();
+        $(".NewMemberAddressBook").off();
+        $(".CancelNewAddressBook").off();
+        $(".editAddressBook").off();
+        $(".locSelect").off();
+        $(".ZipNameSelect").off();
+        $(".addAddressBook").off();
+        $(".updateAddressBook").off();
+        $(".cancelAddressBook").off();
+        $(".deleteAddressBook").off();
+        $("#showAddCompanyBook").off();
+        $(".addCompanyBook").off();
+        $(".editCompanyBook").off();
+        $(".deleteCompanyBook").off();
+        $(".cancelNewCompanyBook").off();
+        $("input[numberrule='true']").off();
+
+        $(".BookChoose").on("click", function () {
+            var bookName = $(this).attr("bookName");
+            $(".BookChoose").removeClass("TabSelected");
+            $(this).addClass("TabSelected");
+            $(".BookBody").attr("style", "display:none;");
+            $("#" + bookName + "bookWindow").show();
+
+            $(".editAddressBook").each(function () {
+                var initBookName = $(this).attr("bookName");
+                var initBookID = $(this).attr("bookID");
+                var initMemberflag = $(this).attr("memberflag");
+                RecoverAddress(initBookName, initBookID, initMemberflag);
+            });
+            ClearNewAddressBook("member_", 1);
+            ClearNewAddressBook("deliver_", 0);
+        });
+        // memberBook預設選項
+        $("input[name='member_Radio']").on("click", function () {
+            var bookID = $(this).val();
+            if (bookID > 0) {
+                $("#member_DefaultID").val(bookID);
+                $.ajax({
+                    type: "POST",
+                    url: "/Addressbook/ChangeAddressBookDefault",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        "addressBookID": bookID,
+                        "memberChange": true,
+                        "viewPath": "~/Views/MyAccount/Partial_MemberAddressBook.cshtml"
+                    }),
+                    success: function (res) {
+                        if (res.IsSuccess) {
+                            $("#member_bookWindow").html(res.viewHtml);
+                            InitializationStep2Script();
+                        }
+                        else {
+                        }
+                    }
+                });
+            }
+        });
+        // deliverBook預設選項
+        $("input[name='deliver_Radio']").on("click", function () {
+            var bookID = $(this).val();
+            if (bookID > 0) {
+                $("#deliver_DefaultID").val(bookID);
+                $.ajax({
+                    type: "POST",
+                    url: "/Addressbook/ChangeAddressBookDefault",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        "addressBookID": bookID,
+                        "memberChange": false,
+                        "viewPath": "~/Views/MyAccount/Partial_RecvAddressBook.cshtml"
+                    }),
+                    success: function (res) {
+                        if (res.IsSuccess) {
+                            $("#deliver_bookWindow").html(res.viewHtml);
+                            InitializationStep2Script();
+                        }
+                        else {
+                        }
+                    }
+                });
+            }
+        });
+
+        $(".NewMemberAddressBook").on("click", function () {
+            var bookName = $(this).attr("bookName");
+            $("#" + bookName + "AddNewAddressBook").show();
+            $("#" + bookName + "bookWindow").find(".editAddressBook").each(function () {
+                var initBookName = $(this).attr("bookName");
+                var initBookID = $(this).attr("bookID");
+                var initMemberflag = $(this).attr("memberflag");
+                RecoverAddress(initBookName, initBookID, initMemberflag);
+            });
+        });
+        // 清除新增紀錄本欄位資料
+        $(".CancelNewAddressBook").on("click", function () {
+            var bookName = $(this).attr("bookName");
+            var memberflag = $(this).attr("memberflag");
+            ClearNewAddressBook(bookName, memberflag);
+        });
+
+        $(".editAddressBook").bind("click", function () {
+            var bookName = $(this).attr("bookName");
+            var bookID = $(this).attr("bookID");
+            var zipID = $(this).attr("zipID");
+            var memberflag = $(this).attr("memberflag");
+            $("#" + bookName + "bookWindow").find(".editAddressBook").each(function () {
+                var initBookName = $(this).attr("bookName");
+                var initBookID = $(this).attr("bookID");
+                var initMemberflag = $(this).attr("memberflag");
+                RecoverAddress(initBookName, initBookID, initMemberflag);
+            });
+            ClearNewAddressBook(bookName, memberflag);
+
+            $("input[name='" + bookName + "Radio']").hide();
+            $("#display_" + bookName + bookID).hide();
+            $("#editbook1_" + bookName + bookID).show();
+            $("#editbook2_" + bookName + bookID).show();
+            var getSexValue = $("#hidden_" + bookName + "Sex_" + bookID).val();
+            var getZipValue = $("#hidden_" + bookName + "Zip_" + bookID).val();
+            var getLocValue = $("#hidden_" + bookName + "Loc_" + bookID).val();
+            var getZipNameValue = $("#hidden_" + bookName + "ZipName_" + bookID).val();
+            var getAddrValue = $("#hidden_" + bookName + "Address_" + bookID).val();
+            $("#sex_" + bookName + bookID).val(getSexValue);
+            $("#loc_" + bookName + bookID).val(getLocValue);
+            @*重新導入被選擇的鄉鎮市區select option*@
+            var locValue = getLocValue;
+            var zipNameID = "zipName_" + bookName + bookID;
+            if (locValue == "") {
+                $("#zipName_" + bookName + bookID).find("optgroup").remove();
+                $("#zipName_" + bookName + bookID).find("option").remove();
+                $("#zipName_" + bookName + bookID).append('<option value = "" selected="selected">請選擇鄉、鎮、行政區</option>');
+                $("#hidden_" + bookName + "Zip_" + bookID).val("");
+            }
+            else {
+                CityChoose(locValue, zipNameID, zipID, memberflag);
+            }
+            var resetZipName = getZipValue.trim() + " " + getZipNameValue.trim();
+            $("#zipName_" + bookName + bookID).val(resetZipName);
+        });
+
+        $(".locSelect").change(function () {
+            var bookName = $(this).attr("bookName");
+            var bookID = $(this).attr("bookID");
+            var memberflag = $(this).attr("memberflag");
+            changeLoc(bookName, bookID, memberflag);
+        });
+
+        $(".ZipNameSelect").change(function () {
+            var bookName = $(this).attr("bookName");
+            var bookID = $(this).attr("bookID");
+            var memberflag = $(this).attr("memberflag");
+
+            var getZipNameValue = $(this).val();
+            var getZipValue = getZipNameValue.toString().substring(0, 3);
+            var getZipName = getZipNameValue.split(" ")[1];
+            var getLoc = $("#loc_" + bookName + bookID).val();
+            //}
+        });
+        @*新增紀錄本*@
+        $(".addAddressBook").bind("click", function () {
+            var bookName = $(this).attr("bookName");
+            var addbookName = $(this).attr("addbookName");
+            var path = "";
+            if (bookName == "deliver_") {
+                path = "~/Views/MyAccount/Partial_RecvAddressBook.cshtml";
+            }
+            else {
+                path = "~/Views/MyAccount/Partial_MemberAddressBook.cshtml";
+            }
+
+            var getSexValue = $("#sex_" + addbookName).val();
+            var getLastNameValue = $("#lastName_" + addbookName).val();
+            var getFirstNameValue = $("#firstName_" + addbookName).val();
+            var getLocValue = $("#loc_" + addbookName).val();
+            var getZipAndZipName = $("#zipName_" + addbookName).val();
+            var getAddressValue = $("#address_" + addbookName).val();
+            var getTelZipValue = $("#telZip_" + addbookName).val();
+            var getTelDayValue = $("#telDay_" + addbookName).val();
+            var getTelExtValue = $("#telExt_" + addbookName).val();
+            var getMobileValue = $("#mobile_" + addbookName).val();
+            var getIsMemberBook = 0;
+            if (bookName != "deliver_") {
+                getIsMemberBook = 1;
+            }
+
+            console.log(typeof getSexValue);
+            console.log(getSexValue);
+            if (typeof getSexValue == "undefined" || (getSexValue != 1 && getSexValue != 0)) {
+                alert("請選擇稱謂");
+                return false;
+            }
+            if (typeof getLastNameValue == "undefined" || getLastNameValue.length < 1) {
+                alert("請填寫姓名");
+                return false;
+            }
+            if (typeof getFirstNameValue == "undefined" || getFirstNameValue.length < 1) {
+                alert("請填寫姓名");
+                return false;
+            }
+            if (typeof getLocValue == "undefined" || getLocValue.length < 1) {
+                alert("請選擇縣市");
+                return false;
+            }
+            if (typeof getZipAndZipName == "undefined" || getZipAndZipName.length < 1) {
+                alert("請選擇鄉、鎮、行政區");
+                return false;
+            }
+            if (typeof getAddressValue == "undefined" || getAddressValue.length < 1) {
+                alert("請填寫地址");
+                return false;
+            }
+            if (typeof getMobileValue == "undefined" || getMobileValue.length < 1) {
+                alert("請填寫手機號碼");
+                return false;
+            }
+
+            var getZipValue = getZipAndZipName.split(' ')[0];
+            var getZipNameValue = getZipAndZipName.split(' ')[1];
+
+            var jsonData = JSON.stringify({
+                "RecvSex": getSexValue,
+                "RecvName": getLastNameValue + getFirstNameValue,
+                "RecvLastName": getLastNameValue,
+                "RecvFirstName": getFirstNameValue,
+                "DelivZip": getZipValue,
+                "DelivLOC": getLocValue,
+                "DelivZipName": getZipNameValue,
+                "DelivAddress": getAddressValue,
+                "DelivAddr": getZipNameValue + getAddressValue,
+                "IsMemberBook": getIsMemberBook,
+                "RecvMobile": getMobileValue,
+                "TelZip": getTelZipValue,
+                "TelDay": getTelDayValue,
+                "TelExtension": getTelExtValue,
+                "DefaultSetting": 1,
+                "ViewPath": path
+            });
+
+            $("input[name='" + bookName + "Radio']").hide();
+            //var jsonData = getNewAddressData(addbookName);
+            $.ajax({
+                type: "POST",
+                url: "/Addressbook/AddNewAddressBook",
+                contentType: "application/json;charset=utf-8",
+                data: jsonData,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#" + bookName + "bookWindow").html(res.viewHtml);
+                        InitializationStep2Script();
+                    }
+                    else {
+                    }
+                }
+            });
+        });
+        @*紀錄本更新動作*@
+        $(".updateAddressBook").bind("click", function () {
+            var bookName = $(this).attr("bookName");
+            var bookID = $(this).attr("bookID");
+            var path = "";
+            if (bookName == "deliver_") {
+                path = "~/Views/MyAccount/Partial_RecvAddressBook.cshtml";
+            }
+            else {
+                path = "~/Views/MyAccount/Partial_MemberAddressBook.cshtml";
+            }
+            $("input[name='" + bookName + "Radio']").hide();
+            var getSexValue = $("#sex_" + bookName + bookID).val();
+            var getLastNameValue = $("#lastName_" + bookName + bookID).val();
+            var getFirstNameValue = $("#firstName_" + bookName + bookID).val();
+            var getLocValue = $("#loc_" + bookName + bookID).val();
+            var getZipAndZipName = $("#zipName_" + bookName + bookID).val();
+            var getAddressValue = $("#address_" + bookName + bookID).val();
+            var getTelZipValue = $("#telZip_" + bookName + bookID).val();
+            var getTelDayValue = $("#telDay_" + bookName + bookID).val();
+            var getTelExtValue = $("#telExt_" + bookName + bookID).val();
+            var getMobileValue = $("#mobile_" + bookName + bookID).val();
+            var getIsMemberBook = 0;
+            if (bookName != "deliver_") {
+                getIsMemberBook = 1;
+            }
+
+            if (typeof getSexValue == "undefined" || (getSexValue != 1 && getSexValue != 0)) {
+                alert("請選擇稱謂");
+                return false;
+            }
+            if (typeof getLastNameValue == "undefined" || getLastNameValue.length < 1) {
+                alert("請填寫姓名");
+                return false;
+            }
+            if (typeof getFirstNameValue == "undefined" || getFirstNameValue.length < 1) {
+                alert("請填寫姓名");
+                return false;
+            }
+            if (typeof getLocValue == "undefined" || getLocValue.length < 1) {
+                alert("請選擇縣市");
+                return false;
+            }
+            if (typeof getZipAndZipName == "undefined" || getZipAndZipName.length < 1) {
+                alert("請選擇鄉、鎮、行政區");
+                return false;
+            }
+            if (typeof getAddressValue == "undefined" || getAddressValue.length < 1) {
+                alert("請填寫地址");
+                return false;
+            }
+            if (typeof getMobileValue == "undefined" || getMobileValue.length < 1) {
+                alert("請填寫手機號碼");
+                return false;
+            }
+
+            var getZipValue = getZipAndZipName.split(' ')[0];
+            var getZipNameValue = getZipAndZipName.split(' ')[1];
+
+            var jsonData = JSON.stringify({
+                "ID": bookID,
+                "AccountID": 0,
+                "RecvSex": getSexValue,
+                "RecvName": getLastNameValue + getFirstNameValue,
+                "RecvLastName": getLastNameValue,
+                "RecvFirstName": getFirstNameValue,
+                "DelivZip": getZipValue,
+                "DelivLOC": getLocValue,
+                "DelivZipName": getZipNameValue,
+                "DelivAddress": getAddressValue,
+                "DelivAddr": getZipNameValue + getAddressValue,
+                "IsMemberBook": getIsMemberBook,
+                "RecvMobile": getMobileValue,
+                "TelZip": getTelZipValue,
+                "TelDay": getTelDayValue,
+                "TelExtension": getTelExtValue,
+                "DefaultSetting": 0,
+                "ViewPath": path
+            });
+            $.ajax({
+                type: "POST",
+                url: "/Addressbook/EditAddressBook",
+                contentType: "application/json;charset=utf-8",
+                data: jsonData,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#" + bookName + "bookWindow").html(res.viewHtml);
+                        InitializationStep2Script();
+                    }
+                    else {
+                    }
+                }
+            });
+        });
+        @*紀錄本資料刪除動作*@
+        $(".deleteAddressBook").bind("click", function () {
+            var bookName = $(this).attr("bookName");
+            var bookID = $(this).attr("bookID");
+            var path = "";
+            if (bookName == "deliver_") {
+                path = "~/Views/MyAccount/Partial_RecvAddressBook.cshtml";
+            }
+            else {
+                path = "~/Views/MyAccount/Partial_MemberAddressBook.cshtml";
+            }
+            var memberflag = parseInt($(this).attr("memberflag"));
+            $.ajax({
+                type: "POST",
+                url: "/Addressbook/DeleteAddressBook",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    "addressBookID": bookID,
+                    "viewPath": path
+                }),
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#" + bookName + "bookWindow").html(res.viewHtml);
+                        InitializationStep2Script();
+                    }
+                    else {
+                        // 刪除失敗
+                    }
+                }
+            });
+        });
+        @*紀錄本取消動作*@
+        $(".cancelAddressBook").bind("click", function () {
+            var bookName = $(this).attr("bookName");
+            var bookID = $(this).attr("bookID");
+            var memberflag = $(this).attr("memberflag");
+            RecoverAddress(bookName, bookID, memberflag);
+        });
+
+        $("#showAddCompanyBook").on("click", function () {
+            $(".AddNewCompanyBook").show();
+            $("#companyBook_bookWindow").find(".editCompanyBook").each(function () {
+                var initBookID = $(this).attr("bookID");
+                RecoverCompanyBook(initBookID);
+            });
+        });
+
+        $(".addCompanyBook").bind("click", function () {
+            var bookName = $(this).attr("bookName");
+            $("input[name='companyBook_Radio']").hide();
+            var getTitleValue = $("#Title_addNewCompany").val();
+            var getNumberValue = $("#Number_addNewCompany").val();
+            if (typeof getTitleValue == "undefined" || getTitleValue.length < 1) {
+                alert("請輸入公司名稱");
+                return false;
+            }
+            if (typeof getNumberValue == "undefined" || getNumberValue.length < 1) {
+                alert("請輸入統一編號");
+                return false;
+            }
+            var getCheckResult = InvoidCheck("Number_addNewCompany");
+            if (!getCheckResult.IsSuccess) {
+                alert(getCheckResult.ErrorMsg);
+                //$("#AddtoOtherCartAlert").html(getCheckResult.ErrorMsg);
+                //$("div.LightBoxMsg.AddtoOtherCart").fadeIn();
+                //LightBoxCenter("div.LightBoxMsg.AddtoOtherCart");
+                return false;
+            }
+            //return null;
+            $.ajax({
+                type: "POST",
+                url: "/Addressbook/AddNewCompanyBook",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    "Title": getTitleValue,
+                    "Number": getNumberValue,
+                    "DefaultSetting": 1,
+                    "ViewPath": "~/Views/MyAccount/VATBook.cshtml"
+                }),
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#" + bookName + "bookWindow").html(res.viewHtml);
+                        InitializationStep2Script();
+                    }
+                    else {
+                    }
+                }
+            });
+        });
+
+        $("input[name='companyBook_Radio']").bind("click", function () {
+            var bookID = $(this).attr("bookID");
+            if (bookID > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Addressbook/ChangeCompanyBookDefault",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        "companyBookID": bookID,
+                        "ViewPath": "~/Views/MyAccount/VATBook.cshtml"
+                    }),
+                    success: function (res) {
+                        if (res.IsSuccess) {
+                            $("#companyBook_bookWindow").html(res.viewHtml);
+                            InitializationStep2Script();
+                        }
+                        else {
+                        }
+                    }
+                });
+            }
+        });
+
+        $(".editCompanyBook").bind("click", function () {
+            var bookID = $(this).attr("bookID");
+            $("#companyBook_bookWindow").find(".editCompanyBook").each(function () {
+                var initBookID = $(this).attr("bookID");
+                RecoverCompanyBook(initBookID);
+            });
+            $("#Title_addNewCompany").val("");
+            $("#Number_addNewCompany").val("");
+            $(".AddNewCompanyBook").hide();
+            $("input[name='companyBook_Radio']").hide();
+            $("#display_companyBook_" + bookID).hide();
+            $("#editbook1_companyBook_" + bookID).show();
+            var getTempTitleValue = $("#hidden_companyBook_tempTitle_" + bookID).val();
+            $("#Title_companyBook_" + bookID).val(getTempTitleValue);
+            var getTempNumberValue = $("#hidden_companyBook_tempNumber_" + bookID).val();
+            $("#Number_companyBook_" + bookID).val(getTempNumberValue);
+        });
+
+        $(".deleteCompanyBook").bind("click", function () {
+            var bookName = $(this).attr("bookName");
+            var bookID = $(this).attr("bookID");
+            $.ajax({
+                type: "POST",
+                url: "/Addressbook/DeleteCompanyBook",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    "companyBookID": bookID,
+                    "ViewPath": "~/Views/MyAccount/VATBook.cshtml"
+                }),
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#" + bookName + "bookWindow").html(res.viewHtml);
+                        InitializationStep2Script();
+                    }
+                    else {
+                        // 刪除失敗
+                    }
+                }
+            });
+        });
+        // 清除新增紀錄本欄位資料
+        $(".cancelNewCompanyBook").on("click", function () {
+            $("#Title_addNewCompany").val("");
+            $("#Number_addNewCompany").val("");
+            $(".AddNewCompanyBook").hide();
+        });
+        @*紀錄本更新動作*@
+        $(".updateCompanyBook").bind("click", function () {
+            var bookName = $(this).attr("bookName");
+            var bookID = $(this).attr("bookID");
+            $("input[name='companyBook_Radio']").hide();
+            var getTitleValue = $("#Title_companyBook_" + bookID).val();
+            var getNumberValue = $("#Number_companyBook_" + bookID).val();
+            if (typeof getTitleValue == "undefined" || getTitleValue.length < 1) {
+                alert("請輸入公司名稱");
+                return false;
+            }
+            if (typeof getNumberValue == "undefined" || getNumberValue.length < 1) {
+                alert("請輸入統一編號");
+                return false;
+            }
+            var getCheckResult = InvoidCheck("Number_companyBook_" + bookID);
+            if (!getCheckResult.IsSuccess) {
+                alert(getCheckResult.ErrorMsg);
+                //$("#AddtoOtherCartAlert").html(getCheckResult.ErrorMsg);
+                //$("div.LightBoxMsg.AddtoOtherCart").fadeIn();
+                //LightBoxCenter("div.LightBoxMsg.AddtoOtherCart");
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Addressbook/EditCompanyBook",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    "ID": bookID,
+                    "Title": getTitleValue,
+                    "Number": getNumberValue,
+                    "ViewPath": "~/Views/MyAccount/VATBook.cshtml"
+                }),
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#" + bookName + "bookWindow").html(res.viewHtml);
+                        InitializationStep2Script();
+                    }
+                    else {
+                    }
+                }
+            });
+        });
+        
+        @*限定只能填入數字*@
+        $("input[numberrule='true']").keypress(function (e) {
+            if ((e.shiftKey && e.keyCode == 45) || e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+    }
+</script>

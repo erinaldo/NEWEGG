@@ -1,0 +1,20 @@
+﻿@using TWNewEgg.Models.DomainModels.Store
+@using TWNewEgg.ECWeb.Utility;
+@model List<StoreBanner>
+@{
+    string colorClass = (string)ViewData["colorId"];
+    if (Model != null && Model.Count > 0)
+    {
+    <div class="carousel-logo-wall carousel-logo-cates catcolortop@(colorClass) catcolorbottom@(colorClass) catcolorleft@(colorClass) catcolorright@(colorClass)">
+        <ul id="carousel-logo">
+            @foreach (StoreBanner banner in Model) { 
+            <li class="pic">
+               <a href="@banner.Url"><img src="@banner.Image" /></a>
+            </li>
+            }
+        </ul>
+        <a id="prev1" class="prev catcolorbg@(colorClass) catcolorleft@(colorClass)" href="javascript:void(0);">< </a>
+        <a id="next1" class="next catcolorbg@(colorClass) catcolorright@(colorClass)" href="javascript:void(0);">> </a>
+    </div>
+    }
+}

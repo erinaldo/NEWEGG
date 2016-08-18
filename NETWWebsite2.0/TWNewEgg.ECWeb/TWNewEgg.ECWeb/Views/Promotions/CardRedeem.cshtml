@@ -1,0 +1,189 @@
+﻿@model List<TWNewEgg.Models.ViewModels.BankBonus.BankBonus_VM>
+@{
+    ViewBag.Title = "信用卡紅利" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/CardRedeem")
+
+@section addToTopper {
+
+}
+@section addToBottomer {
+
+}
+@section addToHeader {
+    
+}
+@section addToFloatMenu {
+
+}
+@section addToFooter {
+    @{Html.RenderPartial("_FooterSimple");}
+}
+
+@section scripts {
+
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+}
+
+@*↓↓↓↓↓↓↓↓↓↓廣告方塊↓↓↓↓↓↓↓↓↓↓*@
+<div class="grayBorder AdBox" style="background-color:#EA7C01;border-bottom: 3px solid #ec8B54;">
+	<div class="AdImg"><h1><a href="/"><img class="logo" src="/Themes/img/Common/logo.jpg"></a></h1></div>
+</div>
+@*↓↓↓↓↓↓↓↓↓↓固定外框值↓↓↓↓↓↓↓↓↓↓*@
+<div style="width:1004px;margin:0 auto;position:relative;">
+
+@*↓↓↓↓↓↓↓↓↓↓頁籤↓↓↓↓↓↓↓↓↓↓*@
+    <div class="TabArea">
+        <ul>
+            <li class="Tab gray"><a href="/Promotions/Card">刷卡優惠</a></li>
+            <li class="Tab gray"><a href="/Promotions/CardInstallment">聰明分期</a></li>
+            <li class="Tab gray TabSelected"><a href="/Promotions/CardRedeem">紅利折抵</a></li>
+            @*<li class="Tab RadiusTab gray"><a href="/Promotions/CardMore">更多回饋</a></li>*@
+        </ul>
+    </div>
+
+    <div class="Tit">各家銀行紅利折抵規則</div>
+@*↓↓↓↓↓↓↓↓↓↓ 紅利折抵清單 ↓↓↓↓↓↓↓↓↓↓*@
+    <table class="table darkGray">
+        <tr class="tr grayBorder">
+            <th class="th GrayBgColorth Boldtext">發卡銀行</th>
+            <th class="th GrayBgColorth Boldtext">發卡銀行客服電話</th>
+            <th class="th GrayBgColorth Boldtext">最高折抵上限(註1)</th>
+            <th class="th GrayBgColorth Boldtext">消費限制(註2)</th>
+            <th class="th GrayBgColorth Boldtext">點數限制(註3)</th>
+            <th class="th GrayBgColorth Boldtext">折抵比例(註4)</th>
+            <th class="th GrayBgColorth Boldtext">規則說明(註5)</th>
+        </tr>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr class="tr grayBorder">
+                    <td class="td grayBorder"><img src="@item.PhotoName" style="max-width:145px;"></td>
+                    <td class="td grayBorder Boldtext">
+                        @{
+                            List<string> getNumber = item.PublishBankPhone.Split(',').Where(x => !string.IsNullOrEmpty(x)).ToList();
+                            foreach (var itemNumber in getNumber)
+                            {
+                                <span class="orange">@itemNumber</span><br />
+                            }
+                          }
+                        @*List<string> getNumber = phone.Split(',').Where(x => !string.IsNullOrEmpty(x)).ToList();*@
+                        @*<span class="orange">@item.PublishBankPhone</span>*@
+
+                    </td>
+                    <td class="td grayBorder">@(string.Format("{0:#}", item.OffsetMax) + "%")</td>
+                    <td class="td grayBorder">@("單筆" + string.Format("{0:#}", item.ConsumeLimit) + "元")</td>
+                    <td class="td grayBorder">@(string.Format("{0:#}", item.PointLimit) + "點")</td>
+                    <td class="td grayBorder">@(string.Format("{0:#}", item.ProportionPoint) + "點 : " + string.Format("{0:#}", item.ProportionMoney) + "元")</td>
+                    <td class="td grayBorder"><a href="javascript:void(0);" data-DescriptionFormat="@item.DescriptionFormat" data-BankName="@item.PublishBank" onclick="NoteMsg(this)">說明</a></td>
+                </tr>
+            }
+        }
+        <!--<tr class="tr grayBorder">
+        	<td class="td grayBorder"><img src="/Themes/img/CreditCaredProgram/Bank_01.jpg"></td>
+            <td class="td grayBorder Boldtext"><span class="orange">100%</span></td>
+            <td class="td grayBorder Boldtext"><span class="orange">100%</span></td>
+            <td class="td grayBorder">$100</td>
+            <td class="td grayBorder">1000點</td>
+            <td class="td grayBorder">1000點=60元</td>
+            <td class="td grayBorder"><span class="Description UnderLine blue">說明</span></td>@*點按說明有LightBox顯示*@
+        </tr>-->
+    @*若是沒有規則請用此
+        <tr class="tr grayBorder">
+            <td colspan="6" class="td grayBorder">目前沒有任何折抵活動</td>
+        </tr>*@
+    </table>
+
+@*權益說明*@
+    <div class="BottomExplanationArea">
+        @*<p class="Boldtext">紅利折抵規則辦法註解說明：</p>*@
+        <ul>
+        	<li class="list">註1-最高折抵上限：可折抵消費金額最高比例。(例:50% =>消費金額1000元,最高可使用點數折抵500元)。 </li>
+            <li class="list">註2-消費限制：每筆消費最低金額。(例:消費限制1000元,則每筆消費金額需達1000元,才可進行折抵)。</li>
+            <li class="list">註3-點數限制：持卡人最少需要的點數，超過此點數限制才可進行折抵。</li>
+            <li class="list">註4-折抵比例：銀行紅利點數可折抵現金的比例及單位。(例:1000點=60元=>即每1000點紅利點數可折抵60元)。</li>         
+            <li class="list">註5-詳細折抵規則依照各家銀行公告為準。</li>
+        </ul>
+    </div>
+</div>
+
+
+@*↓↓↓↓↓↓↓↓↓↓ LightBox 詳情框 ↓↓↓↓↓↓↓↓↓↓*@
+  <div class="LightBoxUnderLay">
+        <div class="LightBoxMsg Stlye-2">
+            <button class="CloseBtn"></button>
+            <div class="BankName">
+                <p id="BankName"></p>
+                <p>紅利折抵規則說明</p>
+            <div class="clear"></div>
+            </div>
+            <div class="DescriptionContent">
+                @*<ul class="ul">
+                    <li class="item">參加本活動之持卡人需於活動期間透過電話語音或活動網頁登錄始享有回饋資格，限量回饋名單以優先累積達活動門檻之成功交易訂單時間排序，名額數量有限，額滿即提前關閉。名額贈完將於本活動網頁及momo購物公告；如公告時間有落差，則以本行實際符合回饋資格為準。 </li>
+                    <li class="item">消費計算以活動期間內「消費日」內為準，且限於(4月)104/5/10、(5月)104/6/10、(6月)104/7/10前請款之消費。分期消費以分期前總金額計算。本活動以實際成功訂單計算，若付款失敗、訂單取消、退貨，該筆訂單金額將不列入計算範圍。</li>
+                    <li class="item">本活動正、附卡消費合併計算，i刷金融卡及商務卡不適用，每月每正卡持卡人(同一身分證字號)限回饋乙次，單月最高回饋上限刷卡金NT$1,500。 </li>
+                    <li class="item">本活動金額單位為新臺幣元。</li>
+                    <li class="item">本活動金額單位為新臺幣元。</li>
+                    <li class="item">本活動金額單位為新臺幣元。</li>
+                    <li class="item">本活動金額單位為新臺幣元。</li>
+                    <li class="item">本活動金額單位為新臺幣元。</li>
+                    <li class="item">本活動金額單位為新臺幣元。</li>
+                    <li class="item">本活動金額單位為新臺幣元。</li>
+                    <li class="item">刷卡金預計於(4月)104/6、(5月)104/7、(6月)104/8下旬起（實際回饋時間將依本行作業時間為準）依持卡人帳單週期回饋至正卡人信用卡帳戶上，刷卡金相關作業處理、發送方式依國泰世華銀行規定為準。持卡人若於回饋時已停卡、延滯繳款或其他違反本行信用卡契約等情事時，即喪失本活動回饋資格。</li>
+                </ul>*@
+            </div>
+        </div>
+    </div>
+@*↑↑↑↑↑↑↑↑ LightBox 詳情框 ↑↑↑↑↑↑↑↑*@
+
+
+@*LightBox star*@
+
+<script>
+
+    $('.LightBoxMsg').hide(0);
+    $('.LightBoxUnderLay').hide(0);
+
+    $('.Description').click(function () {
+        $('.LightBoxUnderLay').show(0);
+        $('.LightBoxMsg').fadeIn(300);
+    });
+    $('.LightBoxMsg .CloseBtn').click(function () {
+        $('.LightBoxUnderLay').hide(0);
+        $('.LightBoxMsg').hide(0);
+    });
+    function NoteMsg(obj) {
+        var Msg = obj.getAttribute("data-DescriptionFormat")
+        var BankName = obj.getAttribute("data-BankName");
+        $("#BankName").text(BankName);
+        //$("div[class='DescriptionContent']").text(Msg);
+        $("div[class='DescriptionContent']").html(Msg).text();
+        removeStyleWidth();
+        $('.LightBoxUnderLay').show(0);
+        $('.LightBoxMsg').fadeIn(300);
+    }
+    function removeStyleWidth() {
+        if ($("div[class='DescriptionContent']").children()[0] == undefined) {
+        }
+        else {
+            if ($("div[class='DescriptionContent']").children()[0].style == undefined) {
+            }
+            else {
+                if ($("div[class='DescriptionContent']").children()[0].style.width == undefined) {
+                }
+                else {
+                    $("div[class='DescriptionContent']").children()[0].style.width = "";
+                    $("div[class='DescriptionContent']").children()[0].style.width = "100%";
+                }
+            }
+        }
+    }
+</script>
+
+@*LightBox end*@

@@ -1,0 +1,29 @@
+﻿@using System.Collections.Generic
+@using TWNewEgg.ECWeb.Utility
+@using TWNewEgg.Models.DomainModels.Home
+@using TWNewEgg.Models.DomainModels.Store
+@model BlockCell
+@if (Model != null && Model.ImageList != null && Model.ImageList.Any())
+{
+    var singleImage = Model.ImageList.FirstOrDefault();
+    bool isHorizontal = ViewData["Cell_FixHeight"] != null ? (bool)ViewData["Cell_FixHeight"] : false;
+    bool isLocalResource = ViewData["Cell_LocalResource"] != null ? (bool)ViewData["Cell_LocalResource"] : false;
+    string imgClass = ViewBag.LayoutNumber == 3 ? "img13" : "cellSingleImage";
+    string GAImageLinkId = ViewData["windowIndex"] != null ? "illustration_" + (int)ViewData["windowIndex"] : "";
+        
+    if (singleImage != null)
+    {
+    <div class="@(imgClass)">
+        @if (!string.IsNullOrEmpty(singleImage.Url))
+        { 
+        <a id="@GAImageLinkId" href="@(singleImage.Url)">
+            <img src="@(isLocalResource ? singleImage.Image : ImageUtility.GetImagePath(singleImage.Image))" style="@(isHorizontal ? "width:192px" : "")" cellimageId="@(Model.ID)">
+        </a>
+        }
+        else
+        {
+            <img src="@(isLocalResource ? singleImage.Image : ImageUtility.GetImagePath(singleImage.Image))" style="@(isHorizontal ? "width:192px" : "")" cellimageId="@(Model.ID)">
+        }
+    </div>
+    }
+}

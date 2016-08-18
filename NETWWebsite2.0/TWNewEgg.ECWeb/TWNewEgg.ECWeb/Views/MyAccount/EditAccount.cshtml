@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "帳號修改" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/MyAccount")
+}
+@section scripts {
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    <script>
+        /*給子選單滑出滑入用的jquery*/
+        TabSelectArea();
+        /*彈跳視窗自動偵測位置*/
+        LightBoxCenter();
+    </script>
+}
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/MyAccount">我的帳戶</a> >
+    <span>帳號修改</span>
+</div>
+
+<div class="TopExplanationArea"></div>
+
+<div class="LightBoxUnderLay">
+    <div class="LightBoxMsg Stlye-1 editAccount">
+        <div class="MsgContent">
+            <p>請登出<span>david0070070050051@gmail.com</span>收取更改新蛋全球生活網的會員帳號通知信。並且啟動更改新蛋全球生活網會員帳號的確認連結，謝謝！</p>
+            <input type="button" value="確認" class="btn btn-submit" />
+        </div>
+    </div>
+</div>
+
+<div class="AccountArea">
+    <div class="TabArea Border grayBorder">
+        <ul>
+             <li class="Tab BorderTab" id="WishList"><a href="/Cart/WishCart"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+           @*<li class="Tab BorderTab" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>*@
+            <li class="Tab BorderTab" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+            <li class="Tab BorderTab" id="Order" onclick="TabOpenClose()">
+                <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                    @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+                </ul>
+            </li>
+            <li class="Tab BorderTab TabSelected" id="Account">
+                <a href="/MyAccount"><i class="icon ServiceIcon Account"></i>帳戶管理<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                    <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                    @*<li><a href="/MyAccount/AddressBook">紀錄本修改</a></li>*@
+                    <li><a href="/MyAccount/AskQuestion">問答中心</a></li>
+                    <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="serviceContentArea">
+        <div class="serviceContentBox">
+            <div class="Tit ClassTit"><i class="icon ServiceIcon UpdateInformation-2"></i>帳號修改</div>
+            <div class="service_contentForm">
+                <div class="service_contentList">
+                    <div class="tit">帳號修改</div>
+                    <div class="txt">
+                        <input type="text" id="account_email" placeholder="請輸入正確E-mail" />
+                        <p class="gray">
+                            ※新蛋全球生活網將以此帳號與您聯繫，請務必填寫正確的E-mail信箱。
+                    </div>
+                </div>
+            </div>
+            <div class="btmBtnArea">
+                <input type="button" id="submitdata" value="確認" class="btn btn-submit" />@*onclick="showLightbox()"*@
+                <input type="button" value="取消" class="btn btn-cancel" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var emailRule = /^([\w-\.\+\-\_]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4})$/;
+    var pwRule = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^0-9a-zA-Z])(?=.{8,12})(?!.*[^\x21-\x7e]).*$/;
+
+    /*顯示或隱藏密碼字元*/
+    $(document).ready(function () {
+
+        function CheckAllStatus() {
+            var EmailAccount = $("#account_email").val();
+            @*檢查帳號*@
+            if (EmailAccount == "" || EmailAccount == null) {
+                alert("請輸入帳號");
+                return false;
+            }
+            else if (!EmailAccount.match(emailRule)) {
+                alert("請輸入正確的帳號格式");
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+        $("#submitdata").bind("click", function () {
+            var CheckResult = CheckAllStatus();
+            if (CheckResult == false) {
+                console.log("CheckResult:" + CheckResult);
+                //return false;
+            }
+            else if (CheckResult == true) {  //存檔寫入資料庫
+                Save();
+                //return true;
+            }
+        });
+
+        function Save() {
+            var json = JSON.stringify({ "email2": $("#account_email").val() });
+            $.ajax({
+                url: "/MyAccount/EditAccount",
+                contentType: "application/json;charset=utf-8",
+                data: json,
+                method: 'POST',
+                dataType: "Json",
+                success: function (res) {
+                    if (res == "True") {
+                        alert("您的帳號已修改完成");
+                        location.href = "/Logout";
+                    } else {
+                        alert("您要修改的帳號已存在");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("帳號修改失敗，請洽客服人員");
+                }
+            });
+        }
+
+    });
+</script>

@@ -1,0 +1,136 @@
+﻿@{
+    TWNewEgg.Models.ViewModels.Account.CartMemberInfoVM getCartMemberInfo = null;
+    TWNewEgg.Models.ViewModels.Account.CompanyBookVM companyBook = new TWNewEgg.Models.ViewModels.Account.CompanyBookVM();
+    int defaultCompanyBookID = 0;
+    string defaultNumber = string.Empty;
+    string defaultTitle = string.Empty;
+    if (ViewBag.GetCartMemberInfo != null)
+    {
+        getCartMemberInfo = ViewBag.GetCartMemberInfo as TWNewEgg.Models.ViewModels.Account.CartMemberInfoVM;
+        if (getCartMemberInfo.CompanyBookBaseList.Count > 0)
+        {
+            companyBook = getCartMemberInfo.CompanyBookBaseList.Where(x => x.DefaultSetting == 1).FirstOrDefault();
+            if (companyBook != null)
+            {
+                defaultCompanyBookID = companyBook.ID;
+                defaultNumber = companyBook.Number;
+                defaultTitle = companyBook.Title;
+            }
+        }
+    }
+}
+<input type="hidden" id="companyBook_DefaultID" value="@defaultCompanyBookID" />
+<input type="hidden" id="companyBook_DefaultTitle" value="@defaultTitle" />
+<input type="hidden" id="companyBook_DefaultNumber" value="@defaultNumber" />
+<div class="AddInvoice">
+    <span class="UnderLine blue" id="showAddCompanyBook">新增統編</span>
+</div>
+<div class="InvoiceTable">
+    <div class="TableScroll">
+        <table class="table">
+            <tbody>
+                <tr> 
+                    <th colspan="7"></th>
+                </tr> 
+                <tr class="BgColor BottomBorderLine">
+                    <th class="TitBolder" style="width: 60px;">預設</th>
+                    <th class="TitBolder" style="width:320px;">發票抬頭</th>
+                    <th class="TitBolder" style="width:320px;">統一編號</th>
+                    @*<th colspan="2" class="TitBolder">發票寄送地址</th>*@
+                    <th class="TitBolder" style="width:60px;">功能</th>
+                </tr>
+                @{
+                    if (getCartMemberInfo != null)
+                    {
+                        foreach (var subCompanyBook in getCartMemberInfo.CompanyBookBaseList)
+                        {
+                            bool defaultSetting = false;
+                            if (subCompanyBook.DefaultSetting == 1)
+                            {
+                                defaultSetting = true;
+                            }
+                            <tr class="UpBorderLine InvoiceInput" id="display_companyBook_@subCompanyBook.ID">
+                                <th>
+                                    <label><input type="radio" id="Radio_companyBook_@subCompanyBook.ID" name="companyBook_Radio" value="@subCompanyBook.ID" class="radio" checked="@defaultSetting"></label>
+                                </th>
+                                <th>
+                                    <span id="companyBook_tempTitle">@subCompanyBook.Title</span>
+                                    <input type="hidden" id="hidden_companyBook_tempTitle_@subCompanyBook.ID" value="@subCompanyBook.Title" />
+                                </th>
+                                <th>
+                                    <span id="companyBook_tempNumber">@subCompanyBook.Number</span>
+                                    <input type="hidden" id="hidden_companyBook_tempNumber_@subCompanyBook.ID" value="@subCompanyBook.Number" />
+                                </th>
+                                <th>
+                                    <span class="Editor editCompanyBook" bookName="companyBook_" bookID="@subCompanyBook.ID" zipID="">編輯</span>
+                                    <span class="Delete deleteCompanyBook" bookName="companyBook_" bookID="@subCompanyBook.ID">
+                                        <img src="/Themes/img/Icon/DeleteImg.png">
+                                    </span>
+                                </th>
+                            </tr>
+                            <tr class="UpBorderLine PurchaserInput" id="editbook1_companyBook_@subCompanyBook.ID" style="display:none;">
+                                <th></th>
+                                <th>
+                                    <input type="text" id="Title_companyBook_@subCompanyBook.ID" placeholder="請輸入公司名稱" value="@subCompanyBook.Title" maxlength="20" class="input_xs input_Spacing" style="width:250px;">
+                                </th>
+                                <th>
+                                    <input type="text" id="Number_companyBook_@subCompanyBook.ID" placeholder="請輸入統一編號" value="@subCompanyBook.Number" maxlength="8" class="input_xs input_Spacing" numberrule="true" style="width:250px;">
+                                </th>
+                                <th>
+                                    <span class="Stockpile updateCompanyBook" bookName="companyBook_" bookID="@subCompanyBook.ID">儲存</span>
+                                    <br/><br/>
+                                    <span class="Cancel cancelAddressBook" bookName="companyBook_" bookID="@subCompanyBook.ID">取消</span>
+                                </th>
+                            </tr>
+                            @*<tr class="PurchaserInput" id="editbook2_companyBook_@subCompanyBook.ID" style="display:none;">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    <span class="Cancel">
+                                        <a class="cancelAddressBook" bookName="companyBook_" bookID="@subCompanyBook.ID">取消</a>
+                                    </span>
+                                </th>
+                            </tr>*@
+                        }
+                    }
+                }
+                @*<tr class="InvoiceInput">
+                    <th colspan="6"></th>
+                    <th>
+                        <span class="Cancel">
+                            <a href="#">取消</a>
+                        </span>
+                    </th>
+                </tr>*@
+            </tbody>
+        </table> 
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="InvoiceTable">
+    <table>
+        <tbody>
+            <tr class="InvoiceInput AddNewCompanyBook" style="display:none;">
+                <th style="width:80px;">
+                </th>
+                <th style="width:320px;">
+                    <input type="text" id="Title_addNewCompany" placeholder="請輸入公司名稱" maxlength="20" class="input_xs input_Spacing" style="width:250px;">
+                </th>
+                <th style="width:320px;">
+                    <input type="text" id="Number_addNewCompany" placeholder="請輸入統一編號" maxlength="8" class="input_xs input_Spacing" numberrule="true" style="width:250px;">
+                </th>
+                <th style="width:60px;">
+                    <span class="Stockpile addCompanyBook" addbookName="addNewCompany" bookName="companyBook_" bookID="">儲存</span>
+                    <br/><br/>
+                    <span class="Cancel cancelNewCompanyBook" bookName="addNewCompany" bookID="">取消</span>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="DialogBtn">
+    <label><input name="" type="button" value="確認" class="DialogConfirmBtn OrgBtn" id="companyBookChoose"></label>
+    <label><input name="" type="button" value="取消" class="DialogCancelBtn OrgBtn booksClose" bookName="companyBook_" id="uniformNumbersCancel"></label>
+    <div class="clear"></div>
+</div>

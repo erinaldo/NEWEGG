@@ -1,0 +1,150 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Category.Category_TreeItem>
+@using TWNewEgg.ECWeb.Utility
+@{
+    Layout = null;
+    TWNewEgg.Models.ViewModels.Category.Category_TreeItem listFirsLayer = null;
+    if (Model != null && Model[0].Nodes != null)
+    {
+        listFirsLayer = Model[0].Nodes.Where(t => t.category_id == 737).FirstOrDefault();
+    }
+
+    if (listFirsLayer != null && listFirsLayer.Nodes.Count > 0)
+    {
+    <!-- 第一層選單 -->
+    <ul class="pullDownList3">
+        @if (listFirsLayer != null)
+        {
+            foreach (TWNewEgg.Models.ViewModels.Category.Category_TreeItem objFirstTreeItem in listFirsLayer.Nodes)
+            {
+                if(!String.IsNullOrEmpty(objFirstTreeItem.ClassName))
+                {
+                    <li class="arrowhover @objFirstTreeItem.ClassName">
+                        <a href="#"><i class="arrowhover_gray"></i>
+                            @(objFirstTreeItem.category_description)</a>
+                        <span></span>
+                    </li>
+                }
+                else
+                {
+                    <li class="arrowhover">
+                        <a href="#"><i class="arrowhover_gray"></i>
+                            @(objFirstTreeItem.category_description)</a>
+                        <span></span>
+                    </li>
+                }
+            }
+        }
+    </ul>
+    <!-- end of 第一層選單 -->
+    
+    <!--子選單-->
+    <div class="yMenuListCon yMenuListConUS" style="display: none;">
+        @if (listFirsLayer != null)
+        {
+            foreach (TWNewEgg.Models.ViewModels.Category.Category_TreeItem objFirstTreeItem in listFirsLayer.Nodes)
+            {
+            <div class="yMenuListConin">
+                @*<h2>@objFirstTreeItem.category_description</h2>*@
+                <div class="yMenuColLCinList">
+                    <h3>@objFirstTreeItem.category_description</h3>
+                    @if (objFirstTreeItem.Nodes != null)
+                    {
+                        <p>
+                            @foreach (TWNewEgg.Models.ViewModels.Category.Category_TreeItem objSecTreeItem in objFirstTreeItem.Nodes)
+                            {
+                                <a href="/Category?CategoryID=@objSecTreeItem.category_id" class="@objSecTreeItem.ClassName">@objSecTreeItem.category_description</a>
+                            }
+                        </p>
+                        
+                        <!-- 選單下方圖片 -->
+                        if(!String.IsNullOrEmpty(objFirstTreeItem.ImagePath))
+                        {
+                        <div class="MenuListImg">
+                            <a href="@objFirstTreeItem.ImageHref" target="_blank">
+                            <img src="@ImageUtility.GetImagePath(objFirstTreeItem.ImagePath)">
+                            </a>
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+            }
+        }
+    </div>
+
+    <!-- end of 子選單 -->
+    <script>
+        //Menu延遲顯示及縮放的變數
+        var m_ChooseItem = null;
+        var m_Layer2Index = null;
+        var m_LeaveItem = null;
+        $(document).ready(function () {
+            $("ul.pullDownList3 li").bind("mouseenter", function ()
+            {
+                $(this).addClass("selected").siblings("li").removeClass("selected");
+                $(".yMenuListConUS").show();
+                var numIndex = $(this).index();
+                if (m_ChooseItem == null) {
+                    $(this).addClass("menulihover").siblings().removeClass("menulihover");
+                    //第一層選單被選擇時, 換li的CSS
+                    $("div.pullDownUS div.yMenuListConUS div.yMenuListConin").eq(numIndex).fadeIn(100);
+                    m_ChooseItem = numIndex;
+                }
+                else {
+                    m_ChooseItem = numIndex;
+                    setTimeout(function () {
+                        if (m_ChooseItem != null && (m_LeaveItem == m_Layer2Index || m_Layer2Index == null)) {
+                            $("ul.pullDownList3 li").eq(m_ChooseItem).addClass("menulihover").siblings().removeClass("menulihover");
+                            $("div.pullDownUS div.yMenuListConUS div.yMenuListConin").eq(m_ChooseItem).fadeIn(100).siblings().hide();
+                        }
+                    }, 100);
+                }
+            });
+
+            $("ul.pullDownList3 li").bind("mouseleave", function () {
+                var numIndex = $(this).index();
+                m_LeaveItem = numIndex;
+            });
+
+            $("ul.pullDownList3 li a").bind("mouseenter", function () {
+                var numIndex = $(this).parent("li").index();
+                m_ChooseItem = numIndex;
+            });
+
+            $("div.yMenuListConin").bind("mouseenter", function () {
+                m_Layer2Index = $(this).index();
+            });
+
+            $("div.yMenuListConUS").bind("mouseleave", function () {
+                $("div.yMenuListConin").hide();
+                m_Layer2Index = null;
+            });
+
+
+            $("div.pullDownUS").bind("mouseleave", function () {
+                //重設所有值
+                m_ChooseItem = null;
+                m_Layer2Index = null;
+                m_LeaveItem = null;
+                $("ul.pullDownList3 li").removeClass("menulihover");
+                $("div.pullDownUS div.yMenuListConUS div.yMenuListConin").hide();
+                $(".yMenuListConUS").hide();
+            });
+        });
+
+
+
+        $(document).ready(function () {
+            $("ul.pullDownList.pullDownList3 > li").hover(
+                function () {
+                    $(this).parent().find('li').removeClass("menulihover");
+                    $(this).addClass("menulihover");
+                },
+                function () {
+                    $(this).removeClass("menulihover");
+                });
+        });
+    </script>
+    }
+}
+

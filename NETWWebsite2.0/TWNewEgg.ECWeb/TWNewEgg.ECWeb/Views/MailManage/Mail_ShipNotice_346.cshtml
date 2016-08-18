@@ -1,0 +1,55 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+@{
+    List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput> SOList = ViewBag.SOList as List<TWNewEgg.Website.ECWeb.Models.InsertSalesOrdersBySellerOutput>;
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+}
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Header" width="795" height="68" />
+                    </div>
+                    <div>
+                        <br />
+                        @SOList.First().salesorder_name 先生/小姐，您好：
+                        <br/><br/>
+                        您的訂單: @ViewBag.LBO 
+                        <br/><br/>
+                        商品已從美國出貨預計於7-9個(工作天)內會到貨，@ViewBag.ShipWay編號 :@ViewBag.CMCode
+                        <br/><br/>
+                        請您耐心等候，到貨時物流人員會再電話與您聯繫通關文件提供
+                        <br/><br/>
+                        在此提供您 @ViewBag.ShipWay 查詢網址:<a href="@ViewBag.Http" target="_self">@ViewBag.Http</a>，您可隨時上網查詢最新配送進度
+                        <br/><br/>
+                        若商品有無法如期出貨的情況，我們也會另發信通知，請您放心。
+                        <br/><br/>
+                    </div>
+                    <div>
+                        <p style="color:#f00">提醒您：</p>
+                        <p>
+                            1.	需請您手機暢通，待 @ViewBag.ShipWay 人員與您電聯確認，並方便簽收商品<br />
+                            2.	商品已出貨，無法更改其他配送地址，請於原留地址取件<br />
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                            請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Fooer" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

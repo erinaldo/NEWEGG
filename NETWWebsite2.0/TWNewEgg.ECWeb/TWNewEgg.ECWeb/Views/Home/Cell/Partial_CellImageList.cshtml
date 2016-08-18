@@ -1,0 +1,26 @@
+﻿@using System.Collections.Generic
+@using TWNewEgg.ECWeb.Utility
+@using TWNewEgg.Models.DomainModels.Home
+@using TWNewEgg.Models.DomainModels.Store
+@model BlockCell
+
+@if (Model != null && Model.ImageList != null && Model.ImageList.Any())
+{
+    bool isHorizontal = ViewData["Cell_FixHeight"] != null ? (bool)ViewData["Cell_FixHeight"] : false;
+<div class="cellSingleImage">
+    @for (int imageIndex = 0; imageIndex < Model.ImageList.Count; imageIndex++)
+    {
+        var singleImage = Model.ImageList[imageIndex];
+        if (!string.IsNullOrEmpty(singleImage.Url))
+        { 
+    <a href="@(singleImage.Url)">
+        <img src="@(ImageUtility.GetImagePath(singleImage.Image))" style="@(isHorizontal ? "width:192px;" : "") @(imageIndex != 0 ? "display:none;" : "")">
+    </a>
+        }
+        else
+        {
+    <img src="@(ImageUtility.GetImagePath(singleImage.Image))" style="@(isHorizontal ? "width:192px;" : "") @(imageIndex != 0 ? "display:none;" : "")">
+        }
+    }
+</div>
+}

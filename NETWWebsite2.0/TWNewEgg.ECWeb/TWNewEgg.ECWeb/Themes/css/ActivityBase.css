@@ -1,0 +1,13 @@
+@charset "UTF-8";
+/*所有內容頁總寬度*/
+/*RWD頁面總寬度*/
+/*清除浮動-前項元素專用，使用方法:@extend .clear;*/
+.clear {
+  clear: both;
+}
+
+/*清除浮動-父層專用，使用方法:@include clearAfter;*/
+/*圓角，使用方法:@include border-radius(5px);*/
+/*漸變效果，使用方法:@include transition(200);※註數字200的單位是毫秒唷!*/
+/*單行顯示刪節號*/
+/*英文數字強制斷行*/

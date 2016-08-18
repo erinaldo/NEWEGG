@@ -1,0 +1,55 @@
+﻿@model  TWNewEgg.Models.ViewModels.Activity.ActivityVM
+@{
+    ViewBag.Title = "常見問題Q&A-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section metatags{
+    @if (string.IsNullOrEmpty(Model.MetaTitle) == false)
+    { 
+        <meta name="title" content="Model.MetaTitle" />
+    }
+    @if (string.IsNullOrEmpty(Model.MetaKeyWord) == false)
+    { 
+        <meta name="keywords" content="Model.MetaKeyWord" />
+    }
+    @if (string.IsNullOrEmpty(Model.MetaDescription) == false)
+    { 
+        <meta name="description" content="Model.MetaDescription" />
+    }
+}
+
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/Service")
+
+@Html.Raw(Model.HtmlContext)
+
+
+@if (Model.Header == "false")
+{
+    @section addToHeader{
+    }
+}
+
+@if (Model.Topper == "false")
+{
+    @section addToTopper{
+    }
+}
+
+@if (Model.Bottomer == "false")
+{
+    @section addToBottomer{
+    }
+}
+
+@if (Model.Footer == "false")
+{
+    @section addToFooter{
+    }
+}
+
+
+@section scripts{
+    <script src="/Scripts/NETW/netw-service-1.0.0.0.js"></script>
+}

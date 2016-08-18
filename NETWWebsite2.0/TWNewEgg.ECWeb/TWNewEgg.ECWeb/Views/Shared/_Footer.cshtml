@@ -1,0 +1,73 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+
+<footer class="footer">
+	<div class="footer-limiter">
+        <div class="icon">
+            <ul>
+                <li><i class="listi4"></i><div class="text">認識新蛋</div></li>
+                <li><a href="/Info/Corporate">新蛋集團</a></li>
+                <li><a href="/Info/AboutUs">新蛋全球生活網</a></li>
+                <li><a href="/Vendor">成為合作夥伴</a></li>
+                <li><a href="http://www.104.com.tw/jobbank/custjob/index.php?r=cust&j=4d3b436c35373f6831333b64393f371a72a2a2a6d415d332674j00&jobsource=checkc" target="_blank">徵才</a></li>
+                <li><a href="mailto:service@newegg.com.tw">與我們聯繫</a></li>
+            </ul>
+        </div>
+        <div class="icon">
+            <ul>
+                <li><i class="listi1"></i><div class="text">新手指南</div></li>
+                <li><a href="/Service/MemberService">如何加入會員</a></li>
+                @*<li><a href="/Service/AboutShopping">如何搜尋商品</a></li>
+                <li><a href="/Service/AboutShopping">如何購買商品</a></li>*@
+                <li><a href="/Service/AboutPayment">哪些付款方式</a></li>
+                <li><a href="/Service/AboutShipping">有關商品運送</a></li>
+                @*<li><a href="/Promotions">瞭解紅利點數</a></li>*@  @*暫時不做(此為銀行紅利點數)*@
+                <li><a href="/Service/AboutService">售後服務說明</a></li>
+            </ul>
+        </div>
+        <div class="icon">
+            <ul>
+                <li><i class="listi2"></i><div class="text">我想查詢</div></li>
+                <li><a href="/MyAccount/Order">看看我的訂單</a></li>
+                <li><a href="/Cart/WishCart">我的最愛清單</a></li>
+                @*<li><a href="/MyAccount/NeweggCash">我的回饋金</a></li>*@
+                <li><a href="/MyAccount/Coupon">我的折價券</a></li>
+                <li><a href="/MyAccount">我的帳戶</a></li>
+                @*<li><a href="/MyAccount">我的專屬帳戶</a></li>*@  @*暫時不做(此為VIP會員)*@
+                <li><a href="/MyAccount/AskQuestion">我要發問</a></li>
+            </ul>
+        </div>
+        <div class="icon">
+            <ul>
+                <li><i class="listi3"></i><div class="text">會員權益</div></li>
+                <li><a href="/Policies/Privacy">隱私權保密政策</a></li>
+                <li><a href="/Policies/Member">會員服務條款</a></li>
+                <li><a href="/Policies/Disclaimer">免責聲明</a></li>
+            </ul>
+        </div>
+        <div class="selection">
+            <ul>
+                <li>> <a href="mailto:Teresa.S.Li@newegg.com?subject=大宗採購洽談&amp;body=新蛋全球生活網提供您更貼心多元的購買方式，並可直接派送至您指定的地點。請您留下以下資訊，將會有專人儘速與您聯絡。謝謝!!
+                    %0D%0A1. 聯絡人名字：%0D%0A2. 聯絡人電話：%0D%0A3. 聯絡人電子信箱：%0D%0A4. 統一編號：%0D%0A5. 欲訂購商品(可連結)：%0D%0A6. 欲訂購數量：%0D%0A7. 到貨日期：%0D%0A8. 收件地址：">大宗採購</a></li>
+                <li>> <a href="/Vendor/Marketplace">廠商合作專區</a></li>
+                <li>> <a href="/News/Index">新聞中心</a></li>
+                @*<li>> <a href="/">網站公告</a></li>
+                <li>> <a href="/WebsiteMap">網站地圖</a></li>*@
+            </ul>
+        </div>
+        <div class="infoArea">
+            <div class="map">
+                <a href="http://www.newegg.cn/"  target="_blank" style="top:10px;left:190px;" class="LinkTo">中蛋</a>
+                <a href="http://www.newegg.ca/"  target="_blank" style="top:-10px;left:-15px;" class="LinkTo">美蛋</a>
+                <a href="http://www.newegg.com/"  target="_blank" style="top:40px;" class="LinkTo">加蛋</a>
+            </div>
+            <div class="code" >
+                <div class="ver" style="display:none;"><p>+LINE</p></div>
+                <div class="ver" id="goneMobile"><p>至手機版</p><img src="/Themes/img/Common/codeMobile.png"/></div>
+            </div>
+        </div>
+        <div class="address">@(WebSiteListWebSiteData.SiteName) 客服電話: @(WebSiteListWebSiteData.PhoneNumber2) 專人送禮: @(WebSiteListWebSiteData.PhoneNumber3) @(WebSiteListWebSiteData.ServiceTime)<br/>地址: @(WebSiteListWebSiteData.Address1) 食品業登錄字號: A-124721751-00000-7 ©@(WebSiteListWebSiteData.CompanyName) 版權所有</div>
+	</div>
+</footer>

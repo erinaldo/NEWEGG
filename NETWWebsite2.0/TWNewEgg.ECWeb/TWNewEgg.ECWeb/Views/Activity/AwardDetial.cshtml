@@ -1,0 +1,126 @@
+﻿@model List<TWNewEgg.Models.ViewModels.PromoAwardLog.PromoAwardLogVM>
+@{
+    ViewBag.Title = "AwardNameList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/Activity")
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/Activity/AwardList">中獎名單</a> >
+    <span>明細</span>
+</div>
+
+<p class="ActivityNameListTit Boldtext">@*端午佳節倍思親活動中獎名單*@ @(ViewBag.ActivityName == null? string.Empty: ViewBag.ActivityName)中獎名單</p>
+
+<div style="width:1004px;margin:0 auto;">
+    <table class="table grayBorder darkGray">
+        <tr class="OtherColortr white">
+            <th class="th grayBorder Boldtext NoBorder">獎項名稱</th>
+            <th class="th grayBorder Boldtext NoBorder">獎項數量</th>
+            <th class="th grayBorder Boldtext NoBorder">會員帳號(email)</th>
+            <th class="th grayBorder Boldtext NoBorder">得獎者</th>
+        </tr>
+    @*↓↓↓↓↓因考慮樣式問題，請以一組來做迴圈↓↓↓↓↓*@
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            { 
+                if(i % 2 == 1)
+                {
+                    <tr class="tr">
+                        <td class="td grayBorder">
+                            @item.AwardName
+                        </td>
+                        <td class="td grayBorder">
+                            @item.Awardcount
+                        </td>
+                        <td class="td grayBorder">
+                            @foreach(var email in item.EmailName)
+                            {
+                                <p>@email.AccountEmail</p>
+                            }
+                        </td>
+                        <td class="td grayBorder">
+                            @foreach(var name in item.EmailName)
+                            {
+                                <p>@name.AccountName</p>
+                            }
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="ColorBgTr">
+                        <td class="td grayBorder">
+                            @item.AwardName
+                        </td>
+                        <td class="td grayBorder">
+                            @item.Awardcount
+                        </td>
+                        <td class="td grayBorder">
+                            @foreach(var email in item.EmailName)
+                            {
+                                <p>@email.AccountEmail</p>
+                                
+                            }
+                        </td>
+                        <td class="td grayBorder">
+                            @foreach(var name in item.EmailName)
+                            {
+                                <p>@name.AccountName</p>
+                            }
+                        </td>
+                    </tr>
+                }
+                i++;
+            }
+            
+        }
+        <tr class="tr">
+            @*<td class="td grayBorder">7-11禮券2000元</td>
+            <td class="td grayBorder">4名</td>
+            <td class="td grayBorder">
+            	<p class="Member">XXng.98XX@newegg.com</p>
+                <p class="Member">XXng.98XX@newegg.com</p>
+                <p class="Member">XXng.98XX@newegg.com</p>
+                <p class="Member">XXng.98XX@newegg.com</p>
+            </td>
+            <td class="td grayBorder">
+            	<p class="Member">林X真</p>
+                <p class="Member">林X真</p>
+                <p class="Member">林X真</p>
+                <p class="Member">林X真</p>
+            </td>*@
+        </tr>
+        <tr class="tr ColorBgTr">
+            @*<td class="td grayBorder">新光三越禮券2000元</td>
+            <td class="td grayBorder">1組</td>
+            <td class="td grayBorder">
+            	<p class="Member">XXng.98XX@newegg.com</p>
+            </td>
+            <td class="td grayBorder">
+            	<p class="Member">林X真</p>
+            </td>*@
+        </tr>
+    @*↑↑↑↑↑因考慮樣式問題，請以一組來做迴圈↑↑↑↑↑*@
+
+    </table>
+    @*
+    <div class="BottomExplanationArea darkGray">
+        <p class="Tit Boldtext">領獎說明</p>
+        <p>如要查詢抽獎活動之中獎名單，請點選【中獎名單】查看完整名單，查詢僅保留至活動結束後45天。</p>
+        <ul>
+        	<li class="list">獎項贈品以公佈於本網站上的資料為準，並以實物為準，無法兌換為等值的商品或現金。如遇不可抗拒之因素，主辦單位保留更換其他等值獎項及調整獎項內容與數量之權利，獎項變更恕不另行通知。</li>
+            <li class="list">若活動贈品屬實體商品者，將於活動結束後二週內進行寄發，得獎者須完整填具會員資料含姓名、電話、地址以確保獲獎權益。會員資料請於「<a href="#">My服務員</a>」>「<a href="#">我的帳戶</a>」中進行維護。活動贈品配送需要約2-3個工作天，若您欲查詢贈品寄送進度，您可於寄送日過後3個工作天連絡客服中心查詢。</li>
+            <li class="list">依各類所得扣繳率標準之規定，中獎獎金超過 20,000 元(含)，其中獎者若為我國境內居住之個人或在我國境內有固定營業場所之營利事業，應扣繳10%機會中獎稅及繳交身分證影本。非我國境內居住之個人或在我國境內無固定營業場所之營利事業，中獎獎金應扣繳 20%稅額。若得獎人須先扣繳稅額而不願繳納稅款者，視為放棄得獎資格。若有其他未盡事宜悉依稅法相關規定。</li>
+            <li class="list">為公平起見，本公司之員工同員工家屬，不得參加此活動，如有違反情事，將取消其得獎資格。</li>
+            <li class="list">新蛋全球生活網保留本活動修改與解釋之權利，其他注意事項請詳見各活動頁及My服務員等說明</li>
+            <li class="list">若您有任何疑問，歡迎<a href="mailto:service@newegg.com.tw">來信</a>。您的寶貴意見，我們將盡速於1~2日內(不含例假日)E-mail回覆您，或致電(02-8006-8010)我們的客服人員(08:30 am ~ 17:30 pm)</li>
+        </ul>
+    </div>
+    *@
+</div>

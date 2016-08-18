@@ -1,0 +1,566 @@
+﻿@{
+    ViewBag.Title = "20151216_brandCombi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+@Styles.Render("~/Themes/css/Act.css")
+@Styles.Render("~/img/Act/20151216_brandCombi/20151216_brandCombi.css")
+}
+
+@section scripts {
+<script src="~/scripts/netw/netw-activity-1.0.0.0.js"></script>
+<script>
+$(function () {
+    if (typeof (netwActivityPage) == 'function') {
+        netwActivityPage();
+    } else {
+        $('body').netwActivityPage('dispose');
+    }
+
+    $("a.links").each(function(){
+      $(this).click(function(){
+        var $target = $(this).attr("class").split(" ").pop().split("link").pop();
+        smoothScroll($target);
+      });
+    });
+
+
+    function smoothScroll(obj) {
+      var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+
+      $body.animate({
+        scrollTop: $('.mainProds'+obj).offset().top
+      }, 1500);
+      return false;
+    }
+
+    $("body").prepend("<div class='eventMask'></div><div class='eventContent'><div class='event_main'></div><a class='eventClose' href='javascript:void(0);'>close</a></div>");
+    $(".eventMask, .eventContent, .eventNotice").hide();
+
+    $(".eventlink").each(function(){
+        $(this).click(function(){
+            var _context = $(this).siblings(".eventNotice").html();
+            $(".event_main").html(_context);
+            $(".eventMask, .eventContent").fadeIn();
+        });
+    });
+
+    $(".eventClose, .eventMask").click(function(){
+        $(".eventMask, .eventContent").fadeOut(function(){
+            $(".event_main").html(" ");
+        });
+    });
+});
+</script>
+}
+
+
+<div class="content">
+    <div class="mainFocus">
+      <div class="focusContent">
+          <a class="links taish" href="https://secure.newegg.com.tw/activity/20151201_taishinbank" target="_blank"></a>
+          <a class="links link06" href="javascript:void(0);"></a>
+        <div class="linkNavs">
+            <ul>
+                <li><a class="links link01" href="javascript:void(0);"><span>超值商品組合</span></a></li>
+                <li><a class="links link02" href="javascript:void(0);"><span>嬰兒手推車</span></a></li>
+                <li><a class="links link03" href="javascript:void(0);"><span>安全座椅</span></a></li>
+                <li><a class="links link04" href="javascript:void(0);"><span>寶寶背巾</span></a></li>
+                <li><a class="links link05" href="javascript:void(0);"><span>居家用品</span></a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mainProds01">
+        <div class="prods prods01">
+            <div class="tables">
+                <a class="pushProds push01" href="https://secure.newegg.com.tw/item?itemid=489139" target="_blank"></a>
+                <a class="pushProds push02" href="https://secure.newegg.com.tw/item?itemid=506961" target="_blank"></a>
+                <a class="pushProds push03" href="https://secure.newegg.com.tw/item?itemid=507215" target="_blank"></a>
+                <a class="pushProds push04" href="https://secure.newegg.com.tw/item?itemid=506958" target="_blank"></a>
+                <a class="pushProds push05" href="https://secure.newegg.com.tw/item?itemid=506949" target="_blank"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainProds02">
+        <div class="prods prods02">
+            <div class="tables">
+                <div class="cubes longs" style=" top:0px; right:0px; ">
+                    <div class="itemBox" data-itemid="489133">
+                        <a href="{{itemLink}}" target="_blank">
+                            <img src="/img/Act/20151216_brandCombi/prod_longs_01.jpg" alt="">
+                        </a>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style="top:0px; left:0px;">
+                    <div class="itemBox" data-itemid="489123">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:0px; left:260px;">
+                    <div class="itemBox" data-itemid="489135">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 0px; ">
+                    <div class="itemBox" data-itemid="489130">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 260px; ">
+                    <div class="itemBox" data-itemid="489132">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainProds03">
+        <div class="prods prods03">
+            <div class="tables border">
+                <div class="cubes longs" style="top:0px; right:0px;">
+                    <div class="itemBox" data-itemid="489113">
+                        <a href="{{itemLink}}" target="_blank">
+                            <img src="/img/Act/20151216_brandCombi/prod_longs_02.jpg" alt="">
+                        </a>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style="top:0px; left:0px;">
+                    <div class="itemBox" data-itemid="489116">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:0px; left:260px;">
+                    <div class="itemBox" data-itemid="489126">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 0px; ">
+                    <div class="itemBox" data-itemid="489110">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 260px; ">
+                    <div class="itemBox" data-itemid="489112">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainProds04">
+        <div class="prods prods04">
+            <div class="tables">
+                <div class="cubes longs" style=" top:0px; right:0px; ">
+                    <div class="itemBox" data-itemid="501174">
+                        <a href="{{itemLink}}" target="_blank">
+                            <img src="/img/Act/20151216_brandCombi/prod_longs_03.jpg" alt="">
+                        </a>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style="top:0px; left:0px;">
+                    <div class="itemBox" data-itemid="501221">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:0px; left:260px;">
+                    <div class="itemBox" data-itemid="501222">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 0px; ">
+                    <div class="itemBox" data-itemid="486106">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 260px; ">
+                    <div class="itemBox" data-itemid="489105">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainProds05">
+        <div class="prods prods05">
+            <div class="tables">
+                <div class="cubes longs" style="top:0px; right:0px;">
+                    <div class="itemBox" data-itemid="501180">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="/img/Act/20151216_brandCombi/prod_longs_04.jpg" alt="">
+                            </a>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style="top:0px; left:0px;">
+                    <div class="itemBox" data-itemid="501203">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:0px; left:260px;">
+                    <div class="itemBox" data-itemid="507220">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 0px; ">
+                    <div class="itemBox" data-itemid="501225">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 260px; ">
+                    <div class="itemBox" data-itemid="501224">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainProds06">
+        <div class="prods prods06">
+            <div class="tables">
+                <a class="eventlink event01" href="javascript:void(0);"></a>
+                <div class="eventNotice">
+                    <h2>「投票選禮，驚喜抽獎」活動詳情：</h2>
+                    <ol>
+                        <li>參加「投票選禮，驚喜抽獎」活動，每帳號每天限投1票。獎項包括：濕紙巾保溫器 LED(2名) SF3腰帶型減壓背巾(1名)、舒敏乳液(5名)、電動磨甲機(2名)、新蛋全球生活網300元折價券 (15名) ，活動結束後於2016/1/7前公布25位幸運得獎者。</li>
+                        <li>中獎者須於2016/1/14前回覆確認資料，逾期視同放棄中獎資格。獎項會於2016/1/14起陸續寄出，預計寄出後一週內可配達。</li>
+                        <li>上述折價券使用期限至2016/1/31。使用規則請參見「折價券使用規範」。</li>
+                        <li>本活動限主辦單位註冊之會員方可參加，參加者暨得獎者皆須完整填具會員資料含姓名、電話、地址以確保獲獎權益。會員資料請於「我的帳戶」>「帳戶管理_個人資料修改」中進行維護。</li>
+                    </ol>
+                </div>
+
+                <div class="fbVote">
+                    <ul>
+                        <li>
+                            <div class="pic"><img src="/img/Act/20151216_brandCombi/voteProd_01.jpg"></div>
+                            <p>目前票數：<span>530</span></p>
+                            <a class="noActive" href="javascript:void(0);">已投過票</a>
+                        </li>
+                        <li>
+                            <div class="pic"><img src="/img/Act/20151216_brandCombi/voteProd_02.jpg"></div>
+                            <p>目前票數：<span>530</span></p>
+                            <a href="javascript:void(0);">我要投票</a>
+                        </li>
+                        <li>
+                            <div class="pic"><img src="/img/Act/20151216_brandCombi/voteProd_03.jpg"></div>
+                            <p>目前票數：<span>530</span></p>
+                            <a href="javascript:void(0);">我要投票</a>
+                        </li>
+                        <li>
+                            <div class="pic"><img src="/img/Act/20151216_brandCombi/voteProd_04.jpg"></div>
+                            <p>目前票數：<span>530</span></p>
+                            <a href="javascript:void(0);">我要投票</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="mainProds07">
+        <div class="prods prods07">
+            <div class="tables">
+                <a class="eventlink event02" href="javascript:void(0);"></a>
+                <div class="eventNotice">
+                    <h2>「分享喜悅，抽折價券」活動詳情：</h2>
+                    <ol>
+                        <li>2015/12/16-30期間，於本活動頁下方以Facebook帳號留言「分享成長的喜悅」(須設公開權限)並Tag 2位(含)以上的朋友，即有機會獲得300元折價券。</li>
+                        <li>中獎者須於2016/1/14前回覆確認資料，逾期視同放棄中獎資格。獎項會於2016/1/14起陸續寄出，預計寄出後一週內可配達。</li>
+                        <li>300元折價券使用期限至2016/1/31，共抽出5名，1/7前公布得獎名單。</li>
+                        <li>活動期間每帳號只能留言一次。</li>
+                    </ol>
+                </div>
+
+                <div class="fbCommentBox">
+                    FB-commentBox
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="notice">
+      <div class="noticeWrap">
+        <h2>活動注意事項</h2>
+        <ol>
+            <li>
+                <span style="font-weight:bold;">
+                滿額折期間(依活動頁刊頭為主)，全站結帳滿$3,000(含)以上可參加滿額現折$500。
+                </span>
+                滿額折活動限會員參加，每一帳號每日限參加一次。相關說明請參照各活動頁面說明，部分商品不適用。採單一門回饋，恕不累折，亦不可跨活動計算折價，相關優惠將以購物車結帳時計算金額為主。
+            </li>
+            <li><span style="color:#ff0000;">除外商品：部分商品排除，不參與滿額折活動。</span></li>
+            <li>折價券僅限原註冊會員，依「折價券使用辦法」於有效期限內（逾期失效，恕不補發），在新蛋全球生活網消費時使用，恕無法轉讓或合併，部分活動或商品無法折抵使用，亦無法折換現金、找零或交換其他商品及折換其他贈品，且無法抵扣物流、安裝、服務、稅賦等費用。</li>
+            <li>折價券之使用方式與注意事項，請參閱「我的帳戶><a href="/MyAccount/Coupon" target="_blank">我的折價券</a>」使用辦法。</li>
+            <li>專案活動及優惠方案（如其他折扣、滿額折、折價券）不可合併使用，會員若同時擁有兩種優惠，只能擇一進行折抵。（如該活動已有滿額折，則折價券無法使用）</li>
+            <li>參加消費滿額折之商品，若事後取消訂單或辦理退貨，須將所有參加滿額折商品一併退貨，並僅會退還您實際支付的金額。折價券折抵部分不再另外開立發票，開立發票金額以該訂單「實際支付金額」計算。</li>
+            <li>商品顏色因電腦螢幕之設定會略有不同，以實際出貨商品顏色為準。</li>
+            <li>商品數量有限，售完為止。</li>
+            <li>新蛋全球生活網將保留隨時變更、修改與解釋或終止本「折價券使用辦法」之權利，若有異動及修改，將在本網站上公布，恕不另行個別通知。</li>
+            <li>若您有任何疑問，歡迎<a href="mailto:service@newegg.com.tw" target="_self">來信</a>，我們將於1～2日內（不含例假日）以E-mail回覆您，或請於上班
+                時間（02-8170-6025）。
+            </li>
+        </ol>
+      </div>
+    </div>
+</div>

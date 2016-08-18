@@ -1,0 +1,119 @@
+﻿.obj {
+	position: absolute !important;
+	
+	overflow: hidden;
+}
+#easel {
+    position: relative;
+    /*overflow: hidden;*/ /*Firefox DCPatk版面會歪掉*/
+    min-width: 200px;
+    min-height: 300px;
+    margin: 0 auto;
+}
+.obj-video-img {
+	width:100%;
+}
+.ui-widget-header {
+	border:0px;
+	background:white;
+}
+.v-thumb {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	float: left;
+	width: 100%;
+}
+.v-duration {
+	padding: 0 4px;
+	font-weight: bold;
+	font-size: 11px;
+	background-color: #000;
+	color: #fff!important;
+	height: 14px;
+	line-height: 14px;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	display: -moz-inline-stack;
+	vertical-align: top;
+	zoom: 1;
+	display: inline-block;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	right: 2px;
+	bottom: 2px;
+	position: absolute;
+}
+.v {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	color: #333;
+	zoom: 1;
+}
+
+.thumbsshell {
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+}
+
+.thumbswrapper {
+	margin:20px auto;
+	float: right;
+}
+
+.viewwindow li {
+	list-style:none;
+	display:inline-block;
+    vertical-align:top;
+}
+
+.viewwindow ul{
+	padding:0;
+	margin:0;
+	white-space:nowrap;
+}
+
+.thumbnail {
+	height:50px;
+	padding:2px;
+}
+
+.fullsize {
+	width:100%;
+}
+.viewwindow {
+	width:100%;
+	overflow-y: hidden;
+}
+
+.fullsizelist{
+	position:absolute;
+	top:0;
+	left:0;
+	transition:  left .8s ease;
+	-ms-transition:  left .8s ease;
+	-o-transition:  left .8s ease;
+	-webkit-transition:  left .8s ease;
+	-moz-transition:  left .8s ease;
+}
+.img-desc {
+	font-size: 13px;
+    font-weight:bold;
+	background-color:rgba(255,255,255,0.9);
+	color:#000;
+	line-height:20px;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	display: -moz-inline-stack;
+	vertical-align: top;
+	zoom: 1;
+	display: inline-block;
+	top: 0;
+    left:0;
+	position: absolute;
+}
+
+

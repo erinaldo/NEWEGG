@@ -1,0 +1,70 @@
+﻿<div class="mainMenuArea">
+    <div class="mainMenuBox">
+        <div class="menudropDown">全館分類</div>
+        <div id="mainMenu" class="mainMenu pullDown">
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".pullDown").load('@(Url.Action("GetLeftMenu", "Home"))');
+    $(function () {
+        /*側選單下拉*/
+        dropDownSwitch();
+
+        /* -----浮動式選單, click非選單的位置要自動縮起 ------- */
+        $(document.body).on("click", function(event){          
+            var objEventClass = $(event.target).attr("class")
+            var objEventParentClass = $(event.target).parent().attr("class");
+            var boolMenuVisibled = false;
+            
+            //取得Menu的狀態
+            boolMenuVisibled = $("#mainMenu").is(":visible");
+            if (boolMenuVisibled)
+            {
+                if (objEventClass == null && objEventParentClass == null)
+                {
+                    HideLeftMenu();
+                }
+                else
+                {
+                    if (objEventClass == null)
+                    {
+                        if (objEventParentClass.indexOf("yMenuLCinList") < 0 && objEventParentClass.indexOf("yMenuListConin") < 0 && objEventParentClass.indexOf("menulihover") < 0)
+                        {
+                            HideLeftMenu();
+                        }
+                    }
+                    else
+                    {
+                        if (objEventClass != "menudropDown" && objEventClass != "pullDownList" && objEventClass != "yMenuColLCinList")
+                        {
+                            HideLeftMenu();
+                        }
+                    }
+                }
+            }//end if (boolMenuVisibled)
+            
+        });
+    });
+
+    /* ------ 縮起浮動式選單 ------ */
+    function HideLeftMenu()
+    {
+        $("#mainMenu").toggle(function ()
+        {
+            $(this).animate({
+                opacity: 0,
+                width: "100%",
+                height: 0
+            }, 500);
+        }, function ()
+        {
+            $(this).animate({
+                opacity: 1,
+                width: "100%",
+                height: "480px"
+            }, 500);
+        });
+    }
+</script>

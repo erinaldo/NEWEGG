@@ -1,0 +1,266 @@
+.clear {
+  clear: both;
+}
+
+.mainPadding {
+  padding: 0;
+  width: 100%;
+}
+@media screen and (max-width: 1280px) {
+  .mainPadding {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    width: initial;
+  }
+}
+.mainPadding .mainMenuArea {
+  margin: 0 auto;
+  padding-left: 55px;
+  padding-right: 49px;
+  width: 1176px;
+}
+@media screen and (max-width: 1280px) {
+  .mainPadding .mainMenuArea {
+    padding-left: 0;
+    padding-right: 0;
+    width: 994px;
+  }
+}
+.mainPadding .mainMenuBox, .mainPadding .pathLink, .mainPadding .bread {
+  margin-left: 0;
+}
+
+.FlashArea {
+  Width: 100%;
+  min-width: 1005px;
+  margin: 18px auto;
+  background-image: url(/Themes/img/NewEggFlash/NewEggFlashBG_03.jpg), url(/Themes/img/NewEggFlash/NewEggFlashBG_05.jpg);
+  background-repeat: no-repeat,repeat-y;
+  background-size: 110% auto;
+  background-position: top center;
+}
+.FlashArea:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+
+.box {
+  width: 317px;
+  height: 420px;
+  position: relative;
+  margin: 11px 10px 0 0;
+  border: 1px solid #DFE0E1;
+  float: left;
+  background-color: #fff;
+}
+
+.shopcontent {
+  width: 1005px;
+  margin: 18px auto;
+}
+.shopcontent:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+
+.flashTitle > img {
+  width: 100%;
+  height: 100%;
+}
+
+.discount {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url(/Themes/img/NewEggFlash/FlashDiscountBg.png) no-repeat top left;
+  width: 78px;
+  height: 87px;
+  z-index: 100;
+}
+.discount > p {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  color: #fff;
+  font-size: 13px;
+}
+.discount > p > span {
+  left: -2px;
+  position: relative;
+  font-size: 30px;
+}
+
+.TimeHeight {
+  height: 33px;
+}
+.TimeHeight .Time {
+  font-size: 24px;
+  line-height: 32px;
+  height: 33px;
+  margin-top: 7px;
+}
+.TimeHeight .Time i {
+  margin: -2px 10px 0 70px;
+  float: left;
+  width: 37px;
+  height: 32px;
+  background: url(/Themes/img/Icon/CountdownImg.png) no-repeat;
+}
+.TimeHeight .Time > p {
+  float: left;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.pic {
+  width: 317px;
+  height: 207px;
+  overflow: hidden;
+  _position: relative;
+}
+.pic img {
+  max-height: 207px;
+  max-width: 317px;
+  margin: 0 auto;
+  display: block;
+}
+
+.special {
+  margin: 3px 0 0 8px;
+  height: 35px;
+}
+.special:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+.special .SpecialIcon {
+  width: 35px;
+  height: 35px;
+  color: #fff;
+  text-align: center;
+  vertical-align: bottom;
+  background-color: #2eaacc;
+  margin-right: 2px;
+  display: block;
+  float: left;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+}
+.special .TwoWord {
+  line-height: 35px;
+}
+.special .FourWord {
+  line-height: 17px;
+}
+
+h3.itemName {
+  padding-top: 0;
+  padding-left: 11px;
+  font-size: 15px;
+  line-height: 29px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.explanation {
+  margin-left: 13px;
+  font-size: 12px;
+}
+.explanation > p {
+  color: #BD6465;
+}
+.explanation > ul {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  height: 40px;
+  overflow: hidden;
+}
+.explanation > ul li {
+  color: #5F6465;
+  list-style: square;
+  line-height: 19px;
+  margin-left: 5px;
+  width: 94%;
+  list-style-position: inside;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.explanation > ul li p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.StatusPrice {
+  position: absolute;
+  width: 100%;
+  bottom: 5px;
+}
+
+.status {
+  font-size: 13px;
+  line-height: 16px;
+  color: #7F8384;
+  width: 150px;
+  float: left;
+}
+.status > p {
+  margin-left: 16px;
+}
+
+.market {
+  text-align: right;
+  font-size: 13px;
+  color: #B3B3B3;
+  text-decoration: line-through;
+  float: left;
+  width: 150px;
+  line-height: 16px;
+}
+
+.remain {
+  font-size: 15px;
+  line-height: 26px;
+  float: left;
+  width: 150px;
+}
+.remain > p {
+  margin-left: 16px;
+}
+
+.price {
+  text-align: right;
+  font-size: 28px;
+  color: #C94141;
+  float: left;
+  width: 150px;
+}
+.price > p > span {
+  margin-left: 5px;
+}
+
+.SoldOut {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 231px;
+  background: url(/Themes/img/NewEggFlash/SoldOut.png) no-repeat center;
+  background-size: auto 100%;
+}

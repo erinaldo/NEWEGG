@@ -1,0 +1,121 @@
+﻿
+@{
+    TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);
+}
+
+@{
+    var Header = ViewBag.NewLinkTitle + "/Themes/2013/img/header.png";
+    var Fooer = ViewBag.NewLinkTitle + "/Themes/2013/img/footer.png";
+    TWNewEgg.Models.DomainModels.Cart.SOGroupPaymentFailureMailData SOGroupPaymentFailureMailData = ViewBag.SOGroupPaymentFailureMailDataResult as TWNewEgg.Models.DomainModels.Cart.SOGroupPaymentFailureMailData;
+}
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Header" width="795" height="68" />
+                    </div>
+                    <div>
+                        <br />
+                        <span>發生金流付款失敗，請檢查該訂單，</span>
+                        <br/><br/>
+                        失敗的訂單資料如下:
+                        <br/><br/>
+                        <table>
+                            @{
+                                <tr>
+                                    <td style="width:100px;">系統環境</td>
+                                    <td>@ViewBag.Environment</td>
+                                </tr>
+                                <tr>
+                                    <td >訂購人Email</td>
+                                    <td>@SOGroupPaymentFailureMailData.Email</td>
+                                </tr>
+                                <tr>
+                                    <td >訂購人姓名</td>
+                                    <td>@SOGroupPaymentFailureMailData.Name</td>
+                                </tr>
+                                <tr>
+                                    <td >購物車編號</td>
+                                    <td>@SOGroupPaymentFailureMailData.SOGroupID</td>
+                                </tr>
+                                <tr>
+                                    <td>付款方式</td>
+                                    <td>@SOGroupPaymentFailureMailData.PayTypeString</td>
+                                </tr>
+                                <tr>
+                                    <td>狀態</td>
+                                    <td>@SOGroupPaymentFailureMailData.Status</td>
+                                </tr>
+                                <tr>
+                                    <td >RtnCode</td>
+                                    <td>@SOGroupPaymentFailureMailData.rtnCode</td>
+                                </tr>
+                                <tr>
+                                    <td >RtnMsg</td>
+                                    <td>@SOGroupPaymentFailureMailData.rtnMsg</td>
+                                </tr>
+                                if (ViewBag.RtnMsg != null) {
+                                    <tr>
+                                        <td >RtnMsg</td>
+                                        <td>@ViewBag.RtnMsg</td>
+                                    </tr>
+                                }
+                                <tr style="height:20px;">
+                                    <td ></td>
+                                </tr>
+                                foreach (var temp in SOGroupPaymentFailureMailData.MailDataDetailList)
+                                {                                    
+                                    <tr>
+                                        <td style="width:100px;">訂單編號</td>
+                                        <td>@temp.SalesOrderCode</td>
+                                    </tr>
+                                    <tr>
+                                        <td>採購單號</td>
+                                        <td>@temp.PurchaseOrderCode</td>
+                                    </tr>
+                                    <tr>
+                                        <td>商品類別</td>
+                                        <td>@temp.DelvType</td>
+                                    </tr>
+                                    <tr>
+                                        <td>商品編號</td>
+                                        <td>@temp.ItemID</td>
+                                    </tr>
+                                    <tr>
+                                        <td>新蛋ProductID</td>
+                                        <td>@temp.ProductID</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SellerProductID</td>
+                                        <td>@temp.SellerProductID</td>
+                                    </tr>
+                                    <tr>
+                                        <td>商品名稱</td>
+                                        <td>@temp.ItemName</td>
+                                    </tr>
+                                    <tr><td style="height:20px;"></td><td></td></tr>                            
+                                }
+                            }
+                        </table>
+                        <br/><br/>
+                        麻煩請幫忙確認，謝謝!
+                        <br/><br/>
+                    </div>
+                    <div>
+                        <p>
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            電話:@(WebSiteListWebSiteData.PhoneNumber2)  客服信箱:<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                            請注意：此郵件為系統自動傳送，請勿直接回覆！<br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Fooer" width="795" height="40" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

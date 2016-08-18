@@ -1,0 +1,43 @@
+﻿@section styleSheets{
+    @Styles.Render("~/content/css/Act")
+}
+
+@section bodyStartRefJS{
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.24/themes/smoothness/jquery-ui.css">
+<link type="text/css" rel="stylesheet" href="/Content/PageMgmt/stylesheets/DSPage.css">
+
+<script src="//code.jquery.com/ui/1.8.24/jquery-ui.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
+<script src="~/Scripts/angular/angular.min.js"></script>
+<script src="~/Scripts/angular/angular-sanitize.min.js"></script>
+
+<script src="~/Scripts/PageMgmt/Designer/DesignerServices.js"></script>
+<script src="~/Scripts/PageMgmt/Designer/EditPageDirective.js"></script>
+<script src="~/Scripts/PageMgmt/Designer/EditObjectModule.js"></script>
+<script src="~/Scripts/PageMgmt/Designer/PageDirective.js"></script>
+
+<script src="~/Scripts/PageMgmt/model/Models.js"></script>
+<script src="~/Scripts/PageMgmt/model/Status.js"></script>
+
+<script src="~/Scripts/PageMgmt/Object/ObjectDirective.js"></script>
+<script src="~/Scripts/PageMgmt/model/EntityModel.js"></script>
+
+<script src="~/Scripts/Common/CommonProcess.js"></script>
+<script src="~/Scripts/Common/ArrayExtensions.js"></script>
+<script src="~/Scripts/Common/StringExtensions.js"></script>
+<script src="~/Scripts/Common/ngCusWidgets.js"></script>
+<script src="~/Scripts/Common/ngCusServices.js"></script>
+
+<script>
+    angular.module('myapp', ['CusServices', 'PageDirective', 'EditPageDirective', 'DesignerServices', 'CusWidgets', 'ObjectDirective', 'EditObjectModule'])
+    .controller('MainCtrl', function ($scope, dialogSetting, $rootScope, $http) {
+        $scope.dialogSetting = dialogSetting;
+        $scope.broadcast = function (name) {
+            $rootScope.$broadcast(name);
+        }
+    });
+</script>
+}
+<div ng-app="myapp">
+    <page-view path="'@ViewBag.Path'"></page-view>
+</div>

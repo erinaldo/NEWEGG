@@ -1,0 +1,5 @@
+﻿<div ng-class="{multidrag:picked}" style="position:relative"
+    ng-mousedown="focus($event)" ng-mouseover="show = true" ng-mouseleave="show = false" ng-hide="isdeleted()">
+    <component-option class="comp-header" component="comp" components="components" object="object(comp)" args show="picked||(editable && show)"></component-option>
+    <component-view component="comp" object="object(comp)" page="PageInfo"></component-view>
+</div>

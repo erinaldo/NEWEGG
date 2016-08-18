@@ -1,0 +1,137 @@
+﻿@charset "utf-8";
+@import "compass/css3";
+
+//所有內容頁總寬度
+$RWDMinWidth:1004px;
+
+//RWD頁面總寬度
+$RWDOuterWidth:1280px;
+
+//RWD頁面padding
+$RWDMainPadding:55px;
+$RWDRightPadding:49px;
+
+//RWD內容寬度 1280-55-49=1176
+$RWDMaxWidth:($RWDOuterWidth - $RWDMainPadding - $RWDRightPadding);
+
+//清除浮動-前項元素專用，使用方法:@extend .clear;
+.clear {
+	clear:both;
+}
+
+//清除浮動-父層專用，使用方法:@include clearAfter;
+@mixin clearAfter {
+	&:after {
+		content: "";
+		display:block;
+		width:100%;
+		height:1px;
+		clear:both;
+	}
+}
+
+//圓角，使用方法:@include border-radius(5px);
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+//漸變效果，使用方法:@include transition(200);※註數字200的單位是毫秒唷!
+@mixin transition($time) {
+	@include transition-property(all);
+	@include transition-duration(.2s);
+	@include transition-timing-function(linear);
+}
+
+//單行顯示刪節號
+@mixin ellipsis {
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+
+//英文數字強制斷行
+@mixin wrapWord {
+	word-wrap:break-word;
+	word-break:break-all;
+}
+
+//Head快速選單文字樣式
+@mixin quickMenuStyle {
+	color:#888;
+	text-align:center;
+	cursor:pointer;
+	&:hover, &.active {
+		>a {
+			color:#fff;
+		}
+	}
+}
+
+//所有內頁寬度
+@mixin mainPaddingArea {
+		@extend .clear;
+		@include clearAfter;
+		margin:0 auto;
+		margin-bottom:50px;
+		padding-left:$RWDMainPadding;
+		padding-right:$RWDRightPadding;
+			padding-left:0;
+			width:$RWDMinWidth;//寬1004px
+		@media screen and (max-width: 1280px) {
+			padding-left:10px;
+			padding-right:0;
+		}
+		.mainMenuBox, .pathLink, .bread {
+			margin-left:-58.5px;
+			@media screen and (max-width: 1280px) {
+				margin-left:0;
+			}
+		}
+	}
+
+//全RWD頁面專用 ex.首頁/分類頁/次分類頁
+@mixin mainPaddingRWD {
+		//@include transition-property(all);
+		@include transition-duration(.2s);
+		@include transition-timing-function(linear);
+		padding-left:$RWDMainPadding;
+		padding-right:$RWDRightPadding;
+		width:$RWDMaxWidth;
+		@media screen and (max-width: 1280px) {
+			padding-left:10px;
+			padding-right:0;
+			width:$RWDMinWidth;
+		}
+		.mainMenuBox, .pathLink {
+			margin-left:0;
+		}
+}
+
+//解除頁面寬度內縮 ex.活動頁/閃購頁/關於新蛋網
+@mixin mainPaddingRemove {
+	padding:0;
+	width:100%;
+	@media screen and (max-width: 1280px) {
+		margin:0;
+		padding:0;
+		width:auto;//IE
+		width:initial;
+	}
+	.mainMenuArea {
+		margin:0 auto;
+		padding-left:$RWDMainPadding;
+		padding-right:$RWDRightPadding;
+		width:$RWDMaxWidth;
+		@media screen and (max-width: 1280px) {
+			padding-left:0;
+			padding-right:0;
+			width:$RWDMinWidth - 10;
+		}
+	}
+	.mainMenuBox, .pathLink, .bread {
+		margin-left:0;
+	}
+}

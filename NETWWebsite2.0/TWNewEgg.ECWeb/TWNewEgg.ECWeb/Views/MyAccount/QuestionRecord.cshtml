@@ -1,0 +1,265 @@
+﻿@{
+    ViewBag.Title = "問答紀錄" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/MyAccount")
+}
+@section scripts {
+
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+}
+@{
+    
+    @model List<TWNewEgg.Models.ViewModels.Answer.Probelm>
+    }
+<script>
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+
+        return vars;
+    }
+    $(function () {
+
+
+        getUrlVars();
+          
+     
+        TabSelectArea();
+        var first = getUrlVars()["Mouth"];
+        if (first != undefined) {
+            $("#moths").val(first);
+        }
+    });
+    function Record()
+    {
+        var Mouth = $("#moths").val();
+        location.replace("/MyAccount/QuestionRecord?Mouth=" + Mouth);
+        
+    }
+    function selectMouth(mouth)
+    {
+        alert(mouth);
+    }
+    function AskQuestion()
+    {
+
+        var CartID = $(obj).attr("ReturnCartID");
+    
+        $.ajax({
+            type: "POST",
+            url: "/MyAccount/GetReturnDetail",
+            type: "GET",
+            dataType: "JSON",
+            data: { "SOCode": CartID },
+            success: function (data) {
+
+                $('#myOrderArea2').css("display", "none");
+                $('#myOrderArea2').html(data);
+                $('#myOrderArea2').fadeIn("slow");
+                // InitializationScript();
+            }
+        });
+
+    }
+</script>
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/MyAccount">我的帳戶</a> >
+    <a href="/MyAccount/AskQuestion">問答中心</a> >
+    <span>問答紀錄</span>
+</div>
+
+<div class="TopExplanationArea"></div>
+
+<div class="AccountArea">
+    <div class="TabArea Border grayBorder">
+        <ul>
+            <li class="Tab BorderTab" id="WishList"><a href="/Cart/WishCart"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+            @*<li class="Tab BorderTab" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>*@
+            <li class="Tab BorderTab" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+            <li class="Tab BorderTab" id="Order" onclick="TabOpenClose()">
+                <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                    @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+                </ul>
+            </li>
+            <li class="Tab BorderTab TabSelected" id="Account">
+                <a href="/MyAccount"><i class="icon ServiceIcon Account"></i>帳戶管理<i class="icon Up"></i></a>
+                <ul class="SubMenu">
+                    <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                    <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                    @*<li><a href="/MyAccount/AddressBook">紀錄本修改</a></li>*@
+                    <li><a href="/MyAccount/AskQuestion">問答中心</a></li>
+                    <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="serviceContentArea">
+        <div class="serviceContentBox">
+            <div class="Tit ClassTit"><i class="icon ServiceIcon QuestionCenter-2"></i>問答中心</div>
+            <div style="margin:10px 51px;">
+                <div@* class="TabArea grayBorder"*@>
+                    <ul>
+                        <li class="TabNoHover RadiusTab"><a href="/MyAccount/AskQuestion">我要發問</a></li>
+                        <li class="TabNoHover RadiusTab TabSelected"><a href="/MyAccount/QuestionRecord">問答紀錄</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+                <div class="TabArea grayBorder service_contentTable">
+                    <div style="float:right;margin:10px 0;">
+                        依照時間篩選
+                        <select class="select_sm selector-question" id="moths" onchange="Record()">
+                            <option value="3">近三個月</option>
+                            <option value="6">近六個月</option>
+                            <option value="12">近一年</option>
+                            <option value="24">近兩年</option>
+                        </select>
+                    </div>
+                    <div class="service_contentTable">
+                        <table>
+                            <tr>
+                                <th style="width:140px;">問題編號</th>
+                                <th style="width:100px;">日期</th>
+                                <th style="width:140px;">訂單編號/<br />賣場編號&nbsp;</th>
+                                <th style="width:140px;">商品名稱</th>
+                                <th style="width:200px;">問題主旨</th>
+                                <th style="width:40px;">查詢</th>
+                            </tr>
+                            @{ 
+                                if (Model != null && Model.Count() != 0)
+                                {
+                                    foreach (var Probelm in Model)
+                                    {
+                                   
+                            <tr>
+                                <td>@Probelm.Code</td>
+                                <td>
+                                    @string.Format("{0: yyyy/MM/dd}", Probelm.CreateDate)
+                                    <p style="text-align:center">@string.Format("{0: HH: mm}", Probelm.CreateDate)</p>
+
+                                </td>@*@string.Format("{0: yyyy/MM/dd}", ansListItem.Date.Value)*@
+                                <td>@(string.IsNullOrEmpty(Probelm.BlngCode) == true ? "-" : Probelm.BlngCode )</td>
+                                <td>@(string.IsNullOrEmpty(Probelm.Name) == true ? "-" : Probelm.Name )</td>
+                                <td>@Html.Raw(Probelm.Cont)</td>
+                                <td>
+                                    <br />
+                                    <a href="/MyAccount/AskQuestion">詢問</a>
+                                    <br /><br />
+                                    @*<a href="/MyAccount/QuestionRecord">紀錄</a>*@
+                                    <a href="/MyAccount/QuestionRecordSelect?ProbelmId=@Probelm.Code">紀錄</a>
+                                    <br /><br />
+                                </td>
+                            </tr>
+                                
+                                
+                                }
+                                
+                                }
+                                else
+                                {  <tr>
+                                <td colspan="6">您最近三個月無任何問答紀錄！</td>
+                            </tr>}
+                                }
+                        </table>
+                    </div>
+                    <fieldset>
+                    @*@if (Model != null && Model.Count() > 0)
+                    {
+                    <!-- #endregion start -->
+                    <div class="ClassTit recordsTit">問答紀錄</div>
+                    <div class="service_contentTable" style="border-left:1px solid #ddd;border-right:1px solid #ddd;">
+                        <table>
+                            <tr>
+                                <th style="width:160px;">問題編號</th>
+                                <th>問題與客服回覆</th>
+                                <th style="width:110px;">發問/回覆時間</th>
+                            </tr>
+                            @{
+                                
+                                if (Model != null && Model.Count() != 0)
+                              {
+                                  List<TWNewEgg.Models.ViewModels.Answer.Probelm> selectModel = new List<TWNewEgg.Models.ViewModels.Answer.Probelm>();
+                                  List<TWNewEgg.Models.ViewModels.Answer.Answer> selectAnswer=new List<TWNewEgg.Models.ViewModels.Answer.Answer>();
+                                    foreach (var Probelm in Model)
+                                  {
+                                     
+                                foreach (var Answer in Probelm.Answerlist)
+                                    {
+                                 
+                                    if(Answer.Cont!=null&&Answer.Cont!="")
+                                    {
+                                        selectModel.Add(Probelm);
+                                    selectAnswer.Add(Answer);
+                                    }
+                                
+                                   }
+                              
+                                  }
+                                 
+                                  foreach (var Probelm in selectModel)
+                                  {
+                                      int Count = 0;
+                                    Count = 1 + selectAnswer.Where(x=>x.PrblmCode==Probelm.Code).Count();
+                                    <tr class="cuQuesBox">
+                                        <td rowspan="@Count">@Probelm.Code</td>
+                                        <td>
+                                            <div>問題主旨－<span>@Html.Raw(Probelm.Prblmtype)</span></div>
+                                            <div class="tit">問題：</div>
+                                            <div class="txt">@Html.Raw(Probelm.Cont)</div>
+                                        </td>
+                                        <td>@Probelm.CreateDate</td>
+                                    </tr>
+                                    foreach (var Answer in selectAnswer.Where(x=>x.PrblmCode==Probelm.Code).ToList())
+                                    {
+                                     
+                                        <tr class="csReplyBox">
+                                            <td>
+                                                <div class="tit">客服回覆：</div>
+                                                <div class="txt">@Html.Raw(Answer.Cont)</div>
+                                            </td>
+                                            <td>@Answer.CreateDate</td>
+                                        </tr>}
+                                   
+                                }
+                              }
+                              else
+                              {
+                                <tr>
+                                    <td colspan="6">您最近三個月無任何問答紀錄！</td>
+                                </tr>
+                            }}
+                        </table>
+                    </div>
+                    }
+                    @*<div class="btmBtnArea" style="margin-top:30px;">
+                        <input type="button" value="回上一頁" class="btn btn-prev" />
+                        <input type="button" value="再次發問" class="btn btn-submit" />
+                    </div>
+                </div>*@
+@*                <div class="btmBtnArea">
+                    <input type="button" value="回上一頁" class="btn btn-prev" />
+                    <input type="button" value="再次發問" class="btn btn-submit" />
+                </div>*@
+                  </fieldset>  
+                    
+                
+                <div class="questionTipsArea">
+                    客服問答中心的問題紀錄將保存三個月，三個月以上的訂單問題，請至<a href="/MyAccount/QuestionRecord">問答中心</a>裡查看客服問答紀錄，您的寶貴意見，我們將盡速於1~2日內(不含例假日)E-mail回覆您，並多利用問答中心查詢最新回覆內容，如欲詢問新問題，請點選<a href="/MyAccount/AskQuestion">我要發問</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

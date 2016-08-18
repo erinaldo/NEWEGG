@@ -1,0 +1,253 @@
+﻿@model TWNewEgg.Models.ViewModels.Login.Login
+@{
+    ViewBag.Title = "非會員登入" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+@section styleSheets {
+    @Styles.Render("~/content/css/Signup")
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/Login")
+    @Styles.Render("~/content/css/commonSimple")
+
+}
+@section addToTopper {
+
+}
+@section addToBottomer {
+
+}
+@section addToHeader {
+    @{Html.RenderPartial("_HeaderSimple");}
+}
+@section addToFooter {
+    @{Html.RenderPartial("_FooterSimple");}
+}
+
+<div class="loginArea">
+    <!-- Top AdvLogBanner -->
+    <div class="login_adBox" data-url="/AdvEvent/Partial_AdvGuestLogBanner">
+         <img src="~/Themes/img/loading.gif" /> Loading ...
+    </div>
+    <!-- end of Top AdvLogBanner -->
+    <form action="/MyAccount/GuestLogin" method="post">
+        <div class="fillFormArea">
+            <div class="Tit ColorBarTit mainTitBar"><i class="icon icon-login"><img src="/Themes/img/Icon/SignInImg.png" alt="" /></i>新蛋全球生活網非會員登入</div>
+            <div class="fillFormBox">
+                <div id="emailTip" class="fillForm_contentList">
+                    <div class="tit">帳號</div>
+                    <div class="txt">
+                        <input type="text" id="user" name="user" tabindex="1" placeholder="請輸入e-mail"/>
+                        <span class="errMsg" id="EmailRulesCheck" >@(string.IsNullOrEmpty(Model.Iderro) ? "" : Model.Iderro)</span>
+                    </div>
+                </div>
+                @*@if (Model.rytm)
+                {
+                    *@<div class="fillForm_contentList">
+                        <div class="tit">驗證碼</div>
+                        <div class="txt">
+                            <div id="googlecaptcha"></div>
+                            <input type="hidden" id="gcap" name="gcap" value=""/>
+                        </div>
+                    </div>
+                @*}*@
+                <label>
+                    <input type="checkbox" id="account_agreepaper" name="agreePaper" value="0" />
+                    <span>我已閱讀完畢，並同意<a href="#" target="_blank">非會員使用條款</a></span>
+                </label>
+                <input type="submit" id="submitdata" value="登入" disabled="disabled" class="btn btn-login gray"  />
+                <input type="hidden" id="returnUrl" name="returnUrl" value="@(ViewBag.ReturnUrl)"/>
+                <input type="hidden" id="ratm" name="ratm" value="@(Model.ratm)"/>
+                <input type="hidden" id="googlecaptchaM" name="googlecaptchaM" value=""/>
+            </div>
+        </div>
+    </form>
+    <div class="tipsConnect">
+        <a href="mailto:service@newegg.com.tw">聯絡客服</a>
+        <hr class="verticalDir" />
+        <a href="/Policies/Member" target="_blank">服務條款</a>
+        <hr class="verticalDir" />
+        <a href="/Policies/Privacy" target="_blank">隱私權政策</a>
+    </div>
+    <div class="clear"></div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/TWEC/AccountVerify.js")
+
+    <script src="https://www.google.com/recaptcha/api.js?hl=zh-TW&render=explicit" async defer></script>
+    <script type="text/javascript" src="/Scripts/NETW/netw-grcaptcha-1.0.0.js" async defer></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        @*載入PartialView*@
+        $(document).ready(function (e) {
+            $(".login_adBox").each(function (index, item) {
+                var url = $(item).data("url");
+                if (url && url.length > 0) {
+                    $(item).load(url);
+                }
+            });
+        });
+
+        @*檢查帳號*@
+        var emailRule = /^([\w-\.\+\-\_]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4})$/;
+        function EmailCheck() {
+            var EmailAccount = $("#user").val();
+            if (!EmailAccount.match(emailRule) && EmailAccount != "" && EmailAccount != null) {
+                $("#EmailRulesCheck").css('display', '');
+                $("#EmailRulesCheck").text("請輸入正確的帳號格式");
+                $("#emailTip").attr('class', 'fillForm_contentList errTips');
+                return false;
+            }
+            else if (EmailAccount == "" || EmailAccount == null) {
+                $("#EmailRulesCheck").text("請輸入帳號");
+                $("#EmailRulesCheck").css('display', '');
+                $("#emailTip").attr('class', 'fillForm_contentList errTips');
+                return false;
+            }
+            else if (EmailAccount.match(emailRule)) {
+                $("#EmailRulesCheck").css('display', 'none');
+                $("#emailTip").attr('class', 'fillForm_contentList');
+                return true;
+            }
+            return false;
+        }
+
+        function AgreepaperCheck() {
+            if ($("#account_agreepaper:checked").length == 1) {
+                $("#submitdata").attr('disabled', false);
+                $("#account_agreepaper").val(1);
+                $("#submitdata").removeClass("gray");
+                return true;
+            }
+            else {
+                $("#account_agreepaper").val(0);
+                $("#submitdata").attr('disabled', true);
+                $("#submitdata").addClass("gray");
+                return false;
+            }
+        }
+
+        $("#user").blur(function () {
+            EmailCheck();
+        });
+
+        $("#account_agreepaper").bind("click", function () {
+            AgreepaperCheck();
+        });
+
+        $("#submitdata").bind("click", function () {
+            if (!EmailCheck()) {
+                return false;
+            }
+            if (!AgreepaperCheck()) {
+                return false;
+            }
+            if ($("#googlecaptchaM").val() == null || $("#googlecaptchaM").val().length == 0) {
+                alert("驗證碼錯誤");
+                return false;
+            }
+            else {
+                return true;
+            }
+        });
+
+        var verifyCallback = function (reponse) {
+            $("#gcap").val(reponse);
+        };
+
+        $(window).load(function () {
+            initGreCaptcha('googlecaptcha', verifyCallback, 'light', 'image');
+        });
+
+        var verifyCallback = function (reponse) {
+            $("#googlecaptchaM").val(reponse);
+        };
+
+    </script>
+
+    }
+@*@section refScripts{
+    @if (Model.rytm)
+    {
+        }
+}
+@section scripts{
+    @if (Model.rytm)
+    {
+        <script>
+            var verifyCallback = function (reponse) {
+                $("#gcap").val(reponse);
+                //ga('send', 'event', 'login', 'validatecode', 'click');
+            };
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=695768887110336";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+            function checkFBStatus() {
+                FB.init({
+                    appId: '695768887110336',                        // App ID from the app dashboard
+                    channelUrl: '//WWW.neweegg.com.tw/', // Channel file for x-domain comms
+                    status: true,                                 // Check Facebook Login status
+                    xfbml: true,                                  // Look for social plugins on the page
+                    cookie: true,
+                    oauth: true
+                });
+
+                FB.login(function (response) {
+                    if (response.status == "connected") {  // 程式有連結到 Facebook 帳號
+                        var uid = response.authResponse.userID; // 取得 UID
+                        FB.api("/me", "GET", function (response) {
+                            var email = response.email;
+                            var strReturnUrl = $('#returnUrl').attr("value");
+                            if (typeof (strReturnUrl) == "undefined")
+                                strReturnUrl = "";
+                            else
+                                strReturnUrl = strReturnUrl.replace(/"/g, "")
+                            var jsonString = '{"user" : "' + email + '" , "ouid": "' + uid + '", "returnUrl" : "' + strReturnUrl + '", "type" : "facebook"}';
+
+                            $.ajax({
+                                url: '/Login/Facebook',
+                                data: JSON.parse(jsonString),
+                                type: 'POST',
+                                //dataType: 'json',
+                                success: function (Jdata) {
+                                    //alert(JSON.stringify(Jdata));
+                                    var oType = JSON.parse(JSON.stringify(Jdata));
+                                    //alert(JSON.stringify(Jdata));
+                                    if (oType.type == "success") {
+                                        if (oType.newegg == "false" && oType.first == "true")
+                                            location.href = oType.redirect;
+                                        else
+                                            location.href = oType.returnUrl;
+                                    }
+                                    else
+                                        alert('您使用FB帳號登入無法與會員帳號比對，請重新申請會員！');
+                                },//success
+                                error: function (Jdata) {
+                                    alert("error:" + Jdata.error);
+                                }//error
+                            });
+                        });
+
+                    } else if (response.status == "not_authorized") {  // 帳號沒有連結到 Facebook 程式
+                        alert("請允許授權！");
+                    } else {    // 帳號沒有登入
+                        // 在本例子中，此段永遠不會進入...XD
+                    }
+                }, { scope: "email, user_about_me" });
+            };
+
+            $(window).load(function () {
+                initGreCaptcha('googlecaptcha', verifyCallback, 'light', 'image');
+            });
+        </script>
+    }
+}*@

@@ -1,0 +1,24 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Advertising.AdvEventDisplay>
+
+@{    
+    string strImageServer = "";
+    strImageServer = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsImgDomain") ?? string.Empty;
+    if (Model != null)
+    {
+        if (!string.IsNullOrEmpty(Model[0].LinkUrl))
+        { 
+            <div class="ad" style="margin-left: 0px; height: 60px; overflow: hidden;" >
+                <div style="display: inline-block; position: relative; left: 50%;">
+                    @Html.Raw(String.Format("<a href='{0}' target='_blank'><img src='{1}' style='margin-left: -50%;'></a>", Model[0].LinkUrl, strImageServer + Model[0].ImgUrl))
+                </div>
+            </div>
+        }
+        else { 
+            <div class="ad" style="margin-left: 0px; height: 60px; overflow: hidden;" >
+                <div style="display: inline-block; position: relative; left: 50%;">
+                    @Html.Raw(String.Format("<img src='{0}' style='margin-left: -50%;'>", strImageServer + Model[0].ImgUrl))
+                </div>
+            </div>
+        }
+    }
+}

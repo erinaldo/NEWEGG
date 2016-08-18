@@ -1,0 +1,317 @@
+﻿//compileCompressed: ../css/categoryUS.css, includePath: includes/
+@import "_importSCSS";
+
+$us-color: #e95b32;
+
+.banner {
+    position:relative;
+}
+    .banner .storeUSBG {
+        position:absolute;
+        width:362px;
+        height:371px;
+    }
+        .banner .storeUSBG.red {
+            bottom:-9px;
+            left:-8px;
+            z-index:-1;
+            background:url(/Themes/img/Store/storeUSrBG.png) no-repeat;
+        }
+        .banner .storeUSBG.blue {
+            top:-7px;
+            right:-47px;
+            z-index:-1;
+            width:462px;
+            height:351px;
+            background:url(/Themes/img/Store/storeUSbBG.png) no-repeat;
+        }
+.pullDownUS .yMenuListConin {
+	background-color:#fff;
+	background-color:rgba(255,255,255,.95);
+	background-image: url(/Themes/img/StoreUS/yMenuListConin_Bg.jpg);
+    background-position: bottom center,top;
+    background-repeat: no-repeat;
+	background-size: 100% auto;
+	/*-webkit-opacity: 0.95;
+	-moz-opacity: 0.95;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
+	filter: alpha(opacity = 95);
+	opacity: 0.95;*/
+}
+div.section-bg.section-bg-img10 {
+    margin-top:65px;
+    margin-bottom:0;
+    width:340px;
+    height:120px;
+}
+div.section-divider {
+  border: 0;
+  border-top: 1px solid #999;
+}
+div.toperHeaderBG {
+  background:none;
+}
+/*美國新蛋直購*/
+.carousel-logo2 .catcolorbg10 {
+	background-color: #EC7375;
+}
+.banner-title {
+  float: left;
+  padding-top: 3px;
+  width: 900px;
+  height: 38px;
+  position: relative;
+  color: $us-color;
+  font-size: 24px;
+  line-height: 42px;
+}
+.pullDownUS {
+    margin-top:50px;
+}
+/*Banner*/
+.banner {
+	float: left;
+	width: 900px;
+	height: 400px;
+}
+.banner-img {
+	float: left;
+	width: 900px;
+	height: 400px;
+	position: relative;
+}
+.banner-img img {
+	float: left;
+	width: 900px;
+	height: 400px;
+}
+.banner .tab {
+	float: left;
+	width: 100%;
+}
+.banner .tab ul {
+	margin-top: 16px;
+}
+.banner .tab li {
+	margin-top: -16px;
+}
+/*.banner .tab a {
+	float: left;
+	width: 16.65%;
+	height: 26px;
+	color: #fff;
+	background-color: rgba(0,0,0,0.5);
+	text-decoration: none;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.banner .tab a:hover {
+	background-color: rgba(0,0,0,1.00);
+}
+.banner .tab a:hover .arrow {
+	float: left;
+	width: 8px;
+	height: 6px;
+	margin-top: -10px;
+	margin-left: 66px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-image: url(../img/banner-arrow-hover2.png);
+}
+.banner .tab a.selected {
+	background-color: rgba(0,0,0,1.00);
+}*/
+.banner .tab a.selected .arrow {
+	float: left;
+	width: 8px;
+	height: 6px;
+	margin-top: -35px;
+	margin-left: 58px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-image: url(../img/banner-arrow-hover2.png);
+}
+.banner-ad2 {
+	width: 180px;
+	height: 180px;
+	position: absolute;
+	padding: 15px;
+	background-color: #fff;
+	top: 365px;
+	right: 150px;
+	z-index: 1;
+}
+.banner-ad3 {
+	width: 206px;
+	height: 36px;
+	float: left;
+	margin-top: 486px;
+	z-index: 1;
+	position: relative;
+}
+.banner2 {
+	float: left;
+	width: 1000px;
+	height: 280px;
+}
+.banner2 img {
+	float: left;
+	width: 1000px;
+	height: 280px;
+}
+/*Carousel3*/
+.carousel3 {
+	float: right;
+	width: 392px;
+	height: 756px;
+	margin-right: 93px;
+}
+.carousel3 .pagination {
+	float: right;
+	width: 392px;
+}
+.carousel3 .pagination ul {
+	float: right;
+	width: 90px;
+	margin-top: 16px;
+}
+.carousel3 .pagination li {
+	margin-top: -16px;
+}
+.carousel3 .pagination li a {
+	float: left;
+	width: 20px;
+	height: 20px;
+	@include border-radius(20px);
+	color: #fff;
+	background-color: #999;
+	text-align: center;
+	line-height: 20px;
+	margin-left: 10px;
+	border-bottom:0;
+}
+.carousel3 .pagination li a:hover {
+	float: left;
+	width: 20px;
+	height: 20px;
+	@include border-radius(20px);
+	color: #fff;
+	background-color: #EC7375;
+	text-align: center;
+	line-height: 20px;
+	margin-left: 10px;
+}
+.carousel3 .pagination li a.selected {
+	background-color: #EC7375;
+}
+.carousel3 .pagination .more a {
+	width: 90px;
+    height: 20px;
+	color: #EC7375;
+	text-align: right;
+	text-decoration: none;
+	float: right;
+    margin-top: 2px;
+    /*border:1px solid red;*/
+	border-bottom:0;
+}
+/*Carousel-logo2*/
+.carousel-logo2 {
+	float: left;
+	width: 414px;
+	height: 148px;
+}
+.carousel-logo2 ul {
+	margin-left: 55px;
+	display: block;
+}
+.carousel-logo2 li {
+	width: 105px;
+	height: 50px;
+	margin-top: 20px;
+	margin-right: 5px;
+	margin-left: 5px;
+	display: block;
+	float: left;
+}
+    .carousel-logo2 li .pic {
+        margin:5px 0;
+	    width: 105px;
+	    height: 50px;
+        overflow:hidden;
+    }
+.carousel-logo2 li img {
+	max-width: 105px;
+	max-height: 50px;
+	/*float: left;*/
+}
+.carousel-logo2 .section-divider {
+    position: relative;
+    z-index: 2;
+    margin:-71px 0 0 55px;
+    width:305px;
+    height: 0px;
+    border-top:1px dashed #EC7375;
+}
+.carousel-logo2 .prev {
+	width: 23px;
+	height: 23px;
+	float: left;
+	margin-left: 25px;
+	margin-top:-82px;
+	text-decoration: none;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	line-height: 22px;
+}
+.carousel-logo2 .next {
+	width: 23px;
+	height: 23px;
+	float: right;
+	margin-right: 25px;
+	margin-top:-82px;
+	text-decoration: none;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	line-height: 22px;
+}
+body {
+	background-image: url(/Themes/img/Store/storeUSmainBG.png);
+    background-repeat: no-repeat;
+    background-position:center 160px;
+}
+div.banner-title i.listi10 {
+    background:url(/Themes/img/Store/storeUSicon.png) no-repeat 12px 6px;
+}
+div.topper .searchbar .input {
+    background: #e0e0e0;
+}
+.section3 .group4 img {
+    margin:0;
+}
+.box14 {
+    width:195px;
+    border:0 solid #FBE3E3;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+}
+    .box14 + .box14 {
+        border-right-width: 0;
+    }
+        .box14 + .box14 + .box14 {
+        }
+        .box14 + .box14 + .box14 + .box14 {
+            border-left-width: 1px;
+        }
+        .box14 + .box14 + .box14 + .box14 + .box14 {
+            border-left-width: 0;
+        }
+        .box14 + .box14 + .box14 + .box14  + .box14  + .box14 {
+            border-left-width: 1px;
+        }

@@ -1,0 +1,616 @@
+@charset "UTF-8";
+.catcolorbg1 {
+  background-color: #3e3a39;
+}
+
+.catcolortxt1,
+.catcolortop1,
+.catcolorright1,
+.catcolorbottom1,
+.catcolorleft1 {
+  color: #3e3a39;
+}
+
+.catcolorbg2 {
+  background-color: #c07d2e;
+}
+
+.catcolortxt2,
+.catcolortop2,
+.catcolorright2,
+.catcolorbottom2,
+.catcolorleft2 {
+  color: #c07d2e;
+}
+
+.catcolorbg3 {
+  background-color: #de7884;
+}
+
+.catcolortxt3,
+.catcolortop3,
+.catcolorright3,
+.catcolorbottom3,
+.catcolorleft3 {
+  color: #de7884;
+}
+
+.catcolorbg4 {
+  background-color: #75852e;
+}
+
+.catcolortxt4,
+.catcolortop4,
+.catcolorright4,
+.catcolorbottom4,
+.catcolorleft4 {
+  color: #75852e;
+}
+
+.catcolorbg5 {
+  background-color: #c03f40;
+}
+
+.catcolortxt5,
+.catcolortop5,
+.catcolorright5,
+.catcolorbottom5,
+.catcolorleft5 {
+  color: #c03f40;
+}
+
+.catcolorbg6 {
+  background-color: #80b870;
+}
+
+.catcolortxt6,
+.catcolortop6,
+.catcolorright6,
+.catcolorbottom6,
+.catcolorleft6 {
+  color: #80b870;
+}
+
+.catcolorbg7 {
+  background-color: #248c6a;
+}
+
+.catcolortxt7,
+.catcolortop7,
+.catcolorright7,
+.catcolorbottom7,
+.catcolorleft7 {
+  color: #248c6a;
+}
+
+.catcolorbg8 {
+  background-color: #e39300;
+}
+
+.catcolortxt8,
+.catcolortop8,
+.catcolorright8,
+.catcolorbottom8,
+.catcolorleft8 {
+  color: #e39300;
+}
+
+.catcolorbg9 {
+  background-color: #63b2af;
+}
+
+.catcolortxt9,
+.catcolortop9,
+.catcolorright9,
+.catcolorbottom9,
+.catcolorleft9 {
+  color: #63b2af;
+}
+
+.catcolorbg10 {
+  background-color: #339ecf;
+}
+
+.catcolortxt10,
+.catcolortop10,
+.catcolorright10,
+.catcolorbottom10,
+.catcolorleft10 {
+  color: #339ecf;
+}
+
+.catcolorbg11 {
+  background-color: #0757a2;
+}
+
+.catcolortxt11,
+.catcolortop11,
+.catcolorright11,
+.catcolorbottom11,
+.catcolorleft11 {
+  color: #0757a2;
+}
+
+.catcolorbg12 {
+  background-color: #162c84;
+}
+
+.catcolortxt12,
+.catcolortop12,
+.catcolorright12,
+.catcolorbottom12,
+.catcolorleft12 {
+  color: #162c84;
+}
+
+.catcolorbg13 {
+  background-color: #e95b32;
+}
+
+.catcolortxt13,
+.catcolortop13,
+.catcolorright13,
+.catcolorbottom13,
+.catcolorleft13 {
+  color: #e95b32;
+}
+
+.catcolorbg14 {
+  background-color: #f44d69;
+}
+
+.catcolortxt14,
+.catcolortop14,
+.catcolorright14,
+.catcolorbottom14,
+.catcolorleft14 {
+  color: #f44d69;
+}
+
+.catcolorbg15 {
+  background-color: #A43A9D;
+}
+
+.catcolortxt15,
+.catcolortop15,
+.catcolorright15,
+.catcolorbottom15,
+.catcolorleft15 {
+  color: #A43A9D;
+}
+
+/*Banner*/
+.banner {
+  position: relative;
+  float: left;
+  width: 900px;
+  height: 400px;
+}
+
+.banner-title {
+  float: left;
+  padding-top: 3px;
+  width: 900px;
+  height: 38px;
+  position: relative;
+  color: #fff;
+  font-size: 24px;
+  line-height: 42px;
+}
+
+.banner-img {
+  float: left;
+  width: 900px;
+  height: 400px;
+  position: relative;
+  background-repeat: no-repeat;
+}
+
+.banner-img img {
+  float: left;
+  width: 900px;
+  height: 400px;
+}
+
+.banner .tab {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+}
+
+.banner .tab ul {
+  margin-top: 16px;
+}
+
+.banner .tab li {
+  margin-top: -16px;
+}
+
+/*.banner .tab a {
+	float: left;
+	width: 16.65%;
+	height: 26px;
+	color: #fff;
+	background-color: rgba(0,0,0,0.5);
+	text-decoration: none;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.banner .tab a:hover {
+	background-color: rgba(0,0,0,1.00);
+    cursor:pointer;
+}
+.banner .tab a:hover .arrow {
+	float: left;
+	width: 8px;
+	height: 6px;
+	margin-top: -10px;
+	margin-left: 66px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-image: url(../img/banner-arrow-hover2.png);
+}
+.banner .tab a.selected {
+	background-color: rgba(0,0,0,1.00);
+}
+.banner .tab a.selected .arrow {
+	float: left;
+	width: 8px;
+	height: 6px;
+	margin-top: -35px;
+	margin-left: 58px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-image: url(../img/banner-arrow-hover2.png);
+}*/
+.banner-bg {
+  float: left;
+  width: 613px;
+  height: 140px;
+  background-repeat: no-repeat;
+  background-position: 300px 5px;
+  margin-left: -372px;
+  z-index: 0;
+  margin-top: 45px;
+  position: absolute;
+}
+
+.banner-bgcolor {
+  width: 100%;
+  height: 441px;
+  z-index: -2;
+  position: absolute;
+  top: 195px;
+  left: 0px;
+}
+
+.banner-bg2 {
+  position: absolute;
+  top: 150px;
+  right: -120px;
+  width: 172px;
+  height: 250px;
+  background-repeat: no-repeat;
+  background-position: center top;
+  z-index: 1;
+}
+
+.banner-bg-img1 {
+  background-image: url(/Themes/img/banner-bg-1.png);
+}
+
+.banner-bg2-img1 {
+  background-image: url(/Themes/img/banner-bg2-1.png);
+}
+
+.banner-bg-img2 {
+  background-image: url(/Themes/img/banner-bg-2.png);
+}
+
+.banner-bg2-img2 {
+  background-image: url(/Themes/img/banner-bg2-2.png);
+}
+
+.banner-bg-img3 {
+  background-image: url(/Themes/img/banner-bg-3.png);
+}
+
+.banner-bg2-img3 {
+  background-image: url(/Themes/img/banner-bg2-3.png);
+}
+
+.banner-bg-img4 {
+  background-image: url(/Themes/img/banner-bg-4.png);
+}
+
+.banner-bg2-img4 {
+  background-image: url(/Themes/img/banner-bg2-4.png);
+}
+
+.banner-bg-img5 {
+  background-image: url(/Themes/img/banner-bg-5.png);
+}
+
+.banner-bg2-img5 {
+  background-image: url(/Themes/img/banner-bg2-5.png);
+}
+
+.banner-bg-img6 {
+  background-image: url(/Themes/img/banner-bg-6.png);
+}
+
+.banner-bg2-img6 {
+  background-image: url(/Themes/img/banner-bg2-6.png);
+}
+
+.banner-bg-img7 {
+  background-image: url(/Themes/img/banner-bg-7.png);
+}
+
+.banner-bg2-img7 {
+  background-image: url(/Themes/img/banner-bg2-7.png);
+}
+
+.banner-bg-img8 {
+  background-image: url(/Themes/img/banner-bg-8.png);
+}
+
+.banner-bg2-img8 {
+  background-image: url(/Themes/img/banner-bg2-8.png);
+}
+
+.banner-bg-img9 {
+  background-image: url(/Themes/img/banner-bg-9.png);
+}
+
+.banner-bg2-img9 {
+  background-image: url(/Themes/img/banner-bg2-9.png);
+}
+
+.banner-bg-img10 {
+  background-image: url(/Themes/img/banner-bg-10.png);
+}
+
+.banner-bg2-img10 {
+  background-image: url(/Themes/img/banner-bg2-10.png);
+}
+
+.banner-bg-img11 {
+  background-image: url(/Themes/img/banner-bg-11.png);
+}
+
+.banner-bg2-img11 {
+  background-image: url(/Themes/img/banner-bg2-11.png);
+}
+
+.banner-bg-img12 {
+  background-image: url(/Themes/img/banner-bg-12.png);
+}
+
+.banner-bg2-img12 {
+  background-image: url(/Themes/img/banner-bg2-12.png);
+}
+
+.banner-bg-img13 {
+  background-image: url(/Themes/img/banner-bg-13.png);
+}
+
+.banner-bg2-img13 {
+  background-image: url(/Themes/img/banner-bg2-13.png);
+}
+
+.banner-bg-img14 {
+  background-image: url(/Themes/img/banner-bg-14.png);
+}
+
+.banner-bg2-img14 {
+  background-image: url(/Themes/img/banner-bg2-14.png);
+}
+
+.banner-bg-img15 {
+  background-image: url(/Themes/img/banner-bg-15.png);
+}
+
+.banner-bg2-img15 {
+  background-image: url(/Themes/img/banner-bg2-15.png);
+}
+
+.banner-ad {
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  position: absolute;
+  border: 15px solid #fff;
+  background-color: #fff;
+  top: 150px;
+  right: 150px;
+  z-index: 2;
+}
+
+.banner-ad2 {
+  width: 180px;
+  height: 180px;
+  position: absolute;
+  padding: 15px;
+  background-color: #fff;
+  top: 365px;
+  right: 150px;
+  z-index: 2;
+}
+
+.banner2 {
+  float: left;
+  width: 1000px;
+  height: 280px;
+}
+
+.banner2 img {
+  float: left;
+  width: 1000px;
+  height: 280px;
+}
+
+/*Carousel4 館架右側上下滑動選單*/
+.carousel4 {
+  float: left;
+  width: 221px;
+  height: 708px;
+  border-left: thin solid;
+}
+
+.carousel4 .divider {
+  float: left;
+  width: 201px;
+  height: 1px;
+  border-bottom: thin solid;
+}
+
+.carousel4 .pagination {
+  float: right;
+  margin-top: 300px;
+  width: 20px;
+}
+
+.carousel4 .pagination ul {
+  float: right;
+  margin-bottom: 16px;
+}
+
+.carousel4 .pagination li {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 10px 0;
+  background-color: #d5d5d5;
+}
+
+.carousel4 .pagination li a {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  text-align: center;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.carousel4 .pagination li a.selected {
+  background-color: #80b870;
+}
+
+.carousel4 .pagination .more a {
+  width: 20px;
+  text-align: center;
+  border-bottom: 0;
+  float: right;
+  border: 0;
+}
+
+.carousel4 .pagination .more a:hover {
+  border-bottom: 0;
+  color: inherit;
+}
+
+/*Carousel-logo3*/
+.carousel-logo3 {
+  float: right;
+  width: 444px;
+  height: 100px;
+  margin: -10px 0px 10px -40px;
+}
+
+.carousel-logo3 ul {
+  margin-left: 40px;
+  display: block;
+  margin-top: 30px;
+}
+
+.carousel-logo3 li {
+  width: 110px;
+  height: 90px;
+  margin-right: 5px;
+  margin-left: 5px;
+  display: block;
+  float: left;
+}
+
+.carousel-logo3 li img {
+  max-width: 110px;
+  max-height: 90px;
+  float: left;
+}
+
+.carousel-logo3 .prev {
+  width: 23px;
+  height: 23px;
+  float: left;
+  margin-left: 5px;
+  margin-top: -85px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  line-height: 22px;
+}
+
+.carousel-logo3 .next {
+  width: 23px;
+  height: 23px;
+  float: right;
+  margin-right: 5px;
+  margin-top: -85px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  line-height: 22px;
+}
+
+.carousel-logo3-bg {
+  width: 280px;
+  height: 40px;
+  float: right;
+  background-repeat: no-repeat;
+}
+
+.carousel-logo3-bg-img1 {
+  background-image: url(/Themes/img/carousel-bg-1.jpg);
+}
+
+.carousel-logo3-bg-img2 {
+  background-image: url(/Themes/img/carousel-bg-2.jpg);
+}
+
+.carousel-logo3-bg-img3 {
+  background-image: url(/Themes/img/carousel-bg-3.jpg);
+}
+
+.carousel-logo3-bg-img4 {
+  background-image: url(/Themes/img/carousel-bg-4.jpg);
+}
+
+.carousel-logo3-bg-img5 {
+  background-image: url(/Themes/img/carousel-bg-5.jpg);
+}
+
+.carousel-logo3-bg-img6 {
+  background-image: url(/Themes/img/carousel-bg-6.jpg);
+}
+
+.carousel-logo3-bg-img7 {
+  background-image: url(/Themes/img/carousel-bg-7.jpg);
+}
+
+.carousel-logo3-bg-img8 {
+  background-image: url(/Themes/img/carousel-bg-8.jpg);
+}
+
+.carousel-logo3-bg-img9 {
+  background-image: url(/Themes/img/carousel-bg-9.jpg);
+}

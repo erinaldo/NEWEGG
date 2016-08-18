@@ -1,0 +1,363 @@
+﻿@model TWNewEgg.Models.ViewModels.PromoActive.PromoActiveView
+@{
+    ViewBag.Title = "優惠活動-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int pageSelect = ViewBag.selectPage == null ? 0 : ViewBag.selectPage;
+}
+
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/Activity")
+@section scripts {
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    <script>
+        TabSelectArea();
+    </script>
+}
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <span>優惠活動</span>
+</div>
+
+<div>
+    @*置頂廣告*@
+    <div class="AdBox" data-url="/AdvEvent/Partial_AdvActivityTopBanner">
+         <img src="~/Themes/img/loading.gif" /> Loading ...
+    </div>
+
+    @*↓↓↓↓↓  頁籤↓↓↓↓↓*@
+    <div class="TabArea TabAreaNoBorder">
+        <ul>
+            <li class="Tab BorderTab TabSelected" id="ActivityList"><a href="/Activity/Index"><i class="icon ServiceIcon ActivityList"></i>活動清單</a></li>
+            <li class="Tab BorderTab" id="NameList"><a href="/Activity/AwardList"><i class="icon ServiceIcon NameList"></i>中獎名單</a></li>
+        </ul>
+    </div>
+    @*↑↑↑↑↑↑ 頁籤 ↑↑↑↑↑↑↑*@
+
+    @*↓↓↓↓↓ 排序方式 ↓↓↓↓↓*@
+    <div class="TabArea grayBorder">
+        <ul>
+            <li class="Tab SmallBorderTab" id="ComingtoEndActivity" onclick="ActivityCondition('SoonFinish')">
+                <i class="icon OrderbyIcaon ComingtoEndActivity"></i>即將結束
+            </li>
+            <li class="Tab SmallBorderTab SmallBorderTabSelected" id="LatestActivity" onclick="ActivityCondition('Newest')">
+                <i class="icon OrderbyIcaon LatestActivity"></i>最新活動
+            </li>
+        </ul>
+    </div>
+    @*↑↑↑↑↑↑ 排序方式 ↑↑↑↑↑↑↑*@
+
+    <div id="GridDataArea">
+    <table class="table darkGray">    
+        <tr class="tr">
+                <th class="th Boldtext" style="width:89px;">活動狀態</th>
+                <th class="th Boldtext" style="width:106px;">類型</th>
+                <th class="th Boldtext" style="width:89px;">館別</th>
+                <th class="th Boldtext" style="width:243px;">活動名稱</th>
+                <th class="th Boldtext" style="width:94px;">開始時間</th>
+                <th class="th Boldtext" style="width:94px;">結束時間</th>
+                <th class="th Boldtext" colspan="2" style="width:287px;">活動贈品</th>
+        </tr>
+            @if (Model != null)
+            {
+                foreach (var item in Model.listPromoActive)
+                {
+        <tr class="tr">
+                        <td class="td grayBorder">
+                            @if (item.ActivityOrNot == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityStatus.已結束)
+                            {
+                                <p style="color:#c1272d" class="activityStatus">已結束</p>
+                            }
+                            else if (item.ActivityOrNot == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityStatus.進行中)
+                            {
+                                <p class="activityStatus">進行中</p>
+                                <p class="remaindate">(剩餘 @item.ActivityRemainDate 天)</p>
+                            }
+                            else
+                            {
+                                <p></p>
+                            }
+                        </td>
+                        <td class="td grayBorder">
+                            @if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.滿額折_現折)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass1-1">滿額折(現折)</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.折價券)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass2-1">折價券</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.回饋金)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass3-1">回饋金</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.紅利點數)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass4-1">紅利點數</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.抽獎)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass5-1">抽獎</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.贈品_獎品)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass6-1">贈獎(獎品)</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.銀行)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass7-1">銀行</span></div>
+                            }
+                            else if (item.Type == (int)TWNewEgg.Models.ViewModels.PromoActive.ActivityType.折扣)
+                            {
+                                <div class="SpecialDeal"><span class="SpecialDeal SpecialDealClass8-1">折扣</span></div>
+                            }
+                            else
+                            {
+                                <div><span></span></div>
+                            }
+                        </td>
+                        <td class="td grayBorder">
+                            @if (string.IsNullOrEmpty(item.CategoryLink) == true)
+                            {
+                                <p>@(string.IsNullOrEmpty(item.CategoryName) == true ? string.Empty : item.CategoryName) </p>
+                            }
+                            else
+                            {
+                                <a href="@(string.IsNullOrEmpty(item.CategoryLink) == true ? string.Empty : item.CategoryLink)">@(string.IsNullOrEmpty(item.CategoryName) == true ? string.Empty : item.CategoryName)</a>
+                            }
+                        </td>
+                        <td class="td grayBorder">
+                            @if(string.IsNullOrEmpty(item.NameLink) == true)
+                            {
+                                <p class="ActivityName">@Html.Raw(string.IsNullOrEmpty(item.Name) == true ? string.Empty : item.Name)</p>
+                            }
+                            else
+                            {
+                                <p class="ActivityName"><a href="@(string.IsNullOrEmpty(item.NameLink) == true? string.Empty: item.NameLink)">@(string.IsNullOrEmpty(item.Name) == true? string.Empty: item.Name)</a></p>
+                            }
+                        </td>
+                        <td class="td grayBorder">
+                            <p>@string.Format("{0:yyyy/MM/dd}", item.StartDate)</p>
+                            <p>@string.Format("{0: HH: mm}", item.StartDate)</p>
+                        </td>
+                        <td class="td grayBorder">
+                            <p>@string.Format("{0:yyyy/MM/dd}", item.EndDate)</p>
+                            <p>@string.Format("{0: HH: mm}", item.EndDate)</p>
+                        </td>
+                        <td class="td grayBorder" style="width:244px;border-right: none;">
+                            <p class="ActivityName">@Html.Raw(string.IsNullOrEmpty(item.Description) == true ? string.Empty : item.Description)</p>
+                        </td>
+                        <td class="td grayBorder" style="width:42px;border-left: none;">
+                            <img class="more" src="~/Themes/img/PromoActive/icon_PromoActiveOut.png" noteValue="@item.Note" onclick="NoteMsg(this)" 
+                                onmouseover="changePictureOver(this, 'icon_PromoActiveOver.png')" 
+                                onmouseout="changePictureOut(this, 'icon_PromoActiveOut.png')"/>
+                        </td>
+        </tr>
+                }
+            }
+    </table>
+    @if (Model != null)
+    {
+        if (Model.showPage != null)
+        {
+            <div class="pagination PageArea">
+                    @if (pageSelect > 1)
+                    {
+                        <span id="srPrev" class="arrow arrLeft prev" onclick="NextPage(@(pageSelect - 1), '@Model.searchFrom')"><</span>
+                    }
+                    @foreach (var itempage in Model.showPage)
+                    {
+                        if (itempage.PageNumberString.IndexOf("...") >= 0)
+                        {
+                            if (itempage.PageNumber == Model.showPage.FirstOrDefault().PageNumber)
+                            {
+                                if (itempage.PageNumber.ToString() == pageSelect.ToString())
+                                {
+                                    <span class="SelectThePage" style="color:#EB8A51" data-pagevalue="@itempage.PageNumberString" onclick="">@itempage.PageNumber</span>
+                                }
+                                else
+                                {
+                                    <span class="GoToPage" data-pagevalue="@itempage.PageNumberString" onclick="NextPage(@itempage.PageNumber, '@Model.searchFrom')">@itempage.PageNumber</span>
+                                }
+                                <span class="default"> ... </span>
+                            }
+                            else
+                            {
+                                if (itempage.PageNumber == Model.showPage.LastOrDefault().PageNumber)
+                                {
+                                    <span class="default"> ... </span>
+                                    if (itempage.PageNumber.ToString() == pageSelect.ToString())
+                                    {
+                                        <span class="SelectThePage" style="color:#EB8A51" data-pagevalue="@itempage.PageNumberString" onclick="">@itempage.PageNumber</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="GoToPage" data-pagevalue="@itempage.PageNumberString" onclick="NextPage(@itempage.PageNumber, '@Model.searchFrom')">@itempage.PageNumber</span>
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (itempage.PageNumber.ToString() == pageSelect.ToString())
+                            {
+                                <span class="SelectThePage" style="color:#EB8A51" data-pagevalue="@itempage.PageNumberString" onclick="">@itempage.PageNumber</span>
+                            }
+                            else
+                            {
+                                <span class="GoToPage" data-pagevalue="@itempage.PageNumberString" onclick="NextPage(@itempage.PageNumber, '@Model.searchFrom')">@itempage.PageNumber</span>
+                            }
+                        }
+                    }
+                    @if (pageSelect < Model.totalPage)
+                    {
+                        <span class="arrow arrRight next" onclick="NextPage(@(pageSelect + 1), '@Model.searchFrom')">></span>
+                    }
+            </div>
+        }
+    }
+    </div>
+    @*權益說明*@
+    <div class="BottomExplanationArea">
+        <p class="Tit Boldtext">會員權益說明</p>
+        <ul>
+            <li class="list">上述相關活動規則，可點選「活動名稱」至該活動網頁查詢，活動清單查詢僅保留至活動結束後7天，中獎名單查詢僅保留至公告結束後45天。</li>        
+            <li class="list">活動贈品發放完成後，將會E-Mail通知您，若您欲查詢發送進度，請點選「<a class="blue UnderLine" href="/MyAccount">我的帳戶</a>&gt;<a class="blue UnderLine" href="/MyAccount/Coupon">我的折價券</a>」中查詢。</li>        
+            <li class="list">若活動贈品屬實體商品者，將於活動結束後二週內進行寄發，得獎者須完整填寫具會員資料，含姓名、電話、地址以確保中獎權益。會員資料請於「<a class="blue UnderLine" href="/MyAccount">我的帳戶</a>&gt;<a class="blue UnderLine" href="/MyAccount/EditPersonInfo">帳戶管理</a>」中進行維護。活動贈品配送需要約2~3個工作天，若您欲查詢 贈品寄送進度，可於寄送日過後3個工作天連絡客服中心查詢。</li>        
+            <li class="list">新蛋全球生活網保留每項活動修改與解釋之權利，其他注意事項請詳見各活動頁及<a class="blue UnderLine" href="/MyAccount">我的帳戶</a>等說明。</li>    
+        </ul>
+    </div>
+</div>
+
+<script>
+    //var PreviousPage;
+
+    $(function () {
+        $("body").append("<div class='LightBoxUnderLay' style='display:none;'></div>\
+            <div class='LightBoxMsg Stlye-1 showOrder'  style='width:700px; height:80%; font-size:18px; z-index:101;'>\
+                <div class='MsgContent'>\
+                    <img src='/Themes/img/img_trans.gif' alt='close' class='closeWindowBtn' />\
+                    <div id='msgNote'></div>\
+                </div>\
+            </div>\
+            <div class='LightBoxMsg DelayWindow ProcessWindow' style='z-index:101;'>\
+                <div class='Remindtxt'>\
+                    <span><img src='/Themes/img/System/ProcessWindow.gif'></span>\
+                </div>\
+            </div>\
+        </div>");
+
+        $(".closeWindowBtn, .LightBoxUnderLay").on("click", function () {
+                $(".LightBoxUnderLay").fadeOut();
+                $(".LightBoxUnderLay , .LightBoxMsg").not('.DelayWindow').fadeOut();
+
+        });
+        var searchFrom = '@(Model == null ? string.Empty : (Model.searchFrom == null ? string.Empty : Model.searchFrom))'
+        if (searchFrom == "Newest") {
+            $("#LatestActivity").prop("class", "Tab SmallBorderTab SmallBorderTabSelected");
+            $("#ComingtoEndActivity").prop("class", "Tab SmallBorderTab");
+        }
+        else if (searchFrom == "SoonFinish") {
+            $("#LatestActivity").prop("class", "Tab SmallBorderTab");
+            $("#ComingtoEndActivity").prop("class", "Tab SmallBorderTab  SmallBorderTabSelected");
+        }
+        
+
+
+        $('.GoToPage').on("click", function () {
+            var OrderBy = $('[name=TabAreaOrderByName].SmallBorderTabSelected').attr('data-OrderByvalue');
+            ChangePageReload(parseInt($(this).attr('data-Pagevalue')), OrderBy);
+        });
+        $('.arrLeft').on("click", function () {
+            ChangePageReload(parseInt($(this).attr('data-Pagevalue')), 0);
+        });
+        $('.arrRight').on("click", function () {
+            ChangePageReload(parseInt($(this).attr('data-Pagevalue')), 0);
+        });
+
+
+        $("div[class='AdBox']").each(function (index, item) {
+                var url = $(item).data("url");
+                if (url && url.length > 0) {
+                    $(item).load(url);
+                }
+            });
+
+    });
+
+    window.onpopstate = function (event) {
+        var query = window.location.search.substring(1);
+        var NewestPara;
+        var pageNumberPara;
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == "activityType") {
+                NewestPara = pair[1];
+            }
+            else if (pair[0] == "pageNumber") {
+                pageNumberPara = pair[1];
+            }
+        }
+        if (NewestPara == undefined) {
+            NewestPara = "Newest";
+        }
+        if (pageNumberPara == undefined) {
+            pageNumberPara = 1;
+        }
+        NextPage(pageNumberPara, NewestPara);
+    }
+    function changePictureOver(obj, picUrl) {
+        obj.src = "../Themes/img/PromoActive/" + picUrl;
+    }
+    function changePictureOut(obj, picUrl) {
+        obj.src = "../Themes/img/PromoActive/" + picUrl;
+    }
+    function NextPage(pageNumber, selectFrom) {
+        history.pushState({ page: "activityList" }, "", "?activityType=" + selectFrom + "&pageNumber=" + pageNumber);
+        $.ajax({
+            url: "/Activity/Index",
+            type: "GET",
+            dataType: "html",
+            data: { "pageNumber": pageNumber, "activityType": selectFrom },
+            success: function (data) {
+                $("#GridDataArea").html(data);
+            },
+            error: function (jqXHR, ajaxOptions, thrownError) {
+                alert("處理錯誤");
+                $(".LightBoxUnderLay").slideDown(600).fadeOut();
+                $("div.LightBoxMsg").hide();
+            },
+            beforeSend: function () {
+                $(".LightBoxUnderLay").slideDown(600).fadeIn();
+                LightBoxCenter("div.LightBoxMsg.DelayWindow.ProcessWindow")
+                $("div.LightBoxMsg.DelayWindow.ProcessWindow").show();
+                //LightBoxCenter("div.LightBoxMsg");
+            },
+            complete: function () {
+                $("div.LightBoxUnderLay").slideDown(600).fadeOut();
+                $("div.LightBoxMsg").hide();
+            }
+        });
+    }
+    function NoteMsg(obj) {
+        $("#msgNote").val("");
+        var NoteContent = obj.getAttribute("noteValue");
+        clickLightBoxCenter(".LightBoxMsg.showOrder");
+        $(".LightBoxMsg.showOrder").css("top", "");
+        $(".LightBoxUnderLay").slideDown(600).fadeIn();
+        var msgNote = $(".showOrder .MsgContent #msgNote");
+        msgNote.html(NoteContent.replace(/\n\r?/g, '<br />'));
+    }
+    function ActivityCondition(obj) {
+        if (obj == "SoonFinish") {
+            window.location.href = '/Activity/Index?activityType=' + obj;
+        }
+        else if (obj == "Newest") {
+            window.location.href = '/Activity/Index?activityType=' + obj;
+        }
+        else {
+        }
+    }
+    </script>

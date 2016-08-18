@@ -1,0 +1,92 @@
+﻿@using System.Linq;
+@using TWNewEgg.ECWeb.Utility
+@model List<TWNewEgg.Models.ViewModels.Category.OptionStoreItemCell_View>
+
+@{
+    int itemCount = 0;
+    int subPageCount = 0;
+    int subPageIndex = (int)(ViewData["Choose-Any-Sub-Index"]);
+    decimal totalAmount = 0;
+    decimal limitAmount = (decimal)(ViewData["Choose-Any-Limit-Amount"]);
+    decimal amountShortage = (decimal)(ViewData["Choose-Any-Limit-Amount"]);
+    if(Model != null && Model.Count > 0)
+    {
+        itemCount = Model.Sum(o => o.PickQty);
+        subPageCount = (Model.Count / 5) + (Model.Count % 5 == 0 ? 0 : 1);
+        totalAmount = Model.Sum(o => o.UnitPrice * o.PickQty);
+        amountShortage = totalAmount > limitAmount ? 0 : limitAmount - totalAmount;
+    }
+    if(ViewData["Choose-Any-Category-Title"] != null){
+    <div class="activityNameTit">@(ViewData["Choose-Any-Category-Title"])</div>
+    }
+<div class="titBar">
+    <div class="ttIcon">任意選<i class="solid"></i></div>
+    <div class="tit">結帳前需消費滿<span class="red lowestPrice">@(limitAmount.ToString("###,###,###,###,###,##0"))</span>元，目前已選購<span class="red num">@(itemCount)</span>件，共計<span class="red totalPrice">@(totalAmount.ToString("###,###,###,###,###,##0"))</span>元<span class="shortText" style="display:@(amountShortage!=0 ? "": "none")">，還差<span class="red shortPrice">@(amountShortage.ToString("###,###,###,###,###,##0"))</span>元</span><span data-short="@(amountShortage)" style="display:@(amountShortage ==0 ? "": "none")" class="rightText">，已符合活動條件</span>。</div>
+    <div class="buyBtn"><input type="button" value="立即結帳" class="btn @(amountShortage > 0 ? "gray" : "")" /></div>
+</div>
+<div class="chooseBox" style="@(itemCount <= 0 ? "display:none;" : "") overflow: hidden;">
+    <a id="prev" class="arrow blueBg prev" style="z-index:655555;">上一頁</a>
+    <ul id="subPageContainer">
+        @for (int i = 0; Model != null && i < Model.Count; i++)
+        {
+        <li class="box" data-choose-item-id="@(Model[i].ItemID)" data-choose-item-unit-price="@(Model[i].UnitPrice.ToString("########"))">
+            @(Html.Partial("Partial_ChooseCell", Model[i]))
+        </li>
+        }
+    </ul>   
+    <a id="next" class="arrow blueBg next" style="z-index:655555;">下一頁</a>
+</div>
+
+@* 清單中沒有商品 *@
+<div class="chooseBox" style="@(itemCount > 0 ? "display:none" : "")">
+    <p class="tipsTxt">選購清單中暫無商品</p>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var chooseItems = 5;
+
+        var runChooseCarousel = function () {
+
+            if ($(document).width() < 1280) {
+                chooseItems = 4;
+            } else {
+                chooseItems = 5;
+            }
+
+
+            $("#subPageContainer").trigger("destroy", true);
+
+            $("#subPageContainer").carouFredSel({
+                circular: true,
+                infinite: false,
+                items: chooseItems,
+                align: "left",
+                prev: "#prev",
+                next: "#next",
+                auto: false,
+                scroll: {
+                    items: 1,
+                    duration: 800
+                }
+                
+            });
+
+        }
+       
+        $(window).resize(function () {
+            runChooseCarousel();
+        });
+
+        runChooseCarousel();
+
+
+        twNewegg.ChooseAny.AcountShortage = parseInt(@(amountShortage));
+
+        $('div.buyBtn input').click(function () {
+            twNewegg.ChooseAny.AddToCart();
+        });
+    });
+</script>
+} 

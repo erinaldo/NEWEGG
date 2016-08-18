@@ -1,0 +1,809 @@
+﻿@model Dictionary<int, object>
+@{
+    ViewBag.Title = "Combi投票留言送好禮";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    TWNewEgg.Models.ViewModels.VotingActivity.VotingActivityGroup objGroup = null;
+    List<TWNewEgg.Models.ViewModels.VotingActivity.VotingActivityItems> listVotingItems = null;
+    int numVotingCount = 0;
+    DateTime dateNow = DateTime.Now;
+    bool boolCanVote = false;
+
+    string strUrl = "http://www.newegg.com.tw/VotingActivity/20151216_brandCombi";
+    //string strUrl = "https://localhost:44302/VotingActivity/Voting20151216";
+
+    if (Model != null)
+    {
+        //Group
+        if (Model.ContainsKey(0) && Model[0] != null)
+        {
+            objGroup = (TWNewEgg.Models.ViewModels.VotingActivity.VotingActivityGroup)Model[0];
+        }
+
+        //List of VotingItems
+        if (Model.ContainsKey(1) && Model[1] != null)
+        {
+            listVotingItems = (List<TWNewEgg.Models.ViewModels.VotingActivity.VotingActivityItems>)Model[1];
+        }
+
+        //CanVote
+        if (Model.ContainsKey(2) && Model[2] != null)
+        {
+            boolCanVote = (bool)Model[2];
+        }
+
+    }
+    else
+    {
+        objGroup = new TWNewEgg.Models.ViewModels.VotingActivity.VotingActivityGroup();
+        objGroup.Id = 0;
+        objGroup.OnlineStatus = 0;
+        objGroup.DisplayStartDate = Convert.ToDateTime("1970/1/1");
+        objGroup.DisplayEndDate = Convert.ToDateTime("1970/1/1");
+    }
+}
+
+@section styleSheets {
+@Styles.Render("~/Themes/css/Act.css")
+@Styles.Render("~/img/Act/20151216_brandCombi/20151216_brandCombi.css")
+}
+
+@section metaTags{
+    <meta property="fb:admins" content="100006308281958" />
+    <meta property="fb:app_id" content="695768887110336"/>
+    <meta property="og:url" content="@strUrl" />
+    <meta property="og:image" content="http://www.newegg.com.tw/img/Act/20151216_brandCombi/fb_share.jpg" />
+    <meta property="og:title" content="Combi投票留言送好禮" />
+    <meta property="og:description" content="Combi投票留言送好禮" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="newegg.com.tw"/>
+}
+
+@section scripts {
+<script src="~/scripts/netw/netw-activity-1.0.0.0.js"></script>
+<script>
+$(function () {
+    if (typeof (netwActivityPage) == 'function') {
+        netwActivityPage();
+    } else {
+        $('body').netwActivityPage('dispose');
+    }
+
+    $("a.links").each(function(){
+      $(this).click(function(){
+        var $target = $(this).attr("class").split(" ").pop().split("link").pop();
+        smoothScroll($target);
+      });
+    });
+
+
+    function smoothScroll(obj) {
+      var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+
+      $body.animate({
+        scrollTop: $('.mainProds'+obj).offset().top
+      }, 1500);
+      return false;
+    }
+
+    $("body").prepend("<div class='eventMask'></div><div class='eventContent'><div class='event_main'></div><a class='eventClose' href='javascript:void(0);'>close</a></div>");
+    $(".eventMask, .eventContent, .eventNotice").hide();
+
+    $(".eventlink").each(function(){
+        $(this).click(function(){
+            var _context = $(this).siblings(".eventNotice").html();
+            $(".event_main").html(_context);
+            $(".eventMask, .eventContent").fadeIn();
+        });
+    });
+
+    $(".eventClose, .eventMask").click(function(){
+        $(".eventMask, .eventContent").fadeOut(function(){
+            $(".event_main").html(" ");
+        });
+    });
+});
+</script>
+}
+
+
+<div class="content">
+    <div class="mainFocus">
+      <div class="focusContent">
+          @*<a class="links taish" href="https://secure.newegg.com.tw/activity/20151201_taishinbank" target="_blank"></a>*@
+          <a class="links link06" href="javascript:void(0);"></a>
+        <div class="linkNavs">
+            <ul>
+                <li><a class="links link01" href="javascript:void(0);"><span>超值商品組合</span></a></li>
+                <li><a class="links link02" href="javascript:void(0);"><span>嬰兒手推車</span></a></li>
+                <li><a class="links link03" href="javascript:void(0);"><span>安全座椅</span></a></li>
+                <li><a class="links link04" href="javascript:void(0);"><span>寶寶背巾</span></a></li>
+                <li><a class="links link05" href="javascript:void(0);"><span>居家用品</span></a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mainProds01">
+        <div class="prods prods01">
+            <div class="tables">
+                <a class="pushProds push01" href="https://secure.newegg.com.tw/item?itemid=489139" target="_blank"></a>
+                <a class="pushProds push02" href="https://secure.newegg.com.tw/item?itemid=506961" target="_blank"></a>
+                <a class="pushProds push03" href="https://secure.newegg.com.tw/item?itemid=507215" target="_blank"></a>
+                <a class="pushProds push04" href="https://secure.newegg.com.tw/item?itemid=506958" target="_blank"></a>
+                <a class="pushProds push05" href="https://secure.newegg.com.tw/item?itemid=506964" target="_blank"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainProds02">
+        <div class="prods prods02">
+            <div class="tables">
+                <div class="cubes longs" style=" top:0px; right:0px; ">
+                    <div class="itemBox" data-itemid="489135">
+                        <a href="{{itemLink}}" target="_blank">
+                            <img src="/img/Act/20151216_brandCombi/prod_longs_01.jpg" alt="">
+                        </a>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style="top:0px; left:0px;">
+                    <div class="itemBox" data-itemid="489123">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:0px; left:260px;">
+                    <div class="itemBox" data-itemid="489133">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 0px; ">
+                    <div class="itemBox" data-itemid="489130">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 260px; ">
+                    <div class="itemBox" data-itemid="489132">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainProds03">
+        <div class="prods prods03">
+            <div class="tables border">
+                <div class="cubes longs" style="top:0px; right:0px;">
+                    <div class="itemBox" data-itemid="489113">
+                        <a href="{{itemLink}}" target="_blank">
+                            <img src="/img/Act/20151216_brandCombi/prod_longs_02.jpg" alt="">
+                        </a>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style="top:0px; left:0px;">
+                    <div class="itemBox" data-itemid="489116">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:0px; left:260px;">
+                    <div class="itemBox" data-itemid="489126">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 0px; ">
+                    <div class="itemBox" data-itemid="489110">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 260px; ">
+                    <div class="itemBox" data-itemid="489112">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainProds04">
+        <div class="prods prods04">
+            <div class="tables">
+                <div class="cubes longs" style=" top:0px; right:0px; ">
+                    <div class="itemBox" data-itemid="501174">
+                        <a href="{{itemLink}}" target="_blank">
+                            <img src="/img/Act/20151216_brandCombi/prod_longs_03.jpg" alt="">
+                        </a>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style="top:0px; left:0px;">
+                    <div class="itemBox" data-itemid="501221">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:0px; left:260px;">
+                    <div class="itemBox" data-itemid="501222">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 0px; ">
+                    <div class="itemBox" data-itemid="489106">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 260px; ">
+                    <div class="itemBox" data-itemid="489105">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainProds05">
+        <div class="prods prods05">
+            <div class="tables">
+                <div class="cubes longs" style="top:0px; right:0px;">
+                    <div class="itemBox" data-itemid="501180">
+                            <a href="http://www.newegg.com.tw/Category/ChooseAny?CategoryID=2269" target="_blank">
+                                <img src="/img/Act/20151216_brandCombi/prod_longs_04.jpg" alt="">
+                            </a>
+                        <div class="txt">
+                            <a href="http://www.newegg.com.tw/Category/ChooseAny?CategoryID=2269" target="_blank">
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style="top:0px; left:0px;">
+                    <div class="itemBox" data-itemid="501203">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:0px; left:260px;">
+                    <div class="itemBox" data-itemid="507220">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 0px; ">
+                    <div class="itemBox" data-itemid="501226">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cubes small" style=" top:405px; left: 260px; ">
+                    <div class="itemBox" data-itemid="501224">
+                        <div class="pic">
+                            <a href="{{itemLink}}" target="_blank">
+                                <img src="{{itemImgUrl_1_300}}" alt="{{itemName_50}}" >
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <a href="{{itemLink}}" target="_blank">
+                                <p class="SubTitle">{{itemSubTitle}}</p>
+                                <h3>{{itemName_50}}</h3>
+                                {{itemMarketPrice}}
+                                {{itemPrice}}
+                            </a>
+                            {{itemAddToSC}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainProds06">
+        <div class="prods prods06">
+            <div class="tables">
+                <a class="eventlink event01" href="javascript:void(0);"></a>
+                <div class="eventNotice">
+                    <h2>「投票選禮，驚喜抽獎」活動詳情：</h2>
+                    <ol>
+                        <li>活動期間，參加「<span style="font-weight:bold;">投票選禮，驚喜抽獎</span>」活動，就有機會抽中以下任一獎項：<br/>
+                            <p>
+                                ● 濕紙巾保溫器 LED(市價1980元，共抽2名) <br/>
+                                ● SF3腰帶型減壓背巾(市價4300元共，抽1名) <br/>
+                                ● 舒敏乳液(市價790元，共抽5名) <br/>
+                                ● 電動磨甲機(市價1980元，共抽2名) <br/>
+                                ● 新蛋全球生活網300元折價券 (15名)
+                            </p>
+                        </li>
+                        <li>每帳號每天限投1票，活動結束後於2016/1/7前公布25位幸運得獎者。</li>
+                        <li>中獎者須於2016/1/18前回覆確認資料，逾期視同放棄中獎資格。獎項將於2016/1/18起陸續寄出，收到回覆資料後約五個工作天內配達。</li>
+                        <li>上述折價券使用期限至2016/1/31。使用規則請參見本頁下方<span style="font-weight:bold;">「折價券使用規範」</span>。</li>
+                        <li>本活動限主辦單位註冊之會員方可參加，參加者暨得獎者皆須完整填具會員資料含姓名、電話、地址以確保獲獎權益。會員資料請於<span style="font-weight:bold;">「我的帳戶」>「帳戶管理_個人資料修改」中進行維護。</span>。</li>
+                    </ol>
+                </div>
+
+                <div class="fbVote">
+                    <ul>
+                        @if (listVotingItems != null && listVotingItems.Count > 0)
+                        {
+                            foreach (TWNewEgg.Models.ViewModels.VotingActivity.VotingActivityItems objVotingItem in listVotingItems)
+                            {
+                                <li>
+                                    @Html.Raw("<div class='pic'><img src='/img/Act/20151216_brandCombi/voteProd_" + @objVotingItem.ItemId.ToString().PadLeft(2, '0') + ".jpg'></div>")
+
+                                @if (objVotingItem.VotingStartDate <= DateTime.Now)
+                                {
+                                    numVotingCount = objVotingItem.InitVoting + objVotingItem.SystemVoting + objVotingItem.RealVoting;
+                                    @Html.Raw("<p id='VoteItemCount_" + @objVotingItem.ItemId.ToString() + "'>目前票數：<span>" + @numVotingCount.ToString() + "</span></p>")
+
+                                    if(objVotingItem.VotingEndDate < DateTime.Now)
+                                    {
+                                        //已過投票時間, 不顯示投票按鈕
+                                    }
+                                    else if (!boolCanVote)
+                                    {
+                                        //未過投票時間, 但已投過票
+                                        <a class="noActive VotingBtn" href="javascript:void(0);">@*已投過票*@我要投票</a>
+                                    }
+                                    else
+                                    {
+                                        //未過投票時間, 也尚未投票
+                                        <a class="VotingBtn" href="javascript:void(0);" voteid="@objVotingItem.ItemId.ToString()">我要投票</a>
+                                    }
+                                }
+                                else
+                                {
+                                    //未到投票時間, 顯示票數, 但不顯示投票按鈕
+                                    numVotingCount = 0;
+                                    @Html.Raw("<p id='VoteItemCount_" + @objVotingItem.ItemId.ToString() + "'>目前票數：<span>0</span></p>")
+                                }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="mainProds07">
+        <div class="prods prods07">
+            <div class="tables">
+                <a class="eventlink event02" href="javascript:void(0);"></a>
+                <div class="eventNotice">
+                    <h2>「分享喜悅，抽折價券」活動詳情：</h2>
+                    <ol>
+                        <li>活動期間，於本活動頁下方以Facebook帳號留言<span style="font-weight:bold;">「分享成長的感動」</span>(須設公開權限)並Tag 2位(含)以上的朋友，即有機會獲得新蛋全球生活網300元折價券(共抽出5名，2016/1/7前公布得獎名單)。</li>
+                        <li>中獎者須於2016/1/18前回覆確認資料並加入新蛋會員，逾期視同放棄中獎資格。獎項將於收到回覆資料後，3天內自動寄至得獎者的新蛋會員帳戶。</li>
+                        <li>上述折價券使用期限至2016/1/31。使用規則請參見本頁下方<span style="font-weight:bold;">「折價券使用規範」</span>。</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mainProds08">
+        <div class="prods prods08">
+            <div class="tables">
+                <div class="fbCommentBox" id="FBMsg" name="FBMsg">
+                    <div id="fb-root"></div>
+                    @if(objGroup != null && objGroup.VotingStartDate <= DateTime.Now && objGroup.VotingEndDate >= DateTime.Now)
+                    {
+                        //時間到才顯示FB的視窗
+                        <div class="fb-comments" data-href="@strUrl" data-width="800" data-numposts="3"></div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mainProds09">
+        <div class="prods prods09">
+            <div class="tables">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="notice">
+      <div class="noticeWrap">
+        <h2>「投票留言送好禮」活動注意事項：</h2>
+        <ol>
+            <li>參加者若有資格不符則取消中獎資格，得獎名單恕不遞補。</li>
+            <li>為公平起見，新蛋集團之員工暨配偶與直系親屬、家屬皆不得參加本活動，如有違反情事，將取消其得獎資格。</li>
+            <li>消費者於參加本活動之同時，即同意接受本活動之活動辦法與注意事項之規範，如有違反，主辦單位得取消其參加及得獎資格，並得就因此所產生之損害，向參加者請求損害賠償。</li>
+            <li>主辦單位將會向您索取個人資料(包括但不限於姓名、身分證字號、電話、地址與e-mail)，參加者同意提供之個人資料僅做為獎項寄送與開立(免)扣繳憑證之用。</li>
+            <li>參加本活動之參加者就所提供之個人資料，依個人資料保護法規定得行使查獲請求閱覽、請求製給複製本、請求補充或更正、停止蒐集、處理或利用以及請求刪除之權利。惟依法主辦單位因執行業務所必須者，得不依參加者請求為之。故參加者若在活動期間請求刪除個資，請詳述所要停止或刪除的個人資料，並說明您與主辦單位所締結的服務，以便依此要求妥善處理您的個資，避免不必要的延誤，資料刪除後您同時喪失參與活動與中獎的資格。</li>
+            <li>本活動僅限居住於台灣本島之中華民國國民參加，獎項寄送地址限於台灣本島。</li>
+            <li>本活動如有任何因為電腦、網路、電話或其他不可歸責於主辦單位之事由，造成系統誤送活動訊息或中獎通知，或者使參加人或中獎人所寄出或登錄之資料有延遲、遺失、錯誤、無法辨識或毀損之情況，主辦單位不負任何法律責任，參加者亦不得因此異議。</li>
+            <li>本活動如因不可抗力之特殊原因無法執行時，主辦單位有權決定取消、終止、修改或暫停本活動。</li>
+            <li>主辦單位有權檢視各活動參加者之活動參與行為及中獎情形是否涉及不法行為，如人為操縱活動抽獎結果、短時間內異常多筆註冊行為、透過任何電腦程式參與活動或以任何不正當的方式影響活動結果，活動參加者若因上述或其他不法行為所獲得之活動資格與獎項，主辦單位保有取消得獎資格的權利，並保留法律追訴權。</li>
+            <li>主辦單位保有修改或變更活動方式及更換活動獎項之權利，其他變更內容與注意事項請以本活動頁為準，若有異動及修改，將在本網站上公布，恕不另行個別通知。其他注意事項請詳見各活動頁及會員中心等說明。</li>
+        </ol>
+
+        <h2>兌獎須知：</h2>
+        <ol>
+            <li>本活動結束後所進行之抽獎作業，會依照活動得獎公告時間，將得獎名單公布於該活動網頁，並以電子郵件專函通知(內附同意領獎回條及相關資料)，及電話通知確認身分，告知領獎方式。收到通知函後須填妥於同意領獎回條，並於2016/1/18前寄送回函(以郵戳為憑)，若超時未收到回函者將視同放棄領獎資格，得獎名單恕不遞補。</li>
+            <li>所有獎項之聯絡及寄送以得獎者於註冊會員時填寫之資料為準，參加者請務必確認資料填寫正確。若因資料填寫不實、不完整或不正確，導致無法聯繫通知或無法寄送或寄送錯誤，則視同放棄權益並應自負其責，將不補發或重寄，主辦單位將不另行通知。如經發現偽造資料取消抽獎資格。</li>
+            <li>本活動獎項以公佈於本網站上的資料為準，且以實物為準，得獎者不得要求 將獎項折換現金、退換、轉售、交換等值商品。</li>
+            <li>獎品、商品顏色因電腦螢幕之設定會略有不同，以實際出貨商品顏色為準。本活動之贈品如因不可抗力之因素無法提供時，主辦單位保留有權更換其他等值獎項之權利。</li>
+            <li>得獎者於領獎時，另須檢附身分證影本以傳真或郵寄方式提供給主辦單位，以利兌獎手續。相關獎項兌贈使用方式請詳閱使用說明。獎項將直接寄送給得獎者，簽收即代表完成贈獎手續。</li>
+            <li>依中華民國稅法所規定，抽中獎項價值於1,001元至20,000元者免扣繳機會中獎所得稅，主辦單位將依法於<span style="font-weight:bold;">2016年2月10日</span>前將扣繳憑單寄發給得獎者以利申報。</li>
+            <li>依各類所得扣繳率標準之規定，中獎獎品價值超過20,000元(含)，其中獎者若為我國境內居住之個人或在我國境內有固定營業場所之營利事業，應扣繳10%機會中獎稅及繳交身分證影本。非我國境內居住之個人或在我國境內無固定營業場所之營利事業，中獎獎品價值應扣繳20%稅額。若得獎人須先扣繳稅額而不願繳納稅款者，視為放棄得獎資格。若有其他未盡事宜悉依稅法相關規定。</li>
+        </ol>
+
+        <h2>折價券使用規範：</h2>
+        <ol>
+            <li>300元折價券為面額300*1張，購買商品之單價須滿2,000元(含)以上方可折抵、限單次全數使用完畢，每件商品限使用一張折價券。</li>
+            <li>本折價券使用期限至2016/1/31止。</li>
+            <li>折價券僅限註冊會員，依<span style="font-weight:bold">「折價券使用說明」</span>於有效期限內（逾期失效，恕不補發），在新蛋全球生活網消費時使用，恕無法轉讓或合併，部分活動或商品無法折抵使用，亦無法折換現金、找零或交換其他商品及折換其他贈品，且無法抵扣物流、安裝、服務、稅賦等費用。</li>
+            <li>折價券之使用方式與注意事項，請參閱<span style="font-weight:bold;">「我的帳戶>折價券>折價券使用說明」</span>。專案活動及優惠方案（如其他折扣、滿額折、折價券）不可合併使用，會員若同時擁有兩種優惠，只能擇一進行折抵。（如該活動已有滿額折，則折價券無法使用），若使用折價券後取消訂單或退貨，恕不回補折價券。</li>
+            <li>折價券折抵部分不再另外開立發票，開立發票金額以該訂單「實際支付金額」計算。</li>
+        </ol>
+
+        <hr/>
+        <h2>注意事項與規則：</h2>
+        <ol>
+            <li><span style="font-weight:bold;">本活動頁商品恕不參加全站滿額折活動，亦不接受使用折價券。</span></li>
+            <li>商品顏色因電腦螢幕之設定會略有不同，以實際出貨商品顏色為準。</li>
+            <li>商品數量有限，售完為止。</li>
+            <li>新蛋全球生活網將保留隨時變更、修改與解釋或終止本「折價券使用辦法」之權利，若有異動及修改，將在本網站上公布，恕不另行個別通知。</li>
+            <li>若您有任何疑問，歡迎<a href="mailto:service@newegg.com.tw" target="_self">來信</a>，我們將於1～2日內（不含例假日）以E-mail回覆您，或請於上班時間（8:30～17:30）來電（02-8170-6025）。</li>
+        </ol>
+      </div>
+    </div>
+</div>
+
+
+@section refScripts {
+    <script>
+        /* ---- Show Lightbox ---- */
+        function ShowMsg(){
+            $('.LightBoxUnderLay').show();
+            $('.Stlye-2').css('display', 'block');
+        }
+        function clseLightbox() {
+            $('.Stlye-2').css('display', 'none');
+            $('.LightBoxUnderLay').css('display', 'none');
+        }
+    </script>
+    <script type="text/javascript">
+
+        var activity = "activity";
+        var value = "voting20151216";
+        var setCookies = function (key, value, expire, path, domain) {
+            jQuery.cookie(key, value, {
+                expires: expire,
+                path: path,
+                domain: domain
+            });
+        };
+        setCookies(activity, value, 1, "/", twNewegg().twNeweggDomain);
+    </script>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4&appId=695768887110336";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <script>
+        $(document).ready(function ()
+        {
+            $("#IWantLeaveMsg").on("click", function () { CheckLogin(); });
+            $("#btn_JoinUs").on("click", function () { window.location = "/MyAccount/Signup?ReturnUrl=/VotingActivity/20151216_brandCombi"; });
+            $("a.VotingBtn").on("click", function () { Voting(this); });
+            iniFun();
+        });
+        function iniFun() {
+            $("a.noActive.VotingBtn").on("click", function () { alert("你已經投過票!"); });
+
+        }
+        //function noActive(obj) {
+        //    if (obj == "First") {
+        //    }
+        //    else {
+        //        alert("你已經投過票");
+        //    }
+        //}
+
+        /* ------ 確認登入 ------ */
+        function CheckLogin()
+        {
+            twNewegg().checkNGO(function (auchk)
+            {
+                if (auchk)
+                {
+                    return true;
+                }
+                else
+                {
+                    window.location = "/MyAccount/Login?ReturnUrl=/VotingActivity/20151216_brandCombi";
+                }
+            }, []);
+        }
+
+        /* ------ Voting ------ */
+        function Voting(argBtn)
+        {
+            console.log("1");
+            var numItemId = 0;
+            var numGroupId = '@objGroup.Id';
+            var strValue = "";
+            var numVote = "0";
+            
+            twNewegg().checkNGO(function (auchk)
+            {
+                if (!auchk)
+                {
+                    window.location = "/MyAccount/Login?ReturnUrl=/VotingActivity/20151216_brandCombi";
+                }
+                else
+                {
+                    numItemId = $(argBtn).attr("voteid");
+                    if(!$.isNumeric(numItemId))
+                    {
+                        return;
+                    }
+
+                    strValue = "GroupId=" + numGroupId + "&ItemId=" + numItemId + "&AccountId=&AccountSource=&AccountEmail=";
+                    $.ajax({
+                        url: "/api/VotingActivity/Voting?" + strValue,
+                        type: "POST",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("Authorization", "Basic " + jQuery.cookie("neui"));
+                        },
+                        dataType : "html",
+                        error: function(xhr){
+                            alert("投票過程網路中斷,請稍後再試");
+                        },
+                        success: function(response){
+                            if(response.indexOf("成功") >= 0)
+                            {
+                                //更新票數
+                                numVote = parseInt($("#VoteItemCount_" + numItemId + " span").html());;
+                                if($.isNumeric(numVote))
+                                {
+                                    numVote ++;
+                                    $("#VoteItemCount_" + numItemId + " span").html(numVote);
+                                }
+
+                                //將Voting功能取消
+                                $("a.VotingBtn").addClass("noActive").html("我要投票").unbind("click");
+                                iniFun();
+                            }
+                            
+                            alert(response);
+                        }
+                    });
+                }
+            }, []);
+        }
+
+    </script>
+}

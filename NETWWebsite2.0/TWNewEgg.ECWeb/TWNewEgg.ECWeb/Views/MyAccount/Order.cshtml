@@ -1,0 +1,384 @@
+﻿@using TWNewEgg.DB.TWSQLDB.Models
+@using TWNewEgg.Website.ECWeb.Models
+@model TWNewEgg.Models.ViewModels.MyAccount.OrderHistory
+
+@{
+    Model.SalceOrderList = Model.SalceOrderList.OrderByDescending(x => x.Code).ToList();
+    TWNewEgg.Models.ViewModels.Cart.ItemGroup_View ItemGroup_View = ViewBag.ItemGroup_View;
+    List<TWNewEgg.Models.ViewModels.Page.ShowPage> ShowPageList = ViewBag.Calcular;
+    ViewBag.Title = "訂單狀態" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styleSheets {
+    @Styles.Render("~/content/css/ElementLibrary")
+    @Styles.Render("~/content/css/ElementLibrary_Layout")
+    @Styles.Render("~/content/css/MyAccount")
+}
+@section scripts {
+
+    @Scripts.Render("~/Scripts/TWEC/WebEffect.js")
+    <script>
+        /*給子選單滑出滑入用的jquery*/
+        TabSelectArea();
+        /*彈跳視窗自動偵測位置*/
+        //LightBoxCenter();
+    </script>
+}
+<script>
+    $(function () {
+        $(".closeWindowBtn").on("click", function () {
+            $(".LightBoxUnderLay").fadeOut();
+            //$(".LightBoxUnderLay .showOrder").fadeOut();
+            $(".LightBoxUnderLay .LightBoxMsg").not('.DelayWindow').fadeOut();
+            //console.log($(".LightBoxUnderLay .LightBoxMsg").not('.DelayWindow').length);
+        });
+
+        $('[name=TabAreaOrderByName]').on("click", function () {
+            var OrderBy = $(this).attr('data-OrderByvalue');
+            ChangePageReload(parseInt($("#PageArea").attr('data-Pagevalue')), OrderBy);
+        });
+
+        //$('.GoToPage').on("click", function () {
+        //    //alert("ccc");
+        //    var OrderBy = $('[name=TabAreaOrderByName].SmallBorderTabSelected').attr('data-OrderByvalue');
+        //    ChangePageReload(parseInt($(this).attr('data-Pagevalue')), OrderBy);
+        //});
+        
+    });
+
+    function ChangePageReload(ViewPageTemp, OrderBytemp) {
+        $("div.LightBoxUnderLay").slideDown(888).fadeIn();
+        $("div.LightBoxMsg.DelayWindow").fadeIn();
+        LightBoxCenter("div.LightBoxMsg.DelayWindow");
+        var TypeName = $('[name=grayBorderName]').attr('data-TypeNamevalue');
+        var ViewPage = ViewPageTemp;
+        var PageNumber = 10;
+        var OrderBy = OrderBytemp;
+        $.ajax({
+            cache: false,
+            url: "/MyAccount/NextOrderDetail",
+            type: "GET",
+            //dataType: "JSON",
+            data: {
+                "stringGetDetil": JSON.stringify({
+                    "TypeName": TypeName,
+                    "ViewPage": ViewPage,
+                    "PageNumber": PageNumber,
+                    "OrderBy": OrderBy
+                }),
+                "start": 0,
+                "length": 0
+            },
+            success: function (data) {
+                //$("#PartailAccount").html("");
+                $(".AccountArea .serviceContentArea").html(data);
+                //console.log(data);
+            },
+            error: function (jqXHR, ajaxOptions, thrownError) {
+                //$("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+                //LightBoxMsgAllHide();
+                if (jqXHR.status === 0) {
+                    alert('Not connect.\n Verify Network.');
+                } else if (jqXHR.status == 404) {
+                    alert('Requested page not found. [404]');
+                } else if (jqXHR.status == 500) {
+                    alert('Internal Server Error [500].');
+                } else {
+                    alert('Uncaught Error.\n' + thrownError);
+                }
+            },
+            complete: function (data) {
+                $('html,body').animate({
+                    scrollTop: 200
+                }, 500);
+
+                $("div.LightBoxUnderLay").slideUp(888).fadeOut("slow");
+                $("div.LightBoxMsg").hide();
+            }
+        });
+        //$.ajax({
+        //    cache: false,
+        //    url: "/Cart/NextWishCartListMenu",
+        //    type: "GET",
+        //    dataType: "JSON",
+        //    data: { "TypeName": TypeName, "ViewPage": ViewPage, "PageNumber": PageNumber, "OrderBy": OrderBy },
+        //    success: function (data) {
+        //        $('#WishCartList').css("display", "none");
+        //        $('#WishCartList').html(data);
+        //        $('#WishCartList').slideDown(888).fadeIn("slow");
+        //        $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+        //        InitializationScript();
+        //    },
+        //    error: function () {
+        //        $("div.LightBoxUnderLay").delay(888).slideDown(888).fadeOut();
+        //        LightBoxMsgAllHide();
+        //    }
+        //});
+    }
+
+    function GetDetail(obj) {
+        var CartID = $(obj).attr("CartID");
+        //$("td[colspan='9']").each(function () { $(this).css("display", "none"); })
+        clickLightBoxCenter(".LightBoxMsg.showOrder");
+
+        var msgDetail = $('.LightBoxMsg.showOrder .MsgContent #msgDetail');
+        msgDetail.html('訂單明細載入中…')
+
+        $.ajax({
+            type: "POST",
+            url: "/MyAccount/GetDetail",
+            type: "GET",
+            dataType: "JSON",
+            data: { "SOCode": CartID },
+            success: function (data) {
+                /*                
+                var DCartID = "div [Detil='" + CartID + "']";
+                var DCartIDtd = "div [Detiltd='" + CartID + "']";
+
+                $(DCartID).html();
+                //$(DCartID).css("display", "none");
+                $(DCartID).html(data);
+
+                $(DCartID).parent().removeAttr("style");
+                //$('#myOrderArea3').fadeIn("slow");
+                // InitializationScript();
+                */
+
+                msgDetail.html(data);
+                //msgContent.fadeIn("slow");
+            }
+        });
+    }
+    //function GetAskDetail(obj)
+    //{
+    //var CartID = $(obj).attr("RefundCartID");
+    //$.ajax({
+    //    type: "POST",
+    //    url: "/MyAccount/AskQuestion",
+    //    type: "GET",
+    //    dataType: "JSON",
+    //    data: { "SOCode": CartID },
+    //    success: function (data) {
+
+
+    //        $('#myOrderArea2').html(data);
+    //        $('#myOrderArea2').fadeIn("slow");
+    //        // InitializationScript();
+    //    }
+    //});
+    //window.open("/MyAccount/AskQuestion?SOCode=" + CartID);
+    //}
+
+    /* 我要退貨 */
+    function GetReturnDetail(obj) {
+        var CartID = $(obj).attr("ReturnCartID");
+        var divArea = $('#myOrderArea3_' + CartID);
+
+        //關閒其它slideDialog
+        var divs = $('td[id^=myOrderArea]').not(divArea);
+        divs.html('').hide();
+        
+        $.ajax({
+            type: "POST",
+            url: "/MyAccount/GetReturnDetail",
+            type: "GET",
+            dataType: "JSON",
+            data: { "SOCode": CartID },
+            success: function (data) {
+                
+                divArea.css("display", "none");
+                divArea.html(data);
+                divArea.fadeIn("slow");
+
+                // InitializationScript();
+                divArea.find('#return_reasonval').eq(0).focus();
+            }
+        });
+    }
+    function GetAskDetails(obj) {
+
+        $.ajax({
+            type: "POST",
+            url: "/MyAccount/AskQuestionPartial",
+            type: "GET",
+            dataType: "JSON",
+            data: { "SOCode": CartID },
+            success: function (data) {
+
+                //$('#myOrderArea2').css("display", "none");
+                $('#myOrderArea2').html(data);
+                $('#myOrderArea2').fadeIn("slow");
+                // InitializationScript();
+            }
+        });
+    }
+
+    function GetRecord(obj) {
+        var CartID = $(obj).attr("AskCartID");
+        window.open("/MyAccount/QuestionRecord?Mouth=3&&Salceorder=" + CartID);
+    }
+    function GetAskDetail(obj) {
+        var CartID = $(obj).attr("AskCartID");
+
+        window.open("/MyAccount/AskQuestion?SalesOrderCode=" + CartID);
+    }
+
+    /* 我要取消 */
+    function GetRefundDetail(obj) {
+        var CartID = $(obj).attr("RefundCartID");
+        
+        var divArea = $('#myOrderArea2_' + CartID);
+
+        //關閒其它slideDialog
+        var divs = $('td[id^=myOrderArea]').not(divArea);
+        divs.html('').hide();
+
+        $.ajax({
+            type: "POST",
+            url: "/MyAccount/GetRefundDetail",
+            type: "GET",
+            dataType: "JSON",
+            data: { "SOCode": CartID },
+            success: function (data) {
+              
+                //divArea.css("display", "none");
+                divArea.html(data);
+                divArea.fadeIn("slow");
+
+                divArea.find('#return_reasonval').eq(0).focus();
+            }
+        });
+    }
+
+    /* 發票內容 */
+    function GetOrderInvoice(CartID) {
+        //var CartID = $(obj).attr("CartID");
+
+        clickLightBoxCenter(".LightBoxMsg.showInvoice");
+
+        var msgInvoice = $('.LightBoxMsg.showInvoice .MsgContent #MsgInvoice');
+
+        msgInvoice.html('發票內容載入中…')
+
+        $.ajax({
+            type: "POST",
+            url: "/MyAccount/GetOrderInvoice",
+            dataType: "JSON",
+            data: { "SOCode": CartID },
+            success: function (data) {
+                msgInvoice.html(data);
+            },
+            error: function (jqXHR, ajaxOptions, thrownError) {
+                if (jqXHR.status === 0) {
+                    alert('Not connect.\n Verify Network.');
+                } else if (jqXHR.status == 404) {
+                    alert('Requested page not found. [404]');
+                } else if (jqXHR.status == 500) {
+                    alert('Internal Server Error [500].');
+                } else {
+                    alert('Uncaught Error.\n' + thrownError);
+                }
+            },
+            complete: function (data) {
+                //$('html,body').animate({
+                //    scrollTop: 200
+                //}, 500);
+            }
+        });
+    }
+
+    function GetChageDetail(obj) {
+
+        var CartID = $(obj).attr("ChageCartID");
+        window.open("/MyAccount/AskQuestion?SalesOrderCode=" + CartID + "&rtgood=true");
+    }
+    function GetFixDetail(obj) {
+
+        var CartID = $(obj).attr("FixCartID");
+        window.open("/MyAccount/AskQuestion?SalesOrderCode=" + CartID + "&rtgood=true");
+    }
+    function closeSlideDialog(item) {
+        //$(obj).parents('td').eq(0).html('');
+        var oDiv = $(item);
+        oDiv.parents('td').eq(0).hide();
+    }
+    function closePopDialog() {
+        $(".LightBoxUnderLay").fadeOut();
+        //$(".LightBoxUnderLay .showOrder").fadeOut();
+        $(".LightBoxUnderLay .LightBoxMsg").not('.DelayWindow').fadeOut();
+        //console.log($(".LightBoxUnderLay .LightBoxMsg").not('.DelayWindow').length);
+    }
+</script>
+
+<div class="pathLink">
+    <a href="/">首頁</a> >
+    <a href="/MyAccount">我的帳戶</a> >
+    <a href="/MyAccount/Order">我的訂單</a> >
+    <span>訂單狀態</span>
+</div>
+
+<div class="TopExplanationArea"></div>
+<!--<div id="PartailAccount" ></div>-->
+@{
+    <div class="AccountArea">
+        <div class="TabArea Border grayBorder">
+            <ul>
+                <li class="Tab BorderTab" id="WishList"><a href="/Cart/WishCart"><i class="icon ServiceIcon WishList"></i>我的最愛清單</a></li>
+                @*<li class="Tab BorderTab" id="ShoppingCash"><a href="/MyAccount/NeweggCash"><i class="icon ServiceIcon ShoppingCash"></i>我的回饋金</a></li>*@
+                <li class="Tab BorderTab" id="Coupons"><a href="/MyAccount/Coupon"><i class="icon ServiceIcon Coupons"></i>我的折價券</a></li>
+                <li class="Tab BorderTab TabSelected" id="Order" onclick="TabOpenClose()">
+                    <a href="/MyAccount/Order"><i class="icon ServiceIcon Order"></i>我的訂單<i class="icon"></i></a>
+                    <ul class="SubMenu">
+                        @*<li><a href="/MyAccount/Order">訂單狀態</a></li>*@
+                        @*<li><a href="/MyAccount/Invoice">發票查詢</a></li>*@
+                    </ul>
+                </li>
+                <li class="Tab BorderTab" id="Account">
+                    <a href="/MyAccount"><i class="icon ServiceIcon Account"></i>帳戶管理<i class="icon Up"></i></a>
+                    <ul class="SubMenu">
+                        <li><a href="/MyAccount/EditPersonInfo">個人資料修改</a></li>
+                        <li><a href="/MyAccount/EditPassword">密碼修改</a></li>
+                        @*<li><a href="/MyAccount/AddressBook">紀錄本修改</a></li>*@
+                        <li><a href="#" onclick="GetAskDetails(this);">問答中心</a></li>
+                        <li><a href="/MyAccount/EditAccount">帳號修改</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="serviceContentArea">
+            @Html.Partial("Partial_Order")            
+        </div>
+        <div class="orderTipsArea">
+                <ul>
+                    <li>在確認付款且有庫存，一般商品將於您付款成功後7個工作天左右送達；美國新蛋直購商品於您付款成功後9~14個工作天左右送達。若有不可抗力之因素延長送貨時間，我們將儘速與您通知。</li>
+                    <li>查詢訂單詳情 (如商品明細 /付款資料等) ，請點選該筆商品的訂單明細進行查詢。</li>
+                    <li>建議您可先參考維修/換貨/退貨/取消相關辦法後，再點選維修/退貨/換貨/取消等服務。</li>
+                    <li>發票將在付款完成、出貨後開立，將會email通知您，更多詳情可參考「<a href="/Service/AboutShopping">電子發票流程說明</a>」。</li>
+                    <li>若有任何訂單問題請至<a href="/MyAccount/AskQuestion" target="_blank">問答中心</a>詢問，我們將盡速回覆您的問題。</li>
+                </ul>
+            </div>
+    </div>    
+}
+
+ <div class="LightBoxUnderLay" style="display:none;">
+    @*處理中*@
+    <div class="LightBoxMsg DelayWindow ProcessWindow">
+        <div class="Remindtxt">
+            <span id=""><img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+     </div>
+    @*發票*@
+    <div class="LightBoxMsg Stlye-1 showInvoice">
+        <div class="MsgContent">
+            <div id="MsgInvoice"></div>
+        </div>
+    </div>
+    @*明細*@
+    <div class="LightBoxMsg Stlye-1 showOrder">
+        <div class="MsgContent">
+            <img src="/Themes/img/img_trans.gif" alt="close" class="closeWindowBtn" />
+            <!--<div Detil="SOGroup.Code">ID</div>-->
+            <div id="msgDetail"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,139 @@
+﻿@model TWNewEgg.Models.ViewModels.Cart.CartResults_View
+@using TWNewEgg.Models.ViewModels.Cart;
+@{  
+    ViewBag.Title = "付款結果-新蛋全球生活網";
+    var SalesOrder_ViewList = Model.SalesOrder_ViewList;
+    var CartPayType_View = Model.CartPayType_View;
+    var SalesOrder_ViewListFirst = Model.SalesOrder_ViewList.FirstOrDefault();
+    List<TWNewEgg.Models.ViewModels.Cart.SalesOrderItem_View> foriprospectItems = new List<TWNewEgg.Models.ViewModels.Cart.SalesOrderItem_View>();
+    string itemJSString = "";
+    for (int i = 0; i < Model.SalesOrder_ViewList.Count; i++)
+    {
+        SalesOrder_View so = Model.SalesOrder_ViewList[i];
+        foriprospectItems.AddRange(so.SalesOrderItem_ViewList);
+        itemJSString += "{" +
+            "\"sku\": \"" + so.SalesOrderItem_ViewList[0].ItemID + "\"," +
+            "\"name\": \"" + so.SalesOrderItem_ViewList[0].Name + "\"," +
+            "\"price\": " + so.SalesOrderItem_ViewList[0].Price + "," +
+            "\"quantity\":" + so.SalesOrderItem_ViewList[0].Qty +
+        "}";
+        if (i != Model.SalesOrder_ViewList.Count - 1) { itemJSString += ","; }
+    }
+    
+}
+
+@Styles.Render("~/content/css/ElementLibrary_Layout")
+@Styles.Render("~/content/css/ShoppingProcess")
+@Styles.Render("~/content/css/ElementLibrary")
+@Styles.Render("~/content/css/ShoppingCart")
+
+<div class="ShoppingProcess darkGray" style="width: 1004px; margin: 0 auto;">
+    @* 購物車內容 *@
+    @{ Html.RenderPartial("Partial_CartDetail", Model); }
+
+    @* 如果是實體ATM付款 *@
+    @*@if (Model.CartPayType_View.ID == (int)TWNewEgg.Models.ViewModels.Cart.CartPayTypeGroupenum.實體ATM)
+    {
+        Html.RenderPartial("Partial_ATMPaymentInfo", Model);
+    }*@
+    
+    @* 收件人資訊 *@
+    @{ Html.RenderPartial("Partial_RecvInfo", Model); }
+    @if (Model.OtherCartNumber != 0)
+    {
+        <div class="NoCheckout">
+            <div class="RedText">
+                <span>尚有</span>
+                <span>@(Model.OtherCartNumber)</span>
+                <span>個購物車尚未結帳</span>
+            </div>
+        </div>
+    }
+    <div class="BottomButton">
+        <label>
+            <input name="" type="button" value="〈&nbsp;回首頁繼續購物" id="BackToHomeBtn" class="ContinueBtn BluBgBtn" onclick="BackToHomeBtn()">
+        </label>
+        <label>
+            <input name="" type="button" value="回購物車結帳〉" id="BackToCartBtn" class="CheckoutBtn OrgBgBtn" style="@if (Model.OtherCartNumber == 0){@("display:none");}" @if (Model.OtherCartNumber == 0){@("disabled");} onclick="BackToCartBtn()">
+        </label>
+    </div>
+</div>
+<div class="LightBoxUnderLay" style="display: none;">
+    <div class="LightBoxMsg DelayWindow ProcessWindow">
+        <div class="Remindtxt">
+            <span id="">
+                <img src="/Themes/img/System/ProcessWindow.gif"></span>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            jQuery("html,body").animate({ scrollTop: 0 }, 500);
+            twNewegg().cart().cartMethod("readFromCart", { categoryIds: [], categoryTypes: [], successMethods: [countCartNumber], successParas: [[]] });
+        });
+        function BackToHomeBtn() {
+            $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+            //LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            window.location.href = "/";
+        };
+
+        function BackToCartBtn() {
+            $("div.LightBoxUnderLay").slideDown(600).fadeIn();
+            //LightBoxCenter("div.LightBoxMsg.DelayWindow");
+            window.location.href = "/Cart";
+        };
+        
+    </script>
+}
+@section bodyStartScript{
+    <script>
+        dataLayer = [{
+                'transactionId': "@Model.SalesOrderGroup_View.ID",
+                'transactionTotal': "@Model.NeedPayMoneyPriceSum",
+                'transactionProducts': [@Html.Raw(itemJSString)]
+        }];
+    </script>
+}
+@*iprospect feeds start*@
+
+<script>
+    dataLayer.push({
+        'event':'purchase',
+        'sitetype':'d',
+        'productid':'@(string.Join("|", foriprospectItems.Select(x => x.ItemID)))',
+        'prices':'@(string.Join("|", foriprospectItems.Select(x => x.DisplayPrice)))',
+        'quantities':'@(string.Join("|", foriprospectItems.Select(x => x.Qty)))',
+        'transactionID':'@(Model.SalesOrderGroup_View.ID)',
+        'transactionValue':'@(Model.NeedPayMoneyPriceSum)'
+    });
+</script>
+
+
+
+@*iprospect feeds end*@
+@*criteo feeds start*@
+
+<script>
+    var criteoProductList = [];
+    criteoProductList.push(
+        @for (int i = 0; i < foriprospectItems.Count; i++)
+        {
+            @Html.Raw("{" + (string.Format("id:\"{0}\",price:{1},quantity:{2}", foriprospectItems[i].ItemID, foriprospectItems[i].DisplayPrice, foriprospectItems[i].Qty)) + "}");
+            if (i != foriprospectItems.Count - 1)
+            { 
+                @Html.Raw(",");
+            }
+        }
+        );
+    dataLayer.push({
+        'PageType': 'TransactionPage',
+        'email': '' + twNewegg().loginMail(),
+        'ProductTransactionProducts': criteoProductList,
+        'TransactionID': '@(Model.SalesOrderGroup_View.ID)'
+    });
+</script>
+
+
+
+@*criteo feeds end*@

@@ -1,0 +1,324 @@
+//compileCompressed: ../css/category.css, includePath: includes/
+
+//writter: [vincent]
+//describe: category section3 new listst settings
+//sampleAddress: NA
+
+$color-lists: 	   #3e3a39 #c07d2e #de7884 #75852e #c03f40 #80b870 #248c6a #e39300 #63b2af #339ecf #0757a2 #162c84 #e95b32 #f44d69 #A43A9D;
+$color-lists-lite: #b2b0b0 #e6cbab #f2c9ce #c8ceab #e6b2b3 #cde3c1 #a7d1c3 #f4d499 #c1e0df #add8ec #9cbcda #a2abce #f6bdad #f894a5 #d598d1;
+//設計風尚.國際名品.美妝保養.保健養生.樂活時尚.運動健身.戶外休旅.親子寵物.居家用品.生活家電.數位3C.電腦周邊.美蛋直購  //新增.城市檔(1/8) 尋找禮品
+
+@for $i from 1 through length($color-lists) {
+	.catcolorbg#{$i} {
+		background-color: nth($color-lists, $i);
+	}
+
+	.catcolortxt#{$i},
+	.catcolortop#{$i},
+	.catcolorright#{$i},
+	.catcolorbottom#{$i},
+	.catcolorleft#{$i} {
+		color: nth($color-lists, $i);
+	}
+}
+
+/*Banner*/
+.banner {
+	position:relative;
+    float:left;
+	width: 900px;
+	height: 400px;
+}
+.banner-title {
+	float: left;
+    padding-top:3px;
+	width: 900px;
+	height: 38px;
+	position: relative;
+	color: #fff;
+	font-size: 24px;
+    line-height:42px;
+}
+.banner-img {
+	float: left;
+	width: 900px;
+	height: 400px;
+	position: relative;
+	background-repeat: no-repeat;
+} 
+.banner-img img {
+	float: left;
+	width: 900px;
+	height: 400px;
+}
+.banner .tab {
+	width: 100%;
+	position: absolute;
+    bottom:0;
+	z-index: 1;
+}
+.banner .tab ul {
+	margin-top: 16px;
+}
+.banner .tab li {
+	margin-top: -16px;
+}
+/*.banner .tab a {
+	float: left;
+	width: 16.65%;
+	height: 26px;
+	color: #fff;
+	background-color: rgba(0,0,0,0.5);
+	text-decoration: none;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.banner .tab a:hover {
+	background-color: rgba(0,0,0,1.00);
+    cursor:pointer;
+}
+.banner .tab a:hover .arrow {
+	float: left;
+	width: 8px;
+	height: 6px;
+	margin-top: -10px;
+	margin-left: 66px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-image: url(../img/banner-arrow-hover2.png);
+}
+.banner .tab a.selected {
+	background-color: rgba(0,0,0,1.00);
+}
+.banner .tab a.selected .arrow {
+	float: left;
+	width: 8px;
+	height: 6px;
+	margin-top: -35px;
+	margin-left: 58px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-image: url(../img/banner-arrow-hover2.png);
+}*/
+.banner-bg {
+	float: left;
+	width: 613px;
+	height: 140px;
+    background-repeat: no-repeat; 
+    background-position: 300px 5px;
+	margin-left: -372px;
+	z-index:0;
+	margin-top: 45px;
+	position: absolute;
+}
+.banner-bgcolor { 
+	width: 100%;
+	height: 441px;
+	z-index: -2;
+	position: absolute;
+    top:195px;
+	left:0px;
+}
+.banner-bg2 {
+	position: absolute;
+	top:150px;
+	right: -120px;
+	width: 172px;
+	height: 250px;
+	background-repeat: no-repeat;
+	background-position:center top;
+	z-index: 1;
+}
+//分類頁Banner的背景圖圖樣
+@for $j from 1 through length($color-lists) {
+	.banner-bg-img#{$j} {
+		background-image:url(/Themes/img/banner-bg-#{$j}.png);
+	}
+	.banner-bg2-img#{$j} {
+		background-image:url(/Themes/img/banner-bg2-#{$j}.png);
+	}
+}
+
+.banner-ad {
+	width: 180px;
+	height: 180px;
+    overflow:hidden;
+	position: absolute;
+	border:15px solid #fff;
+	background-color: #fff;
+	top: 150px;
+	right: 150px;
+	z-index: 2;
+}
+.banner-ad2 {
+	width: 180px;
+	height: 180px;
+	position: absolute;
+	padding: 15px;
+	background-color: #fff;
+	top: 365px;
+	right: 150px;
+	z-index: 2;
+}
+.banner2 {
+	float: left;
+	width: 1000px;
+	height: 280px;
+}
+.banner2 img {
+	float: left;
+	width: 1000px;
+	height: 280px;
+}
+/*Carousel4 館架右側上下滑動選單*/
+.carousel4 {
+	float: left;
+	width: 221px;
+	height: 708px;
+	border-left: thin solid;
+}
+.carousel4 .divider {
+	float: left;
+	width: 201px;
+	height: 1px;
+	border-bottom: thin solid;
+}
+.carousel4 .pagination {
+	float: right;
+	margin-top: 300px;
+	width: 20px;
+}
+.carousel4 .pagination ul {
+	float: right;
+	margin-bottom: 16px;
+}
+.carousel4 .pagination li {
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin: 10px 0;
+	background-color: #d5d5d5;
+}
+.carousel4 .pagination li a {
+	position: relative;
+	display: block;
+	width: 20px;
+	height: 20px;
+	color: #fff;
+	//background-color: #d5d5d5;
+
+	text-align: center;
+	line-height: 20px;
+	// margin-top: 10px;
+	text-decoration: none;
+}
+// .carousel4 .pagination li a:hover {
+// 	width: 20px;
+// 	height: 20px;
+// 	color: #fff;
+// 	text-align: center;
+// 	line-height: 20px;
+// 	margin-top: 10px;
+// 	text-decoration: none;
+// 	float: right;
+// }
+.carousel4 .pagination li a.selected {
+	background-color: #80b870;
+}
+.carousel4 .pagination .more a {
+	width: 20px;
+	text-align: center;
+	border-bottom:0;
+	float: right;
+	border:0;
+}
+.carousel4 .pagination .more a:hover{
+	border-bottom:0;
+	color:inherit;
+}
+/*Carousel-logo3*/
+.carousel-logo3 {
+	float: right;
+	width: 444px;
+	height: 100px;
+    margin:-10px 0px 10px -40px;
+}
+.carousel-logo3 ul {
+	margin-left: 40px;
+	display: block;
+	margin-top: 30px;
+}
+.carousel-logo3 li {
+	width: 110px;
+	height: 90px;
+	margin-right: 5px;
+	margin-left: 5px;
+	display: block;
+	float: left;
+}
+.carousel-logo3 li img {
+	max-width: 110px;
+	max-height: 90px;
+	float: left;
+}
+.carousel-logo3 .prev {
+	width: 23px;
+	height: 23px;
+	float: left;
+	margin-left: 5px;
+	margin-top: -85px;
+	text-decoration: none;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	line-height: 22px;
+}
+.carousel-logo3 .next {
+	width: 23px;
+	height: 23px;
+	float: right;
+	margin-right: 5px;
+	margin-top:-85px;
+	text-decoration: none;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	line-height: 22px;
+}
+.carousel-logo3-bg {
+	width: 280px;
+	height: 40px;
+	float: right;
+	background-repeat: no-repeat;
+}
+.carousel-logo3-bg-img1 {
+	background-image: url(/Themes/img/carousel-bg-1.jpg);
+}
+.carousel-logo3-bg-img2 {
+	background-image: url(/Themes/img/carousel-bg-2.jpg);
+}
+.carousel-logo3-bg-img3 {
+	background-image: url(/Themes/img/carousel-bg-3.jpg);
+}
+.carousel-logo3-bg-img4 {
+	background-image: url(/Themes/img/carousel-bg-4.jpg);
+}
+.carousel-logo3-bg-img5 {
+	background-image: url(/Themes/img/carousel-bg-5.jpg);
+}
+.carousel-logo3-bg-img6 {
+	background-image: url(/Themes/img/carousel-bg-6.jpg);
+}
+.carousel-logo3-bg-img7 {
+	background-image: url(/Themes/img/carousel-bg-7.jpg);
+}
+.carousel-logo3-bg-img8 {
+	background-image: url(/Themes/img/carousel-bg-8.jpg);
+}
+.carousel-logo3-bg-img9 {
+	background-image: url(/Themes/img/carousel-bg-9.jpg);
+}

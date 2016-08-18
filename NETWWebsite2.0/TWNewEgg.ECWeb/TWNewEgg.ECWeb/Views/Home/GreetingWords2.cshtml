@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "";
+}
+@{
+
+    TWNewEgg.ECWeb.Controllers.HomeController obj = new TWNewEgg.ECWeb.Controllers.HomeController();
+    //顯示問候卡--------------------------------------add by bruce 20160414
+    string greetingWords2 = obj.GetGreetingWords2();
+
+    string strImageServer = "";
+    strImageServer = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsImgDomain") ?? string.Empty;
+
+    string full_file_path = strImageServer + greetingWords2;
+}
+
+<style>
+    /*//問候卡顯示樣式使用官網樣式---------------add by bruce 20160421*/
+    #close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        background: url("/Themes/img/Icon/closeIcon.png") no-repeat;
+        cursor: pointer;
+    }
+</style>
+@*<script src="~/Scripts/jquery-1.9.1.min.js"></script>*@
+<script src="~/Scripts/jquery.blockUI-2.70.0.js"></script>
+<!--問候卡-->
+<input type="button" id="demo1" value="blockUI" style="display: none;" />
+<div id="greetingWords2" style="cursor: default; display: none;">
+    <div style="text-align: left;">
+        <div id="close"></div>
+    </div>
+    <div>
+        <img id="imgopt" src="@full_file_path" style="width:768px; height:600px; " />
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function getCookie(c_name) {
+        var i, x, y, ARRcookies = document.cookie.split(";");
+        for (i = 0; i < ARRcookies.length; i++) {
+            x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+            y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+            x = x.replace(/^\s+|\s+$/g, "");
+            if (x == c_name) {
+                return unescape(y);
+            }
+        }
+    }
+
+    function createCookie(name, value, days) {
+        var date, expires;
+        if (days) {
+            date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toGMTString();
+        } else {
+            expires = "";
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    function get_cookie_name() {
+        var ip = location.host;
+        var today = new Date();
+        var yyyymmdd = today.getFullYear() + '' + today.getMonth() + '' + today.getDate();
+        return yyyymmdd;
+    }
+
+    //顯示問候卡
+    var show_greeting2 = function () {
+
+        var is_debug = false; //local測時改true還有jquery-1.9.1的引用要打開-----------add by bruce
+        var imgopt = $("#imgopt"); //問候卡圖片
+        var my_cookie = get_cookie_name();
+
+        //圖片位置
+        var image_url = '@Html.Raw(greetingWords2)';
+        var image_server_path = '@Html.Raw(strImageServer)';
+        var my_cookie_value = getCookie(my_cookie);
+
+        if (is_debug) {
+            console.log('my_cookie: ' + my_cookie);
+            console.log('my_cookie_value: ' + my_cookie_value);
+            console.log('image_url: ' + image_url);
+            console.log('image_server_path: ' + image_server_path);
+        }
+
+        if (is_debug) {
+            image_url = '@Html.Raw(greetingWords2)';
+            imgopt.attr('src', image_url); //設定圖片位置
+            my_cookie_value = undefined;
+        }
+
+        //沒有資料+秀過就不秀
+        if (image_url == '' || my_cookie_value != undefined) {
+            return;
+        }
+
+        //Lei: Dear Eric,問候卡的原圖尺寸應該會是1280 x 1000 px, 所以就縮小到768 x 600 px 即可----------add by bruce 20160422
+        var width = 768;
+        var height = 600;
+        var img_width = imgopt.width;
+        var block_left = ($(window).width() - width) / 2; //置中的寛
+        var block_top = ($(window).height() - height) / 2; //置中的高
+        //所以就縮小到768 x 600 px 即可
+        var block_width = '768px';
+        var block_height = '600px';
+        //問候卡顯示樣式使用官網樣式---------------add by bruce 20160421
+        var block_border = '3px solid #ec8b54';
+        //指定問候卡寛高
+        imgopt.width = width + 'px';
+        imgopt.height = height + 'px';
+
+        if (is_debug) {
+            console.log('$(window).width(): ' + $(window).width());
+            console.log('$(window).height(): ' + $(window).height());
+            console.log('imgopt.width: ' + imgopt.width);
+            console.log('imgopt.height: ' + imgopt.height);
+            console.log('block_left: ' + block_left);
+            console.log('block_top: ' + block_top);
+            console.log('block_width: ' + block_width);
+            console.log('block_height: ' + block_height);
+            console.log('block_border: ' + block_border);
+        }
+
+        $.blockUI({
+            message: $('#greetingWords2'),
+            css: {
+                //top: '200px',
+                top: block_top + 'px',
+                //left: ($(window).width() - 600) / 2 + 'px',                
+                left: block_left,
+                width: block_width,
+                height: block_height,
+                border: block_border
+            }
+        });
+        //setTimeout($.unblockUI, 5000);
+        if (is_debug) {
+            var time_ms = 1000 * 60; //設定1分鐘
+            setTimeout($.unblockUI, time_ms);
+        }
+        else
+            setTimeout($.unblockUI, 10000); //五秒改十秒------------add by 20160421
+
+        //建立今日記錄一天顯示一次
+        createCookie(my_cookie, image_url, 1);
+
+    }
+
+    $(function () {
+
+        $('#close').click(function () {
+            $.unblockUI();
+            return false;
+            //alert('clicked close');
+        });
+
+        //顯示問候卡
+        $('#demo1').click(function () {
+            show_greeting2();
+        });
+
+        show_greeting2();
+
+    });
+
+
+
+</script>
