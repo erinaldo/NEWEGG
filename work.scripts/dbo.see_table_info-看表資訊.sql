@@ -1,0 +1,29 @@
+--dbo.see_table_info
+
+--use TWSQLDB_PRD
+--use TWBACKENDDB_PRD
+
+declare @table_name varchar(50) ='Seller_CorrectionPrice';
+
+SELECT --*,
+--TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH
+
+COLUMN_NAME, --DATA_TYPE +'('+ CAST( isnull(CHARACTER_OCTET_LENGTH,'') as varchar(100))+')'
+
+CASE DATA_TYPE
+  WHEN 'nvarchar' THEN DATA_TYPE +'('+ CAST( isnull(CHARACTER_OCTET_LENGTH,'') as varchar(100))+')'
+  WHEN 'varchar' THEN DATA_TYPE +'('+ CAST( isnull(CHARACTER_OCTET_LENGTH,'') as varchar(100))+')'
+  WHEN 'int' THEN DATA_TYPE
+  ELSE DATA_TYPE
+END
+
+--,isnull(CAST(CHARACTER_MAXIMUM_LENGTH AS varchar(50)),'') as 'DATA_LEN'
+,isnull(COLUMN_DEFAULT,'NULL') as 'DEFAULT VALUE', IS_NULLABLE
+,'' as 'DESCRIPTION'
+FROM TWBACKENDDB_PRD.INFORMATION_SCHEMA.COLUMNS
+
+WHERE TABLE_NAME = @table_name
+--and COLUMN_NAME='Fail4Recove'
+--order by COLUMN_NAME
+--order by DATA_TYPE
+order by ORDINAL_POSITION
