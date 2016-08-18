@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{512CA3BB-1AAE-4E3F-B9F2-AE233F527CD8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.StoreServices</RootNamespace>
+    <AssemblyName>TWNewEgg.StoreServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\Libraries\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TWNewEgg.Framework.Autofac">
+      <HintPath>..\..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.AutoMapper">
+      <HintPath>..\..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.AutoMapper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Const\ConstBannerType.cs" />
+    <Compile Include="Const\ConstCellType.cs" />
+    <Compile Include="Const\ConstDbCellStyle.cs" />
+    <Compile Include="Const\ConstLayoutType.cs" />
+    <Compile Include="Const\ConstShowAll.cs" />
+    <Compile Include="Const\ConstSortValue.cs" />
+    <Compile Include="Const\ConstStoreClass.cs" />
+    <Compile Include="Const\ConstZone.cs" />
+    <Compile Include="HomeStoreService.cs" />
+    <Compile Include="Interface\IHomeStoreService.cs" />
+    <Compile Include="Interface\IStoreService.cs" />
+    <Compile Include="InternalModel\HomeStoreDbData.cs" />
+    <Compile Include="StoreService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\TWNewEgg.DAL\TWNewEgg.DAL\TWNewEgg.DAL.csproj">
+      <Project>{a5ac3d41-3e09-44b9-9ea4-3ca3a30b5749}</Project>
+      <Name>TWNewEgg.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\TWNewEgg.Models\TWNewEgg.Models.DBModels\TWNewEgg.Models.DBModels.csproj">
+      <Project>{ca4238cb-7b02-4ed1-8e46-f62a2eb3f45e}</Project>
+      <Name>TWNewEgg.Models.DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\TWNewEgg.Models\TWNewEgg.Models.DomainModels\TWNewEgg.Models.DomainModels.csproj">
+      <Project>{a4bd2533-fbc1-40d7-9f99-792d8a330f3f}</Project>
+      <Name>TWNewEgg.Models.DomainModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.CategoryItem\TWNewEgg.CategoryItem\TWNewEgg.CategoryItem.csproj">
+      <Project>{ed20605d-e0a1-4706-a85f-ab76ccaceca8}</Project>
+      <Name>TWNewEgg.CategoryItem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.CategoryServices\TWNewEgg.CategoryServices.csproj">
+      <Project>{ec0688e6-dc0a-4e9d-ad69-a638f7f259b9}</Project>
+      <Name>TWNewEgg.CategoryServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters.csproj">
+      <Project>{75b10250-1424-4922-96b9-bc701923a9ee}</Project>
+      <Name>TWNewEgg.ItemRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.ItemServices\TWNewEgg.ItemServices\TWNewEgg.ItemServices.csproj">
+      <Project>{b9860c2c-3e83-4cf5-b84f-5090c9793af2}</Project>
+      <Name>TWNewEgg.ItemServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.PropertyServices\TWNewEgg.PropertyServices\TWNewEgg.PropertyServices.csproj">
+      <Project>{45a15694-cb4d-4346-8992-71de85aab501}</Project>
+      <Name>TWNewEgg.PropertyServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.PurgeQueueAdapters\TWNewEgg.PurgeQueueAdapters.csproj">
+      <Project>{3539746e-3c21-44ea-a6a5-541a7a5f7396}</Project>
+      <Name>TWNewEgg.PurgeQueueAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.StoreRepoAdapters\TWNewEgg.StoreRepoAdapters.csproj">
+      <Project>{e91b71a7-8b16-457a-a020-5e8ebe98808e}</Project>
+      <Name>TWNewEgg.StoreRepoAdapters</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

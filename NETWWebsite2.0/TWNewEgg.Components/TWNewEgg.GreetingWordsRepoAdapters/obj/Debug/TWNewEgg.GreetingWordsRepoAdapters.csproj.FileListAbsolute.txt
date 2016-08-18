@@ -1,0 +1,11 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\obj\Debug\TWNewEgg.GreetingWordsRepoAdapters.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\bin\Debug\TWNewEgg.GreetingWordsRepoAdapters.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\bin\Debug\TWNewEgg.GreetingWordsRepoAdapters.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\bin\Debug\TWNewEgg.DAL.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\bin\Debug\TWNewEgg.Framework.AutoMapper.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\bin\Debug\TWNewEgg.Models.DBModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\bin\Debug\TWNewEgg.DAL.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\bin\Debug\TWNewEgg.Framework.AutoMapper.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\bin\Debug\TWNewEgg.Models.DBModels.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\obj\Debug\TWNewEgg.GreetingWordsRepoAdapters.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\obj\Debug\TWNewEgg.GreetingWordsRepoAdapters.pdb

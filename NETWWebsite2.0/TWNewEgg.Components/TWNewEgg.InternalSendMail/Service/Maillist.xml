@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<MailList>
+<Retgood>
+  <GroupList>
+  <DelivType> 1</DelivType>
+
+
+    <MailGroup>
+      cs
+    </MailGroup>
+    <MailGroup>
+      WMS
+    </MailGroup>
+
+  </GroupList>
+  <GroupList>
+    <DelivType> 0</DelivType>
+
+
+    <MailGroup>
+      cs
+    </MailGroup>
+    <MailGroup>
+      WMS
+    </MailGroup>
+
+  </GroupList>
+  
+</Retgood>
+  <MailGroup>
+    <MailGroupList>
+    <Name>cs</Name>
+    
+      <MailGroup>
+        Joyce.H.Hsiao@newegg.com,Dolcee.J.Chang@newegg.com
+      </MailGroup>
+
+
+    </MailGroupList>
+    <MailGroupList>
+    <Name>LOGISTIC</Name>
+   
+      <MailGroup>
+        kevin.T.Yang @newegg.com, Jessie.Y.Tseng@newegg.com,Jasmine.C.Hsieh@newegg.com,Gretchen.H.Yeh@newegg.com
+      </MailGroup>
+ 
+  </MailGroupList>
+    <MailGroupList>
+    <Name>WMS</Name>
+
+      <MailGroup>
+        Grace.Hsia@newegg.com,Steven.Maog@newegg.com, Alex .Wang@newegg.com
+      </MailGroup>
+ 
+    </MailGroupList>
+    <MailGroupList>
+    <Name>WMS</Name>
+ 
+      <MailGroup>
+        Teresa.S.Li@newegg.com
+      </MailGroup>
+
+    </MailGroupList>
+  </MailGroup>
+  </MailList>

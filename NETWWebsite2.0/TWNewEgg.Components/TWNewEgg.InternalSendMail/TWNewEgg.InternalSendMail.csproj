@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14D61A47-A7DF-4002-9B46-3850AC109807}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.InternalSendMail</RootNamespace>
+    <AssemblyName>TWNewEgg.InternalSendMail</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\Libraries\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Libraries\Newtonsoft\JSON.NET\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorEngine">
+      <HintPath>..\..\Libraries\RazorEngine.3.3.0\lib\net40\RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\MailTemplate\abnormalRefund.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Model\MailTemplate\abnormalReturn.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Model\MailTemplate\CreatRefundemail.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Model\MailTemplate\retgood.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Model\MailTemplate\CancelSO.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Model\MailTemplate\InnerCancelSO.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Model\MailTemplate\finreturnRefund.cshtml" />
+    <Compile Include="Model\SendMailModel\CancelList.cs" />
+    <Compile Include="Model\SendMailModel\Data.cs" />
+    <Compile Include="Model\SendMailModel\MailDataGroupList.cs" />
+    <Compile Include="Model\SendMailModel\returnRefundList.cs" />
+    <Compile Include="Model\SendMailModel\CustomerMail.cs" />
+    <Compile Include="Model\SendMailModel\ActivityDataInfo.cs" />
+    <Compile Include="Model\SendMailModel\ActivityOmusic.cs" />
+    <Compile Include="Model\SendMailModel\CancelGroup.cs" />
+    <Compile Include="Model\SendMailModel\ItemInStockDetailWithWMS.cs" />
+    <Compile Include="Model\SendMailModel\DelivGroup.cs" />
+    <Compile Include="Model\SendMailModel\SendPMWithGrossMargin.cs" />
+    <Compile Include="Model\SendMailModel\StatusGroup.cs" />
+    <Compile Include="Model\SendMailModel\RefundGroup.cs" />
+    <Compile Include="Model\SendMailModel\RetgoodGroup.cs" />
+    <Compile Include="Model\SendMailModel\MailGroup.cs" />
+    <Compile Include="Model\SendMailModel\Group.cs" />
+    <Compile Include="Model\SendMailModel\MailList.cs" />
+    <Compile Include="Model\SendMailModel\Retgood.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\BodyGenerator.cs" />
+    <Compile Include="Service\FormulaMailList.cs" />
+    <Compile Include="Service\IMailSender.cs" />
+    <Compile Include="Service\MailSender.cs" />
+    <Compile Include="Service\RefundMailList.cs" />
+    <Compile Include="Service\RetgoodGropuList.cs" />
+    <Compile Include="Service\RetgoodMailList.cs" />
+    <Compile Include="Service\GeneratorView.cs" />
+    <Compile Include="Service\XMLEXport.cs" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\MailTemplate\StockAutoNotify.cshtml" />
+    <Content Include="Service\Maillist.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.Models.ViewModels\TWNewEgg.Models.ViewModels.csproj">
+      <Project>{ca3fc63a-84c3-4899-8365-d110cb8a6bf2}</Project>
+      <Name>TWNewEgg.Models.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.DB\TWNewEgg.DB.csproj">
+      <Project>{a65ac3a0-6a55-433b-adc1-22f8b88a3677}</Project>
+      <Name>TWNewEgg.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.GetConfigData\TWNewEgg.GetConfigData.csproj">
+      <Project>{ffd8bb60-d05e-4273-8349-cbb51db5693e}</Project>
+      <Name>TWNewEgg.GetConfigData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

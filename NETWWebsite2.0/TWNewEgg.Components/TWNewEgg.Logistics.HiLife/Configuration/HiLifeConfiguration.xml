@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <Field Description="傳輸檔案欄位長度與同步設定">
+    <File Type="F00" Description="路線路順檔">
+      <Sync Description="檔案同步時間">
+        <Times>
+          <Time>Mon-17:40</Time>
+          <Time>Tue-17:40</Time>
+          <Time>Wed-17:40</Time>
+          <Time>Thu-17:40</Time>
+          <Time>Fri-17:40</Time>
+          <Time>Sat-17:40</Time>
+          <Time>Sun-17:40</Time>
+        </Times>
+        <FilePath>
+          <From>D:\temp\Source\XXXHLF</From>
+          <To>D:\temp\Target\</To>
+        </FilePath>
+      </Sync>
+      <Head Description="表頭欄位">
+      </Head>
+      <Body Description="Body">
+        <Field Name="STNO" Length="7" Description="原始店編" Align="Left" PadSymbol=" " StaticValue="2"></Field>
+        <Field Name="NEW_STNO" Length="7" Description="現行店編" Align="Left" PadSymbol=" "></Field>
+        <Field Name="DCRONO" Length="5" Description="路線路順" Align="None" PadSymbol=""></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=""></Field>
+      </Body>
+      <Tail Description="表尾欄位"></Tail>
+    </File>
+    <File Type="F01" Description="店鋪資料檔">
+      <Sync Description="檔案同步時間">
+        <Times>
+          <Time>Mon-10:10</Time>
+          <Time>Tue-10:10</Time>
+          <Time>Wed-10:10</Time>
+          <Time>Thu-10:10</Time>
+          <Time>Fri-10:10</Time>
+          <Time>Sat-10:10</Time>
+          <Time>Sun-10:10</Time>
+        </Times>
+        <FilePath>
+          <From>D:\temp\Target\CVSTLF</From>
+          <To>D:\temp\Source\</To>
+        </FilePath>
+      </Sync>
+      <Head Description="表頭欄位">
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol="" StaticValue="1"></Field>
+        <Field Name="SNCD" Length="3" Description="送件者代號" Align="None" PadSymbol="" StaticValue="HLF"></Field>
+        <Field Name="PRDT" Length="8" Description="處理日期" Align="None" PadSymbol=""></Field>
+        <Field Name="FIL" Length="150" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=""></Field>
+      </Head>
+      <Body Description="Body">
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol="" StaticValue="2"></Field>
+        <Field Name="STNO" Length="7" Description="取貨店號" Align="Left" PadSymbol=" "></Field>
+        <Field Name="STNM" Length="18" Description="店鋪名稱" Align="Left" PadSymbol=" "></Field>
+        <Field Name="STTEL" Length="20" Description="店鋪電話" Align="Left" PadSymbol=" "></Field>
+        <Field Name="STCITY" Length="10" Description="店鋪縣市" Align="Left" PadSymbol=" "></Field>
+        <Field Name="STCNTRY" Length="10" Description="店鋪鄉鎮區市" Align="Left" PadSymbol=" "></Field>
+        <Field Name="STADR" Length="54" Description="店鋪地址" Align="Left" PadSymbol=" "></Field>
+        <Field Name="ZIPCD" Length="5" Description="郵遞區號" Align="Left" PadSymbol=" "></Field>
+        <Field Name="DCRONO" Length="20" Description="路線路順" Align="Left" PadSymbol=" "></Field>
+        <Field Name="SDATE" Length="8" Description="整修開始日" Align="None" PadSymbol=""></Field>
+        <Field Name="EDATE" Length="8" Description="整修結束日" Align="None" PadSymbol=""></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="" PadSymbol=""></Field>
+      </Body>
+      <Tail Description="表尾欄位">
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol="" StaticValue="3"></Field>
+        <Field Name="RDCNT" Length="8" Description="總比數" Align="Right" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="FIL2" Length="153" Description="備用" Align="None" PadSymbol=" "></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=""></Field>
+      </Tail>
+    </File>
+    <File Type="F02" Description="廠商出貨檔">
+      <Sync Description="檔案同步時間">
+        <Times>
+          <Time>Mon-15:20</Time>
+          <Time>Tue-15:20</Time>
+          <Time>Wed-15:20</Time>
+          <Time>Thu-15:20</Time>
+          <Time>Fri-15:20</Time>
+          <Time>Sat-15:20</Time>
+          <Time>Sun-14:30</Time>
+        </Times>
+        <FilePath>
+          <From>D:\temp\Source\XXXDLF</From>
+          <To>D:\temp\Target\</To>
+        </FilePath>
+      </Sync>
+      <Head Description="表頭欄位">
+        <Field Name="RDFMT" Length="1" Description="區別碼 " Align="None" PadSymbol="" StaticValue="1"></Field>
+        <Field Name="SNCD" Length="3" Description="送件者代號" Align="None" PadSymbol="" StaticValue="CVS"></Field>
+        <Field Name="PRDT" Length="8" Description="處理日期" Align="None" PadSymbol=""></Field>
+        <Field Name="FIL" Length="87" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=""></Field>
+      </Head>
+      <Body Description="Body">
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol="" StaticValue="2"></Field>
+        <Field Name="ECNO" Length="3" Description="EC 網站代號" Align="None" PadSymbol=" "></Field>
+        <Field Name="STNO" Length="7" Description="取貨門市編號" Align="None" PadSymbol=" "></Field>
+        <Field Name="STNM" Length="18" Description="取貨店名" Align="Left" PadSymbol=" "></Field>
+        <Field Name="ODNO" Length="11" Description="EC 訂單編號" Align="None" PadSymbol=" "></Field>
+        <Field Name="CUTKNM" Length="20" Description="取貨人姓名" Align="Left" PadSymbol=" "></Field>
+        <Field Name="DCRONO" Length="5" Description="路線路順" Align="None" PadSymbol=" "></Field>
+        <Field Name="EDCNO" Length="3" Description="廠商代號" Align="None" PadSymbol=" "></Field>
+        <Field Name="BC1" Length="9" Description="第一段條碼" Align="None" PadSymbol=" "></Field>
+        <Field Name="BC2" Length="16" Description="第二段條碼" Align="None" PadSymbol=" "></Field>
+        <Field Name="REALAMT" Length="5" Description="商品實際金額" Align="Right" PadSymbol="0"></Field>
+        <Field Name="PRODNM" Length="1" Description="商品類型" Align="None" PadSymbol=""></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=""></Field>
+      </Body>
+      <Tail Description="表尾欄位">
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol="" StaticValue="3"></Field>
+        <Field Name="RDCNT" Length="8" Description="總筆數" Align="Right" PadSymbol="0"></Field>
+        <Field Name="REALAMT" Length="7" Description="總金額" Align="Right" PadSymbol="0"></Field>
+        <Field Name="FIL2" Length="83" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=""></Field>
+      </Tail>
+    </File>
+    <File Type="F04" Description="預計進店檔">
+      <Sync Description="檔案同步時間">
+        <Times>
+          <Time>Mon-17:10</Time>
+          <Time>Tue-17:10</Time>
+          <Time>Wed-17:10</Time>
+          <Time>Thu-17:10</Time>
+          <Time>Fri-17:10</Time>
+          <Time>Sat-17:10</Time>
+          <Time>Sun-15:40</Time>
+        </Times>
+        <FilePath>
+          <From>D:\temp\Source\XXXDLF</From>
+          <To>D:\temp\Target\</To>
+        </FilePath>
+      </Sync>
+      <Head Description="表頭欄位">
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="1"></Field>
+        <Field Name="SNCD" Length="3" Description="送件者代號" Align="None" PadSymbol=" "></Field>
+        <Field Name="PRDT" Length="8" Description="處理日期" Align="None" PadSymbol=" "></Field>
+        <Field Name="FIL" Length="18" Description="備用" Align="None" PadSymbol=" " StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=""></Field>
+      </Head>
+      <Body Description="Body">
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol="" StaticValue="2"></Field>
+        <Field Name="ECNO" Length="3" Description="EC 網站代號" Align="None" PadSymbol=" "></Field>
+        <Field Name="STNO" Length="7" Description="取貨門市編號" Align="None" PadSymbol=" "></Field>
+        <Field Name="ODNO" Length="11" Description="EC 訂單編號" Align="None" PadSymbol=" "></Field>
+        <Field Name="DCSTDT" Length="8" Description="商品進店日" Align="None" PadSymbol=" "></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=""></Field>
+      </Body>
+      <Tail Description="表尾欄位">
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol="" StaticValue="3"></Field>
+        <Field Name="RDCNT" Length="8" Description="總筆數" Align="Right" PadSymbol="0"></Field>
+        <Field Name="FIL2" Length="21" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=""></Field>
+      </Tail>
+    </File>
+    <File Type="F05" Description="取貨完成檔">
+      <Sync>
+        <Times>
+          <Time>Mon-17:10</Time>
+          <Time>Tue-17:10</Time>
+          <Time>Wed-17:10</Time>
+          <Time>Thu-17:10</Time>
+          <Time>Fri-17:10</Time>
+          <Time>Sat-17:10</Time>
+          <Time>Sun-17:10</Time>
+        </Times>
+        <FilePath>
+          <From>D:\temp\Source\912HLF</From>
+          <To>D:\temp\Target\</To>
+        </FilePath>
+      </Sync>
+      <Head>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="1"></Field>
+        <Field Name="SNCD" Length="3" Description="送件者代號" Align="None" PadSymbol=" "></Field>
+        <Field Name="PRDT" Length="8" Description="處理日期" Align="None" PadSymbol=" "></Field>
+        <Field Name="FIL" Length="37" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Head>
+      <Body>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="2"></Field>
+        <Field Name="CNNO" Length="3" Description="取貨通路代號" Align="None" PadSymbol=" " StaticValue="HLF"></Field>
+        <Field Name="BC1" Length="9" Description="第一段條碼" Align="None" PadSymbol=" "></Field>
+        <Field Name="BC2" Length="16" Description="第二段條碼" Align="None" PadSymbol=" "></Field>
+        <Field Name="STNO" Length="7" Description="取貨門市編號" Align="None" PadSymbol=" "></Field>
+        <Field Name="RTDT" Length="8" Description="繳費日期" Align="None" PadSymbol=" "></Field>
+        <Field Name="REALAMT" Length="5" Description="實繳金額" Align="Right" PadSymbol="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Body>
+      <Tail>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="3"></Field>
+        <Field Name="RDCNT" Length="8" Description="總筆數" Align="Right" PadSymbol="0"></Field>
+        <Field Name="AMT" Length="13" Description="總金額" Align="Right" PadSymbol="0"></Field>
+        <Field Name="FIL2" Length="27" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Tail>
+    </File>
+    <File Type="F06" Description="門市預退檔">
+      <Sync>
+        <Times>
+          <Time>Mon-13:35</Time>
+          <Time>Tue-13:35</Time>
+          <Time>Wed-13:35</Time>
+          <Time>Thu-13:35</Time>
+          <Time>Fri-13:35</Time>
+          <Time>Sat-13:35</Time>
+          <Time>Sun-13:35</Time>
+        </Times>
+        <FilePath>
+          <From>D:\temp\Source\DLFXXX</From>
+          <To>D:\temp\Target\</To>
+        </FilePath>
+      </Sync>
+      <Head>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="1"></Field>
+        <Field Name="SNCD" Length="3" Description="送件者代號" Align="None" PadSymbol=" " StaticValue="XXX"></Field>
+        <Field Name="PRDT" Length="8" Description="處理日期" Align="None" PadSymbol=" "></Field>
+        <Field Name="FIL" Length="24" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Head>
+      <Body>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="2"></Field>
+        <Field Name="RETYPE" Length="1" Description="退貨類型" Align="None" PadSymbol=" "></Field>
+        <Field Name="ECNO" Length="3" Description="EC網站代號" Align="None" PadSymbol=" " StaticValue="900"></Field>
+        <Field Name="STNO" Length="7" Description="取貨門市編號" Align="None" PadSymbol=" "></Field>
+        <Field Name="ODNO" Length="11" Description="EC訂單編號" Align="None" PadSymbol=" "></Field>
+        <Field Name="SCRTDT" Length="8" Description="店鋪預定退貨日" Align="None" PadSymbol=" "></Field>
+        <Field Name="REALAMT" Length="5" Description="商品實際金額" Align="Right" PadSymbol="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Body>
+      <Tail>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="3"></Field>
+        <Field Name="RDCNT" Length="8" Description="總筆數" Align="Right" PadSymbol="0"></Field>
+        <Field Name="REALAMT" Length="7" Description="總金額" Align="Right" PadSymbol="0"></Field>
+        <Field Name="FIL2" Length="20" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Tail>
+    </File>
+    <File Type="F08" Description="小物流驗退檔">
+      <Sync>
+        <Times>
+          <Time>Mon-10:10</Time>
+          <Time>Tue-10:10</Time>
+          <Time>Wed-10:10</Time>
+          <Time>Thu-10:10</Time>
+          <Time>Fri-10:10</Time>
+          <Time>Sat-10:10</Time>
+          <Time>Sun-13:10</Time>
+        </Times>
+        <FilePath>
+          <From>D:\temp\Source\XXXDLF</From>
+          <To>D:\temp\Target\</To>
+        </FilePath>
+      </Sync>
+      <Head>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="1"></Field>
+        <Field Name="SNCD" Length="3" Description="送件者代號" Align="None" PadSymbol=" " StaticValue="DLF"></Field>
+        <Field Name="PRDT" Length="8" Description="處理日期" Align="None" PadSymbol=" "></Field>
+        <Field Name="FIL" Length="13" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Head>
+      <Body>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="2"></Field>
+        <Field Name="RET_M" Length="3" Description="退貨類型" Align="None" PadSymbol=" "></Field>
+        <Field Name="ECNO" Length="3" Description="EC網站代號" Align="None" PadSymbol=" " StaticValue="900"></Field>
+        <Field Name="STNO" Length="7" Description="取貨門市編號" Align="None" PadSymbol=" "></Field>
+        <Field Name="ODNO" Length="11" Description="EC訂單編號" Align="None" PadSymbol=" "></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Body>
+      <Tail>
+        <Field Name="RDFMT" Length="1" Description="區號碼" Align="None" PadSymbol=" " StaticValue="3"></Field>
+        <Field Name="RDCNT" Length="8" Description="總筆數" Align="Right" PadSymbol="0"></Field>
+        <Field Name="FIL2" Length="16" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Tail>
+    </File>
+    <File Type="F09" Description="物流取消出貨檔">
+      <Sync>
+        <Times>
+          <Time>Mon-21:10</Time>
+          <Time>Tue-21:10</Time>
+          <Time>Wed-21:10</Time>
+          <Time>Thu-21:10</Time>
+          <Time>Fri-21:10</Time>
+          <Time>Sat-21:10</Time>
+          <Time>Sun-16:40</Time>
+        </Times>
+        <FilePath>
+          <From>D:\temp\Source\XXXDLF</From>
+          <To>D:\temp\Target\</To>
+        </FilePath>
+      </Sync>
+      <Head>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="1"></Field>
+        <Field Name="SNCD" Length="3" Description="送件者代號" Align="None" PadSymbol=" " StaticValue="DLF"></Field>
+        <Field Name="PRDT" Length="8" Description="處理日期" Align="None" PadSymbol=" "></Field>
+        <Field Name="FIL" Length="6" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Head>
+      <Body>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="2"></Field>
+        <Field Name="RET_M" Length="3" Description="取消類型" Align="None" PadSymbol=" "></Field>
+        <Field Name="ECNO" Length="3" Description="廠商代號" Align="None" PadSymbol=" " StaticValue="900"></Field>
+        <Field Name="ODNO" Length="11" Description="訂單編號" Align="None" PadSymbol=" "></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Body>
+      <Tail>
+        <Field Name="RDFMT" Length="1" Description="區別碼" Align="None" PadSymbol=" " StaticValue="3"></Field>
+        <Field Name="RDCNT" Length="8" Description="總筆數" Align="Right" PadSymbol="0"></Field>
+        <Field Name="FIL2" Length="9" Description="備用" Align="None" PadSymbol="0" StaticValue="0"></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Tail>
+    </File>
+    <File Type="TXT" Description="取消路線路順檔">
+      <Sync>
+        <Times>
+          <Time>Mon-17:10</Time>
+          <Time>Tue-17:10</Time>
+          <Time>Wed-17:10</Time>
+          <Time>Thu-17:10</Time>
+          <Time>Fri-17:10</Time>
+          <Time>Sat-17:10</Time>
+          <Time>Sun-17:10</Time>
+        </Times>
+        <FilePath>
+          <From>D:\temp\Source\XXXDLF</From>
+          <To>D:\temp\Target\</To>
+        </FilePath>
+      </Sync>
+      <Head></Head>
+      <Body>
+        <Field Name="STNO" Length="7" Description="原始店編" Align="None" PadSymbol=" "></Field>
+        <Field Name="CRLF" Length="2" Description="換行碼" Align="None" PadSymbol=" "></Field>
+      </Body>
+      <Tail></Tail>
+    </File>
+  </Field>
+</root>

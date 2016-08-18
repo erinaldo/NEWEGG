@@ -1,0 +1,5 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.PropertyRepoAdapters\TWNewEgg.PropertyRepoAdapters.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.PropertyRepoAdapters\TWNewEgg.PropertyRepoAdapters.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PropertyRepoAdapters\TWNewEgg.PropertyRepoAdapters\obj\Debug\TWNewEgg.PropertyRepoAdapters.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PropertyRepoAdapters\TWNewEgg.PropertyRepoAdapters\obj\Debug\TWNewEgg.PropertyRepoAdapters.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PropertyRepoAdapters\TWNewEgg.PropertyRepoAdapters\obj\Debug\TWNewEgg.PropertyRepoAdapters.pdb

@@ -1,0 +1,13 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\obj\Debug\TWNewEgg.AccountEnprypt.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\bin\Debug\TWNewEgg.AccountEnprypt.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\bin\Debug\TWNewEgg.AccountEnprypt.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\bin\Debug\TWNewEgg.DB.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\bin\Debug\TWNewEgg.Models.DBModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\bin\Debug\TWNewEgg.Models.DomainModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\bin\Debug\EntityFramework.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\bin\Debug\TWNewEgg.Models.DBModels.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\bin\Debug\TWNewEgg.Models.DomainModels.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\bin\Debug\TWNewEgg.DB.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\bin\Debug\EntityFramework.xml
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\obj\Debug\TWNewEgg.AccountEnprypt.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.AccountEnprypt\obj\Debug\TWNewEgg.AccountEnprypt.pdb

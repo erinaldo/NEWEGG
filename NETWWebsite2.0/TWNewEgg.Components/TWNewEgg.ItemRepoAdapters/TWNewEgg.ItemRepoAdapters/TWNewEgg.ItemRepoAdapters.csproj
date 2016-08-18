@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{75B10250-1424-4922-96B9-BC701923A9EE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.ItemRepoAdapters</RootNamespace>
+    <AssemblyName>TWNewEgg.ItemRepoAdapters</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Libraries\TWNewEgg.ItemRepoAdapters\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\Libraries\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TWNewEgg.DAL">
+      <HintPath>..\..\..\Libraries\TWNewEgg.DAL\TWNewEgg.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Models.DBModels">
+      <HintPath>..\..\..\Libraries\TWNewEgg.Models\TWNewEgg.Models.DBModels.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Models.DomainModels">
+      <HintPath>..\..\..\Libraries\TWNewEgg.Models\TWNewEgg.Models.DomainModels.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ImageUrlReferenceForProductRepoAdapter.cs" />
+    <Compile Include="Interface\IImageUrlReferenceForProductRepoAdapter.cs" />
+    <Compile Include="Interface\IItemcategoryRepoAdapter.cs" />
+    <Compile Include="Interface\IItemGroupRepoAdapter.cs" />
+    <Compile Include="ItemcategoryRepoAdapter.cs" />
+    <Compile Include="ItemDisplayPriceRepoAdapter.cs" />
+    <Compile Include="DbItemInfoRepoAdapter.cs" />
+    <Compile Include="ImageUrlReferenceRepoAdapter.cs" />
+    <Compile Include="Interface\IItemDisplayPriceRepoAdapter.cs" />
+    <Compile Include="Interface\IDbItemInfoRepoAdapter.cs" />
+    <Compile Include="Interface\IImageUrlReferenceRepoAdapter.cs" />
+    <Compile Include="Interface\ISalesOrderGroupRepoAdapter.cs" />
+    <Compile Include="Interface\IItemStockRepoAdapter.cs" />
+    <Compile Include="Interface\IProductRepoAdapter.cs" />
+    <Compile Include="ItemGroupRepoAdapter.cs" />
+    <Compile Include="ItemRepoAdapter.cs" />
+    <Compile Include="Interface\IItemRepoAdapter.cs" />
+    <Compile Include="ItemStockRepoAdapter.cs" />
+    <Compile Include="ProductRepoAdapter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters.csproj">
+      <Project>{e7a8b9b5-9402-4fa3-80f0-2f036ab2f21b}</Project>
+      <Name>TWNewEgg.SellerRepoAdapters</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

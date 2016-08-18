@@ -1,0 +1,92 @@
+﻿@{ TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);}
+<style>
+    table {border-collapse: collapse;}
+    table.OrderTable td {padding: 0 5px;border:1px solid #000;}
+    table.OrderTable th {text-align: left;padding: 0 5px;border:1px solid #000;}
+</style>
+<html>
+    <body>
+        <table width="795" border="0" align="center">
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Model.Header" width="795" height="113" />
+                    </div>
+                    <div>
+                        <br />
+                        @Model.DIC["Salesordername"] 先生/小姐，您好：
+                        <br/><br/>
+                        您的訂單: @Model.Cart[0].ID
+                        @{
+                            if (Model.DIC["PayType"] == "WebATM" || Model.DIC["PayType"] == "貨到付款")
+                            {
+                                <p>
+                                    <br/><br/>
+                                    我們已預計於 @Model.refund2c[0].FinalDate 退款到您所提供的帳號，
+                                    <br/><br/>
+                                    您可於退款日下午五點後或一個工作天後至指定銀行刷摺，查詢您的款項是否已入帳，
+                                    <br/><br/>
+                                    若退款日三天後仍未入帳完成，或是退款過程異常，請您再盡速與我們聯繫，
+                                    <br/><br/>
+                                    我們將立即為您處理，請您再留意Email通知。謝謝您
+                                    <br/><br/>
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                            else if (Model.DIC["PayType"] == "信用卡")
+                            {
+                                <p>
+                                    <br/><br/>
+                                    您的退款，我們已預計於 @Model.refund2c[0].FinalDate 透過您原來所提供的信用卡付款方式，並刷退給您。
+                                    <br/><br/>
+                                    由於銀行作業關係，您可於退款日後 3-7天與您的發卡銀行確認是否已刷退完成，
+                                    <br/><br/>
+                                    若退款日已過您的當月銀行結帳日，則退款金額將會於您的下一期信用卡帳單顯示，請您再詳細確認。
+                                    <br/><br/>
+                                    若有退款異常等問題，請您再盡速與我們聯繫，我們將立即為您處理，謝謝您。
+                                    <br/><br/>
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                            else if (Model.DIC["PayType"] == "歐付寶")
+                            {
+                                <p>
+                                    <br/><br/>
+                                    您的退款申請，我們將透過您原 “歐付寶儲值支付”  付款方式，將款項退至您的 “歐付寶儲值帳戶”中。
+                                    <br/><br/>
+                                    由於歐付寶作業關係，您可於退款申請日後第8日  至您的歐付寶會員帳戶內確認或聯繫歐付寶客服確認是否已退款完成。
+                                    <br /><br />
+                                    <br/><br/>
+                                    若有退款異常等問題，請您再盡速與我們聯繫，我們將立即為您處理，謝謝您。
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    <br/><br/>
+                                    您的退款申請，我們將透過您原付款方式，將款項退至您的帳戶中。
+                                    <br/><br/>
+                                    <br/><br/>
+                                    若有退款異常等問題，請您再盡速與我們聯繫，我們將立即為您處理，謝謝您。
+                                    <br/><br/><br/><br/><br/>
+                                </p>
+                            }
+                            
+                        }
+                    </div>
+                    <div>
+                        <p>
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            電話:@(WebSiteListWebSiteData.PhoneNumber2) 客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)" target="_self">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                        </p>
+                    </div>
+                    <div>
+                        <img src="@Model.Fooer" width="795" height="108" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

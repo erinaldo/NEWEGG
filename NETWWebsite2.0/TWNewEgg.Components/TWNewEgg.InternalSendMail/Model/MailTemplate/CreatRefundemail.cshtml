@@ -1,0 +1,186 @@
+﻿@{ TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData WebSiteListWebSiteData = new TWNewEgg.GetConfigData.Models.WebSiteListWebSiteData(0);}
+<style>
+    table {border-collapse: collapse;}
+    table.OrderTable td {padding: 0 5px;border:1px solid #000;}
+    table.OrderTable th {text-align: left;padding: 0 5px;border:1px solid #000;}
+</style>
+<html>
+    <body>
+        <table border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;">
+            <tr>
+                <td>
+                    <img src="@Model.Header" width="1000" height="140" />
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Dear Sir:
+                    <br>
+                    <br>
+                </td>
+            </tr>
+
+            <tr>
+                <td>                       
+                    下表為 @DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Day 的退款申請明細資料，本日申請退款金額為<span style="color:red">
+                    @{
+                        int Tatolamount=0;
+                        foreach (var ReturnDetailitem in Model.refund2c)
+                        {
+                            Tatolamount = Tatolamount + (int)ReturnDetailitem.Amount;
+                        }
+                        @Tatolamount;
+                        }
+                    </span>元。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table border="1" cellspacing="0" cellpadding="0" class="OrderTable" style="margin:0 auto; width:1000px;">
+                        <tr class="tit">
+                            <td>
+                                序號
+                            </td>
+                            <td>
+                                主單編號<br>/子單編號<br>/購物車編號
+                            </td>
+                            <td>
+                                退款單<br>編號
+                            </td>
+                            <td style="width:400px;">
+                                付款方式<br>品名<br>原因
+                            </td>
+                            <td>
+                                退款<br>銀行
+                            </td>
+                            <td>
+                                分行
+                            </td>
+                            <td>
+                                戶名
+                            </td>
+                            <td>
+                                帳號
+                            </td>
+                            <td>
+                                退款<br>金額
+                            </td>
+                        </tr>
+                        @{
+                        int refund2citemcount=1;
+                        string Cart_PayType = "";
+                        foreach (var ReturnDetailitem in Model.refund2c)
+                        {
+                            foreach (var CartList in Model.Cart.Where(x => x.ID == ReturnDetailitem.CartID).ToList())
+                            {
+                                foreach (var ProcessList in Model.process.Where(x => x.CartID == CartList.ID).ToList())
+                            {
+                                string bankname = (from p in Model.Bank where p.Code == CartList.CardBank select p.Name).FirstOrDefault();
+                            <tr>
+                                <td>
+                                @(refund2citemcount)
+                                </td>
+                                <td>
+                                    @CartList.ID<br>/@ProcessList.ID<br>/@CartList.SalesorderGroupID
+                                </td>
+                                <td>
+                                    @ReturnDetailitem.Code
+                                </td>
+                                <td>
+                                    @bankname
+                                    <br>
+                                    @switch (CartList.PayType)                                           
+                                    {
+                                        
+                                        case 1:
+                                            Cart_PayType = "信用卡付款(一次付清)";
+                                            break;
+                                        case 3:
+                                            Cart_PayType = "信用卡付款(3期0利率)";
+                                            break;
+                                        case 6:
+                                            Cart_PayType = "信用卡付款(6期0利率)"; 
+                                            break;
+                                        case 10:
+                                            Cart_PayType = "信用卡付款(10期0利率)";
+                                            break;
+                                        case 18:
+                                            Cart_PayType = "信用卡付款(18期0利率)";
+                                            break;
+                                        case 24:
+                                            Cart_PayType = "信用卡付款(24期0利率)"; 
+                                            break;
+                                        case 112:
+                                            Cart_PayType = "信用卡付款(12期分期)";
+                                            break;
+                                        case 124:
+                                            Cart_PayType = "信用卡付款(24期分期)";
+                                            break;
+                                        case 30:
+                                            Cart_PayType = "網路ATM";
+                                            break;
+                                        case 31:
+                                            Cart_PayType = "貨到付款"; 
+                                            break;
+                                        case 32:                                            
+                                            Cart_PayType = "超商付款取貨";
+                                            break;
+                                        default:
+                                            Cart_PayType = "其他";
+                                            break;
+                                    }
+                                    @Cart_PayType
+                                    <br>
+                                    @ProcessList.Title 
+                                    <br>
+                                    @ReturnDetailitem.CauseNote 
+                                </td>
+                                <td>
+                                    @if (ReturnDetailitem.BankName != null)
+                                    { @ReturnDetailitem.BankName } else{ @ReturnDetailitem.BankID }
+                                </td>
+                                <td>
+                                    @ReturnDetailitem.SubBankName
+                                </td>
+                                <td>
+                                    @ReturnDetailitem.AccountName
+                                </td>
+                                <td>
+                                    @ReturnDetailitem.AccountNO
+                                </td>
+                                <td>
+                                    @ReturnDetailitem.Amount
+                                </td>
+                            </tr>
+                            refund2citemcount++;
+                            }
+                            }
+                        }
+                        }
+                    </table>
+                </td>
+           <tr>     
+                <td>
+                    呈請  簽核。
+                </td>
+            </tr>
+           <tr>     
+                <td>
+
+                    <p style="margin-top:100px;">
+                            若有任何問題, 請聯繫@(WebSiteListWebSiteData.Contact1)<br />
+                            客服信箱：<a href="mailto:@(WebSiteListWebSiteData.Email1)">@(WebSiteListWebSiteData.Email1)</a><br />
+                            服務時間: @(WebSiteListWebSiteData.ServiceTime)<br />
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    <img src="@Model.Fooer" width="1000" height="140" />
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

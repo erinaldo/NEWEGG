@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4EC9123D-9D05-495E-83EA-64AC26B4E646}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.PublicAPI.BatchUpdata</RootNamespace>
+    <AssemblyName>TWNewEgg.PublicAPI.BatchUpdata</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AntiXssLibrary">
+      <HintPath>..\..\Libraries\AntiXSS.4.3.0\lib\net40\AntiXssLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlSanitizationLibrary">
+      <HintPath>..\..\Libraries\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Libraries\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TWNewEgg.CategoryRepoAdapters">
+      <HintPath>..\TWNewEgg.CategoryRepoAdapters\bin\Debug\TWNewEgg.CategoryRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.ItemCategoryTempRepoAdapters">
+      <HintPath>..\TWNewEgg.ItemCategoryTempRepoAdapters\bin\Debug\TWNewEgg.ItemCategoryTempRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.ItemGroupDetailPropertyRepoAdapters">
+      <HintPath>..\TWNewEgg.ItemGroupDetailPropertyRepoAdapters\bin\Debug\TWNewEgg.ItemGroupDetailPropertyRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.ItemRepoAdapters">
+      <HintPath>..\..\Libraries\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.ItemStockTempRepoAdapters">
+      <HintPath>..\TWNewEgg.ItemStockTempRepoAdapters\bin\Debug\TWNewEgg.ItemStockTempRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.ItemTempRepoAdapters">
+      <HintPath>..\TWNewEgg.ItemTempRepoAdapters\bin\Debug\TWNewEgg.ItemTempRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Models.DBModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.Models.DBModels.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.ProductTempRepoAdapters">
+      <HintPath>..\TWNewEgg.ProductTempRepoAdapters\bin\Debug\TWNewEgg.ProductTempRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.PublicApiModels">
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.PublicApiModels.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Seller_AuthTokenRepoAdapters">
+      <HintPath>..\TWNewEgg.Seller_AuthTokenRepoAdapters\bin\Debug\TWNewEgg.Seller_AuthTokenRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Seller_UserRepoAdapter">
+      <HintPath>..\TWNewEgg.Seller_UserRepoAdapters\bin\Debug\TWNewEgg.Seller_UserRepoAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.VendorModels.DBModels">
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.VendorModels.DBModels.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BatchTempOfficial.cs" />
+    <Compile Include="BatchUpdata.cs" />
+    <Compile Include="Interface\IBatchTempOfficial.cs" />
+    <Compile Include="Interface\IBatchUpdata.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

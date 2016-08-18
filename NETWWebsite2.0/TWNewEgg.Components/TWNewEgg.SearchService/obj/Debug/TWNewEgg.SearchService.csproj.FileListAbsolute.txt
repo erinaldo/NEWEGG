@@ -1,0 +1,15 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\TWNewEgg.SearchService.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\TWNewEgg.SearchService.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\EntityFramework.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\TWNewEgg.CategoryService.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\TWNewEgg.DB.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\TWNewEgg.Framework.Common.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\Newtonsoft.Json.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\TWNewEgg.CategoryService.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\TWNewEgg.DB.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\EntityFramework.xml
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\TWNewEgg.Framework.Common.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\bin\Debug\Newtonsoft.Json.xml
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\obj\Debug\TWNewEgg.SearchService.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\obj\Debug\TWNewEgg.SearchService.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SearchService\obj\Debug\TWNewEgg.SearchService.pdb

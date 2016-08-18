@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.CategoryItem", "TWNewEgg.CategoryItem\TWNewEgg.CategoryItem.csproj", "{ED20605D-E0A1-4706-A85F-AB76CCACECA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.CategoryItem.Tests", "TWNewEgg.CategoryItem.Tests\TWNewEgg.CategoryItem.Tests.csproj", "{EED4F1A6-7317-4D70-9548-7A7BFED7683B}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://st02mistfs01:8080/tfs/netwcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = TWNewEgg.CategoryItem.Tests\\TWNewEgg.CategoryItem.Tests.csproj
+		SccProjectName1 = TWNewEgg.CategoryItem.Tests
+		SccLocalPath1 = TWNewEgg.CategoryItem.Tests
+		SccProjectUniqueName2 = TWNewEgg.CategoryItem\\TWNewEgg.CategoryItem.csproj
+		SccProjectName2 = TWNewEgg.CategoryItem
+		SccLocalPath2 = TWNewEgg.CategoryItem
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED20605D-E0A1-4706-A85F-AB76CCACECA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED20605D-E0A1-4706-A85F-AB76CCACECA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED20605D-E0A1-4706-A85F-AB76CCACECA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED20605D-E0A1-4706-A85F-AB76CCACECA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EED4F1A6-7317-4D70-9548-7A7BFED7683B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EED4F1A6-7317-4D70-9548-7A7BFED7683B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EED4F1A6-7317-4D70-9548-7A7BFED7683B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EED4F1A6-7317-4D70-9548-7A7BFED7683B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

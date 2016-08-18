@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{44FE734F-F404-44FA-ADD8-17F97ECD1CF1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.SearchServices</RootNamespace>
+    <AssemblyName>TWNewEgg.SearchServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TWNewEgg.Framework.Common">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.HttpMethod">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommonService.cs" />
+    <Compile Include="Interface\ISearchService.cs" />
+    <Compile Include="Model\ItemSearch.cs" />
+    <Compile Include="Model\SearchCategory.cs" />
+    <Compile Include="Model\SearchResults.cs" />
+    <Compile Include="Model\SolrRequestModel.cs" />
+    <Compile Include="Model\SolrResponseModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolrService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.Models.DBModels\TWNewEgg.Models.DBModels.csproj">
+      <Project>{ca4238cb-7b02-4ed1-8e46-f62a2eb3f45e}</Project>
+      <Name>TWNewEgg.Models.DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.Models.DomainModels\TWNewEgg.Models.DomainModels.csproj">
+      <Project>{a4bd2533-fbc1-40d7-9f99-792d8a330f3f}</Project>
+      <Name>TWNewEgg.Models.DomainModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.Category\TWNewEgg.CategoryService.csproj">
+      <Project>{fd56de5b-c274-4006-a860-d51f80697ee8}</Project>
+      <Name>TWNewEgg.CategoryService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.DB\TWNewEgg.DB.csproj">
+      <Project>{a65ac3a0-6a55-433b-adc1-22f8b88a3677}</Project>
+      <Name>TWNewEgg.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.ItemServices\TWNewEgg.ItemServices\TWNewEgg.ItemServices.csproj">
+      <Project>{b9860c2c-3e83-4cf5-b84f-5090c9793af2}</Project>
+      <Name>TWNewEgg.ItemServices</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

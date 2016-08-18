@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Newegg.Mobile</name>
+    </assembly>
+    <members>
+        <member name="T:Newegg.Mobile.Common.BizUnitManager">
+            <summary>
+            Biz unit manager.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.Common.BizUnitManager.GetBizUnitCode">
+            <summary>
+            Get biz unit code.
+            </summary>
+            <returns>Biz unit code.</returns>
+        </member>
+        <member name="T:Newegg.Mobile.IO.DirectoryManager">
+            <summary>
+            Directory manager.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.IO.DirectoryManager.GetDirectoryWithBizUnitAndLanguage(System.String)">
+            <summary>
+            Get directory with bizunit and language.
+            </summary>
+            <param name="directoryName">Directory name.</param>
+            <returns>Directory name with bizunit and language.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.IO.DirectoryManager.GetDirectoryWithBizUnit(System.String)">
+            <summary>
+            Get directory name with bizunit.
+            </summary>
+            <param name="directoryName">Directory name.</param>
+            <returns>Directory name with bizunit.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.IO.DirectoryManager.GetDirectoryWithLanguage(System.String)">
+            <summary>
+            Get directory name with language.
+            </summary>
+            <param name="directoryName">Directory name.</param>
+            <returns>Directory name with language.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.IO.DirectoryManager.GetDirectoryWithAddition(System.String)">
+            <summary>
+            Get directory name with additional information.
+            </summary>
+            <param name="directoryName">Directory name.</param>
+            <returns>Directory name with additional information.</returns>
+        </member>
+        <member name="T:Newegg.Mobile.IO.FileManager">
+            <summary>
+            File manager.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.IO.FileManager.GetPhysicalPath(System.String)">
+            <summary>
+            Get physical path.
+            </summary>
+            <param name="path">Parameter of path.</param>
+            <returns>Physical path.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.IO.FileManager.GetRelativePath(System.String)">
+            <summary>
+            Get relative path.
+            </summary>
+            <param name="path">Parameter of path.</param>
+            <returns>Relative path.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.IO.FileManager.GetFileNameWithBizUnitAndLanguage(System.String)">
+            <summary>
+            Get file name with bizunit and language.
+            </summary>
+            <param name="fileName">File name.</param>
+            <returns>File name with bizunit and language.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.IO.FileManager.GetFileNameWithBizUnit(System.String)">
+            <summary>
+            Get file name with bizunit.
+            </summary>
+            <param name="fileName">File name.</param>
+            <returns>File name with bizunit.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.IO.FileManager.GetFileNameWithLanguage(System.String)">
+            <summary>
+            Get file name with language.
+            </summary>
+            <param name="fileName">File name.</param>
+            <returns>File name with language.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.IO.FileManager.GetFileNameWithAddition(System.String)">
+            <summary>
+            Get file name with additional information.
+            </summary>
+            <param name="fileName">File name.</param>
+            <returns>File name with additional information.</returns>
+        </member>
+        <member name="T:Newegg.Mobile.Common.LanguageManager">
+            <summary>
+            Language manager.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.Common.LanguageManager.GetLanguageCode">
+            <summary>
+            Get language code.
+            </summary>
+            <returns>Language code.</returns>
+        </member>
+        <member name="T:Newegg.Mobile.RandomPlus">
+            <summary>
+            Thales random extension.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.RandomPlus.#ctor">
+            <summary>
+            Initializes a new instance of the RandomPlus class.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.RandomPlus.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the RandomPlus class.
+            </summary>
+            <param name="seed">Random seed.</param>
+        </member>
+        <member name="M:Newegg.Mobile.RandomPlus.GetRandomSeed">
+            <summary>
+            Get random seed.
+            </summary>
+            <returns>Random seed.</returns>
+        </member>
+        <member name="T:Newegg.Mobile.Utility.ConvertExtensions">
+            <summary>
+            Convert extension.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToInt(System.Object,System.Int32)">
+            <summary>
+            Converts current object to an int. If current object is null or cannot be converted to the target type, default value is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <param name="defaultvalue">The default value.</param>
+            <returns>Int value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToInt(System.Object)">
+            <summary>
+            Converts current object to an int. If current object is null or cannot be converted to the target type, default int is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <returns>Int value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToLong(System.Object,System.Int64)">
+            <summary>
+            Converts current object to a long. If current object is null or cannot be converted to the target type, default value is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <param name="defaultvalue">The default value.</param>
+            <returns>Long value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToLong(System.Object)">
+            <summary>
+            Converts current object to a long. If current object is null or cannot be converted to the target type, default long is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <returns>Long value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToDecimal(System.Object,System.Decimal)">
+            <summary>
+            Converts current object to a decimal. If current object is null or cannot be converted to the target type, default value is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <param name="defaultvalue">The default value.</param>
+            <returns>Decimal value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToDecimal(System.Object)">
+            <summary>
+            Converts current object to a decimal. If current object is null or cannot be converted to the target type, default decimal is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <returns>Decimal value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToFloat(System.Object,System.Single)">
+            <summary>
+            Converts current object to a float. If current object is null or cannot be converted to the target type, default value is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <param name="defaultvalue">The default value.</param>
+            <returns>Long value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToFloat(System.Object)">
+            <summary>
+            Converts current object to a float. If current object is null or cannot be converted to the target type, default float is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <returns>Long value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToDouble(System.Object,System.Double)">
+            <summary>
+            Converts current object to a double. If current object is null or cannot be converted to the target type, default value is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <param name="defaultvalue">The default value.</param>
+            <returns>Long value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToDouble(System.Object)">
+            <summary>
+            Converts current object to a double. If current object is null or cannot be converted to the target type, default double is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <returns>Long value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToDateTime(System.Object,System.DateTime)">
+            <summary>
+            Converts current object to a DateTime. If current object is null or cannot be converted to the target type, default value is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <param name="defaultvalue">The default value.</param>
+            <returns>DateTime value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToDateTime(System.Object)">
+            <summary>
+            Converts current object to a DateTime. If current object is null or cannot be converted to the target type, default datetime is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <returns>DateTime value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToBool(System.Object,System.Boolean)">
+            <summary>
+            Converts current object to a bool. If current object is null or cannot be converted to the target type, default value is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <param name="defaultvalue">The default value.</param>
+            <returns>Bool value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToBool(System.Object)">
+            <summary>
+            Converts current object to a bool. If current object is null or cannot be converted to the target type, false is returned.
+            </summary>
+            <param name="me">Current object.</param>
+            <returns>Bool value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToEnum``1(System.Object,``0)">
+            <summary>
+            Converts current object to an enum. If current object is null or cannot be converted to the target type, default value is returned.
+            </summary>
+            <typeparam name="TEnum">Type of enum.</typeparam>
+            <param name="me">Current object.</param>
+            <param name="defaultvalue">Default value.</param>
+            <returns>Enum value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.ToEnum``1(System.Object)">
+            <summary>
+            Converts current object to an enum. If current object is null or cannot be converted to the target type, default value is returned.
+            </summary>
+            <typeparam name="TEnum">Type of enum.</typeparam>
+            <param name="me">Current object.</param>
+            <returns>Enum value.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ConvertExtensions.To``1(System.Object)">
+            <summary>
+            Converts current object to another type of object. If current object is null or cannot be converted to the target type, default value is returned.
+            </summary>
+            <typeparam name="TClass">Type of destination class.</typeparam>
+            <param name="me">Current object.</param>
+            <returns>Destination class instance.</returns>
+        </member>
+        <member name="T:Newegg.Mobile.Utility.ReflectionExtenstions">
+            <summary>
+            Reflection extenstions.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.Utility.ReflectionExtenstions.GetProperties(System.Object)">
+            <summary>
+            Get properties.
+            </summary>
+            <param name="me">Current object.</param>
+            <returns>Properties collection.</returns>
+        </member>
+        <member name="T:Newegg.Mobile.Web.HttpValueCollection">
+            <summary>
+            Http value collection. [Copy from microsoft dotnot source code].
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.#ctor">
+            <summary>
+            Initializes a new instance of the HttpValueCollection class.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.#ctor(System.String,System.Boolean,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Initializes a new instance of the HttpValueCollection class.
+            </summary>
+            <param name="str">Parameter of str.</param>
+            <param name="readOnly">Parameter of read only.</param>
+            <param name="urlencoded">Parameter of urlencoded.</param>
+            <param name="encoding">Parameter of encoding.</param>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the HttpValueCollection class.
+            </summary>
+            <param name="capacity">Parameter of capacity.</param>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the HttpValueCollection class.
+            </summary>
+            <param name="info">Parameter of serializtion information.</param>
+            <param name="context">Parameter of stream context.</param>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.ToString">
+            <summary>
+            Return the string value of current http value collection.
+            </summary>
+            <returns>String value of current http value collection.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.MakeReadOnly">
+            <summary>
+            Make readonley.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.MakeReadWrite">
+            <summary>
+            Make read and write.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.FillFromString(System.String)">
+            <summary>
+            Fill from string.
+            </summary>
+            <param name="s">Parameter of string.</param>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.FillFromString(System.String,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Fill from string.
+            </summary>
+            <param name="s">Parameter of string.</param>
+            <param name="urlencoded">Parameter of url encode.</param>
+            <param name="encoding">Parameter of encoding.</param>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.FillFromEncodedBytes(System.Byte[],System.Text.Encoding)">
+            <summary>
+            Fill from encode bytes.
+            </summary>
+            <param name="bytes">Parameter of encoded bytes.</param>
+            <param name="encoding">Parameter of encoding.</param>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.Add(System.Web.HttpCookieCollection)">
+            <summary>
+            Add a httpcookie collection.
+            </summary>
+            <param name="c">Parameter of http cookie collection.</param>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.Reset">
+            <summary>
+            Rest this instance.
+            </summary>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.ToString(System.Boolean)">
+            <summary>
+            Return the string value of current http value collection.
+            </summary>
+            <param name="urlencoded">Parameter of urlencoded.</param>
+            <returns>String value of current http value collection.</returns>
+        </member>
+        <member name="M:Newegg.Mobile.Web.HttpValueCollection.ToString(System.Boolean,System.Collections.IDictionary)">
+            <summary>
+            Return the string value of current http value collection.
+            </summary>
+            <param name="urlencoded">Parameter of urlencoded.</param>
+            <param name="excludeKeys">Parameter o exclued keys.</param>
+            <returns>String value of current http value collection.</returns>
+        </member>
+    </members>
+</doc>

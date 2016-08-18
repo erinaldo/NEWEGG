@@ -1,0 +1,16 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\obj\Debug\TWNewEgg.PromotionRepoAdapters.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.PromotionRepoAdapters.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.PromotionRepoAdapters.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\EntityFramework.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.DAL.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.Framework.AutoMapper.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.Models.DBModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\MySql.Data.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.VendorModels.DBModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.DAL.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.Models.DBModels.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\EntityFramework.xml
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.Framework.AutoMapper.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.VendorModels.DBModels.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\obj\Debug\TWNewEgg.PromotionRepoAdapters.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\obj\Debug\TWNewEgg.PromotionRepoAdapters.pdb

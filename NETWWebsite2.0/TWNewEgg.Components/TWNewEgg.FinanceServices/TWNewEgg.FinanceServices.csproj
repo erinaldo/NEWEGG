@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{08193760-92A2-496B-9A6C-6F10632E4111}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.FinanceServices</RootNamespace>
+    <AssemblyName>TWNewEgg.FinanceServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\Libraries\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\NETWWebsite1.0\01_Branch\_PP\Libraries\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="TWNewEgg.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.DAL\TWNewEgg.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.Autofac">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.AutoMapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.AutoMapper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CompanyFinanceDataService.cs" />
+    <Compile Include="FinanceDocumentService.cs" />
+    <Compile Include="FinanceDocumentService_XD.cs" />
+    <Compile Include="FinanceDocumentService_XI.cs" />
+    <Compile Include="FinanceDocumentService_XIRMA.cs" />
+    <Compile Include="FinanceDocumentService_XQ.cs" />
+    <Compile Include="Interface\ICompanyFinanceDataService.cs" />
+    <Compile Include="Interface\IFinanceDocumentService.cs" />
+    <Compile Include="Interface\ISapDocumentService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SapDocumentService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.Models.DBModels\TWNewEgg.Models.DBModels.csproj">
+      <Project>{ca4238cb-7b02-4ed1-8e46-f62a2eb3f45e}</Project>
+      <Name>TWNewEgg.Models.DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.Models.DomainModels\TWNewEgg.Models.DomainModels.csproj">
+      <Project>{a4bd2533-fbc1-40d7-9f99-792d8a330f3f}</Project>
+      <Name>TWNewEgg.Models.DomainModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.CartServices\TWNewEgg.CartServices.csproj">
+      <Project>{fa4cb2a2-5154-43e2-a418-832584b57da2}</Project>
+      <Name>TWNewEgg.CartServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.FinanceRepoAdapters\TWNewEgg.FinanceRepoAdapters.csproj">
+      <Project>{e80c86b6-8632-456f-93a2-5f37218c6077}</Project>
+      <Name>TWNewEgg.FinanceRepoAdapters</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

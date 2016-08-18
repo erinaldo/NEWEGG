@@ -1,0 +1,14 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\TWNewEgg.ItemInstallmentRepoAdapters.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\TWNewEgg.ItemInstallmentRepoAdapters.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\TWNewEgg.DAL.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\TWNewEgg.Models.DBModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\EntityFramework.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\MySql.Data.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\TWNewEgg.VendorModels.DBModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\TWNewEgg.DAL.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\TWNewEgg.Models.DBModels.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\EntityFramework.xml
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\TWNewEgg.VendorModels.DBModels.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\obj\Debug\TWNewEgg.ItemInstallmentRepoAdapters.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\obj\Debug\TWNewEgg.ItemInstallmentRepoAdapters.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\obj\Debug\TWNewEgg.ItemInstallmentRepoAdapters.pdb

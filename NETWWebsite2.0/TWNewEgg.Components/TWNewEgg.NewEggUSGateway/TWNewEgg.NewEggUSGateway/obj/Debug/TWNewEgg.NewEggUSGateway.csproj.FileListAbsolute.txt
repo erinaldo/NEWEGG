@@ -1,0 +1,11 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\bin\Debug\TWNewEgg.NewEggUSGateway.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\bin\Debug\TWNewEgg.NewEggUSGateway.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\bin\Debug\log4net.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\bin\Debug\Newegg.Mobile.MvcApplication.Globalization.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\bin\Debug\Newegg.Mobile.Serialization.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\bin\Debug\Newegg.Mobile.Web.Authentication.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\bin\Debug\Newegg.Mobile.Security.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\bin\Debug\Newegg.Mobile.Web.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\bin\Debug\log4net.xml
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\obj\Debug\TWNewEgg.NewEggUSGateway.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway\obj\Debug\TWNewEgg.NewEggUSGateway.pdb

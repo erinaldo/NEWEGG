@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>DynamicQuery</id>
+    <version>1.0</version>
+    <title>Dynamic Expression API</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The Dynamic Expression API extends the core LINQ API and provides: Dynamic parsing of strings to produce expression trees, Dynamic creation of "Data Classes", and Dynamic string-based querying through LINQ providers.</description>
+    <summary>The Dynamic Expression API extends the core LINQ API and provides: Dynamic parsing of strings to produce expression trees, Dynamic creation of "Data Classes", and Dynamic string-based querying through LINQ providers.</summary>
+  </metadata>
+</package>

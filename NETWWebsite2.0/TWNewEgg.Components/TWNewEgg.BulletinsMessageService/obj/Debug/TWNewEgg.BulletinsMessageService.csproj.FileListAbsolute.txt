@@ -1,0 +1,15 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\TWNewEgg.BulletinsMessageService.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\TWNewEgg.BulletinsMessageService.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\EntityFramework.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\TWNewEgg.API.Models.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\TWNewEgg.DB.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\TWNewEgg.Models.DomainModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\TWNewEgg.Models.DBModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\TWNewEgg.API.Models.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\TWNewEgg.DB.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\EntityFramework.xml
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\TWNewEgg.Models.DomainModels.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\bin\Debug\TWNewEgg.Models.DBModels.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\obj\Debug\TWNewEgg.BulletinsMessageService.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\obj\Debug\TWNewEgg.BulletinsMessageService.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.BulletinsMessageService\obj\Debug\TWNewEgg.BulletinsMessageService.pdb

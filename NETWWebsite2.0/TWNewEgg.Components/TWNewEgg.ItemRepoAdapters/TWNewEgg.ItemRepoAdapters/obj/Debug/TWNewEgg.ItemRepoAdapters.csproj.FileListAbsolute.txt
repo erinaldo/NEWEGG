@@ -1,0 +1,5 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters\obj\Debug\TWNewEgg.ItemRepoAdapters.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters\obj\Debug\TWNewEgg.ItemRepoAdapters.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters\obj\Debug\TWNewEgg.ItemRepoAdapters.pdb

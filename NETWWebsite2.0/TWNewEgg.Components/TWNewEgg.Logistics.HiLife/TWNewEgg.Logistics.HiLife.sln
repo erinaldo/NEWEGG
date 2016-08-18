@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Logistics.HiLife", "TWNewEgg.Logistics.HiLife.csproj", "{00327268-7605-4177-A344-BE3A194A4983}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 1
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://sttcmistfs01:8080/tfs/mkplcollection
+		SccProjectUniqueName0 = TWNewEgg.Logistics.HiLife.csproj
+		SccProjectName0 = .
+		SccAuxPath0 = http://sttcmistfs01:8080/tfs/mkplcollection
+		SccLocalPath0 = .
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00327268-7605-4177-A344-BE3A194A4983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00327268-7605-4177-A344-BE3A194A4983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00327268-7605-4177-A344-BE3A194A4983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00327268-7605-4177-A344-BE3A194A4983}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

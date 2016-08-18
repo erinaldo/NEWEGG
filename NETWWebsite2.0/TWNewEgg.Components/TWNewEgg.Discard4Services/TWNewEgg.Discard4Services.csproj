@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7C2EC58C-D513-4BD0-9B92-70A57EAF2EFA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.Discard4Services</RootNamespace>
+    <AssemblyName>TWNewEgg.Discard4Services</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TWNewEgg.Framework.Autofac">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.AutoMapper">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Models.WebsiteMappingRules">
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.Models.WebsiteMappingRules.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Discard4ItemService.cs" />
+    <Compile Include="Discard4Service.cs" />
+    <Compile Include="Interface\IDiscard4ItemService.cs" />
+    <Compile Include="Interface\IDiscard4Service.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.Models.DBModels\TWNewEgg.Models.DBModels.csproj">
+      <Project>{ca4238cb-7b02-4ed1-8e46-f62a2eb3f45e}</Project>
+      <Name>TWNewEgg.Models.DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.Models.DomainModels\TWNewEgg.Models.DomainModels.csproj">
+      <Project>{a4bd2533-fbc1-40d7-9f99-792d8a330f3f}</Project>
+      <Name>TWNewEgg.Models.DomainModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.Models.ServiceMappingRules\TWNewEgg.Models.ServiceMappingRules.csproj">
+      <Project>{96164590-4ae7-4035-9bc2-53eae1bb022f}</Project>
+      <Name>TWNewEgg.Models.ServiceMappingRules</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.Discard4RepoAdapters\TWNewEgg.Discard4RepoAdapters.csproj">
+      <Project>{0b0b9e7b-9d9b-4930-884b-bb168b875b84}</Project>
+      <Name>TWNewEgg.Discard4RepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters.csproj">
+      <Project>{75b10250-1424-4922-96b9-bc701923a9ee}</Project>
+      <Name>TWNewEgg.ItemRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.ItemServices\TWNewEgg.ItemServices\TWNewEgg.ItemServices.csproj">
+      <Project>{b9860c2c-3e83-4cf5-b84f-5090c9793af2}</Project>
+      <Name>TWNewEgg.ItemServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewEgg.ItemService\TWNewEgg.ItemService.csproj">
+      <Project>{f9001709-9301-4d69-be6c-b0e112da813c}</Project>
+      <Name>TWNewEgg.ItemService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewegg.SalesOrderGroupRepoAdapters\TWNewegg.SalesOrderGroupRepoAdapters.csproj">
+      <Project>{67881a01-79bc-4464-82b8-014ebb7a38f9}</Project>
+      <Name>TWNewegg.SalesOrderGroupRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewegg.SalesOrderItemRepoAdapters\TWNewegg.SalesOrderItemRepoAdapters.csproj">
+      <Project>{45933e86-70a9-4cc6-91ab-c7224d62456a}</Project>
+      <Name>TWNewegg.SalesOrderItemRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TWNewegg.SalesOrderRepoAdapters\TWNewegg.SalesOrderRepoAdapters.csproj">
+      <Project>{c2b41846-eb55-453c-80db-231944848e39}</Project>
+      <Name>TWNewegg.SalesOrderRepoAdapters</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

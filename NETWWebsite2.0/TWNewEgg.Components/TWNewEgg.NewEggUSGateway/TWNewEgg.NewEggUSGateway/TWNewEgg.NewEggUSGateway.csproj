@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{728AB135-E766-4938-90BF-E390BEC67CDE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.NewEggUSGateway</RootNamespace>
+    <AssemblyName>TWNewEgg.NewEggUSGateway</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newegg.Mobile.MvcApplication.Globalization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\Newegg.Mobile\Newegg.Mobile.MvcApplication.Globalization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newegg.Mobile.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\Newegg.Mobile\Newegg.Mobile.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newegg.Mobile.Web.Authentication, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\Newegg.Mobile\Newegg.Mobile.Web.Authentication.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interface\INeweggUSAAPI.cs" />
+    <Compile Include="Models\ActionResponse.cs" />
+    <Compile Include="Models\BodyInfo.cs" />
+    <Compile Include="Models\CustomerInfo.cs" />
+    <Compile Include="Models\HeaderInfo.cs" />
+    <Compile Include="Models\ItemInfo.cs" />
+    <Compile Include="Models\ItemInfoExt.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Account\LogInModel.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Account\LogOnModel.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Account\LogonResultModel.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Account\MyAccountViewData.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Account\RegisterModel.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Account\UIAnimationElement.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Account\UITimeMachineElement.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Account\UITimeMachineViewModel.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\BarcodeScan.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\ClientContactUs.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\IphoneClientConfig.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\IphoneClientImageCaching.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\IphoneCoremetrics.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\IphoneCoremetricsRequestServer.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\IphoneServiceHost.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\IphoneVersionControl.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\PayPalConfiguration.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\PushNotificationConfiguration.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\TimeMachineConfiguration.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\UIAnchorInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\UICommonEnums.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\UIContactUs.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\UIHelpInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Common\UISearchOption.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\CoreMetrics\UIBaseTagInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\CoreMetrics\UIConversionEventTagInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\CoreMetrics\UICoreMetricsInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\CoreMetrics\UIOrderTagInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\CoreMetrics\UIRegistrationTagInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\CoreMetrics\UIShopAction5TagInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\CoreMetrics\UIShopAction9TagInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Core\Message.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Core\MessageT.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\CustomerInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\CustomerLogon.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UIAddressType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UIAutoNotifyCellInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UIAutoNotifyContent.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UIAutoNotifyInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UICustomerBasicInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UICustomerDetailInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UICustomerInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UICustomerRegisterInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UICustomerShippingInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UILoginInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UILoginResultInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UILoginStatus.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UIMyAccountData.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UISearchProperty.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UISelectOrderOption.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UISellerRMADetailInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UISellerRMAInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Customer\UIShoppingLoginResultInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\EmailAFriend\UIEmailAFriendInputContentInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\EmailAFriend\UIEmailItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\OrderHistoryCookieInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UICancelOrderParameter.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UICancelOrderReason.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIDiscountRowInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIDiscountRowItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIOrderHistoryContent.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIOrderHistoryDetailInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIOrderHistoryDetailParameter.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIOrderHistorySearchParameter.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIOrderHistorySummaryInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIOrderInvoiceDetailInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIOrderInvoiceRequest.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIOrderInvoicSellerExtraInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIOrderSearchOption.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Order\UIOrderSummaryInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\Paypal\CheckoutItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\Paypal\PaypalData.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\Paypal\UICheckoutDataInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\Paypal\UICustomerShipping.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\Paypal\UIExpressCheckoutDetailRequest.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\Paypal\UIExpressCheckoutDetailResponse.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\Paypal\UIPaypalEntity.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\Paypal\UISetExpressCheckoutRequest.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\Paypal\UISetExpressCheckoutResponse.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\UICreditCardPaymentInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\UIPaymentContentInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\UIPaymentInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Payment\UIPaymentType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\PushNotification\UIPushDeviceType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\PushNotification\UIRegistSubscribeRequestInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\PushNotification\UISearchSubscribeRequestInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\PushNotification\UISubscribeCategoryItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\PushNotification\UISubscribeContent.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\PushNotification\UISubscribeItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Qas\UICheckAddressInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Qas\UICheckAddressType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Qas\UICheckResultAddressInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Qas\UIQASAddressInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Qas\UIQASAddressInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Qas\UIQASAddressVerify.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Qas\UIQASCheckActionType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Qas\UIQASCheckResultInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Qas\UIQASLogInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Qas\UIQASVerifyLevelType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Review\UICustomerReviewInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Review\UIVoteReviewInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UINewRMAHistoryDetail.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UINewRMAHistoryItemSummary.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIQueryRMAContent.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIQueryRMAInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIQueryRMAItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIQueryRMATrackingNumberItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIRMADetailContent.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIRMAHistoryContent.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIRMAHistoryDetailItem.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIRMAHistoryDetailItemBase.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIRMAHistoryDetailMemo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIRMAHistoryDetailShippingLabel.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIRMAHistoryShowInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIRMAHistorySummary.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RMA\UIRMAMemo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Server\UIServerInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\ComboUniqueInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\ItemAttribute.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\ShoppingCartCookieInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\ShoppingCartItemCookieInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\ShoppingCartShippingMethodInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\ShoppingCartSNETItemCookieInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIGiftCertificateRedeemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIProhibitedInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIPromoCodeInfos.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIServiceItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShippingMethodItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingCartDataInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingCartInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingCartInfoAjax.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingCartListInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingCartPreviewListInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingCartPromotionCodeInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingCartSNETInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingCartUnitInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingCartWishListInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingDirectCheckout.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingItemServiceInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIShoppingOrderInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIWarningInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIWarrantyGroupInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ShoppingCart\UIWarrantyItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UICheckoutData.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UICheckoutDataForIpad.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UICheckoutDiscountRowInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UICheckoutDisplayFeeInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UICheckoutInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UICheckoutResult.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIColorType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIGiftType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIItemGroupType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UINoteItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIOrderContent.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIOrderDefaultShippingMethodInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIOrderDetailInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIOrderDisplayFeeInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIOrderForThankyouInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIOrderInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIOrderItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIOrderItemType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIOrderTrackInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIPreferredAccountPaymentInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIPreferredAccountPromotionInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIProductItem.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIRushOrderFeeInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIShippingMethodInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIShoppingCartBuyItem.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIShoppingUnitInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UISOVoidReasonInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Shopping\UIThankyouInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ThirdParty\IThirdPartyContext.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ThirdParty\ThirdPartyContext.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Tracking\UITrackingActivityInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Tracking\UITrackingOrderInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\Tracking\UITrackingOrderItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ViewData\CoreMetricsViewData.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ViewData\History\HistoryCookieInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ViewData\History\HistoryCookieItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ViewData\History\UIProductListItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ViewData\Order\SectionAddressViewData.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ViewData\Order\ShippingMethodItemViewData.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ViewData\Order\ShippingMethodViewData.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ViewData\Store\CategoryType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ViewData\Store\UICategoryNavigationItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ViewData\Store\UITabStoreMenuItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIVolumeDiscountInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListAddItemInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListBaseInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListCreateInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListDeleteInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListDeleteItemInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListDetailInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListMasterInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListProductInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListRenameNoteInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListRenameTitleInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\WishList\UIWishListUpdateItemQtyInputInfo.cs" />
+    <Compile Include="Models\Publish.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\AddressNavigatuib.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ErrorCode.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\NonNullValueAttribute.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\OnlyDigitalAttribute.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\PhoneFormatAttribute.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\RequestParameterName.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\ResultStatus.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\SortOrderType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\StoreMenu.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\StoreType.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\UIAddressInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\UIDeviceInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\UIImageInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\UIPageInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\UIPager.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\UIRegisterResultInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\UISellerInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\UIShippingPromotionInfo.cs" />
+    <Compile Include="Models\NeweggAPI\SSL\UISortInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\CoremetricsInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\ExtendedWarrantyType.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\NavigationItemList.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\ProductDetailsViewData.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIBrandInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIExtendedWarrantyContent.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIExtendedWarrantyGroupInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIExtendedWarrantyInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIItemType.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIMoreTabStoreNavigationItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductBasicInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductItemDetailAllInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductItemDetailInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductListNavigationContentInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductListNavigationItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductListSellerItemInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductMapPropertyOptionInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductPropertyInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductPropertyOptionGroupInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductPropertyOptionInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductPropertyOptionType.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductReviewBarInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductSearchAdvancedConditionInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductSearchAdvancedResultInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductSearchConditionInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductSearchResultInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductSpecificationGroupInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductSpecificationInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductSpecificationPairInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIProductWarningInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIPromotionModuleInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIReturnPolicyInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIReviewContent.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIReviewInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIReviewSummary.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UISearchProvider.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UISearchResultType.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UISellerItemPropertyInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UISellerPropertyValueInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIShippingInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIStoreContentInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\UIStoreContentInputInfo.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\VProductItemType.cs" />
+    <Compile Include="Models\NeweggAPI\WWW\VSellerInfo.cs" />
+    <Compile Include="Models\NodeList.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
+    <Compile Include="Models\OrderInfo9SI.cs" />
+    <Compile Include="Models\OrderInfoBase.cs" />
+    <Compile Include="Models\ProductDetail\ProductDetail.cs" />
+    <Compile Include="Models\ProductDetail\ProductDetailAdditional.cs" />
+    <Compile Include="Models\ProductDetail\ProductDetailBasic.cs" />
+    <Compile Include="Models\ProductDetail\ProductDetailCoremetricsInfo.cs" />
+    <Compile Include="Models\SellerInfo.cs" />
+    <Compile Include="Models\SendToNeweggUSAApiModel.cs" />
+    <Compile Include="NeweggConfiguration.cs" />
+    <Compile Include="NeweggUSAAPI.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Configurations\AppSettings.Config" />
+    <None Include="Configurations\RestServices.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

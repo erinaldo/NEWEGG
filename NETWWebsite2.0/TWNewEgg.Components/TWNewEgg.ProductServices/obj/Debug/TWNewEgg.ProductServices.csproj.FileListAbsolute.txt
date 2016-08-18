@@ -1,0 +1,5 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ProductServices\bin\Debug\TWNewEgg.ProductServices.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ProductServices\bin\Debug\TWNewEgg.ProductServices.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ProductServices\obj\Debug\TWNewEgg.ProductServices.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ProductServices\obj\Debug\TWNewEgg.ProductServices.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.ProductServices\obj\Debug\TWNewEgg.ProductServices.csprojResolveAssemblyReference.cache

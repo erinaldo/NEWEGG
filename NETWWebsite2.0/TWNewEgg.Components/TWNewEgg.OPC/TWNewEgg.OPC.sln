@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.OPC", "TWNewEgg.OPC\TWNewEgg.OPC.csproj", "{33F98FD7-F2F3-439C-AA02-B193811725A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.0ComponentProjects", "2.0ComponentProjects", "{BE5F00C5-E77C-43C2-B022-95AEC9B9E012}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ComponentProjects", "ComponentProjects", "{CDE30B5E-A252-4BB3-A203-F876F58C7828}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModelProjects", "ModelProjects", "{A55915EA-3734-498E-94B1-21D3AC7AFED2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Models.DomainModels", "..\..\TWNewEgg.Models\TWNewEgg.Models.DomainModels\TWNewEgg.Models.DomainModels.csproj", "{A4BD2533-FBC1-40D7-9F99-792D8A330F3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Models.DBModels", "..\..\TWNewEgg.Models\TWNewEgg.Models.DBModels\TWNewEgg.Models.DBModels.csproj", "{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Redeem", "..\TWNewEgg.Redeem\TWNewEgg.Redeem.csproj", "{1E32FB82-CD2D-4B10-B064-6DB1483829FB}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://st02mistfs01:8080/tfs/netwcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = TWNewEgg.OPC\\TWNewEgg.OPC.csproj
+		SccProjectName1 = TWNewEgg.OPC
+		SccLocalPath1 = TWNewEgg.OPC
+		SccProjectUniqueName2 = ..\\..\\TWNewEgg.Models\\TWNewEgg.Models.DomainModels\\TWNewEgg.Models.DomainModels.csproj
+		SccProjectTopLevelParentUniqueName2 = TWNewEgg.OPC.sln
+		SccProjectName2 = ../../TWNewEgg.Models/TWNewEgg.Models.DomainModels
+		SccLocalPath2 = ..\\..\\TWNewEgg.Models\\TWNewEgg.Models.DomainModels
+		SccProjectUniqueName3 = ..\\..\\TWNewEgg.Models\\TWNewEgg.Models.DBModels\\TWNewEgg.Models.DBModels.csproj
+		SccProjectTopLevelParentUniqueName3 = TWNewEgg.OPC.sln
+		SccProjectName3 = ../../TWNewEgg.Models/TWNewEgg.Models.DBModels
+		SccLocalPath3 = ..\\..\\TWNewEgg.Models\\TWNewEgg.Models.DBModels
+		SccProjectUniqueName4 = ..\\TWNewEgg.Redeem\\TWNewEgg.Redeem.csproj
+		SccProjectTopLevelParentUniqueName4 = TWNewEgg.OPC.sln
+		SccProjectName4 = ../TWNewEgg.Redeem
+		SccLocalPath4 = ..\\TWNewEgg.Redeem
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33F98FD7-F2F3-439C-AA02-B193811725A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33F98FD7-F2F3-439C-AA02-B193811725A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33F98FD7-F2F3-439C-AA02-B193811725A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33F98FD7-F2F3-439C-AA02-B193811725A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1E32FB82-CD2D-4B10-B064-6DB1483829FB} = {CDE30B5E-A252-4BB3-A203-F876F58C7828}
+		{A4BD2533-FBC1-40D7-9F99-792D8A330F3F} = {A55915EA-3734-498E-94B1-21D3AC7AFED2}
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E} = {A55915EA-3734-498E-94B1-21D3AC7AFED2}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,9 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NeweggRequestServices\bin\Debug\TWNewEgg.NeweggUSARequestServices.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NeweggRequestServices\bin\Debug\TWNewEgg.NeweggUSARequestServices.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NeweggRequestServices\bin\Debug\log4net.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NeweggRequestServices\bin\Debug\Newtonsoft.Json.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NeweggRequestServices\bin\Debug\log4net.xml
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NeweggRequestServices\bin\Debug\Newtonsoft.Json.xml
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NeweggRequestServices\obj\Debug\TWNewEgg.NeweggUSARequestServices.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NeweggRequestServices\obj\Debug\TWNewEgg.NeweggUSARequestServices.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.NeweggRequestServices\obj\Debug\TWNewEgg.NeweggUSARequestServices.pdb
