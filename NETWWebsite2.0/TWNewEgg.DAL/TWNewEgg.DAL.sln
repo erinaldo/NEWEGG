@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.DAL", "TWNewEgg.DAL\TWNewEgg.DAL.csproj", "{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModelDLLs", "ModelDLLs", "{436A5C58-B4D5-4CBF-A1E0-DD034F59A5F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.DAL.UnitTest", "TWNewEgg.DAL.UnitTest\TWNewEgg.DAL.UnitTest.csproj", "{2C2D655D-046F-4918-BECC-B062912AE4D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.Models.DBModels", "..\TWNewEgg.Models\TWNewEgg.Models.DBModels\TWNewEgg.Models.DBModels.csproj", "{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWNewEgg.VendorModels.DBModels", "..\TWNewEgg.Models\TWNewEgg.VendorModels.DBModels\TWNewEgg.VendorModels.DBModels.csproj", "{E2956CD8-357A-4B3F-8C9C-58C73E49DCC5}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://st02mistfs01:8080/tfs/netwcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = TWNewEgg.DAL\\TWNewEgg.DAL.csproj
+		SccProjectName1 = TWNewEgg.DAL
+		SccLocalPath1 = TWNewEgg.DAL
+		SccProjectUniqueName2 = TWNewEgg.DAL.UnitTest\\TWNewEgg.DAL.UnitTest.csproj
+		SccProjectName2 = TWNewEgg.DAL.UnitTest
+		SccLocalPath2 = TWNewEgg.DAL.UnitTest
+		SccProjectUniqueName3 = ..\\TWNewEgg.Models\\TWNewEgg.Models.DBModels\\TWNewEgg.Models.DBModels.csproj
+		SccProjectTopLevelParentUniqueName3 = TWNewEgg.DAL.sln
+		SccProjectName3 = ../TWNewEgg.Models/TWNewEgg.Models.DBModels
+		SccLocalPath3 = ..\\TWNewEgg.Models\\TWNewEgg.Models.DBModels
+		SccProjectUniqueName4 = ..\\TWNewEgg.Models\\TWNewEgg.VendorModels.DBModels\\TWNewEgg.VendorModels.DBModels.csproj
+		SccProjectTopLevelParentUniqueName4 = TWNewEgg.DAL.sln
+		SccProjectName4 = ../TWNewEgg.Models/TWNewEgg.VendorModels.DBModels
+		SccLocalPath4 = ..\\TWNewEgg.Models\\TWNewEgg.VendorModels.DBModels
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5AC3D41-3E09-44B9-9EA4-3CA3A30B5749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C2D655D-046F-4918-BECC-B062912AE4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C2D655D-046F-4918-BECC-B062912AE4D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C2D655D-046F-4918-BECC-B062912AE4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C2D655D-046F-4918-BECC-B062912AE4D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2956CD8-357A-4B3F-8C9C-58C73E49DCC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2956CD8-357A-4B3F-8C9C-58C73E49DCC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2956CD8-357A-4B3F-8C9C-58C73E49DCC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2956CD8-357A-4B3F-8C9C-58C73E49DCC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E} = {436A5C58-B4D5-4CBF-A1E0-DD034F59A5F2}
+		{E2956CD8-357A-4B3F-8C9C-58C73E49DCC5} = {436A5C58-B4D5-4CBF-A1E0-DD034F59A5F2}
+	EndGlobalSection
+EndGlobal

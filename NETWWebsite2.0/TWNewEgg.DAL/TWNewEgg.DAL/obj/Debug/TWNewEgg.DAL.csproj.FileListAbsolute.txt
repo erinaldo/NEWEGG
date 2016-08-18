@@ -1,0 +1,5 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.DAL\TWNewEgg.DAL\obj\Debug\TWNewEgg.DAL.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.DAL\TWNewEgg.DAL.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.DAL\TWNewEgg.DAL.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.DAL\TWNewEgg.DAL\obj\Debug\TWNewEgg.DAL.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.DAL\TWNewEgg.DAL\obj\Debug\TWNewEgg.DAL.pdb
