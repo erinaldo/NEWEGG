@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CA4238CB-7B02-4ED1-8E46-F62A2EB3F45E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.Models.DBModels</RootNamespace>
+    <AssemblyName>TWNewEgg.Models.DBModels</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Libraries\TWNewEgg.Models\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Libraries\TWNewEgg.Models\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\00_SourceCode\Libraries\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TWBACKENDDBExtModels\BankAccountsInfo.cs" />
+    <Compile Include="TWBACKENDDBExtModels\CartGroupInfo.cs" />
+    <Compile Include="TWBACKENDDBExtModels\CustomerInfo.cs" />
+    <Compile Include="TWBACKENDDBExtModels\FinanceDataList.cs" />
+    <Compile Include="TWBACKENDDBExtModels\LoggerInfo.cs" />
+    <Compile Include="TWBACKENDDBExtModels\SapBapiAccDocumentInfo.cs" />
+    <Compile Include="TWBACKENDDBExtModels\SapDocumentInfo.cs" />
+    <Compile Include="TWBACKENDDBExtModels\SAPLogInfo.cs" />
+    <Compile Include="TWBACKENDDBExtModels\SapPriceInfo.cs" />
+    <Compile Include="TWBACKENDDB\AccountsDocumentType.cs" />
+    <Compile Include="TWBACKENDDB\BankAccounts.cs" />
+    <Compile Include="TWBACKENDDB\ChartOfAccountsProfile.cs" />
+    <Compile Include="TWBACKENDDB\SellerCorrectionPrice.cs" />
+    <Compile Include="TWBACKENDDB\CreditAuth.cs" />
+    <Compile Include="TWBACKENDDB\Datamaintain_log.cs" />
+    <Compile Include="TWBACKENDDB\DeliverType.cs" />
+    <Compile Include="TWBACKENDDB\Discard4Item.cs" />
+    <Compile Include="TWBACKENDDB\DocNumber_V2.cs" />
+    <Compile Include="TWBACKENDDB\FinanceDocumentCreateNote.cs" />
+    <Compile Include="TWBACKENDDB\FinDocTransLog.cs" />
+    <Compile Include="TWBACKENDDB\GLAccounts.cs" />
+    <Compile Include="TWBACKENDDB\InvoiceList.cs" />
+    <Compile Include="TWBACKENDDB\ItemInStock_trans.cs" />
+    <Compile Include="TWBACKENDDB\PurchaseOrderitemTWBACK.cs" />
+    <Compile Include="TWBACKENDDB\refund2c.cs" />
+    <Compile Include="TWBACKENDDB\Retgood.cs" />
+    <Compile Include="TWBACKENDDB\Sap_BapiAccDocument_DocDetail.cs" />
+    <Compile Include="TWBACKENDDB\Sap_BapiAccDocument_DocHeader.cs" />
+    <Compile Include="TWBACKENDDB\Seller_FinanDetail.cs" />
+    <Compile Include="TWBACKENDDB\Seller_FinanMaster.cs" />
+    <Compile Include="TWSQLDBExtModels\DbItemProperty.cs" />
+    <Compile Include="TWSQLDBExtModels\PageMgmt\DSComponentInfo.cs" />
+    <Compile Include="TWSQLDBExtModels\PageMgmt\DSPageInfo.cs" />
+    <Compile Include="TWSQLDBExtModels\ViewTracksCartItems.cs" />
+    <Compile Include="TWSQLDBExtModels\ItemPriceInfo.cs" />
+    <Compile Include="TWSQLDBExtModels\DbSOInfo.cs" />
+    <Compile Include="TWSQLDB\Activity.cs" />
+    <Compile Include="TWSQLDB\AdditionalItemForCart.cs" />
+    <Compile Include="TWSQLDB\AdditionalItemForItem.cs" />
+    <Compile Include="TWSQLDB\AddressBook.cs" />
+    <Compile Include="TWSQLDB\AdLayer3.cs" />
+    <Compile Include="TWSQLDB\AdLayer3Item.cs" />
+    <Compile Include="TWSQLDB\Answer.cs" />
+    <Compile Include="TWSQLDB\Auth.cs" />
+    <Compile Include="TWSQLDB\Bank.cs" />
+    <Compile Include="TWSQLDB\BankBonus.cs" />
+    <Compile Include="TWSQLDB\BankBonusTemp.cs" />
+    <Compile Include="TWSQLDB\BankInstallment.cs" />
+    <Compile Include="TWSQLDB\BeneficiaryParty.cs" />
+    <Compile Include="TWSQLDB\CartCouponTemp.cs" />
+    <Compile Include="TWSQLDB\CartItemTemp.cs" />
+    <Compile Include="TWSQLDB\CartTemp.cs" />
+    <Compile Include="TWSQLDB\CategoryTopItem.cs" />
+    <Compile Include="TWSQLDB\CompanyBook.cs" />
+    <Compile Include="TWSQLDB\BaseDB.cs" />
+    <Compile Include="TWSQLDB\CouponActivity.cs" />
+    <Compile Include="TWSQLDB\DeviceAdContent.cs" />
+    <Compile Include="TWSQLDB\DeviceAdSet.cs" />
+    <Compile Include="TWSQLDB\Discard4.cs" />
+    <Compile Include="TWSQLDB\GreetingWords.cs" />
+    <Compile Include="TWSQLDB\Coupon.cs" />
+    <Compile Include="TWSQLDB\Currency.cs" />
+    <Compile Include="TWSQLDB\DeliveryType_PaymentTerm.cs" />
+    <Compile Include="TWSQLDB\EDMBook.cs" />
+    <Compile Include="TWSQLDB\EDMBookList.cs" />
+    <Compile Include="TWSQLDB\Event.cs" />
+    <Compile Include="TWSQLDB\EventFile.cs" />
+    <Compile Include="TWSQLDB\EventTempImport.cs" />
+    <Compile Include="TWSQLDB\HiTrust.cs" />
+    <Compile Include="TWSQLDB\HiTrustQuery.cs" />
+    <Compile Include="TWSQLDB\HiTrustQueryLog.cs" />
+    <Compile Include="TWSQLDB\HiTrustTrans.cs" />
+    <Compile Include="TWSQLDB\HiTrustTransLog.cs" />
+    <Compile Include="TWSQLDB\HotWords.cs" />
+    <Compile Include="TWSQLDB\ImageUrlReferenceForProduct.cs" />
+    <Compile Include="TWSQLDB\Installment.cs" />
+    <Compile Include="TWSQLDB\ItemCategoryTemp.cs" />
+    <Compile Include="TWSQLDB\ItemForChoice.cs" />
+    <Compile Include="TWSQLDB\ItemGroup.cs" />
+    <Compile Include="TWSQLDB\ItemGroupDetailProperty.cs" />
+    <Compile Include="TWSQLDB\ItemGroupProperty.cs" />
+    <Compile Include="TWSQLDB\ItemInstallmentRule.cs" />
+    <Compile Include="TWSQLDB\ItemSearch.cs" />
+    <Compile Include="TWSQLDB\ItemSketch.cs" />
+    <Compile Include="TWSQLDB\ItemStock.cs" />
+    <Compile Include="TWSQLDB\ItemStockTemp.cs" />
+    <Compile Include="TWSQLDB\ItemTemp.cs" />
+    <Compile Include="TWSQLDB\ItemTopInstallment.cs" />
+    <Compile Include="TWSQLDB\LotteryAward.cs" />
+    <Compile Include="TWSQLDB\LotteryGame.cs" />
+    <Compile Include="TWSQLDB\LotteryLog.cs" />
+    <Compile Include="TWSQLDB\Manufacture.cs" />
+    <Compile Include="TWSQLDB\MediaInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TWBackendDBContext.cs" />
+    <Compile Include="TWBACKENDDB\Cart.cs" />
+    <Compile Include="TWBACKENDDB\Process.cs" />
+    <Compile Include="TWBACKENDDB\PurchaseOrder.cs" />
+    <Compile Include="TWSqlDBContext.cs" />
+    <Compile Include="TWSQLDBExtModels\DbItemInfo.cs" />
+    <Compile Include="TWSQLDBExtModels\DbPromotionInfo.cs" />
+    <Compile Include="TWSQLDB\Account.cs" />
+    <Compile Include="TWSQLDB\Adsoptionalselect.cs" />
+    <Compile Include="TWSQLDB\Advertising.cs" />
+    <Compile Include="TWSQLDB\Category.cs" />
+    <Compile Include="TWSQLDB\Country.cs" />
+    <Compile Include="TWSQLDB\GroupBuy.cs" />
+    <Compile Include="TWSQLDB\ImageUrlReference.cs" />
+    <Compile Include="TWSQLDB\Item.cs" />
+    <Compile Include="TWSQLDB\ItemAndSubCategoryMapping_NormalStore.cs" />
+    <Compile Include="TWSQLDB\ItemCategory.cs" />
+    <Compile Include="TWSQLDB\ItemDisplayPrice.cs" />
+    <Compile Include="TWSQLDB\ItemPropertyGroup.cs" />
+    <Compile Include="TWSQLDB\ItemPropertyName.cs" />
+    <Compile Include="TWSQLDB\ItemPropertyValue.cs" />
+    <Compile Include="TWSQLDB\Member.cs" />
+    <Compile Include="TWSQLDB\NCCCTrans.cs" />
+    <Compile Include="TWSQLDB\NewsInfo.cs" />
+    <Compile Include="TWSQLDB\OrderQueue.cs" />
+    <Compile Include="TWSQLDB\OrderQueueLog.cs" />
+    <Compile Include="TWSQLDB\PageMgmt\ComponentInfo.cs" />
+    <Compile Include="TWSQLDB\PageMgmt\DynamicObject.cs" />
+    <Compile Include="TWSQLDB\PageMgmt\ImageObject.cs" />
+    <Compile Include="TWSQLDB\PageMgmt\PageInfo.cs" />
+    <Compile Include="TWSQLDB\PageMgmt\TextObject.cs" />
+    <Compile Include="TWSQLDB\PageMgmt\VideoInfo.cs" />
+    <Compile Include="TWSQLDB\PaymentGateway.cs" />
+    <Compile Include="TWSQLDB\PaymentTerm.cs" />
+    <Compile Include="TWSQLDB\PayType.cs" />
+    <Compile Include="TWSQLDB\Problem.cs" />
+    <Compile Include="TWSQLDB\Product.cs" />
+    <Compile Include="TWSQLDB\ProductProperty.cs" />
+    <Compile Include="TWSQLDB\ProductTemp.cs" />
+    <Compile Include="TWSQLDB\PromoActive.cs" />
+    <Compile Include="TWSQLDB\PromoAwardLog.cs" />
+    <Compile Include="TWSQLDB\PromotionGiftBasic.cs" />
+    <Compile Include="TWSQLDB\PromotionGiftBlackList.cs" />
+    <Compile Include="TWSQLDB\PromotionGiftInterval.cs" />
+    <Compile Include="TWSQLDB\PromotionGiftRecords.cs" />
+    <Compile Include="TWSQLDB\PromotionGiftWhiteList.cs" />
+    <Compile Include="TWSQLDB\PurchaseOrderTWSQLDB.cs" />
+    <Compile Include="TWSQLDB\PurgeQueue.cs" />
+    <Compile Include="TWSQLDB\PurgeRequest.cs" />
+    <Compile Include="TWSQLDB\SalesOrderGroupTemp.cs" />
+    <Compile Include="TWSQLDB\SalesOrderItemTemp.cs" />
+    <Compile Include="TWSQLDB\SalesOrderTemp.cs" />
+    <Compile Include="TWSQLDB\View_ItemSellingQty.cs" />
+    <Compile Include="TWSQLDB\VotingActivityGroup.cs" />
+    <Compile Include="TWSQLDB\VotingActivityItems.cs" />
+    <Compile Include="TWSQLDB\VotingActivityRec.cs" />
+    <Compile Include="TWSQLDB\SalesOrder.cs" />
+    <Compile Include="TWSQLDB\SalesOrderGroup.cs" />
+    <Compile Include="TWSQLDB\SalesOrderItem.cs" />
+    <Compile Include="TWSQLDB\SearchWord.cs" />
+    <Compile Include="TWSQLDB\Seller.cs" />
+    <Compile Include="TWSQLDB\StarProduct.cs" />
+    <Compile Include="TWSQLDB\Subcategorygroup.cs" />
+    <Compile Include="TWSQLDB\Subcategorylogo.cs" />
+    <Compile Include="TWSQLDB\SubCategory_NormalStore.cs" />
+    <Compile Include="TWSQLDB\SubCategory_OptionStore.cs" />
+    <Compile Include="TWSQLDB\Track.cs" />
+    <Compile Include="TWSQLDB\WindowBlocks.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

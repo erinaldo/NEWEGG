@@ -1,0 +1,5 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Models\TWNewEgg.Models.ServiceMappingRules\obj\Debug\TWNewEgg.Models.ServiceMappingRules.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.Models\TWNewEgg.Models.ServiceMappingRules.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.Models\TWNewEgg.Models.ServiceMappingRules.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Models\TWNewEgg.Models.ServiceMappingRules\obj\Debug\TWNewEgg.Models.ServiceMappingRules.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Models\TWNewEgg.Models.ServiceMappingRules\obj\Debug\TWNewEgg.Models.ServiceMappingRules.pdb

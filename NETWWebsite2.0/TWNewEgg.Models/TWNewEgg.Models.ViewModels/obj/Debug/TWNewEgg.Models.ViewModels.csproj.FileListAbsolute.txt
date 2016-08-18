@@ -1,0 +1,5 @@
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Models\TWNewEgg.Models.ViewModels\obj\Debug\TWNewEgg.Models.ViewModels.csprojResolveAssemblyReference.cache
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.Models\TWNewEgg.Models.ViewModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\Libraries\TWNewEgg.Models\TWNewEgg.Models.ViewModels.pdb
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Models\TWNewEgg.Models.ViewModels\obj\Debug\TWNewEgg.Models.ViewModels.dll
+D:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Models\TWNewEgg.Models.ViewModels\obj\Debug\TWNewEgg.Models.ViewModels.pdb

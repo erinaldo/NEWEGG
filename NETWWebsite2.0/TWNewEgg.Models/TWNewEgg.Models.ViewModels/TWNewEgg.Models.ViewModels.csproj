@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CA3FC63A-84C3-4899-8365-D110CB8A6BF2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.Models.ViewModels</RootNamespace>
+    <AssemblyName>TWNewEgg.Models.ViewModels</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Libraries\TWNewEgg.Models\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Libraries\TWNewEgg.Models\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TWNewEgg.DB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\00_SourceCode\Libraries\TWNewEgg.DB\TWNewEgg.DB.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\AccountInfoVM.cs" />
+    <Compile Include="Account\AccountVM.cs" />
+    <Compile Include="Account\AddressBookVM.cs" />
+    <Compile Include="Account\CartMemberInfoVM.cs" />
+    <Compile Include="Account\CompanyBookVM.cs" />
+    <Compile Include="Account\MemberVM.cs" />
+    <Compile Include="Account\ValidateCode.cs" />
+    <Compile Include="Activity\ActivitySectionInfor.cs" />
+    <Compile Include="Activity\ActivityVM.cs" />
+    <Compile Include="Activity\AwardList.cs" />
+    <Compile Include="AdditionalItem\AIForCartDM.cs" />
+    <Compile Include="AdditionalItem\AllAIForCart.cs" />
+    <Compile Include="Advertising\Ads.cs" />
+    <Compile Include="Advertising\AdSet.cs" />
+    <Compile Include="Advertising\AdvEvent.cs" />
+    <Compile Include="Advertising\AdvEventDisplay.cs" />
+    <Compile Include="Advertising\AdvEventType.cs" />
+    <Compile Include="AllPay\AllPayCheckOutFeedback.cs" />
+    <Compile Include="AllPay\ATMPayCheckOutFeedback.cs" />
+    <Compile Include="Answer\AnswerViewModel.cs" />
+    <Compile Include="Auth\AuthVM.cs" />
+    <Compile Include="BankBonus\BankBonusTemp_VM.cs" />
+    <Compile Include="BankBonus\BankBonus_VM.cs" />
+    <Compile Include="Bank\Bank.cs" />
+    <Compile Include="CartPayment\VM_Bank.cs" />
+    <Compile Include="CartPayment\VM_BankBonus.cs" />
+    <Compile Include="CartPayment\VM_BeneficiaryParty.cs" />
+    <Compile Include="CartPayment\VM_CartPayment.cs" />
+    <Compile Include="CartPayment\VM_PaymentTerm.cs" />
+    <Compile Include="CartPayment\VM_PayType.cs" />
+    <Compile Include="Cart\AdditionalItem_View.cs" />
+    <Compile Include="Cart\CartItemClass_View.cs" />
+    <Compile Include="Cart\CartItem_View.cs" />
+    <Compile Include="Cart\CartItemBase_View.cs" />
+    <Compile Include="Cart\CartPayTypeGroup_View.cs" />
+    <Compile Include="Cart\CartPayType_View.cs" />
+    <Compile Include="Cart\CartPayTypeBankIDwithName_View.cs" />
+    <Compile Include="Cart\CartStep1Data.cs" />
+    <Compile Include="Cart\CartStep2Data.cs" />
+    <Compile Include="Cart\CartResults_View.cs" />
+    <Compile Include="Cart\CartStep2Response.cs" />
+    <Compile Include="Cart\CartStep3Response.cs" />
+    <Compile Include="Cart\CashFlowResult.cs" />
+    <Compile Include="Cart\GetPromotionDetail_View.cs" />
+    <Compile Include="Cart\GroupDiscount_View.cs" />
+    <Compile Include="Cart\ItemGroup_View.cs" />
+    <Compile Include="Cart\PostCartItem_View.cs" />
+    <Compile Include="Cart\PostCartItemGroup_View.cs" />
+    <Compile Include="Cart\PostCartItemList_View.cs" />
+    <Compile Include="Cart\SalesOrderDetailResult.cs" />
+    <Compile Include="Cart\SalesOrderGroup_View.cs" />
+    <Compile Include="Cart\SalesOrderItem_View.cs" />
+    <Compile Include="Cart\SalesOrder_View.cs" />
+    <Compile Include="Cart\ShoppingCart_View.cs" />
+    <Compile Include="Cart\Taxes_View.cs" />
+    <Compile Include="Category\CategoryTopBanner_ItemView.cs" />
+    <Compile Include="Category\CategoryTopBanner_MasterView.cs" />
+    <Compile Include="Category\CategoryTopBanner_View.cs" />
+    <Compile Include="Category\CategoryTopItemVM.cs" />
+    <Compile Include="Category\Category_TreeItem.cs" />
+    <Compile Include="Category\CategoryArea_View.cs" />
+    <Compile Include="Category\OptionStoreItemCell_View.cs" />
+    <Compile Include="Answer\Probelm.cs" />
+    <Compile Include="CreditInstallmentManager\ItemDefaultInstallmentInfo.cs" />
+    <Compile Include="CreditInstallmentManager\ItemInstallmentDefaultRuleInfo.cs" />
+    <Compile Include="CreditInstallmentManager\ItemInstallmentSettingInfo.cs" />
+    <Compile Include="DeviceAd\HomeSubStoreSilder.cs" />
+    <Compile Include="DeviceAd\HomeStoreSilder.cs" />
+    <Compile Include="DeviceAd\HomePromoProject.cs" />
+    <Compile Include="DeviceAd\HomeShopUS.cs" />
+    <Compile Include="DeviceAd\HomeCategoryMap.cs" />
+    <Compile Include="DeviceAd\HomeLifeProject.cs" />
+    <Compile Include="DeviceAd\HomeSilderBanner.cs" />
+    <Compile Include="DeviceAd\DeviceAdShow.cs" />
+    <Compile Include="DeviceAd\DeviceAdContent.cs" />
+    <Compile Include="DeviceAd\DeviceAdEdit.cs" />
+    <Compile Include="DeviceAd\DeviceAdMenu.cs" />
+    <Compile Include="DeviceAd\DeviceAdSearch.cs" />
+    <Compile Include="DeviceAd\DeviceAdSet.cs" />
+    <Compile Include="Discard4\Discard4VM.cs" />
+    <Compile Include="Discard4\Discard4ItemVM.cs" />
+    <Compile Include="EDM\EDMBookVM.cs" />
+    <Compile Include="GreetingWords\GreetingWordsVM.cs" />
+    <Compile Include="GreetingWords\HolidayGreetingWordsVM.cs" />
+    <Compile Include="GreetingWords\HomeGreetingWordsVM.cs" />
+    <Compile Include="HotWords\HotWords.cs" />
+    <Compile Include="FileUpload\ResponseMessage.cs" />
+    <Compile Include="FileUpload\UploadModel.cs" />
+    <Compile Include="Item\ItemGroupDetailProperty.cs" />
+    <Compile Include="Item\ItemGroupProperty.cs" />
+    <Compile Include="Item\ItemMarketGroup.cs" />
+    <Compile Include="Item\View_ItemSellingQty.cs" />
+    <Compile Include="PageMgmt\Type1PMItem.cs" />
+    <Compile Include="PayType\PayType.cs" />
+    <Compile Include="PromoActive\PromoActive.cs" />
+    <Compile Include="PromoAwardLog\PromoAwardLog.cs" />
+    <Compile Include="Property\PriceWithQty_View.cs" />
+    <Compile Include="Redeem\ActionResponse.cs" />
+    <Compile Include="Redeem\CouponUsedStatusReport.cs" />
+    <Compile Include="Redeem\EventFile.cs" />
+    <Compile Include="Redeem\EventTempImport.cs" />
+    <Compile Include="Redeem\GetItemTaxDetail.cs" />
+    <Compile Include="Redeem\PromotionDetail.cs" />
+    <Compile Include="Redeem\PromotionGiftBasic.cs" />
+    <Compile Include="Redeem\PromotionGiftBlackList.cs" />
+    <Compile Include="Redeem\PromotionGiftDetail.cs" />
+    <Compile Include="Redeem\PromotionGiftExportToExcel.cs" />
+    <Compile Include="Redeem\PromotionGiftImportCheckData.cs" />
+    <Compile Include="Redeem\PromotionGiftInterval.cs" />
+    <Compile Include="Redeem\PromotionGiftRecords.cs" />
+    <Compile Include="Redeem\PromotionGiftWhiteList.cs" />
+    <Compile Include="Redeem\PromotionInput.cs" />
+    <Compile Include="Salesordergroup\SalesOrderGroup.cs" />
+    <Compile Include="Seller\SellerCorrectionPriceVM.cs" />
+    <Compile Include="Service\ServicePageInfo.cs" />
+    <Compile Include="Store\SubCategory_OptionStore_VM.cs" />
+    <Compile Include="VotingActivity\VotingActivityGroup.cs" />
+    <Compile Include="VotingActivity\VotingActivityItems.cs" />
+    <Compile Include="VotingActivity\VotingActivityRec.cs" />
+    <Compile Include="VotingActivity\VotingActivityRecDetail.cs" />
+    <Compile Include="Redeem\CouponsLite.cs" />
+    <Compile Include="Redeem\ItemLite.cs" />
+    <Compile Include="Redeem\UserCouponsProducts.cs" />
+    <Compile Include="Redeem\Event.cs" />
+    <Compile Include="Search\ItemSearchVM.cs" />
+    <Compile Include="Search\SearchCategoryVM.cs" />
+    <Compile Include="Search\SearchPageView.cs" />
+    <Compile Include="Service\ServiceContentBlock.cs" />
+    <Compile Include="Service\ServiceContentTab.cs" />
+    <Compile Include="ShowPage\CouponsLite.cs" />
+    <Compile Include="Store\Bradcrumbs.cs" />
+    <Compile Include="Store\BreadcrumbItem.cs" />
+    <Compile Include="Track\TrackItem_View.cs" />
+    <Compile Include="Item\ItemUrl.cs" />
+    <Compile Include="Message\ErrorMessage.cs" />
+    <Compile Include="Message\ECWebResponse.cs" />
+    <Compile Include="MyAccount\AddressQuery.cs" />
+    <Compile Include="MyAccount\ReturnPost.cs" />
+    <Compile Include="Promotion\PromotionDetail_View.cs" />
+    <Compile Include="Promotion\PromotionInput_View.cs" />
+    <Compile Include="MyAccount\OrderHistory.cs" />
+    <Compile Include="Redeem\Coupon.cs" />
+    <Compile Include="Register\Register.cs" />
+    <Compile Include="Register\RegistrationError.cs" />
+    <Compile Include="GroupBuy\GroupBuyViewInfo.cs" />
+    <Compile Include="Item\CategoryItemInfo_View.cs" />
+    <Compile Include="Item\CategoryItemInfoMain_View.cs" />
+    <Compile Include="Item\CategoryItemForm.cs" />
+    <Compile Include="Item\ItemBasic.cs" />
+    <Compile Include="Item\ItemGroup.cs" />
+    <Compile Include="Login\Login.cs" />
+    <Compile Include="Product\ProductDetail.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Property\PropertyGroup_View.cs" />
+    <Compile Include="Property\PropertyKey_View.cs" />
+    <Compile Include="Property\PropertyValue_View.cs" />
+    <Compile Include="Store\CategoryPage_View.cs" />
+    <Compile Include="Store\CategoryShowCase_View.cs" />
+    <Compile Include="Store\ImageLink.cs" />
+    <Compile Include="Store\ListZone.cs" />
+    <Compile Include="Store\MainZone.cs" />
+    <Compile Include="Store\PullDownBanner.cs" />
+    <Compile Include="Store\ShowCase.cs" />
+    <Compile Include="Store\ShowCaseItem.cs" />
+    <Compile Include="Store\ShowCaseMainItem.cs" />
+    <Compile Include="Store\TextLink.cs" />
+    <Compile Include="Track\CartTrack.cs" />
+    <Compile Include="Track\CookiesTrack.cs" />
+    <Compile Include="Vendor\Marketplace_View.cs" />
+    <Compile Include="VotingActivity\VotingResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TWNewEgg.Models.DomainModels\TWNewEgg.Models.DomainModels.csproj">
+      <Project>{a4bd2533-fbc1-40d7-9f99-792d8a330f3f}</Project>
+      <Name>TWNewEgg.Models.DomainModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="StoreUS\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
