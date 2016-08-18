@@ -1,0 +1,34 @@
+﻿@using TWNewEgg.Framework.ServiceApi
+@using TWNewEgg.ECWeb_Mobile.Utility
+@using TWNewEgg.Models.DomainModels.MobileStore
+@using TWNewEgg.Models.ViewModels.Advertising
+@model Dictionary<int, Dictionary<AdvEventType, List<AdvEventDisplay>>>
+@if (Model != null && Model.Any())
+{
+    List<MStoreItemCell> storeItemList = new List<MStoreItemCell>();
+    foreach (var store in Model)
+    {
+        foreach (var country in store.Value)
+        {
+            foreach (var item in country.Value)
+            {
+                storeItemList.Add(new MStoreItemCell() {
+                    ItemID = item.ItemID,
+                    Url = item.LinkUrl,
+                    ItemImage = item.ImgUrl,
+                    Title = item.Title,
+                    UnitPrice = item.SalePrice,
+                    OriginalPrice = item.MarketPrice
+                });
+            }
+        }
+    }
+    <div class="freetile">
+        <div class="row">
+            @foreach (var itemCell in storeItemList)
+            {
+                @Html.Partial("Cell/Partial_CellProductListItem", itemCell)
+            }
+        </div>
+    </div>
+}

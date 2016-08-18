@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "搜尋結果" + "-新蛋全球生活網";
+    string keywords = ViewBag.Keywords;
+    string resultUrl = ViewBag.searchUrl ?? "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+}
+@section scripts{
+    <script src="/Scripts/jquery.js"></script>
+    <script src="/Scripts/jquery.cookie.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/jquery.freetile.js"></script>
+    <script src="/Scripts/init.js"></script>
+    <script src="/Scripts/owl.carousel.js"></script>
+    <script src="/Scripts/royal_tab.js"></script>
+    <script src="/Scripts/NETW/netw-newegg-1.0.0.0.js"></script>
+    <script src="/Scripts/NETW/netw-cart-1.0.0.0.js"></script>
+    <script>
+        var SKW = "@(keywords)";
+        var LockPageFloor = false;
+        var TotalPage = "";
+        var NowOrder = 3;
+        var SettingSearchBar = function () {
+            $("#header-search").val(SKW);
+        };
+        var LoadSR = function (first, nextPage) {
+            var TotalItem = "";
+            var resultUrl = $("#freetile-demo").data("url");
+            $("#loadingPage").show();
+            LockPageFloor = true;
+            if (!first && nextPage == undefined) {
+                $("#freetile-demo").find("div.row").html("");
+                $("#freetile-demo").hide();
+            }
+            if (resultUrl && resultUrl.length > 0) {
+                $.ajax({
+                    type: "GET",
+                    url: resultUrl,
+                    success: function (result) {
+                        $("#freetile-demo").show();
+                        $("#freetile-demo").find("div.row").append(result);
+                        $("#loadingPage").hide();
+                        TotalPage = $("#pageCount").attr("data-pageValue");
+                    },
+                    complete: function () {
+                        TotalItem = $("#pageArea").attr("data-totalitem");
+                        TotalPage = $("#pageArea").attr("data-totalpage");
+                        if (TotalItem == "0" || TotalItem == undefined || TotalItem == null) {
+                            $("div.container > div.row > div.col-xs-12 > h3 > span").html("0");
+                        }
+                        else {
+                            $("div.container > div.row > div.col-xs-12 > h3 > span").html(TotalItem);
+                            $("div.container > div.row > div.col-xs-12 > h3").show();
+                        }
+                        if (first == true && nextPage == undefined) {
+                            $("div.order > ul > li:eq(1)").addClass('selected');
+                            $("div.order > ul > li:eq(1) > i").addClass('selected');
+                        }
+                        $('#freetile-demo > div').freetile({
+                            callback: function () {
+                                LockPageFloor = false;
+                            }
+                        });
+                    }
+                });
+            }
+        };
+        var NextPage = function (pageNumber) {
+            var newUrl = "";
+            var page = pageNumber;
+            var pageInt = parseInt(page, 10);
+
+            newUrl += "?searchword=" + SKW;
+            if (pageInt !== undefined && !isNaN(pageInt)) {
+                newUrl += "&page=" + page;
+            }
+            var order = NowOrder;//GetUrlParameterByName("order");
+            if (order !== "") {
+                newUrl += "&order=" + order;
+            }
+            console.log("/search/result" + newUrl);
+            $("#freetile-demo").data("url", "/search/result" + newUrl);
+            LoadSR(true, page);
+
+        };
+        var OrderCondition = function (orderItem) {
+            orderItem.parent().find('li').removeClass('selected');
+            orderItem.parent().find('i').removeClass('selected');
+            var newUrl = "";
+            newUrl += "?searchword=" + SKW;
+            var order = orderItem.data("orderc");
+            var $orderList = $("div.order > ul");
+            var orderInt = parseInt(order, 10);
+            if (orderInt !== undefined && !isNaN(orderInt)) {
+                newUrl += "&order=" + orderInt;
+                NowOrder = orderInt;
+            }
+            console.log("order="+orderInt);
+            /* -偵錯用
+            if (window.history && window.history.pushState) {
+                history.pushState({ "v": SKW + order }, "", "/search" + newUrl);
+            }
+            */
+            orderItem.addClass('selected');
+            orderItem.find('i').addClass('selected');
+            $("#freetile-demo").data("url", "/search/result" + newUrl);
+            LoadSR(false);
+        };
+        var GetUrlParameterByName = function (name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        };
+        var doTileSorting = function() {
+            $('#freetile-demo > div').freetile({ animate: false });
+            setTimeout("doTileSorting()", 1000);
+        };
+        $(document).ready(function () {
+            var pageNumber = 1;
+            LoadSR(true);
+            doTileSorting();
+            $(window).scroll(function () {
+                if (LockPageFloor == true) {
+                    return;
+                }
+                if (pageNumber <= TotalPage) {
+                    if ($(window).scrollTop() >= $(document).height() - $(window).height()-70) {
+                        NextPage(pageNumber);
+                        pageNumber++;
+                    }
+                }
+            });
+            $("div.order > ul > li ").each(function () {
+                $(this).on("click", function () {
+                    if (LockPageFloor == true) {
+                        return;
+                    }
+                    pageNumber = 1;
+                    OrderCondition($(this));
+                });
+            });
+        });
+    </script>
+}
+<div class="wrapper">
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>搜尋結果: @(keywords) (共計<span class="redtxt"></span>筆)</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="order">
+                    <ul>
+                        <li data-orderc="5"><i class="listi6"></i>
+                            <div class="text">新上架</div>
+                        </li>
+                        <li data-orderc="3"><i class="listi4"></i>
+                            <div class="text">人氣</div>
+                        </li>
+                        <li data-orderc="0"><i class="listi1"></i>
+                            <div class="text">金額高</div>
+                        </li>
+                        <li data-orderc="1" class="divider-none"><i class="listi2"></i>
+                            <div class="text">金額低</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div class="row" style="display: none"></div>
+            <div id="freetile-demo" data-url="@Html.Raw(resultUrl)">
+                <div class="row">
+                </div>
+            </div>
+            <div id="loadingPage">
+                <img class="img-responsive center-block" src="/Themes/img/AjaxLoader.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    @Html.Partial("Partial_WishListMask")
+}

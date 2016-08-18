@@ -1,0 +1,16 @@
+﻿@using TWNewEgg.Models.ViewModels.Redeem
+@model Coupon
+@{
+    ViewBag.Title = "CouponItem";
+}
+
+                <div class="head-bar orangebg2">@(Model.title)</div>
+                            <ul class="list-unstyled">
+                                <li>生效日期 : @(Model.validstart.ToString("yyyy/MM/dd HH:mm:ss"))</li>
+                                <li>失效日期 : @(Model.validend.ToString("yyyy/MM/dd HH:mm:ss"))</li>
+                                <li>金額 : @(String.Format("{0:#}元",Model.value))</li>
+                                <br/>
+                                <li>適用範圍 : @(Model.categories)</li>
+                                <hr/>
+                                <li>狀態 : @(ViewBag.CouponStatus)</li>
+                            </ul>

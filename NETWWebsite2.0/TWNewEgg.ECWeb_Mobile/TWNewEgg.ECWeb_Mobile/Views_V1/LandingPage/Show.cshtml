@@ -1,0 +1,86 @@
+﻿@model  TWNewEgg.Models.ViewModels.Activity.ActivityVM
+
+@{
+    ViewBag.Title = string.IsNullOrEmpty(Model.MetaTitle) ? Model.Name : Model.MetaTitle + "-新蛋全球生活網";
+}
+
+@section styleSheets{
+    
+}
+
+@section metatags{
+    @if (string.IsNullOrEmpty(Model.MetaTitle) == false)
+    { 
+        <meta name="title" content="@(Model.MetaTitle)" />
+    }
+    @if (string.IsNullOrEmpty(Model.MetaKeyWord) == false)
+    { 
+        <meta name="keywords" content="@(Model.MetaKeyWord)" />
+    }
+    @if (string.IsNullOrEmpty(Model.MetaDescription) == false)
+    { 
+        <meta name="description" content="@(Model.MetaDescription)" />
+    }
+}
+
+
+@Html.Raw(Model.HtmlContext)
+
+
+@if (Model.Header == "false")
+{
+    @section addToHeader{
+    }
+}
+
+@if (Model.Topper == "false")
+{
+    @section addToTopper{
+    }
+}
+
+@if (Model.Bottomer == "false")
+{
+    @section addToBottomer{
+    }
+}
+
+@if (Model.Footer == "false")
+{
+    @section addToFooter{
+    }
+}
+
+@Html.Partial("Partial_WishListMask")
+
+@section scripts{
+    <script src="/Scripts/jquery.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/jquery.freetile.js"></script>
+    <script src="/Scripts/init.js"></script>
+    <script src="/Scripts/owl.carousel.js"></script>
+    <script src="/Scripts/royal_tab.js"></script>
+    <script src="/Scripts/netw/netw-activity-1.0.0.0.js"></script>
+    <script>
+        //function netwActivityPage() {
+        //    console.log('custom dispose.');
+        //    $('body')
+        //    .netwActivityPage('init', {
+        //        itemMarketPrice: '<span style="color:blue;">{0}</span>'
+        //    })
+        //    .netwActivityPage('dispose');
+        //};
+        function doTileSorting() {
+            $('#freetile-demo div.row').freetile({ animate: false });
+            setTimeout("doTileSorting()", 1000);
+        }
+        $(function () {
+            if (typeof(netwActivityPage) == 'function'){
+                netwActivityPage();
+            }else{
+                $('body').netwActivityPage('dispose');
+            }
+            doTileSorting();
+        });
+    </script>    
+}

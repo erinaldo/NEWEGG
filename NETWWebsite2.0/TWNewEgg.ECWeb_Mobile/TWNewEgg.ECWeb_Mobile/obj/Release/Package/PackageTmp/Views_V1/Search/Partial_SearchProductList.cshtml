@@ -1,0 +1,37 @@
+﻿@using TWNewEgg.Models.ViewModels.Search
+@model SearchPageView
+@{
+    int totalPage = ViewBag.TotlePage;
+    int totalItem = ViewBag.TotalItem;
+    int NowPage = ViewBag.NowPage;
+    if (Model.searchResults.Count > 0)
+    {
+        foreach (var item in Model.searchResults)
+        {
+    <div class="col-xs-6 col-xs-6-tight2">
+        <div class="thumbnail">
+            @*加入購物車*@
+            <div class="heart" onclick="addToWishList(@(item.ID))" data-toggle="modal" data-target="#wishModal"><i class="fa fa-2x fa-heart orangetxt2"></i></div>
+            <a href="/item?itemid=@(item.ID)">
+                <img class="img-responsive item" src="@(item.PhotoName)" alt="@(item.Name)" title="@(item.Name)" /></a>
+            @*閃購商品*@
+            <div style="display: none" class="iconset"><a href="#nogo"><i class="fa fa-2x fa-clock-o whitetxt redbg5"></i></a></div>
+            @*判斷是否為規格品,是(導向賣場頁),不是(導向結帳流程1)*@
+            <div class="caption">
+                <p>@(item.Name)</p>
+            </div>
+            <div class="priceset">
+            <div class="price">@(string.Format("${0:N0}", item.Pricecash))</div>
+            </div>
+            @if (item.SellingQty == 0 || DateTime.Now > item.DateEnd || DateTime.Now<item.DateStart)
+            {
+            <div class="btn orangebg2 pattern-btn2 align-right" onclick="location.href='item?itemid=@(item.ID)';">立即<br>結帳</div>                
+            }else{
+            <div class="btn orangebg2 pattern-btn2 align-right" onclick="purchaseItem(@(item.ID))">立即<br>結帳</div>
+            }
+        </div>
+    </div>
+        }
+        <div id="pageArea" style="display:none" data-pageValue="@(NowPage)" data-totalPage="@(totalPage)" data-totalItem="@(totalItem)"></div>
+    }
+}

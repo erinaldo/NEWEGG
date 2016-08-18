@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "分類頁" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    <link rel="stylesheet" href="/Themes/2016/css/category.css" media="screen" charset="utf-8">
+}
+
+@section scripts{
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js" charset="utf-8"></script>
+	<script>
+	    nemReact.initJS([{
+	        key: 'categoryLib'
+	    }, {
+	        key: 'category',
+	        cb: function () {
+	            nemReact.require('category', 'react').init();
+	        }
+	    }]);
+	</script>
+}

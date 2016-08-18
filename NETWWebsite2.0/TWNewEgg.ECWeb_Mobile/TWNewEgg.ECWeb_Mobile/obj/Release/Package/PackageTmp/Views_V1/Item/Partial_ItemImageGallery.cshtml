@@ -1,0 +1,41 @@
+﻿<div class="container">
+    @if (Model.Countdown != null)
+    {
+        @Html.Raw(String.Format("<input type='hidden' id='data_countdown' value='{0:yyyy/MM/dd HH:mm:ss}' />", Model.Countdown))
+        <div class="countdown orangetxt2">
+            <img src="Themes/img/clock.png" />
+            倒數計時：<span id="countdown_clock"></span></div>
+    }
+    <br>
+    <i class="fa fa-2x fa-heart orangetxt2 align-right" data-toggle="modal" data-target="#wishModal" onclick="addToWishList(@(Model.Id));"></i>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="owl-demo" class="owl-carousel" itemId="@Model.Id">
+                @if (Model.ImgUrlList != null)
+                {
+                    for (int i = 0; i < Model.ImgUrlList.Count; i++)
+                    {
+                    <div class="item">
+                        <img src="@Model.ImgUrlList[i]">
+                    </div>
+                    }
+                }
+                else
+                {
+                    <div>暫無商品圖。</div>
+                }
+            </div>
+            <div class="caption">
+                <h3>@Model.Name</h3>
+            </div>
+            @if (Model.Price > Model.PromotionPrice)
+            {
+                <div class="price3 text-right">$@Html.Raw(String.Format("{0:N0}", Model.Price))</div>
+            }
+            @if (Model.PromotionPrice != null && Model.PromotionPrice > 0)
+            {
+                <div class="price2 text-right">$@Html.Raw(String.Format("{0:N0}", Model.PromotionPrice))</div>
+            }
+        </div>
+    </div>
+</div>

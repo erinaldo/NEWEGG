@@ -1,0 +1,699 @@
+﻿@using TWNewEgg.ECWeb_Mobile.Auth
+@model TWNewEgg.Models.ViewModels.Account.AccountInfoVM
+@{
+    TWNewEgg.Models.ViewModels.Account.MemberVM memberVM = Model.MVM;
+    TWNewEgg.Models.ViewModels.Account.AccountVM accountVM = Model.AVM;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (memberVM == null)
+    {
+        memberVM = new TWNewEgg.Models.ViewModels.Account.MemberVM();
+    }
+    var id = NEUser.ID;
+    var email = NEUser.Email;
+    var lastName = NEUser.NickName;
+    var firstName = NEUser.Name;
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Themes/css/royal_tab2.css")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <style>
+
+    </style>
+}
+
+<div class="wrapper">
+<div class="main">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="topper">
+                        <div class="title"><div class="member"><i class="listi4"></i></div><div class="text">我的帳戶</div></div>
+                        <div class="line graybg" style="display:none">@(email)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="royal_tab" data-position="top" data-alignment="center" data-animation="slide">
+                <div class="line graybg"></div>
+                <div class="tabs">
+                    <ul>
+                        <li>個人資料修改</li>
+                        <li>密碼修改</li>
+                    </ul>
+                </div>
+                <div class="line graybg"></div>
+                        
+                <div class="views">
+                    <div class="container">
+                        <form>
+                                        <div class="row show-grid2" id="div_Name">                                                                                    
+                                            <div class="col-xs-4">
+                                                <div class="form-group">
+                                                    <div class="redtxt show-grid8">*</div> 
+                                                    <select class="form-control" id="titleSandM" name="titleSandM">
+                                                        <option value="2" @(Model.MVM.Sex==2?"selected":"")>稱謂</option>
+                                                        <option value="1" @(Model.MVM.Sex==1?"selected":"")>先生</option>
+                                                        <option value="0" @(Model.MVM.Sex==0?"selected":"")>小姐</option>
+                                                    </select>  
+                                                    <p class="help-block redtxt2 has-error" id="NameErr"></p>                                                  
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <div class="form-group">
+                                                    <div class="whitetxt show-grid8">*</div>
+                                                    <input type="text" id="RegisterLastName" tabindex="4" maxlength="10"  value="@memberVM.Lastname" class="form-control" placeholder="姓氏"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <div class="form-group">
+                                                    <div class="whitetxt show-grid8">*</div>
+                                                    <input type="text" class="form-control"  id="Nickname" name="Nickname" tabindex="4" maxlength="10" placeholder="名字" value="@memberVM.Firstname"/>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="Birthday" name="Birthday" tabindex="4" maxlength="10" placeholder="請選擇生日(年/月/日)" value="@(memberVM.Birthday!=null?memberVM.Birthday.Trim():"")"/>
+                                        </div>
+                                        <div class="form-group" id="div_Mobile">
+                                            <div class="redtxt show-grid8">*</div> 
+                                            <input class="form-control" type="tel" id="Mobile" tabindex="4" maxlength="10" placeholder="請輸入手機號碼" value="@memberVM.Mobile"/>
+                                            <p class="help-block redtxt2 has-error" id="MobileErr"></p>
+                                        </div>
+                                        <div class="row show-grid2">
+                                            <div class="col-xs-3">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" maxlength="3" placeholder="區碼" id="TelZip" value="@memberVM.TelZip"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" maxlength="7" placeholder="請輸入市話" id="TelDay" value="@memberVM.TelDay"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" maxlength="3" placeholder="分機&#35;" id="TelExtension" value="@memberVM.TelExtension"/>
+                                                </div>
+                                            </div>                                            
+                                            <span class="help-block redtxt2"></span>
+                                        </div>
+                                        <div class="row" id="div_Addr">
+                                            <div class="col-xs-5">
+                                                <div class="form-group">
+                                                    <div class="redtxt show-grid8">*</div> 
+                                                     <select class="form-control" id="member_loc">
+                                                        <option value="">縣市</option>
+                                                        <option value="基隆市">基隆市</option>
+                                                        <option value="台北市">台北市</option>
+                                                        <option value="新北市">新北市</option>
+                                                        <option value="桃園市">桃園市</option>
+                                                        <option value="新竹市">新竹市</option>
+                                                        <option value="新竹縣">新竹縣</option>
+                                                        <option value="苗栗縣">苗栗縣</option>
+                                                        <option value="台中市">台中市</option>
+                                                        <option value="彰化縣">彰化縣</option>
+                                                        <option value="南投縣">南投縣</option>
+                                                        <option value="雲林縣">雲林縣</option>
+                                                        <option value="嘉義市">嘉義市</option>
+                                                        <option value="嘉義縣">嘉義縣</option>
+                                                        <option value="台南市">台南市</option>
+                                                        <option value="高雄市">高雄市</option>
+                                                        <option value="屏東縣">屏東縣</option>
+                                                        <option value="台東縣">台東縣</option>
+                                                        <option value="花蓮縣">花蓮縣</option>
+                                                        <option value="宜蘭縣">宜蘭縣</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <div class="form-group">
+                                                    <div class="whitetxt show-grid8">*</div> 
+                                                    <select class="form-control" name="CityChoose" id="member_City" tabindex="14">
+                                                        <option value="">鄉/鎮/行政區</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="div_Addr2">
+                                            <input type="text" class="form-control" placeholder="請輸入地址" name="member_addr" id="member_addr" value="@memberVM.Address" size="35" maxlength="120" />
+                                            <input type="hidden" name="member_zip" id="member_zip" value="@memberVM.Zip"/>
+                                            <p class="help-block redtxt2 has-error" id="AddrErr"></p>
+                                        </div>
+                                        <div class="row show-grid">
+                                            <div class="col-xs-4">
+                                                <div class="radio">
+                                                    電子報
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="decEDM" id="recEdm"  value="1" @((accountVM.ReceiveEDM == 1) ? "checked=\"checked\"" : "") />訂閱
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="decEDM" id="canEdm"  value="0" @((accountVM.ReceiveEDM == 0) ? "checked=\"checked\"" : "")  />取消
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<div class="row show-grid">
+                                            <div class="col-xs-12">
+                                            <div class="redtxt show-grid8">*</div>
+                                                <div class="recaptcha">
+                                                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                                                    <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                        <br>
+                                        <br>
+                                        <button type="button" id="submitdata" class="btn btn-lg btn-block orangebg2 whitetxt">確認</button>
+                                        <br />
+                        </form>
+                    </div>
+
+                    <div class="container">
+                        <form>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                <div class="form-group show-grid" id="divOldPassword">
+                                    <div class="redtxt show-grid8">*</div>
+                                    <input class="form-control" type="password" id="OldPassword" placeholder="請輸入原始密碼">
+                                    <input type="hidden" id="AccountEmail" name="AccountEmail" value="@email" />
+                                    <p class="help-block redtxt2" style="display:none" id="OldPassWordErr">原密碼錯誤,請重新輸入!</p>
+                                    <p class="help-block" style ="text-align:right"><a href="/MyAccount/ForgetPassword" >忘記密碼？</a></p>
+                                </div>
+                                <div class="form-group input-group" id="divNewPassword">
+                                    <div class="redtxt show-grid8">*</div>
+                                    <input class="form-control" type="password" name="PWD" id="NewPassword" maxlength="16" tabindex="2" placeholder="設定新密碼">
+                                    <span class="input-group-btn">
+                                    <div class="whitetxt show-grid8">*</div>
+                                        <input type="button" value="隱藏密碼" id="hide_pwd" class="btn btn-default bluebg whitetxt show-grid5" style="display:none" />
+                                        <input type="button" value="顯示密碼" id="show_pwd" class="btn btn-default bluebg whitetxt show-grid5" />
+                                    </span>
+                                </div>
+                                    <div id="showResult" class="pswSecure" style="display:none"><p>密碼強度</p></div>
+                                    <p class="help-block redtxt2" id="password_rules" style="display:none">確認密碼與密碼不一致，請重新輸入。</p>
+                                    <div id="ShowPasswordRule" style="display:none">
+                                        <p>為保證您的個資安全，請確認您的密碼必須符合以下條件：</p>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="pwdcheck" value="" id="pwdcheck_email" >帳密不得相同
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="pwdcheck" value="" id="pwdcheck_length">密碼長度至少6-16個字元
+                                            </label>
+                                        </div>
+                                        <div class="checkbox" style="display:none">
+                                            <label>
+                                                <input type="checkbox" class="pwdcheck" value="" id="pwdcheck_numeric">需含數字與英文字母
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="pwdcheck" value="" id="pwdcheck_repeat">新舊密碼不相同
+                                            </label>
+                                        </div>
+                                    </div>
+                                <div class="form-group" id="divConfirmNewPassword">
+                                    <div class="redtxt show-grid8">*</div>
+                                    <input class="form-control" type="password" name="PWDtxt" id="ConfirmNewPassword" maxlength="16" tabindex="3" placeholder="請再次輸入密碼">
+                                    <p class="help-block redtxt2" style="display:none" id="ConfirmPassWordErr">確認密碼與密碼不一致，請重新輸入。</p>
+                                </div>
+                                <br>
+                                <br>
+                                <button type="button" class="btn btn-lg btn-block orangebg2 whitetxt" id="SendPwdConfirm">確認</button>
+                                    <br />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.views -->
+            </div><!-- /.royal_tab -->
+</div><!-- /.main -->
+</div><!-- /.wrapper -->
+
+@section scripts{
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/jquery.freetile.js"></script>
+<script src="/Scripts/init.js"></script>
+<script src="/Scripts/owl.carousel.js"></script>
+<script src="/Scripts/royal_tab.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+
+            navigation: true,
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true
+
+            // "singleItem:true" is a shortcut for:
+            // items : 1, 
+            // itemsDesktop : false,
+            // itemsDesktopSmall : false,
+            // itemsTablet: false,
+            // itemsMobile : false
+
+        });
+    });
+</script>
+
+<script type="text/javascript" src="/Scripts/NETW/netw-grcaptcha-1.0.0.js" async defer></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+
+        var emailRule = /^([\w-\.\+\-\_]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4})$/;
+        var pwRule = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^0-9a-zA-Z])(?=.{8,12})(?!.*[^\x21-\x7e]).*$/;
+        $(document).ready(function () {
+            
+            $("#member_loc").val("@memberVM.Loc");
+            initAddress();
+            var getZipName = "@(memberVM.Zipname != null ? memberVM.Zipname.Trim() : "")";
+            var edm = 0;
+
+            $("#member_City").val(getZipName);
+
+            // 畫面資料檢核
+            $("#member_City").change(function () {
+                var str = $("#member_City").val();
+                var str2 = str.toString().substring(0, 3);
+                $("#member_zip").attr("value", str2);
+                $("#member_zip").val(str2);
+                //TheSame();
+            });
+
+
+            //縣市修改
+            $("#member_loc").change(function () {
+                initAddress();
+            });
+
+            function initAddress() {
+                var str = $("#member_loc").val();
+                var str2 = "member_City";
+                var str3 = $("#member_zip").val();
+                $("#member_loc").val(str);
+                if (str == "") {
+                    $("#member_City").find("optgroup").remove();
+                    $("#member_City").find("option").remove();
+                    $("#member_City").append('<option value = "" selected="selected">鄉/鎮/行政區</option>');
+                    $("#member_zip").val("");
+                }
+                else {
+                    CityChoose(str, str2);
+                }
+            }
+
+            @*鄉鎮市區*@
+            function CityChoose(loc, zipName) { // loc 縣市，zipName
+                var Address = new Array(22);
+                Address = [
+                    ["基隆市", "200 仁愛區", "201 信義區", "202 中正區", "203 中山區", "204 安樂區", "205 暖暖區", "206 七堵區"]
+                    , ["台北市", "100 中正區", "103 大同區", "104 中山區", "105 松山區", "106 大安區", "108 萬華區", "110 信義區", "111 士林區", "112 北投區", "114 內湖區", "115 南港區", "116 文山區"]
+                    , ["新北市", "207 萬里區", "208 金山區", "220 板橋區", "221 汐止區", "222 深坑區", "223 石碇區", "224 瑞芳區", "226 平溪區", "227 雙溪區", "228 貢寮區", "231 新店區", "232 坪林區", "233 烏來區", "234 永和區", "235 中和區", "236 土城區", "237 三峽區", "238 樹林區", "239 鶯歌區", "241 三重區", "242 新莊區", "243 泰山區", "244 林口區", "247 蘆洲區", "248 五股區", "249 八里區", "251 淡水區", "252 三芝區", "253 石門區"]
+                    , ["桃園市", "320 中壢區", "324 平鎮區", "325 龍潭區", "326 楊梅區", "327 新屋區", "328 觀音區", "330 桃園區", "333 龜山區", "334 八德區", "335 大溪區", "336 復興區", "337 大園區", "338 蘆竹區"]
+                    , ["新竹市", "300 東區", "300 北區", "300 香山區"]
+                    , ["新竹縣", "302 竹北市", "303 湖口鄉", "304 新豐鄉", "305 新埔鎮", "306 關西鎮", "307 芎林鄉", "308 寶山鄉", "310 竹東鎮", "311 五峰鄉", "312 橫山鄉", "313 尖石鄉", "314 北埔鄉", "315 峨眉鄉"]
+                    , ["苗栗縣", "350 竹南鎮", "351 頭份鎮", "352 三灣鄉", "353 南庄鄉", "354 獅潭鄉", "356 後龍鎮", "357 通霄鎮", "358 苑裡鎮", "360 苗栗市", "361 造橋鄉", "362 頭屋鄉", "363 公館鄉", "364 大湖鄉", "365 泰安鄉", "366 銅鑼鄉", "367 三義鄉", "368 西湖鄉", "369 卓蘭鎮"]
+                    , ["台中市", "400 中區", "401 東區", "402 南區", "403 西區", "404 北區", "406 北屯區", "407 西屯區", "408 南屯區", "411 太平區", "412 大里區", "413 霧峰區", "414 烏日區", "420 豐原區", "421 后里區", "422 石岡區", "423 東勢區", "424 和平區", "426 新社區", "427 潭子區", "428 大雅區", "429 神岡區", "432 大肚區", "433 沙鹿區", "434 龍井區", "435 梧棲區", "436 清水區", "437 大甲區", "438 外埔區", "439 大安區"]
+                    , ["彰化縣", "500 彰化市", "502 芬園鄉", "503 花壇鄉", "504 秀水鄉", "505 鹿港鎮", "506 福興鄉", "507 線西鄉", "508 和美鎮", "509 伸港鄉", "510 員林鎮", "511 社頭鄉", "512 永靖鄉", "513 埔心鄉", "514 溪湖鎮", "515 大村鄉", "516 埔鹽鄉", "520 田中鎮", "521 北斗鎮", "522 田尾鄉", "523 埤頭鄉", "524 溪州鄉", "525 竹塘鄉", "526 二林鎮", "527 大城鄉", "528 芳苑鄉", "530 二水鄉"]
+                    , ["南投縣", "540 南投市", "541 中寮鄉", "542 草屯鎮", "544 國姓鄉", "545 埔里鎮", "546 仁愛鄉", "551 名間鄉", "552 集集鎮", "553 水里鄉", "555 魚池鄉", "556 信義鄉", "557 竹山鎮", "558 鹿谷鄉"]
+                    , ["雲林縣", "630 斗南鎮", "631 大埤鄉", "632 虎尾鎮", "633 土庫鎮", "635 東勢鄉", "634 褒忠鄉", "636 台西鄉", "637 崙背鄉", "638 麥寮鄉", "640 斗六市", "643 林內鄉", "646 古坑鄉", "647 莿桐鄉", "648 西螺鎮", "649 二崙鄉", "651 北港鎮", "652 水林鄉", "653 口湖鄉", "654 四湖鄉", "655 元長鄉"]
+                    , ["嘉義市", "600 東區", "600 西區"]
+                    , ["嘉義縣", "602 番路鄉", "603 梅山鄉", "604 竹崎鄉", "605 阿里山鄉", "606 中埔鄉", "607 大埔鄉", "608 水上鄉", "611 鹿草鄉", "612 太保市", "613 朴子市", "614 東石鄉", "615 六腳鄉", "616 新港鄉", "621 民雄鄉", "622 大林鎮", "623 溪口鄉", "624 義竹鄉", "625 布袋鎮"]
+                    , ["台南市", "700 中西區", "701 東區", "702 南區", "704 北區", "708 安平區", "709 安南區", "710 永康區", "711 歸仁區", "712 新化區", "713 左鎮區", "714 玉井區", "715 楠西區", "717 仁德區", "718 關廟區", "716 南化區", "719 龍崎區", "720 官田區", "721 麻豆區", "722 佳里區", "723 西港區", "724 七股區", "725 將軍區", "726 學甲區", "727 北門區", "730 新營區", "731 後壁區", "732 白河區", "733 東山區", "734 六甲區", "735 下營區", "736 柳營區", "737 鹽水區", "741 善化區", "742 大內區", "744 新市區", "745 安定區", "743 山上區"]
+                    , ["高雄市", "800 新興區", "801 前金區", "802 苓雅區", "803 鹽埕區", "804 鼓山區", "805 旗津區", "806 前鎮區", "807 三民區", "811 楠梓區", "812 小港區", "813 左營區", "814 仁武區", "815 大社區", "817 東沙群島", "820 岡山區", "821 路竹區", "819 南沙群島", "822 阿蓮區", "823 田寮區", "824 燕巢區", "825 橋頭區", "826 梓官區", "827 彌陀區", "829 湖內區", "828 永安區", "830 鳳山區", "831 大寮區", "832 林園區", "833 鳥松區", "840 大樹區", "842 旗山區", "843 美濃區", "844 六龜區", "845 內門區", "847 甲仙區", "846 杉林區", "848 桃源區", "852 茄萣區", "851 茂林區", "849 那瑪夏區"]
+                    , ["屏東縣", "900 屏東市", "901 三地門鄉", "902 霧台鄉", "903 瑪家鄉", "904 九如鄉", "905 里港鄉", "906 高樹鄉", "907 鹽埔鄉", "908 長治鄉", "909 麟洛鄉", "911 竹田鄉", "912 內埔鄉", "913 萬丹鄉", "920 潮州鎮", "921 泰武鄉", "923 萬巒鄉", "922 來義鄉", "924 崁頂鄉", "925 新埤鄉", "926 南州鄉", "927 林邊鄉", "928 東港鎮", "929 琉球鄉", "931 佳冬鄉", "932 新園鄉", "940 枋寮鄉", "941 枋山鄉", "943 獅子鄉", "944 車城鄉", "945 牡丹鄉", "946 恆春鎮", "947 滿州鄉", "942 春日鄉"]
+                    , ["台東縣", "950 台東市", "951 綠島鄉", "952 蘭嶼鄉", "954 卑南鄉", "955 鹿野鄉", "956 關山鎮", "957 海端鄉", "958 池上鄉", "953 延平鄉", "959 東河鄉", "961 成功鎮", "962 長濱鄉", "963 太麻里鄉", "965 大武鄉", "966 達仁鄉", "964 金峰鄉"]
+                    , ["花蓮縣", "970 花蓮市", "971 新城鄉", "972 秀林鄉", "973 吉安鄉", "974 壽豐鄉", "975 鳳林鎮", "976 光復鄉", "977 豐濱鄉", "978 瑞穗鄉", "981 玉里鎮", "979 萬榮鄉", "983 富里鄉", "982 卓溪鄉"]
+                    , ["宜蘭縣", "260 宜蘭市", "261 頭城鎮", "262 礁溪鄉", "263 壯圍鄉", "264 員山鄉", "265 羅東鎮", "266 三星鄉", "267 大同鄉", "268 五結鄉", "269 冬山鄉", "270 蘇澳鎮", "272 南澳鄉", "290 釣魚台"]
+                    , ["澎湖縣", "880 馬公市", "881 西嶼鄉", "882 望安鄉", "885 湖西鄉", "883 七美鄉", "884 白沙鄉"]
+                    , ["金門縣", "890 金沙鎮", "891 金湖鎮", "892 金寧鄉", "893 金城鎮", "894 烈嶼鄉", "896 烏坵鄉"]
+                    , ["連江縣", "209 南竿鄉", "210 北竿鄉", "211 莒光鄉", "212 東引鄉"]
+                ]
+                var number = 0;
+                for (var i = 0; i < 22; i++) {
+                    if (Address[i][0] == loc) {
+                        number = i;
+                        break;
+                    }
+                }
+                $("#" + zipName).find("optgroup").remove();
+                $("#" + zipName).find("option").remove();
+                for (var i = 0; i < Address[number].length; i++) {
+                    if (i == 0) {
+                        if (navigator.userAgent.match("Firefox")) {
+                            //手機ff可能要用不同寫法,先不考慮
+                        } else {
+                            $("#" + zipName).append('<optgroup id = "' + Address[number][0] + '" label = "' + Address[number][0] + '">');
+                        }
+                    }
+                    else {
+                        $("#" + zipName).append('<option value = "' + Address[number][i] + '">' + Address[number][i] + '</option>');
+                    }
+                }
+                if (navigator.userAgent.match("Firefox")) {
+                    //手機ff可能要用不同寫法,先不考慮
+                } else {
+                    $("#" + zipName).append('</optgroup>');
+                }
+            }
+
+            @*DateTimePicker*@
+            $(function () {
+                var d = new Date();
+                var Year = d.getUTCFullYear();
+                var YearRange = String("1900:" + Year);
+                $("#Birthday").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'yy/mm/dd',
+                    yearRange: YearRange,
+                    maxDate: "+0d",  //可选最大日期
+                    closeTextType: "close" //关闭按钮文字
+                });
+            });
+            @*賦予性別值*@
+            function CheckAllStatus() {
+                var titleSandM = $("#titleSandM").val();
+                var Birthday = $("#Birthday").val();
+                var Phone = $("#Mobile").val();
+
+                @*檢查生日*@
+                if (Birthday != "") {
+                    if (!Birthday.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
+                        alert("生日格式錯誤");
+                        return false;
+                    }
+                    var today = new Date();
+                    if (parseInt(Birthday.substring(0, 4), 10) > today.getFullYear()) {
+                        alert("尚未出生,年份錯誤");
+                        return false;
+                    } else {
+                        if (parseInt(Birthday.substring(0, 4), 10) == today.getFullYear() && parseInt(Birthday.substring(5, 7), 10) > today.getMonth() + 1) {
+                            alert("尚未出生,月份錯誤");
+                            return false;
+                        } else {
+                            if (parseInt(Birthday.substring(0, 4), 10) == today.getFullYear() && parseInt(Birthday.substring(5, 7), 10) == today.getMonth() + 1 && parseInt(Birthday.substring(8, 10), 10) > today.getDate()) {
+                                alert("尚未出生,日期錯誤");
+                                return false;
+                            }
+                        }
+                    }
+                }
+                @*檢查姓名*@
+                $("#NameErr").text("");                
+                if ($("#titleSandM").val() == "2" || $("#RegisterLastName").val() == "" || $("#Nickname").val() == "") {
+                    $("#NameErr").text("姓名是必填欄位");
+                    $("#div_Name").addClass("has-error");
+                    return false;
+                }
+
+                @*檢查手機格式*@
+                $("#MobileErr").text("");
+                if (Phone == "") {
+                    $("#div_Mobile").addClass("has-error");
+                    $("#MobileErr").text("手機是必填欄位");
+                    return false;
+                } else if (Phone != "" && !Phone.match(/^09[0-9]{8}$/)) {
+                    $("#div_Mobile").addClass("has-error");
+                    $("#MobileErr").text("手機格式錯誤。");
+                    return false;
+                }
+                @*檢查地址*@
+                $("#AddrErr").text("");
+                if ($("#member_loc").val() == "" || $("#member_City").val() == "" || $("#member_City").val() == null || $("#member_addr").val() == "") {
+                    $("#div_Addr").addClass("has-error");
+                    $("#div_Addr2").addClass("has-error");
+                    $("#AddrErr").text("地址是必填欄位");
+                    return false;
+                }
+                //設定電子報
+
+                if ($("#recEdm:checked").length == 1) {
+                    edm = 1;
+                    return true;
+                }
+                if ($("#canEdm:checked").length == 1) {
+                    edm = 0;
+                    return true;
+                }
+
+                else {
+                    return true;
+                }
+            }
+
+
+            $("#submitdata").bind("click", function () {
+                var CheckResult = CheckAllStatus();
+                if (CheckResult == false) {
+                    return false;
+                }
+                else if (CheckResult == true) {  //存檔寫入資料庫
+                    Save();
+                    return true;
+                }
+            });
+
+            function Save() {
+                
+                var ModelDetail = {
+                    "Email": $("#account_email").val(),
+                    "Sex": $("#titleSandM").val(),
+                    "Lastname": $("#RegisterLastName").val(),
+                    "Firstname": $("#Nickname").val(),
+                    "Birthday": $("#Birthday").val(),
+                    "Mobile": $("#Mobile").val(),
+                    "TelExtension": $("#TelExtension").val(),
+                    "TelZip": $("#TelZip").val(),
+                    "TelDay": $("#TelDay").val(),
+                    "Loc": $("#member_loc").val(),
+                    "Zip": $("#member_zip").val(),
+                    "ZipName": $("#member_City").val(),
+                    "Address": $("#member_addr").val()
+                }
+
+                var json = JSON.stringify({ "SaveMemberVM": ModelDetail, "EDM": edm });
+                $.ajax({
+                    url: "/MyAccount/EditPersonInfo",
+                    contentType: "application/json;charset=utf-8",
+                    data: json,
+                    method: 'POST',
+                    dataType: "Json",
+                    success: function (res) {
+                        //alert(res);
+                        if (res == true) {
+                            alert("您的個人資料已修改完成");
+                            location.href = "/MyAccount/EditPersonInfo";
+                        } else {
+                            alert("修改錯誤");
+                            return false;
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+
+
+        });
+        </script>
+
+    @Scripts.Render("~/Scripts/TWEC/AccountVerify.js")
+    <script>
+
+        $("#SendPwdConfirm").on("click", function () {
+            if (Judge()) {
+                console.log($("#titleSandM").val());
+                var ModelDetail = {
+                    "Email": $("#AccountEmail").val(),
+                    "OldPWD": $("#OldPassword").val(),
+                    "PWD": $("#NewPassword").val(),
+                    "confirmPWD": $("#ConfirmNewPassword").val()
+                }
+                var json = JSON.stringify({ "SaveAccountVM": ModelDetail });
+                $.ajax({
+                    url: "/MyAccount/UpdatePasswordPost",
+                    contentType: "application/json;charset=utf-8",
+                    data: json,
+                    method: 'POST',
+                    dataType: "Json",
+                    success: function (res) {
+                        console.log(res);
+                        if (res.Status == 0) {
+                            alert(res.Message);
+                            location.href = '/';
+                        }
+                        else {
+                            $("#OldPassWordErr").css('display', 'block');
+                            $("#ConfirmPassWordErr").css('display', 'none');
+                            $("#divOldPassword").attr("class", "form-group show-grid has-error");
+                            $("#divConfirmNewPassword").attr("class", "form-group");
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                        $("#ErrorMessages").html("系統異常，請聯絡客服人員！");
+                        
+                    }
+                });
+            }
+            else {
+                $("#ErrorMessages").html("資料填寫不正確！");
+            }
+        });
+        $("#show_pwd").click(function () {
+            $("#NewPassword").attr('type', 'text');
+            $("#show_pwd").css('display', 'none');
+            $("#hide_pwd").css('display', 'block');
+        });
+        $("#hide_pwd").click(function () {
+            $("#NewPassword").attr('type', 'password');
+            $("#show_pwd").css('display', 'block');
+            $("#hide_pwd").css('display', 'none');
+        });
+
+        @*檢查密碼是否符合要求格式*@
+        $("#NewPassword").blur(function () {
+            NewPassword();
+        });
+        $("#NewPassword").keyup(function () {
+            NewPassword();
+        });
+        $("#NewPassword").focus(function () {
+            $("#ShowPasswordRule").css('display', 'block');
+            NewPassword();
+        });
+        @*檢查密碼與確認密碼是否相同*@
+        $("#ConfirmNewPassword").blur(function () {
+            ConfirmNewPassword();
+        });
+
+
+        function Judge() {
+            if (NewPassword() && ConfirmNewPassword()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function NewPassword() {
+            var result = true;
+            var Oldpassword = $("#OldPassword").val();
+            var password = $("#NewPassword").val();
+            var account_confirmpassword = $("#ConfirmNewPassword").val();
+            var EmailAccount = $("#account_email").html();
+            var level = 0;
+            $(".pwdcheck").each(function () {
+                $(this).prop('checked', true);
+            });
+            $("#password_rules").text("");
+
+            console.log(password);
+            if (password.length < 6) {
+                $("#password_rules").text("");
+                $("#password_rules").text("密碼長度不可小於六碼");
+                $("#password_rules").css('display', '');
+                $("#pwdcheck_length").prop('checked', false);
+                result = false;
+            } else {
+                level++;
+            }
+            if (password != "") {
+                if (!VerifyPwdRule(password, EmailAccount)) {
+                    $("#password_rules").text("");
+                    $("#password_rules").text("密碼格式錯誤");
+                    $("#password_rules").css('display', '');
+                    $("#pwdcheck_numeric").prop('checked', false);
+                    result = false;
+                } else {
+                    level++;
+                }
+            }
+
+            if (password == EmailAccount) {
+                $("#password_rules").text("");
+                $("#password_rules").text("帳密不得相同");
+                $("#password_rules").css('display', '');
+                $("#pwdcheck_email").prop('checked', false);
+                result = false;
+            } else {
+                level++;
+            }
+            if (Oldpassword == "" && password == "") {
+            }else if (Oldpassword == password) {
+                $("#password_rules").text("");
+                $("#password_rules").text("新舊密碼不得相同");
+                $("#password_rules").css('display', '');
+                $("#pwdcheck_repeat").prop('checked', false);
+                result = false;
+            }
+
+            if (account_confirmpassword != "" && account_confirmpassword == "undefined") {
+                if (password == account_confirmpassword) {
+                    $("#PassWordRuleSay").hide();
+                }
+                else {
+                    $("#PassWordRuleSay").show();
+                    result = false;
+                }
+            }
+
+            if (level == 1) {
+                $("#showResult").attr('class', 'pswSecure step1');
+                $("#showResult").css('display', '');
+            } else if (level == 2) {
+                $("#showResult").attr('class', 'pswSecure step2');
+                $("#showResult").css('display', '');
+            } else if (level == 3) {
+                $("#showResult").attr('class', 'pswSecure step3');
+                $("#showResult").css('display', '');
+            } else {
+                $("#showResult").css('display', 'none');
+
+            }
+            return result;
+        }
+
+        function ConfirmNewPassword() {
+            var result = true;
+            var password = $("#NewPassword").val();
+            var account_confirmpassword = $("#ConfirmNewPassword").val();
+            if (password != account_confirmpassword && password != "" && account_confirmpassword != "" && password != "undefined" && account_confirmpassword != "undefined") {
+                $("#ConfirmPassWordErr").css('display', 'block');
+                $("#OldPassWordErr").css('display', 'none');
+                $("#divConfirmNewPassword").attr("class", "form-group has-error");
+                $("#divOldPassword").attr("class", "form-group show-grid");
+                result = false;
+            }
+            else if (password == account_confirmpassword) {
+                $("#PassWordRuleSay").hide();
+            }
+            else if (account_confirmpassword == "" || account_confirmpassword == null) {
+                $("#PassWordRuleSay").hide();
+            }
+            return result;
+        }
+    </script>
+}

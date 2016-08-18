@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "MyAccountList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Themes/css/owl.carousel.css")
+    @Styles.Render("~/Themes/css/owl.theme.css")
+    @Styles.Render("~/Themes/css/royal_tab2.css")
+}
+
+<div class="wrapper">
+<div class="main">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="topper">
+                        <div class="title"><i class="listi3"></i><div class="text">我的訂單</div></div>
+                        <div class="container"><button type="button" class="btn btn-xs orangebg2 whitetxt align-right show-grid6">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-left fa-lg"></i> &nbsp;&nbsp;&nbsp;&nbsp;上一頁&nbsp;&nbsp;&nbsp;&nbsp;</button></div>
+                        <div class="line graybg"></div>
+                    </div>
+                </div>
+            </div>
+            
+        <div class="container">
+            <form>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <a href=""><img class="img-responsive item border" src="img/product.jpg"/></a>
+                            </div>
+                            <div class="col-xs-3">
+                                <ul class="list-unstyled">
+                                    <li>訂單狀態</li>
+                                    <li>訂單編號</li>
+                                    <li>訂購日期</li>
+                                    <li>總價</li>
+                                    <li>出貨日期</li>
+                                    <li>配送狀態</li>
+                                </ul>   
+                            </div>
+                            <div class="col-xs-5">
+                                <ul class="list-unstyled">
+                                    <li>已出貨</li>
+                                    <li>LBO123456789</li>
+                                    <li>2015/06/12</li>
+                                    <li>12,890</li>
+                                    <li>2015/06/16</li>
+                                    <li>已配達</li>
+                                   </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-lg btn-block orangebg2 whitetxt">訂單明細</button>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-lg btn-block bluebg whitetxt">我要維修</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-lg btn-block orangebg2 whitetxt">訂單明細</button>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-xs bluebg whitetxt">我要換貨</button>
+                                <button type="button" class="btn btn-xs bluebg whitetxt">我要退貨</button>
+                            </div>
+                        </div>
+            </form>
+        </div>
+</div><!-- /.main -->
+</div><!-- /.wrapper -->
+
+@section scripts{
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/jquery.freetile.js"></script>
+<script src="/Scripts/init.js"></script>
+<script src="/Scripts/owl.carousel.js"></script>
+<script src="/Scripts/royal_tab.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+
+            navigation: true,
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true
+
+            // "singleItem:true" is a shortcut for:
+            // items : 1, 
+            // itemsDesktop : false,
+            // itemsDesktopSmall : false,
+            // itemsTablet: false,
+            // itemsMobile : false
+
+        });
+    });
+</script>
+}

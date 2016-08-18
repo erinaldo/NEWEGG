@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+
+}
+
+@section scripts{
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js" charset="utf-8"></script>
+    
+    
+    <script>
+
+        //手機首頁輪播
+        var _mainFcousLists = @Html.Raw(Json.Encode(ViewBag.ListHomeSliderBanner));
+        //生活提案
+        var _lifeProjectData = @Html.Raw(Json.Encode(ViewBag.ListHomeLifeProject)); 
+        //美國直購
+        var _shopUsData = @Html.Raw(Json.Encode(ViewBag.ListHomeShopUS));
+        //全館分類
+        var _catesMapData = @Html.Raw(Json.Encode(ViewBag.ListHomeCategoryMap));
+	    @*//促銷文案
+        var _promoNoteData = @Html.Raw(Json.Encode(ViewBag.ListHomePromoProject));*@
+
+	    nemReact.initJS([{
+	        key: 'homeLib'
+	    }, {
+	        key: 'home',
+	        cb: function () {
+	            nemReact.require('home', 'react').init();
+	        }
+	    }]);
+	</script>
+}

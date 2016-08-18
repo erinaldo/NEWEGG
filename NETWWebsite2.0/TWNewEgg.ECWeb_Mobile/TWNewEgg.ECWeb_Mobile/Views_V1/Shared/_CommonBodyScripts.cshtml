@@ -1,0 +1,119 @@
+﻿<script>
+    (function (twNewegg)
+    {
+        var audioMethods = function (path) {
+            @*private*@
+            var audioPath = "";
+            var audioElement;
+            var audioStatus = false;
+            var init = function (path) {
+                audioPath = path;
+                audioElement = new Audio(audioPath);
+            };
+            @*public*@
+            this.getStatus = function () {
+                return audioStatus;
+            };
+            this.play = function () {
+                if (audioPath === "") {
+                    init(path);
+                }
+                audioStatus = true;
+                audioElement.play();
+            };
+            this.stop = function () {
+                audioStatus = false;
+                audioElement.pause();
+            };
+        };
+        twNewegg.prototype.siteMusic = function (path) {
+            if (typeof path === 'string') {
+                return new audioMethods(path);
+            } else {
+                $.error("Path type must be string.");
+            }
+        }
+    })(twNewegg);
+    var ShadeToggle = function () {
+
+    };
+    var countCartNumber = function (scData) {
+        var countNumber = 0;
+        if ($.isArray(scData)) {
+            for (i = 0; i < scData.length; i++) {
+                if (scData[i].stu == 0) {
+                    countNumber++;
+                }
+            }
+        }
+        if ($('#neSCHead').length) {
+            $('#neSCHead').text((countNumber > 0) ? countNumber : "");
+        }
+        if ($('#neSCBody').length) {
+            $('#neSCBody').text((countNumber > 0) ? countNumber : "");
+        }
+       @*scDom.text(countNumber);*@
+    };
+    var updateQueryStringParameter = function (uri, key, value) {
+        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + value + '$2');
+        }
+        else {
+            return uri + separator + key + "=" + value;
+        }
+    };
+    var reloadPage = function () {
+        if (location.href.indexOf('dig=') > -1) {
+            location.href = updateQueryStringParameter(location.href, 'dig', (parseInt(Math.random() * 1000000)));
+        }
+        else {
+            location.href = location.href + (location.href.indexOf('?') > -1 ? '&' : '?') + 'dig=' + (parseInt(Math.random() * 1000000));
+        }
+    };
+    $(document).ready(function () {
+        ////if ($('#siteMusic').length) {
+        ////    var audioController = twNewegg().siteMusic('/Themes/media/wtf.mp3');
+        ////    $('#siteMusic').on('click', function () {
+        ////        if (audioController.getStatus() === false) {
+        ////            audioController.play();
+        ////            $(this).css("background-image", "url(/Themes/img/music-on.png)");
+        ////        } else {
+        ////            audioController.stop();
+        ////            $(this).attr("style", "");
+        ////        }
+        ////    });
+        ////}
+        @*if ($('#neSCHead').length) {
+            var neSCHead = $('#neSCHead');
+            twNewegg().cart().cartMethod("readFromCart", { categoryIds: [], categoryTypes: [], successMethods: [countHeadCartNumber], successParas: [[neSCHead]] });
+        }*@
+
+        $('#goneDesktop').on('click', function () {
+            jQuery.cookie("goNEMWeb", "goNEDesktop", {
+                expires: 1,
+                path: "/",
+                domain: twNewegg().twNeweggDomain
+            });
+        });
+
+        twNewegg().cart().cartMethod("readFromCart", { categoryIds: [], categoryTypes: [], successMethods: [countCartNumber], successParas: [[]] });
+        @*Header我的帳戶下拉*@
+        ////myDropAccount();
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        ////imgVerticalAlignCenter();
+        
+        ////$(".footer-limiter").append("<div class=\"pageTop\">");
+    
+        ////$(".pageTop").click(function () {
+        ////    jQuery("html,body").animate({
+        ////        scrollTop: 0
+        ////    }, 500);
+        ////});
+    });
+</script>

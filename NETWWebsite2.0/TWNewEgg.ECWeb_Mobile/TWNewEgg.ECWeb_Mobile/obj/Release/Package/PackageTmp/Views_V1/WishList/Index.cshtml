@@ -1,0 +1,182 @@
+﻿@using TWNewEgg.Models.ViewModels.Cart;
+@model ItemGroup_View
+@{
+    ViewBag.Title = Model.TypeName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+}
+
+<div class="wrapper">
+    <div class="main">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="topper">
+                    <div class="title"><div class="member"><i class="listi5"></i></div>
+                        <div class="text">我的最愛清單: 共 @(Model.CartItemList.Count) 筆</div>
+                    </div>
+                    <div class="line graybg"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <form>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group input-group">
+                                    <label>排序方式&nbsp;&nbsp;</label>
+                                    <select  id="cboOrderBy">
+                                        <option value="LowPrice" @(Model.OrderBy == "LowPrice" ? "selected" : "")>價格低到高</option>
+                                        <option value="HighPrice" @(Model.OrderBy == "HighPrice" ? "selected" : "")>價格高到低</option>
+                                        <option value="DescCreatDate" @(Model.OrderBy == "DescCreatDate" ? "selected" : "")>日期近到遠</option>
+                                        <option value="CreatDate" @(Model.OrderBy == "CreatDate" ? "selected" : "")>日期遠到近</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        @{
+                            foreach (var item in Model.CartItemList)
+                            {
+                            @Html.Partial("Partial_WishItem", item, new ViewDataDictionary() { { "ItemID", ViewData["ItemID"] } })    
+                            }
+                        }
+                        <div class="container panel3">
+                            <div id="delRow" class="row">
+                                <div class="col-xs-12">
+                                    <a class="btn graytxt2" href="#" id="btnDel"><i class="fa fa-2x fa-trash-o"></i>刪除</a>
+                                </div>
+                            </div>
+                        </div>
+            </form>
+        </div>
+    </div>
+    <!-- /.main -->
+</div>
+<!-- /.wrapper -->
+
+@section scripts{
+    <script src="/Scripts/NETW/netw-newegg-1.0.0.0.js"></script>
+    <script src="/Scripts/jquery.js"></script>
+    <script src="/Scripts/jquery.cookie.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/jquery.freetile.js"></script>
+    <script src="/Scripts/init.js"></script>
+    <script src="/Scripts/owl.carousel.js"></script>
+    <script src="/Scripts/royal_tab.js"></script>
+    <script src="/Scripts/NETW/netw-cart-1.0.0.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+
+                navigation: true,
+                slideSpeed: 300,
+                paginationSpeed: 400,
+                singleItem: true
+
+                // "singleItem:true" is a shortcut for:
+                // items : 1, 
+                // itemsDesktop : false,
+                // itemsDesktopSmall : false,
+                // itemsTablet: false,
+                // itemsMobile : false
+
+            });
+        });
+    </script>
+    <script>
+        var itemTotal = @(Model.CartItemList.Count);
+        var itemIndex = @(Model.ViewPage)-1;
+        /* ------ 浮動刪除按鈕 ------ */
+        function FloatButton() {
+            var _bar = $('#delRow').parent();
+            var _bar_top_dft = _bar.offset().top;
+            var _bar_height = _bar.outerHeight(true);
+            _bar.wrap('<div style="height: ' + _bar_height + 'px;"></div>');
+            if (_bar.is(':visible')) {
+                BarFix();
+            }
+            $(window).scroll(function () {
+                if (_bar.is(':visible')) {
+                    BarFix();
+                }
+            });
+            function BarFix() {
+                var _scrollT = GetPageScroll()[1];
+                var _winH = $(window).innerHeight();
+                _bar_top_dft = _bar.parent().offset().top;
+                if (_scrollT > _bar_top_dft - _winH + _bar_height) {
+                    _bar.removeClass('navbar-fixed-bottom');
+                } else {
+                    _bar.addClass('navbar-fixed-bottom');
+                }
+            }
+            function GetPageScroll() {
+                var xScroll, yScroll;
+                if (self.pageYOffset) {
+                    yScroll = self.pageYOffset;
+                    xScroll = self.pageXOffset;
+                } else if (document.documentElement && document.documentElement.scrollTop) { // Explorer 6 Strict
+                    yScroll = document.documentElement.scrollTop;
+                    xScroll = document.documentElement.scrollLeft;
+                } else if (document.body) {// all other Explorers
+                    yScroll = document.body.scrollTop;
+                    xScroll = document.body.scrollLeft;
+                }
+                return new Array(xScroll, yScroll);
+            };
+        }
+        $(document).ready(function () {
+            //浮動按鈕
+            FloatButton();
+            $(window).scroll(function () {
+                //console.log($(window).scrollTop()+","+$(document).height()+","+$(window).height());
+                if ($(window).scrollTop() >= $(document).height() - $(window).height()-70) { 
+                    for(var i=0;i<@(Model.ViewPage);i++){
+                        if(itemIndex<itemTotal){
+                            itemIndex++;
+                            $("#wishitem_"+itemIndex+"_index").show();
+                        }
+                    }
+                }
+            });
+            $("#btnDel").click(function () {
+                var delIDs = [];
+                $(".chkCart").each(function () {
+                    if ($(this).prop('checked')) {
+                        delIDs[delIDs.length] = $(this).val();
+                    }
+                });
+                if (delIDs.length == 0) return;
+                console.log(delIDs);
+                //AJAX CALL DEL
+                console.log(window.twNewegg);
+                //twNewegg().cart().cartMethod("removeFromWish", {itemIds: delIDs});
+                twNewegg().cart().cartMethod("removeFromWish", { itemIds: delIDs, successMethods: [Reload], successParas: [["刪除成功!"]] });
+
+            });
+            $("#cboOrderBy").change(function () {
+                location.href = "/WishList?OrderBy=" + $(this).val();
+            });
+        });
+        var Reload = function(Message){
+            alert(Message);
+            ReloadWishList();
+        }
+        var addCartItem = function (itemid) {
+            twNewegg().cart().cartMethod('addToCart', { itemIds: [itemid], qtys: [1], categoryIds: [], categoryTypes: [], successMethods: [ShowAddCartMsg], successParas: [["加入購物車完成"]] });
+        };
+        var ShowAddCartMsg = function(Message){
+            alert(Message);
+            ReloadWishList();
+        }
+        var ReloadWishList=function(){
+            var d = new Date();
+            location.href = "/WishList?OrderBy=" +$("#cboOrderBy").val()+"&tt="+d.getMilliseconds();
+        }
+    </script>
+}

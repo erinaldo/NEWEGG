@@ -1,0 +1,74 @@
+﻿@using TWNewEgg.ECWeb_Mobile.Auth
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header graybg3">
+                <div class="graysec"></div>
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar2"></span>
+                    <span class="icon-bar2"></span>
+                    <span class="icon-bar2"></span>
+                </button>
+                <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
+                <div class="logo"><a href="/"><img class="img-responsive" src="/Themes/img/logo.png"/></a></div>
+                <div class="slogan"></div>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse2 navbar-ex1-collapse nav-left">
+                <ul class="nav navbar-nav navbar-right">
+                    @if (!NEUser.IsAuthticated)
+                    {
+                    <li><a href="/MyAccount/Login"><div class="sign orangebg2"><i class="listi18"></i>登入/註冊</div></a></li>
+                    }
+                    <!--Header My Account Block Begin.-->
+                    @Html.Action("HeaderMyAccount", "Home")
+                    <!--Header My Account Block End.-->
+                    <!--Category List Begin-->
+                    @Html.Action("HeaderCategoryList", "Home")
+                    <!--Category List End-->
+                    <hr>
+                    <li><a href="https://www.facebook.com/twnewegg" target="_blank"><i class="listi17"></i>加入<span class="fbColor">FB</span>粉絲團</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <script>
+        $('button.navbar-toggle').click(function () {
+            if (navigator.userAgent.match("Firefox")) {
+                var timeStamp = 1000;
+            }
+            else {
+                var timeStamp = 400;
+            }
+            var leftMenu = $('.navbar-ex1-collapse');
+            $(leftMenu).collapse('show');
+            setTimeout(function () {
+                var windowObj = $(window);
+                var topHeader = $('div.navbar-header.graybg3');
+                if (windowObj && topHeader) {
+                    var windowHeight = windowObj.height();
+                    var headerHeight = topHeader.height();
+                    var menuHeight = $(leftMenu).outerHeight();
+                    if (windowHeight && headerHeight && menuHeight && menuHeight > (windowHeight - headerHeight)) {
+                        $(leftMenu).height((windowHeight - headerHeight) + 'px');
+                    }
+                }
+            }, timeStamp);
+            $('body').css('overflow', 'hidden');
+        });
+        $('div.main').click(function () {
+            $('div.navbar-ex1-collapse2.in').collapse('hide');
+            $('div.navbar-ex1-collapse.in').collapse('hide');
+        });
+        var hideHeader = function () {
+            $('div.navbar-ex1-collapse').on('hidden.bs.collapse', function () {
+                $('body').css('overflow', 'inherit');
+            });
+            $('div.navbar-ex1-collapse.in').collapse('hide');
+        };
+        $(document).ready(function () {
+            $(document).delegate("div:not(.navbar-collapse2.navbar-ex1-collapse.nav-left.collapse.in)", "click", hideHeader);
+        });
+    </script>  

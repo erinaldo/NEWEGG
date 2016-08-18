@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Themes/css/owl.carousel.css")
+    @Styles.Render("~/Themes/css/owl.theme.css")
+    @Styles.Render("~/Themes/css/royal_tab.css")
+}
+
+<div class="wrapper">
+<div class="main">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="topper">
+                        <img class="img-responsive" src="/Themes/img/banner4.jpg"/>
+                    </div>
+                </div>
+            </div>
+
+        <div class="container">
+            <div id="freetile-demo">
+                <div class="row">
+                    <div class="col-xs-6 col-xs-6-tight2">
+                        <div class="thumbnail">
+                            <div class="heart"><a href="#nogo"><i class="fa fa-2x fa-heart orangetxt2"></i></a></div>
+                            <a href=""><img class="img-responsive item" src="/Themes/img/product.jpg"/></a>
+                            <div class="iconset"><h4><div class="label label-default bluebg">獨家</div><div class="label label-default graybg">75折</div></h4></div>
+                            <div class="caption"><p>Lorem ipsum dolor sit ametL ipsum dolor</p></div>
+                            <div class="price">$ 125,544</div>
+                            <div class="btn btn-item2">立即<br>擁有</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-xs-6-tight2">
+                        <div class="thumbnail">
+                            <div class="heart"><a href="#nogo"><i class="fa fa-2x fa-heart orangetxt2"></i></a></div>
+                            <a href=""><img class="img-responsive item" src="/Themes/img/product.jpg"/></a>
+                            <div class="caption"><p>Lorem ipsum dolor sit amet</p></div>
+                            <div class="price">$ 125,544</div>
+                            <div class="btn btn-item2">立即<br>擁有</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-xs-6-tight2">
+                        <div class="thumbnail">
+                            <div class="heart"><a href="#nogo"><i class="fa fa-2x fa-heart orangetxt2"></i></a></div>
+                            <a href=""><img class="img-responsive item" src="/Themes/img/product.jpg"/></a>
+                            <div class="caption"><p>Lorem ipsum dolor sit amet amet amet amet amet</p></div>
+                            <div class="price">$ 125,544</div>
+                            <div class="btn btn-item2">立即<br>擁有</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-xs-6-tight2">
+                        <div class="thumbnail">
+                            <div class="heart"><a href="#nogo"><i class="fa fa-2x fa-heart orangetxt2"></i></a></div>
+                            <a href=""><img class="img-responsive item" src="/Themes/img/product.jpg"/></a>
+                            <div class="<p>caption">Lorem ipsum dolor sit amet</p></div>
+                            <div class="price">$ 125,544</div>
+                            <div class="btn btn-item2">立即<br>擁有</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div><!-- /.main -->
+</div><!-- /.wrapper -->
+
+@section scripts{
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/jquery.freetile.js"></script>
+<script src="/Scripts/init.js"></script>
+<script src="/Scripts/owl.carousel.js"></script>
+<script src="/Scripts/royal_tab.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+
+            navigation: true,
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true
+
+            // "singleItem:true" is a shortcut for:
+            // items : 1, 
+            // itemsDesktop : false,
+            // itemsDesktopSmall : false,
+            // itemsTablet: false,
+            // itemsMobile : false
+
+        });
+    });
+</script>
+}

@@ -1,0 +1,23 @@
+﻿@using TWNewEgg.Models.ViewModels.Item
+@using TWNewEgg.ECWeb_Mobile.Utility
+@model ItemBasic
+@if (Model != null)
+{
+<div class="thumbnail">
+    @if (!string.IsNullOrEmpty(Model.IsNew) && Model.IsNew.Equals("Y"))
+    { 
+    <div class="label label-default redbg6">新品<br>上市</div>
+    }
+    <div class="heart" data-toggle="modal" data-target="#wishModal"><a href="#nogo"><i class="fa fa-2x fa-heart orangetxt2" onclick="addToWishList(@(Model.Id));"></i></a></div>
+    @if (Model.ImgUrlList != null && Model.ImgUrlList.Any())
+    { 
+    <a href="@("/Item?itemId=" + Model.Id)"><img class="img-responsive item" src="@(ImageUtility.GetImagePath(Model.ImgUrlList[0]))"/></a>
+    }
+    <div class="caption"><p>@(Model.Name)</p></div>
+    <div class="priceset">
+        <div class="originalprice">$ 125,5440</div>
+        <div class="price">@(Model.PromotionPrice.AddCommas())</div>
+    </div>
+    <div class="btn orangebg2 pattern-btn2 align-right" onclick="purchaseItem(@(Model.Id));">立即<br>結帳</div>
+</div>
+}

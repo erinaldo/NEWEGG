@@ -1,0 +1,49 @@
+﻿@using TWNewEgg.Models.ViewModels.Cart;
+@model CartItem_View
+@{
+    ViewBag.Title = "Partial_CartItem";
+}
+
+                                            <div class="form-group input-group">
+                                                <div class="row show-grid">
+                                                    <div class="col-xs-8">
+                                                        <h4>@(Model.ItemName)</h4>
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <div class="heart"><i class="fa fa-2x fa-heart-o"></i></div>
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <i class="fa fa-2x fa-trash-o"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="row show-grid">
+                                                    <div class="col-xs-3">
+                                                        <a href=""><img class="img-responsive item border" src="@(Model.ImagePath)"/></a>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <ul class="list-unstyled">
+                                                            <li class="show-grid7">規格:</li>
+                                                            <li class="show-grid7">數量:</li>
+                                                            <li class="show-grid7">折價券:</li>
+                                                            <li class="show-grid7">小計:</li>
+                                                        </ul>   
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <ul class="list-unstyled">
+                                                            <li class="show-grid7">黑/XL</li>
+                                                            <li class="show-grid7"><select class="input-xs">
+                                                                    <option>100</option>
+                                                                    <option>200</option>
+                                                                </select>
+                                                            </li>
+                                                            <li class="show-grid7"><select class="input-xs">
+                                                                    <option>100</option>
+                                                                    <option>200</option>
+                                                                </select>
+                                                            </li>
+                                                            <li><span class="redtxt">$21,000</span></li>
+                                                           </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <hr>

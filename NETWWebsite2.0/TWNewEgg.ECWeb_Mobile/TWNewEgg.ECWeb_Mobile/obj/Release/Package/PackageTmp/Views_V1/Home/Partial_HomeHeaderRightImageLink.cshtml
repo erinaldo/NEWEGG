@@ -1,0 +1,28 @@
+﻿                
+@using TWNewEgg.ECWeb_Mobile.Utility
+@using TWNewEgg.Models.DomainModels.GroupBuy
+@model List<GroupBuyViewInfo>
+@if (Model != null && Model.Any())
+{ 
+    var firstFlashItem = Model.FirstOrDefault();
+    if (firstFlashItem != null)
+    {
+        decimal originalPrice = 0;
+        decimal groupPrice = 0;
+        
+    <div class="flash2 redborder">
+    <div class="head"><img class="img-responsive" src="/themes/img/lt_head.jpg"/></div>
+        @if (decimal.TryParse(firstFlashItem.GroupBuyPrice, out groupPrice) && decimal.TryParse(firstFlashItem.OriginalPrice, out originalPrice))
+        {
+            if (originalPrice >= groupPrice) { 
+                decimal discountRate = (groupPrice / originalPrice) * 100;
+                <div class="label2"></div><div class="txt"><div class="redtxt3 txt2">@(string.Format("{0:0}", Math.Round(discountRate,2)).TrimEnd('0'))</div><div class="whitetxt txt3">折</div></div>
+            }
+        }
+        <a href="/Flash"><img class="img-responsive item" src="@(ImageUtility.GetImagePath(firstFlashItem.ImgUrl))"/></a>
+        <div class="caption" onclick ="location.href='/Flash'"><p>@(firstFlashItem.Title)</p>
+        <div class="originalprice">@(AmountUtility.AddCommas(firstFlashItem.OriginalPrice))</div><div class="price">@(AmountUtility.AddCommas(firstFlashItem.GroupBuyPrice))</div>
+        </div>
+    </div>
+    }
+}

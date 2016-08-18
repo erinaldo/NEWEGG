@@ -1,0 +1,9 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Category.Category_TreeItem>
+
+@if (Model != null && Model.Any() && Model[0] != null && Model[0].Nodes.Any())
+{
+    foreach (var categoryNode in Model[0].Nodes)
+    {
+<li><a href="/category/index?categoryid=@(categoryNode.category_id)&cssname=@(categoryNode.ClassName)"><i class="@(categoryNode.ClassName)"></i>@(categoryNode.category_description)</a></li>
+    }
+}

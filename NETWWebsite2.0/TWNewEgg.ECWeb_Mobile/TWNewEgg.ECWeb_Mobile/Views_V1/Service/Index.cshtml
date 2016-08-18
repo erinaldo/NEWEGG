@@ -1,0 +1,191 @@
+﻿@using TWNewEgg.Models.ViewModels.Service
+@model ServicePageInfo
+@{
+    string pageTitle = "服務說明";
+    ViewBag.Title = pageTitle + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper">
+    <div class="main">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="topper">
+                    <div class="title">
+                        <div class="tool">
+                            <i class="listi1"></i>
+                            <div class="text">@pageTitle</div>
+                        </div>
+                    </div>
+                    <div class="line graybg"></div>
+                </div>
+            </div>
+        </div>
+        <div id="tabs">
+            <div style="width: 100%; overflow: hidden; padding-left: 42px; padding-right: 42px; height: 40px;">
+                <ul id="serviceTabs">
+                    @foreach (ServiceContentTab tab in Model.TabList)
+                    {
+                        int index = Model.TabList.IndexOf(tab);
+                        <li class="tab @(index.Equals(Model.DefaultTabIndex) ? "active" : "")" itemIndex="@index">@tab.Title</li>
+                    }
+                </ul>
+            </div>
+            <a href="#nogo" id="tabPrev" style="float: left;" class="tabControl">
+                <span class="fa fa-2x fa-angle-left"></span>
+            </a>
+            <a href="#nogo" id="tabNext" style="float: right;" class="tabControl">
+                <span class="fa fa-2x fa-angle-right"></span>
+            </a>
+
+        </div>
+        <div class="line graybg" style="height: 1px"></div>
+
+        <div class="views">
+            @{
+                for (int i = 0; i < Model.TabList.Count; i++)
+                {
+                    ServiceContentTab tab = Model.TabList[i];
+                <div class="container" style="display:none;" id="itemIndex@(i)">
+                    <div class="panel-group show-grid2" id="accordion@(i)" role="tablist" aria-multiselectable="true">
+                        @for (int j = 0; j < tab.BlockList.Count; j++)
+                        {
+                            // 決定block是否要打開.
+                            string blockContentClass, arrowClass;
+                            if ((i == Model.DefaultTabIndex && j == Model.DefaultBlockIndex) || (i != Model.DefaultTabIndex && j == 0))
+                            {
+                                blockContentClass = "panel-collapse collapse in";
+                                arrowClass = "fa fa-angle-down align-right";
+                            }
+                            else
+                            {
+                                blockContentClass = "panel-collapse collapse";
+                                arrowClass = "fa fa-angle-right align-right";
+                            }
+
+                            ServiceContentBlock block = tab.BlockList[j];
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading@(i)_@(j)">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion@(i)" href="#collapse@(i)_@(j)" aria-expanded="true" aria-controls="collapse@(i)_@(j)">
+                                        <h4 class="panel-title whitetxt">
+                                            @block.Title<span id="arrow@(i)_@(j)" class="@arrowClass"></span>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapse@(i)_@(j)" class="@blockContentClass" role="tabpanel" aria-labelledby="heading@(i)_@(j)">
+                                    <div class="panel-body">
+                                        @Html.Raw(block.HtmlContent)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                }
+            }
+        </div>
+    </div>
+    <!-- /.main -->
+</div>
+<!-- /.wrapper -->
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Themes/css/owl.carousel.css")
+    @Styles.Render("~/Themes/css/owl.theme.css")
+    <style>
+        #tabs ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        #serviceTabs .tab {
+            float: left;
+            width: 100%;
+            line-height: 40px;
+            background-color: #FFFFFF;
+            color: #555555;
+            text-align: center;
+            height: 40px;
+            border-right: solid 1px #FFFFFF;
+        }
+
+        #serviceTabs .active {
+            color: #FFFFFF;
+            background-color: #F0A376;
+        }
+
+        #tabs .tabControl {
+            position: relative;
+            display: block;
+            top: -40px;
+            background-color: #CCCCCC;
+            height: 40px;
+            line-height: 40px;
+            width: 40px;
+        }
+
+            #tabs .tabControl span {
+                color: #FFF;
+                margin-top: 7px;
+                margin-left: 15px;
+            }
+    </style>
+}
+
+@section scripts{
+    <script src="/Scripts/jquery.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#serviceTabs').owlCarousel({
+                items: 3,
+                itemsMobile: [479, 3],
+                itemsDesktopSmall: [979, 3],
+                itemsTablet: [768, 3],
+                rewindNav: false,
+                navigation: true,
+                navigationText: ["prev", "next"],
+                pagination: false,
+                height: 40,
+                rewindSpeed: 200
+            });
+            $('#serviceTabs').trigger('owl.jumpTo', Number('@Model.DefaultTabIndex'));
+            $('div.views').find('#itemIndex' + '@Model.DefaultTabIndex').show();
+
+            $('#tabPrev').click(function () {
+                $('#serviceTabs').trigger('owl.prev');
+            });
+
+            $('#tabNext').click(function () {
+                $('#serviceTabs').trigger('owl.next');
+            });
+
+            $('#serviceTabs li').click(function () {
+                $('div.views').find('div.container').hide();
+                $(this).parent().parent().find('li').removeClass('active');
+                $(this).addClass('active');
+                var tabItem = $(this).attr('itemIndex');
+                var viewItem = $('div.views').find('#itemIndex' + tabItem);
+                viewItem.show();
+            });
+
+            $('.panel-collapse').on('show.bs.collapse', function () {
+                var currentPanelID = this.id;
+                var arrowID = currentPanelID.replace(/collapse/, 'arrow');
+                $('#' + arrowID).removeClass('fa-angle-right');
+                $('#' + arrowID).addClass('fa-angle-down');
+            });
+
+            $('.panel-collapse').on('hide.bs.collapse', function () {
+                var currentPanelID = this.id;
+                var arrowID = currentPanelID.replace(/collapse/, 'arrow');
+                $('#' + arrowID).removeClass('fa-angle-down');
+                $('#' + arrowID).addClass('fa-angle-right');
+            });
+        });
+    </script>
+}

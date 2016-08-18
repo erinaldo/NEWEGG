@@ -1,0 +1,51 @@
+﻿@using TWNewEgg.Models.DomainModels.Store
+@using TWNewEgg.Models.DomainModels.MobileStore
+@using TWNewEgg.Models.DomainModels.GroupBuy
+@{
+    Layout = null;    
+}
+
+<h2>Yiting Test</h2>
+
+@{
+if (ViewBag.Result != null)
+{
+    <h2>Data....</h2>
+    if (Object.ReferenceEquals(ViewBag.Result.GetType(), new List<GroupBuyViewInfo>().GetType() )){
+    
+        foreach (var item in ViewBag.Result)
+        {
+            <h3>ItemID=@(item.ID)</h3>
+            <ul>
+                <li>Title=@(item.Title), &nbsp;&nbsp;ImgUrl=@(item.ImgUrl), &nbsp;&nbsp;ItemLinkButtonImageUrl=@(item.ItemLinkButtonImageUrl)</li>
+                <li>OriginalPrice=@(item.OriginalPrice), &nbsp;&nbsp;GroupBuyPrice=@(item.GroupBuyPrice), &nbsp;&nbsp;ItemLink=@(item.ItemLink)</li>
+                <li>獨家=@(item.IsShowExclusive), &nbsp;&nbsp;美蛋=@(item.IsShowNeweggUSASync)</li>
+            </ul>
+            <hr />
+        }
+
+    }
+    else if (Object.ReferenceEquals(ViewBag.Result.GetType(), new List<MStoreItemCell>().GetType()))
+    {
+        foreach (var item in ViewBag.Result)
+        {
+            <h3>ItemID=@(item.ItemID)</h3>
+            <ul>
+                <li>Title=@(item.Title), &nbsp;&nbsp;ItemImage=@(item.ItemImage), &nbsp;&nbsp;LogoImage=@(item.LogoImage)</li>
+                <li>UnitPrice=@(item.UnitPrice), &nbsp;&nbsp;Url=@(item.Url), &nbsp;&nbsp;追蹤=@(item.IsTrack)</li>
+
+@{
+            if (item.PromoInfo != null)
+            {
+                <li>PromoPercent=@(item.PromoInfo.PromoPercent), &nbsp;&nbsp;PromoPrice=@(item.PromoInfo.PromoPrice), &nbsp;&nbsp;美蛋閃購區=@(item.PromoInfo.IsFlashUS), &nbsp;&nbsp;獨家=@(item.PromoInfo.IsExclusiveSale)</li>
+            }
+}
+
+            </ul>
+            <hr />
+        }
+    }
+}else{
+    <h2>Data Null</h2>
+}
+}

@@ -1,0 +1,60 @@
+﻿@{
+    //string iisSecure = System.Configuration.ConfigurationManager.AppSettings.Get("IISEnableSSL");
+    string webRootDomain = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebDomain");
+
+    string webFullURL = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebDeskDomain");
+    
+    string webHttpDomain = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpDomain");
+    string webHttpPort = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpPort");
+    string webHttpsDomain = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsDomain");
+    string webHttpsPort = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsPort");
+
+    string imgHttpDomain = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpImgDomain");
+    string imgHttpPort = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpImgPort");
+    string imgHttpsDomain = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsImgDomain");
+    string imgHttpsPort = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebHttpsImgPort");
+    
+
+    //string urlSSLScheme = (iisSecure.ToLower() == "true") ? "https://" : "http://";
+    
+    string neweggDomain = string.Format("{0}{1}{2}", 
+        "http://", 
+        webHttpDomain,
+        (webHttpPort == "80") ? "" : string.Format("{0}{1}", ":", webHttpPort)
+        );
+
+    string neweggSSLDomain = string.Format("{0}{1}{2}", 
+        "https://",
+        webHttpsDomain,
+        (webHttpsPort == "443") ? "" : string.Format("{0}{1}", ":", webHttpsPort)
+        );
+
+    string neweggImageDomain = string.Format("{0}{1}{2}", 
+        "",
+        imgHttpDomain,
+        (imgHttpPort == "80") ? "" : string.Format("{0}{1}", ":", imgHttpPort)
+        );
+
+    string neweggImageSSLDomain = string.Format("{0}{1}{2}", 
+        "",
+        imgHttpsDomain,
+        (imgHttpsPort == "443") ? "" : string.Format("{0}{1}", ":", imgHttpsPort)
+        );
+}
+<script>
+    @* this is for v1 version.
+    var neRootDM = "@(webRootDomain)";
+    var neImageDM = "@(neweggImageDomain)";
+    var neImageSSLDM = "@(neweggImageSSLDomain)";
+    var neDM = "@(neweggDomain)";
+    var neSSLDM = "@(neweggSSLDomain)";
+    var neWebURL = "@(webFullURL)";
+    *@
+    window._netwHost = '';
+    window._netwCookieDomain = "@(webRootDomain)";
+    window._netwImageDM = "@(neweggImageSSLDomain)";
+    window._netwImageSSLDM = "@(neweggImageSSLDomain)";
+    window._netwDM = "@(neweggDomain)";
+    window._netwSSLDM = "@(neweggSSLDomain)";
+    window._netwWebURL = "@(webFullURL)";
+</script>

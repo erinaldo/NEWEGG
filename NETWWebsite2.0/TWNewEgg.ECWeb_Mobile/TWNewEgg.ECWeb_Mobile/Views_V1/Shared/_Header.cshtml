@@ -1,0 +1,159 @@
+﻿@using TWNewEgg.ECWeb_Mobile.Auth
+@using TWNewEgg.ECWeb_Mobile.Utility
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header graybg3">
+            <div class="graysec">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar2"></span>
+                <span class="icon-bar2"></span>
+                <span class="icon-bar2"></span>
+            </button>
+                <div class="logo"><a href="/"><img class="img-responsive" src="/Themes/img/logo.png"/></a></div>
+            </div>
+            <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
+            <div class="orangesec orangebg">
+                <div class="shoppingcart">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse2">
+                        <div class="member2"><li><i class="listi3"></i></li></div>
+                        <div id="neSCBody" class="count whitetxt"></div>
+                    </button>
+                </div>
+            </div>
+            <div class="input-group stylish-input-group" style="display: none;">
+                <input id="header-search" type="text" class="form-control" placeholder="請輸入商品關鍵字">
+                <span class="input-group-addon">
+                    <button type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+                <div class="logotxt bluetxt3">新蛋全球生活網</div><div class="search"><i class="fa fa-search bluetxt3"></i></div>    
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse nav-left">
+            <ul class="member2 navbar-nav navbar-right">
+                @if (!NEUser.IsAuthticated)
+                {
+                    <li><a href="/MyAccount/Login">
+                        <div class="sign orangebg2"><i class="listi1"></i>登入/註冊</div>
+                    </a></li>
+                }
+            </ul>
+                <!--Header My Account Block Begin.-->
+                @Html.Action("HeaderMyAccount", "Home")
+                <!--Header My Account Block End.-->
+            <ul class="nav navbar-nav navbar-right">
+                <!--Category List Begin-->
+                @Html.Action("HeaderCategoryList", "Home")
+                <!--Category List End-->
+            </ul>
+                <hr class="grayborder">
+            <ul class="member navbar-nav">
+                <li><a href="https://www.facebook.com/twnewegg" target="_blank"><i class="listi7"></i>加入<span class="fbColor">FB</span>粉絲團</a></li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse2 nav-right">
+            <ul class="member2 navbar-nav navbar-right shoppingcart2">
+                <li><a href="@(UrlUtility.GetShoppingCartUrl())"><div class="sign orangebg2"><i class="listi3"><div class="count whitetxt">9</div></i>新蛋購物車<div class="total whitetxt">$12,000</div></div></a></li>
+                <li><a href="@(UrlUtility.GetShoppingCartUsaUrl())"><div class="sign orangebg2"><i class="listi3"><div class="count whitetxt">9</div></i>海外購物車<div class="total whitetxt">$12,000</div></div></a></li>
+                <li><a href="@(UrlUtility.GetShoppingCartChooseAnyUrl())"><div class="sign orangebg2"><i class="listi3"><div class="count whitetxt">9</div></i>萊爾富購物車<div class="total whitetxt">$12,000</div></div></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    var shoppingCartUrl = '@(UrlUtility.GetShoppingCartUrl())';
+    var collapseLeft = $('button.navbar-toggle[data-target=".navbar-ex1-collapse"]');
+    var collapseRight = $('button.navbar-toggle[data-target=".navbar-ex1-collapse2"]');
+    if (collapseLeft && collapseRight) {
+        collapseRight.click(function () {
+            location.href = '@(UrlUtility.GetShoppingCartUrl())';
+            return false;
+            //$('div.navbar-ex1-collapse2').on('show.bs.collapse', function () {
+            //    $('div.navbar-ex1-collapse.in').collapse('hide');
+            //})
+        });
+        collapseLeft.click(function () {
+            if (navigator.userAgent.match("Firefox")) {
+                var timeStamp = 1000;
+            }
+            else {
+                var timeStamp = 400;
+            }
+            $('div.navbar-ex1-collapse').on('show.bs.collapse', function () {
+                $('div.navbar-ex1-collapse2.in').collapse('hide');
+                setTimeout(function () {
+                    var leftMenu = $('div.navbar-ex1-collapse');
+                    var windowObj = $(window);
+                    var topHeader = $('div.navbar-header.graybg3');
+                    if (windowObj && topHeader) {
+                        var windowHeight = windowObj.height();
+                        var headerHeight = topHeader.height();
+                        var menuHeight = $(leftMenu).outerHeight();
+                        //alert(timeStamp);
+                        //alert('windowHeight:'+windowHeight+' headerHeigth:'+headerHeight+' menuHeight:'+menuHeight+' windowHeight - headerHeight:'+(windowHeight - headerHeight));
+                        if (windowHeight && headerHeight && menuHeight && menuHeight > (windowHeight - headerHeight)) {
+                            $(leftMenu).height((windowHeight - headerHeight) + 'px');
+                            $(leftMenu).css('-webkit-overflow-scrolling', 'touch');
+                        }
+                    }
+                }, timeStamp);
+                $('body').css('overflow', 'hidden');
+            });
+        });
+    }
+    $('div.navbar-header div.search i.fa.fa-search').click(function () {
+        var navbar = $('div.navbar-header');
+        if (navbar) {
+            navbar.find('div.search').hide();
+            navbar.find('div.input-group.stylish-input-group').show();
+            $('div.graysec').hide();
+            $('#header-search').focus();
+            $('div.navbar-ex1-collapse2.in').collapse('hide');
+            $('div.navbar-ex1-collapse.in').collapse('hide');
+            navbar.find('div.input-group.stylish-input-group').keyup(function (event) {
+                if (event.keyCode == 13) {
+                    if ($('#header-search').val() == null || $('#header-search').val() == undefined || $('#header-search').val() == "") {
+                        var navbar = $('div.navbar-header');
+                        if (navbar) {
+                            navbar.find('div.search').show();
+                            navbar.find('div.input-group.stylish-input-group').hide();
+                        }
+                        return;
+                    }
+                    location.href = "/Search?Searchword=" + $('#header-search').val();
+                }
+            });
+        }
+    });
+    $('#header-search').blur(function () {
+        var navbar = $('div.navbar-header');
+        if ($('#header-search').val() != "") {
+            $('span.input-group-addon').click(function () {
+                location.href = "/Search?Searchword=" + $('#header-search').val();
+            });
+            return;
+        }
+        if (navbar) {
+            $('div.graysec').show();
+            navbar.find('div.search').show()
+            navbar.find('div.input-group.stylish-input-group').hide();
+        }
+    });
+    var hideHeader = function () {
+        $('div.navbar-ex1-collapse').on('hidden.bs.collapse', function () {
+            $('body').css('overflow', 'inherit');
+        });
+        $('div.navbar-ex1-collapse.in').collapse('hide');
+    };
+    $(document).ready(function () {
+        $(document).delegate("div:not(.navbar-collapse.navbar-ex1-collapse.collapse.in)", "click", hideHeader);
+        $('div.navbar-header').undelegate("div.graysec", "click", hideHeader);
+        $('div.navbar-header div.shoppingcart').undelegate("div", "click", hideHeader);
+    });
+</script>

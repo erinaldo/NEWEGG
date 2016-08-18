@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "MyAccountProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Themes/css/owl.carousel.css")
+    @Styles.Render("~/Themes/css/owl.theme.css")
+    @Styles.Render("~/Themes/css/royal_tab2.css")
+}
+
+<div class="wrapper">
+<div class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="owl-demo" class="owl-carousel">
+                        <div class="item"><div class="heart"><i class="fa fa-4x fa-heart orangetxt2"></i></div><img src="/Themes/img/product2.jpg"></div>
+                        <div class="item"><div class="heart"><i class="fa fa-4x fa-heart orangetxt2"></i></div><img src="/Themes/img/product2.jpg"></div>
+                        <div class="item"><div class="heart"><i class="fa fa-4x fa-heart orangetxt2"></i></div><img src="/Themes/img/product2.jpg"></div>
+                    </div>
+                    <div class="caption">
+                        <h3>COACH紅色防刮全皮橢圓飾牌手提/肩斜背保齡球包(中款)</h3>
+                        <span class="price3">$ 125,544</span>
+                        <span class="price2">$ 125,544</span>
+                    </div>                
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-xs-6">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-lg btn-block bluebg whitetxt" data-toggle="modal" data-target="#myModal">加入購物車</button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">商品已加入購物車</h4>
+                          </div>
+                          <div class="modal-body">
+                              <div class="row">
+                                  <div class="col-xs-6">
+                                  <button type="button" class="btn btn-lg btn-block bluebg whitetxt">繼續購物</button>
+                                  </div>
+                                  <div class="col-xs-6">
+                                  <button type="button" class="btn btn-lg btn-block orangebg2 whitetxt">立即結帳</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <button type="button" class="btn btn-lg btn-block orangebg2 whitetxt">立即擁有</button>
+                </div>
+            </div>
+        </div>
+</div><!-- /.main -->
+</div><!-- /.wrapper -->
+
+@section scripts{
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/jquery.freetile.js"></script>
+<script src="/Scripts/init.js"></script>
+<script src="/Scripts/owl.carousel.js"></script>
+<script src="/Scripts/royal_tab.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+
+            navigation: true,
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true
+
+            // "singleItem:true" is a shortcut for:
+            // items : 1, 
+            // itemsDesktop : false,
+            // itemsDesktopSmall : false,
+            // itemsTablet: false,
+            // itemsMobile : false
+
+        });
+    });
+</script>
+}

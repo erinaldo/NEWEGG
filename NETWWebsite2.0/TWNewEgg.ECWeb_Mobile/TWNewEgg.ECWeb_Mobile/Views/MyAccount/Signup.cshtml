@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "註冊頁" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    <link rel="stylesheet" href="/Themes/2016/css/signup.css" media="screen" charset="utf-8">
+}
+
+@section scripts{
+    <script src="https://www.google.com/recaptcha/api.js?hl=zh-TW&render=explicit" async defer></script>
+	<script>
+	    nemReact.initJS([{
+	        key: 'signupLib'
+	    }, {
+	        key: 'signup',
+	        cb: function () {
+	            nemReact.require('signup', 'react').init();
+	        }
+	    }]);
+	</script>
+}

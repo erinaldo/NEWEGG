@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "搜尋頁" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    <link rel="stylesheet" href="/Themes/2016/css/category.css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="/Themes/2016/css/searchResults.css" media="screen" charset="utf-8">
+}
+
+@section scripts{
+	<script>
+	    nemReact.initJS([{
+	        key: 'searchResultsLib'
+	    }, {
+	        key: 'searchResults',
+	        cb: function () {
+	            nemReact.require('searchResults', 'react').init();
+	        }
+	    }]);
+	</script>
+}

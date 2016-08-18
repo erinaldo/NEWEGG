@@ -1,0 +1,183 @@
+﻿@using System.Text.RegularExpressions
+@using TWNewEgg.ECWeb_Mobile.Utility
+@model List<TWNewEgg.Models.ViewModels.GroupBuy.GroupBuyViewInfo>
+@if (Model != null && Model.Any())
+{
+    if (ViewData["FlashPageIndex"] != null)
+    {
+        <input class="flashPage" type="hidden" value="@(ViewData["FlashPageIndex"])" />
+    }
+    foreach (var groupBuy in Model)
+    {
+        decimal rebate = 0;
+        var itemID = -1;
+        var itemMatch = new Regex("\\w*(?<ItemId>\\d+)$", RegexOptions.IgnoreCase).Match(groupBuy.ItemLink);
+        DateTime beginDate = DateTime.Now.AddDays(1);//給預設值,當抓不到資料強行變成已結束
+        DateTime endDate = DateTime.Now.AddDays(-1);
+        if (!string.IsNullOrEmpty(groupBuy.BeginDate))
+        {
+            beginDate = Convert.ToDateTime(groupBuy.BeginDate);
+        }
+        if (!string.IsNullOrEmpty(groupBuy.EndDate))
+        {
+            endDate = Convert.ToDateTime(groupBuy.EndDate);
+        }
+        
+        if (itemMatch.Length > 0 && itemMatch != null)
+        {
+            int.TryParse(itemMatch.Value, out itemID);
+        }
+        if (Convert.ToInt32(groupBuy.OriginalPrice) != 0)
+        {
+            rebate = Convert.ToDecimal(groupBuy.GroupBuyPrice) / Convert.ToDecimal(groupBuy.OriginalPrice) * 100;
+        }
+                        
+<div class="col-xs-12">
+    <div class="thumbnail">
+        @if (rebate < 100 && rebate > 0)
+        {
+        <div class="discount whitetxt">
+            <div class="text">@(string.Format("{0:0}", Math.Round(rebate, 2)).TrimEnd('0'))</div><div class="text2">折</div>
+        </div>
+        }
+        <div class="heart" data-toggle="modal" data-target="#wishModal" onclick="addToWishList(@(itemID));"><i class="fa fa-2x fa-heart orangetxt2"></i></div>
+        @if (groupBuy.SellQuantity == "0" && DateTime.Now >= beginDate && DateTime.Now <= endDate)
+        {
+        <div class="soldout"><img class="img-responsive center-block" src="/Themes/img/soldout.png"/></div>
+        }        
+        <a href="@(groupBuy.ItemLink)"><img class="img-responsive center-block item2" src="@(groupBuy.ImgUrl)"/></a>
+        <div class="bigflash">
+        @if(groupBuy.IsShowNeweggUSASync){
+        <div class="btn btn2 bluebg2 img-rounded">美蛋<br>同步</div><br><br>
+        }
+        else
+        {
+        <br><br>
+        }
+        @if(groupBuy.IsShowExclusive){
+        <div class="btn btn2 bluebg2 text3 img-rounded">獨家</div><br><br>
+        }
+        else
+        {
+        <br><br>
+        }
+        <hr>
+        <div class="caption">
+            <h4 class="graytxt">@(groupBuy.Title)</h4>
+            
+            @if (groupBuy.SellQuantity == "0" && DateTime.Now >= beginDate && DateTime.Now <= endDate)
+            {
+            <h4 class="redtxt4">售完補貨中</h4>
+            }
+            else
+            {
+            <h4 class="redtxt4">限時優惠 , 錯過不再 !</h4>
+            }  
+            
+        </div>
+        @if (!string.IsNullOrEmpty(groupBuy.OriginalPrice) && groupBuy.OriginalPrice != "0" && rebate < 100 && rebate > 0)
+        { 
+        <div class="price3 text-right">@(Convert.ToDecimal(groupBuy.OriginalPrice).AddCommas())</div>
+        }
+        @if (DateTime.Now > endDate || DateTime.Now < beginDate)
+        {
+        <div class="quantity graytxt text-left">　　　　</div>
+        }
+        else
+        {
+        <div class="quantity graytxt align-left">剩下@((groupBuy.SellQuantity).Length > 4 ? groupBuy.SellQuantity.Substring(0, 4) : groupBuy.SellQuantity)個</div>
+        }
+        @if (!string.IsNullOrEmpty(groupBuy.GroupBuyPrice) && groupBuy.GroupBuyPrice != "0")
+        {
+        <div class="price2 text-right">@(Convert.ToDecimal(groupBuy.GroupBuyPrice).AddCommas())</div>
+        }
+        @if (groupBuy.SellQuantity == "0" && DateTime.Now >= beginDate && DateTime.Now <= endDate)
+        {
+           <div class="container panel2">
+            <div class="row show-grid">
+                <div class="col-xs-6">
+                    <button type="button" class="btn btn-lg btn-block graybg4 whitetxt" style="width:160px">已售完，補貨中</button>
+                </div>
+                <!--div class="col-xs-6">
+                    <button type="button" class="btn pattern-btn btn-block whitetxt" onclick="addToWishList(@(itemID));">貨到請通知我</button>
+                </div-->
+            </div>
+         </div>
+        }
+        else if (DateTime.Now < beginDate)
+        {
+            <div class="limitedtime grayborder">
+            <span class="txt text-left">距離<br>開賣</span>
+            <span id="left@(groupBuy.ID)" 
+                class="time graytxt text-left" 
+                data-begindate="@groupBuy.BeginDate" 
+                data-enddate="@groupBuy.BeginDate">
+            </span>
+            <span class="limitedtime-btn btn-lg graybg">尚未開賣</span>
+            </div>
+        }
+        else if (DateTime.Now > endDate)
+        {
+            <div class="limitedtime grayborder">
+            <span class="txt text-left">搶購<br>時間</span>
+            <span id="left@(groupBuy.ID)" 
+                class="time graytxt text-left countdownHolder" 
+                data-begindate="@groupBuy.EndDate" 
+                data-enddate="@groupBuy.EndDate">
+                已結束
+            </span>
+            <span class="limitedtime-btn btn-lg graybg")">立即結帳</span>
+            </div>
+        }
+        else
+        {
+            <div class="limitedtime orangeborder2">
+            <span class="txt text-left">搶購<br>時間</span>
+            <span id="left@(groupBuy.ID)" 
+                class="time orangetxt2 text-left" 
+                data-begindate="@groupBuy.BeginDate" 
+                data-enddate="@groupBuy.EndDate">
+            </span>
+            <span class="limitedtime-btn btn-lg orangebg2" onclick="purchaseItem(@(itemID));">立即結帳</span>
+            </div>
+        }
+        </div>
+    </div>
+    <br>
+</div>
+    }
+<script>
+    function pad(num, size) {
+        var s = num + "";
+        while (s.length < size) s = "0" + s;
+        return s;
+    }
+    $(document).ready(function () {
+        $('span.time.text-left:not([class*=countdownHolder])').each(function () {
+            var endDate = new Date(Date.parse($(this).attr('data-enddate')));            
+            var elementID = $(this).attr('id');
+            console.log(elementID+":"+endDate);
+            $(this).addClass('startCount');
+            $(this).countdown({
+                timestamp: endDate.setDate(endDate.getDate()),
+                callback	: function(days, hours, minutes, seconds){
+                    if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+                        $('#' + elementID).text("0天00:00:00");
+                    }
+                    else {
+                        var message = "";
+                        if (days > 100) {
+                            days = 99;
+                        }
+                        message += days + "天";
+                        message += pad(hours, 2) + ":";
+                        message += pad(minutes, 2) + ":";
+                        message += pad(seconds, 2);
+                        $('#' + elementID).text(message);
+                    }
+                }
+            });
+        });
+    });
+</script>
+}

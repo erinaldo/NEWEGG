@@ -1,0 +1,149 @@
+﻿@using TWNewEgg.ECWeb_Mobile.Utility
+@using TWNewEgg.Models.DomainModels.MobileStore
+@model MStoreInfo
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Themes/css/owl.carousel.css")
+    @Styles.Render("~/Themes/css/owl.theme.css")
+    @Styles.Render("~/Themes/css/royal_tab.css")
+}
+@if (Model != null)
+{
+    <div class="wrapper @(this.Request != null && this.Request.QueryString != null && !string.IsNullOrEmpty(this.Request.QueryString["cssname"]) ? this.Request.QueryString["cssname"] : "")">
+        <div class="main">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="topper">
+                        <div class="title center">
+                            <i class="listi11"></i>
+                            <div class="text colortxt">@(Model.Title)</div>
+                        </div>
+                        <div class="line colorbg"></div>
+                        <div id="owl-demo" class="owl-carousel">
+                            @foreach (var bannerItem in Model.BannerList)
+                            {
+                                <img class="img-responsive" src="@(ImageUtility.GetImagePath(bannerItem.Image))"/>
+                            }
+                        </div>
+                        <div class="banner-bg"></div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.BannerList != null && Model.BannerList.Count > 0)
+            {
+            }
+            @if (Model.StoreTabList != null && Model.StoreTabList.Any())
+            {
+                <div id="tabs" style="display:none;">
+                    <div style="width: 100%; overflow: hidden; padding-left: 42px; padding-right: 42px;">
+                        <ul id="tabBxSlider">
+                            @foreach (var tabItem in Model.StoreTabList)
+                            {
+                                <li class="tab @(tabItem.ID.Equals(0) ? "active" : "") colorbg" data-category-id="@(Model.SubCategoryID)" data-category-tab-id="@(tabItem.ID)" data-category-tab-title="@(tabItem.Title)">
+                                    <div class="title2">@(ArticleUtility.LimitDownTextCht(tabItem.Title,8))</div><div class="divider"></div><div class="caret2"></div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <a href="#nogo" id="tabPrev" style="float: left;" class="tabControl colorbg">
+                        <span class="fa fa-2x fa-angle-left"></span>
+                    </a>
+                    <a href="#nogo" id="tabNext" style="float: right;" class="tabControl colorbg">
+                        <span class="fa fa-2x fa-angle-right"></span>
+                    </a>
+                </div>
+                    <div class="col-xs-12">
+                        <div class="tab-content2">                        
+                            @Html.Partial("Partial_SubCategoryProductList", Model.ItemList)
+                        </div>
+                        <div id="loadingPage">
+                            <img class="img-responsive center-block" src="/Themes/img/AjaxLoader.gif" />
+                        </div>
+                    </div>
+            }
+        </div>
+        <!-- /.main -->
+    </div>
+    <!-- /.wrapper -->
+    @Html.Partial("Partial_WishListMask")
+}
+
+@section scripts{
+    <script src="/Scripts/jquery.js"></script>
+    <script src="/Scripts/jquery.cookie.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/jquery.bxslider.js"></script>
+    <script src="/Scripts/jquery.freetile.js"></script>
+    <script src="/Scripts/init.js"></script>
+    <script src="/Scripts/owl.carousel.js"></script>
+    <script src="/Scripts/royal_tab.js"></script>
+    <script src="/Scripts/jquery.carouFredSel.6.2.1-packed.js"></script>
+    <script src="/Scripts/NETW/netw-newegg-1.0.0.0.js"></script>
+    <script src="/Scripts/NETW/netw-cart-1.0.0.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tabBxSlider').owlCarousel({
+                items: 3,
+                itemsMobile: [479, 3],
+                itemsDesktopSmall: [979, 3],
+                itemsTablet: [768, 3],
+                rewindNav: false,
+                navigation: true,
+                navigationText: ["prev", "next"],
+                pagination: false,
+                height: 40,
+                rewindSpeed: 200,
+                afterInit: function (elem) {
+                    $('#tabs').show();
+                }
+            });
+            $('#tabPrev').click(function () {
+                $('#tabBxSlider').trigger('owl.prev');
+            });
+            $('#tabNext').click(function () {
+                $('#tabBxSlider').trigger('owl.next');
+            });
+            doTileSorting();
+            $('#tabBxSlider li').click(function () {
+                $("#loadingPage").show();
+                $("div.tab-content2").hide();
+                $(this).parent().parent().find('li').removeClass('active');
+                $(this).addClass('active');
+                var categoryID = $(this).attr('data-category-id');
+                var subCategoryID = $(this).attr('data-category-tab-id');
+                var subCategoryTitle = $(this).attr('data-category-tab-title');
+                if (categoryID && subCategoryID) {
+                    $('div.tab-content2').load('/category/CategoryProductList?categoryID=' + categoryID + '&subCategoryID=' + subCategoryID + '&subCategoryTitle=' + encodeURIComponent(subCategoryTitle), function (responseText, textStatus, xhr) {
+                        if (textStatus == "success") {
+                            $("#loadingPage").hide();
+                            $("div.tab-content2").show();
+                        }
+                    });
+                }
+            });
+            $("#owl-demo").owlCarousel({
+                slideSpeed: 500,
+                paginationSpeed: 400,
+                singleItem: true,
+                rewindSpeed: 0,
+                autoPlay: 3000,
+                afterInit: function (elem) {
+                    elem.find('div.owl-pagination').addClass('owl-pagination2');
+                }
+            });
+        });
+        function doTileSorting() {
+            $('div.freetile > div').freetile({ animate: false });
+            setTimeout("doTileSorting()", 1000);
+        }
+    </script>
+}

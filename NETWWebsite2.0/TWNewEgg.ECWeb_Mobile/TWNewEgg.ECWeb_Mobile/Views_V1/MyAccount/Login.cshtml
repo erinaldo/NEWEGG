@@ -1,0 +1,230 @@
+﻿@model TWNewEgg.Models.ViewModels.Login.Login
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Themes/css/social-buttons.css")
+}
+<div class="wrapper">
+<div class="main">
+        <div class="container">
+            <form action="/MyAccount/Login" method="post">
+                    <br>
+                    <h4>新蛋全球生活網會員登入</h4>
+                        <div class="row show-grid">
+                            <div class="col-xs-12">
+                                <div class="form-group" id="div_user">
+                                    <input type="text" id="user" name="user" class="form-control" placeholder="請輸入E-mail (新蛋帳號)" value="@(Model.user)" onblur="CheckMail()"/>
+                                    <p class="help-block redtxt2" id="errMail"></p>
+                                </div>
+                                <div class="form-group @(string.IsNullOrEmpty(Model.erro) ? "":"has-error") " id="div_pass">
+                                    <input type="password" id="pass" name="pass" class="form-control" placeholder="請輸入密碼(6-16碼數字或英文字母混合)" value="@(Model.pass)" onblur="CheckPass()" />
+                                    <p class="help-block redtxt2" id="errPass">@(string.IsNullOrEmpty(Model.erro) ? "" : Model.erro)</p>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Model.rytm)
+                        {
+                        <div class="row show-grid">
+                            <div class="col-xs-12">
+                                <div class="recaptcha">
+                                    <div id="googlecaptcha"></div>
+                                    <input type="hidden" id="gcap" name="gcap" value=""/>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        <br>
+                        <br>
+                        <div class="row show-grid">
+                            <div class="col-xs-12">
+                                <p class="help-block" style="text-align:right"><a href="/MyAccount/ForgetPassword">忘記密碼？</a></p>
+                                <input type="button" class="btn btn-lg btn-block orangebg3 whitetxt" value="登入" onclick="CheckAll()"/>                                    
+                            </div>
+                        </div>
+                        <!--div class="row show-grid">
+                            <div class="col-xs-12"><a class="btn btn-block btn-social btn-lg btn-facebook"> <i class="fa fa-facebook"></i> Facebook </a></div>
+                        </div>
+                        <div class="row show-grid">
+                            <div class="col-xs-6">
+                                <a class="btn btn-block btn-social btn-lg btn-facebook">
+                                    <i class="fa fa-facebook"></i> Facebook
+                                </a>
+                            </div>
+                            <div class="col-xs-6">
+                                <button type="button" class="btn btn-lg btn-block bluebg whitetxt">非會員</button>
+                            </div>
+                        </div-->
+                        <div class="row show-grid">
+                            <div class="col-xs-12">
+                                <p class="help-block">還不是會員嗎？</p>
+                                <button type="button" class="btn btn-lg btn-block orangebg2 whitetxt" onclick="location.href='MyAccount/Signup'">加入會員</button>                                    
+                            </div>
+                        </div>
+                        <!--div class="row show-grid">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-lg btn-block bluebg whitetxt">加入非會員</button>
+                                    <p class="help-block">我已閱讀完畢，並同意非會員使用條款</p>
+                            </div>
+                        </div-->
+                <input type="hidden" id="ratm" name="ratm" value="@(Model.ratm)"/>
+                <input type="hidden" id="type" name="type" value="@(Model.type)"/>
+                <input type="hidden" id="acty" name="acty" value="@(Model.acty)"/>
+                <input type="hidden" id="returnUrl" name="returnUrl" value="@(ViewBag.ReturnUrl)"/>
+            </form>
+        </div>
+</div><!-- /.main -->
+</div><!-- /.wrapper -->
+
+@section addToHeader{
+    @Html.Partial("_HeaderNoCart")
+}
+
+
+@section refScripts{
+    @if (Model.rytm)
+    {
+        <script src="https://www.google.com/recaptcha/api.js?hl=zh-TW&render=explicit" async defer></script>
+        <script type="text/javascript" src="/Scripts/NETW/netw-grcaptcha-1.0.0.js" async defer></script>
+    }
+}
+
+@section scripts{
+
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/jquery.freetile.js"></script>
+<script src="/Scripts/init.js"></script>
+<script src="/Scripts/owl.carousel.js"></script>
+<script src="/Scripts/royal_tab.js"></script>
+<script>
+    
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+
+            navigation: true,
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true
+
+            // "singleItem:true" is a shortcut for:
+            // items : 1, 
+            // itemsDesktop : false,
+            // itemsDesktopSmall : false,
+            // itemsTablet: false,
+            // itemsMobile : false
+
+        });
+        $('button.btn.btn-lg.btn-block.orangebg2.whitetxt').click(function () {
+            location.href = "/MyAccount/Signup";
+        });
+    });
+    function CheckAll() {
+        if (CheckMail() == false || CheckPass() == false) return false;
+        document.forms[0].submit();
+    }
+    function CheckMail() {
+        var emailRule = /^([\w-\.\+\-\_]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4})$/;
+        var acc = $("#user").val();
+        $("#errMail").text("");
+        if (acc == "") {
+            $("#errMail").text("請輸入帳號");
+            $("#div_user").addClass('has-error');
+            return false;
+        }
+        if (!acc.match(emailRule)) {
+            $("#errMail").text("帳號格式錯誤,請重新輸入");
+            $("#div_user").addClass('has-error');
+            return false;
+        }
+        return true;
+    }
+    function CheckPass() {
+        $("#errPass").text("");
+        if ($("#pass").val() == "") {
+            $("#errPass").text("請輸入密碼");
+            $("#div_pass").addClass('has-error');
+            return false;
+        }
+        return true;
+    }
+</script>
+    @if (Model.rytm)
+    {
+        <script>
+            var verifyCallback = function (reponse) {
+                $("#gcap").val(reponse);
+                //ga('send', 'event', 'login', 'validatecode', 'click');
+            };
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=695768887110336";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+            function checkFBStatus() {
+                FB.init({
+                    appId: '695768887110336',                        // App ID from the app dashboard
+                    channelUrl: '//WWW.neweegg.com.tw/', // Channel file for x-domain comms
+                    status: true,                                 // Check Facebook Login status
+                    xfbml: true,                                  // Look for social plugins on the page
+                    cookie: true,
+                    oauth: true
+                });
+
+                FB.login(function (response) {
+                    if (response.status == "connected") {  // 程式有連結到 Facebook 帳號
+                        var uid = response.authResponse.userID; // 取得 UID
+                        FB.api("/me", "GET", function (response) {
+                            var email = response.email;
+                            var strReturnUrl = $('#returnUrl').attr("value");
+                            if (typeof (strReturnUrl) == "undefined")
+                                strReturnUrl = "";
+                            else
+                                strReturnUrl = strReturnUrl.replace(/"/g, "")
+                            var jsonString = '{"user" : "' + email + '" , "ouid": "' + uid + '", "returnUrl" : "' + strReturnUrl + '", "type" : "facebook"}';
+
+                            $.ajax({
+                                url: '/Login/Facebook',
+                                data: JSON.parse(jsonString),
+                                type: 'POST',
+                                //dataType: 'json',
+                                success: function (Jdata) {
+                                    //alert(JSON.stringify(Jdata));
+                                    var oType = JSON.parse(JSON.stringify(Jdata));
+                                    //alert(JSON.stringify(Jdata));
+                                    if (oType.type == "success") {
+                                        if (oType.newegg == "false" && oType.first == "true")
+                                            location.href = oType.redirect;
+                                        else
+                                            location.href = oType.returnUrl;
+                                    }
+                                    else
+                                        alert('您使用FB帳號登入無法與會員帳號比對，請重新申請會員！');
+                                },//success
+                                error: function (Jdata) {
+                                    alert("error:" + Jdata.error);
+                                }//error
+                            });
+                        });
+
+                    } else if (response.status == "not_authorized") {  // 帳號沒有連結到 Facebook 程式
+                        alert("請允許授權！");
+                    } else {    // 帳號沒有登入
+                        // 在本例子中，此段永遠不會進入...XD
+                    }
+                }, { scope: "email, user_about_me" });
+            };
+
+            $(window).load(function () {
+                initGreCaptcha('googlecaptcha', verifyCallback, 'light', 'image');
+            });
+        </script>
+    }
+}

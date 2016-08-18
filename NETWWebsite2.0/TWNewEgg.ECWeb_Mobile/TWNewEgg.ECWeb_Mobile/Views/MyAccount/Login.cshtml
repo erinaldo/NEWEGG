@@ -1,0 +1,45 @@
+﻿@model TWNewEgg.Models.ViewModels.Login.Login
+@{
+    ViewBag.Title = "登入頁" + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    <link rel="stylesheet" href="/Themes/2016/css/login.css" media="screen" charset="utf-8">
+}
+
+@section refScripts{
+    @*@if (Model.rytm)
+    {
+        <script src="https://www.google.com/recaptcha/api.js?hl=zh-TW&render=explicit" async defer></script>
+        <script type="text/javascript" src="/Scripts/NETW/netw-grcaptcha-1.0.0.js" async defer></script>
+    }*@
+}
+
+@section scripts{
+    <script>
+        var netwRespMessage = @Html.Raw(Json.Encode(Model));
+        var netwRespReturnUrl = "@(ViewBag.ReturnUrl)";
+        nemReact.initJS([{
+            key: 'loginLib'
+        }, {
+            key: 'login',
+            cb: function () {
+                nemReact.require('login', 'react').init();
+            }
+        }]);
+    </script>
+
+    @*@if (Model.rytm)
+    {
+        <script>
+            var verifyCallback = function (reponse) {
+                $("#gcap").val(reponse);
+                //ga('send', 'event', 'login', 'validatecode', 'click');
+            };
+            $(window).load(function () {
+                initGreCaptcha('googlecaptcha', verifyCallback, 'light', 'image');
+            });
+        </script>
+    }*@
+}

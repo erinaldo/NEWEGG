@@ -1,0 +1,127 @@
+﻿@model List<TWNewEgg.Models.ViewModels.Redeem.Coupon>
+@{
+    ViewBag.Title = "MyAccountCoupon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+}
+
+<div class="wrapper">
+<div class="main">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="topper">
+                        <div class="title"><div class="member"><i class="listi2"></i></div><div class="text">我的折價券</div></div>
+                        <div class="line graybg"></div>
+                    </div>
+                </div>
+            </div>
+            
+        <div class="container">
+            <form>
+                        <div class="form-group input-group">
+                            <input type="text" class="form-control" placeholder="請輸入折價券代碼" id="ExchangeCouponCode" name="ExchangeCouponCode">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default orangebg2 whitetxt" type="button" id="ExchangeCouponBtn" name="ExchangeCouponBtn">輸入</button>
+                            </span>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <select class="form-control" name="CouponType" id="CouponType">
+                                        <option value="1" @(ViewBag.CouponType==1?"selected":"")>已生效</option>
+                                        <option value="2" @(ViewBag.CouponType==2?"selected":"")>已使用</option>
+                                        <option value="3" @(ViewBag.CouponType==3?"selected":"")>已過期</option>
+                                        <option value="4" @(ViewBag.CouponType==4?"selected":"")>待生效</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                         @{
+                             if(Model.Count>0){
+                                foreach(var item in Model)
+                                {
+                                    if(ViewBag.CouponType==2){
+                                        @Html.Partial("Partial_CouponItemUsed", item);
+                                    }else{
+                                        @Html.Partial("Partial_CouponItem", item);
+                                    }
+                                }
+                             }else{
+                                 @Html.Raw("目前尚無相關折價券");
+                             }
+                          }
+                    </div>
+                </div>
+            </form>
+        </div>
+</div><!-- /.main -->
+</div><!-- /.wrapper -->
+
+@section scripts{
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/jquery.cookie.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/jquery.freetile.js"></script>
+<script src="/Scripts/init.js"></script>
+<script src="/Scripts/owl.carousel.js"></script>
+<script src="/Scripts/royal_tab.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+
+            navigation: true,
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true
+
+            // "singleItem:true" is a shortcut for:
+            // items : 1, 
+            // itemsDesktop : false,
+            // itemsDesktopSmall : false,
+            // itemsTablet: false,
+            // itemsMobile : false
+
+        });
+        $("#CouponType").change(function () {
+            location.href = "Coupon?CouponType=" + $(this).val();
+        });
+        $("#ExchangeCouponBtn").bind("click", function () {
+            ExchangeCoupon();
+        });
+    });
+    function ExchangeCoupon() {
+        var strCouponNumber = "addCouponNumber";
+
+        strCouponNumber = $("#ExchangeCouponCode").val();
+        if (typeof (strCouponNumber) == "unidefined" || strCouponNumber == null || strCouponNumber.length <= 0) {
+            alert("請輸入折價券領用代碼！");
+            return false;
+        }
+        $.ajax({
+            url: "/api/coupon/addDynamicCouponByCouponMarketNumber" + "?CouponMarketNumber=" + strCouponNumber,
+            cache: false,
+            type: 'get',
+            dataType: "html",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "Basic " + jQuery.cookie("neui")); //登入好了要加回來
+            },
+            success: function (data) {
+                //alert(JSON.stringify(data));
+                alert(data);
+                location.href = "Coupon?CouponType=" + $("#CouponType").val();
+            },//end success
+            error: function () {
+                alert("折價券功能維護中，請稍候再兌換！");
+            },
+        });//end $.ajax
+    }
+</script>
+}

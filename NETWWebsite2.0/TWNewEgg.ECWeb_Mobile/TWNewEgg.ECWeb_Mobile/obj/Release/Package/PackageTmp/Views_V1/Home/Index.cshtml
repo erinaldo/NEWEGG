@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Themes/css/owl.carousel.css")
+    @Styles.Render("~/Themes/css/owl.theme.css")
+}
+
+<div class="wrapper">
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div id="HomeHeaderBanner" class="col-xs-8 show-grid3" style="overflow: hidden;"></div>
+                <div class="col-xs-4 show-grid3" style="overflow: hidden;">
+                    <div id="HomeHeaderBannerBottom"></div>
+                    <div class="show-grid4" id="HomeHeaderBannerCorner"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="HomeHeaderBannerRight" class="col-xs-12 show-grid3" style="overflow: hidden;"></div>
+            </div>
+            <script>
+                $('#HomeHeaderBanner').load('@(Url.Action("HomeHeaderBanner", new RouteValueDictionary() { { "advTypeCode", 41 } }))');
+                $('#HomeHeaderBannerRight').load('@(Url.Action("HomeHeaderBannerRight"))');
+                $('#HomeHeaderBannerBottom').load('@(Url.Action("HomeHeaderBannerBottom"))');
+                $('#HomeHeaderBannerCorner').load('@(Url.Action("HomeHeaderBannerCorner"))');
+            </script>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!-- Nav tabs -->
+                        @Html.Action("HomeStoreIcon")
+                        <!-- Tab panes with more data.-->
+                        <div class="tab-content">
+                            @Html.Action("WindowProductList", new { advID = TempData["DefaultWindowIndex"] })
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+</div>
+<!-- /.wrapper -->
+@Html.Partial("Partial_WishListMask")
+@section scripts{
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/jquery.freetile.js"></script>
+    <script src="/Scripts/jquery.bxslider.js"></script>
+    <script src="/Scripts/owl.carousel.js"></script>
+    <script src="/Scripts/royal_tab.js"></script>
+}
+<script>
+    $(document).ready(function () {
+        doTileSorting();
+    });
+    function doTileSorting() {
+        $('div.freetile > div').freetile({ animate: false});
+        setTimeout("doTileSorting()", 1000);
+    }
+</script>

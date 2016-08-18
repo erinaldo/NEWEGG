@@ -1,0 +1,18 @@
+﻿@using TWNewEgg.ECWeb_Mobile.Auth
+@model List<TWNewEgg.Models.ViewModels.Redeem.Coupon>
+@{
+    // 我的訂單導向桌機版
+    string orderPath = string.Format("{0}/MyAccount/Order", 
+        TWNewEgg.ECWeb_Mobile.Utility.UrlUtility.GetDeskTopHomePageUrl());
+}
+    <ul class="member2 navbar-nav navbar-right">
+        <li><a href="/MyAccount/EditPersonInfo"><div class="sign orangebg2"><i class="listi2"></i>@(NEUser.Email)</div></a></li>
+    </ul>
+    <ul class="member navbar-nav navbar-right">
+        <li><a href="/MyAccount/Coupon"><i class="listi2"></i>我的折價券 : @(Model != null ? Model.Count : 0)張</a></li>
+        <li><a href="@orderPath"><i class="listi3"></i>我的訂單</a></li>
+        <li><a href="/MyAccount/EditPersonInfo"><i class="listi4"></i>我的帳戶</a></li>
+        <li><a href="/WishList/Index"><i class="listi5"></i>我的最愛</a></li>
+        <li><a href="/Logout"><i class="listi6"></i>登出</a></li>
+    </ul>
+<hr>

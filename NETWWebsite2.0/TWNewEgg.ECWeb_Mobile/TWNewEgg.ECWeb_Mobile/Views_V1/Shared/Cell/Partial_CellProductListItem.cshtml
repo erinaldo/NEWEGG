@@ -1,0 +1,36 @@
+﻿@using TWNewEgg.ECWeb_Mobile.Utility
+@using TWNewEgg.Models.DomainModels.MobileStore
+@model MStoreItemCell
+
+@if (Model != null)
+{
+<div class="col-xs-6 col-xs-6-tight2">
+    <div class="thumbnail">
+        <div class="heart" data-toggle="modal" data-target="#wishModal"><i class="fa fa-2x fa-heart orangetxt2" onclick="addToWishList(@(Model.ItemID));"></i></div>
+        <a href="/item?itemid=@(Model.ItemID)"><img class="img-responsive item" src="@(ImageUtility.GetImagePath(Model.ItemImage))"/></a>
+        @if (Model.IsTrack)
+        {
+        <div class="iconset"><a href="#nogo"><i class="fa fa-2x fa-clock-o whitetxt redbg5"></i></a></div>
+        }
+        <div class="caption"><p>@(Model.Title)</p></div>
+        <div class="priceset">
+            @if (Model.OriginalPrice <= Model.UnitPrice)
+            {
+                <div>&nbsp;</div>
+            } else {
+                <div class="originalprice">@(Model.OriginalPrice.AddCommas())</div>
+            }
+            <div class="price">@(Model.UnitPrice.AddCommas())</div>
+        </div>
+        @if (Model.IsSoldOut == true)
+        {
+        <div class="btn orangebg2 pattern-btn2 align-right" onclick="location.href='/item?itemid=@(Model.ItemID)';">立即<br>結帳</div>
+        }
+        else
+        {
+        <div class="btn orangebg2 pattern-btn2 align-right" onclick="purchaseItem(@(Model.ItemID));">立即<br>結帳</div>
+        }
+        
+    </div>
+</div>
+}

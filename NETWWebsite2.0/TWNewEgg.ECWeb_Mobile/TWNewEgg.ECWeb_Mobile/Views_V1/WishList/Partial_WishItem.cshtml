@@ -1,0 +1,40 @@
+﻿@using TWNewEgg.Models.ViewModels.Cart;
+@model CartItem_View
+@{
+    ViewBag.Title = "Partial_WishItem";
+}
+
+                            <div style="display:@(Model.Page<3?"block":"none")" id="wishitem_@(Model.Page)_index">
+                                    <div class="form-group input-group">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-xs-3-tight">
+                                                <img class="img-responsive item border" src="@(Model.ImagePath)"/>
+                                            </div>
+                                            <div class="col-xs-7 col-xs-7-tight">
+                                                <ul class="list-unstyled">
+                                                    <li onclick ="location.href='../item?itemid=@(Model.ItemID)'">@(Model.ItemName)</li>
+                                                    <li class="redtxt">$@(Model.NTPrice.ToString("#,##0"))</li>
+                                                    @*<li><span class="whitetxt redbg4 badge">折扣</span>5/11~5/31品牌滿額最高折...</li>
+                                                    <li><span class="whitetxt graybg2 badge"><i class="fa fa-gift fa-lg"></i> 買就送</span>舒酸維他命EX代謝粉x...</li>*@
+                                                    @if (Model.GroupDiscount != null && Model.GroupDiscount.Count > 0)
+                                                    {
+                                                        foreach (TWNewEgg.Models.ViewModels.Cart.GroupDiscount_View objDiscountItem in Model.GroupDiscount)
+                                                        {
+	    			                                        <li><span class="whitetxt @objDiscountItem.CSSStyle badge">@objDiscountItem.EventName</span>@objDiscountItem.Desc</li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-2 col-xs-2-tight">
+                                                    <label>
+                                                        <input type="checkbox" value="@(Model.ItemID)" class="chkCart">
+                                                    </label>
+                                                @if (Model.Qty == 0){
+                                                    <a href="#" onclick="alert('商品售完,無法加入購物車');return false;"><img class="img-responsive" src="/Themes/img/add.png"/></a>
+                                                }else{
+                                                    <a href="#" onclick="addCartItem(@(Model.ItemID));return false;"><img class="img-responsive" src="/Themes/img/add2.png"/></a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>

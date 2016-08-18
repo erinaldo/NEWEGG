@@ -1,0 +1,44 @@
+﻿@{
+    //string deskDomainUrl = System.Configuration.ConfigurationManager.AppSettings.Get("ECWebDeskDomain");
+    string deskDomainUrl = TWNewEgg.ECWeb_Mobile.Utility.UrlUtility.GetDeskTopHomePageUrl();
+}
+
+<div id="footer" class="footer">
+    <ul>
+        <li>
+            <a class="Fb F01" href="#">
+                <span>粉絲團</span>
+            </a>
+        </li>
+        <li>
+            <a class="AboutUs F02" href="#">
+                <span>關於新蛋</span>
+            </a>
+        </li>
+        <li>
+            <a class="FAQ F03" href="#">
+                <span>服務說明</span>
+            </a>
+        </li>
+        <li>
+            <a class="Member" href="#">
+                <span>會員權益</span>
+            </a>
+        </li>
+        <li>
+            <a class="Desktop" href="deskDomainUrl">
+                <span>桌機版</span>
+            </a>
+        </li>
+    </ul>
+    <div class="footerlogo">
+        <span></span>
+        <h1>台灣新蛋網股份有限公司</h1>
+        <p>
+            地址 : 台北市民生東路三段133號14樓
+				<br>
+            客服電話：02-8006-8010
+        </p>
+        <p>All right reserved @@ 2016 Newegg.com.tw</p>
+    </div>
+</div>

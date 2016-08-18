@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-tw" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+
+    @*Start Each page's meta tags, pass by section metaTags Start*@
+    @RenderSection("metaTags", false)
+    @*End Each page's meta tags, pass by section metaTags End*@
+
+
+    @*Start Each page's title, pass by ViewBag.Title Start*@
+    <title>@ViewBag.Title</title>
+    @*End Each page's title, pass by ViewBag.Title End*@
+
+
+    @*Start Whole site's css Start*@
+    @*@Styles.Render("~/Themes/css/reset.css")*@
+    @*End Whole site's css End*@
+
+    <link rel="stylesheet" href="/Themes/2016/css/vendor.css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="/Themes/2016/css/common.css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="/Themes/2016/css/main.css" media="screen" charset="utf-8">
+    @*Start reference css Start, pass by section refCSS Start*@
+    @RenderSection("refCSS", false)
+    @*End reference css, pass by section refCSS End*@
+
+
+    @*Start Each page's css, pass by section styleSheets Start*@
+    @RenderSection("styleSheets", false)
+    @*End Each page's css, pass by section styleSheets End*@
+
+
+    @*Start reference javascripts, pass by section headRefJS Start*@
+    @RenderSection("headRefJS", false)
+    @Scripts.Render("~/bundles/jquery")
+    @{ Html.RenderPartial("_CommonGlobalVariables"); }
+    @*End reference javascripts, pass by section headRefJS End*@
+
+
+    @*Start head javascripts, pass by section headScripts Start*@
+    @if (IsSectionDefined("headScripts"))
+    {
+        @RenderSection("headScripts", false)
+    }
+    else
+    {
+
+    }
+    @*End head javascripts, pass by section headScripts End*@
+
+
+    @*Start Common head tracking scripts, pass by section commonHeadTracking Start*@
+    @if (IsSectionDefined("commonHeadTracking"))
+    {
+@*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+        @RenderSection("commonHeadTracking", false)
+    }
+    else
+    {
+        Html.RenderPartial("_CommonHeadTracking");
+    }
+    @*End Common head tracking scripts, pass by section commonHeadTracking End*@
+
+
+    @*Start Each page's head tracking scripts, pass by section headJSTracking Start*@
+    @RenderSection("headJSTracking", false)
+    @*End Each page's head tracking scripts, pass by section headJSTracking End*@
+</head>
+<body>
+    @*Start Common tracking scripts at top of body, pass by section commonBodyTracking and trackingScripts Start*@
+    @if (IsSectionDefined("commonBodyTracking"))
+    {
+        @*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+        @RenderSection("commonBodyTracking", false)
+    }
+    else
+    {
+        Html.RenderPartial("_CommonBodyTracking");
+    }
+    @RenderSection("bodyStartJSTracking", false)
+    @*End Common body tracking scripts at top of body, pass by section commonBodyTracking and trackingScripts End*@
+
+    @*Start Each page's javascripts at top of body, pass by section bodyStartRefJS and bodyStartScript Start*@
+    @RenderSection("bodyStartRefJS", false)
+    @RenderSection("bodyStartScript", false)
+
+    <script>	    
+	    //促銷文案
+	    var _promoNoteData = @Html.Raw(Json.Encode(TWNewEgg.ECWeb_Mobile.Services.PromoService.PromoService.GetPromoTop()));
+    </script>
+
+    @*End Each page's javascripts at top of body, pass by section bodyStartRefJS and bodyStartScript End*@
+
+    <div id="mask"></div>
+	<div id="popupBox"></div>
+	<div id="mainMenu"></div>
+	<div class="history"></div>
+	<div id="wholeBanner" class="wholeBanner"></div>
+
+    @*Start Header, pass by section addToHeader Start*@
+    @if (IsSectionDefined("addToHeader"))
+    {
+@*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+        @RenderSection("addToHeader", false)
+    }
+    else
+    {
+        Html.RenderPartial("_Header");
+    }
+    @*End Header, pass by section addToHeader End*@
+
+
+
+    @*Start Topper, pass by section addToTopper Start*@
+    @if (IsSectionDefined("addToTopper"))
+    {
+@*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+        @RenderSection("addToTopper", false)
+    }
+    else
+    {
+        Html.RenderPartial("_Topper");
+    }
+    @*End Topper, pass by section addToTopper End*@
+
+    @*Start Body Start*@
+    <div id="content" class="content">
+		<div style="height: 650px"></div>
+        @RenderBody()
+	</div>
+    @*End Body End*@
+
+
+
+    @*Start Footer, pass by section addToFooter Start*@
+    @if (IsSectionDefined("addToFooter"))
+    {
+@*Just remember that you need to use the @RenderSection() syntax (you need the @ character) so that the contents of the section is actually printed to the output.*@
+        @RenderSection("addToFooter", false)
+    }
+    else
+    {
+        Html.RenderPartial("_Footer");
+    }
+    @*End Footer, pass by section addToFooter End*@
+
+
+
+    @*Start Whole site's javascripts at bottom of body Start*@
+    @*<!--these four react js Loading order can't be change-->*@
+	<script src="https://fb.me/react-15.1.0.min.js" charset="utf-8"></script>
+	<script src="https://fb.me/react-with-addons-15.1.0.min.js" charset="utf-8"></script>
+	<script src="https://fb.me/react-dom-15.1.0.min.js" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flux/2.1.1/Flux.min.js" charset="utf-8"></script>
+	@*<script src="https://fb.me/react-15.1.0.js" charset="utf-8"></script>
+	<script src="https://fb.me/react-with-addons-15.1.0.js" charset="utf-8"></script>
+	<script src="https://fb.me/react-dom-15.1.0.js" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flux/2.1.1/Flux.js" charset="utf-8"></script>*@
+    @*<!--these four react js Loading order can't be change-->*@
+	@*<!--jQuery-->*@
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    @*<!--jQuery-->*@
+    @*<!--PromiseJS, is all broswer support promise then this can be remove.-->*@
+    <script src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js"></script>
+    @*<!--PromiseJS, is all broswer support promise then this can be remove.-->*@
+	@*<!--nemReact-->*@
+	<script src="/Scripts/netw.react/nemModules.js"></script>
+	<script src="/Scripts/netw.react/nemConfig.js"></script>
+	<script src="/Scripts/netw.react/nemLib.js"></script>
+	<script src="/Scripts/netw.react/nemPath.js"></script>
+	<script src="/Scripts/netw.react/commonLib.js"></script>
+	<script src="/Scripts/netw.react/common.js"></script>
+    @*<!--nemReact-->*@
+    @*End Whole site's javascripts at bottom of body End*@
+
+    @*Start Each page's javascripts at bottom of body, pass by section refScripts and scripts Start*@
+    @RenderSection("refScripts", false)
+    @RenderSection("scripts", false)
+    @{ Html.RenderPartial("_CommonBodyScripts"); }
+    @*End Each page's javascripts at bottom of body, pass by section refScripts and scripts End*@
+
+
+    @*Start Common tracking scripts at bottom of body, pass by section trackingScripts Start*@
+    @RenderSection("trackingScripts", false)
+    @*End Common body tracking scripts at bottom of body, pass by section trackingScripts End*@
+
+
+    
+</body>
+</html>

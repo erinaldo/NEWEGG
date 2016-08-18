@@ -1,0 +1,161 @@
+﻿@{
+    // 美蛋直購商品
+    bool isUsaItem = Model.ItemDeliveryType == 1 || Model.ItemDeliveryType == 3 || Model.ItemDeliveryType == 6;
+
+    // 有規格說明.
+    bool hasSpec = !string.IsNullOrWhiteSpace(Model.Spec);
+}
+<style type="text/css">
+    .Partial_ItemDescription_ItemDesc img {
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+}
+    .Partial_ItemDescription_ItemDesc table {
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+}
+    .Partial_ItemDescription_ItemDesc .content {
+        width: 100% !important;
+        margin: 0px !important;
+        padding: 0px !important;
+}
+</style>
+
+<div class="line graybg" style="height: 1px"></div>
+<div id="tabs" style="opacity: 1;">
+    <div style="width: 100%; overflow: hidden; padding-left: 42px; padding-right: 42px; height: 40px;">
+        <ul id="itemDescription">
+            <li class="tab active" itemindex="0">商品說明</li>
+            @if (isUsaItem)
+            { 
+                <li class="tab" itemindex="1">商品原文說明</li>
+            }
+            @if (hasSpec)
+            {
+                <li class="tab" itemindex="2">規格說明</li>
+            }
+            <li class="tab" itemindex="3">運送/購買說明</li>
+            <li class="tab" itemindex="4">網友留言</li>
+        </ul>
+    </div>
+    <a href="#nogo" id="tabPrev" style="float: left;" class="tabControl">
+        <span class="fa fa-2x fa-angle-left"></span>
+    </a>
+    <a href="#nogo" id="tabNext" style="float: right;" class="tabControl">
+        <span class="fa fa-2x fa-angle-right"></span>
+    </a>
+    <script>
+        $(document).ready(function () {
+            $("#itemDescription").owlCarousel({
+                items: 3,
+                itemsMobile: [479, 3],
+                itemsDesktopSmall: [979, 3],
+                itemsTablet: [768, 3],
+                rewindNav: false,
+                navigation: true,
+                navigationText: ["prev", "next"],
+                pagination: false,
+                height: 40,
+                rewindSpeed: 200
+            });
+            $('#tabPrev').click(function () {
+                $('#itemDescription').trigger('owl.prev');
+            });
+            $('#tabNext').click(function () {
+                $('#itemDescription').trigger('owl.next');
+            });
+            $('#itemDescription li').click(function () {
+                $('div.views').find('div.container').hide();
+                $(this).parent().parent().find('li').removeClass('active');
+                $(this).addClass('active');
+                var tabItem = $(this).attr('itemIndex');
+                var viewItem = $('div.views').find('#itemIndex' + tabItem);
+                viewItem.show();
+            });
+        });
+    </script>
+</div>
+<div class="line graybg" style="height: 1px"></div>
+
+<div class="views">
+    <!-- 商品說明 -->
+    <div class="container" id="itemIndex0">
+        <div class="row">
+            <div class="col-xs-12 Partial_ItemDescription_ItemDesc">
+                <div class="img-responsive center-block">@Html.Raw(Model.Description)</div>
+            </div>
+        </div>
+    </div>
+    @if (isUsaItem)
+    { 
+        <!-- 商品原文說明 -->
+        <div class="container" style="display: none" id="itemIndex1">
+            <div class="row">
+                <div class="col-xs-12 Partial_ItemDescription_ItemDesc">
+                    @Html.Raw(Model.SourceDescription)
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (hasSpec)
+    {
+        <!-- 規格說明 -->
+        <div class="container" style="display: none" id="itemIndex2">
+            <div class="row">
+                <div class="col-xs-12 Partial_ItemDescription_ItemDesc">
+                    @Html.Raw(Model.Spec)
+                </div>
+            </div>
+        </div>
+    }
+    <!-- 運送/購買說明 -->
+    <div class="container" style="display: none" id="itemIndex3">
+        <div class="row">
+            <div class="col-xs-12">
+                @if (isUsaItem)
+                {                
+                    <!--直購商品的Warranty !-->
+                    <ul>
+                        <li>送貨範圍：我們提供的商品配送區域僅限於台灣本島。</li>
+                        <li>到貨天數：於美國新蛋直購專區下單且訂單成立(即確認交易條件無誤、付款完成且仍有庫存)後，正常約9~14個工作天可以收到商品，少數訂單因天候或通關因素可能會延遲1~2個工作天。</li>
+                        <li>正品保證：美國新蛋直購專區所有商品都是精選自全球品牌商及美蛋優質賣家，百分之百正品保證。</li>
+                        <li>換貨說明：若您收到的新品有瑕疵、破損、規格不符或是零件短缺的狀況，請您於收到貨後7天內， 至「我的帳戶>我的訂單」頁面點選「我要換貨」，填寫需換貨的原因/事由，我們將會回覆您辦理換貨事宜。<br />
+                            <br />
+                            若需更換新品，換貨廠商將於收到您退回的商品後更換給您。(換貨商品必須為全新狀態且完整包裝，包括且不限於主機、附件、內外包裝、原廠紙箱、隨機文件或資料之完整性等)</li>
+                        <li>退貨說明：根據《消費者保護法》，於新蛋全球生活網購物的會員，可享有商品貨到次日起7天猶豫期的權益。 提醒您猶豫期並非試用期，您所退回的商品必須是全新狀態(不得有刮傷、破損、受潮)，並且保持完整包裝， 意即必須恢復至您收到商品時的原始狀態(包括且不限於商本體、配件、原廠包裝、保護袋、保麗龍、保證書、隨附文件、贈品等)。 否則將影響您的退貨權益，也可能依照損毀程度扣除回復原狀之必要費用。</li>
+                        <li>待商品收回並驗收無誤後，我們將進行退款，並於退款日當天發送E-mail通知您。</li>
+                        <li>保固與維修：於新蛋全球生活網訂購之美國新蛋直購商品（限筆電、平板、智能穿載、儲存設備、電競專區、腕錶、耳機）在正常使用狀況下，自購買日起一年內，皆享有新蛋一年保固維修服務。<br />
+                            若已經超過保固期或屬於意外或人為因素造成的損壞等則不在保固維修服務範圍內，將會由客服人員與您聯繫檢修費用後，再依照您的意願進行維修或是終止維修服務。</li>
+                    </ul>
+                    <p>其它更多有關美國新蛋直購說明請至<span class="blue">首頁>服務說明 >購物相關說明><a href="/service?tab=購物相關說明&block=美國新蛋直購商品規範" target="_blank">美國新蛋直購規範說明</a></span></p>
+                }
+                else
+                {
+                    <!-- 非直購商品的Warranty -->
+                    <ul>
+                        <li>送貨範圍：我們提供的商品配送區域僅限於台灣本島。</li>
+                        <li>到貨天數：商品預計訂單成立(即確認交易條件無誤、付款完成且仍有庫存)後 7 個工作天內送達(不含週六日及國定假日)。如廠商有約定日將於約定日期內送達，約定日期需於訂單成立後 14天內。</li>
+                        <li>換貨說明：若您收到的新品有瑕疵、破損、規格不符或是零件短缺的狀況，請您於收到貨後7天內， 至「我的帳戶>我的訂單」頁面點選「我要換貨」，填寫需換貨的原因/事由，我們將會回覆您辦理換貨事宜。<br />
+                            若需更換新品，換貨廠商將於收到您退回的商品後更換給您。(換貨商品必須為全新狀態且完整包裝，包括且不限於主機、附件、內外包裝、原廠紙箱、隨機文件或資料之完整性等)</li>
+                        <li>退貨說明：根據《消費者保護法》，於新蛋全球生活網購物的會員，可享有商品貨到次日起7天猶豫期的權益。 提醒您猶豫期並非試用期，您所退回的商品必須是全新狀態(不得有刮傷、破損、受潮)，並且保持完整包裝， 意即必須恢復至您收到商品時的原始狀態(包括且不限於商品本體、配件、原廠包裝、保護袋、保麗龍、保證書、隨附文件、贈品等)。 否則將影響您的退貨權益，也可能依照損毀程度扣除回復原狀之必要費用。</li>
+                        <li>待商品收回並驗收無誤後，我們將進行退款，並於退款日當天發送E-mail通知您。</li>
+                        <li>商品保固：依原廠/出貨廠商標示為主。</li>
+                    </ul>
+                    <p>其它更多有關台灣新蛋生活網說明請至<span class="blue">首頁>服務說明><a href="/service?tab=售後服務說明" target="_blank">售後服務</a></span></p>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- 網友留言 -->
+    <div class="container" style="display: none" id="itemIndex4">
+        <div class="row">
+            <div class="col-xs-12">
+                @*@Html.Raw(Model.UserReviews)*@
+                <div id="disqus_thread"></div>
+            </div>
+        </div>
+    </div>
+</div>

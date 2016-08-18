@@ -1,0 +1,321 @@
+﻿@{
+    ViewBag.Title = "購物車" + "-新蛋全球生活網";
+    List<TWNewEgg.Models.ViewModels.Redeem.Coupon> listActiveCoupon = null;
+    TWNewEgg.Models.ViewModels.Cart.ItemGroup_View ItemGroup_View = null;
+    string strTemp = "";
+
+    if (Model != null && Model.ContainsKey("CouponList") && Model["CouponList"] != null)
+    {
+        listActiveCoupon = (List<TWNewEgg.Models.ViewModels.Redeem.Coupon>)Model["CouponList"];
+        ItemGroup_View = (TWNewEgg.Models.ViewModels.Cart.ItemGroup_View)Model["ItemGroup"];
+    }
+}
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Themes/css/owl.carousel.css")
+    @Styles.Render("~/Themes/css/owl.theme.css")
+    @Styles.Render("~/Themes/css/royal_tab2.css")
+}
+
+<div class="wrapper">
+<div class="main">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="topper">
+                        <div class="title"><i class="listi5"></i><div class="text">新蛋購物車</div></div>
+                        <div class="line graybg"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="topper">
+                <img class="img-responsive center-block show-grid" src="img/step1.png"/>
+            </div>
+
+            <div class="royal_tab" data-position="top" data-alignment="left" data-animation="slide">
+                        <div class="line graybg"></div>
+                <div class="tabs">
+                    <ul>
+                        <li><img src="img/cart.png"/> 購物車明細</li>
+                        <li><img src="img/heart.png"/> 追蹤清單</li>
+                    </ul>
+                </div>
+                        <div class="line graybg"></div>
+                        
+                <div class="views">
+                    <div class="container">
+                        <form>
+                                        <h4>選擇折價方式</h4>
+                                        <div class="row show-grid">
+                                            <div class="col-xs-4">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>不使用回饋金與折價券
+                                                </label>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>回饋金
+                                                </label>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>折價券
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        @{
+                                            foreach(var item in Model.CartItemList)
+                                            {
+                                                @Html.Partial("Partial_CartItem", item, new ViewDataDictionary() { { "ItemID", ViewData["ItemID"] } })    
+                                            }
+                                        }
+                                        <div class="row">
+	                                        <div class="col-xs-4"></div>
+                                            <div class="col-xs-7"><span class="align-left">總計:</span><span class="redtxt align-right">14,829</span></div>
+                                            <div class="col-xs-1"></div>
+                                        </div>
+                                        <div class="row">
+	                                        <div class="col-xs-4"></div>
+                                            <div class="col-xs-7"><span class="align-left">購物金優惠:</span><span class="redtxt align-right">-597</span></div>
+                                            <div class="col-xs-1"></div>
+                                        </div>
+                                        <div class="row">
+	                                        <div class="col-xs-4"></div>
+                                            <div class="col-xs-7"><span class="align-left">滿額折優惠:</span><span class="redtxt align-right">114,829</span></div>
+                                            <div class="col-xs-1"></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+	                                        <div class="col-xs-4"></div>
+                                            <div class="col-xs-7"><span class="align-left">應付金額</span><span class="align-right">新台幣<span class="redtxt">13,336元</span></span></div>
+                                            <div class="col-xs-1"></div>
+                                        </div>
+                                        <div class="row show-grid">
+                                                <div class="head-bar orangebg2"><i class="listi2"></i>付款方式</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>信用卡(一次付清)
+                                                    </label>
+                                            </div>
+                                            <div class="col-xs-2">$</div>
+                                            <div class="col-xs-2"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>分期3期0利率
+                                                    </label>
+                                            </div>
+                                            <div class="col-xs-2">$</div>
+                                            <div class="col-xs-2">/期</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>分期6期0利率
+                                                    </label>
+                                            </div>
+                                            <div class="col-xs-2">$</div>
+                                            <div class="col-xs-2">/期</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>分期12期(5%)
+                                                    </label>
+                                            </div>
+                                            <div class="col-xs-2 redtxt">$1,120</div>
+                                            <div class="col-xs-2">/期</div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>台新
+                                                </label>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>富邦
+                                                </label>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>玉山
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>台新
+                                                </label>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>富邦
+                                                </label>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>玉山
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <p class="help-block redtxt2">※為讓您享受網路安全購物樂趣，系統將進入信用卡3D安全認證視窗，以保障資料在傳送過程中的完整性及保密性，多了一道認證流程讓您網路交易更安全。</p>
+                                        <div class="row">
+                                            <div class="col-xs-8">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>分期18期(6.5%))
+                                                </label>
+                                            </div>
+                                            <div class="col-xs-2">$</div>
+                                            <div class="col-xs-2">/期</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-8">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>分期24期(8.0%))
+                                                </label>
+                                            </div>
+                                            <div class="col-xs-2">$</div>
+                                            <div class="col-xs-2">/期</div>
+                                        </div>
+                                        <p class="help-block redtxt2">※提醒您 :當您在進行訂購流時程時 , 若於一小時內未完成付款表示未訂購成功 , 該訂單將會失效 , 如您仍需要該商品則需重新訂購 , 謝謝 !</p>
+                                        <br>
+                                        <br>
+                                        <button type="button" class="btn btn-lg btn-block orangebg2 whitetxt">下一步</button>
+                        </form>
+                    </div>
+
+                    <div class="container">
+                        <form>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group input-group">
+                                                <label>排序方式</label>
+                                                <select class="form-control">
+                                                    <option>全部</option>
+                                                    <option>全部</option>
+                                                </select>
+                                            </div>
+                                        <hr>
+                                        </div>
+                                    </div>
+                                            <div class="form-group input-group">
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <a href=""><img class="img-responsive item border" src="img/product.jpg"/></a>
+                                                    </div>
+                                                    <div class="col-xs-7">
+                                                        <ul class="list-unstyled">
+                                                            <li>Moschino熊熊尼龍後背包...</li>
+                                                            <li class="redtxt">$21,000</li>
+                                                            <li><span class="whitetxt redbg4 badge">折扣</span>5/11~5/31品牌滿額最高折...</li>
+                                                            <li><span class="whitetxt graybg2 badge"><i class="fa fa-gift fa-lg"></i> 買就送</span>舒酸維他命EX代謝粉x...</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">
+                                                            </label>
+                                                        </div>
+                                                        <a href=""><i class="fa fa-1x fa-cart-arrow-down orangetxt2"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group input-group">
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <a href=""><img class="img-responsive item border" src="img/product.jpg"/></a>
+                                                    </div>
+                                                    <div class="col-xs-7">
+                                                        <ul class="list-unstyled">
+                                                            <li>Moschino熊熊尼龍後背包...</li>
+                                                            <li class="redtxt">$21,000</li>
+                                                            <li><span class="whitetxt redbg4 badge">折扣</span>5/11~5/31品牌滿額最高折...</li>
+                                                            <li><span class="whitetxt graybg2 badge"><i class="fa fa-gift fa-lg"></i> 買就送</span>舒酸維他命EX代謝粉x...</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">
+                                                            </label>
+                                                        </div>
+                                                        <a href=""><i class="fa fa-1x fa-cart-arrow-down orangetxt2"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <a href=""><img class="img-responsive item border" src="img/product.jpg"/></a>
+                                                    </div>
+                                                    <div class="col-xs-7">
+                                                        <ul class="list-unstyled">
+                                                            <li>Moschino熊熊尼龍後背包...</li>
+                                                            <li class="redtxt">$21,000</li>
+                                                            <li><span class="whitetxt redbg4 badge">折扣</span>5/11~5/31品牌滿額最高折...</li>
+                                                            <li><span class="whitetxt graybg2 badge"><i class="fa fa-gift fa-lg"></i> 買就送</span>舒酸維他命EX代謝粉x...</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">
+                                                            </label>
+                                                        </div>
+                                                        <a href=""><i class="fa fa-1x fa-cart-arrow-down orangetxt2"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <a class="btn" href="#nogo"><i class="fa fa-trash-o fa-lg"></i> 刪除</a>
+                                        </div>
+                                    </div>
+                        </form>
+                    </div>
+                </div><!-- /.views -->
+            </div><!-- /.royal_tab -->            
+</div><!-- /.main -->
+</div><!-- /.wrapper -->
+
+@section scripts{
+<script src="/Scripts/netw-newegg-1.0.0.0.js"></script>    
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/jquery.freetile.js"></script>
+<script src="/Scripts/init.js"></script>
+<script src="/Scripts/owl.carousel.js"></script>
+<script src="/Scripts/royal_tab.js"></script>
+<script src="/Scripts/netw-cart-1.0.0.0.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+
+            navigation: true,
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true
+
+            // "singleItem:true" is a shortcut for:
+            // items : 1, 
+            // itemsDesktop : false,
+            // itemsDesktopSmall : false,
+            // itemsTablet: false,
+            // itemsMobile : false
+
+        });
+    });
+</script>
+}

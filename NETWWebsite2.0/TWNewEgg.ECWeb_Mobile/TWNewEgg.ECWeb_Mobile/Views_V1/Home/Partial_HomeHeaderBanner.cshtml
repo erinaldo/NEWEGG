@@ -1,0 +1,56 @@
+﻿@using TWNewEgg.Framework.ServiceApi
+@using TWNewEgg.ECWeb_Mobile.Utility
+@using TWNewEgg.Models.ViewModels.Advertising
+@model Dictionary<int, Dictionary<AdvEventType, List<AdvEventDisplay>>>
+
+@if (Model != null && Model.Any())
+{
+    List<AdvEventDisplay> bannerList = new List<AdvEventDisplay>();
+    foreach (var list in Model)
+    {
+        foreach (var item in list.Value)
+        {
+            foreach (var banner in item.Value)
+            {
+                bannerList.Add(banner);
+            }
+        }
+    }
+    
+    if (bannerList != null && bannerList.Any())
+    {
+<div id="owl-demo" class="owl-carousel">
+        @if (bannerList != null && bannerList.Count > 0)
+        {
+            foreach (var bannerItem in bannerList)
+	        {
+    <a href="@(bannerItem.LinkUrl)">
+        <img class="img-responsive" src="@(ImageUtility.GetImagePath(bannerItem.ImgUrl))" alt="@(bannerItem.ImgAlt)"/>
+    </a>
+	        }
+        }
+</div>
+<script>
+    $(document).ready(function () {
+        var HomeBanner = $("#owl-demo");
+        HomeBanner.owlCarousel({
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true,
+            autoPlay: 3000,
+            rewindSpeed: 0,
+            afterInit: function (elem) {
+                elem.find('div.owl-pagination').addClass('owl-pagination2');
+            }
+        });
+        $(window).on("pageshow", function () {
+            setTimeout(function () {
+                if (HomeBanner) {
+                    HomeBanner.trigger('owl.next');
+                }
+            }, 3000);
+        });
+    });
+</script>
+    }
+}

@@ -1,0 +1,182 @@
+﻿@model  TWNewEgg.Models.ViewModels.Item.ItemBasic
+@{
+    string strTemp = "";
+    bool isShowStagePS = false;
+}
+
+
+<div class="container">
+    <div class="row show-grid">
+        <div class="col-xs-12">
+            <h3>數量</h3>
+            @if (Model.Amount > 0)
+            {
+                if (Model.ItemDeliveryType == 3 || Model.ItemDeliveryType == 6)
+                {
+                <select class="form-control-xs" id="item_buyqty">
+                    <option>1</option>
+                </select>
+                }
+                else if (Model.Amount > 10)
+                {
+                <select class="form-control-xs" id="item_buyqty">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                </select>
+                }
+                else
+                {
+                <select class="form-control-xs" id="item_buyqty">
+                    @for (int i = 1; i <= Model.Amount; i++)
+                    {
+                        <option>@i</option>
+                    }
+                </select>
+                }
+            }
+            else
+            {
+                <span class="red" id="sold_out">商品已售完</span>
+            }
+        </div>
+    </div>
+    <div class="row show-grid">
+        <div class="col-xs-12">
+            <h3>付款方式<span>(僅限台灣地區發行<img src="/Themes/img/cc.png"/>)</span></h3>
+            <p>
+                @if (Model.PaymentType != null)
+                {
+                    strTemp = "";
+                    foreach (TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption objOption in Model.PaymentType)
+                    {
+                        switch (objOption)
+                        {
+                            case TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.三期零利率:
+                            case TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.六期零利率:
+                            case TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十期零利率:
+                            case TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十二期零利率:
+                            case TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十八期零利率:
+                            case TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.二十四期零利率:
+                            case TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十期分期:
+                            case TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十二期分期:
+                            case TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.十八期分期:
+                            case TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemPaymentOption.二十四期分期:
+                                if (strTemp.IndexOf("分期 0利率：") < 0)
+                                {
+                                    strTemp += "分期 0利率：<span data-toggle=\"modal\" data-target=\"#myModal2\" class=\"bluetxt2\">3期</span>&nbsp;&nbsp;<span data-toggle=\"modal\" data-target=\"#myModal3\" class=\"bluetxt2\">6期</span> / ";
+                                    isShowStagePS = true;
+                                }
+                                
+                                break;
+                            default:
+                                strTemp += objOption.ToString() + " / ";
+                                break;
+                        }
+                    }
+                    strTemp = strTemp.Trim().TrimEnd('/').Trim();
+                    @Html.Raw(strTemp);
+                }
+
+                @if (isShowStagePS)
+                {
+                    <!-- 分期說明方框 -->
+                    <div class="InsExp">
+                    @*<div data-toggle="modal" data-target="#myModal2">(說明)</div>*@
+                        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4>3期0利率，限以下銀行:</h4>
+                                        <p class="border">富邦、國泰世華、台新、合庫、一銀、彰銀、永豐、遠東、兆豐、新光、花旗、台灣企銀、大眾銀行、匯豐銀行、玉山、凱基、台中商銀、渣打、日盛、澳盛、華南</p>
+                                        <ol>
+                                            <li>請選擇適用的銀行卡別來做信用卡分期。</li>
+                                            <li>除不盡餘數於第一期收取。</li>
+                                            <li>可接受VISA Master JCB 信用卡。</li>
+                                            <li>實際分期金額將依各發卡銀行規定略有調整。</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4>6期0利率，限以下銀行:</h4>
+                                        <p class="border">富邦、國泰世華、台新、合庫、一銀、彰銀、永豐、遠東、兆豐、新光、花旗、台灣企銀、大眾銀行、匯豐銀行、玉山、凱基、台中商銀、渣打、日盛、澳盛、華南</p>
+                                        <ol>
+                                            <li>請選擇適用的銀行卡別來做信用卡分期。</li>
+                                            <li>除不盡餘數於第一期收取。</li>
+                                            <li>可接受VISA Master JCB 信用卡。</li>
+                                            <li>實際分期金額將依各發卡銀行規定略有調整。</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of 分期說明方框 -->
+                }
+            </p>
+            <h3>配送方式</h3>
+            <p>
+                @if (Model.DeliveryType != null)
+                {
+                    strTemp = "";
+                    foreach (TWNewEgg.Models.ViewModels.Item.ItemBasic.ItemDeliveryOption objOption in Model.DeliveryType)
+                    {
+                        strTemp += objOption.ToString() + " / ";
+                    }
+                    strTemp = strTemp.Trim().TrimEnd('/').Trim();
+                    @Html.Raw(strTemp);
+                }
+            </p>
+            @if (Model.ItemDeliveryType == 1 || Model.ItemDeliveryType == 3)
+            {
+                <h3>發貨區域</h3>
+                <p>@Model.ItemSource.ToString()</p>
+                <h3>預計到貨時間</h3>
+                <p>@Model.ArrivalTime</p>
+            }
+            else
+            {
+                <h3 style="display: none;">發貨區域</h3>
+                <p style="display: none;">@Model.ItemSource.ToString()</p>
+                <h3 style="display: none;">預計到貨時間</h3>
+                <p style="display: none;">@Model.ArrivalTime</p>
+            }
+            @*<p>宅配 / 超商取貨 / 48小時到貨本商品預計到貨時間7日</p>*@
+        </div>
+    </div>
+    <div class="row show-grid">
+        <div class="col-xs-12">
+            @if (Model.Slogan.Length > 0)
+            {
+                <ul class="list-unstyled list-color">
+                @Html.Raw(Model.Slogan)
+                </ul>
+            }
+            
+            @if (Model.ItemDeliveryType == 3 || Model.ItemDeliveryType == 6)
+            {
+                <!--海外購物說明文件下載 -->
+                <div class="oversea img-responsive center-block">
+                    <p>美國新蛋直購專區的商品在報關時需提供<a class="orangetxt2" href="/service?tab=購物相關說明&block=美國新蛋直購商品規範" target="_blank">規定文件</a>，以利商品順利完成清關作業。</p>
+                    <div class="oversea-btn"><a href="/Content/Files/報關文件.zip" target="_blank">
+                        <img class="img-responsive item" src="/Themes/img/oversea_btn.png" /></a></div>
+                </div>   
+                <!--end of 海外購物說明文件下載 -->
+            }
+        </div>
+    </div>
+</div>

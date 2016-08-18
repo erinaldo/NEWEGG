@@ -1,0 +1,76 @@
+﻿@using TWNewEgg.ECWeb_Mobile.Utility
+@model List<TWNewEgg.Models.ViewModels.GroupBuy.GroupBuyViewInfo>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+}
+
+<div class="wrapper">
+<div class="main">
+        <div class="container">
+            <br>
+            <img class="img-responsive" src="/Themes/img/flash2.jpg"/>
+            <br>
+            <div id="flashList" class="row">
+                @{
+                    ViewData["FlashPageIndex"] = 1;
+                }
+                @Html.Partial("Partial_FlashItemList", Model)
+            </div>
+        </div>
+</div><!-- /.main -->
+</div><!-- /.wrapper -->
+@Html.Partial("Partial_WishListMask")
+@section scripts{
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/jquery.cookie.js"></script>   
+<script src="/Scripts/bootstrap.js"></script>
+@*<script src="/Scripts/jquery.freetile.js"></script>
+<script src="/Scripts/init.js"></script>
+<script src="/Scripts/owl.carousel.js"></script>
+<script src="/Scripts/royal_tab.js"></script>*@
+<script src="/Scripts/jquery.countdown.js"></script>
+<script src="/Scripts/NETW/netw-newegg-1.0.0.0.js"></script>
+<script src="/Scripts/NETW/netw-cart-1.0.0.0.js"></script>
+<script type="text/javascript">
+    var canLoadNextPage = true;
+    $(document).ready(function () {
+        function lastAddedLiveFunc() {
+            var flashPage = $('input.flashPage:last');
+            if (flashPage) {
+                var currentPage = flashPage.val();
+                if (canLoadNextPage && currentPage && parseInt(currentPage) > 0) {
+                    canLoadNextPage = false;
+                    $.get("/flash/getflashitems?pageNumber=" + (parseInt(currentPage) + 1), function (data, status, xhr) {
+                        if (status != "error" && data != "") {
+                            $("#flashList").append(data);
+                            canLoadNextPage = true;
+                        }
+                        else if (status == "error") {
+                            console.log("There was an error: " + xhr.status + "" + xhr.statusText);
+                        }
+                    });
+                }
+            }
+        };
+ 
+        //lastAddedLiveFunc();
+        $(window).scroll(function () {
+
+            var wintop = $(window).scrollTop(), docheight = $(document).height(), winheight = $(window).height();
+            var scrolltrigger = 0.95;
+
+            if ((wintop / (docheight - winheight)) > scrolltrigger) {
+                //console.log('scroll bottom');
+                lastAddedLiveFunc();
+            }
+        });
+});
+</script>
+}

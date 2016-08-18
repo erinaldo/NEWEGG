@@ -1,0 +1,18 @@
+﻿@using TWNewEgg.Framework.ServiceApi
+@using TWNewEgg.ECWeb_Mobile.Utility
+@using TWNewEgg.Models.DomainModels.MobileStore
+@using TWNewEgg.Models.ViewModels.Advertising
+@model List<MStoreItemCell>
+@if (Model != null && Model.Any())
+{
+    <h5>@(ViewBag.CategoryTitle)</h5>
+    <br>
+    <div class="freetile">                
+        <div class="row">
+            @foreach (var itemCell in Model)
+            {
+                @Html.Partial("Cell/Partial_CellProductListItem", itemCell)
+            }
+        </div>
+    </div>
+}

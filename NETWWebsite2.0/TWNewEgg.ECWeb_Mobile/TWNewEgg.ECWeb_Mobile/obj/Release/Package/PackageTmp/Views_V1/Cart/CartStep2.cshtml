@@ -1,0 +1,363 @@
+﻿@{
+    ViewBag.Title = "CartStep2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Themes/css/owl.carousel.css")
+    @Styles.Render("~/Themes/css/owl.theme.css")
+    @Styles.Render("~/Themes/css/royal_tab2.css")
+}
+
+<div class="wrapper">
+<div class="main">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="topper">
+                        <div class="title"><i class="listi5"></i><div class="text">新蛋購物車</div></div>
+                        <div class="line graybg"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="topper">
+                <img class="img-responsive center-block show-grid" src="/Themes/img/step2.png"/>
+            </div>
+
+            <div class="container">
+                <form>
+                            <div class="row show-grid">
+                                    <div class="head-bar orangebg2"><i class="listi1"></i>購物車明細(2)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2"></div>
+                                <div class="col-xs-8"><span class="align-left">總計:</span><span class="redtxt align-right">14,829</span></div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2"></div>
+                                <div class="col-xs-8"><span class="align-left">購物金優惠:</span><span class="redtxt align-right">-597</span></div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2"></div>
+                                <div class="col-xs-8"><span class="align-left">滿額折優惠:</span><span class="redtxt align-right">114,829</span></div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xs-2"></div>
+                                <div class="col-xs-8"><span class="align-left">應付金額</span><span class="align-right">新台幣<span class="redtxt">13,336元</span></span></div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                            <div class="row show-grid">
+                                <div class="head-bar orangebg2"><i class="listi2"></i>信用卡付款</div>
+                            </div>
+                            <div class="form-group">
+                                <label>信用卡卡號</label>
+                                <input class="form-control" placeholder="請輸入手機號碼">
+                                <p class="help-block"><img src="/Themes/img/cc.png"/>!限台灣核發之信用卡</p>
+                            </div>
+                            
+                            <div class="row show-grid">
+                                <div class="col-xs-4">
+                                    <label>有效期限</label>
+                                    <select class="form-control">
+                                        <option>請選擇</option>
+                                        <option>2000</option>
+                                        <option>2000</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label class="show-grid5"></label>
+                                    <br>月
+                                </div>
+                                <div class="col-xs-4">
+                                    <label class="show-grid2"></label>
+                                    <select class="form-control">
+                                        <option>請選擇</option>
+                                        <option>2000</option>
+                                        <option>2015</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-2">
+                                    <label class="show-grid5"></label>
+                                    <br>年
+                                </div>
+                            </div>
+                            <div class="row show-grid">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                    <label>信用卡末三碼</label>
+                                        <input class="form-control">
+                                    </div>
+                                </div>
+                                <div class="whitetxt show-grid8">*</div>                                    
+                                <div class="col-xs-4 show-grid"><a href="#nogo"><img src="/Themes/img/caption.png"/></a></div>
+                                <div class="col-xs-4"></div>
+                            </div>                            
+                            <div class="row show-grid">
+                                <div class="head-bar orangebg2"><i class="listi3"></i>配送方式</div>
+                            </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>宅配
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>超商取貨
+                                    </label>
+                                </div>
+                            <div class="row show-grid">
+                                <div class="head-bar orangebg2"><i class="listi4"></i>購買者資料</div>
+                            </div>
+                            <div class="form-group">
+                                <label>姓名</label>
+                                <input class="form-control">
+                                <p class="help-block">需填中文全名2-4字 , 欲使用信用卡付費繳款者 , 購買者需等同於持卡人</p>
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail</label>
+                                <input class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>手機</label>
+                                <input class="form-control">
+                            </div>
+                            <div class="row show-grid">
+                                <div class="col-xs-2">
+                                    <label class="control-label">市話</label>
+                                    <input type="text" class="form-control" name="director" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <label class="control-label show-grid2"></label>
+                                    <input type="text" class="form-control" name="writer" />
+                                </div>
+                                <div class="col-xs-3">
+                                    <label class="control-label">分機</label>
+                                    <input type="text" class="form-control" name="producer" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option>請選擇縣市</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option>請選擇鄉鎮市區</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="請輸入完整地址">
+                                <p class="help-block">!限台灣本島 , 且不接受郵政信箱</p>
+                            </div>
+                            <div class="row show-grid">
+                                <div class="head-bar orangebg2"><i class="listi4"></i>收件人資料</div>
+                            </div>
+                                <div class="row show-grid">
+                                    <div class="col-xs-6">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="">同付款人資料
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                            從常用收件地址挑選 >
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <label>姓名</label>
+                                <input class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail</label>
+                                <input class="form-control">
+                            </div>
+                            <div class="row show-grid">
+                                <div class="col-xs-2">
+                                    <label class="control-label">市話</label>
+                                    <input type="text" class="form-control" name="director" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <label class="control-label show-grid2"></label>
+                                    <input type="text" class="form-control" name="writer" />
+                                </div>
+                                <div class="col-xs-3">
+                                    <label class="control-label">分機</label>
+                                    <input type="text" class="form-control" name="producer" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option>請選擇縣市</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option>請選擇鄉鎮市區</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="請輸入完整地址">
+                                <p class="help-block">!限台灣本島 , 且不接受郵政信箱</p>
+                            </div>
+                            <div class="form-group">
+                                <label>配送備註</label>
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="">本次資料加入收件人紀錄
+                                </label>
+                            </div>
+                            <div class="row show-grid">
+                                <div class="head-bar orangebg2"><i class="listi5"></i>電子發票</div>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>新蛋會員載具
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>手機條碼載具
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>自然人憑證載具
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="">國內外商品貨源不易及進出口法令限制條款 , 我方保留取消訂單的權利 , (在您打勾選後 , 即代表您了解並同意上述規定。)
+                                </label>
+                            </div>
+                            <br>
+                            <br>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-lg btn-block orangebg2 whitetxt" data-toggle="modal" data-target="#myModal">確認付款</button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header bluebg">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title whitetxt" id="myModalLabel">簡訊認證</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                      <p>簡訊認證碼</p>
+                                      <div class="form-group input-group">
+                                          <input type="text" class="form-control">
+                                          <span class="input-group-btn">
+                                              <button class="btn btn-default bluebg whitetxt" type="button">確認</button>
+                                          </span>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <p>未收到簡訊認證碼 ,<a class="bluetxt" href="#nogo">重新發送簡訊</a>。</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div class="row show-grid">
+                                <div class="head-bar orangebg2"><i class="listi6"></i>超商取貨資料</div>
+                            </div>
+                                <div class="row show-grid">
+                                    <div class="col-xs-3">
+                                        取貨超商
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <img src="/Themes/img/hi_life.jpg"/>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        從常用收件地址挑選 >
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option>請選擇縣市</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option>請選擇鄉鎮市區</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="請輸入完整地址">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">確定取貨門市</div>
+                                <div class="col-xs-8"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">店名:</div>
+                                <div class="col-xs-8"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">地址:</div>
+                                <div class="col-xs-8"></div>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="">本次資料加入超商紀錄
+                                </label>
+                            </div>
+                </form>
+            </div>
+</div><!-- /.main -->
+</div><!-- /.wrapper -->
+
+@section scripts{
+<script src="/Scripts/jquery.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/jquery.freetile.js"></script>
+<script src="/Scripts/init.js"></script>
+<script src="/Scripts/owl.carousel.js"></script>
+<script src="/Scripts/royal_tab.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+
+            navigation: true,
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true
+
+            // "singleItem:true" is a shortcut for:
+            // items : 1, 
+            // itemsDesktop : false,
+            // itemsDesktopSmall : false,
+            // itemsTablet: false,
+            // itemsMobile : false
+
+        });
+    });
+</script>
+<script>
+    $(function () {
+        function reposition() {
+            var modal = $(this),
+				dialog = modal.find('.modal-dialog');
+            modal.css('display', 'block');
+
+            // Dividing by two centers the modal exactly, but dividing by three 
+            // or four works better for larger screens.
+            dialog.css("margin-top", Math.max(0, ($(window).height() - dialog.height()) / 2));
+        }
+        // Reposition when a modal is shown
+        $('.modal').on('show.bs.modal', reposition);
+        // Reposition when the window is resized
+        $(window).on('resize', function () {
+            $('.modal:visible').each(reposition);
+        });
+    });
+</script>
+}

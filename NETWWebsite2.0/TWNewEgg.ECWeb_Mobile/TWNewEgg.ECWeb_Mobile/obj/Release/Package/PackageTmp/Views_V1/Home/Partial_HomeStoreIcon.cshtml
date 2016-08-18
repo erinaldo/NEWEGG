@@ -1,0 +1,68 @@
+﻿@using TWNewEgg.Framework.ServiceApi
+@using TWNewEgg.ECWeb_Mobile.Utility
+@using TWNewEgg.Models.ViewModels.Advertising
+@model Dictionary<int, Dictionary<AdvEventType, List<AdvEventDisplay>>>
+
+@if (Model != null && Model.Any())
+{
+    var modelKeys = Model.Keys.ToList();
+    string[] StoreNames = new string[6] { "國際風尚", "品味生活", "時尚科技", "樂活食尚", "海外直購", "健康活力" }; //Rhett說寫死名稱,By Carboon.C.Wu 2015.8.28 
+    <div class="topper">
+        <div class="line graybg row"></div>
+    </div>
+    <ul class="nav nav-pills">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var store = Model[modelKeys[i]];
+            var storeKeys = store.Keys.ToList();
+            for (int j = 0; j < store.Keys.Count; j++)
+            {
+                var subStore = storeKeys[j];
+                //begin : Rhett說寫死名稱,By Carboon.C.Wu 2015.8.28 
+                if (i > 5)
+                {
+                    subStore.AdvTypeName = StoreNames[0];
+                }
+                else
+                {
+                    subStore.AdvTypeName = StoreNames[i];
+                }
+                //end : Rhett說寫死名稱,By Carboon.C.Wu 2015.8.28 
+                if (i == 0)
+                {
+            <li class="homesec-colorbg1 active"><a href="#one" data-toggle="tab" data-store-index="@(subStore.ID)" data-css-index="@(i + 1)" class="store1" style="background-color: rgba(0, 0, 0, 0);"><span style="display: none;">@(Html.Raw(string.Format("{0}{1}<br />{2}{3}", subStore.AdvTypeName[0], subStore.AdvTypeName[1], subStore.AdvTypeName[2], subStore.AdvTypeName[3])))</span></a></li>
+                }
+                else
+                {
+            <li><a href="#one" data-toggle="tab" data-store-index="@(subStore.ID)" data-css-index="@(i + 1)"><span>@(Html.Raw(string.Format("{0}{1}<br />{2}{3}", subStore.AdvTypeName[0], subStore.AdvTypeName[1], subStore.AdvTypeName[2], subStore.AdvTypeName[3])))</span></a></li>
+                }
+            }
+
+        }
+    </ul>
+    <div class="topper">
+        <div class="line graybg row"></div>
+    </div>
+    <h4 id="6win-title">國際風尚館</h4>
+    <br>
+    <script>
+        $('ul.nav-pills li a').click(function () {
+            var anchor = $(this);
+            var curItem = anchor.parent();
+            var curList = curItem.parent();
+            var colorBg = 'homesec-colorbg' + anchor.attr('data-css-index');
+            var listStyle = 'store' + anchor.attr('data-css-index');
+            var advTypeCode = $(this).attr('data-store-index') ? $(this).attr('data-store-index') : 4;
+            var winTitle = $(this).find('span').text();
+            curList.find('li').attr('class', '');
+            curList.find('li a').attr('class', '');
+            curList.find('li a span').show();
+            anchor.find('span').hide();
+            anchor.css('background-color', curItem.css('background-color'));
+            anchor.addClass(listStyle);
+            curItem.addClass(colorBg);
+            $('div.tab-content').load('/home/WindowProductList?advID=' + advTypeCode);
+            $('#6win-title').text(winTitle + "館");
+        });
+    </script>
+}

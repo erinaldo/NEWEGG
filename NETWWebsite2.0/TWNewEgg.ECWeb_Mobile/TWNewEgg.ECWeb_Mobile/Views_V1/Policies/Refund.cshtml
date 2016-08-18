@@ -1,0 +1,132 @@
+﻿@{
+    string pageTitle = "退款流程與說明";
+    ViewBag.Title = pageTitle + "-新蛋全球生活網";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper">
+<div class="main">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="topper">
+                <div class="title"><div class="tool"><i class="listi2"></i><div class="text">@pageTitle</div></div></div>
+                <div class="line graybg"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h4>1.退款程序說明:</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead class="greenbg whitetxt">
+                                <tr>
+                                    <th class="text-center">付款方式</th>
+                                    <th class="text-center">退款方式</th>
+                                    <th class="text-center">退款確認</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>信用卡</td>
+                                    <td>原信用卡</td>
+                                    <td rowspan="2">
+                                        <ol>
+                                            <li>商品經物流(供應商)端確定回收並檢測完成</li>
+                                            <li>「銷貨折讓單」簽回相關事宜，<br>請參閱下方:銷貨折讓單簽回方式。</li>
+                                        <ol>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            <li>實體ATM</li>
+                                            <li>網路ATM</li>
+                                            <li>宅配貨到付款</li>
+                                            <li>超商取貨付款</li>
+                                        </ul>
+                                    </td>
+                                    <td>退至該用戶帳戶</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead class="greenbg whitetxt">
+                                <tr>
+                                    <th class="text-center">退款時程</th>
+                                    <th class="text-center">備註</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <ol>
+                                            <li>商品退回確認無誤後3-5個工作天內</li>
+                                            <li>實際入帳依發卡銀行帳務時間為準</li>
+                                            <li>可與刷卡銀行端確認刷退事宜</li>
+                                        <ol>
+                                    </td>
+                                    <td>商品退回確認無誤後7-10個工作天內</td>
+                                </tr>
+                                <tr>
+                                    <td>如一筆訂單中包含多項商品，辦理部分商品退貨者，<br>僅提供帳戶匯款轉入退款方式，<br>請您在填寫取消/退貨申請單時，<br>提供訂單購買人的退款帳號資料銀行。</td>
+                                    <td>
+                                        <ol>
+                                            <li>銀行(如第一銀行)：</li>
+                                            <li>銀行分行(如忠孝分行)：</li>
+                                            <li>帳號：</li>
+                                            <li>戶名：</li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+        <h4>2.銷貨折讓單簽回方式:</h4>
+            <p> ※下述退款/退點時間皆為工作天8:30~17:30且未含假日(遇國定假日將順延)，如有造成您的不便，還請見諒！</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead class="greenbg whitetxt">
+                                <tr>
+                                    <th colspan="2" class="text-center">作業方式</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>個人發票</td>
+                                    <td colspan="2">請於發票背面之「銷貨折讓單」紅色框線欄位內簽名後寄回。</td>
+                                </tr>
+                                <tr>
+                                    <td>法人發票 </td>
+                                    <td>請填妥完整之「制式銷退四聯單」及「加蓋發票章」，<br>並寄回一、二聯，發票可請客戶自行留存，<br>無需寄回。(客戶亦可向本司申請索取銷退四聯單)</td>
+                                </tr>
+                                <tr>
+                                    <td>銷折單</td>
+                                    <td>
+                                        <p>本司寄送予客戶的銷折單區分為「銷折單郵簡」及「銷退四聯單」二種：</p>
+                                        <ol>
+                                            <li>銷折單郵簡：請於銷折單郵簡背面之紅色框線欄位內簽名或蓋章後寄回。</li>
+                                            <li>「銷退四聯單」：請於銷退四聯單原買受人名稱處簽名或蓋章後，<br>將白聯(第一聯)及紅聯(第二聯)寄回。</li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+    </div>
+</div><!-- /.main -->
+</div><!-- /.wrapper -->
+
+@section styleSheets {
+    @Styles.Render("~/Themes/css/bootstrap.css")
+    @Styles.Render("~/Themes/css/mStyle.css")
+    @Styles.Render("~/Themes/css/font-awesome/css/font-awesome.css")
+}
+
+@section scripts{
+    <script src="/Scripts/jquery.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+}

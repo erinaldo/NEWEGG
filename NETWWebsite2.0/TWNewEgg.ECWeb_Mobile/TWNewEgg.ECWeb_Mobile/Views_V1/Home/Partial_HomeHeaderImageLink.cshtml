@@ -1,0 +1,13 @@
+﻿@using TWNewEgg.ECWeb_Mobile.Utility
+@using TWNewEgg.Models.ViewModels.Advertising
+@model List<AdvEventDisplay>
+@if (Model != null && Model.Any())
+{ 
+    var imageLink = Model.FirstOrDefault();
+    if (imageLink != null)
+    {
+<a href="@(imageLink.LinkUrl)">
+<img class="img-responsive" src="@(ImageUtility.GetImagePath(imageLink.ImgUrl))"/>
+</a>
+    }
+}
