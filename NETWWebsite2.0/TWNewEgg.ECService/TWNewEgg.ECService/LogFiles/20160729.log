@@ -1,0 +1,50 @@
+﻿ERROR 2016/07/29 12:05:44 Processor                      Process                                  Exception: Service Api Response Side Executed Error!! Component ID: SellerCorrectionPriceService,  Method Name: Save1,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10ecsrv01,
+
+  Component ID: SellerCorrectionPriceService,
+
+  Method Name: Save1,
+
+  Input Parameters: ["V",407,"WV13136368201512-1","407"],
+
+  Error Message: System.ArgumentException: 類型 'System.Int64' 的物件無法轉換成類型 'System.String'。
+   於 System.RuntimeType.TryChangeType(Object value, Binder binder, CultureInfo culture, Boolean needsSpecialCast)
+   於 System.RuntimeType.CheckValue(Object value, Binder binder, CultureInfo culture, BindingFlags invokeAttr)
+   於 System.Reflection.MethodBase.CheckArguments(Object[] parameters, Binder binder, BindingFlags invokeAttr, CultureInfo culture, Signature sig)
+   於 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   於 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   於 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   於 TWNewEgg.Framework.ServiceApi.Reflection.Reflection.Invoke(Object instance, String methodName, Object[] parameters) 於 d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Reflection\Reflection.cs: 行 112
+   於 TWNewEgg.Framework.ServiceApi.Processor.Process(RequestMessage requestMessage) 於 d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Processor.cs: 行 214
+
+
+
+
+
+ERROR 2016/07/29 12:13:39 Processor                      Process                                  Exception: Service Api Response Side Executed Error!! Component ID: SellerCorrectionPriceService,  Method Name: Save1,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10ecsrv01,
+
+  Component ID: SellerCorrectionPriceService,
+
+  Method Name: Save1,
+
+  Input Parameters: ["V",407,"WV13136368201512-1","407"],
+
+  Error Message: System.ArgumentException: 類型 'System.Int64' 的物件無法轉換成類型 'System.String'。
+   於 System.RuntimeType.TryChangeType(Object value, Binder binder, CultureInfo culture, Boolean needsSpecialCast)
+   於 System.RuntimeType.CheckValue(Object value, Binder binder, CultureInfo culture, BindingFlags invokeAttr)
+   於 System.Reflection.MethodBase.CheckArguments(Object[] parameters, Binder binder, BindingFlags invokeAttr, CultureInfo culture, Signature sig)
+   於 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   於 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   於 System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   於 TWNewEgg.Framework.ServiceApi.Reflection.Reflection.Invoke(Object instance, String methodName, Object[] parameters) 於 d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Reflection\Reflection.cs: 行 112
+   於 TWNewEgg.Framework.ServiceApi.Processor.Process(RequestMessage requestMessage) 於 d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Processor.cs: 行 214
+
+
+
+
+

@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "XML生產介面";
+}
+
+<h2>@(ViewBag.Title)</h2>
+
+<hr />
+
+<h3>Find Price XML產生功能</h3>
+<div id="findPrice">
+    <h3 style="color: red;">根據有效賣場的大小決定產生時間，30萬筆商品大概30mins...</h3>
+    <button id="geneFindPrice">產生XML給FindPrice</button>
+    <div>(建議使用點擊滑鼠右鍵另存新檔方式下載)</div>
+    <div id="excuteTime"></div>
+    <div id="findPriceResults"></div>
+</div>
+
+<hr />
+
+@section scripts{
+    
+<script type="text/javascript">
+    var countFlag = false;
+    var countTime = 0;
+    var countWord = "產生中...{counttime}";
+    var completeWord = "產生完成...{counttime}";
+    var countStart = function (wordFormat) {
+        countTime++;
+        $("#excuteTime").html(wordFormat.replace("{counttime}", convert2Date()));
+        countUp();
+    };
+    var countUp = function () {
+        if (countFlag) {
+            setTimeout(function () {
+                if (countFlag) {
+                    countStart(countWord);
+                }
+            }, 1000);
+        }
+    };
+    var convert2Date = function () {
+        var dateFormat = "已執行{mins}分{seconds}秒";
+        var mins = Math.floor(countTime / 60);
+        var seconds = countTime % 60;
+        return dateFormat.replace("{mins}", mins).replace("{seconds}", seconds);
+    };
+    $(function () {
+        $("#geneFindPrice").click(function () {
+            countFlag = true;
+            countTime = 0;
+            countUp();
+            jQuery.ajax({
+                method: "GET",
+                url: "/api/xmlgenerate?actionType=findpricexml&jsonValue=",
+                dateType: "json",
+            })
+            .done(function (data) {
+                countFlag = false;
+                countStart(completeWord);
+                var jsonData = JSON.parse(data);
+                if (jQuery.isArray(jsonData)) {
+                    var aLink = "<a href=\"{link}\">{linkName}</a><br />";
+                    var wholeHtml = "";
+                    for (var i = 0; i < jsonData.length; i++) {
+                        wholeHtml += aLink.replace("{link}", jsonData[i]).replace("{linkName}", jsonData[i]);
+                    }
+                    $("#findPriceResults").html(wholeHtml);
+                }
+            })
+            .fail(function () {
+                countFlag = false;
+                $("#findPriceResults").html("產生失敗！");
+            });
+        });
+    });
+</script>
+
+}

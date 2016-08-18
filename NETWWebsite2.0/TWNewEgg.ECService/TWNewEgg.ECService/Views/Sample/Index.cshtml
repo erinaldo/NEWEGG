@@ -1,0 +1,67 @@
+﻿@model TWNewEgg.Framework.ServiceApi.Configuration.ServiceComponents
+@{
+    Layout = null;
+    var publicMethods = ViewBag.PublicMethods as TWNewEgg.Framework.ServiceApi.Configuration.PublicMethods;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td>Component ID</td>
+                    <td>Component NameSpace</td>
+                    <td>Component Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var component in Model.serviceComponents)
+                {
+                    <tr>
+                        <td>@Html.Raw(component.ComponentID)</td>
+                        <td>@Html.Raw(component.NameSpace)</td>
+                        <td>@Html.Raw(component.ComponentDesc)</td>
+                        <td>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>Method Name</td>
+                                        <td>Method Desc</td>
+                                        <td>Method Arguments</td>
+                                        <td>Method Return Type</td>
+                                        <td>Method Excute Time</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var method in publicMethods.publicMethods.Where(x => x.ComponentID == component.ComponentID).ToList())
+                                    {
+                                        <tr>
+                                            <td>@Html.Raw(method.MethodName)</td>
+                                            <td>@Html.Raw(method.MethodDesc)</td>
+                                            <td>@(string.Join(", ", method.MethodArgs.Select(x => x.Type + " " + x.Desc).ToArray()))</td>
+                                            <td>@(method.ReturnType)</td>
+                                            <td>@Html.Raw(method.ExcuteTime)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    //Html.Raw(string.Format("Component ID: {0}, NameSpane: {1}, Url: {2} <br/>", component.ComponentID, component.NameSpace, component.BaseUrl + component.ApiPath));
+                    //@Html.Raw(string.Format("Component ID: {0},　　　　NameSpane: {1}", component.ComponentID, component.NameSpace));
+                }
+            </tbody>
+        </table>
+    </div>
+    <script>
+        setTimeout(function () { location.reload(true); }, 3000);
+    </script>
+</body>
+</html>

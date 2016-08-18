@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<NEFlows>
+  <NEFlow name="TestFlow1">
+    <NEFlowStep name="step1" key="FlowStep1" />
+    <NEFlowStep name="step2" key="FlowStep2" />
+  </NEFlow>
+  <NEFlow name="TestFlow2">
+    <NEFlowStep name="step1" key="FlowStep1" />
+    <NEFlowStep name="step2" key="FlowStep2" />
+  </NEFlow>
+</NEFlows>

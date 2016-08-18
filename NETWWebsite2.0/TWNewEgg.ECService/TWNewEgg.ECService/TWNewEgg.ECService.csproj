@@ -1,0 +1,716 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3C84F14A-69DF-4C5E-8423-B1C16FBEF4C0}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWNewEgg.ECService</RootNamespace>
+    <AssemblyName>TWNewEgg.ECService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\..\Libraries\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\..\Libraries\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\..\Libraries\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi">
+      <HintPath>..\..\Libraries\Autofac.WebApi.3.1.0\lib\net40\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\Libraries\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\..\Libraries\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit">
+      <HintPath>..\..\Libraries\LinqKit.1.0\lib\35\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\Libraries\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.1\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="Newegg.Mobile.MvcApplication.Globalization">
+      <HintPath>..\..\Libraries\Newegg.Mobile\Newegg.Mobile.MvcApplication.Globalization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newegg.Mobile.Serialization">
+      <HintPath>..\..\Libraries\Newegg.Mobile\Newegg.Mobile.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newegg.Mobile.Web.Authentication">
+      <HintPath>..\..\Libraries\Newegg.Mobile\Newegg.Mobile.Web.Authentication.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors">
+      <HintPath>..\..\Libraries\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors">
+      <HintPath>..\..\Libraries\Microsoft.AspNet.WebApi.Cors.5.0.0\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\Libraries\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Libraries\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\Libraries\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\Libraries\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\..\Libraries\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.BankInstallmentRepoAdapters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.BankInstallmentRepoAdapters\bin\Debug\TWNewEgg.BankInstallmentRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.AOP">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.AOP.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.Autofac">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.AutoMapper">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.BaseController">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.BaseController.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.Cache">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.Common">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.FlowEngine">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.FlowEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.HttpMethod">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.HttpMethod.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Framework.ServiceApi">
+      <HintPath>..\..\Libraries\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.ItemInstallmentRepoAdapters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.ItemInstallmentRepoAdapters\bin\Debug\TWNewEgg.ItemInstallmentRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.Models.DomainModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.Models\TWNewEgg.Models.DomainModels.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.NewEggUSGateway, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\TWNewEgg.NewEggUSGateway\TWNewEgg.NewEggUSGateway.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.OrderQueueAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.OrderQueueAdapter\bin\Debug\TWNewEgg.OrderQueueAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.PromotionRepoAdapters">
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.PromotionRepoAdapters\bin\Debug\TWNewEgg.PromotionRepoAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="TWNewEgg.PurgeService">
+      <HintPath>..\..\TWNewEgg.Components\TWNewEgg.PurgeService\bin\Debug\TWNewEgg.PurgeService.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\..\Libraries\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AutofacStart.cs" />
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\ServiceApiConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\api\ServiceApiController.cs" />
+    <Compile Include="Controllers\api\XMLGenerateController.cs" />
+    <Compile Include="Controllers\EnumerableStreamResult.cs" />
+    <Compile Include="Controllers\HomeController2.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SampleController.cs" />
+    <Compile Include="Controllers\XMLGenerateController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\FinanceList.xml" />
+    <Content Include="Configurations\NEFlows.xml" />
+    <Content Include="Global.asax" />
+    <Content Include="Configurations\AppSettings.Config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\PublicMethods.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\ServiceApiAddress.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\ServiceApiCacheAppSettings.config" />
+    <Content Include="Configurations\ServiceComponents.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\ServiceMethods.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\log4net.config" />
+    <Content Include="Configurations\RestServices.config" />
+    <None Include="Properties\PublishProfiles\ECService.pubxml" />
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <None Include="Scripts\jquery-1.9.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Sample\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\XMLGenerate\Index.cshtml" />
+    <Content Include="Views\XMLGenerate\CSVGenerate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.AdditionalItemRepoAdapters\TWNewEgg.AdditionalItemRepoAdapters.csproj">
+      <Project>{d55c7697-0c52-418b-9530-530ba19bdce6}</Project>
+      <Name>TWNewEgg.AdditionalItemRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.AdditionalItemServices\TWNewEgg.AdditionalItemServices.csproj">
+      <Project>{1ea96663-1884-4eeb-b4c7-bf3d19586e1a}</Project>
+      <Name>TWNewEgg.AdditionalItemServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.CartLocalServices\TWNewEgg.CartLocalServices.csproj">
+      <Project>{3dc0fd27-dd20-43b2-93d8-7ccd00e51084}</Project>
+      <Name>TWNewEgg.CartLocalServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.CategoryServices\TWNewEgg.CategoryServices.csproj">
+      <Project>{ec0688e6-dc0a-4e9d-ad69-a638f7f259b9}</Project>
+      <Name>TWNewEgg.CategoryServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.DataMaintainServices\TWNewEgg.DataMaintainServices.csproj">
+      <Project>{68cc276b-6b7a-4958-a167-6b8a62051821}</Project>
+      <Name>TWNewEgg.DataMaintainServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewegg.DelvTypePaymentTermRepoAdapters\TWNewegg.DelvTypePaymentTermRepoAdapters.csproj">
+      <Project>{9b09d347-27fd-4afd-970f-afa419867831}</Project>
+      <Name>TWNewegg.DelvTypePaymentTermRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.DeviceAdRepoAdapters\TWNewEgg.DeviceAdRepoAdapters.csproj">
+      <Project>{ef10263f-df63-4b04-8662-c126609d8455}</Project>
+      <Name>TWNewEgg.DeviceAdRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.DeviceAdServices\TWNewEgg.DeviceAdServices.csproj">
+      <Project>{4b52d4b1-3bca-4a11-aed7-f09b99b0b41f}</Project>
+      <Name>TWNewEgg.DeviceAdServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.Discard4RepoAdapters\TWNewEgg.Discard4RepoAdapters.csproj">
+      <Project>{0b0b9e7b-9d9b-4930-884b-bb168b875b84}</Project>
+      <Name>TWNewEgg.Discard4RepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.Discard4Services\TWNewEgg.Discard4Services.csproj">
+      <Project>{7c2ec58c-d513-4bd0-9b92-70a57eaf2efa}</Project>
+      <Name>TWNewEgg.Discard4Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.FinanceRepoAdapters\TWNewEgg.FinanceRepoAdapters.csproj">
+      <Project>{e80c86b6-8632-456f-93a2-5f37218c6077}</Project>
+      <Name>TWNewEgg.FinanceRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.FinanceServices\TWNewEgg.FinanceServices.csproj">
+      <Project>{08193760-92a2-496b-9a6c-6f10632e4111}</Project>
+      <Name>TWNewEgg.FinanceServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.GreetingWordsRepoAdapters\TWNewEgg.GreetingWordsRepoAdapters.csproj">
+      <Project>{732ab30d-acfe-4631-b850-7b43402162d5}</Project>
+      <Name>TWNewEgg.GreetingWordsRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.GreetingWordsServices\TWNewEgg.GreetingWordsServices.csproj">
+      <Project>{6d17be20-abc2-471c-b3f9-ab8cdf699ff9}</Project>
+      <Name>TWNewEgg.GreetingWordsServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ItemBatchServices\TWNewEgg.ItemBatchServices.csproj">
+      <Project>{cb61c693-3f6e-4390-8ec4-1ad60adcf4c3}</Project>
+      <Name>TWNewEgg.ItemBatchServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ItemSketchRepoAdapters\TWNewEgg.ItemSketchRepoAdapters.csproj">
+      <Project>{072dc191-64d6-4c65-8478-7501c8e2fccf}</Project>
+      <Name>TWNewEgg.ItemSketchRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ItemTempRepoAdapters\TWNewEgg.ItemTempRepoAdapters.csproj">
+      <Project>{1756c144-ec58-4de8-9576-d02edcbc26ac}</Project>
+      <Name>TWNewEgg.ItemTempRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.BankBounsRepoAdapters\TWNewEgg.BankBonusRepoAdapters.csproj">
+      <Project>{c503aef0-c6b3-4143-b325-68f2d7a47dd8}</Project>
+      <Name>TWNewEgg.BankBonusRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.BankBounsServices\TWNewEgg.BankBonusServices.csproj">
+      <Project>{66e63424-1e66-4611-be1c-fd05b4e76c8c}</Project>
+      <Name>TWNewEgg.BankBonusServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.BankRepoAdapters\TWNewEgg.BankRepoAdapters.csproj">
+      <Project>{e66b902d-3ec1-4e00-a262-71fd2da69570}</Project>
+      <Name>TWNewEgg.BankRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.BankServices\TWNewEgg.BankServices.csproj">
+      <Project>{21b5cfbc-cd75-43fc-9a0d-53e61e815566}</Project>
+      <Name>TWNewEgg.BankServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ManufactureRepoAdapters\TWNewEgg.ManufactureRepoAdapters.csproj">
+      <Project>{5a85a95e-1425-4643-97ec-1b96e61f81e0}</Project>
+      <Name>TWNewEgg.ManufactureRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.AccountEnprypt\TWNewEgg.AccountEnprypt.csproj">
+      <Project>{af7e45a8-7010-4518-afc1-a8b622fd43ff}</Project>
+      <Name>TWNewEgg.AccountEnprypt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.AccountRepoAdapters\TWNewEgg.AccountRepoAdapters.csproj">
+      <Project>{06785c1f-165e-43d9-814f-13fb208639f5}</Project>
+      <Name>TWNewEgg.AccountRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.AccountServices\TWNewEgg.AccountServices.csproj">
+      <Project>{ee8fc16d-b86c-452a-9b97-b907e6b39d25}</Project>
+      <Name>TWNewEgg.AccountServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ActivityRepoAdapters\TWNewEgg.ActivityRepoAdapters.csproj">
+      <Project>{cec9d081-2730-4c34-bda9-0b444dcf8e2e}</Project>
+      <Name>TWNewEgg.ActivityRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ActivityServices\TWNewEgg.ActivityServices.csproj">
+      <Project>{0ca7804f-b1f6-4407-8633-5e8b5322360d}</Project>
+      <Name>TWNewEgg.ActivityServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.AdvService\TWNewEgg.AdvService.csproj">
+      <Project>{ea353b4d-d598-4650-b850-53e9a2900ccd}</Project>
+      <Name>TWNewEgg.AdvService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.AnswerAdapters\TWNewEgg.AnswerAdapters.csproj">
+      <Project>{9d829924-9ea1-4b41-9e30-172ffdb340fa}</Project>
+      <Name>TWNewEgg.AnswerAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.AnswerServices\TWNewEgg.AnswerServices.csproj">
+      <Project>{cf2eec26-53b4-4fb7-afd5-f18cfa3b9b20}</Project>
+      <Name>TWNewEgg.AnswerServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.CacheGenerateServices\TWNewEgg.CacheGenerateServices.csproj">
+      <Project>{0a0ff30f-7115-409d-a48c-a3c67c1ad4ca}</Project>
+      <Name>TWNewEgg.CacheGenerateServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.CartRepoAdapters\TWNewEgg.CartRepoAdapters.csproj">
+      <Project>{54082231-29ec-4c4d-9ce4-b48b1ba16a45}</Project>
+      <Name>TWNewEgg.CartRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.CartServices\TWNewEgg.CartServices.csproj">
+      <Project>{fa4cb2a2-5154-43e2-a418-832584b57da2}</Project>
+      <Name>TWNewEgg.CartServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.CartService\TWNewEgg.CartService.csproj">
+      <Project>{543a709a-8e51-4543-b38a-628ab78f94ff}</Project>
+      <Name>TWNewEgg.CartService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.CategoryItem\TWNewEgg.CategoryItem\TWNewEgg.CategoryItem.csproj">
+      <Project>{ed20605d-e0a1-4706-a85f-ab76ccaceca8}</Project>
+      <Name>TWNewEgg.CategoryItem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.CategoryRepoAdapters\TWNewEgg.CategoryRepoAdapters.csproj">
+      <Project>{69f4b362-0ba6-4ec9-82e4-cfa5fe0d9066}</Project>
+      <Name>TWNewEgg.CategoryRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.Category\TWNewEgg.CategoryService.csproj">
+      <Project>{fd56de5b-c274-4006-a860-d51f80697ee8}</Project>
+      <Name>TWNewEgg.CategoryService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.DB\TWNewEgg.DB.csproj">
+      <Project>{a65ac3a0-6a55-433b-adc1-22f8b88a3677}</Project>
+      <Name>TWNewEgg.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.EDMRepoAdapters\TWNewEgg.EDMRepoAdapters.csproj">
+      <Project>{419ef01e-fa08-4c0d-9eca-543031c7093f}</Project>
+      <Name>TWNewEgg.EDMRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.EDMServices\TWNewEgg.EDMServices.csproj">
+      <Project>{f7183c27-7df2-4d07-9b15-d5eee499a3b9}</Project>
+      <Name>TWNewEgg.EDMServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.EventRepoAdapters\TWNewEgg.EventRepoAdapters.csproj">
+      <Project>{b2c1f7ff-bcfc-4f6b-9967-466eb3f4a544}</Project>
+      <Name>TWNewEgg.EventRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ExampleFunc\TWNewEgg.ExampleFunc.csproj">
+      <Project>{17d60ad9-de93-4442-96d0-ba5c5deeeece}</Project>
+      <Name>TWNewEgg.ExampleFunc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.GroupBuyRepoAdapters\TWNewEgg.GroupBuyRepoAdapters.csproj">
+      <Project>{ba940542-7417-4d63-bab0-050886d35ef7}</Project>
+      <Name>TWNewEgg.GroupBuyRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.GroupBuyServices\TWNewEgg.GroupBuyServices.csproj">
+      <Project>{99042e05-dc66-4ce2-900b-45ca0f5d9bff}</Project>
+      <Name>TWNewEgg.GroupBuyServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.GroupBuyService\TWNewEgg.GroupBuy.csproj">
+      <Project>{748fe083-bc6f-49de-991d-20922982296c}</Project>
+      <Name>TWNewEgg.GroupBuy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.HotWordsRepoAdapters\TWNewEgg.HotWordsRepoAdapters.csproj">
+      <Project>{44a64b4c-9693-476b-bbbb-84c000e0122b}</Project>
+      <Name>TWNewEgg.HotWordsRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.HotWordsServices\TWNewEgg.HotWordsServices.csproj">
+      <Project>{ac0e00be-8e35-402e-8ae2-f5cb8f1b2983}</Project>
+      <Name>TWNewEgg.HotWordsServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters\TWNewEgg.ItemRepoAdapters.csproj">
+      <Project>{75b10250-1424-4922-96b9-bc701923a9ee}</Project>
+      <Name>TWNewEgg.ItemRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ItemServices\TWNewEgg.ItemServices\TWNewEgg.ItemServices.csproj">
+      <Project>{b9860c2c-3e83-4cf5-b84f-5090c9793af2}</Project>
+      <Name>TWNewEgg.ItemServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ItemService\TWNewEgg.ItemService.csproj">
+      <Project>{f9001709-9301-4d69-be6c-b0e112da813c}</Project>
+      <Name>TWNewEgg.ItemService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.Lottery\TWNewEgg.Lottery.csproj">
+      <Project>{4643b8db-033e-4b86-9683-4816f6e9da4c}</Project>
+      <Name>TWNewEgg.Lottery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ManufactureServices\TWNewEgg.ManufactureServices.csproj">
+      <Project>{de478a10-3aba-43f7-859e-e5171b5f01ce}</Project>
+      <Name>TWNewEgg.ManufactureServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.MobileStoreRepoAdapters\TWNewEgg.MobileStoreRepoAdapters.csproj">
+      <Project>{00c0ce22-f381-4a13-9c49-1b028569ec99}</Project>
+      <Name>TWNewEgg.MobileStoreRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.MobileStoreServices\TWNewEgg.MobileStoreServices.csproj">
+      <Project>{76ad50e5-1701-4256-878f-38e3a88783ec}</Project>
+      <Name>TWNewEgg.MobileStoreServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.NeweggRequestServices\TWNewEgg.NeweggUSARequestServices.csproj">
+      <Project>{f3dbc0b7-83bc-4572-8f89-2ad6addb40ee}</Project>
+      <Name>TWNewEgg.NeweggUSARequestServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.NewsMediaRepoAdapters\TWNewEgg.NewsMediaRepoAdapters.csproj">
+      <Project>{41040a5f-6240-4493-bffb-7a29c7368b1a}</Project>
+      <Name>TWNewEgg.NewsMediaRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.NewsMediaServices\TWNewEgg.NewsMediaServices.csproj">
+      <Project>{fc7d0a51-6b2b-4103-a2da-1b1720bde720}</Project>
+      <Name>TWNewEgg.NewsMediaServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PageMgmt\TWNewEgg.PageMgmt.csproj">
+      <Project>{8cb0410f-ea88-4a8e-8cce-e3932ca878e2}</Project>
+      <Name>TWNewEgg.PageMgmt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PaymentGatewayAdapter\TWNewEgg.PaymentGatewayAdapter.csproj">
+      <Project>{eba72a61-353d-40ba-aa69-453b268a16b3}</Project>
+      <Name>TWNewEgg.PaymentGatewayAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PromoActiveRepoAdapters\TWNewEgg.PromoActiveRepoAdapters.csproj">
+      <Project>{f8cb3273-4057-4bde-94e8-8d6a2a49b347}</Project>
+      <Name>TWNewEgg.PromoActiveRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PromoActiveService\TWNewEgg.PromoActiveService.csproj">
+      <Project>{4ac58899-8c5d-4cd7-9a53-d9d6cc1daa26}</Project>
+      <Name>TWNewEgg.PromoActiveService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PromoAwardLogRepoAdapters\TWNewEgg.PromoAwardLogRepoAdapters.csproj">
+      <Project>{e6fa085a-43be-40a3-bcf0-ef4711217629}</Project>
+      <Name>TWNewEgg.PromoAwardLogRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PromoAwardLogService\TWNewEgg.PromoAwardLogService.csproj">
+      <Project>{596be3f0-d580-4c52-8369-2b4418af158d}</Project>
+      <Name>TWNewEgg.PromoAwardLogService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PromotionServices\TWNewEgg.PromotionServices.csproj">
+      <Project>{dd50458a-9406-4622-9466-b3ca96797d56}</Project>
+      <Name>TWNewEgg.PromotionServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PropertyRepoAdapters\TWNewEgg.PropertyRepoAdapters\TWNewEgg.PropertyRepoAdapters.csproj">
+      <Project>{6bc35419-2d41-409f-88e7-750bf39db100}</Project>
+      <Name>TWNewEgg.PropertyRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PropertyServices\TWNewEgg.PropertyServices\TWNewEgg.PropertyServices.csproj">
+      <Project>{45a15694-cb4d-4346-8992-71de85aab501}</Project>
+      <Name>TWNewEgg.PropertyServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PurgeQueueAdapters\TWNewEgg.PurgeQueueAdapters.csproj">
+      <Project>{3539746e-3c21-44ea-a6a5-541a7a5f7396}</Project>
+      <Name>TWNewEgg.PurgeQueueAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.PurgeService\TWNewEgg.PurgeService.csproj">
+      <Project>{c2c9fea8-740e-41e4-9463-1d476e4ed5a4}</Project>
+      <Name>TWNewEgg.PurgeService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.Redeem\TWNewEgg.Redeem.csproj">
+      <Project>{1e32fb82-cd2d-4b10-b064-6db1483829fb}</Project>
+      <Name>TWNewEgg.Redeem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.SalesOrderGroupLocalRepoAdapters\TWNewEgg.SalesOrderGroupLocalRepoAdapters.csproj">
+      <Project>{6ab41785-1969-41ea-9503-214f2cf6d4c3}</Project>
+      <Name>TWNewEgg.SalesOrderGroupLocalRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewegg.SalesOrderGroupRepoAdapters\TWNewegg.SalesOrderGroupRepoAdapters.csproj">
+      <Project>{67881a01-79bc-4464-82b8-014ebb7a38f9}</Project>
+      <Name>TWNewegg.SalesOrderGroupRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.SalesOrderItemLocalRepoAdapters\TWNewEgg.SalesOrderItemLocalRepoAdapters.csproj">
+      <Project>{d9844cdc-4e21-4a2a-bc94-2cc14a67eb79}</Project>
+      <Name>TWNewEgg.SalesOrderItemLocalRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewegg.SalesOrderItemRepoAdapters\TWNewegg.SalesOrderItemRepoAdapters.csproj">
+      <Project>{45933e86-70a9-4cc6-91ab-c7224d62456a}</Project>
+      <Name>TWNewegg.SalesOrderItemRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.SalesOrderLocalRepoAdapters\TWNewEgg.SalesOrderLocalRepoAdapters.csproj">
+      <Project>{8ed74c71-cb2a-4542-8ffb-0651ccd43cdf}</Project>
+      <Name>TWNewEgg.SalesOrderLocalRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewegg.SalesOrderRepoAdapters\TWNewegg.SalesOrderRepoAdapters.csproj">
+      <Project>{c2b41846-eb55-453c-80db-231944848e39}</Project>
+      <Name>TWNewegg.SalesOrderRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.SearchServices\TWNewEgg.SearchServices.csproj">
+      <Project>{44fe734f-f404-44fa-add8-17f97ecd1cf1}</Project>
+      <Name>TWNewEgg.SearchServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters.csproj">
+      <Project>{e7a8b9b5-9402-4fa3-80f0-2f036ab2f21b}</Project>
+      <Name>TWNewEgg.SellerRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.SellerServices\TWNewEgg.SellerServices.csproj">
+      <Project>{09339856-26bf-4fd3-a4a0-6487964161f8}</Project>
+      <Name>TWNewEgg.SellerServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.SendMailServices\TWNewEgg.SendMailServices.csproj">
+      <Project>{e4168b57-0c78-43bc-b2fc-175f40a3085a}</Project>
+      <Name>TWNewEgg.SendMailServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.ShoppingCartServices\TWNewEgg.ShoppingCartServices.csproj">
+      <Project>{da97f466-259c-449c-a5af-6683efa17dca}</Project>
+      <Name>TWNewEgg.ShoppingCartServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.StarProductRepoAdapters\TWNewEgg.StarProductRepoAdapters.csproj">
+      <Project>{248813a1-20ba-42cf-b742-cfa5bde1615c}</Project>
+      <Name>TWNewEgg.StarProductRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.StorageServices\TWNewEgg.StorageServices.csproj">
+      <Project>{2f01bdf2-21c0-410b-aa51-d1ab21773e6c}</Project>
+      <Name>TWNewEgg.StorageServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.StoredProceduresAdapters\TWNewEgg.StoredProceduresRepoAdapters.csproj">
+      <Project>{e2395dad-d915-4adc-8eb6-b13cdc8bda28}</Project>
+      <Name>TWNewEgg.StoredProceduresRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.StoreRepoAdapters\TWNewEgg.StoreRepoAdapters.csproj">
+      <Project>{e91b71a7-8b16-457a-a020-5e8ebe98808e}</Project>
+      <Name>TWNewEgg.StoreRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.StoreServices\TWNewEgg.StoreServices\TWNewEgg.StoreServices.csproj">
+      <Project>{512ca3bb-1aae-4e3f-b9f2-ae233f527cd8}</Project>
+      <Name>TWNewEgg.StoreServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.TrackRepoAdapters\TWNewEgg.TrackRepoAdapters.csproj">
+      <Project>{82b4d55c-2cee-4d61-9474-10f79ad87141}</Project>
+      <Name>TWNewEgg.TrackRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.TrackServices\TWNewEgg.TrackServices.csproj">
+      <Project>{0c66559b-b43b-4f1d-b08f-d31ca4adcf99}</Project>
+      <Name>TWNewEgg.TrackServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.VotingActivityRepoAdapters\TWNewEgg.VotingActivityRepoAdapters.csproj">
+      <Project>{1f98f494-645f-4574-8e87-5fc75d3ab7cb}</Project>
+      <Name>TWNewEgg.VotingActivityRepoAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Components\TWNewEgg.VotingActivityServices\TWNewEgg.VotingActivityServices.csproj">
+      <Project>{2b2c3b39-483c-4e53-a853-c49b54275e56}</Project>
+      <Name>TWNewEgg.VotingActivityServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.DAL\TWNewEgg.DAL\TWNewEgg.DAL.csproj">
+      <Project>{a5ac3d41-3e09-44b9-9ea4-3ca3a30b5749}</Project>
+      <Name>TWNewEgg.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.Models.DBModels\TWNewEgg.Models.DBModels.csproj">
+      <Project>{ca4238cb-7b02-4ed1-8e46-f62a2eb3f45e}</Project>
+      <Name>TWNewEgg.Models.DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TWNewEgg.Models\TWNewEgg.Models.ServiceMappingRules\TWNewEgg.Models.ServiceMappingRules.csproj">
+      <Project>{96164590-4ae7-4035-9bc2-53eae1bb022f}</Project>
+      <Name>TWNewEgg.Models.ServiceMappingRules</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>50278</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50278/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\..\Libraries\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\Libraries\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

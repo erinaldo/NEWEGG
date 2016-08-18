@@ -1,0 +1,168 @@
+﻿ERROR 2016/07/21 13:54:48 Processor                      Process                                  Exception: Service Api Response Side Executed Error!! Component ID: SellerCorrectionPriceService,  Method Name: Save1,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10ecsrv01,
+
+  Component ID: SellerCorrectionPriceService,
+
+  Method Name: Save1,
+
+  Input Parameters: [407,"WV00000407201606",""],
+
+  Error Message: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Data.EntityException: An error occurred while starting a transaction on the provider connection. See the inner exception for details. ---> System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlInternalConnection.BeginSqlTransaction(IsolationLevel iso, String transactionName, Boolean shouldReconnect)
+   at System.Data.SqlClient.SqlConnection.BeginTransaction(IsolationLevel iso, String transactionName)
+   at System.Data.SqlClient.SqlConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   at System.Data.Common.DbConnection.BeginTransaction(IsolationLevel isolationLevel)
+   at System.Data.EntityClient.EntityConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   --- End of inner exception stack trace ---
+   at TWNewEgg.SellerRepoAdapters.SellerCorrectionPriceRepoAdapter.Update(SellerCorrectionPriceDB info) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters\SellerCorrectionPriceRepoAdapter.cs:line 86
+   at TWNewEgg.SellerServices.SellerCorrectionPriceService.Save1(Int32 sellerID, String settlementID, String user_name) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerServices\SellerCorrectionPriceService.cs:line 92
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at TWNewEgg.Framework.ServiceApi.Reflection.Reflection.Invoke(Object instance, String methodName, Object[] parameters) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Reflection\Reflection.cs:line 112
+   at TWNewEgg.Framework.ServiceApi.Processor.Process(RequestMessage requestMessage) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Processor.cs:line 214
+
+
+--------- InnerException: System.Data.EntityException: An error occurred while starting a transaction on the provider connection. See the inner exception for details. ---> System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlInternalConnection.BeginSqlTransaction(IsolationLevel iso, String transactionName, Boolean shouldReconnect)
+   at System.Data.SqlClient.SqlConnection.BeginTransaction(IsolationLevel iso, String transactionName)
+   at System.Data.SqlClient.SqlConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   at System.Data.Common.DbConnection.BeginTransaction(IsolationLevel isolationLevel)
+   at System.Data.EntityClient.EntityConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   --- End of inner exception stack trace ---
+   at TWNewEgg.SellerRepoAdapters.SellerCorrectionPriceRepoAdapter.Update(SellerCorrectionPriceDB info) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters\SellerCorrectionPriceRepoAdapter.cs:line 86
+   at TWNewEgg.SellerServices.SellerCorrectionPriceService.Save1(Int32 sellerID, String settlementID, String user_name) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerServices\SellerCorrectionPriceService.cs:line 92
+
+
+ERROR 2016/07/21 14:04:31 Processor                      Process                                  Exception: Service Api Response Side Executed Error!! Component ID: SellerCorrectionPriceService,  Method Name: Save1,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10ecsrv01,
+
+  Component ID: SellerCorrectionPriceService,
+
+  Method Name: Save1,
+
+  Input Parameters: [407,"WV00000407201606",""],
+
+  Error Message: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Data.EntityException: An error occurred while starting a transaction on the provider connection. See the inner exception for details. ---> System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlInternalConnection.BeginSqlTransaction(IsolationLevel iso, String transactionName, Boolean shouldReconnect)
+   at System.Data.SqlClient.SqlConnection.BeginTransaction(IsolationLevel iso, String transactionName)
+   at System.Data.SqlClient.SqlConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   at System.Data.Common.DbConnection.BeginTransaction(IsolationLevel isolationLevel)
+   at System.Data.EntityClient.EntityConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   --- End of inner exception stack trace ---
+   at TWNewEgg.SellerRepoAdapters.SellerCorrectionPriceRepoAdapter.Update(SellerCorrectionPriceDB info) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters\SellerCorrectionPriceRepoAdapter.cs:line 86
+   at TWNewEgg.SellerServices.SellerCorrectionPriceService.Save1(Int32 sellerID, String settlementID, String user_name) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerServices\SellerCorrectionPriceService.cs:line 92
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at TWNewEgg.Framework.ServiceApi.Reflection.Reflection.Invoke(Object instance, String methodName, Object[] parameters) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Reflection\Reflection.cs:line 112
+   at TWNewEgg.Framework.ServiceApi.Processor.Process(RequestMessage requestMessage) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Processor.cs:line 214
+
+
+--------- InnerException: System.Data.EntityException: An error occurred while starting a transaction on the provider connection. See the inner exception for details. ---> System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlInternalConnection.BeginSqlTransaction(IsolationLevel iso, String transactionName, Boolean shouldReconnect)
+   at System.Data.SqlClient.SqlConnection.BeginTransaction(IsolationLevel iso, String transactionName)
+   at System.Data.SqlClient.SqlConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   at System.Data.Common.DbConnection.BeginTransaction(IsolationLevel isolationLevel)
+   at System.Data.EntityClient.EntityConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   --- End of inner exception stack trace ---
+   at TWNewEgg.SellerRepoAdapters.SellerCorrectionPriceRepoAdapter.Update(SellerCorrectionPriceDB info) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters\SellerCorrectionPriceRepoAdapter.cs:line 86
+   at TWNewEgg.SellerServices.SellerCorrectionPriceService.Save1(Int32 sellerID, String settlementID, String user_name) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerServices\SellerCorrectionPriceService.cs:line 92
+
+
+ERROR 2016/07/21 14:19:54 Processor                      Process                                  Exception: Service Api Response Side Executed Error!! Component ID: SellerCorrectionPriceService,  Method Name: Save1,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10ecsrv01,
+
+  Component ID: SellerCorrectionPriceService,
+
+  Method Name: Save1,
+
+  Input Parameters: [407,"WV00000407201606",""],
+
+  Error Message: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Data.EntityException: An error occurred while starting a transaction on the provider connection. See the inner exception for details. ---> System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlInternalConnection.BeginSqlTransaction(IsolationLevel iso, String transactionName, Boolean shouldReconnect)
+   at System.Data.SqlClient.SqlConnection.BeginTransaction(IsolationLevel iso, String transactionName)
+   at System.Data.SqlClient.SqlConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   at System.Data.Common.DbConnection.BeginTransaction(IsolationLevel isolationLevel)
+   at System.Data.EntityClient.EntityConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   --- End of inner exception stack trace ---
+   at TWNewEgg.SellerRepoAdapters.SellerCorrectionPriceRepoAdapter.Update(SellerCorrectionPriceDB info) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters\SellerCorrectionPriceRepoAdapter.cs:line 86
+   at TWNewEgg.SellerServices.SellerCorrectionPriceService.Save1(Int32 sellerID, String settlementID, String user_name) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerServices\SellerCorrectionPriceService.cs:line 92
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at TWNewEgg.Framework.ServiceApi.Reflection.Reflection.Invoke(Object instance, String methodName, Object[] parameters) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Reflection\Reflection.cs:line 112
+   at TWNewEgg.Framework.ServiceApi.Processor.Process(RequestMessage requestMessage) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Processor.cs:line 214
+
+
+--------- InnerException: System.Data.EntityException: An error occurred while starting a transaction on the provider connection. See the inner exception for details. ---> System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlInternalConnection.BeginSqlTransaction(IsolationLevel iso, String transactionName, Boolean shouldReconnect)
+   at System.Data.SqlClient.SqlConnection.BeginTransaction(IsolationLevel iso, String transactionName)
+   at System.Data.SqlClient.SqlConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   at System.Data.Common.DbConnection.BeginTransaction(IsolationLevel isolationLevel)
+   at System.Data.EntityClient.EntityConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   --- End of inner exception stack trace ---
+   at TWNewEgg.SellerRepoAdapters.SellerCorrectionPriceRepoAdapter.Update(SellerCorrectionPriceDB info) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters\SellerCorrectionPriceRepoAdapter.cs:line 86
+   at TWNewEgg.SellerServices.SellerCorrectionPriceService.Save1(Int32 sellerID, String settlementID, String user_name) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerServices\SellerCorrectionPriceService.cs:line 92
+
+
+ERROR 2016/07/21 14:23:09 Processor                      Process                                  Exception: Service Api Response Side Executed Error!! Component ID: SellerCorrectionPriceService,  Method Name: Save1,
+ InnerException:   Service Api Source Name: ,
+
+  Service Api Destination Name: e10ecsrv01,
+
+  Component ID: SellerCorrectionPriceService,
+
+  Method Name: Save1,
+
+  Input Parameters: [407,"WV00000407201603",""],
+
+  Error Message: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Data.EntityException: An error occurred while starting a transaction on the provider connection. See the inner exception for details. ---> System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlInternalConnection.BeginSqlTransaction(IsolationLevel iso, String transactionName, Boolean shouldReconnect)
+   at System.Data.SqlClient.SqlConnection.BeginTransaction(IsolationLevel iso, String transactionName)
+   at System.Data.SqlClient.SqlConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   at System.Data.Common.DbConnection.BeginTransaction(IsolationLevel isolationLevel)
+   at System.Data.EntityClient.EntityConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   --- End of inner exception stack trace ---
+   at TWNewEgg.SellerRepoAdapters.SellerCorrectionPriceRepoAdapter.Update(SellerCorrectionPriceDB info) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters\SellerCorrectionPriceRepoAdapter.cs:line 86
+   at TWNewEgg.SellerServices.SellerCorrectionPriceService.Save1(Int32 sellerID, String settlementID, String user_name) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerServices\SellerCorrectionPriceService.cs:line 92
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at TWNewEgg.Framework.ServiceApi.Reflection.Reflection.Invoke(Object instance, String methodName, Object[] parameters) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Reflection\Reflection.cs:line 112
+   at TWNewEgg.Framework.ServiceApi.Processor.Process(RequestMessage requestMessage) in d:\TWNE\NETWWebsite1.0\04_OtherTools\TWNE2.0\TWNewEgg.Framework\TWNewEgg.Framework.ServiceApi\Processor.cs:line 214
+
+
+--------- InnerException: System.Data.EntityException: An error occurred while starting a transaction on the provider connection. See the inner exception for details. ---> System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlInternalConnection.BeginSqlTransaction(IsolationLevel iso, String transactionName, Boolean shouldReconnect)
+   at System.Data.SqlClient.SqlConnection.BeginTransaction(IsolationLevel iso, String transactionName)
+   at System.Data.SqlClient.SqlConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   at System.Data.Common.DbConnection.BeginTransaction(IsolationLevel isolationLevel)
+   at System.Data.EntityClient.EntityConnection.BeginDbTransaction(IsolationLevel isolationLevel)
+   --- End of inner exception stack trace ---
+   at TWNewEgg.SellerRepoAdapters.SellerCorrectionPriceRepoAdapter.Update(SellerCorrectionPriceDB info) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerRepoAdapters\TWNewEgg.SellerRepoAdapters\SellerCorrectionPriceRepoAdapter.cs:line 86
+   at TWNewEgg.SellerServices.SellerCorrectionPriceService.Save1(Int32 sellerID, String settlementID, String user_name) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.Components\TWNewEgg.SellerServices\SellerCorrectionPriceService.cs:line 92
+
+
