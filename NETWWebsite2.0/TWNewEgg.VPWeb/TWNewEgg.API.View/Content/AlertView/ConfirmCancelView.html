@@ -1,0 +1,31 @@
+﻿
+<div style="text-align:center">
+<br></br>
+    <div style="text-align:center ; font-weight:bold">
+        <p class="message" style="font-size: 25px" >確定要執行此動作</p>
+    </div>
+    <p></p>
+    <div style="text-align:center ; font-weight:bold">
+        <h2 id="ManMade_Another_Alert_Message" style="font-size: 19px"></h2>
+    </div>
+</div>
+<p></p>
+<div style="text-align:center">
+    <button class="confirm k-button" style="font-size : 19px ; width : 135px ; height : 40px" onclick="ManMade_Alert_Confirm()">確定</button>
+     &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+    <button class="cancel k-button" style="font-size : 19px ; width : 135px ; height : 40px" onclick="ManMade_Alert_Cancel()">取消</button>
+</div> 
+<script>
+    function ManMade_Alert_Confirm() {
+        var confirmReault = true;
+        var ManMade_Alert_Window = $("#ManMade_confirm_chancel_window")
+        ManMade_Alert_Window.data("kendoWindow").close();
+        ManMade_Alert_Window.data("kendoWindow").refresh();
+    };
+    function ManMade_Alert_Cancel() {
+        var confirmReault = false;
+        var ManMade_Alert_Window = $("#ManMade_confirm_chancel_window")
+        ManMade_Alert_Window.data("kendoWindow").close();
+        ManMade_Alert_Window.data("kendoWindow").refresh();
+    };
+</script>

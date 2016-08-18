@@ -1,0 +1,16 @@
+﻿ <p class="message" style="font-size:1cm" ></p>
+<br></br>
+<div style="text-align:center ;font-weight:bold">
+    <h2 id="ManMade_Alert_Message" style="font-size:25px "></h2>
+</div>
+<br></br>
+<div style="text-align:center ; font-weight:bold">
+    <button class="confirm k-button" style="font-size : 19px ; width : 135px ; height : 40px" onclick="ManMade_Alert_Message_Confirm()">確定</button>
+</div>  
+<script>
+    function ManMade_Alert_Message_Confirm() {
+        var ManMade_Alert_Message_Window = $("#ManMade_Alert_Message_Window")
+        ManMade_Alert_Message_Window.data("kendoWindow").close();
+        ManMade_Alert_Message_Window.data("kendoWindow").refresh();
+    };
+</script>

@@ -1,0 +1,144 @@
+﻿@{
+    TWNewEgg.API.View.PrintPackingList PrintPackingList = new TWNewEgg.API.View.PrintPackingList();
+    if(ViewBag.printPackingList!=null)
+    {
+        PrintPackingList = ViewBag.printPackingList as TWNewEgg.API.View.PrintPackingList;
+    }
+    ViewBag.Title = "出貨單明細";
+    Layout = "~/Views/Shared/_LayoutNON.cshtml";
+}
+
+<style>
+    .table {
+        width: 100%;
+        border: 2px solid Black;
+        font-size: 16px;
+        font-family: PMingLiU;
+    }
+
+        .table td {
+            padding: 2px 2px;      
+            height: 20px;  
+        }
+
+    .tableName {
+        font-weight: bold;
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 5px;
+        font-family: PMingLiU;
+    }
+
+    .title {
+        font-weight: bold;
+        border: 2px solid;
+        width: 20%;
+        font-family: PMingLiU;
+    }
+
+    .content {
+        font-family: PMingLiU;
+        border: 2px solid;
+    }
+
+    .orderTitleId {
+        font-weight: bold;
+        border: 2px solid;
+        width: 20%;
+    }
+
+    .orderTitleName {
+        font-weight: bold;
+        border: 2px solid;
+        width: 70%;
+    }
+
+    .orderTitleQty {
+        font-weight: bold;
+        border: 2px solid;
+        width: 10%;
+    }
+</style>
+
+
+<script>
+    function Print() {
+        $("#Button1").css("display", "none")
+        window.print();
+        $("#Button1").css("display", "");
+    }
+</script>
+
+<form id="printForm" runat="server">
+    <div id="print">
+        <img src="~/Images/logo.png" alt="Newegg" style="width: 300px; height: 90px" />
+        <br />
+
+        <div class="tableName">出貨單明細</div>
+        <table class="table">
+            <tr>
+                <td class="title">訂單編號
+                </td>
+                <td class="content">
+                    @PrintPackingList.SOCode
+                </td>
+            </tr>
+            <tr>
+                <td class="title">客戶姓名
+                </td>
+                <td class="content">
+                    @PrintPackingList.UserName
+                </td>
+            </tr>
+            <tr>
+                <td class="title">連絡電話
+                </td>
+                <td class="content">
+                    @PrintPackingList.Mobile
+                </td>
+            </tr>
+            <tr>
+                <td class="title">遞送地址
+                </td>
+                <td class="content">
+                    @PrintPackingList.Address
+                </td>
+            </tr>
+        </table>
+
+        <br />
+
+        <table class="table">
+            <tr>
+                <td class="orderTitleId">商家銷售編號
+                </td>
+                <td class="orderTitleName">商品名稱
+                </td>
+                <td class="orderTitleQty">數量
+                </td>
+            </tr>
+            @foreach (var orderList in PrintPackingList.packageDetials)
+            {
+                <tr>
+                    <td class="content">@orderList.SellerProductID</td>
+                    <td class="content">@orderList.Title</td>
+                    <td class="content">@orderList.Qty</td>
+                </tr>
+            }
+        </table>
+        <br />
+        <table style="width: 100%;">
+            <tr>
+                <td style="height: 250px; border: 2px solid black; text-align:left; vertical-align:top;" class="table content">
+                    @PrintPackingList.Note
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:16px;">列印時間：<span style="color:gray"> Seller 點擊列印包裹清單時間 @(DateTime.Now.ToString())</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+<input id="Button1" type="button" value="列印" onclick="Print()" />

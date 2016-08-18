@@ -1,0 +1,398 @@
+﻿@using TWNewEgg.API.View.Resources
+@{
+    TWNewEgg.API.View.Service.AES aes = new TWNewEgg.API.View.Service.AES();
+    string _strEmail = string.Empty;
+    if(Request.Cookies["UEM"] != null)
+    {
+        _strEmail = aes.AesDecrypt(Request.Cookies["UEM"].Value);
+    }
+    
+}
+<!DOCTYPE html>
+<html>
+<head>
+     <style>
+    .loadingTextShow 
+    {
+        font-family: fantasy;
+        font-size:12cm;
+    }
+    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Themes/2013/stylesheets/layout.css")
+    @Styles.Render("~/Themes/2013/stylesheets/base.css")
+    
+    
+    @*<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>*@
+
+    <!--Kendo ui 引用 --> 
+    <link rel="stylesheet" href="~/Content/kendo/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.dataviz.default.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.dataviz.min.css" />
+    @*<link rel="stylesheet" href="~/Content/kendo/kendo.default.min.css" />*@
+    <link rel="stylesheet" href="~/Content/kendo/kendo.mobile.all.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.rtl.min.css" />
+    <!--癈四機回收四聯單-----------add by bruce 20160511-->
+    <link rel="stylesheet" href="~/Content/kendo/kendo.silver.min.css"/>
+  
+    <script src="~/Scripts/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script src="~/Scripts/ckeditor/plugins/image/dialogs/image.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    
+    @Scripts.Render("~/bundles/kendo")
+    <script src="~/Scripts/kendo/jquery.min.js"></script>   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="~/Scripts/kendo/kendo.all.min.js"></script>
+    @*<script src="~/Scripts/kendo/kendo.web.min.js"></script>*@
+    <script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+    <script src="~/Scripts/kendo/cultures/kendo.culture.zh-TW.min.js"></script>
+
+    @{ Html.RenderPartial("GoogleAnalytics");}
+</head>
+<body onresize="myFunction()" onload="initCKEditor()"> 
+    <div id="Header">
+        <a href="/SellerAccount/index"><h1 class="logo"></h1></a> 
+        <div class="login">
+            <p>@_strEmail &nbsp;(<a href="/Account/Logout">@Language.LogOut</a>)</p>
+            <p>(<a href="/Account/ChangePassWord">密碼更換</a>)</p>  
+            <p onclick="userResponse()">(<a>用戶回饋</a>)</p>          
+            @*<p><a href="#">@Language.Message</a></p>
+            <p class="option">
+                <a href="#">@Language.Languages</a>
+                <span class="sub" id="Language">
+                    <a class="en-US">English</a>
+                    <a class="zh-CN">简体中文</a>
+                    <a class="zh-TW">繁體中文</a>
+                </span>
+            </p>
+            <p class="option">
+                <a href="#">Portal</a>
+                <span class="sub">
+                    <a href="#">Newegg Seller Portal</a>
+                    <a href="#">UIH Portal</a>
+                </span>
+            </p>
+            <p><a href="#">@Language.Help</a></p>
+            <p>@Language.Date</p>
+            <div class="clear"></div>*@
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div id="outLineBox">
+        <div id="LeftMenu">
+            @{
+                ViewBag.Title = "Navigation";
+            }
+            @Styles.Render("~/Themes/2013/stylesheets/StyleSheet2.css")
+
+            <div class="outline">
+                <div class="title"id="change_css"><div><p>Navigation</p></div></div>
+                <div class="navBox" id="showMenuList">@Html.Action("DisplayMenuList","Home")</div>
+            </div>
+
+        </div>
+        
+        <div id="RightContent">
+            <div id="UserResponseForm"> </div>
+            @Html.Action("SearchBar","SellerSearch")
+            @RenderBody()
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div id="Footer">
+        <a Target="_blank" href="http://promotions.newegg.com/marketplace/contentpolicy/ContentPolicy.html">@Language.ContentPolicy</a>
+        @*<a Target="_blank" href="https://sellerportal.newegg.com.tw/Pages/Account/about/PolicyAndAgreement.aspx?region=&lang=&country=&Referee=">@Language.PolicyAgreement</a>*@
+        @*<a Target="_blank" href="https://sellerportal.newegg.com.tw/Pages/Account/about/PrivacySecurity.aspx">@Language.PrivacyPolicy</a>*@
+        <span> © 2000 - 2015 Newegg Inc. All rights reserved.</span>
+    </div>
+    @*彈跳式視窗*@
+    <div id="ManMade_Alert_Message_Window"></div>
+    <div id="ManMade_confirm_chancel_window"></div>
+</body><div id="already"></div>      
+<script src="~/Scripts/jquery.blockUI.js"></script>
+    
+<script type="text/javascript">
+
+    $.blockUI.defaults.message = '<img src="/Content/Img/block_loading.gif"/>';
+    $.blockUI.defaults.css = {
+        position: 'fixed',
+        padding: '0px',
+        margin: '0px',
+        width: '30%',
+        top: '40%',
+        left: '35.2%',
+        textAlign: 'center',
+        border: ''
+    };
+</script>
+<script type="text/javascript">
+
+    function userResponse() {
+        $("#UserResponseForm").html("");
+        var UserResponse = $("#UserResponseForm").kendoWindow({
+            width: "350px",
+            height: "420px",
+            title: "用戶回饋",
+            //actions: [],
+            actions: ["Close"], // "Close", "Refresh","Minimize", "Maximize"
+            modal: true,
+            resizable: false,
+        });
+        UserResponse.data("kendoWindow").center().open();
+
+        $.ajax({
+            type: "Get",
+            url: "/Home/UserResponseView",
+            contentType: "application/json;charset=utf-8",
+            success: function (res) {
+                $("#UserResponseForm").html(res);
+            }
+        });
+    }
+
+    @*CKEditor基本設定*@
+    function initCKEditor() {
+        CKEDITOR.config.width = "998";
+        CKEDITOR.config.height = "600";
+        //CKEDITOR.config.FitWindow_center = true;
+        //CKEDITOR.config.FitWindow_autoFitToResize = true;
+        CKEDITOR.config.filebrowserImageUploadUrl = "/ItemCreation/PictureUpload";
+        //CKEDITOR.instances["htmlEditor"].execCommand("maximize");
+    }
+
+    function getCookie(c_name) {
+        var c_value = document.cookie;
+        var c_start = c_value.indexOf(" " + c_name + "=");
+
+        if (c_start == -1) {
+            c_start = c_value.indexOf(c_name + "=");
+        }
+
+        if (c_start == -1) {
+            c_value = null;
+        }
+        else {
+            c_start = c_value.indexOf("=", c_start) + 1;
+            var c_end = c_value.indexOf(";", c_start);
+            if (c_end == -1) {
+                c_end = c_value.length;
+            }
+            c_value = unescape(c_value.substring(c_start, c_end));
+        }
+        return c_value;
+    }
+
+    function setCookie(key, value, expiredays) {
+        //alert("key: " + key);
+        //alert("value: " + value);
+        //alert("expiredays: " + expiredays);
+        var addexp = new Date();
+        addexp.setTime(addexp.getTime() + 1 * 60 * 60 * 1000);
+        document.cookie = key + "=" + value + ";expires=" + addexp.toGMTString() + ";path=/";
+    }
+
+    function Language() {
+        $('#Language a').click(function () {
+            var language = $(this).attr("class");
+            var url = location.pathname;
+            $.ajax({
+                type: "Post",
+                url: "/Multilanguage/Index",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({ "_language": language, "_url": url }),
+                success: function (res) {
+                    window.location.reload();
+                }
+            });
+        });
+    }
+
+    function initialize() {
+        //alert(1);
+        if ($('.outline').hasClass('thin')) {
+            //alert(2);
+            $('.nav').children(".subox").children(".sub").slideDown(0);
+            $('.nav').removeClass('active');
+        }
+        else {
+            //alert(3);
+            var number = $("input[name='sty_number']").attr("value");
+            var sty;
+            var cookievalue = getCookie("Outline");
+            if (cookievalue == null) {
+                $(".nav").children(".subox").children(".sub").slideToggle(0);
+            }
+            else {
+                for (var i = 1 ; i <= number ; i++) {
+                    sty = "sty" + padLeft(i, 2);
+                    if (cookievalue.indexOf(sty) == -1) {
+                        sty = '.' + sty;
+                        $(sty).children(".subox").children(".sub").slideToggle(0);
+                    }
+                    else {
+                        sty = '.' + sty;
+                        $(sty).addClass('active');
+                    }
+                }
+            }
+        }
+    }
+
+    //function addcssthin() {
+    //    $('#change_css').click(function () {
+    //        if ($('.outline').hasClass('thin')) {
+    //            $('.outline').removeClass('thin');
+    //            initialize();
+    //            myFunction();
+    //        }
+    //        else {
+    //            $('.outline').addClass('thin');
+    //            initialize();
+    //            myFunction();
+    //        }
+    //    });
+    //}
+
+    function padLeft(str, lenght) {
+        str = str + "";
+        if (str.length >= lenght) {
+            return str;
+        }
+        else {
+            return padLeft("0" + str, lenght);
+        }
+    }
+
+    function myFunction() {
+        var viewportwidth = document.getElementsByTagName('body')[0].clientWidth - 100;
+        var viewportheight = $(window).height() - 100;
+
+        var height = viewportheight;
+        var width = (viewportwidth - $('#LeftMenu').width());
+
+        //$('#RightContent').removeAttr("height").css({ "min-height": height });
+        $('#RightContent').removeAttr("width").css({ "width": width });
+    }
+
+    function slideToggle() {
+        //alert(4);
+        var number = $("input[name='sty_number']").attr("value");
+        var sty;
+        var cookievalue;
+        //var subox;
+        for (var i = 1 ; i <= number ; i++) {
+            sty = ".sty" + padLeft(i, 2);
+            $(sty).click(function () {
+                var key = $(this).attr('class').substr(4, 5);
+
+                //Cookies紀錄哪些被打開了
+                cookievalue = getCookie("Outline");
+                //alert("1.cookievalue : " + cookievalue + " Key: " + key);
+
+                if (cookievalue == null) {
+                    //alert("first slideToggle if Key: " + key);
+                    setCookie('Outline', key, 1);
+                }
+                else {
+                    if (cookievalue.indexOf(key) > -1) {
+                        //alert("second slideToggle else if Key: " + key);
+                        //alert("slideToggle else if cookievalue: " + cookievalue);
+                        var firstword = cookievalue.substring(0, cookievalue.indexOf(key));
+                        //alert("slideToggle else if firstword: " + firstword);
+                        var lastword = cookievalue.substring(cookievalue.indexOf(key) + key.length, cookievalue.length);
+                        //alert("slideToggle else if lastword: " + lastword);
+                        cookievalue = firstword + lastword;
+                        //alert("slideToggle else if cookievalue: " + cookievalue);
+                        setCookie('Outline', cookievalue, 1);
+                    }
+                    else {
+                        //alert("slideToggle else else cookievalue: " + cookievalue);
+                        //alert("slideToggle else else key: " + key);
+                        cookievalue = cookievalue + key;
+                        //alert("slideToggle else else cookievalue: " + cookievalue);
+                        setCookie('Outline', cookievalue, 1);
+                    }
+                }
+
+                //更改Css
+                if (!$(".outline").hasClass("thin")) {
+                    //alert($(this).html());
+                    //alert($(this).children(".subox").children(".sub").html());
+                    if ($(this).hasClass('active')) {
+                        $(this).removeClass('active');
+                    }
+                    else {
+                        $(this).addClass('active');
+                    }
+
+                    $(this).children(".subox").children(".sub").slideToggle("fast");
+                }
+                else { }
+            });
+        }
+    }
+    $(document).ready(function () {
+        ManMade_Alert_Message_Window = $("#ManMade_Alert_Message_Window")
+        ManMade_Alert_Message_Window.kendoWindow({
+            title: "確認視窗",
+            width: "400px",
+            height: "163px",
+            modal: true,
+            content: "../Content/AlertView/SellerSearchFailed.html"
+            , visible: false
+        });
+        ManMade_confirm_chancel_window = $("#ManMade_confirm_chancel_window")
+        ManMade_confirm_chancel_window.kendoWindow({
+            title: "確認視窗",
+            width: "400px",
+            height: "163px",
+            actions: {},
+            modal: true,
+            content: "../Content/AlertView/ConfirmCancelView.html"
+            , visible: false
+        });
+    });
+    $(document).ready(function () {
+        //alert(document.cookie);
+        //getMenuList();
+        initialize();
+        Language();
+        slideToggle();
+        //addcssthin();
+
+        if ($("#already").length > 0) {
+            myFunction();
+        } else {
+            setTimeout(function () { myFunction(); }, 500);
+        }
+        //$("#CSDSubmit").bind("click", function () {
+        //    csd = $("#settingCurrnetSellerID").val();
+        //    alert(csd);
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Home/SettingCSD",
+        //        contentType: "application/json;charset=utf-8",
+        //        data: JSON.stringify({
+        //            "csd": csd
+        //        }),
+        //        success: function (res) {
+        //            if (res.IsSuccess == true) {
+        //                alert("更新成功");
+        //            }
+        //            else {
+        //                alert("更新失敗");
+        //            }
+        //        }
+        //    });
+        //});
+    });
+</script>
+</html>

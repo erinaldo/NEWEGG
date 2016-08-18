@@ -1,0 +1,56 @@
+﻿@{
+    @Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+    @Styles.Render("~/Themes/2013/stylesheets/GridStyle.css")
+}
+<script type="text/javascript">
+    var emailRule = /^\w+([-+.']\w+)*@@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    var urlRule = /^http[s]?:\/\/[\w-_.%/:?=&#]+$/;
+    var phoneRule = /^[(][0-9]{0,6}[)][0-9]{0,10}$|[(][0-9]{0,6}[)][0-9]{0,10}[#][0-9]{1,5}$/;
+    var mobileRule = /^[0-9]{10}$/;
+
+    $(document).ready(function () {
+        showView("ManufacturerRequest");
+        //showView("ManufacturerList");
+
+    });
+
+    function showView(actionName) {
+        if (actionName == "ManufacturerRequest") {
+            $("#ManufacturerRequestDetail").attr("style", "display:block;");
+            $("#ManufacturerListDetail").attr("style", "display:none;");
+            $("#ManufacturerRequestActive").attr("class", "nav active");
+            $("#ManufacturerListActive").attr("class", "nav");
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/Manufacturer/" + actionName,
+            //    contentType: "application/json;charset=utf-8",
+            //    data: JSON.stringify({
+            //    }),
+            //    success: function (res) {
+            //        if (res.IsSuccess == true) {
+            //            $("#ManufacturerRequestDetail").html(res.ViewHtml);
+            //        }
+            //        else {
+            //        }
+            //    }
+            //});
+        }
+        else {
+            $("#ManufacturerRequestDetail").attr("style", "display:none;");
+            $("#ManufacturerListDetail").attr("style", "display:block;");
+            $("#ManufacturerRequestActive").attr("class", "nav");
+            $("#ManufacturerListActive").attr("class", "nav active");
+        }
+    }
+</script>
+<div class="rightBox">
+    <div class="content">
+        <div class="tabBox">
+            <div class="nav" id="ManufacturerRequestActive" onclick="showView('ManufacturerRequest')">製造商建立請求</div>
+            <div class="nav" id="ManufacturerListActive" onclick="showView('ManufacturerList')">製造商清單</div>
+            <div class="clear"></div>
+        </div>
+        <div id="ManufacturerRequestDetail">@Html.Partial("ManufacturerRequest")</div>
+        <div id="ManufacturerListDetail" style="display:none;">@Html.Partial("ManufacturerList")</div>
+    </div>
+</div>

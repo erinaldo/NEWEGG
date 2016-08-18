@@ -1,0 +1,80 @@
+﻿<script src="~/Scripts/reloadParView.js"></script>
+<br />
+<div>
+    <ul id="fieldlist">
+        <li>
+            <label style="color:red">*</label><label> Email 地址:</label>
+            @(Html.Kendo().TextBox().Name("newEmail").HtmlAttributes(new { style="width: 500px"}))
+        </li>
+    </ul>
+    <br />
+    @(Html.Kendo().Button()
+    .Name("Submit")
+        .SpriteCssClass("k-icon k-i-tick")
+        .HtmlAttributes(new { type = "button", style = "width:100px; margin-right: 18px; float: right" })
+    .Content("儲存")
+    )
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //function Click(e) {
+        //    alert("Click");
+        //}
+        $("#Submit").bind("click", function () {
+            var email = $("#newEmail").val();
+            var tra = $("input[name=newEmail]").val();
+            $(document).ajaxSend($.blockUI());
+
+            $(document).ajaxStop($.unblockUI);
+            $.ajax({
+                type: "POST",
+                url: "../AccountSettings/CreateNewEmail",
+                dataType: "json",
+                data: {
+                    // 額外傳至後方的參數
+                    Email: function () {
+                        return email;
+                    }
+                },
+                success: function (res) {
+                    if (res.indexOf("[Success]: ") >= 0) {
+                        res = res.replace("[Success]: ", "");
+                        //$("#newEmail").val("");
+                        //$("#windowNewAccount").data("kendoWindow").close();
+                        //$("#windowNewAccount").remove();
+                        //$("#windowNewAccount_wnd_title").remove();
+                        //$("#AccountSettingDetail").empty();
+                        //showAccountSettingsViewJS("AccountSettings", "index", "UserAccountSettings", "AccountSettingDetail");
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(res);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                        location.reload();
+                    }
+                    else if (res.indexOf("[Error]: ") >= 0) {
+                        if (res.indexOf("already exists") >= 0) {
+                            //開啟window 
+                            $("#ManMade_Alert_Message").html("信箱已經存在");
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                        }
+                        else {
+                            res = res.replace("[Error]: ", "");
+                            //開啟window 
+                            $("#ManMade_Alert_Message").html(res);
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                        }
+                    }
+                },
+                beforeSend: function () {
+                    $("#Submit").prop("disabled", true);
+                },
+                complete: function () {
+                    $("#Submit").prop("disabled", false);
+                }
+            });
+        });
+    });
+   
+</script>

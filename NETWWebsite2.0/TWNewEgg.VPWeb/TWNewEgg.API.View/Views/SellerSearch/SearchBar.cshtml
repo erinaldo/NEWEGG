@@ -1,0 +1,391 @@
+﻿@*@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")*@
+<link href="~/Themes/2013/stylesheets/GridStyle.css" rel="stylesheet" />
+<!--Kendo ui 引用 --> 
+
+<script src="~/Scripts/kendo.web.min.js"></script>
+<style>
+    #window {}
+    #ManagePurview {padding-left: 10px; line-height: 4;}
+    #Cancle_Select {margin:0 10px 0 10px;}
+    #A_Store {margin:0 10px 0 10px;}
+    #SearchText {width:300px;  padding: 3px 7px;   }
+    #selectCondition {padding: 2px 7px;   margin: 0 10px 0 5px;}
+
+</style>
+<style>
+    .loadingTextShow 
+    {
+        font-family: fantasy;
+        font-size: 1.2cm;
+    }
+    </style>
+<script type="text/javascript">
+    var tempcsdsellerID;
+    var bartext;
+    $(document).ready(function () {
+        var defaultSeller = '@ViewBag.sellerInfo';
+        $("#seller").val(defaultSeller);
+        $("#selectCondition1").val(@(ViewBag.Seid));
+        $("#seller").click(function () {
+            $("#seller").focus().select();
+        });
+        //$("#selectCondition").kendoDropDownList();
+        $(function () {
+            var result = {};
+            var window = $("#window");
+
+            if (!window.data("kendoWindow")) {
+                window.kendoWindow({
+                    width: "1000px",
+                    //height: "800px",
+                    title: "商家查詢",
+                    actions: [
+                        "Close"
+                    ],
+                    visible: false,
+                    modal: true,
+                    //close: onClose
+                });
+            }
+            var searchpage = 1;
+            $("#A_Store").click(function () {
+                //dataSrc.read({ page: 1, skip: 0 });
+                $("#Kendogrid").data('kendoGrid').refresh();
+                $("#Kendogrid").data("kendoGrid").dataSource.page(1);
+              
+                window.data("kendoWindow").center().open();               
+            });
+            $("#searchBtn").kendoButton({
+                click: function () {
+                    //dataSrc.read({ page: 1, skip: 0 });
+                    $("#Kendogrid").data('kendoGrid').refresh();
+                    $("#Kendogrid").data("kendoGrid").dataSource.page(1);
+                    
+                }               
+            });
+            
+            $("#seller").keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == 13) {
+                    
+                    settingCSDValue();
+                }
+            });
+            $("#Cancle_Select").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "../SellerSearch/CancelSearch",
+                    success: function (res) {
+                        if (res.indexOf("[Success]") >= 0) {
+                            myrefresh();
+                            $("#ManMade_Alert_Message").html("取消成功");
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        }
+                        else if (res.indexOf("[Error]") >= 0) {
+                            $("#ManMade_Alert_Message").html("取消失敗");
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        }
+                    }
+                });
+            });
+
+            var dataSrc = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        type: "POST",
+                        url: "../SellerSearch/SearchAllSeller",
+                        dataType: "json",
+                        data:
+                            function () {
+                                return {
+                                    type: $("#selectCondition").val(),
+                                    searchword: $("#SearchText").val()
+                                }
+                            },
+                        complete: function (response) {
+                            result = JSON.parse(response.responseText);
+                            searchpage = result.page;
+                        }
+                    }
+                },
+                schema: {
+                    data: function (result) {
+                        
+                        return result.returnModel;
+                        
+                    },
+                    total: function (result) {
+                        
+                        return result.total;
+                    },
+                    model: {
+                        id: "SellerID",
+                    }
+                },
+                pageSize: 10,
+                
+                serverPaging: true,
+                serverSorting: true
+            });
+            $("#Kendogrid").kendoGrid({
+                autoBind: false,
+                dataSource: dataSrc,
+                columns: [
+                   { field: "SellerID", title: "商家編號", width: "35px" },
+                   { field: "SellerName", title: "商家姓名", width: "50px" },
+                   { field: "SellerEmail", title: "電子郵件(Email)", width: "100px" },
+                   { field: "SellerStatus", title: "狀態", width: "20px", attributes: { style: "text-align: center" }, template: '#=statusChange(SellerStatus)#' },
+                   { field: "AccountTypeCode", title: "身份別", width: "20px", attributes: { style: "text-align: center" } },
+                   { command: { text: "選擇", click: selectSeller }, title: "動作", width: "20px" },
+                ],
+                sortable: true,
+                //pageSize: 10,
+                pageable: {
+                    Refresh: true,
+                    pageSizes: false,
+                    //buttonCount: 20,
+                    //pageSizes: [10, 25, 50]
+                },
+                height: 450
+            });
+            
+
+        });
+    
+        
+    });
+    function myrefresh() {
+        window.location.reload();
+    }
+    window.statusChange = function (value) {
+        var SellerStatus;
+        value = value.toUpperCase();
+        switch (value)
+        {           
+            case "A":
+                SellerStatus = "Active";
+                break;
+            case "I":
+                SellerStatus = "Inactive";
+                break;
+            case "C":
+                SellerStatus = "Close";
+                break;
+            default:
+                SellerStatus = "未定義";
+                break;
+                
+        }
+
+        return SellerStatus;       
+        }
+    
+    
+    function selectSeller(e) {
+  
+        
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var msg = dataItem.SellerName + " (" + dataItem.SellerID + ") " + "(" + statusChange(dataItem.SellerStatus) + ")";
+        bartext = msg;
+     @*   $("#seller").val("");
+        $("#seller").val(msg);*@
+        $("#selectCondition1").val(dataItem.SellerID);
+        tempcsdsellerID = dataItem.SellerID;
+        $("#selectCondition1").data("kendoDropDownList").text(msg);
+        
+        var window = $("#window");
+
+        
+        window.data("kendoWindow").close();
+        $("#settingCurrnetSellerIDTemp").val("");
+        $("#settingCurrnetSellerIDTemp").val(dataItem.SellerID);
+        SelectSellerGrid();
+        
+        
+    }
+    function settingCSDValue() {
+        $.ajax({
+            type: "POST",
+            url: "/SellerSearch/SettingCSD",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "csd": tempcsdsellerID, //$("#selectCondition1").val(), //seller
+            }),
+            success: function (res) {
+                if (res.IsSuccess == true) {
+                    $("#ManMade_Alert_Message").html("更新成功");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+                else {
+                    $("#ManMade_Alert_Message").html("更新失敗");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+            },
+            beforeSend: function () {
+                $("#selectCondition1").prop("disabled", true);
+                $("#loadingGif").css("display", "");
+            },
+            complete: function () {
+                $("#selectCondition1").prop("disabled", false);
+                $("#loadingGif").css("display", "none");
+            },
+        });
+    }
+
+    //function SettingCSDRember() {
+    //    var rember = null;
+    //    if ($("#IsRember").prop("checked")) {
+    //        rember = 1;
+    //    } else {
+    //        rember = 0;
+    //    }
+        
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/SellerSearch/SettingCSDRember",
+    //        contentType: "application/json;charset=utf-8",
+    //        data: JSON.stringify({
+    //            "rember": rember
+    //        }),
+    //        success: function (res) {
+    //            if (res.IsSuccess == true) {
+    //                //alert("更新成功");
+    //            }
+    //            else {
+    //                //alert("更新失敗");
+    //            }
+    //        }
+    //    });
+    //}
+
+    function onAdditionlData(e) {
+        return {
+            text: $("#seller").val()
+            
+        };
+    }
+    function SelectSellerGrid() {
+        settingCSDValue();
+    }
+    function SelectSeller(e) {
+        var selectItem = e.item[0].innerText;
+        //$("#seller").val(selectItem);
+        //settingCSDValue()
+    }
+    function onchage(e) {
+    }
+    function onDataBound(e) {
+    }
+    //kendoDropDownList
+    function onAdditionlData2() {
+        return {          
+            text2: $("#selectCondition1").data("kendoDropDownList").filterInput.val()
+        };
+    }
+    function OnChangeSeller(e) {
+        
+        var dataItem = this.dataItem(e.item);
+        $("#selectCondition1").val(dataItem.SellerID);
+        tempcsdsellerID = dataItem.SellerID;
+        $("#settingCurrnetSellerIDTemp").val("");
+        $("#settingCurrnetSellerIDTemp").val(dataItem.SellerID);
+        
+        SelectSellerGrid();
+        bartext = dataItem.SellerName;
+    }
+    function OnDataBound(e) {
+        $("#selectCondition1").data("kendoDropDownList").text(bartext);
+        $("#selectCondition1").val(tempcsdsellerID);
+    }
+
+</script>
+
+<div id="window" >
+    <div>
+        <ul id="fieldlist">
+            <li>
+                <label for="SearchCondition">選擇:</label>
+               @(Html.Kendo().DropDownList()
+                    .Name("selectCondition")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .BindTo(new List<SelectListItem>()
+                    {
+                        new SelectListItem() {
+                            Text = "商家編號",
+                            Value = "0"
+                        },
+                        new SelectListItem() {
+                            Text = "商家名稱",
+                            Value = "1"
+                        },
+                        new SelectListItem() {
+                            Text = "電子郵件",
+                            Value = "2"
+                        }
+                    })
+                    .SelectedIndex(0)
+               )
+                
+                <input type="text" id="SearchText" class="k-textbox"  placeholder="輸入關鍵字" />
+                <input type="button" id="searchBtn" value="搜索" style="width:100px" />
+            </li>
+        </ul>
+        <br />
+    </div>
+    <div id="Kendogrid" class="GridTextCenter"></div>
+</div>
+@*
+<div id="ManagePurview">
+        <div class="searchBar">
+        <div class="tit" style="float:left;">商家商店名稱：<span class="tip" title="選擇一個商家管理功能"></span>*@
+<div>
+<div>
+         @*<input type="text" id="seller" style="width:200px" readonly="readonly" class="k-box"/>*@
+<tr>     
+     <td class="sellerBar">商家商店名稱：</td>
+	<td style="width:170px;"> 
+             @(Html.Kendo()
+                    .DropDownList()
+                    .Name("selectCondition1")
+                    .DataTextField("SellerName")
+                    .DataValueField("SellerID")
+                    .Filter("contains")
+                    
+                    .HtmlAttributes(new {
+                      
+                      style = "width:300px;",
+                      
+                    })
+                    .DataSource(source => {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("SellerSearchAutoComplete", "SellerSearch")
+                                                .Data("onAdditionlData2");
+                                        })
+                                        .ServerFiltering(true);
+                                    })
+                                    .Events(e =>
+                                    {
+                                        e.Change("OnChangeSeller").DataBound("OnDataBound");
+                                    })
+                                           
+      
+                                    )</td>
+        @*   <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="selectCondition1" role="alert" id="errselectCondition1Msg" style="display:none;"></span>
+         
+</tr>    *@
+
+                
+        <a href="#" id="Cancle_Select">取消選擇</a>
+        <a href="#" id="A_Store">查詢商家</a>
+        <span id="loadingGif" style="display:none">
+            <img src="~/Content/Img/loading.gif" height="14"/>處理中，請稍後。
+        </span>       
+        <div class="clear"></div>
+    </div>
+ </div>
+
+

@@ -1,0 +1,386 @@
+﻿@Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .noticeFieldset {
+        -webkit-margin-start: 2px;
+        -webkit-margin-end: 2px;
+        -webkit-padding-before: 0.35em;
+        -webkit-padding-start: 0.75em;
+        -webkit-padding-end: 0.75em;
+        -webkit-padding-after: 0.625em;
+        border: 2px groove threedface;
+    }
+    .noticeLegend page block controlled via css above {
+        font-weight: bolder;
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+    .editor {
+        margin-bottom: 20px;
+    }
+    .errMsgShow {
+        border: 1px solid red;
+    }
+    input[type="text"].errMsgShow, input[type="password"].errMsgShow {
+        border: 1px solid red;
+    }
+</style>
+
+<div id="ItemCreation" class="rightBox">
+    <div class="content">
+        <div class="tabBox">
+            <div class="nav" id="selectCreateItemPage" onclick="showView('selectCreateItemPage')">商品建立</div>
+            <div class="nav" id="selectPropertyPage" onclick="showView('selectPropertyPage')">商品屬性</div>
+            <div class="clear"></div>
+        </div>
+        <div id="CreateItemMainPage">@Html.Action("ItemCreationIndex")</div>
+        <div id="ProductProperty" style="display: none;">@Html.Partial("ProductProperty")</div>
+    </div>
+    <div style="text-align: center;">
+        @(Html.Kendo().Button()
+            .Name("Save")
+            .HtmlAttributes(new { @name = "Save" })
+            .SpriteCssClass("k-icon k-i-tick")
+            .Content("存檔")
+        )
+        @(Html.Kendo().Button()
+            .Name("Pending")
+            .HtmlAttributes(new { @name = "Pending" })
+            .SpriteCssClass("k-icon k-i-arrow-e")
+            .Content("送審")
+        )
+    </div>
+</div>
+
+<script src="~/Scripts/ItemSketchFieldInspection.js?@(DateTime.Now.ToString("yyyyMMddHHmmssffff"))"></script>
+<script src="~/Scripts/BasicQtyCheck.js?@(DateTime.Now.ToString("yyyyMMddHHmmssffff"))"></script>
+<script type="text/javascript">
+    function Create_Save_Comfirm(confirm) {
+        if (!confirm) {
+            $("#Pending").removeAttr("disabled");
+            $("#Save").removeAttr("disabled");
+            return null;
+        }
+        if (DataCheck('ConfirmPriceCashEqual')) {
+            //開啟window 
+            $("#ManMade_Alert_Message").html("售價不同於確認售價");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+            jQuery("html,body").animate({
+                scrollTop: 0
+            }, 300);
+            $("#Pending").removeAttr("disabled");
+            $("#Save").removeAttr("disabled");
+            return null;
+        }
+        if (DataCheck('ConfirmCostCashEqual')) {
+            $("#ManMade_Alert_Message").html("成本不同於確認成本");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            jQuery("html,body").animate({
+                scrollTop: 0
+            }, 300);
+            $("#Pending").removeAttr("disabled");
+            $("#Save").removeAttr("disabled");
+            return null;
+        }
+        if (DataCheck('DescriptionScriptCheck')) {
+            $("#ManMade_Alert_Message").html("商品中文說明不可使用 Script 語法");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            jQuery("html,body").animate({
+                scrollTop: 0
+            }, 300);
+            $("#Pending").removeAttr("disabled");
+            $("#Save").removeAttr("disabled");
+            return null;
+        }
+        if (GrossProfitCalculate()) {
+            $("#ManMade_Alert_Message").html("毛利率為負數，請重新設定售價或成本");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            $("#Pending").removeAttr("disabled");
+            $("#Save").removeAttr("disabled");
+            jQuery("html,body").animate({
+                scrollTop: 0
+            }, 300);
+            return null;
+        }
+
+                @*取得頁面上所有資訊*@
+        var jsonData = getItemVaule();
+        $(document).ajaxSend($.blockUI());
+        $(document).ajaxStop($.unblockUI);
+        $.ajax({
+            type: "POST",
+            url: "/ItemCreation/CreateNewItem",
+            contentType: "application/json;charset=utf-8",
+            data: jsonData,
+            success: function (res) {
+                if (res.IsSuccess == true) {
+                    //開啟window 
+                    $("#ManMade_Alert_Message").html("新增成功");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                    TableClear();
+                    $("#emptySubCategoryID_1_Layer2Msg").attr("style", "display:none");
+                    $("#emptySubCategoryID_2_Layer2Msg").attr("style", "display:none");
+                    jQuery("html,body").animate({
+                        scrollTop: 0
+                    }, 300);
+                }
+                else {
+                    //開啟window 
+                    $("#ManMade_Alert_Message").html(res.ErrorMessage);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+                $("#Pending").removeAttr("disabled");
+                $("#Save").removeAttr("disabled");
+            }
+        });
+    }
+    $(document).ready(function () {
+        $("#Save").click(function () {
+            lastEvent = "Save";
+
+            if (typeof (CKEDITOR.instances["Description"]) != "undefined") {
+                $("#Pending").attr("disabled", "disabled");
+                $("#Save").attr("disabled", "disabled");
+                @*防止使用者誤按確認*@
+                $("#ManMade_Another_Alert_Message").html("確定存檔?");
+                ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+                $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+                    //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+                    if ($(this).hasClass("confirm")) {
+                        var confirmReault = true;
+                        //需要做的事件 
+                        Create_Save_Comfirm(confirmReault)
+                    }
+                        //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+                    else {
+                        var confirmReault = false;
+                        //需要做的事件 
+                        Create_Save_Comfirm(confirmReault)
+                    }
+                });
+                
+            }
+            else {
+                //開啟window 
+                $("#ManMade_Alert_Message").html("資料尚未完全載入，請稍後");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+            }
+        });
+        function Pending_Alert_Confirm(confirmReault) {
+            if (!confirmReault) {
+                $("#Pending").removeAttr("disabled");
+                $("#Save").removeAttr("disabled");
+                return null;
+            }
+
+            var basicCheckResult = DataCheck('all');
+            var qtyCheckResult = QtyCheck('all');
+            if (basicCheckResult || qtyCheckResult) {
+                //開啟window 
+                $("#ManMade_Alert_Message").html("請檢查紅框處是否符合填寫規則");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                jQuery("html,body").animate({
+                    scrollTop: 0
+                }, 300);
+                $("#Pending").removeAttr("disabled");
+                $("#Save").removeAttr("disabled");
+                return null;
+            }
+
+            if (GrossProfitCalculate()) {
+                //開啟window 
+                $("#ManMade_Alert_Message").html("毛利率為負數，請重新設定售價或成本");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                $("#Pending").removeAttr("disabled");
+                $("#Save").removeAttr("disabled");
+                jQuery("html,body").animate({
+                    scrollTop: 0
+                }, 300);
+                return null;
+            }
+                @*取得頁面上所有資訊*@
+            var jsonData = getItemVaule();
+            $.ajax({
+                type: "POST",
+                url: "/ItemPending/ItemSketchPending",
+                contentType: "application/json;charset=utf-8",
+                data: jsonData,
+                success: function (res) {
+                    if (res.IsSuccess == true) {
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(res.SuccessMsg);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                        window.location.replace("/itemlist/Index");
+                    }
+                    else {
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(res.ErrorMsg);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    }
+                    $("#Pending").removeAttr("disabled");
+                    $("#Save").removeAttr("disabled");
+                }
+            });
+        }
+        $("#Pending").click(function () {
+            lastEvent = "Pending";
+
+            var errflag = true;
+            if (!($("#SubCategoryID_1_Layer1").val().length <= 0 || $("#SubCategoryID_1_Layer1").val() == 0)) {
+                if ($("#SubCategoryID_1_Layer2").val().length <= 0 || $("#SubCategoryID_1_Layer2").val() == 0) {
+                    $("#SubCategoryID_1_Layer2").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+                    $("#emptySubCategoryID_1_Layer2Msg").removeAttr("style");
+                    errflag = false;
+                }
+                else {
+                    $("#SubCategoryID_1_Layer2").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+                    $("#emptySubCategoryID_1_Layer2Msg").attr("style", "display:none");
+                }
+            }
+            if (!($("#SubCategoryID_2_Layer1").val().length <= 0 || $("#SubCategoryID_2_Layer1").val() == 0)) {
+                if ($("#SubCategoryID_2_Layer2").val().length <= 0 || $("#SubCategoryID_2_Layer2").val() == 0) {
+                    $("#SubCategoryID_2_Layer2").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+                    $("#emptySubCategoryID_2_Layer2Msg").removeAttr("style");
+                    errflag = false;
+                }
+                else {
+                    $("#SubCategoryID_2_Layer2").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+                    $("#emptySubCategoryID_2_Layer2Msg").attr("style", "display:none");
+                }
+            }
+            if (errflag == false) {                
+                //開啟window 
+                $("#ManMade_Alert_Message").html("子分類不得為空");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                jQuery("html,body").animate({
+                    scrollTop: 0
+                }, 300);
+                return null;
+            }
+            if (typeof (CKEDITOR.instances["Description"]) != "undefined") {
+                $("#Pending").attr("disabled", "disabled");
+                $("#Save").attr("disabled", "disabled");
+
+                @*防止使用者誤按確認*@
+                $("#ManMade_Another_Alert_Message").html("是否確定送審?");
+                ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+                $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+                    //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+                    if ($(this).hasClass("confirm")) {
+                        var confirmReault = true;
+                        //需要做的事件 
+                        Pending_Alert_Confirm(confirmReault)
+                    }
+                        //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+                    else {
+                        var confirmReault = false;
+                        //需要做的事件 
+                        Pending_Alert_Confirm(confirmReault)
+                    }
+                });
+
+                
+            }
+            else {
+                //開啟window 
+                $("#ManMade_Alert_Message").html("資料尚未完全載入，請稍後");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+            }
+        });
+        showView("selectCreateItemPage");
+    });
+
+    
+    @*記錄最後的事件*@
+    var lastEvent = "";
+    window.onbeforeunload = function (e) {
+        @*關閉頁面前的最後事件不是送審的話，才詢問是否離開頁面*@
+        if (lastEvent != "Pending") {
+            return "頁面資訊將會遺失。";
+        }
+    }
+
+    function showView(actionName) {
+        if (actionName == "selectCreateItemPage") {
+            $("#CreateItemMainPage").attr("style", "display:block;");
+            $("#ProductProperty").attr("style", "display:none;");
+            $("#selectCreateItemPage").attr("class", "nav active");
+            $("#selectPropertyPage").attr("class", "nav");
+        }
+        else {
+            $("#CreateItemMainPage").attr("style", "display:none;");
+            $("#ProductProperty").attr("style", "display:block; margin-top:10px;");
+            $("#selectCreateItemPage").attr("class", "nav");
+            $("#selectPropertyPage").attr("class", "nav active");
+        }
+    }
+
+    function TableClear() {
+        $("#IsNew").data("kendoDropDownList").value("Y");
+        $("#MainCategoryID_Layer0").data("kendoDropDownList").value("");
+        $("#MainCategoryID_Layer1").data("kendoDropDownList").value("");
+        $("#MainCategoryID_Layer2").data("kendoDropDownList").value("");
+        $("#SubCategoryID_1_Layer1").data("kendoDropDownList").value("");
+        $("#SubCategoryID_1_Layer2").data("kendoDropDownList").value("");
+        $("#SubCategoryID_2_Layer1").data("kendoDropDownList").value("");
+        $("#SubCategoryID_2_Layer2").data("kendoDropDownList").value("");
+        $("#ManufactureID").data("kendoDropDownList").value("");
+        $("#SellerProductID").val("");
+        $("#Model").val("");
+        $("#Warranty").val("");
+        $("#BarCode").val("");
+        $("#Length").val(1);
+        $("#Width").val(1);
+        $("#Height").val(1);
+        $("#Weight").val(1);
+        $("#UPC").val("");
+        $("#DelvDate").val("1-7");
+        $("#Retail_").prop("checked", true);
+        $("#n_ChokingDanger_").prop("checked", true);
+        $("#n_UnderAge_").prop("checked", true);
+        $("#n_Danger_").prop("checked", true);
+        $("#ShipWay_Vendor_").prop("checked", true);
+        $("#MarketPrice").data("kendoNumericTextBox").value("");
+        $("#PriceCash").data("kendoNumericTextBox").value("");
+        $("#PriceCashHide").val("");
+        TextChange("PriceCash", "true");
+        $("#ConfirmPrice").data("kendoNumericTextBox").value("");
+        $("#Cost").data("kendoNumericTextBox").value("");
+        $("#CostHide").val("");
+        TextChange("Cost", "true");
+        $("#ConfirmCost").data("kendoNumericTextBox").value("");
+        $("#GrossProfit").val("0 %");
+        $("#CanSaleQty").data("kendoNumericTextBox").value("");
+        $("#InventorySafeQty").data("kendoNumericTextBox").value("");
+        $("#QtyLimit").data("kendoNumericTextBox").value("");
+        $("#CanSaleLimitQty").data("kendoNumericTextBox").value("");
+        var reSetDateStart = new Date("@DateTime.UtcNow.AddHours(8).ToString("yyyy/MM/dd")");
+        $("#DateStart").data("kendoDatePicker").value(reSetDateStart);
+        $("#Name").val("");
+        $("#Spechead").val("");
+        $("#Sdesc1").val("");
+        $("#Sdesc2").val("");
+        $("#Sdesc3").val("");
+        $("#Sdesc").val("");
+        CKEDITOR.instances["Description"].setData("");
+        $("#Note").val("");
+        $("div[class='k-widget k-upload k-header']").attr("class", "k-widget k-upload k-header k-upload-empty");
+        $("strong[class='k-upload-status k-upload-status-total']").remove();
+        $("ul[class='k-upload-files k-reset']").remove();
+        $("#ItemImgTable img").each(function () {
+            $(this).attr("src", "");
+        });
+        $("div#ProductProperty").html("<div id=\"withoutPropertyList\"><br /><span>查無所選類別屬性資料，請洽管理員或PM建立相關類別屬性。</span></div>");
+        $("div.imgDiv").remove();
+    }
+</script>

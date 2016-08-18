@@ -1,0 +1,400 @@
+﻿@model TWNewEgg.API.View.ItemCreationVM
+@Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .noticeFieldset {
+        -webkit-margin-start: 2px;
+        -webkit-margin-end: 2px;
+        -webkit-padding-before: 0.35em;
+        -webkit-padding-start: 0.75em;
+        -webkit-padding-end: 0.75em;
+        -webkit-padding-after: 0.625em;
+        border: 2px groove threedface;
+    }
+    .noticeLegend page block controlled via css above {
+        font-weight: bolder;
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+    .editor {
+        margin-bottom: 20px;
+    }
+    .errMsgShow {
+        border: 1px solid red;
+    }
+    input[type="text"].errMsgShow, input[type="password"].errMsgShow {
+        border: 1px solid red;
+    }
+</style>
+
+<div id="ItemCreation" class="rightBox">
+    <div class="content">
+        @*<div class="tabBox">
+            <div class="nav active" id="twoDimensionProductPageTag" onclick="showView('twoDimensionProductPageTag')">商品建立</div>
+            <div class="nav" id="productPropertyPageTag" onclick="showView('productPropertyPageTag')">商品屬性</div>
+            <div class="clear"></div>
+        </div>*@
+        <div id="twoDimensionProductCreationUI">
+            @{
+                Html.RenderPartial("~/Views/TwoDimensionProductCreation/TwoDimensionProductCreation.cshtml", Model);
+            }
+        </div>
+        @*<div id="productPropertyUI" style="display: none;">@Html.Partial("ProductProperty")</div>*@
+    </div>
+    <div style="text-align: center;">
+        @(Html.Kendo().Button()
+            .Name("Save")
+            .HtmlAttributes(new { @name = "Save" })
+            .SpriteCssClass("k-icon k-i-tick")
+            .Content("存檔")
+            .Events(e => { e.Click("Save"); }))
+        @(Html.Kendo().Button()
+            .Name("Pending")
+            .HtmlAttributes(new { @name = "Pending" })
+            .SpriteCssClass("k-icon k-i-arrow-e")
+            .Content("送審")
+            .Events(e => { e.Click("Pending"); }))
+    </div>
+</div>
+
+@*輸入項目檢查*@
+<script src="~/Scripts/ItemSketchFieldInspection.js?@(DateTime.Now.ToString("yyyyMMddHHmmssffff"))"></script>
+<script src="~/Scripts/twoDimQtyCheck.js?@(DateTime.Now.ToString("yyyyMMddHHmmssffff"))"></script>
+
+<script type="text/javascript">
+
+    function Save() {
+        lastEvent = "Save";
+        if (typeof (CKEDITOR.instances["Description"]) != "undefined") {
+
+            SendButton("disable");
+
+            $("#ManMade_Another_Alert_Message").html("是否確定儲存檔案?");
+            ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+            $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+                //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+                if ($(this).hasClass("confirm")) {
+                    console.log("confirm");
+                    //需要做的事件 
+                    if (DataCheck('ConfirmPriceCashEqual')) {
+                        $("#ManMade_Alert_Message").html("售價不同於確認售價");
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        jQuery("html,body").animate({
+                            scrollTop: 0
+                        }, 300);
+                        $("#Pending").removeAttr("disabled");
+                        $("#Save").removeAttr("disabled");
+                        return null;
+                    }
+                    if (DataCheck('ConfirmCostCashEqual')) {
+                        $("#ManMade_Alert_Message").html("成本不同於確認成本");
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        jQuery("html,body").animate({
+                            scrollTop: 0
+                        }, 300);
+                        $("#Pending").removeAttr("disabled");
+                        $("#Save").removeAttr("disabled");
+                        return null;
+                    }
+                    if (DataCheck('DescriptionScriptCheck')) {
+                        $("#ManMade_Alert_Message").html("商品中文說明不可使用 Script 語法");
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        jQuery("html,body").animate({
+                            scrollTop: 0
+                        }, 300);
+                        $("#Pending").removeAttr("disabled");
+                        $("#Save").removeAttr("disabled");
+                        return null;
+                    }
+                    if (GrossProfitCalculate()) {
+                        $("#ManMade_Alert_Message").html("毛利率為負數，請重新設定售價或成本");
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        $("#Pending").removeAttr("disabled");
+                        $("#Save").removeAttr("disabled");
+                        jQuery("html,body").animate({
+                            scrollTop: 0
+                        }, 300);
+                        return null;
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@(Model.SaveActionUrl)',
+                        contentType: "application/json;charset=utf-8",
+                        data: "{" +
+                            "\"newItemData\":" + getItemVaule('@Model.ID') +
+                             "," + "\"twoDimenstionProperty\":" + GetTwoDimensionValue() +
+                        "}",
+                        beforeSend: function () {
+                            $.blockUI();
+                        },
+                        success: function (res) {
+                            $("#ManMade_Alert_Message").html(res.message);
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                            SendButton("enable");
+
+                            if (res.isSuccess) {
+                                @*判斷是否由父畫面開啟此頁*@
+                                if (window.opener) {
+                                    @*重新讀取父畫面*@
+                                    window.opener.location.reload();
+                                    window.close();
+                                }
+                                else {
+                                    location.reload();
+                                }
+                            }
+                        },
+                        complete: function () {
+                            $.unblockUI();
+                        }
+                    });
+                }
+                    //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+                else {
+                    console.log("chancel");
+                    //需要做的事件 
+                    SendButton("enable");
+                    return null;
+                }
+            });
+        }
+        else {
+            $("#ManMade_Alert_Message").html("資料尚未完全載入，請稍後");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+        }
+    }
+
+    function SendButton(action) {
+        if (action == "disable") {
+            $("#Pending").attr("disabled", "disabled");
+            $("#Save").attr("disabled", "disabled");
+        }
+
+        if (action == "enable") {
+            $("#Pending").removeAttr("disabled");
+            $("#Save").removeAttr("disabled");
+        }
+    }
+
+    @*取得二維屬性表格資料*@
+    function GetTwoDimensionValue() {
+
+        if ($("#propertyValueSeletionUI").html() != "" && $("#propertyValueSeletionUI").html() != undefined) {
+
+            var mainPropertyID = 0;
+            var mainPropertyName = null;
+            var secondPropertyID = null;
+            var secondPropertyName = null;
+
+            if ($("#mainPropertySelection").val().length > 0 && parseInt($("#mainPropertySelection").val()) > 0) {
+                mainPropertyID = $("#mainPropertySelection").val();
+                mainPropertyName = $("#mainPropertySelection").data("kendoDropDownList").text();
+            }
+
+            if ($("#secondPropertySelection").val().length > 0 && parseInt($("#secondPropertySelection").val()) > 0) {
+                secondPropertyID = $("#secondPropertySelection").val();
+                secondPropertyName = $("#secondPropertySelection").data("kendoDropDownList").text();
+            }
+
+            @*讀取畫面二維表格內容*@
+            return JSON.stringify({
+                "MainPropertyID": mainPropertyID,
+                "MainPropertyName": mainPropertyName,
+                "SecondPropertyID": secondPropertyID,
+                "SecondPropertyName": secondPropertyName,
+                "MainPropertyValueCell": GetMainPropertyValueCell()
+            });
+        }
+        else {
+            return JSON.stringify({});;
+        }
+    }
+
+    function GetMainPropertyValueCell() {
+        var mainPropertyValueCell = [];
+
+        if (IsExpanded()) {
+            var rowIDCell = GetCheckboxIDCell("main");
+            for (var i = 0; i < rowIDCell.length; i++) {
+                if (CheckRowIsExist(rowIDCell[i] + "_1")) {
+                    mainPropertyValueCell.push({
+                        "InputValue": $("#custom_" + rowIDCell[i]).val(),
+                        "MainPropertyValueID": rowIDCell[i],
+                        "MainPropertyValueName": GetCheckboxText("main", rowIDCell[i]),
+                        "PictureURL": GetPictureUrl(rowIDCell[i]),
+                        "SecondPropertyValueCell": GetSecondPropertyValueCell(rowIDCell[i])
+                    });
+                }
+            }
+        }
+
+        return mainPropertyValueCell;
+    }
+
+    function GetSecondPropertyValueCell(rowID) {
+        var secondPropertyValueCell = [];
+
+        @*從次項目是否有選值，來判斷目前是一維或二維(沒選值:一維; 有選值:二維)*@
+        if ($("#secondPropertySelection").val().length == 0) {
+            secondPropertyValueCell.push({
+                "CanSaleQty": $("#canSaleQty_" + rowID).data("kendoNumericTextBox").value()
+            });
+        }
+        else {
+            var columnIDCell = GetCheckboxIDCell("second");
+            for (var i = 0; i < columnIDCell.length; i++) {
+                if (CheckColumnIsExist(rowID + "_2", columnIDCell[i])) {
+                    secondPropertyValueCell.push({
+                        "CanSaleQty": $("#canSaleQty_" + rowID + "_" + columnIDCell[i]).data("kendoNumericTextBox").value(),
+                        "SecondPropertyValueID": columnIDCell[i],
+                        "SecondPropertyValueName": GetCheckboxText("second", columnIDCell[i]),
+                    });
+                }
+            }
+        }
+
+        return secondPropertyValueCell;
+    }
+
+    function GetPictureUrl(rowID) {
+        var pictureURL = $("#previewPicture_" + rowID).attr("src");
+        if (pictureURL == undefined) {
+            pictureURL = "";
+        }
+
+        return pictureURL;
+    }
+    function Pending() {
+        lastEvent = "Pending";
+        $("#Pending").attr("disabled", "disabled");
+        $("#Save").attr("disabled", "disabled");
+        $("#ManMade_Another_Alert_Message").html("是否確定送審檔案");
+        ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+        $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+            //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+            if ($(this).hasClass("confirm")) {
+                console.log("confirm");
+                //需要做的事件 
+                var basicCheckResult = DataCheck('all');
+                var twoDimensionCheckResult = twoDimQtyCheck('all');
+                var grossProfitCalculate = GrossProfitCalculate();
+                if (basicCheckResult || twoDimensionCheckResult || grossProfitCalculate) {
+                    $("#ManMade_Alert_Message").html("請檢查紅框處是否符合填寫規則");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    jQuery("html,body").animate({
+                        scrollTop: 0
+                    }, 300);
+                    $("#Pending").removeAttr("disabled");
+                    $("#Save").removeAttr("disabled");
+                    return null;
+                }
+
+                var togoPath = '@ViewBag.From';
+                $.ajax({
+                    type: "POST",
+                    url: "/TwoDimensionProductCreation/ExamineNewItem",
+                    contentType: "application/json;charset=utf-8",
+                    data:
+                        ("{" +
+                            "\"newItemData\":" + getItemVaule('@Model.ID') +
+                            "," + "\"twoDimenstionProperty\":" + GetTwoDimensionValue() +
+                            "," + "\"FromWhere\":\"" + togoPath + "\"" +
+                        "}"),
+
+                    success: function (res) {
+                        if (togoPath == "EditItem") {
+                            if (res[0] == "T") {
+                                $("#ManMade_Alert_Message").html(res[1]);
+                                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                                if (window.opener) {
+                                    window.opener.$("#SearchSketchProperty").click();
+                                    window.opener.$("#SearchListProperty").click();
+                                    window.close();
+                                }
+                                else {
+                                    window.location.href = "/twodimensionproductlist/Index";
+                                }
+                            }
+                            else {
+                                $("#ManMade_Alert_Message").html(res[1]);
+                                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                                $("#Pending").removeAttr("disabled");
+                                $("#Save").removeAttr("disabled");
+                            }
+                        }
+                        else if (togoPath == "NewItem") {
+                            if (res[0] == "T") {
+                                $("#ManMade_Alert_Message").html(res[1]);
+                                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                                if (window.opener) {
+                                    window.opener.$("#SearchSketchProperty").click();
+                                    window.opener.$("#SearchListProperty").click();
+                                    window.close();
+                                }
+                                else {
+                                    window.location.href = "/twodimensionproductlist/Index";
+                                }
+                            }
+                            else {
+                                $("#ManMade_Alert_Message").html(res[1]);
+                                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                                $("#Pending").removeAttr("disabled");
+                                $("#Save").removeAttr("disabled");
+                            }
+
+                        }
+                    },
+                    beforeSend: function () {
+                        $.blockUI();
+                    },
+                    complete: function () {
+                        $.unblockUI();
+                    }
+                });
+            }
+                //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+            else {
+                console.log("chancel");
+                //需要做的事件 
+                $("#Pending").removeAttr("disabled");
+                $("#Save").removeAttr("disabled");
+                return null;
+            }
+        });
+    }
+
+    var lastEvent = "";
+    window.onbeforeunload = function (e) {
+        if (lastEvent != "Pending") {
+            return "頁面資訊將會遺失。";
+        }
+    }
+
+    @*function showView(actionName) {
+
+        $("#twoDimensionProductCreationUI").hide();
+        $("#twoDimensionProductPageTag").attr("class", "nav");
+            
+        $("#productPropertyUI").hide();
+        $("#productPropertyPageTag").attr("class", "nav");
+
+        switch(actionName) {
+            default:
+            case "twoDimensionProductPageTag": {
+                $("#twoDimensionProductCreationUI").show();
+                $("#twoDimensionProductPageTag").attr("class", "nav active");
+                break;
+            }
+            case "productPropertyPageTag": {
+                $("#productPropertyUI").show();
+                $("#productPropertyPageTag").attr("class", "nav active");
+                break;
+            }
+        }
+    }*@
+
+</script>

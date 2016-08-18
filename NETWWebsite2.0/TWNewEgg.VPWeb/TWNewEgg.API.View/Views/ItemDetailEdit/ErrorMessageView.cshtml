@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "系統錯誤訊息";
+}
+<script type="text/ecmascript">
+    $(document).ready(function () {
+        //alert("@ViewBag.ErrorMsg");
+        //開啟window 
+        $("#ManMade_Alert_Message").html("@ViewBag.ErrorMsg");
+        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+        window.close();
+    });
+</script>

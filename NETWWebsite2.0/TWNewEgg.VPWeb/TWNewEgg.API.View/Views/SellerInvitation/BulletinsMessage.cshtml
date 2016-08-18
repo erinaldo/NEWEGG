@@ -1,0 +1,57 @@
+﻿@model TWNewEgg.API.View.XmlModel
+<div>
+<div class="editor" style="margin: 10px 0; flex-align:center">
+    <textarea name="htmlEditor" id="Description" class="ckeditor">@Model.xmlcontent</textarea>  
+</div>
+<div>
+    @(Html.Kendo().Button().Name("SaveToXml").Content("儲存").Events(ev => ev.Click("saveContent")).HtmlAttributes(new { style="width: 150px"}))
+</div>
+</div>
+
+<script>
+    var UserID = '@Model.userid';
+    var updateNumber = '@Model.updateNumber';
+    var isSuccess = '@Model.isSuccess';
+
+    $(document).ready(function () {
+        
+    });
+    function saveContent() {
+        $("#ManMade_Another_Alert_Message").html("確定送出?");
+        ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+        $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+            //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+            if ($(this).hasClass("confirm")) {
+                console.log("confirm");
+                //需要做的事件 
+                var Description = CKEDITOR.instances["Description"].getData();
+                $.ajax({
+                    type: "POST",
+                    url: "/SellerInvitation/WriteXML",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        "xmlContent": Description,
+                        "UserID": UserID,
+                        "updateNumber": updateNumber
+                    }),
+                    success: function (res) {
+                        if (res.isSucess == "F") {
+                            $("#ManMade_Alert_Message").html(res.msg);
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        }
+                        else if (res.isSucess == "T") {
+                            $("#ManMade_Alert_Message").html(res.msg);
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                            window.location.href = "../SellerAccount/Index";
+                        }
+                    }
+                });
+            }
+                //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+            else {
+                console.log("chancel");
+                //需要做的事件 
+            }
+        });
+    }
+</script>

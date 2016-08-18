@@ -1,0 +1,85 @@
+﻿@{
+    List<TWNewEgg.API.Models.MenuList> showMenuList = ViewBag.MenuList as List<TWNewEgg.API.Models.MenuList>;
+    foreach(TWNewEgg.API.Models.MenuList menu in showMenuList)
+    {
+        string number = "nav sty" + (showMenuList.IndexOf(menu) + 1).ToString().PadLeft(2, '0');
+        <div class="@number"><a href="#"><p>@menu.mainOption</p></a>
+            <div class="subox">
+                <div class="tit">@menu.mainOption</div>
+                <div class="sub">
+                @{
+                    foreach (var listOption in menu.listOptions)
+                    {
+                        <div class="ss"><a href="@listOption.Value">@listOption.Key</a></div>
+                    }
+                }
+                </div>
+            </div>
+        </div>
+    }
+    @*↓用來記錄總共有幾個主功能 Jquiry 功能需要用到(重要)!!!*@
+    <input type="hidden" name="sty_number" value="10" >
+}
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        slideToggle();
+    });
+
+    function slideToggle() {
+        //alert(4);
+        var number = $("input[name='sty_number']").attr("value");
+        var sty;
+        var cookievalue;
+        //var subox;
+        for (var i = 1 ; i <= number ; i++) {
+            sty = ".sty" + padLeft(i, 2);
+            $(sty).click(function () {
+                var key = $(this).attr('class').substr(4, 5);
+
+                //Cookies紀錄哪些被打開了
+                cookievalue = getCookie("Outline");
+                //alert("1.cookievalue : " + cookievalue + " Key: " + key);
+
+                if (cookievalue == null) {
+                    //alert("first slideToggle if Key: " + key);
+                    setCookie('Outline', key, 1);
+                }
+                else {
+                    if (cookievalue.indexOf(key) > -1) {
+                        //alert("second slideToggle else if Key: " + key);
+                        //alert("slideToggle else if cookievalue: " + cookievalue);
+                        var firstword = cookievalue.substring(0, cookievalue.indexOf(key));
+                        //alert("slideToggle else if firstword: " + firstword);
+                        var lastword = cookievalue.substring(cookievalue.indexOf(key) + key.length, cookievalue.length);
+                        //alert("slideToggle else if lastword: " + lastword);
+                        cookievalue = firstword + lastword;
+                        //alert("slideToggle else if cookievalue: " + cookievalue);
+                        setCookie('Outline', cookievalue, 1);
+                    }
+                    else {
+                        //alert("slideToggle else else cookievalue: " + cookievalue);
+                        //alert("slideToggle else else key: " + key);
+                        cookievalue = cookievalue + key;
+                        //alert("slideToggle else else cookievalue: " + cookievalue);
+                        setCookie('Outline', cookievalue, 1);
+                    }
+                }
+
+                //更改Css
+                if (!$(".outline").hasClass("thin")) {
+                    //alert($(this).html());
+                    //alert($(this).children(".subox").children(".sub").html());
+                    if ($(this).hasClass('active')) {
+                        $(this).removeClass('active');
+                    }
+                    else {
+                        $(this).addClass('active');
+                    }
+
+                    $(this).children(".subox").children(".sub").slideToggle("fast");
+                }
+                else { }
+            });
+        }
+    }
+</script>*@

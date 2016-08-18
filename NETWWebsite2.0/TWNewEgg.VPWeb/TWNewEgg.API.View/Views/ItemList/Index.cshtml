@@ -1,0 +1,62 @@
+﻿@{
+    @Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+}
+<script src="~/Scripts/kendo.web.min.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+<script type="text/javascript">
+    var emailRule = /^\w+([-+.']\w+)*@@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    var urlRule = /^http[s]?:\/\/[\w-_.%/:?=&#]+$/;
+    var phoneRule = /^[(][0-9]{0,6}[)][0-9]{0,10}$|[(][0-9]{0,6}[)][0-9]{0,10}[#][0-9]{1,5}$/;
+    var mobileRule = /^[0-9]{10}$/;
+
+    $(document).ready(function () {
+        window.UrlLink = function (id, name, url) {
+            if (id == 0 || id == null || url == null) {
+                return name;
+            }
+            else {
+                return "<a href=\"javascript:void(0)\" onclick=\"window.open('" + url + "', '', '');\">" + name + "</a>";
+            }
+        }        
+    });
+
+    function showView(actionName) {
+        if (actionName == "ItemRequestList") {
+            $("#ItemRequestListDetail").attr("style", "display:block;");
+            $("#ItemSketchListDetail").attr("style", "display:none;");
+            $("#ItemRequestListActive").attr("class", "nav active");
+            $("#ItemSketchListActive").attr("class", "nav");
+            $.ajax({
+                type: "POST",
+                url: "/ItemList/" + actionName,
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                }),
+                success: function (res) {
+                    if (res.IsSuccess == true) {
+                        $("#ItemRequestListDetail").html(res.ViewHtml);
+                    }
+                    else {
+                    }
+                }
+            });
+        }
+        else {
+            $("#ItemRequestListDetail").attr("style", "display:none;");
+            $("#ItemSketchListDetail").attr("style", "display:block;");
+            $("#ItemRequestListActive").attr("class", "nav");
+            $("#ItemSketchListActive").attr("class", "nav active");
+        }
+    }
+</script>
+<div class="rightBox">
+    <div class="content">
+        <div class="tabBox">
+            <div class="nav active" id="ItemRequestListActive" onclick="showView('ItemRequestList')">商品待審清單</div>
+            <div class="nav" id="ItemSketchListActive" onclick="showView('ItemSketchList')">商品草稿清單</div>
+            <div class="clear"></div>
+        </div>
+        <div id="ItemRequestListDetail">@Html.Partial("ItemRequestList")</div>
+        <div id="ItemSketchListDetail" style="display:none;">@Html.Partial("ItemSketchList")</div>
+    </div>
+</div>

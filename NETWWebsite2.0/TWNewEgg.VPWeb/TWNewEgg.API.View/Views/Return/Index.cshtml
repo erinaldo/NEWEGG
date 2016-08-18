@@ -1,0 +1,794 @@
+﻿@Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    TWNewEgg.API.View.RetgoodMainPage viewModel = new TWNewEgg.API.View.RetgoodMainPage();
+    if (ViewBag.viewModel as TWNewEgg.API.View.RetgoodMainPage != null)
+    {
+        viewModel = ViewBag.viewModel;
+    }
+}
+
+<style>
+    .NoteDetail {
+        width: 65%;
+        height: 100%;
+        overflow: auto;
+        border-radius: 5px;
+        border: 1px solid #C4C4C4;
+        padding: 5px;
+        margin-left: 2px;
+        white-space: nowrap;
+        display: block;
+        float: left;
+    }
+    .errMsgShow {
+        border: 1px solid red;
+    }
+    input[type="text"].errMsgShow, input[type="password"].errMsgShow {
+        border: 1px solid red;
+    }
+    .blockOverlay, .blockMsg {
+        z-index:99999;
+    }
+</style>
+
+<div class="rightBox">
+    <div class="content">
+        <div>
+            <table>
+                <tr>
+                    <td style="text-align:right; width:100px; min-width:100px;">選擇：</td>
+                    <td style="text-align:left; width:120px; min-width:120px;">
+                        @(Html.Kendo().DropDownList()
+                            .Name("retgoodKeyWordSearchType")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                            {
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodKeyWordSearchType.訂單編號.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodKeyWordSearchType.訂單編號).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodKeyWordSearchType.商品名稱.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodKeyWordSearchType.商品名稱).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodKeyWordSearchType.收件人姓名.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodKeyWordSearchType.收件人姓名).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodKeyWordSearchType.商家銷售編號.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodKeyWordSearchType.商家銷售編號).ToString()
+                                }
+                            })
+                            .SelectedIndex(0)
+                            .HtmlAttributes(new { style = "width:120px;" })
+                        )
+                    </td>
+                    <td style="text-align:center; width:320px; min-width:320px;">
+                        <input type="text" id="keyWord" class="k-textbox" style="width:300px;" />
+                    </td>
+
+                    <td style="text-align:center; width:100px; min-width:100px;">
+                        @(Html.Kendo().Button()
+                            .Name("search")
+                            .Content("查詢")
+                            .HtmlAttributes(new {
+                                style="min-width:56px;"
+                            })
+                            .Events(e => { e.Click("Search"); })
+                        )
+                    </td>
+                </tr>
+            </table>
+            <table style="margin-top:10px;">
+                <tr>
+                    <td style="text-align:right; width:100px; min-width:100px;">退貨狀態：</td>
+                    <td style="text-align:left; width:120px; min-width:120px;">
+                        @(Html.Kendo().DropDownList()
+                            .Name("retgoodStatus")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                            {
+                                new SelectListItem() {
+                                    Text = "全部",
+                                    Value = "-1"
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨處理中.ToString(),
+                                    Value = ((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨處理中).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨中.ToString(),
+                                    Value = ((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨中).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.完成退貨.ToString(),
+                                    Value = ((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.完成退貨).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨異常.ToString(),
+                                    Value = ((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨異常).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨取消.ToString(),
+                                    Value = ((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨取消).ToString()
+                                }
+                            })
+                            .SelectedIndex(0)
+                            .HtmlAttributes(new { style = "width:120px;" })
+                        )
+                    </td>
+                    <td style="text-align:right; width:100px; min-width:100px;">訂單日期：</td>
+                    <td style="text-align:left; width:120px; min-width:120px;">
+                        @(Html.Kendo().DropDownList()
+                            .Name("createDateSearchType")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                            {
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodCreateDateSearchType.全部.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodCreateDateSearchType.全部).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodCreateDateSearchType.今天.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodCreateDateSearchType.今天).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodCreateDateSearchType.最近3天.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodCreateDateSearchType.最近3天).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodCreateDateSearchType.最近7天.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodCreateDateSearchType.最近7天).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodCreateDateSearchType.最近30天.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodCreateDateSearchType.最近30天).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodCreateDateSearchType.指定日期.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodCreateDateSearchType.指定日期).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.RetgoodCreateDateSearchType.定制日期範圍.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.RetgoodCreateDateSearchType.定制日期範圍).ToString()
+                                }
+                            })
+                            .SelectedIndex(0)
+                            .HtmlAttributes(new { style = "width:120px;" })
+                            .Events(events =>
+                            {
+                                events.Change("ChangeCreateDateSearchType")
+                                    .Select("ChangeCreateDateSearchType");
+                            })
+                        )
+                    </td>
+                    <td class="startDate" style="text-align:center; width:130px; min-width:130px; display:none;">
+                        @(Html.Kendo().DatePicker()
+                            .Name("startDate")
+                            .Format("yyyy/MM/dd")
+                            .Value(DateTime.Now.Date)
+                            .HtmlAttributes(new { style = "width:110px;" })
+                            .Footer(false)
+                        )
+                    </td>
+                    <td class="endDate" style="text-align:center; width:5px; min-width:5px; display:none;">~</td>
+                    <td class="endDate" style="text-align:center; width:130px; min-width:130px; display:none;">
+                        @(Html.Kendo().DatePicker()
+                            .Name("endDate")
+                            .Format("yyyy/MM/dd")
+                            .Value(DateTime.Now.Date)
+                            .HtmlAttributes(new { style = "width:110px;" })
+                            .Footer(false)
+                        )
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <hr style="margin-top:10px;" />
+        <div>
+            @(Html.Kendo().Grid<TWNewEgg.API.Models.MainRetgood>()
+                .Name("grid")
+                .HtmlAttributes(new { style = "height: 500px;" })
+                .AutoBind(true)
+                .Columns(columns =>
+                {
+                    columns.Bound(model => model.StatusName)
+                        .Title("退貨狀態")
+                        .Width(90)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Template(x => { })
+                        .ClientTemplate(
+                            "<div style=\"text-align:center\">" +
+                                "<input type=\"button\" id=\"sendCar_#=CartID#\" value=\"派車\" onclick=\"SendCar('#=CartID#', '#=ShipType#')\" class=\"k-button\" disabled />" +
+                                "<input type=\"button\" id=\"report_#=CartID#\" value=\"回報\" onclick=\"Report('#=CartID#', '#=ShipType#')\" class=\"k-button\" disabled />" +
+                            "</div>"
+                        )
+                        .Title("動作")
+                        .Width(160)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.Seller)
+                        .Title("商家")
+                        .Width(200)
+                        .Hidden(!viewModel.IsAdmin)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:left;" });
+
+                    columns.Bound(c => c.CartCreateDate)
+                        .Title("訂單日期")
+                        .Width(140)
+                        .Format("{0:yyyy/MM/dd HH:mm:ss}")
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+                    
+                    columns.Bound(c => c.CartID)
+                        .Title("訂單編號")
+                        .Width(140)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+                    
+                    columns.Bound(c => c.ShipTypeName)
+                        .Title("交易模式")
+                        .Width(90)
+                        .Hidden(!viewModel.IsAdmin)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+                    
+                    columns.Bound(c => c.ProcessTitle)
+                        .Title("商品名稱")
+                        .Width(300)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:left;" });
+                    
+                    columns.Bound(c => c.PayTypeName)
+                        .Title("付款方式")
+                        .Width(110)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+                    
+                    columns.Bound(c => c.FrmName)
+                         .Title("收件人姓名")
+                         .Width(100)
+                         .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                         .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.RetgoodCreateDate)
+                         .Title("退貨成立日期")
+                         .Width(140)
+                         .Format("{0:yyyy/MM/dd HH:mm:ss}")
+                         .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                         .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.FinReturnDate)
+                         .Title("退貨完成日期")
+                         .Width(140)
+                         .Format("{0:yyyy/MM/dd HH:mm:ss}")
+                         .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                         .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.SellerProductID)
+                         .Title("商家銷售編號")
+                         .Width(100)
+                         .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                         .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Template(x => { })
+                        .ClientTemplate(
+                            "<div style=\"text-align:center\">" +
+                                "<input type=\"button\" id=\"UpdateNote_#=CartID#\" value=\"查看\" onclick=\"UpdateNote('#=CartID#', '#=ShipType#')\" class=\"k-button\" disabled />" +
+                            "</div>"
+                        )
+                        .Title("查看備註")
+                        .Width(80)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+                })
+                .Events(events => events.DataBound("ButtonControl"))
+                .Scrollable()
+                .Pageable(page => page.Refresh(true)
+                    .PageSizes(true)
+                    .ButtonCount(10)
+                )
+                .Resizable(resizable => resizable.Columns(true))
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Read(read => read.Action("GetMainRetgood", "Return")
+                        .Data("MakeSearchCondition")
+                    )
+                    .Events(events => events.RequestStart("MainSearchRequestStart")
+                        .RequestEnd("MainSearchRequestEnd")
+                    )
+                )
+                .HtmlAttributes(new { style = "margin-top:10px; height:400px;" })
+            )
+        </div>
+    </div>
+</div>
+
+<div id ="sendCartOrReportWindow"></div>
+<div id="lodingMessage" style="display:none;">
+    <div id="sendCartOrReportWindowLoadingMessage">
+        <img src="~/Content/Img/loading.gif" height="30"/>
+        資料讀取中，請稍後...
+    </div>
+</div>
+
+@*kendo 日期選擇中文化*@
+<script>kendo.culture("zh-TW");</script>
+<script type="text/javascript">
+   
+    @*查詢按鈕事件*@
+    function Search() {
+        $("#grid").data("kendoGrid").refresh();
+        $("#grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function MakeSearchCondition() {
+        return {
+            KeyWord: $("#keyWord").val(),
+            KeyWordSearchType: $("#retgoodKeyWordSearchType").data("kendoDropDownList").value(),
+            RetgoodStatus: $("#retgoodStatus").data("kendoDropDownList").value(),
+            CreateDateSearchType: $("#createDateSearchType").data("kendoDropDownList").value(),
+            StartDate: $("#startDate").data("kendoDatePicker").value(),
+            EndDate: $("#endDate").data("kendoDatePicker").value()
+        }
+    }
+
+    @*切換搜尋條件的訂單日期*@
+    function ChangeCreateDateSearchType() {
+        switch ($("#createDateSearchType").val()) {
+            default:
+                {
+                    $(".startDate").css("display", "none");
+                    $(".endDate").css("display", "none");
+                    break;
+                }
+            case '@((int)TWNewEgg.API.Models.RetgoodCreateDateSearchType.指定日期)':
+                {
+                    $(".startDate").css("display", "");
+                    $(".endDate").css("display", "none");
+                    break;
+                }
+            case '@((int)TWNewEgg.API.Models.RetgoodCreateDateSearchType.定制日期範圍)':
+                {
+                    $(".startDate").css("display", "");
+                    $(".endDate").css("display", "");
+                    break;
+                }
+        }
+    }
+
+    function ButtonControl(e) {
+        for (var i = 0; i < e.sender._data.length; i++) {
+            @*非寄倉的訂單，才開放 vendor 操作退貨*@
+            if (e.sender._data[i].ShipType == parseInt("@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.直配)") || e.sender._data[i].ShipType == parseInt("@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.B2C直配)")) {
+                @*若狀態為退貨處理中，開啟派車功能*@
+                if (e.sender._data[i].Status == parseInt("@((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨處理中)")) {
+                    $("#sendCar_" + e.sender._data[i].CartID).prop("disabled", false);
+                }
+                @*若狀態為退貨中，開啟回報功能*@
+                if (e.sender._data[i].Status == parseInt("@((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨中)")) {
+                    $("#report_" + e.sender._data[i].CartID).prop("disabled", false);
+                }
+                @*開啟查看功能*@
+                $("#UpdateNote_" + e.sender._data[i].CartID).prop("disabled", false);
+            }
+        }
+    }
+
+    @*派車*@
+    function SendCar(id, shipType) {
+        if (shipType == "@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.直配)" || shipType == "@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.B2C直配)") {
+            $("#sendCartOrReportWindow").kendoWindow({
+                title: "退貨概要資訊",
+                actions: ["Close"],
+                width: Math.round($(document).width() * 0.9) + "px",
+
+                @*於開啟派車畫面時，計算出來的子視窗寬度太高，則給定一個固定的大小*@
+                height: (parseInt(Math.round($(document).height() * 0.6)) > 330) ? "330px" : Math.round($(document).height() * 0.6) + "px",
+                content: {
+                    url: "/Return/RetgoodsInfo",
+                    data: {
+                        cart_id: id
+                    }
+                },
+                modal: true,
+                visible: true,
+                open: SendCartOrReportWindowOpen,
+                close: SendCartOrReportWindowClose,
+
+            }).data("kendoWindow").center().open();
+        }
+        else {
+            $("#ManMade_Alert_Message").html(SBNMessage());
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+        }
+    }
+
+    @*回報*@
+    function Report(id, shipType) {
+        if (shipType == "@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.直配)" || shipType == "@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.B2C直配)") {
+            $("#sendCartOrReportWindow").kendoWindow({
+                title: "退貨回報",
+                actions: ["Close"],
+
+                @*於開啟回報畫面時，計算出來的子視窗寬度太小，則給定一個固定的大小*@
+                width: (parseInt(Math.round($(document).width() * 0.5)) > 540) ? Math.round($(document).width() * 0.5) + "px" : "540px",
+                height: Math.round($(document).height() * 0.5) + "px",
+                content: {
+                    url: "/Return/RetgoodsNote",
+                    data: {
+                        cart_id: id
+                    }
+                },
+                modal: true,
+                visible: true,
+                resize: SendCartOrReportWindowResize,
+                open: SendCartOrReportWindowOpen,
+                close: SendCartOrReportWindowClose
+            }).data("kendoWindow").center().open();
+        }
+        else {
+            $("#ManMade_Alert_Message").html(SBNMessage());
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+        }
+    }
+
+    @*查看*@
+    function UpdateNote(id, shipType) {
+        if (shipType == "@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.直配)" || shipType == "@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.B2C直配)") {
+            $("#sendCartOrReportWindow").kendoWindow({
+                title: "查看備註",
+                actions: ["Close"],
+                
+                @*於開啟回報畫面時，計算出來的子視窗寬度太小，則給定一個固定的大小*@
+                width: (parseInt(Math.round($(document).width() * 0.5)) > 540) ? Math.round($(document).width() * 0.5) + "px" : "540px",
+                height: Math.round($(document).height() * 0.5) + "px",
+                content: {
+                    url: "/Return/UpdateRetgoodsNote",
+                    data: {
+                        cart_id: id
+                    }
+                },
+                modal: true,
+                visible: true,
+                resizeable: false,
+                resize: SendCartOrReportWindowResize,
+                open: SendCartOrReportWindowOpen,
+                close: SendCartOrReportWindowClose
+            }).data("kendoWindow").center().open();
+        }
+        else {
+            $("#ManMade_Alert_Message").html(SBNMessage());
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+        }
+    }
+
+    function SBNMessage() {
+        return "此訂單為寄倉商品，將由台蛋網進行退貨事宜。";
+    }
+
+    function SendCartOrReportWindowClose(e) {
+        $("#sendCartOrReportWindow").remove();
+        $(".rightBox").after('<div id="sendCartOrReportWindow"></div>');
+    }
+
+    function SendCartOrReportWindowOpen(e) {
+        var sendCartOrReportWindow = $(e.sender.element[0]);
+        sendCartOrReportWindow.html($("#lodingMessage").html());
+        $("#sendCartOrReportWindowLoadingMessage").css("width", "100%");
+        $("#sendCartOrReportWindowLoadingMessage").css("text-align", "center");
+        $("#sendCartOrReportWindowLoadingMessage").css("margin-top", Math.floor(($(sendCartOrReportWindow).height() / 2) - 15) + "px");
+    }
+
+    function SendCartOrReportWindowResize() {
+        if (parseInt(Math.floor($("#sendCartOrReportWindow").width()) - 110) > 430) {
+            $("#noteContex").css("width", (Math.floor($("#sendCartOrReportWindow").width()) - 110) + "px");
+        }
+        else {
+            $("#noteContex").css("width", "430px");
+        }
+    }
+
+    @*等待查詢，畫面鎖定*@
+    function MainSearchRequestStart() {
+        $.blockUI();
+    }
+
+    @*查詢完成，解除畫面鎖定，若有錯誤則彈出提示訊息*@
+    function MainSearchRequestEnd(e) {
+
+        @*清除錯誤提示訊息*@
+        if ($("#mainStatementGridErrorMessage") != undefined) {
+            $("#mainStatementGridErrorMessage").remove();
+        }
+
+        if (e.response != null && e.response != "" && typeof (e.response) === 'string') {
+
+            var girdWrapper = $("#grid").data("kendoGrid").wrapper;
+
+            @*錯誤提示訊息*@
+            girdWrapper.find('tbody').after('<div id="mainStatementGridErrorMessage">' + e.response + '</div>');
+
+            $("#mainStatementGridErrorMessage").css("text-align", "center");
+
+            @*width 的 -17 為右方 scorebar 的寬度*@
+            $("#mainStatementGridErrorMessage").css("width", parseInt(girdWrapper.find(".k-grid-content").width()) - 17);
+
+            @*margin-top 的 -8 為文字的高度的一半*@
+            $("#mainStatementGridErrorMessage").css("margin-top", parseInt(girdWrapper.find(".k-grid-content").height()) / 2 - 8);
+        }
+
+        $.unblockUI();
+    }
+
+    @*儲存退貨概要資訊*@
+    function SaveCartInfo() {
+        var cartID = $("#Retgood_CartID").val();
+        var dropdownlist = $("#FreightCompany").data("kendoDropDownList");
+        var FreightCompanyID = dropdownlist.value();
+        var FreightCompanyName = dropdownlist.text();
+        var FreightNumber = $("#FreightNumber").val();
+        var PickupDate = $("#PickupDate").val();
+        var otherFreightCompanyName = null;
+
+        var result = PickupDate.search(/^\d{4}\/(0[1-9]|1[0-2])\/((0[1-9])|((1|2)[0-9])|3[0-1])[ ]{1,2}(((0|1)[0-9])|2[0-3])\:[0-5][0-9]\:[0-5][0-9]$/);
+        var isMissing = false;
+
+        if (FreightCompanyID == null || FreightCompanyID == "") {
+            $("#FreightCompany").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+            ErrMsgShow("FreightCompany", "請選擇貨運公司");
+            isMissing = true;
+        }
+        else {
+            @*若選擇其它貨運公司，則檢查是否有填寫其它貨運公司名稱*@
+            if (FreightCompanyID == "99" || $("#FreightCompany").data("kendoDropDownList").text() == "Other") {
+
+                otherFreightCompanyName = $("#otherFreightCompanyName").val();
+
+                if (otherFreightCompanyName == undefined || otherFreightCompanyName == null || otherFreightCompanyName == "") {
+                    $("#otherFreightCompanyName").addClass("errMsgShow");
+                    ErrMsgShow("OtherFreightCompanyName", "請輸入其它貨運業者名稱");
+                    isMissing = true;
+                }
+            }
+        }
+
+        if (FreightNumber == null || FreightNumber == "") {
+            $("#FreightNumber").addClass("errMsgShow");
+            ErrMsgShow("FreightNumber", "請輸入貨運編號");
+            isMissing = true;
+        }
+
+        if (PickupDate == null || PickupDate == "") {
+            $("#PickupDate").parents("span.k-widget.k-datetimepicker.k-header").addClass("errMsgShow");
+            ErrMsgShow("PickupDate", "請輸入取件日期");
+            isMissing = true;
+        }
+        else {
+            if (result < 0) {
+                $("#PickupDate").parents("span.k-widget.k-datetimepicker.k-header").addClass("errMsgShow");
+                ErrMsgShow("PickupDate", "請輸入正確取件日期");
+                isMissing = true;
+            }
+            else {
+                $("#PickupDate").parents("span.k-widget.k-datetimepicker.k-header").removeClass("errMsgShow");
+                ErrMsgHide("PickupDate", "請輸入正確取件日期");
+            }
+        }
+
+        if (isMissing) {
+            return null;
+        }
+
+        $("#FreightCompany").data("kendoDropDownList").enable(false);
+        $("#FreightNumber").attr("readonly", "readonly");
+        //$("#PickupDate").data("kendoDatePicker").enable(false);
+        $("#SaveCartBtn").attr("disabled", "disabled");
+        $("#RetInfoDataProcessing").removeAttr("style");
+        //$.blockUI();
+        var jsonData = JSON.stringify({
+            "CartID": cartID,
+            "FreightCompanyID": FreightCompanyID,
+            "FreightCompanyName": FreightCompanyName,
+            "FreightNumber": FreightNumber,
+            "PickupDate": PickupDate,
+            "OtherFreightCompanyName": otherFreightCompanyName
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/return/UpdateRetgoodInfo",
+            contentType: "application/json;charset=utf-8",
+            data: jsonData,
+            success: function (res) {
+                if (res.IsSuccess == true) {
+                    Search();
+                    //$.unblockUI();
+                    $("#ManMade_Alert_Message").html("資料儲存成功");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    $("#sendCartOrReportWindow").data("kendoWindow").close();
+                }
+                else {
+                    $("#ManMade_Alert_Message").html(res.Msg);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+                $("#FreightCompany").data("kendoDropDownList").enable(true);
+                $("#FreightNumber").removeAttr("readonly");
+                //$("#PickupDate").data("kendoDatePicker").enable(true);
+                $("#SaveCartBtn").removeAttr("disabled");
+                $("#RetInfoDataProcessing").attr("style", "display:none");
+            }
+        });
+    }
+
+    function SaveNoteClick() {
+        var cartID = $("#RetgoodsNote_CartID").val();
+        var dropdownlist = $("#reportRetgoodStatus").data("kendoDropDownList");
+        var reportRetgoodStatus = dropdownlist.value();
+        var NoteDes = $("#NoteDes").val();
+        if (reportRetgoodStatus == null || (reportRetgoodStatus != parseInt("@((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.完成退貨)") && reportRetgoodStatus != parseInt("@((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨異常)"))) {
+            $("#reportRetgoodStatus").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+            ErrMsgShow("reportRetgoodStatus", "請選退貨狀態");
+            return null;
+        }
+
+        $("#reportRetgoodStatus").data("kendoDropDownList").enable(false);
+        $("#NoteDes").attr("readonly", "readonly");
+        $("#SaveNote").attr("disabled", "disabled");
+        $("#CancelNote").attr("disabled", "disabled");
+        $("#RetNoteDataProcessing").removeAttr("style");
+        //$.blockUI();
+        var jsonData = JSON.stringify({
+            "CartID": cartID,
+            "ReportRetgoodStatus": reportRetgoodStatus,
+            "NoteDes": NoteDes
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/Return/RetgoodsReport",
+            contentType: "application/json;charset=utf-8",
+            data: jsonData,
+            success: function (res) {
+                //$.unblockUI();
+                if (res.IsSuccess == true) {
+                    Search();
+                    $("#ManMade_Alert_Message").html("退貨回報狀態更新成功");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    $("#sendCartOrReportWindow").data("kendoWindow").close();
+                }
+                else {
+                    $("#ManMade_Alert_Message").html(res.Msg);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+                $("#reportRetgoodStatus").data("kendoDropDownList").enable(true);
+                $("#NoteDes").removeAttr("readonly");
+                $("#SaveNote").removeAttr("disabled");
+                $("#CancelNote").removeAttr("disabled");
+                $("#RetNoteDataProcessing").attr("style", "display:none");
+            }
+        });
+    }
+
+    function CancelNoteClick() {
+        $("#RetgoodsNote_CartID").val("");
+        $("#NoteDes").val("");
+        $("#sendCartOrReportWindow").data("kendoWindow").close();
+    }
+
+    function SaveUpdateNote() {
+        var cartID = $("#UpdateRetgoodsNote_CartID").val();
+        var UpdateNoteDes = $("#UpdateNoteDes").val();
+        if (UpdateNoteDes == null || UpdateNoteDes == "") {
+            $("#UpdateNoteDes").addClass("errMsgShow");
+            ErrMsgShow("UpdateNoteDes", "請輸入備註資訊");
+            return null;
+        }
+
+        $("#UpdateNoteDes").attr("readonly", "readonly");
+        $("#UpdateNoteSave").attr("disabled", "disabled");
+        $("#UpdateNoteCancel").attr("disabled", "disabled");
+        $("#updateRetNoteDataProcessing").removeAttr("style");
+        //$.blockUI();
+        var jsonData = JSON.stringify({
+            "cartID": cartID,
+            "updateNoteDes": UpdateNoteDes
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/Return/UpdateNote",
+            contentType: "application/json;charset=utf-8",
+            data: jsonData,
+            success: function (res) {
+                //$.unblockUI();
+                $("#UpdateNoteDes").removeAttr("readonly");
+                $("#UpdateNoteSave").removeAttr("disabled");
+                $("#UpdateNoteCancel").removeAttr("disabled");
+                $("#updateRetNoteDataProcessing").attr("style", "display:none");
+                if (res.IsSuccess == true) {
+                    Search();
+                    $("#ManMade_Alert_Message").html("備註更新成功");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    $("#sendCartOrReportWindow").data("kendoWindow").close();
+                }
+                else {
+                    $("#ManMade_Alert_Message").html(res.Msg);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+            }
+        });
+    }
+
+    function ErrMsgShow(id, msg) {
+        $("#" + id).attr("data-valid" + id + "-msg", msg);
+        $("#err" + id + "Msg").html("<span class='k-icon k-warning'> </span> " + msg);
+        $("#err" + id + "Msg").show();
+    }
+
+    function ErrMsgHide(id, msg) {
+        $("#" + id).attr("data-valid" + id + "-msg", msg);
+        $("#err" + id + "Msg").attr("style", "display:none;");
+        $("#err" + id + "Msg").html("<span class='k-icon k-warning'> </span> " + msg);
+    }
+
+    function CancelUpdateNote() {
+        $("#UpdateRetgoodsNote_CartID").val("");
+        $("#UpdateNoteDes").val("");
+        $("#sendCartOrReportWindow").data("kendoWindow").close();
+    }
+
+    function FreightCompanyCheck() {
+        var FreightCompanyID = $("#FreightCompany").data("kendoDropDownList").value();
+        if (FreightCompanyID != null && FreightCompanyID != "") {
+            $("#FreightCompany").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+            ErrMsgHide("FreightCompany", "請選擇貨運公司");
+        }
+        else {
+            $("#FreightCompany").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+            ErrMsgShow("FreightCompany", "請選擇貨運公司");
+        }
+
+        @*判斷是否顯示其它貨運公司的備註欄位*@
+        if ((FreightCompanyID != undefined && FreightCompanyID != null && FreightCompanyID != "") && (FreightCompanyID == "99" || $("#FreightCompany").data("kendoDropDownList").text() == "Other")) {
+
+            @*調整退貨概要資訊視窗高度*@
+            if ($("#sendCartOrReportWindow").height() <= 330) {
+                $("#sendCartOrReportWindow").height((parseInt($("#sendCartOrReportWindow").height()) + 50).toString() + "px");
+            }
+
+            @*顯示其它貨運公司的備註欄位*@
+            $(".otherFreightCompanyName").show();
+            $("#otherFreightCompanyName").show();
+        }
+        else {
+             @*隱藏其它貨運公司的備註欄位*@
+            $(".otherFreightCompanyName").hide();
+            $("#otherFreightCompanyName").hide();
+            $("#otherFreightCompanyName").removeClass("errMsgShow");
+            ErrMsgHide("OtherFreightCompanyName", "請輸入貨運編號");
+        }
+    }
+
+    function RetgoodStatusCheck() {
+        var reportRetgoodStatus = $("#reportRetgoodStatus").data("kendoDropDownList").value();
+        if (reportRetgoodStatus != null && (reportRetgoodStatus == parseInt("@((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.完成退貨)") || reportRetgoodStatus == parseInt("@((int)TWNewEgg.DB.TWBACKENDDB.Models.Retgood.status.退貨異常)"))) {
+            $("#reportRetgoodStatus").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+            ErrMsgHide("reportRetgoodStatus", "請選退貨狀態");
+        }
+        else {
+            $("#reportRetgoodStatus").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+            ErrMsgShow("reportRetgoodStatus", "請選退貨狀態");
+        }
+    }
+</script>

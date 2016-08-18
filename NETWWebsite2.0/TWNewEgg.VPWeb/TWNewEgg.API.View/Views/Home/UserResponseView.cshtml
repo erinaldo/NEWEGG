@@ -1,0 +1,83 @@
+﻿<style>
+    label {
+        display: inline-block;
+        padding-right: 3px;
+        width: 85px;
+    }
+
+    li {
+        margin-top:10px;
+    }  
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    .ResponseSection {
+         margin-left: 6px;
+    }
+</style>
+
+<div class="ResponseSection">
+    <ul>
+        <li>
+            <label>用戶Email: </label>                       
+        </li>   
+        <li>
+            <label >@ViewBag.UserEmail</label>
+        </li>    
+        <li>
+            <label>回饋內容:</label>
+            <br />
+            <textarea id="UserMsg" style="width:300px;height:250px;margin-top:5px;" maxlength="300" onkeyup="WordCount(this);"></textarea>
+            <br/>
+            <span id="textCount"></span>
+        </li>           
+        <li class="confirm" >
+            <button class="k-button k-primary" type="button" onclick="Send()">送出</button>
+            <button class="k-button k-primary" type="button" onclick="Clean()">清除</button>
+        </li>                    
+    </ul>
+</div>
+<script type="text/javascript">
+    function WordCount(oInputWord) {
+        var areaMaxLen = parseInt(oInputWord.getAttribute('maxlength'));
+        var iCurLen = oInputWord.value.length;
+        var n = areaMaxLen - iCurLen;
+        $("#textCount").html('<b style="color:red;" >' + n + ' character(s) left.</b>');
+
+    }
+    function Send() {
+        var UserResponse = $("#UserResponseForm");
+
+        var msg = $("#UserMsg").val();
+        if (msg == "") {
+            $("#ManMade_Alert_Message").html("內容不得為空!");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+        } else {
+            $.ajax({
+                type: "Post",
+                url: "/Home/SendResponse",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    // 取得執行動作的id
+                    "Message": $("#UserMsg").val(),
+                }),
+                beforeSend: function () {
+
+                },
+                success: function (res) {
+                    $("#ManMade_Alert_Message").html(res.msg);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    UserResponse.data("kendoWindow").close();
+                }
+            });
+        }
+    }
+
+    function Clean() {
+        $("#UserMsg").val("");
+    }
+
+</script>

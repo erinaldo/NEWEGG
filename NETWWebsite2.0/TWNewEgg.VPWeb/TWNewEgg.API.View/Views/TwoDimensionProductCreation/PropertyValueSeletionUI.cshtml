@@ -1,0 +1,920 @@
+﻿@{
+    TWNewEgg.API.View.PropertyValueSelection viewModel = new TWNewEgg.API.View.PropertyValueSelection();
+    
+    if((ViewBag.viewModel as TWNewEgg.API.View.PropertyValueSelection) != null)
+    {
+        viewModel = ViewBag.viewModel as TWNewEgg.API.View.PropertyValueSelection;
+    }
+}
+
+<style>
+    .topTitle {
+        text-align: center;
+        border: solid;
+        border-color: #ccc;
+        border-width: 1px;
+        padding: 5px;
+        background-color: #eee;
+    }
+    .mainTdStyle {
+        border: solid;
+        border-color: #ccc;
+        border-width: 1px;
+        padding: 5px;
+    }
+    .secondTdStyle {
+        text-align: center;
+        border: solid;
+        border-color: #ccc;
+        border-width: 1px;
+        padding: 5px;
+    }
+    .k-widget.k-tooltip-validation{
+        position:absolute;
+        
+    }
+    span.pictureForm {
+        padding: 20px;
+        max-width:150px;
+        max-height:102px;
+    }
+</style>
+
+<div>
+    <table>
+        <tr>
+            <td style="padding:5px; width:200px; text-align:center;">
+                @(Html.Kendo().DropDownList()
+                    .Name("mainCheckboxSelect")
+                    .HtmlAttributes(new { 
+                        style = "width:200px; text-align:left;"
+                    })
+                )
+            </td>
+            <td style="padding:5px; width:200px; text-align:center;">
+                @{
+                    if(viewModel.ExpandDimension == 2)
+                    {
+                        @(Html.Kendo().DropDownList()
+                            .Name("secondCheckboxSelect")
+                            .HtmlAttributes(new {
+                                style = "width:200px; text-align:left;"
+                            })
+                        )
+                    }
+                }
+            </td>
+
+            <td style="padding:5px; vertical-align:bottom;">
+                <input type="button" class="k-button" id="expandButton" value="展開" onclick="Expand()" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="expandLoading" style="padding:5px;"></div>
+
+<div id="expandUI" style="padding:5px; display:none;">
+    <table id="expandTable">
+        <tbody id ="expandTbody">
+            <tr row="rowTitle">
+                <td class="topTitle"></td>
+                <td class="topTitle">@viewModel.TwoDimensionProductProperty.MainPropertyName / 圖片</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="display:none;">
+    <table>
+        <tbody>
+            <tr id="addColumn_Title">
+                <td colspan="addColumn_SecondCheckboxCount" name="canSaleQtyTitle" class="topTitle">addColumn_Text</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="display:none;">
+    <table>
+        <tbody id="addRow">
+            <tr row="addRow_MainCheckboxID_1">
+                <td rowspan="2" class="mainTdStyle">
+                    <input type="button" class="k-button" value="刪除" onclick='DeleteRow("addRow_MainCheckboxID")' />
+                </td>
+                <td rowspan="2" class="mainTdStyle">
+                    屬性addRow_MainPropertyName&nbsp;&nbsp;
+                    @(Html.Kendo().TextBox()
+                        .Name("addRow_MainCheckboxID")
+                        .Enable(false)
+                        .Value("addRow_MainCheckboxText")
+                        .HtmlAttributes(new{ style="background-color:#eee; width:100px;" })
+                    )
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    自訂addRow_MainPropertyName&nbsp;&nbsp;
+                    @(Html.Kendo().TextBox()
+                        .Name("custom_addRow_MainCheckboxID")
+                        .HtmlAttributes(new{  maxlength="15", style="width:150px;" })
+                    )
+                    <br />
+                    <input type="text" id="pictureName_addRow_MainCheckboxID" class="k-textbox" readonly="true" onclick="SelectPicture(addRow_MainCheckboxID)" style="width:200px;" />
+                    <input type="button" id="selectPicture_addRow_MainCheckboxID" class="k-button" value="瀏覽" onclick="SelectPicture(addRow_MainCheckboxID)"/>
+                    <input type="button" id="uploadPicture_addRow_MainCheckboxID" class="k-button" value="上傳" onclick="UploadPicture(addRow_MainCheckboxID)"/>
+                    <input type="file" id="inputFile_addRow_MainCheckboxID" style="display:none;" />
+                    <br />
+                    <div id="noneUploadNote_addRow_MainCheckboxID" style="display:none; color:red; font-size:10px;">注意：此規格商品圖片尚未上傳。</div>
+                    <div id="completeUploadNote_MainCheckboxID" style="display:none; font-size:10px;" >此規格商品圖片已上傳完成。</div>
+                    <div id="loadingIMG_addRow_MainCheckboxID" style="display:none;"><img src="~/Content/Img/loading.gif" height='30'/>資料處理中，請稍後。</div>
+                </td>
+                @{
+                    if(viewModel.ExpandDimension == 2) {
+                        <td column="column_FirstAddPoint" style="display:none;"></td>
+                    }
+                }
+            </tr>
+            <tr row="addRow_MainCheckboxID_2">
+                 @{
+                    if(viewModel.ExpandDimension == 2) {
+                        <td column="column_FirstAddPoint" style="display:none;"></td>
+                    }
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="display:none;">
+    <table>
+        <tbody>
+            <tr id="addColumn_SecondPropertyValueName">
+                <td column="addColumn_SecondCheckboxID" class="secondTdStyle">
+                    @(Html.Kendo().TextBox()
+                        .Name("secondPropertyValueName_addColumn_SecondCheckboxID")
+                        .Enable(false)
+                        .Value("addColumn_SecondCheckboxText")
+                        .HtmlAttributes(new { style="background-color:#eee; width:100px;" })
+                    )
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="display:none;">
+    <table>
+        <tbody>
+            <tr id="addColumn_CanSaleQty">
+                <td column="addColumn_SecondCheckboxID" class="secondTdStyle" style="position:relative;">
+                    <span style="color:red">* </span>
+                    <input type="text" id="canSaleQty_addColumn_MainCheckboxID_addColumn_SecondCheckboxID" propertyQty="Demo" name="canSaleQty" onblur="CheckQty('canSaleQty_addColumn_MainCheckboxID_addColumn_SecondCheckboxID')" style="width:100px;"/>
+                    <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="canSaleQty_addColumn_MainCheckboxID_addColumn_SecondCheckboxID" role="alert" id="errcanSaleQty_addColumn_MainCheckboxID_addColumn_SecondCheckboxIDMsg" style="display:none;top:22px;"></span>
+                    @{
+                        if(viewModel.ExpandDimension == 2) {
+                            <input type="button" class="k-button" value="刪除" onclick="DeleteCanSaleQty(addColumn_MainCheckboxID, addColumn_SecondCheckboxID)" />
+                        }
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="addPreviewPictureSpan" style="display:none;">
+    <span id="previewPictureSpan_RowNumber" class="pictureForm">
+        <img id="previewPicture_RowNumber" style="display:none;" />
+    </span>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        @*組合 kendoDropDownList 的 dataSource，並生成 kendoDropDownList*@
+        @{
+            <text>var mainDataSource = [];</text>
+            foreach (TWNewEgg.API.View.KendoSelectData selectData in viewModel.MainSetectionCell)
+            {
+                if (!string.IsNullOrEmpty(selectData.Text) && selectData.Value > 0)
+                {
+                    <text>mainDataSource.push({ Text: "@selectData.Text", Value: "@selectData.Value" });</text>
+                }
+            }
+            <text>MakekendoDropDownList("main", mainDataSource, '@viewModel.TwoDimensionProductProperty.MainPropertyName');</text>
+
+            if(viewModel.ExpandDimension == 2)
+            {
+                <text>var secondDataSource = [];</text>
+                foreach (TWNewEgg.API.View.KendoSelectData selectData in viewModel.SecondSetectionCell)
+                {
+                    if (!string.IsNullOrEmpty(selectData.Text) && selectData.Value > 0)
+                    {
+                        <text>secondDataSource.push({ Text: "@selectData.Text", Value: "@selectData.Value" });</text>
+                    }
+                }
+                <text>MakekendoDropDownList("second", secondDataSource, '@viewModel.TwoDimensionProductProperty.SecondPropertyName');</text>
+            }
+        }
+
+        @*編輯畫面載時，填入已存資料*@
+        @{
+            if(viewModel.TwoDimensionProductProperty.MainPropertyValueCell.Count > 0)
+            { 
+                @*展開表格*@
+                foreach (TWNewEgg.API.View.MainPropertyValue mainData in viewModel.TwoDimensionProductProperty.MainPropertyValueCell)
+                {
+                    <text>
+        $("#mainCheckboxSelect").data("kendoDropDownList").list.find("#mainCheckbox_" + '@mainData.MainPropertyValueID').prop("checked", true);
+                    </text>
+                    
+                    if (viewModel.ExpandDimension == 2 && mainData.SecondPropertyValueCell.Count > 0)
+                    {
+                        foreach (TWNewEgg.API.View.SecondPropertyValue secondData in mainData.SecondPropertyValueCell)
+                        {
+                            <text>
+        $("#secondCheckboxSelect").data("kendoDropDownList").list.find("#secondCheckbox_" + '@secondData.SecondPropertyValueID').prop("checked", true);
+                            </text>
+                        }
+
+                        <text>Expand();</text>
+                    }
+                }
+
+                if (viewModel.ExpandDimension == 1)
+                { 
+                    <text>Expand();</text>
+                }
+
+                @*填值*@
+                foreach (TWNewEgg.API.View.MainPropertyValue mainData in viewModel.TwoDimensionProductProperty.MainPropertyValueCell)
+                {
+                    <text>
+        $("#custom_" + '@mainData.MainPropertyValueID').val('@mainData.InputValue');
+
+                        @*設定圖片路徑及圖片名稱*@
+        $("#previewPicture_" + '@mainData.MainPropertyValueID')
+            .attr("src", '@mainData.PictureURL')
+                            .load(function () {
+                                SetPictureAspect(this);
+                            })
+                            .show();
+
+                        @*取得圖片名稱*@
+        var pictureUrl_SplitCell = '@mainData.PictureURL'.split("/");
+        var last_SplitCell = pictureUrl_SplitCell[pictureUrl_SplitCell.length - 1].split("?");
+        var pictureName = last_SplitCell[0];
+        $("#pictureName_" + '@mainData.MainPropertyValueID').val(pictureName);
+                    </text>
+
+                    if (viewModel.ExpandDimension == 1 && mainData.SecondPropertyValueCell.Count > 0)
+                    {
+                        <text>$("#canSaleQty_" + '@mainData.MainPropertyValueID').data("kendoNumericTextBox").value('@mainData.SecondPropertyValueCell[0].CanSaleQty');</text>
+                    }
+                    
+                    if (viewModel.ExpandDimension == 2 && mainData.SecondPropertyValueCell.Count > 0)
+                    {
+                        foreach (TWNewEgg.API.View.SecondPropertyValue secondData in mainData.SecondPropertyValueCell)
+                        {
+                            <text>$("#canSaleQty_" + '@mainData.MainPropertyValueID' + "_" + '@secondData.SecondPropertyValueID').data("kendoNumericTextBox").value('@secondData.CanSaleQty');</text>
+                        }
+                    }
+                }
+                
+                <text>$("#previewPicture").show();</text>
+            }
+            
+            <text>
+        $("#itemPropertyCell").remove();
+        $("#itemPropertyCell_tr").remove();
+        $("#pictureUrlCell").remove();
+        $("#pictureUrlCell_t").remove();
+        </text>
+        }
+    });
+
+    @*生成 kendoDropDownList*@
+    function MakekendoDropDownList(dropdownName, dataSource, propertyName) {
+        var dropdown = $("#" + dropdownName + "CheckboxSelect").kendoDropDownList({
+            dataTextField: "Text",
+            dataValueField: "Value",
+            template: "<li unselectable=\"on\" class=\"k-item nowrap check-item\">" +
+
+                          "<input type=\"checkbox\"" +
+                                 "id=\"" + dropdownName + "Checkbox_" + "#= Value #\"" +
+                                 "value=\"#= Value #\"" +
+                                 "text=\"#= Text #\"" +
+                                 "class=\"check-input\" />" +
+
+                          "<span>#= Text #</span>" +
+                      "</li>",
+            optionLabel: "請選擇" + propertyName,
+            dataSource: dataSource,
+            open: ClearErrorMark_WhenOpenKendodropdownlist,
+        }).data("kendoDropDownList");
+
+
+        @*移除 kendoDropDownList 原本成生的 select 項目*@
+        dropdown.list.find("li[role=option]").each(function () {
+            $(this).remove();
+        });
+
+        @*產生勾選事件*@
+        dropdown.list.find(".check-input,.check-item").click(CheckboxClick);
+    }
+
+    @*kendoDropDownList 勾選事件*@
+    function CheckboxClick(event) {
+        var $item = $(this);
+        var $input;
+
+        if ($item.children(".check-input").prop("disabled") == false) {
+            if ($item.hasClass("check-item")) {
+                @*點擊*@
+                $input = $item.children(".check-input");
+                $input.prop("checked", !$input.is(':checked'));
+            }
+            else {
+                @*Checkbox clicked*@
+                $input = $item;
+            }
+        }
+
+        @*在點擊勾選下拉選項時，不會收回展開的清單*@
+        event.stopImmediatePropagation();
+    }
+
+    @*點擊 kendoDropDownList 時清除錯誤提示紅框*@
+    function ClearErrorMark_WhenOpenKendodropdownlist(event) {
+        ClearErrorMark_Kendodropdownlist(event.sender._arrow.context.id);
+    }
+
+
+
+
+
+
+
+
+
+
+    @*點擊展開*@
+    function Expand() {
+
+        @*讀取待展開項目*@
+        var mainIDCell = GetCheckedIDCell("main");
+        @{
+            if (viewModel.ExpandDimension == 2)
+            {
+                <text>var secondIDCell = GetCheckedIDCell("second");</text>
+            }
+        }
+
+        @*判斷是否符合展開條件*@
+        var isExpand = true;
+        var errorMessage = "";
+        if (parseInt(mainIDCell.length) == 0) {
+            isExpand = false;
+            errorMessage += "請選擇" + '@viewModel.TwoDimensionProductProperty.MainPropertyName' + "。";
+            ShowErrorMark_Kendodropdownlist("mainCheckboxSelect");
+        }
+        @{
+            if (viewModel.ExpandDimension == 2)
+            {
+                <text>
+        if (parseInt(secondIDCell.length) == 0) {
+            isExpand = false;
+            errorMessage += "請選擇" + '@viewModel.TwoDimensionProductProperty.SecondPropertyName' + "。";
+                        ShowErrorMark_Kendodropdownlist("secondCheckboxSelect");
+                    }
+        </text>
+            }
+        }
+
+        @*展開*@
+        if (isExpand) {
+            ClearErrorMark_Kendodropdownlist("mainCheckboxSelect");
+            @{
+                if (viewModel.ExpandDimension == 2)
+                {
+                    <text>ClearErrorMark_Kendodropdownlist("secondCheckboxSelect");</text>
+                }
+            }
+
+            $("#expandLoading").html($("#loadingIMG").html());
+            $("#expandUI").hide();
+
+            @*一維項目*@
+            for (var i = 0; i < mainIDCell.length; i++) {
+                if (CheckRowIsExist(mainIDCell[i] + "_1") == false) {
+
+                    @*組合 row*@
+                    var addRow = MakeAddRow(mainIDCell[i], GetCheckboxText("main", mainIDCell[i]), '@viewModel.TwoDimensionProductProperty.MainPropertyName');
+
+                    @*取得插入點，並插入 row*@
+                    $("tr[row=" + GetAddRowPoint(mainIDCell[i]) + "]").after(addRow);
+
+                    @*組合圖片*@
+                    var addPic = MakeAddPreviewPicture(mainIDCell[i]);
+
+                    @*取得插入點，並插入 row*@
+                    $("span[id=" + GetAddPreviewPicturePoint(mainIDCell[i]) + "]").after(addPic);
+
+
+                    if (parseInt('@viewModel.ExpandDimension') == 1 || (parseInt('@viewModel.ExpandDimension') == 2 && parseInt(secondIDCell.length) == 0)) {
+                        @*組合一維可售數量*@
+                        var addQty = MakeAddCanSaleQty1(mainIDCell[i]);
+
+                        @*插入 title*@
+                        $("tr[row=" + mainIDCell[i] + "_1]").append(addQty);
+
+                        ConvertToKendoNumericTextBox("canSaleQty_" + mainIDCell[i]);
+                    }
+                }
+            }
+
+            @*二維項目*@
+            @{
+                if (viewModel.ExpandDimension == 2)
+                {
+                    <text>
+            for (var mainIndex = 0; mainIndex < mainIDCell.length; mainIndex++) {
+                for (var secondIndex = 0; secondIndex < secondIDCell.length; secondIndex++) {
+                    if (CheckColumnIsExist(mainIDCell[mainIndex] + "_1", secondIDCell[secondIndex]) == false) {
+
+                                    @*組合 column_PropertyValueName*@
+                                    var addPropertyName = MakeAddPropertyValueName(secondIDCell[secondIndex]);
+
+                                    @*取得插入點，並插入 row*@
+                                    var addPropertyNamePoint = GetAddColumnPoint(mainIDCell[mainIndex] + "_1", secondIDCell[secondIndex]);
+                                    $("#expandTbody").children("tr[row=" + mainIDCell[mainIndex] + "_1]").children("td[column=" + addPropertyNamePoint + "]").after(addPropertyName);
+                                }
+
+                                if (CheckColumnIsExist(mainIDCell[mainIndex] + "_2", secondIDCell[secondIndex]) == false) {
+
+                                    @*組合 column_*@
+                                    var addQty = MakeAddCanSaleQty2(mainIDCell[mainIndex], secondIDCell[secondIndex]);
+
+                                    @*取得插入點，並插入 row*@
+                                    var addPropertyNamePoint = GetAddColumnPoint(mainIDCell[mainIndex] + "_2", secondIDCell[secondIndex]);
+                                    $("#expandTbody").children("tr[row=" + mainIDCell[mainIndex] + "_2]").children("td[column=" + addPropertyNamePoint + "]").after(addQty);
+
+                                    ConvertToKendoNumericTextBox("canSaleQty_" + mainIDCell[mainIndex] + "_" + secondIDCell[secondIndex]);
+                                }
+                            }
+                        }
+            </text> 
+                } 
+            }
+
+            @*清除並重新插入可售數量的 Title*@
+            ClearCanSaleQtyTitle();
+            if (IsExpanded()) {
+                var addTitle = MakeAddTitle();
+                $("tr[row=rowTitle]").append(addTitle);
+            }
+
+            ClearChecked();
+            $("#expandLoading").html("");
+            if (IsExpanded()) {
+                $("#expandUI").show();
+            }
+        }
+        else {
+            if (errorMessage != "") {
+                $("#ManMade_Alert_Message").html(errorMessage);
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*取得所有勾選項目*@
+    function GetCheckboxCell(dropdownName) {
+        return $("#" + dropdownName + "CheckboxSelect").data("kendoDropDownList").list.find(".check-input,.check-item").children(".check-input");
+    }
+
+    @*取得所有勾選項目的ID*@
+    function GetCheckboxIDCell(dropdownName) {
+        return GetCheckboxCell(dropdownName).map(function () {
+            return $(this).prop("value");
+        }).get();
+    }
+
+    @*取得已勾選的ID*@
+    function GetCheckedIDCell(dropdownName) {
+        return GetCheckboxCell(dropdownName).map(function () {
+            if ($(this).prop("checked")) {
+                return $(this).prop("value");
+            }
+        }).get();
+    }
+
+    @*取得勾選項目的名稱*@
+    function GetCheckboxText(dropdownName, checkboxID) {
+        return $("#" + dropdownName + "Checkbox_" + checkboxID).attr("text");
+    }
+
+    @*清除已勾選*@
+    function ClearChecked() {
+        GetCheckboxCell("main").each(function () {
+            if ($(this).prop("checked")) {
+                $(this).prop("checked", false);
+            }
+        });
+
+        @{
+            if (viewModel.ExpandDimension == 2)
+            {
+                <text>
+        GetCheckboxCell("second").each(function () {
+            if ($(this).prop("checked")) {
+                $(this).prop("checked", false);
+            }
+        });
+                </text>
+            }
+        }
+
+    }
+
+    @*檢查 row 是否已展開*@
+    function CheckRowIsExist(row) {
+        if (parseInt($("#expandTbody").children("tr[row=" + row + "]").length) == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    @*刪除 row*@
+    function DeleteRow(row) {
+        $("tr[row=" + row + "_1]").remove();
+        $("tr[row=" + row + "_2]").remove();
+        $("#previewPictureSpan_" + row).remove();
+
+        @*當主項目資料數為 0 時，隱葴抬頭欄位*@
+        if (IsExpanded() == false) {
+            $("#expandUI").hide();
+            $("#previewPicture").hide();
+
+            ClearCanSaleQtyTitle();
+        }
+    }
+
+    @*檢查是否有已展開項目(true:有, false:沒有)*@
+    function IsExpanded() {
+        if (parseInt($("#expandTbody").children().length) > 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    @*組合主項目內容*@
+    function MakeAddRow(mainCheckboxID, mainCheckboxText, mainPropertyName) {
+        var addRow = $("#addRow").html();
+
+        for (; addRow.indexOf("addRow_MainCheckboxID") != -1;) {
+            addRow = addRow.replace("addRow_MainCheckboxID", mainCheckboxID);
+        }
+
+        for (; addRow.indexOf("addRow_MainCheckboxText") != -1;) {
+            addRow = addRow.replace("addRow_MainCheckboxText", mainCheckboxText);
+        }
+
+        for (; addRow.indexOf("addRow_MainPropertyName") != -1;) {
+            addRow = addRow.replace("addRow_MainPropertyName", mainPropertyName);
+        }
+
+        return addRow;
+    }
+
+    @*取得 row 的插入位置*@
+    function GetAddRowPoint(checkedID) {
+        var checkboxIDCell = GetCheckboxIDCell("main");
+
+        if (parseInt(checkboxIDCell) > 0) {
+
+            @*取得 checkedID 在下拉式選單中的順位值*@
+            var searchStart = GetIDIndex(checkboxIDCell, checkedID);
+
+            @*找 checkedID 上一個 id 的 row 在不在，不在則再找上上一個...*@
+            for (var i = searchStart - 1; i >= 0; i--) {
+                if (CheckRowIsExist(checkboxIDCell[i] + "_1")) {
+                    return checkboxIDCell[i] + "_2";
+                }
+            }
+        }
+
+        @*找到最後都找不到插入位置，則插在 title 之下*@
+        return "rowTitle";
+    }
+
+    @*取得 id 在清單中的順位值*@
+    function GetIDIndex(idCell, id) {
+        if (parseInt(idCell.length) > 0) {
+            for (var i = 0; i < parseInt(idCell.length) ; i++) {
+                if (idCell[i] == id) {
+                    return i;
+                }
+            }
+        }
+
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+    function MakeAddCanSaleQty1(checkboxID) {
+        var addQty = $("#addColumn_CanSaleQty").html();
+
+        for (; addQty.indexOf("column=\"addColumn_SecondCheckboxID\"") != -1;) {
+            addQty = addQty.replace("column=\"addColumn_SecondCheckboxID\"", "rowspan=\"2\" column=\"oneDimension\"");
+        }
+
+        for (; addQty.indexOf("addColumn_MainCheckboxID") != -1;) {
+            addQty = addQty.replace("addColumn_MainCheckboxID", checkboxID);
+        }
+
+        for (; addQty.indexOf("_addColumn_SecondCheckboxID") != -1;) {
+            addQty = addQty.replace("_addColumn_SecondCheckboxID", "");
+        }
+
+        for (; addQty.indexOf("Demo") != -1;) {
+            addQty = addQty.replace("Demo", "Qty");
+        }
+
+        return addQty;
+    }
+
+    function MakeAddCanSaleQty2(mainCheckboxID, secondCheckboxID) {
+        var addQty = $("#addColumn_CanSaleQty").html();
+
+        for (; addQty.indexOf("addColumn_MainCheckboxID") != -1;) {
+            addQty = addQty.replace("addColumn_MainCheckboxID", mainCheckboxID);
+        }
+
+        for (; addQty.indexOf("addColumn_SecondCheckboxID") != -1;) {
+            addQty = addQty.replace("addColumn_SecondCheckboxID", secondCheckboxID);
+        }
+
+        for (; addQty.indexOf("Demo") != -1;) {
+            addQty = addQty.replace("Demo", "Qty");
+        }
+
+        return addQty;
+    }
+
+    function MakeAddPropertyValueName(checkboxID) {
+        var addPropertyName = $("#addColumn_SecondPropertyValueName").html();
+
+        for (; addPropertyName.indexOf("addColumn_SecondCheckboxID") != -1;) {
+            addPropertyName = addPropertyName.replace("addColumn_SecondCheckboxID", checkboxID);
+        }
+
+        for (; addPropertyName.indexOf("addColumn_SecondCheckboxText") != -1;) {
+            addPropertyName = addPropertyName.replace("addColumn_SecondCheckboxText", GetCheckboxText("second", checkboxID));
+        }
+
+        return addPropertyName;
+    }
+
+    @*將輸入框改成 kendo 數值輸入模式*@
+    function ConvertToKendoNumericTextBox(id) {
+        $("#" + id).kendoNumericTextBox({
+            value: 0,
+            format: "#",
+            min: 0,
+            max: 9999999
+        });
+    }
+
+    function CheckColumnIsExist(row, column) {
+        if ($("#expandTbody").children("tr[row=" + row + "]").children("td[column=" + column + "]").length != 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function GetAddColumnPoint(row, column) {
+        var secondCheckboxIDCell = GetCheckboxIDCell("second");
+
+        if (parseInt(secondCheckboxIDCell) > 0) {
+
+            @*取得 checkedID 在下拉式選單中的順位值*@
+            var searchStart = GetIDIndex(secondCheckboxIDCell, column);
+
+            @*找 checkedID 上一個 id 的 row 在不在，不在則再找上上一個...*@
+            for (var i = searchStart - 1; i >= 0; i--) {
+                if (CheckColumnIsExist(row, secondCheckboxIDCell[i])) {
+                    return secondCheckboxIDCell[i];
+                }
+            }
+        }
+
+        @*找到最後都找不到插入位置，則插在主項目內容之後*@
+        return "column_FirstAddPoint";
+    }
+
+    function DeleteCanSaleQty(mainCheckboxID, secondCheckboxID) {
+        $("#expandTbody").children("tr[row=" + mainCheckboxID + "_1]").children("td[column=" + secondCheckboxID + "]").remove();
+        $("#expandTbody").children("tr[row=" + mainCheckboxID + "_2]").children("td[column=" + secondCheckboxID + "]").remove();
+
+        if (parseInt($("#expandTbody").children("tr[row=" + mainCheckboxID + "_1]").children().length) <= 3 || parseInt($("#expandTbody").children("tr[row=" + mainCheckboxID + "_2]").children().length) <= 1) {
+            DeleteRow(mainCheckboxID);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*清除可售數量的 Title*@
+    function ClearCanSaleQtyTitle() {
+        $("tr[row=rowTitle]").children("td[name=canSaleQtyTitle]").remove();
+    }
+
+    @*組合一維的可售數量的 Title*@
+    function MakeAddTitle() {
+        var addTitle = $("#addColumn_Title").html();
+
+        @{
+            if (viewModel.ExpandDimension == 1)
+            {
+                <text>
+        addTitle = addTitle.replace("addColumn_Text", "數量");
+        addTitle = addTitle.replace("addColumn_SecondCheckboxCount", "1");
+                </text>
+            }
+
+            if (viewModel.ExpandDimension == 2)
+            {
+                <text>
+        addTitle = addTitle.replace("addColumn_Text", "@viewModel.TwoDimensionProductProperty.SecondPropertyName / 數量");
+        addTitle = addTitle.replace("addColumn_SecondCheckboxCount", GetCheckboxCell("second").length);
+                </text>
+            }
+        }
+
+        return addTitle;
+    }
+
+
+
+
+
+
+
+
+
+    @*組合圖片區塊*@
+    function MakeAddPreviewPicture(rowNumber) {
+        var addPic = $("#addPreviewPictureSpan").html();
+
+        for (; addPic.indexOf("RowNumber") != -1;) {
+            addPic = addPic.replace("RowNumber", rowNumber);
+        }
+
+        return addPic;
+    }
+
+    @*取得圖片的插入位置*@
+    function GetAddPreviewPicturePoint(checkedID) {
+        var checkboxIDCell = GetCheckboxIDCell("main");
+
+        if (parseInt(checkboxIDCell) > 0) {
+
+            @*取得 checkedID 在下拉式選單中的順位值*@
+            var searchStart = GetIDIndex(checkboxIDCell, checkedID);
+
+            @*找 checkedID 上一個 id 的圖片區塊在不在，不在則再找上上一個...*@
+            for (var i = searchStart - 1; i >= 0; i--) {
+                if (CheckPreviewPictureIsExist(checkboxIDCell[i])) {
+                    return "previewPictureSpan_" + checkboxIDCell[i];
+                }
+            }
+        }
+
+        @*找到最後都找不到插入位置，則插在預設的第一張圖插入點之後*@
+        return "previewPictureSpan_FirstAddPoint";
+    }
+
+    @*檢查圖片區塊是否存在*@
+    function CheckPreviewPictureIsExist(checkedID) {
+        if (parseInt($("span[id=previewPictureSpan_" + checkedID + "]").length) == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    @*選擇要上傳的圖片(瀏覽)*@
+    function SelectPicture(rowID) {
+        $("#inputFile_" + rowID).click();
+        $("#inputFile_" + rowID).change(function () {
+            $("#pictureName_" + rowID).val(this.files[0].name);
+
+            $("#completeUploadNote_" + rowID).hide();
+            $("#noneUploadNote_" + rowID).show();
+        });
+    }
+
+    @*上傳圖片*@
+    function UploadPicture(rowID) {
+
+        $("#noneUploadNote_" + rowID).hide();
+        $("#loadingIMG_" + rowID).show();
+
+        var buttonID = "inputFile_" + rowID;
+        var picture = document.getElementById(buttonID);
+
+        @*圖片大小限制為 2MB(2097152 bytes)*@
+        if (picture.files.item(0).size <= 2097152) {
+            var xml = new XMLHttpRequest();
+            var data = new FormData();
+
+            data.append("files", document.getElementById(buttonID).files[0]);
+            xml.open("POST", "/TwoDimensionProductCreation/UploadPicture/", true);
+            xml.send(data);
+            xml.addEventListener("load", function (event) {
+                if (event.target.response != "") {
+
+                    var result = event.target.response.toString().replace("\"", "").split(";");
+                    if (result.indexOf("上傳成功。") != -1) {
+                        $("#previewPicture_" + rowID).attr("src", result[1]);
+                        $("#previewPicture_" + rowID).attr("width", result[2]);
+                        $("#previewPicture_" + rowID).attr("height", result[3]);
+                        $("#previewPicture_" + rowID).show();
+
+                        $("#loadingIMG_" + rowID).hide();
+                        $("#completeUploadNote_" + rowID).show();
+                        $("#previewPicture").show();
+                    }
+                    else {
+                        $("#loadingIMG_" + rowID).hide();
+                        $("#noneUploadNote_" + rowID).show();
+                        $("#ManMade_Alert_Message").html(result[0]);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    }
+                }
+            }, false);
+        }
+        else {
+            $("#ManMade_Alert_Message").html("圖片大小不可超過 2 MB。");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+        }
+    }
+
+    function SetPictureAspect($image) {
+
+        @*預設寬高比*@
+        var defaultAspectRatio = 150 / 102;
+
+        @*圖片寬高比*@
+        var imageAspectRatio = $image.width / $image.height;
+
+        @*若圖片寬高比大於預設寬高比，則縮圖以寬為主計算高的值，否則以高為主計算寬的值*@
+        if (imageAspectRatio > defaultAspectRatio) {
+            $image.width = 150;
+            $image.height = Math.round(($image.height * 150) / $image.width);
+        }
+        else {
+            $image.width = Math.round(($image.width * 102) / $image.height);
+            $image.height = 102;
+        }
+    }
+</script>

@@ -1,0 +1,196 @@
+﻿@import "compass/css3";
+
+$automargin:0 auto;
+
+$nav-max-width:198px;
+$nav-min-width:43px;
+.outline {
+	width:$nav-max-width;
+	font-family:"微軟正黑體";
+	.title {
+		height:23px;
+		background:url("../img/nav_title_bg.gif") repeat-x;		
+		border:1px solid #142b55;
+		@include border-radius(4px 4px 0 0);
+		color:#fff;
+		line-height:23px;
+		cursor:pointer;
+		div {
+			background:url("../img/icon/icon01.gif") no-repeat 6px 4px;
+		}
+		p {
+			padding-left:30px;
+			height:23px;
+			background:url("../img/arr00.gif") no-repeat 180px 7px;
+		}
+	}
+	.navBox {
+		border:1px solid #ccc;
+		@include border-radius(0 0 4px 4px);
+		overflow:hidden;
+		.nav {			
+			background:url("../img/nav_bg.gif") repeat-x;
+			min-height:25px;
+			line-height:25px;
+			color:#27539c;
+			cursor:pointer;
+			a {
+				display:block;
+				background:url("../img/arr01.gif") no-repeat 185px 6px;			
+				text-decoration:none;	
+			}
+			&:hover,&.active {
+				background:url("../img/nav_bg_hover.gif") repeat-x;
+				a {
+					font-weight:bold;
+					background:url("../img/arr01-1.gif") no-repeat 185px 6px;
+				}
+			}
+			&.active {
+				a {
+					background:url("../img/arr02.gif") no-repeat 180px 10px;
+				}
+			}
+			p {
+				padding-left:30px;
+			}
+			&.sty01 p {
+				background:url("../img/icon/icon02.gif") no-repeat 6px 4px;
+			}
+			&.sty02 p {
+				background:url("../img/icon/icon03.gif") no-repeat 6px 4px;
+			}
+			&.sty03 p {
+				background:url("../img/icon/icon04.gif") no-repeat 6px 4px;
+			}
+			&.sty04 p {
+				background:url("../img/icon/icon05.gif") no-repeat 6px 4px;
+			}
+			&.sty05 p {
+				background:url("../img/icon/icon06.gif") no-repeat 6px 4px;
+			}
+			&.sty06 p {
+				background:url("../img/icon/icon07.gif") no-repeat 6px 4px;
+			}
+			&.sty07 p {
+				background:url("../img/icon/icon08.gif") no-repeat 6px 4px;
+			}
+			&.sty08 p {
+				background:url("../img/icon/icon09.gif") no-repeat 6px 4px;
+			}
+			&.sty09 p {
+				background:url("../img/icon/icon10.gif") no-repeat 6px 4px;
+			}
+			&.sty10 p {
+				background:url("../img/icon/icon11.gif") no-repeat 6px 4px;
+			}			
+		}
+		.subox {
+				background:#eef4fb;
+				border-bottom:1px solid #ccc;
+				.tit {
+					display:none;
+				}
+				.ss {
+					&+.ss {
+						a {
+							border-top:1px solid #ccc;
+						}
+					}
+					&:hover,&.active {
+						background:url("../img/arr03.gif") no-repeat 11px 9px;
+						a {
+							background:#e6eef9;
+							font-weight:bold;
+						}
+					}
+					&.active {
+						background:url("../img/arr04.gif") no-repeat 11px 9px;
+						a {
+							background:#fdebd0;
+							color:#e47a1b;
+						}
+					}
+				}
+				a {
+					margin-left:30px;
+					background:#fff;
+					border-left:1px solid #ccc;
+					font-weight:normal;
+					line-height:1.5em;
+					padding:3px 5px;
+				}
+			}
+	}
+	&.thin {
+		width:$nav-min-width;
+		.title {
+			p {
+			background:url("../img/arr00-1.gif") no-repeat 30px 7px;
+			text-indent:-99999px;
+			*text-indent:0;
+			*font-size:0;
+			*line-height:0;
+			}
+		}
+		.navBox {
+			text-indent:-99999px;
+			overflow:visible;
+			.nav {
+				position:relative;
+				background:url("../img/arr01.gif") no-repeat 30px 6px , url("../img/nav_bg.gif") repeat-x;
+				&:hover,&.active {
+					background:url("../img/arr01-1.gif") no-repeat 30px 6px , url("../img/nav_bg_hover.gif") repeat-x;
+				}
+				a {
+					padding:0;
+				}
+			}
+			.subox {
+				position:absolute;
+				top:0;
+				left:41px;
+				z-index:99;
+				width:180px;			
+				background:#c6dbef;	
+				border:1px solid #91bbe3;
+				text-indent:0;				
+				.tit {
+					display:block;
+					position:relative;
+					left:-1px;
+					padding-left:6px;
+					width:175px;
+					height:24px;
+					background:#c6dbef;
+					font-weight:bold;
+				}
+				
+				.sub {
+					margin:3px;
+					background:#fff;
+					border:1px solid #f0b563;
+					.ss {
+						&:hover,&.active {							
+							a {
+								background:url("../img/arr03.gif") no-repeat 11px 9px #e6eef9;
+								font-weight:bold;
+							}
+						}
+						&.active {							
+							a {
+								background:url("../img/arr04.gif") no-repeat 11px 9px #fdebd0;
+								color:#e47a1b;
+							}
+						}
+					}
+				}
+				a {
+					margin-left:0;
+					padding-left:30px;
+					border:0;
+				}
+			}
+		}
+	}
+}

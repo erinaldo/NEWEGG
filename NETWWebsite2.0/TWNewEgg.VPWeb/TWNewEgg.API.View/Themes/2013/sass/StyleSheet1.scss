@@ -1,0 +1,179 @@
+﻿@import "compass/reset";
+@import "compass/css3";
+
+$automargin:0 auto;
+
+.icon {
+	float: left;
+	padding: 0 0 0 24px;
+	height: 16px;
+	background: url("https://ssl-images.newegg.com/WebResource/Themes/2005/Nest/SellerPortal/icon/icon.png") no-repeat;
+	line-height: 16px;
+}
+.boxInputA, .boxInputB {
+	display: inline;
+	float: left;
+	width: 300px;
+	height: 36px;
+	overflow: hidden;
+	background: url("https://ssl-images.newegg.com/WebResource/Themes/2005/Nest/SellerPortal/bg/boxInput.png") repeat-x 0 -72px;
+	input {
+		float: left;
+		margin-top: 3px;
+		padding: 6px 0 0 7px;
+		width: 285px;
+		height: 24px;
+		border: 0;
+		font-size: 14px;
+	}
+}
+.circleL, .circleR {
+	float: left;
+	width: 4px;
+	overflow: hidden;
+	background: url("https://ssl-images.newegg.com/WebResource/Themes/2005/Nest/SellerPortal/bg/boxInput.png") no-repeat;
+}
+.boxInputA .circleL {
+	height: 36px;
+	background-position: 0 0;
+}
+.boxInputA .circleR {
+	float: right;
+	height: 36px;
+	background-position: 0 -36px;
+}
+a {
+	color:#000;
+	text-decoration:none;
+	border-bottom:1px solid #95a0aa;
+	&:link, &:active {
+		color: #000;
+		text-decoration: none;
+		border-bottom: 1px solid #95a0aa;
+	}
+}
+input, img {
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
+}
+p {
+	line-height:1.8em;
+}
+strong {
+	font-weight: bold;
+}
+.Wrapper {
+	margin: $automargin;
+	width:920px;
+}
+h1 {
+	font-size:1em;
+	.logo {
+		display: block;
+		margin: 45px auto 0 auto;
+		width: 283px;
+		height: 104px;
+		overflow: hidden;
+		background: url("https://ssl-images.newegg.com/WebResource/Themes/2005/Nest/SellerPortal/logo.png") no-repeat;
+		text-indent: -9999em;
+	}
+}
+h2 {
+	height:35px;
+	color:#CB6000;
+	font-size:1.4em;
+}
+.buttonBar {
+	padding: 10px 0;
+	height: 36px;
+	overflow: hidden;
+}
+.button {
+	display: inline;
+	float: left;
+	margin-right: 15px;
+	padding-left: 10px;
+	background: url("https://ssl-images.newegg.com/WebResource/Themes/2005/Nest/SellerPortal/button/button.png") no-repeat;
+	text-decoration: none;
+	span {
+		float: left;
+		padding: 0 18px 0 5px;
+		overflow: hidden;
+		background: url("https://ssl-images.newegg.com/WebResource/Themes/2005/Nest/SellerPortal/button/button.png") no-repeat;
+	}
+}
+.content {
+	padding: 20px 0 30px 75px;
+	background: url("https://ssl-images.newegg.com/WebResource/Themes/2005/Nest/SellerPortal/bg/line_body.png") no-repeat top center;
+	.buttonBar {
+		height:70px;
+		.btnA {
+			background-position: left 0;
+			font-size: 14px;
+			span {
+				height: 36px;
+				background-position: right -36px;
+				line-height: 36px;
+			}
+		}
+	}
+	.createAccount {
+		float: left;
+		padding-left: 20px;
+		width: 450px;
+		display:none;
+		.silverlight {
+			padding-top: 10px;
+			height: 60px;
+			overflow: hidden;
+		}
+	}
+	.ResetAccount{
+		float: left;
+		padding-left: 20px;
+		width: 446px;
+		margin-right: 20px;
+	}
+	.login {
+		/*float:right;*/
+		width:380px;
+		margin: 0 auto;
+		.caption {
+			height:24px;
+			.iconID {
+				background-position:left -80px;
+			}
+			.exampleEmail {
+				font-weight: bold;
+				font-size: 10px;
+				color: #666;
+				margin-left: 10px;
+			}
+			.iconPassword {
+				background-position: left -120px;
+			}
+		}
+		.form {
+			height:50px;
+		}
+		.remember  {
+			height:30px;
+			a {
+				padding-left: 5px;
+				font-size: 0.9em;
+			}
+		}		
+	}
+	.Help{
+		width:800px;		
+	}
+}
+
+#Footer {
+	padding: 15px 0;
+	background: url("https://ssl-images.newegg.com/WebResource/Themes/2005/Nest/SellerPortal/bg/line_part.png") no-repeat top center;
+	color: #999;
+	font-size: 0.9em;
+	text-align: center;
+}

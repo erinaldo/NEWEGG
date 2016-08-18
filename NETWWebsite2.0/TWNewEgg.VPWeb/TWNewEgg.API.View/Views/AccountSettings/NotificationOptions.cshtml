@@ -1,0 +1,344 @@
+﻿@{
+    TWNewEgg.API.View.NotificationOptionsData noticeData = new TWNewEgg.API.View.NotificationOptionsData();
+    if (ViewBag.NotificationOptionsData != null)
+    {
+        noticeData = ViewBag.NotificationOptionsData;
+    }
+}
+<style>
+    #NotificationOptions_Area td{
+        height:25px;
+        padding-right: 10px;
+    }
+    .mailStyle {
+        height:20px;
+        width:250px;
+    }
+    .noticeFieldsetPosition {
+        display: inline;
+        width:48%;
+        min-width: 700px;
+        line-height:30px;
+    }
+    #HideSaveChange {
+        margin-top:5px;
+    }
+</style>
+<script>
+    var emailRule = /^\w+([-+.']\w+)*@@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    $(document).ready(function () {
+        buttonChange("close");
+        //$("#NotificationOptions_SaveChange").bind("click", function () {
+        //    $("#HideSaveChange").attr("style", "display:block");
+        //    $("#showSaveChange").attr("style", "display:none");
+        //    buttonChange("close");
+        //});
+
+        $("#NotificationOptions_Cancel").bind("click", function () {
+            console.log(2);
+            $("#HideSaveChange").attr("style", "display:block");
+            $("#showSaveChange").attr("style", "display:none");
+            buttonChange("close");
+        });
+
+        $("#NotificationOptions_Edit").bind("click", function () {
+            console.log(1);
+            $("#HideSaveChange").attr("style", "display:none");
+            $("#showSaveChange").attr("style", "display:block");
+            buttonChange("open");
+        });
+
+        $("#NotificationOptions_Area input[mailCheck='true']").blur(function () {
+            var emailCheck = $(this).val();
+            if (emailCheck.length > 0 && emailCheck.search(emailRule) < 0) {
+                //開啟window 
+                $("#ManMade_Alert_Message").html("請輸入正確Email格式");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                return false;
+            }
+        });
+    });
+
+    function updateNotificationOptions() {
+        console.log(3);
+        var mailCheck = true;
+        $("input[mailCheck='true']").each(function () {
+            var getEmail = $(this).val();
+            if (getEmail.length > 0 && getEmail.search(emailRule) < 0) {
+                //$(this).attr("data-phoneNumberDetailvalidation-msg", "錯誤格式Email[" + getEmail + "]請輸入正確Email格式");
+                //開啟window 
+                $("#ManMade_Alert_Message").html("錯誤格式Email [" + getEmail + "] 請輸入正確Email格式");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                mailCheck = false;
+            }
+        });
+
+        if (mailCheck == false) {
+            return null;
+        }
+
+        _orderNoticeOpen = false;
+        _orderNoticeClose = false;
+        _cancelNoticeOpen = false;
+        _cancelNoticeClose = false;
+        _returnsNoticeOpen = false;
+        _returnsNoticeClose = false;
+
+        orderNoticeOpen_ = $("#orderNoticeOpen_:checked").length;
+        orderNoticeClose_ = $("#orderNoticeClose_:checked").length;
+
+        cancelNoticeOpen_ = $("#cancelNoticeOpen_:checked").length;
+        cancelNoticeClose_ = $("#cancelNoticeClose_:checked").length;
+
+        returnsNoticeOpen_ = $("#returnsNoticeOpen_:checked").length;
+        returnsNoticeClose_ = $("#returnsNoticeClose_:checked").length;
+
+        if (orderNoticeOpen_ == 1) {
+            _orderNoticeOpen = true;
+        }
+        if (orderNoticeClose_ == 1) {
+            _orderNoticeClose = true;
+        }
+
+        if (cancelNoticeOpen_ == 1) {
+            _cancelNoticeOpen = true;
+        }
+        if (cancelNoticeClose_ == 1) {
+            _cancelNoticeClose = true;
+        }
+
+        if (returnsNoticeOpen_ == 1) {
+            _returnsNoticeOpen = true;
+        }
+        if (returnsNoticeClose_ == 1) {
+            _returnsNoticeClose = true;
+        }
+        $(document).ajaxSend($.blockUI());
+        $(document).ajaxStop($.unblockUI);
+        $.ajax({
+            type: "POST",
+            url: "/AccountSettings/updateNotificationOptions",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "orderNoticeSN": $("#orderNoticeSN").val(),
+                "cancelNoticeSN": $("#cancelNoticeSN").val(),
+                "businessNoticeSN": $("#businessNoticeSN").val(),
+                "financialNoticeSN": $("#financialNoticeSN").val(),
+                "returnsNoticeSN": $("#returnsNoticeSN").val(),
+                "orderNoticeOpen": _orderNoticeOpen,
+                "orderNoticeClose": _orderNoticeClose,
+                "orderNoticeEmail_1st": $("#orderNoticeEmail_1st").val(),
+                "orderNoticeEmail_2nd": $("#orderNoticeEmail_2nd").val(),
+                "orderNoticeEmail_3rd": $("#orderNoticeEmail_3rd").val(),
+                "cancelNoticeOpen": _cancelNoticeOpen,
+                "cancelNoticeClose": _cancelNoticeClose,
+                "cancelNoticeEmail_1st": $("#cancelNoticeEmail_1st").val(),
+                "cancelNoticeEmail_2nd": $("#cancelNoticeEmail_2nd").val(),
+                "cancelNoticeEmail_3rd": $("#cancelNoticeEmail_3rd").val(),
+                "businessNoticeEmail_1st": $("#businessNoticeEmail_1st").val(),
+                "businessNoticeEmail_2nd": $("#businessNoticeEmail_2nd").val(),
+                "businessNoticeEmail_3rd": $("#businessNoticeEmail_3rd").val(),
+                "financialNoticeEmail_1st": $("#financialNoticeEmail_1st").val(),
+                "financialNoticeEmail_2nd": $("#financialNoticeEmail_2nd").val(),
+                "financialNoticeEmail_3rd": $("#financialNoticeEmail_3rd").val(),
+                "returnsNoticeOpen": _returnsNoticeOpen,
+                "returnsNoticeClose": _returnsNoticeClose,
+                "returnsNoticeEmail_1st": $("#returnsNoticeEmail_1st").val(),
+                "returnsNoticeEmail_2nd": $("#returnsNoticeEmail_2nd").val(),
+                "returnsNoticeEmail_3rd": $("#returnsNoticeEmail_3rd").val()
+            }),
+            success: function (res) {
+                //開啟window 
+                $("#ManMade_Alert_Message").html(res.Msg);
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                showAccountInformationView('NotificationOptions');
+            }
+        });
+    }
+
+    function ReSetting() {
+        showAccountInformationView('NotificationOptions');
+    }
+
+    function buttonChange(action) {
+        if (action == "open") {
+            $("#NotificationOptions_Area input").each(function () {
+                $(this).removeAttr("disabled");
+            });
+        }
+        else {
+            $("#NotificationOptions_Area input").each(function () {
+                $(this).attr("disabled", "disabled");
+            });
+        }
+
+        $("#NotificationOptions_Area input[type='button']").each(function () {
+            $(this).removeAttr("disabled");
+        });
+
+        $("#NotificationOptions_Area input[type='hidden']").each(function () {
+            $(this).removeAttr("disabled");
+        });
+    }
+</script>
+<div id="NotificationOptions_Area">
+    <div style="text-align:right;margin-top:5px;">
+        <div id="showSaveChange" style="display:none;">
+            @(Html.Kendo().Button().Name("NotificationOptions_SaveChange").HtmlAttributes(new{@name = "NotificationOptions_SaveChange"}).SpriteCssClass("k-icon k-i-tick").Events(ev => ev.Click("updateNotificationOptions")).Content("儲存"))
+            @(Html.Kendo().Button().Name("NotificationOptions_Cancel").HtmlAttributes(new{@name = "NotificationOptions_Cancel"}).SpriteCssClass("k-icon k-i-cancel").Events(ev => ev.Click("ReSetting")).Content("取消"))
+        </div>
+        <div id="HideSaveChange">
+            @(Html.Kendo().Button().Name("NotificationOptions_Edit").HtmlAttributes(new{@name = "NotificationOptions_Edit"}).SpriteCssClass("k-icon k-i-pencil").Content("編輯"))
+            <input type="hidden" id="orderNoticeSN" value="@noticeData.orderNoticeSN" />
+            <input type="hidden" id="cancelNoticeSN" value="@noticeData.cancelNoticeSN" />
+            <input type="hidden" id="businessNoticeSN" value="@noticeData.businessNoticeSN" />
+            <input type="hidden" id="financialNoticeSN" value="@noticeData.financialNoticeSN" />
+            <input type="hidden" id="returnsNoticeSN" value="@noticeData.returnsNoticeSN" />
+        </div>
+    </div>
+    <fieldset class="noticeFieldset noticeFieldsetPosition">
+        <legend class="noticeLegend">訂單通告</legend>
+        <div>接收每個顧客購買您的商品訂單的資訊, 以及訂單將被自動作廢的警示及其他的訂單相關通知。</div>
+        <div>
+            <table>
+                <tr>
+                    <td>狀態:</td>
+                    <td>
+                        @(Html.Kendo().RadioButton().Name("orderNoticeOpen").Checked(noticeData.orderNoticeOpen).HtmlAttributes(new{@name = "orderNoticeOpenName"}))<label for="orderNoticeOpen_"> 已開啟(請通知我每一個訂單的資訊)</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        @(Html.Kendo().RadioButton().Name("orderNoticeClose").Checked(noticeData.orderNoticeClose).HtmlAttributes(new{@name = "orderNoticeOpenName"}))<label for="orderNoticeClose_"> 已禁用(我將使用其他途徑獲得訂單資訊)</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" class="mailStyle" id="orderNoticeEmail_1st" mailCheck="true" value="@noticeData.orderNoticeEmail_1st" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" class="mailStyle" id="orderNoticeEmail_2nd" mailCheck="true" value="@noticeData.orderNoticeEmail_2nd" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="text" class="mailStyle" id="orderNoticeEmail_3rd" mailCheck="true" value="@noticeData.orderNoticeEmail_3rd" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+   
+    <fieldset class="noticeFieldset noticeFieldsetPosition">
+        <legend class="noticeLegend">訂單取消通知</legend>
+        <div>接收每次顧客要求取消訂單或系統自動取消逾期未出訂單的電子郵件通知。</div>
+        <div>
+            <table>
+                <tr>
+                    <td>狀態:</td>
+                    <td>
+                        @(Html.Kendo().RadioButton().Name("cancelNoticeOpen").Checked(noticeData.cancelNoticeOpen).HtmlAttributes(new{@name = "cancelNoticeOpenName"}))<label for="cancelNoticeOpen_"> 已開啟(請通知我每一個訂單的資訊)</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        @(Html.Kendo().RadioButton().Name("cancelNoticeClose").Checked(noticeData.cancelNoticeClose).HtmlAttributes(new{@name = "cancelNoticeOpenName"}))<label for="cancelNoticeClose_"> 禁用 <span style="color:red;">(請注意:如果您確定不接收訂單取消通知，則新蛋將不對您對取消訂單產生的配送及其他損失承擔任何責任。)</span></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" class="mailStyle" id="cancelNoticeEmail_1st" mailCheck="true" value="@noticeData.cancelNoticeEmail_1st" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" class="mailStyle" id="cancelNoticeEmail_2nd" mailCheck="true" value="@noticeData.cancelNoticeEmail_2nd" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" class="mailStyle" id="cancelNoticeEmail_3rd" mailCheck="true" value="@noticeData.cancelNoticeEmail_3rd" /></td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+    
+    <fieldset class="noticeFieldset noticeFieldsetPosition">
+        <legend class="noticeLegend">業務通告<span style="color:red;">(未啟用)</span></legend>
+        <div>有用的資訊關於新功能、促銷機會、銷售技巧以及其他。</div>
+        <div>
+            <table>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" class="mailStyle" id="businessNoticeEmail_1st" mailCheck="true" value="@noticeData.businessNoticeEmail_1st" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" class="mailStyle" id="businessNoticeEmail_2nd" mailCheck="true" value="@noticeData.businessNoticeEmail_2nd" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" class="mailStyle" id="businessNoticeEmail_3rd" mailCheck="true" value="@noticeData.businessNoticeEmail_3rd" /></td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+    
+    <fieldset class="noticeFieldset noticeFieldsetPosition">
+        <legend class="noticeLegend">財務通告<span style="color:red;">(未啟用)</span></legend>
+        <div>有關財務與結算方面的通知</div>
+        <div>
+            <table>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" class="mailStyle" id="financialNoticeEmail_1st" mailCheck="true" value="@noticeData.financialNoticeEmail_1st" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" class="mailStyle" id="financialNoticeEmail_2nd" mailCheck="true" value="@noticeData.financialNoticeEmail_2nd" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" class="mailStyle" id="financialNoticeEmail_3rd" mailCheck="true" value="@noticeData.financialNoticeEmail_3rd" /></td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+    
+    <fieldset class="noticeFieldset noticeFieldsetPosition">
+        <legend class="noticeLegend">訂單退換貨通告<span style="color:red;">(未啟用)</span></legend>
+        <div>接收每個訂單退換貨單據的建立通知。</div>
+        <div>
+            <table>
+                <tr>
+                    <td>狀態:</td>
+                    <td>
+                        @(Html.Kendo().RadioButton().Name("returnsNoticeOpen").Checked(noticeData.returnsNoticeOpen).HtmlAttributes(new{@name = "returnsNoticeOpenName"}))<label for="returnsNoticeOpen_"> 已開啟(請通知我每一個訂單退換貨的資訊)</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        @(Html.Kendo().RadioButton().Name("returnsNoticeClose").Checked(noticeData.returnsNoticeClose).HtmlAttributes(new{@name = "returnsNoticeOpenName"}))<label for="returnsNoticeClose_"> 已禁用(我將使用其他途徑獲得訂單退換貨資訊)</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" class="mailStyle" id="returnsNoticeEmail_1st" mailCheck="true" value="@noticeData.returnsNoticeEmail_1st" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" class="mailStyle" id="returnsNoticeEmail_2nd" mailCheck="true" value="@noticeData.returnsNoticeEmail_2nd" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" class="mailStyle" id="returnsNoticeEmail_3rd" mailCheck="true" value="@noticeData.returnsNoticeEmail_3rd" /></td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+</div>

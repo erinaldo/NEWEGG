@@ -1,0 +1,85 @@
+﻿@{
+    List<TWNewEgg.API.View.ProductPropertyEdit> insertPropertyData = new List<TWNewEgg.API.View.ProductPropertyEdit>();
+    if (ViewBag.propertyDataList != null)
+    {
+        insertPropertyData = ViewBag.propertyDataList as List<TWNewEgg.API.View.ProductPropertyEdit>;
+    }
+}
+<style>
+    #propertydata td {
+       padding: 10px 10px 0 0; 
+    }
+</style>
+
+<div id="withoutPropertyList">
+    <br />
+    <span>資料讀取中...</span>
+</div>
+<div id="propertyList">
+    <table id="propertydata">
+        @foreach (TWNewEgg.API.View.ProductPropertyEdit subProperty in insertPropertyData)
+        {
+            List<TWNewEgg.API.Models.PropertyValue> newValueInfoList = new List<TWNewEgg.API.Models.PropertyValue>();
+            TWNewEgg.API.Models.PropertyValue newValueInfo = new TWNewEgg.API.Models.PropertyValue();
+            newValueInfo.Value = "請選擇";
+            newValueInfo.PropertyID = 0;
+            newValueInfo.ValueID = 0;
+            newValueInfoList.Add(newValueInfo);
+            newValueInfoList.AddRange(subProperty.ValueInfo);
+            string textName = "prdID" + subProperty.PropertyID.ToString();
+            <tr>
+                <td id=@subProperty.GroupID style="text-align:right;">
+                    <span>@(subProperty.PropertyName + ":")</span>
+                </td>
+                <td style="text-align:center;">
+                    @(Html.Kendo().DropDownList()
+                        .Name(subProperty.PropertyID.ToString())
+                        .DataTextField("Value")
+                        .DataValueField("ValueID")
+                        .HtmlAttributes(new {
+                            @name = "ValueID",
+                            @PropertyClass = "ProductProperty" 
+                        })
+                        .BindTo(newValueInfoList)
+                        .Value(subProperty.ValueID.ToString())
+                    )
+                </td>
+                <td style="text-align:left">
+                    @(Html.Kendo().TextBox()
+                        .Name(textName)
+                        .HtmlAttributes(new
+                        {
+                            maxlength = "50",
+                            onkeyup = "PropertyInputValueChange('" + subProperty.PropertyID + "')",
+                            @name = "InputValue",
+                            @getPropertyID = subProperty.PropertyID,
+                            @getGroupID = subProperty.GroupID
+                        })
+                        .Value(subProperty.InputValue)
+                    )
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var propertyListCount = parseInt("@insertPropertyData.Count");
+        if (propertyListCount > 0) {
+            $("#withoutPropertyList").attr("style", "display:none");
+        }
+        else {
+            $("#withoutPropertyList").html("<br /><span>查無所選類別屬性資料，請洽管理員或PM建立相關類別屬性。</span>");
+            $("#withoutPropertyList").removeAttr("style");
+        }
+    });
+    function PropertyInputValueChange(propertyID) {
+        if ($("#prdID" + propertyID).val().length > 0) {
+            $("#" + propertyID).data("kendoDropDownList").value("0");
+            $("#" + propertyID).data("kendoDropDownList").enable(false);
+        }
+        else {
+            $("#" + propertyID).data("kendoDropDownList").enable();
+        }
+    }
+</script>

@@ -1,0 +1,380 @@
+﻿@{
+    @Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+    @Styles.Render("~/Themes/2013/stylesheets/GridStyle.css")
+    
+}
+<style>
+    .content {
+        line-height:3;
+    }
+    .Title {
+      white-space: nowrap;
+      display: inline-table;
+      padding-right: 12px;
+      width: 50px;
+      text-align: right;
+    }
+</style>
+<script src="~/Scripts/ItemSketchFieldInspection.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+<div class="content">
+    <div>
+    <div style="margin:5px">
+        <label class="Title">動作: </label>
+        @(Html.Kendo().DropDownList()
+        .Name("_action")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .BindTo(new List<SelectListItem>()
+        {
+            new SelectListItem() {
+                Text = "批次建立商品",
+                Value = "0"
+            },
+            new SelectListItem() {
+                Text = "批次修改商品",
+                Value = "1"
+            }
+        })
+        .SelectedIndex(0)
+        .Events(e =>
+	        {
+                e.Select("DropDownListSelect");
+	        })
+        )
+        )
+        <label>檔案樣版格式: </label>
+        @(Html.Kendo().DropDownList()
+        .Name("FileFormat")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .BindTo(new List<SelectListItem>()
+        {
+            new SelectListItem() {
+            Text = "微軟Excel格式(*.xls)",
+            Value = "0"
+        }
+        })
+        )
+        @(Html.Kendo().Button().Name("ExcelModel").Content("下載批次建立商品樣板檔").Events(ev => ev.Click("DownloadExcelModel")))
+    </div>
+    <div style="margin-bottom:5px">
+        <label style="color:red">*</label><label class="Title">主分類: </label>
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("MainCategoryID_Layer0")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "ItemCreation")
+                        .Data("MasterLayer");
+                });
+            })
+           .Value("")
+        ) 
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("MainCategoryID_Layer1")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "ItemCreation")
+                        .Data("filterSecondLayer");
+                })
+                .ServerFiltering(true);
+            })
+                //.Enable(false)
+            .AutoBind(false)
+            .CascadeFrom("MainCategoryID_Layer0")
+
+        )
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("MainCategoryID_Layer2")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "ItemCreation")
+                        .Data("thridLayer");
+                })
+                .ServerFiltering(true);
+
+            })
+            .Events(e => e.Change("QueryProperty"))
+            .AutoBind(false)
+            .CascadeFrom("MainCategoryID_Layer1")
+        )
+    </div>
+    <div style="margin-bottom:5px">
+        <label class="Title" style="float:left">跨分類: </label>
+        <div style="margin-left:18.1em;margin-bottom:5px">
+            @(Html.Kendo()
+                .DropDownList()
+                .Name("SubCategoryID_1_Layer1")
+                .OptionLabel("請選擇")
+                .DataTextField("Description")
+                .DataValueField("CategoryID")
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("QueryCategory", "ItemCreation")
+                            .Data("filterSecondLayer");
+                    })
+                    .ServerFiltering(true);
+                })
+                .AutoBind(false)
+                .CascadeFrom("MainCategoryID_Layer0")
+            )
+            @(Html.Kendo()
+                .DropDownList()
+                .Name("SubCategoryID_1_Layer2")
+                .OptionLabel("請選擇")
+                .DataTextField("Description")
+                .DataValueField("CategoryID")
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("QueryCategory", "ItemCreation")
+                            .Data("SubCategoryID_1_Layer2ThridSelect");
+                    })
+
+                    .ServerFiltering(true);
+                })
+                .HtmlAttributes(new { onchange="DataCheck('Category')"})
+                .AutoBind(false)
+                .CascadeFrom("SubCategoryID_1_Layer1")
+            )
+            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="SubCategoryID_1_Layer2" role="alert" id="errSubCategoryID_1_Layer2Msg" style="display:none;"><span class="k-icon k-warning"> </span> 不可選擇同分類</span>
+            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="SubCategoryID_1_Layer2" role="alert" id="emptySubCategoryID_1_Layer2Msg" style="display:none;"><span class="k-icon k-warning"> </span> 不可為空</span>
+        </div>
+        <div style="margin-left:18.1em">
+            @(Html.Kendo()
+            .DropDownList()
+            .Name("SubCategoryID_2_Layer1")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "ItemCreation")
+                        .Data("filterSecondLayer");
+                })
+
+                .ServerFiltering(true);
+            })
+            .AutoBind(false)
+            .CascadeFrom("MainCategoryID_Layer0")
+        )
+            @(Html.Kendo()
+            .DropDownList()
+            .Name("SubCategoryID_2_Layer2")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "ItemCreation")
+                        .Data("SubCategoryID_2_Layer2ThridSelect");
+                })
+
+                .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { onchange="DataCheck('Category')"})
+            .AutoBind(false)
+            .CascadeFrom("SubCategoryID_2_Layer1")
+        )
+            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="SubCategoryID_2_Layer2" role="alert" id="errSubCategoryID_2_Layer2Msg" style="display:none;"><span class="k-icon k-warning"> </span> 不可選擇同分類</span>
+            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="SubCategoryID_2_Layer2" role="alert" id="emptySubCategoryID_2_Layer2Msg" style="display:none;"><span class="k-icon k-warning"> </span> 不可為空</span>
+        </div>
+    </div>
+    <div>
+        <div class="upload-section">
+            @(Html.Kendo().Upload()
+            .Name("files")
+            .Async(a => a
+                .Save("UploadExcel", "ProductBatch")
+                .AutoUpload(true)
+            )
+            .Messages(m => m.Select("請選擇上傳檔案")
+            )
+            .Events(ev => ev.Error("UploadError"))
+            .Events(a => a.Upload("ActionValue"))
+            .Events(s => s.Success("UploadSuccess"))
+            .Events(c => c.Complete("Complete"))
+            )
+            <span>請注意：最大上傳資料筆數為 <label style="color:red">100</label> 筆資料</span>
+        </div>
+    </div>
+    <div class="ResultMsg">
+        <label id="title">檔案上傳結果:</label> <br />
+        <span id="ErrorMsg" style="display:none; color:red; font-size:20px"></span>
+        <br />
+    </div>
+    
+</div>
+
+<script>
+    function ActionValue(e) {
+        e.data = { ActionValue: $('#_action').val() };
+    }
+    function DropDownListSelect(e) {
+        if (e.item.index() == 0) {
+            $('#ExcelModel').text("下載批次建立商品樣板檔");
+        }
+        else if (e.item.index() == 1) {
+            $('#ExcelModel').text("下載批次修改商品樣板檔");
+        }
+    }
+    function DownloadExcelModel() {
+        if ($('#_action').val() == 0) {
+            var errflag = true;
+            if (!($("#SubCategoryID_1_Layer1").val().length <= 0 || $("#SubCategoryID_1_Layer1").val() == 0)) {
+                if ($("#SubCategoryID_1_Layer2").val().length <= 0 || $("#SubCategoryID_1_Layer2").val() == 0) {
+                    $("#SubCategoryID_1_Layer2").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+                    $("#emptySubCategoryID_1_Layer2Msg").removeAttr("style");
+                    errflag = false;
+                }
+                else {
+                    $("#SubCategoryID_1_Layer2").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+                    $("#emptySubCategoryID_1_Layer2Msg").attr("style", "display:none");
+                }
+            }
+            if (!($("#SubCategoryID_2_Layer1").val().length <= 0 || $("#SubCategoryID_2_Layer1").val() == 0)) {
+                if ($("#SubCategoryID_2_Layer2").val().length <= 0 || $("#SubCategoryID_2_Layer2").val() == 0) {
+                    $("#SubCategoryID_2_Layer2").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+                    $("#emptySubCategoryID_2_Layer2Msg").removeAttr("style");
+                    errflag = false;
+                }
+                else {
+                    $("#SubCategoryID_2_Layer2").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+                    $("#emptySubCategoryID_2_Layer2Msg").attr("style", "display:none");
+                }
+            }
+            if (errflag == false) {
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/ProductBatch/ExcelTemplate",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    "MainCategoryID_Layer2": $("#MainCategoryID_Layer2").val(),
+                    "SubCategoryID_1_Layer2": $("#SubCategoryID_1_Layer2").val(),
+                    "SubCategoryID_2_Layer2": $("#SubCategoryID_2_Layer2").val(),
+                }),
+                success: function (res) {
+                    if (res.indexOf("[F]: ") >= 0) {
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(res.replace("[F]: ", ""));
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    }
+                    else if (res.indexOf("[T]: ") >= 0) {
+                        window.location.href = '../Download/ItemBatch/batchItem.xls';
+                    }
+                    //window.location.href = 'http://localhost:49622/Download/ItemBatch/batchItem.xls';
+                }
+            });
+        }
+        else if ($('#_action').val() == 1) {
+            $.ajax({
+                type: "POST",
+                url: "/ProductBatch/BatchEditExcelTemplate",
+                contentType: "application/json;charset=utf-8",
+                success: function (res) {
+                    if (res.indexOf("[F]: ") >= 0) {
+                        alert(res.replace("[F]: ", ""));
+                    }
+                    else if (res.indexOf("[T]: ") >= 0) {
+                        window.location.href = '../Download/ItemBatch/batcheditItem.xls';
+                    }
+                    //window.location.href = 'http://localhost:49622/Download/ItemBatch/batchItem.xls';
+                }
+            });
+        }
+    }
+    function Upload() {
+    }
+    function UploadError(e) {
+        var msg = e.XMLHttpRequest.responseText;
+        $("#ErrorMsg").css("color", "red");
+        $("#ErrorMsg").html(msg);
+        $("#ErrorMsg").css("display", "");
+    }
+    function UploadSuccess(s) {
+        var Msg = s.response.Msg;
+        $("#ErrorMsg").html(Msg);
+        $("#ErrorMsg").css("display", "");
+        $("#ErrorMsg").css("color", "green");
+    }
+    function Complete(c) {
+
+    }
+    function MasterLayer() {
+        return {
+            parentID: 0,
+            Layer: 0
+        };
+    }
+    function filterSecondLayer() {
+        return {
+            parentID: $("#MainCategoryID_Layer0").val(),
+            Layer: 1
+        };
+    }
+    function thridLayer() {
+        return {
+            parentID: $("#MainCategoryID_Layer1").val(),
+            Layer: 2
+        };
+    }
+    function SubCategoryID_1_Layer2ThridSelect() {
+        return {
+            parentID: $("#SubCategoryID_1_Layer1").val(),
+            Layer: 2
+        };
+    }
+    function SubCategoryID_2_Layer2ThridSelect() {
+        return {
+            parentID: $("#SubCategoryID_2_Layer1").val(),
+            Layer: 2
+        };
+    }
+    function QueryProperty() {
+        $.ajax({
+            type: "POST",
+            url: "/ItemCreation/QueryProductProperty",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "CategoryID": $("#MainCategoryID_Layer1").val()
+            }),
+            success: function (res) {
+                if (res.IsSuccess == true) {
+                    $("#ProductProperty").html(res.ViewHtml);
+                }
+                else {
+                    $("#ProductProperty").html("");
+                }
+            }
+        });
+    }
+</script>
+
+</div>

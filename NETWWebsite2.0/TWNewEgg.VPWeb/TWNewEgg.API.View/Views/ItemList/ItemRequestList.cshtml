@@ -1,0 +1,764 @@
+﻿<style>
+    #input[type="text"] {
+        height: 25px;
+    }
+    .SlideAreaInline {
+        display:inline;
+    }
+    #CheckByAdmin {
+        margin-top:10px;
+    }
+    /*.k-notification-error.k-group {
+                    background: rgba(100%,0%,0%,.7);
+                    color: #ffffff;
+                }*/
+    .wrong-pass h3 {
+        font-size: 12px;
+        /*padding: 32px 10px 32px;*/
+    }
+    .wrong-pass img {
+        float: left;
+        /*margin: 30px 15px 30px 30px;*/
+    margin: auto auto auto auto
+    }
+    .wrong-pass {
+        width: auto;
+        height:auto;
+    }
+    
+    
+</style>
+@*<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>*@
+<div id="selConview" style="padding-top:10px;">
+    @(Html.Kendo().DropDownList()
+    .Name("SearConList")
+    .DataTextField("Text")
+    .DataValueField("Value")
+    .BindTo(new List<SelectListItem>()
+    {
+        new SelectListItem() {
+            Text = "商家商品編號",
+            Value = "0"
+        },
+        new SelectListItem() {
+            Text = "廠商產品編號",
+            Value = "1"
+        },
+        new SelectListItem() {
+            Text = "新蛋賣場編號",
+            Value = "4"
+        },
+        new SelectListItem() {
+            Text = "商品名稱",
+            Value = "3"
+        }
+    })
+    .SelectedIndex(0)
+    )
+    @(Html.Kendo().TextBox().Name("searchTextList").HtmlAttributes(new { style="width:300px"}))
+    <a href="#" style="color:blue;" id="SliderBtnList">進階搜索</a>
+    @(Html.Kendo().Button().Name("SearchList").HtmlAttributes(new { style="width:150px"}).Content("搜尋").Events(ev=>ev.Click("onSearchList")))
+    @(Html.Kendo().Button().Name("ItemListToExcel").HtmlAttributes(new { style="width:150px"}).Content("匯出 Excel").Events(ev=>ev.Click("onItemListToExcel")))
+    <div id="loadingIMG" style="display:none"><img src="~/Content/Img/loading.gif" height='30'/>資料處理中，請稍後。</div>
+    <br /><br />
+    <div id="SlideAreaList" style="display:none">
+        <div class="SlideAreaInline">
+        <label>審核狀態: </label>
+        @(Html.Kendo().DropDownList()
+        .Name("CheckStatus")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .BindTo(new List<SelectListItem>()
+        {
+            new SelectListItem(){
+                Text="所有",
+                Value="-1"
+            },
+            new SelectListItem(){
+                Text="審核通過",
+                Value="0"
+            },
+            new SelectListItem(){
+                Text="未審核",
+                Value="1"
+            },
+            new SelectListItem(){
+                Text="未通過",
+                Value="2"
+            },
+        })
+        .SelectedIndex(0)
+        )
+        </div>
+        <div class="SlideAreaInline">
+            <label>商品狀態: </label>
+            @(Html.Kendo().DropDownList()
+            .Name("GoodsStatus")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .BindTo(new List<SelectListItem>()
+            {
+                new SelectListItem(){
+                    Text="所有",
+                    Value="-1"
+                },
+                new SelectListItem(){
+                    Text="上架",
+                    Value="0"
+                },
+                new SelectListItem(){
+                    Text="下架",
+                    Value="1"
+                },
+            })
+            .SelectedIndex(0)
+            )
+        </div>
+        <div class="SlideAreaInline">
+        <label>製造商: </label>
+        @(Html.Kendo().DropDownList()
+        .Name("MarkerNameList")
+        .OptionLabel("請選擇")
+        .HtmlAttributes(new { style = "width:200px" })
+        .DataTextField("ManufactureName")
+        .DataValueField("SN")
+        .DataSource(source =>
+        {
+            source.Read(read=>{
+                read.Action("ManufactureNameSearch", "ItemList");
+            });
+        })
+        )
+        </div>
+        <div class="SlideAreaInline">
+        <label>可售數量: </label>
+        @(Html.Kendo().DropDownList()
+        .Name("StockList")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .BindTo(new List<SelectListItem>()
+        {
+            new SelectListItem() {
+                Text = "全部",
+                Value = "0"
+            },
+            new SelectListItem() {
+                Text = "<10",
+                Value = "10"
+            },
+            new SelectListItem() {
+                Text = "<50",
+                Value = "50"
+            },
+            new SelectListItem() {
+                Text = "<100",
+                Value = "100"
+            },
+            new SelectListItem() {
+                Text = ">=100",
+                Value = "1000"
+            },
+            })
+            .SelectedIndex(0)
+        )
+        </div>
+        @if(ViewBag.userType) {
+            <div class="SlideAreaInline">
+                @(Html.Kendo().CheckBox()
+                .Name("AdditionalPurchase")
+                )
+                <label>加購商品</label>
+            </div>
+        }
+        <div style="margin-top:10px;">
+            <label>主分類: </label>
+            @(Html.Kendo()
+            .DropDownList()
+            .Name("ItemCategory1List")
+            .OptionLabel("請選擇...")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source => {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "ItemCreation")
+                        .Data("MasterLayerList");
+                });
+                
+            })    
+            )
+            @(Html.Kendo()
+                .DropDownList()
+                .Name("ItemCategory2List")
+                .OptionLabel("請選擇...")
+                .DataTextField("Description")
+                .DataValueField("CategoryID")
+                .DataSource(source => {
+                    source.Read(read =>
+                    {
+                        read.Action("QueryCategory", "ItemCreation")
+                            .Data("filterSecondLayerList");
+                    })
+                    .ServerFiltering(true);
+                     
+                })
+                .Events(e=>e.Change("QueryPropertyList"))
+                .AutoBind(false)   
+                .CascadeFrom("ItemCategory1List")
+            )
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("ItemCategory3List")
+            .OptionLabel("請選擇...")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source => {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "ItemCreation")
+                        .Data("thridLayerList");
+                })
+                .ServerFiltering(true);
+                
+            })
+            .AutoBind(false)   
+            .CascadeFrom("ItemCategory2List")
+        )
+        </div>
+        <br />
+        <div class="SlideAreaInline">
+        <label>創建日期</label>
+            @(Html.Kendo().DropDownList()
+            .Name("DateList")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .BindTo(new List<SelectListItem>()
+            {
+                new SelectListItem() {
+                    Text = "全部",
+                    Value = "0"
+                },
+                new SelectListItem() {
+                    Text = "今天",
+                    Value = "1"
+                },
+                new SelectListItem() {
+                    Text = "最近3天",
+                    Value = "3"
+                },
+                new SelectListItem() {
+                    Text = "最近7天",
+                    Value = "7"
+                },
+                new SelectListItem() {
+                    Text = "最近30天",
+                    Value = "30"
+                },
+                new SelectListItem() {
+                    Text = "指定日期",
+                    Value = "2"
+                },
+                new SelectListItem() {
+                    Text = "日期範圍",
+                    Value = "4"
+                },
+            })
+            .SelectedIndex(0)
+        )
+        <span id="SDateList" style="display:none">
+            @(Html.Kendo().DatePicker().Name("StartDataList").HtmlAttributes(new { style = "width:150px;" }))
+        </span>
+        <span id="EDateList" style="display:none">
+            @(Html.Kendo().DatePicker().Name("EndDataList").HtmlAttributes(new { style = "width:150px;"}))
+        </span><br />
+            <th>廢四機商品</th>
+            <td><input type="checkbox" id="IsRecover"/></td>
+        </div>
+
+    </div>
+    </div>
+    <hr style="border:0; border-top:1px solid gray;"/>
+    <div id="DatagridList" class="GridTextCenter">
+         @(Html.Kendo().Grid<TWNewEgg.API.View.ItemSketchSelect>()
+         .Name("GridList")
+         .HtmlAttributes(new { style = "height: 500px" })
+         .Columns(col =>
+         {
+             col.Template(e => { }).ClientTemplate("<div style=\"text-align:center\"><input type=\"button\" id=\"EditList_#=Item.ID#\" value=\"修改\" onclick=\"ModifyDataList(#=Item.ID#)\" class=\"k-button k-button-icontext k-grid-edit\" /></div>").Title("修改").HeaderHtmlAttributes(new { style = "text-align:center" }).Width(100);
+             col.Template(e => { }).ClientTemplate("<div style=\"text-align:center\"><input type=\"button\" id=\"DeleteList_#=Item.ID#\" value=\"刪除\" onclick=\"DeleteList(#=Item.ID#)\" class=\"k-button k-button-icontext k-grid-edit\" /></div>").Title("刪除").HeaderHtmlAttributes(new { style = "text-align:center" }).Width(100);
+             col.Template(e => { }).ClientTemplate("<div style=\"text-align:center\"><input type=\"button\" id=\"CopyList_#=Item.ID#\" value=\"複製\" onclick=\"CopyDataList(#=Item.ID#)\" class=\"k-button k-button-icontext k-grid-edit\" /></div>").Title("複製").HeaderHtmlAttributes(new { style = "text-align:center" }).Width(100);
+             col.Bound(p => p.Item.status).Title("審核狀態").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" }).ClientTemplate("<div style=\"text-align:center\"><span>#=StatusStement(Item.status)#</span></div>");
+             col.Bound(p => p.Item.ItemStatus).Title("商品狀態").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" }).ClientTemplate("<div style=\"text-align:center\"><span>#=ItemStatus(Item.ItemStatus)#</span></div>");
+             col.Bound(p => p.Item.ItemID).Title("新蛋賣場編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Product.ProductID).Title("新蛋產品編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Product.PicPath_Sketch).Title("圖片").Width(100).HeaderHtmlAttributes(new { style = "text-align:center;" }).ClientTemplate("<img style=\"width:60px;height:60px;\" src=\"#=setImgUrl(Product.PicPath_Sketch)#\" alt=\"沒圖\">");
+             col.Bound(p => p.Product.Name).Title("商品名稱").Width(300).HeaderHtmlAttributes(new { style = "text-align:center" }).ClientTemplate("#=UrlLink(Item.ItemID, Product.Name, Item.ItemURL)#");
+             col.Bound(p => p.Item.MarketPrice).Format("{0:n0}").Title("建議售價(元)").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Item.PriceCash).Format("{0:n0}").Title("售價(元)").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Product.Cost).Format("{0:n0}").Title("成本價(元)").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Template(e => { }).ClientTemplate("<span id=GMList_#=Item.ID#>#=ComputeQ(Item.PriceCash, Product.Cost)#</span>").Title("毛利率").Width(100).HtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.ItemStock.CanSaleQty).Title("可售數量").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.ItemStock.InventorySafeQty).Title("安全庫存數").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.ItemCategory.MainCategoryName_Layer0).Title("第一層分類").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.ItemCategory.MainCategoryName_Layer1).Title("第二層分類").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.ItemCategory.MainCategoryName_Layer2).Title("第三層分類").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Item.SellerName).Title("商家").Width(200).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Product.SellerProductID).Title("商家商品編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Product.UPC).Title("UPC編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Product.ManufacturerName).Title("製造商").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Product.MenufacturePartNum).Title("廠商產品編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Item.IsNew).Title("商品類別").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" }).ClientTemplate("# if(Item.IsNew == \"Y\"){#" + "<center><span align=\"center\">" + "新品</span></center>" + "#}else{#" + "<center><span>" + "福利品</span></center>" + "#}   #");
+             col.Bound(p => p.Category).Title("出貨方").Width(100).ClientTemplate("#=CategoryName(Category.shiptype)#").HeaderHtmlAttributes(new { style = "text-align:center" });
+             col.Bound(p => p.Item.CanSaleLimitQty).Title("賣場限量").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" }).Hidden(true);
+             col.Bound(p => p.Item.DateStart).Title("開始銷售日期(起)").Width(150).HeaderHtmlAttributes(new { style = "text-align:center" })
+                 .Format("{0: yyyy-MM-dd}")
+                 .EditorTemplateName("Date")
+                 .ClientTemplate("#= kendo.toString(toDate(Item.DateStart), \"yyyy/MM/dd\")#");
+             col.Bound(p => p.Item.DateEnd).Title("開始銷售日期(迄)").Width(150).HeaderHtmlAttributes(new { style = "text-align:center" }).ClientTemplate("#=toDate(Item.DateEnd)#");
+             col.Bound(p => p.CreateAndUpdate.CreateDate).Title("創建日期").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" }).ClientTemplate("#=toDate(CreateAndUpdate.CreateDate)#");
+             col.Bound(p => p.Item.ShowOrder).Title("").Width(100).Hidden(true);
+         })
+         .Reorderable(reorderable => reorderable.Columns(true))
+         .Events(ev => ev.DataBound("init"))
+         .Scrollable()
+         .Pageable(page => page.Refresh(true)
+            .PageSizes(new int[]{5,10,20,50,100})
+            .ButtonCount(10)
+
+         )
+         .ToolBar(toolBar =>
+         {
+             toolBar.Save().SaveText("儲存所有變更").CancelText("取消");
+             
+         })
+         .AutoBind(true)
+         .Editable(edit => edit.Mode(GridEditMode.InCell))
+         .DataSource(source => source
+            .Ajax()
+            .PageSize(50)
+            .Batch(true)
+            .Events(ev => ev.Change("onChangeList").Error("onErrorList"))
+            .Model(model =>
+            {
+                model.Id(p => p.Item.ID);
+                model.Field(p => p.Status).Editable(false);
+                model.Field(p => p.Item.status).Editable(false);
+                model.Field(p => p.Item.ItemStatus).Editable(false);
+                model.Field(p => p.Item.ItemID).Editable(false);
+                model.Field(p => p.Product.ProductID).Editable(false);
+                model.Field(p => p.Product.PicPath_Sketch).Editable(false);
+                model.Field(p => p.Product.Name).Editable(false);
+                model.Field(p => p.ItemCategory.MainCategoryName_Layer0).Editable(false);
+                model.Field(p => p.ItemCategory.MainCategoryName_Layer1).Editable(false);
+                model.Field(p => p.ItemCategory.MainCategoryName_Layer2).Editable(false);
+                model.Field(p => p.Item.SellerName).Editable(false);
+                model.Field(p => p.Product.SellerProductID).Editable(false);
+                model.Field(p => p.Product.UPC).Editable(false);
+                model.Field(p => p.Product.ManufacturerName).Editable(false);
+                model.Field(p => p.Product.MenufacturePartNum).Editable(false);
+                model.Field(p => p.Item.IsNew).Editable(false);
+                model.Field(p => p.Item.DateEnd).Editable(false);
+                model.Field(p => p.Item.DateCreate).Editable(false);
+                model.Field(p => p.CreateAndUpdate.CreateDate).Editable(false);
+                model.Field(p => p.Category).DefaultValue(
+                    ViewData["selectItem"] as TWNewEgg.API.View.CategoryViewModel);
+            })
+            
+            .Update(update => update.Action("updateList", "ItemList").Data("JqyeryUpdateList"))
+            .Read(read => read.Action("readList", "ItemList").Data("JqyeryDataList"))
+            )
+       )
+    </div>
+@(Html.Kendo().Notification().Name("notification1").Position(p => p.Pinned(true)).Stacking(NotificationStackingSettings.Down).AutoHideAfter(5000)
+    .Templates(t => { t.Add().Type("error").ClientTemplateID("errorTemplate"); }).Width(700))
+
+
+<script id="errorTemplate" type="text/x-kendo-template">
+            <div class="wrong-pass">
+                <img src="../Content/kendo/notification/error-icon.png" />
+                <h3>#= title #</h3>
+                <p>#= message #</p>
+            </div>
+</script>
+<script>
+    $(document).ready(function () {
+        var gridData = $("#GridList").data('kendoGrid');
+        var isSeller = '@ViewBag.isSeller';
+        if (isSeller == "S") {
+            gridData.hideColumn("Product.Cost");
+        }
+        else {
+            gridData.showColumn("Product.Cost");
+        }
+
+        $("#DateList").change(function () {
+            if ($("#DateList").val() == 2) {
+                $("#SDateList").css('display', '');
+                $("#EDateList").css('display', 'none');
+            }
+            else if ($("#DateList").val() == 4) {
+                $("#SDateList").css('display', '');
+                $("#EDateList").css('display', '');
+            }
+            else {
+                $("#SDateList").css('display', 'none');
+                $("#EDateList").css('display', 'none');
+                $("#SDateList").val("");
+                $("#EDateList").val("");
+            }
+        });
+
+        $("#Item_MarketPrice").attr("data-val-required", "Supervisor email is not a valid email address");
+
+
+        $("#SliderBtnList").click(function () {
+            var attr = $("#SlideAreaList").css('display');
+            if (attr == "none") {
+                $("#SlideAreaList").slideDown();
+            }
+            else if (attr == "block") {
+                $("#SlideAreaList").slideUp();
+            }
+            else {
+                $("#SlideAreaList").slideUp();
+            }
+        });
+
+        window.StatusStement = function (value) {
+            if (value == "0") {
+                return "審核通過";
+            }
+            else if (value == "1") {
+                return "未審核";
+            }
+            else if (value == "2") {
+                return "未通過";
+            }
+            else {
+                return "";
+            }
+        }
+        var dateRegExp = /^\/Date\((.*?)\)\/$/;
+        window.toDate = function (value) {
+            var _strValue = String(value);
+            var dateResult;
+            if (_strValue.indexOf("/Date(") >= 0) {
+                var date = dateRegExp.exec(value);
+                // 創新資料時會造成錯誤發生，需要特別處理
+                if (date == null) {
+                    return new Date();
+                }
+                else {
+                    var tempDate = new Date(parseInt(date[1]));
+                    tempDate.setHours(tempDate.getHours() - 8);
+                    dateResult = tempDate.getFullYear() + " - " + (tempDate.getMonth() + 1) + " - " + tempDate.getDate();
+                    return dateResult
+                }
+            }
+            else {
+                dateResult = value.getFullYear() + " - " + (value.getMonth() + 1) + " - " + value.getDate();
+                return value;
+            }
+        }
+        window.ItemStatus = function (value) {
+            if (value == "0") {
+                    return "上架";
+            }
+            else if (value == "1") {
+                    return "下架";
+            }
+            else if (value == "2") {
+                return "強制下架";
+            }
+            else if (value == "3") {
+                    return "售價異常";
+            }
+            else {
+                return "";
+            }
+        }
+        window.CategoryName = function (value) {
+            if (value == "Seller") {
+                return "供應商";
+            }
+            return value;
+        }
+        window.ComputeQ = function (PriceCash, Cost) {
+            if (PriceCash == "0") {
+                return "資料有誤";
+            }
+            else {
+                var answer = (PriceCash - Cost) / PriceCash;
+                if (answer < 0) {
+                    return 0;
+                }
+                else {
+                    answer = answer * 100;
+                    answer = answer.toFixed(2)
+                    return answer + "%";
+                }
+            }
+        }
+        // 移到 Index
+        //window.UrlLink = function (id, name, url) {
+        //    if (id == 0 || id == null) {
+        //        return name;
+        //    }
+        //    else {
+        //        return "<a href=\"javascript:void(0)\" onclick=\"window.open('" + url + "', '', '');\">" + name + "</a>";
+        //    }
+        //}
+        window.setImgUrl = function (imgUrl) {
+                if (imgUrl != null && typeof (imgUrl) !== "undefined" && imgUrl.length > 0) {
+                var dt = new Date();
+                return imgUrl + "?" + dt.getTime();
+            }
+        }
+        
+    })
+    function init(e) {
+        for (var i = 0; i < e.sender._data.length; i++) {
+                if (e.sender._data[i].Item.ItemID == "0" || e.sender._data[i].Item.ItemID == null || e.sender._data[i].Item.ItemID == 0 || e.sender._data[i].Product.ProductID == "0" || e.sender._data[i].Product.ProductID == null || e.sender._data[i].Product.ProductID == 0) {
+                    if (e.sender._data[i].Item.status == 1) {
+                $("#EditList_" + e.sender._data[i].Item.ID).prop("disabled", true);
+                } else {
+                    $("#EditList_" + e.sender._data[i].Item.ID).prop("disabled", false);
+                }
+                //$("#EditList_" + e.sender._data[i].Item.ID).prop("disabled", true);
+            }
+            if (e.sender._data[i].Item.ItemStatus == "0" || e.sender._data[i].Item.ItemStatus == 0 || e.sender._data[i].Item.ItemID == "0" || e.sender._data[i].Item.ItemID == null || e.sender._data[i].Item.ItemID == 0 || e.sender._data[i].Product.ProductID == "0" || e.sender._data[i].Product.ProductID == null || e.sender._data[i].Product.ProductID == 0) {
+                $("#DeleteList_" + e.sender._data[i].Item.ID).prop("disabled", true);
+            }
+        }
+    }
+    function onErrorList(e, status) {
+        var notification = $("#notification1").data("kendoNotification");
+        notification.hide();
+
+        if (e.status == "customerror") {
+            if (e.errors[0] == "Search") {
+                $("#GridList").data("kendoGrid").dataSource.data([]);
+                    var alertMsg = e.errors[1].replace("[Error]: ", "");
+                //開啟window
+                    $("#ManMade_Alert_Message").html(alertMsg);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+            }
+            else if (e.errors[0] == "Update") {
+                if (e.errors[1] == "T") {
+                    //$("a[href='/ItemList/readList']").click();
+                    //開啟window
+                    $("#ManMade_Alert_Message").html(e.errors[2]);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                        //$("#GridList").data("kendoGrid").read();
+                    $("#GridList").data("kendoGrid").refresh();
+                    $("#GridList").data("kendoGrid").dataSource.page(1);
+                }
+                else {
+                    if (e.errors[3] == "Body=F") {
+                        //開啟window
+                        $("#ManMade_Alert_Message").html(e.errors[2]);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                        //$("a[href='/ItemList/readList']").click();
+                            $("#GridList").data("kendoGrid").read();
+                            //$("#GridList").data("kendoGrid").fetch();
+                            //$("#GridList").data("kendoGrid").dataSource.page();
+                        
+                    }
+                    else if (e.errors[3] == "Body=T") {
+                        notification.show({
+                            title: "訊息",
+                            message: e.errors[2]
+                        }, "error"); 
+                    }
+                }
+            }
+        }
+    }
+
+        function onChangeList(arg) {
+        if (arg.field == "Item.PriceCash" || arg.field == "Product.Cost") {
+            var Item_PriceCash = arg.items[0].Item.PriceCash;/*.Item.PriceCash;*/
+            var ProductCost = arg.items[0].Product.Cost;
+            if (Item_PriceCash == 0) {
+                $("#GMList_" + arg.items[0].Item.ID).text("資料錯誤");
+            }
+            else {
+                var gm = ((Item_PriceCash - ProductCost) / Item_PriceCash);
+                if (gm < 0) {
+                    $("#GMList_" + arg.items[0].Item.ID).text("0");
+                }
+                else {
+                    gm = gm * 100;
+                    gm = gm.toFixed(2)
+                    $("#GMList_" + arg.items[0].Item.ID).text(gm + "%");
+                }
+            }
+        }
+    }
+    function onSearchList() {
+        //var dataSrc = $("#GridList").data("kendoGrid").dataSource.read();
+            $(document).ajaxSend($.blockUI());
+            $(document).ajaxStop($.unblockUI);
+        $("#GridList").data("kendoGrid").refresh();
+        $("#GridList").data("kendoGrid").dataSource.page(1);
+    }
+    function onChange() {
+    }
+    function DeleteList(value) {
+        var items = [];
+        items.push(value);
+            $(document).ajaxSend($.blockUI());
+            $(document).ajaxStop($.unblockUI);
+        $.ajax({
+            type: "POST",
+            url: "/ItemList/DeleteList",
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify({ "deleteId": items }),
+            success: function (res) {
+                if (res.isSuccess == "T") {
+                        $("#GridList").data("kendoGrid").refresh();
+                        $("#GridList").data("kendoGrid").dataSource.page(1);
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(res.Msg); 
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                }
+                else if (res.isSuccess == "F") {
+                        if (res.Msg == "" || res.Msg == null) {
+                            //alert("刪除失敗");
+                            $("#ManMade_Alert_Message").html("刪除失敗"); 
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        }
+                }
+            }
+        });
+    }
+    function filterSecondLayerList() {
+        return {
+            parentID: $("#ItemCategory1List").val(),
+            Layer: 1
+        };
+    }
+    function MasterLayerList() {
+        return {
+            parentID: 0,
+            Layer: 0
+        };
+    }
+    function thridLayerList() {
+        return {
+            parentID: $("#ItemCategory2List").val(),
+            Layer: 2
+        };
+    }
+    function QueryPropertyList() {
+        $.ajax({
+            type: "POST",
+            url: "/ItemCreation/QueryProductProperty",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "CategoryID": $("#ItemCategory2List").val()
+            }),
+            success: function (res) {
+                if (res.IsSuccess == true) {
+                    $("#ProductProperty").html(res.ViewHtml);
+                }
+                else {
+                    $("#ProductProperty").html("");
+                }
+            }
+        });
+    }
+    function ModifyDataList(id) {
+        window.open("/ItemDetailEdit/Index?actionType=1&itemSketchID=" + id, 'MyWindow');     
+    }
+    function CopyDataList(id) {
+        window.open('/ItemDetailEdit/Index?actionType=5&itemSketchID=' + id);
+    }
+        function CopyDataList(id) {
+            window.open('/ItemDetailEdit/Index?actionType=5&itemSketchID=' + id);
+        }
+    function JqyeryDataList() {
+        return {
+            SearCon: $("#SearConList").val(),
+            searchText: $("#searchTextList").val(),
+            ManufactureID: $("#MarkerNameList").val(),
+            DateType: $("#DateList").val(),
+            StartData: $("#StartDataList").val(),
+            EndData: $("#EndDataList").val(),
+            Stock: $("#StockList").val(),
+            ItemCategory1: $("#ItemCategory1List").val(),
+            ItemCategory2: $("#ItemCategory2List").val(),
+                ItemCategory3: $("#ItemCategory3List").val(),
+                CheckStatus: $("#CheckStatus").val(),
+                GoodsStatus: $("#GoodsStatus").val(),
+                ShowOrder: $("#AdditionalPurchase").prop('checked')? @((int)TWNewEgg.API.Models.AdditionalPurchase.ShowOrderType.加價購) : null,
+            IsRecover:$('#IsRecover').prop('checked')?"Y":"N"
+                
+               
+        };
+    }
+    function JqyeryUpdateList(data) {
+        for (var i = 0; i < data.models.length; i++) {
+            if (data.models[i].Item.MarketPrice == "" || data.models[i].Item.MarketPrice == null) {
+                data.models[i].Item.MarketPrice = 0;
+            }
+            if (data.models[i].Item.PriceCash == "" || data.models[i].Item.PriceCash == null) {
+                data.models[i].Item.PriceCash = 0;
+            }
+            if (data.models[i].Product.Cost == "" || data.models[i].Product.Cost == null) {
+                data.models[i].Product.Cost = 0;
+            }
+            data.models[i].Product.Name = encodeURIComponent(data.models[i].Product.Name);
+            data.models[i]["Product.Name"] = encodeURIComponent(data.models[i]["Product.Name"]);
+        }
+        return { _jsonupdateDataList: kendo.stringify(data.models) };
+    }
+
+        function onItemListToExcel() {
+            $.ajax({
+                type: "POST",
+                url: "/ItemList/ItemListExportToExcel",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    Keyword: $("#searchTextList").val(),
+                    CheckStatus: $("#CheckStatus").val(),
+                    Status:$("#GoodsStatus").val(),
+                    Manufacturer:$("#MarkerNameList").val(),
+                    Industry:$("#ItemCategory1List").val(),
+                    SubCategory: $("#ItemCategory2List").val(),
+                    ItemCategory: $("#ItemCategory3List").val(),
+                    Inventory: $("#StockList").val(),
+                    CreateDateBefore:$("#DateList").val(),
+                    CreateDateStart:$("#StartDataList").val(),
+                    CreateDateEnd: $("#EndDataList").val()
+                }),
+                beforeSend: function () {
+                    $("#ItemListToExcel").attr('disabled', 'disabled');
+                    $(document).ajaxSend($.blockUI());
+                },
+                success: function (res) {
+                    if (res.Msg.indexOf('[Success]:') >= 0) {
+                        $("#ItemListToExcel").removeAttr('disabled');
+                        $(document).ajaxStop($.unblockUI);
+
+                        window.location.href = res.Url;                      
+                    }
+                    else if (res.Msg.indexOf('[Error]:') >= 0) {
+                        //alert(res.Msg.replace('[Error]: ', ''));
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(res.Msg.replace('[Error]: ', '')); 
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                        window.location.href = res.Url;
+                    }
+                }
+            });
+        }
+</script>
+
+

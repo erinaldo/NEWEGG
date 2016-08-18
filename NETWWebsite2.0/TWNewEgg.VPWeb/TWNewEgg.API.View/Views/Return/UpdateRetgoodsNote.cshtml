@@ -1,0 +1,92 @@
+﻿@model TWNewEgg.API.Models.RetgoodNote
+
+@if(Model != null)
+{
+    <div>
+        <table>
+            <tr>
+                <td style="text-align:right; width:80px; min-width:80px;">備註說明：</td>
+                <td style="text-align:left; width:95%; min-width:200px;">
+                    <input type="text" id="UpdateNoteDes"  maxlength="50" class="k-textbox" style="width:97%; min-width:200px;" />
+                    <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="UpdateNoteDes" role="alert" id="errUpdateNoteDesMsg" style="display:none;"></span>
+                    <input type="hidden" id="UpdateRetgoodsNote_CartID" value="@ViewBag.RetgoodsNote_CartID" />
+                </td>
+            </tr>
+        </table>
+        <table style="margin-top:10px;">
+            <tr>
+                <td style="text-align:right; vertical-align:top; min-width:80px;">更新紀錄：</td>
+                <td style="text-align:left;" >
+                    <div id="noteContex" style="overflow:auto; border-radius:5px; border:1px solid #C4C4C4; padding:5px; white-space:nowrap;">
+                        @Html.Raw(Model.Note_Des)
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="margin-top:20px; text-align:center;">
+            <table style="width:100%; min-width:310px;">
+                <tr>
+                     <td style="width:170px; min-width:100px; text-align:right;">
+                        @(Html.Kendo().Button()
+                            .Name("UpdateNoteSave")
+                            .Content("存檔")
+                            .HtmlAttributes(new { style="width:150px; min-width:80px;"})
+                            .Events(ev => ev.Click("SaveUpdateNote"))
+                        )
+                    </td>
+                    <td style="width:10px; min-width:10px;"></td>
+                    <td style="width:170px; min-width:100px; text-align:left;">
+                        @(Html.Kendo().Button()
+                            .Name("UpdateNoteCancel")
+                            .Content("取消")
+                            .HtmlAttributes(new { style="width:150px; min-width:80px;"})
+                            .Events(ev => ev.Click("CancelUpdateNote"))
+                        )
+                        <span id="updateRetNoteDataProcessing" style="display:none;">
+                            <img src="~/Content/Img/loading.gif" height="30"/>
+                            資料處理中，請稍後...
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div id="errorMessage">資料讀取失敗。</div>
+}
+
+<script type="text/ecmascript">
+    $(document).ready(function () {
+        @{
+            if (Model == null)
+            {
+                @*錯誤訊息位置調整*@
+                <text>$("#errorMessage").css("width", "100%");
+                $("#errorMessage").css("text-align", "center");
+                $("#errorMessage").css("margin-top", Math.floor(($(sendCartOrReportWindow).height() / 2) - 8) + "px");</text>
+            }
+        }
+
+        $("#UpdateNoteDes").keyup(function () {
+            var length = $("#UpdateNoteDes").val().length;
+            if (length > 0) {
+                $("#UpdateNoteDes").removeClass("errMsgShow");
+                ErrMsgHide("UpdateNoteDes", "請輸入備註資訊");
+            }
+        });
+
+        @*計算備註說明欄位寬度，若太小，則給定一個固定的大小*@
+        if (parseInt(Math.floor($("#sendCartOrReportWindow").width()) - 110) > 430) {
+            $("#noteContex").css("width", (Math.floor($("#sendCartOrReportWindow").width()) - 110) + "px");
+        }
+        else {
+            $("#noteContex").css("width", "430px");
+        }
+
+        @*計算備註說明欄位高度*@
+        $("#noteContex").css("height", (Math.floor($("#sendCartOrReportWindow").height()) - 125) + "px");
+    });
+</script>

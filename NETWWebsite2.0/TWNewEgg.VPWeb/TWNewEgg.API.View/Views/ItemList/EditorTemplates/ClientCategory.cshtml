@@ -1,0 +1,10 @@
+﻿@model TWNewEgg.API.View.CategoryViewModel
+@(Html.Kendo().DropDownListFor(m => m)
+        .DataValueField("shiptypeCode")
+        .DataTextField("shiptype")
+        .BindTo((System.Collections.IEnumerable)ViewData["categories"])
+)
+
+
+
+

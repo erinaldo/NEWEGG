@@ -1,0 +1,56 @@
+﻿@import "compass/reset";
+@import "compass/css3";
+
+$automargin:0 auto;
+html {
+	font-size:80%;
+}
+body {
+    background:#F5F5F5;
+    //font-family:"微軟正黑體",Verdana, Tahoma, Arial, sans-serif;
+}
+.clear {
+	clear:both;
+}
+.btn {
+	cursor:pointer;
+}
+a {
+	color:#27539c;
+	text-decoration:underline;	
+}
+input , img {
+	vertical-align:middle;
+}
+input[type="text"], input[type="password"]{
+	padding:4px 7px;
+	//height:12px;
+	border:1px solid #c4c4c4;
+	@include border-radius(4px);
+}
+input[type="radio"] {
+	margin:0 5px;
+	vertical-align:text-top;
+}
+input[type="submit"],input[type="file"],input[type="file"],input[type="button"],input[type="reset"] {
+	margin:0;
+	border:0;
+	text-indent:0;
+	*font-size:0;
+	*line-height:0;
+}
+select {
+	margin:0;
+	border:1px solid #c4c4c4;
+	@include border-radius(4px);
+}
+textarea {
+	padding:4px 7px;
+	border:1px solid #c4c4c4;
+	@include border-radius(4px);
+	outline:none;
+	resize:none;
+}
+.title {
+	font-family:"微軟正黑體";
+}

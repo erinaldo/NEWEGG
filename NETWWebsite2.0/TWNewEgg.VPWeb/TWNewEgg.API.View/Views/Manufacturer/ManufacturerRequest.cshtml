@@ -1,0 +1,557 @@
+﻿@{
+    TWNewEgg.API.View.Service.SellerInfoService sellerInfo = new TWNewEgg.API.View.Service.SellerInfoService();
+    @Styles.Render("~/Themes/2013/stylesheets/GridStyle.css")
+}
+@model  string
+<style>
+    .searchStatus input{
+        margin-right:10px;
+    }
+</style>
+<body>
+    <div>
+        <div class="searchStatus" style="padding-top: 10px;">狀態: 
+            <select id="_status" style="width:100px;">
+                <option value="">所有</option>
+                <option value="P">待審核</option>
+                <option value="A">核准</option>
+                <option value="D">拒絕</option>
+            </select>
+            @*<img src="~/Themes/2013/img/searchTxt_bg.gif" />*@
+
+            <input type="text" class="k-textbox" id="_searchText" style="width:500px;" placeholder="製造商名稱, 製造商地址, 製造商支援信箱, 製造商支援電話, 製造商支援網址" />           
+            @*<input type="button" id="_searchButton" class="k-icon k-i-search" value="送出查詢"/>*@
+            @(Html.Kendo().Button()
+                .Name("_searchButton")
+                .SpriteCssClass("k-icon k-i-search")
+                .Content("送出查詢")
+            )
+            <input type="button" id="createManufacture" value="建立製造商" style="width:100px;"/>
+        </div>
+    </div>
+    <hr style="border:0; border-top:1px solid gray;"/>
+    <div id="dvGrid" class="GridTextCenter"></div>
+    <div style="margin-top:5px">
+    @if (sellerInfo.IsAdmin == true)
+    {
+        @(Html.Kendo().Button()
+            .Name("Approve")
+            .SpriteCssClass("buttonController k-icon k-i-tick")
+            .Content("核准")
+        )
+        @(Html.Kendo().Button()
+            .Name("Decline")
+            .SpriteCssClass("buttonController k-icon k-i-close")
+            .Content("拒絕")
+        )
+        @(Html.Kendo().Button()
+            .Name("Delete")
+            .SpriteCssClass("buttonController k-icon k-i-cancel")
+            .Content("作廢")
+        )
+        @*<button type="button" id="Approve" class="buttonController">核准</button>
+
+        <button type="button" id="Decline" class="buttonController">拒絕</button>
+
+        <button type="button" id="Delete" class="buttonController">作廢</button>*@
+        
+        <div id="updatewindow"></div>
+    }
+    </div>
+    <div id="CreateManufactureWindow"></div>
+    <div id="CreateUserEmailWindow">
+        <div id="CreateEmailLoadingIMG" style="display:none;">
+            <img src="~/Content/Img/loading.gif" height='30'/>資料處理中，請稍後。
+        </div>
+    </div>
+</body>
+<style>
+    /*#dvGrid .k-link { text-align: center; background-color: #355389;color:white;}
+    #dvGrid th.k-header { text-align: center; background-color: #355389;color:white;}
+    /*#dvGrid .k-grid-toolbar{padding: 1em 1.333em}*/
+    /*#updatewindow th.k-header { text-align: center; background-color: #355389;color:white;}
+    .buttonController {margin-top:10px;}*/
+</style>
+<script>
+    $(document).ready(function () {
+        var kendoCheckedIds = {};
+        $("#_status").kendoDropDownList();
+        $("#createManufacture").kendoButton({
+            click: CreateNewManufacture
+        });
+        
+        $("#_searchButton").kendoButton({
+            
+        });
+        $("#Approve").kendoButton({
+            click: onClick
+        });
+
+        $("#Decline").kendoButton({
+            click: onClick
+        });
+
+        $("#Delete").kendoButton({
+            click: onClick
+        });
+        function onclick_Alert_Confirm(confirmReault, isTheSameAction, canDecline, openwindow, e, updateModel) {
+            if (!confirmReault) {
+                $(".buttonController").removeAttr("disabled");
+                return null;
+            }
+            if (isTheSameAction) {
+                //開啟window 
+                $("#ManMade_Alert_Message").html("審核項目中，有和" + clickActionTW + "指令相同的狀態值。請取消勾選錯誤選項後，再進行審核。");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                $(".buttonController").removeAttr("disabled");
+                return null;
+            }
+
+            if (!canDecline) {
+                $("#ManMade_Alert_Message").html("無法將已核准的項目，變更為拒絕。請取消勾選錯誤選項後，再進行審核。");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                $(".buttonController").removeAttr("disabled");
+                return null;
+            }
+
+            if (openwindow) {
+                $("#updatewindow").html("");
+                var updateWindow = $("#updatewindow").kendoWindow({
+                    width: "720px",
+                    //height:"1000px",
+                    title: "拒絕原因",
+                    actions: [],
+                    //actions: ["Close"], // "Close", "Refresh","Minimize", "Maximize"
+                    modal: true,
+                    resizable: false,
+                });
+                updateWindow.data("kendoWindow").center().open();
+                $(document).ajaxSend($.blockUI());
+                $(document).ajaxStop($.unblockUI);
+                $.ajax({
+                    type: "POST",
+                    url: "/Manufacturer/ManufactureUpdateStatus",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        // 取得執行動作的id
+                        "Command": $(e.event.target).closest(".k-button").attr("id"),
+                        "updateModel": updateModel
+                    }),
+                    beforeSend: function () {
+                        $('#dvGrid').data('kendoGrid')._progress(2);
+                        //$('#loadingIMG').show();
+                    },
+                    complete: function (res) {
+                        $('#dvGrid').data('kendoGrid')._progress(0);
+                        //$('#loadingIMG').hide();
+                    },
+                    success: function (res) {
+                        if (res.IsSuccess == true) {
+                            $("#updatewindow").html(res.ViewHtml);
+                            $("#dvGrid").data("kendoGrid").refresh();
+                            $("#dvGrid").data("kendoGrid").dataSource.page(1);
+                        }
+                        else { }
+                        $(".buttonController").removeAttr("disabled");
+                    }
+                });
+            }
+            else {
+                $(document).ajaxSend($.blockUI());
+                $(document).ajaxStop($.unblockUI);
+                $.ajax({
+                    type: "POST",
+                    url: "/Manufacturer/UpdateManufactureUpdateStatus",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        "Command": $(e.event.target).closest(".k-button").attr("id"),
+                        "updateModel": updateModel
+                    }),
+                    beforeSend: function () {
+                        //$('#loadingIMG').show();
+                    },
+                    complete: function (res) {
+                        //$('#loadingIMG').hide();
+                    },
+                    success: function (res) {
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(res);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        $(".buttonController").removeAttr("disabled");
+                        $("#dvGrid").data("kendoGrid").dataSource.read();
+                        $("#dvGrid").data("kendoGrid").refresh();
+                        $("#dvGrid").data("kendoGrid").dataSource.page(1);
+                    }
+                });
+            }
+
+            //grid.clearSelection();
+            kendoCheckedIds = {};
+        }
+        function onClick(e) {
+            $(".buttonController").attr("disabled", "disabled");
+            var clickAction = $(e.event.target).closest(".k-button").attr("id");
+            var clickActionTW = StatusString(clickAction);
+            var updateModel = [];
+
+            var view = dataSrc.view();
+            var colorClass = 'color-red';
+            var grid = $('#dvGrid').data("kendoGrid");
+
+            var isTheSameAction = false;
+            var canDecline = true;
+            var openwindow = true;
+                
+            for (var i = 0; i < view.length; i++) {
+                if (kendoCheckedIds[view[i].uid]) {
+                    var row = $("#grid tbody").find("tr[data-uid='" + view[i].uid + "']");
+
+                    row.find(".checkbox").prop('checked', false);
+                    var dataItem = grid.dataSource.getByUid(view[i].uid);
+                    if (dataItem.ManufactureStatus != "Delete" && dataItem.ManufactureStatus == clickAction) {
+                        isTheSameAction = true;
+                    }
+
+                    if (clickAction == "Decline" && dataItem.ManufactureStatus == "Approve") {
+                        canDecline = false;
+                    }
+
+                    if (clickAction == "Approve") {
+                        openwindow = false;
+                    }
+
+                    updateModel.push(dataItem);
+                }
+            }
+                
+            if (updateModel.length <= 0) {
+                //開啟window 
+                $("#ManMade_Alert_Message").html("請勾選" + clickActionTW + "項目");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                $(".buttonController").removeAttr("disabled");
+                return null;
+            }
+
+            @*防止使用者誤按確認*@
+            $("#ManMade_Another_Alert_Message").html("是否" + clickActionTW + "所有被選擇的請求?");
+            ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+            $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+                //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+                if ($(this).hasClass("confirm")) {
+                    var confirmReault = true;
+                    //需要做的事件 
+                    onclick_Alert_Confirm(confirmReault, isTheSameAction, canDecline, openwindow, e, updateModel);
+                }
+                    //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+                else {
+                    var confirmReault = false;
+                    //需要做的事件 
+                    onclick_Alert_Confirm(confirmReault, isTheSameAction, canDecline, openwindow, e, updateModel);
+                }
+            });
+        }
+
+        function CreateNewManufacture() {
+            //$("#CreateManufactureWindow").data("kendoWindow").open();
+            $("#CreateManufactureWindow").html("");
+            var createManufacture = $("#CreateManufactureWindow").kendoWindow({
+                width: "550px",
+                height:"350px",
+                title: "建立製造商",
+                //actions: [],
+                actions: ["Close"], // "Close", "Refresh","Minimize", "Maximize"
+                modal: true,
+                resizable: false,
+            });
+            createManufacture.data("kendoWindow").center().open();
+            $.ajax({
+                type: "POST",
+                url: "/Manufacturer/CreateManufacture",
+                contentType: "application/json;charset=utf-8",
+                success: function (res) {
+                    if (res.IsSuccess == true) {
+                        $("#CreateManufactureWindow").html(res.ViewHtml);
+                    }
+                    else { }
+                }
+            });
+        }
+
+        var result = {};
+        var dataSrc = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    type: "POST",
+                    url: "/Manufacturer/MarkerSearch",
+                    dataType: "json",
+                    data:
+                        function () {
+                            return {
+                                Status: $("#_status").val(),
+                                KeyWord: $("#_searchText").val(),
+                            };
+                        },
+                    beforeSend: function () {
+                        //$('#loadingIMG').show();
+                    },
+                    complete: function (response) {
+                        //$('#loadingIMG').hide();
+                        result = JSON.parse(response.responseText);
+                        if (result.total == 0) {
+                        }
+                        else {
+                            var isAdmin = result.data[0].isAdmin;
+                            if (isAdmin != true) {
+                                var grid = $('#dvGrid').data('kendoGrid');
+                                grid.hideColumn("Choose");
+                            }
+                        }
+                    }
+                },
+                update: {
+                    url: "/Manufacturer/MarkerEdit",
+                    datatype: "json",
+                    type: "POST",
+                    beforeSend: function () {
+                        //$('#loadingIMG').show();
+                    },
+                    complete: function (response) {
+                        //$('#loadingIMG').hide();
+                        var result = JSON.parse(response.responseText);
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(result.Msg);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        $("#dvGrid").data("kendoGrid").dataSource.read();
+                        $("#dvGrid").data("kendoGrid").refresh();
+                        $("#dvGrid").data("kendoGrid").dataSource.page(1);
+                    },
+                },
+                parameterMap: function (data, operation) {
+                    // 新增或修改時
+                        
+                    if ((operation === "update" || operation === "create") && data) {
+                        return { jsonManufacturerList: kendo.stringify(data.models) };
+                    } else
+                        // 刪除
+                        if (operation === "destroy" && data.UserNo) {
+                            return JSON.stringify({ ID: data.UserNo });
+                        }
+                    return data;
+                }
+            },
+            batch: true,
+            schema: {
+                data: function (result) {
+                    return result.data;
+                },
+                total: function (result) {
+                    return result.total;
+                },
+                model: {
+                    id: "SN",
+                    fields: {
+                        SN: { editable: false, nullable: false },
+                        ManufactureName: {
+                            editable: true, nullable: false, validation: {
+                                required: { message: "請填寫製造商名稱" }
+                            }
+                        },
+                        Choose: { editable: false },
+                        SellerID:{editable:false},
+                        ManufactureURL: { editable: false, nullable: false },
+                        ManufactureStatus: { editable: false, nullable: false },
+                        UpdateDate: { editable: false, nullable: false },
+                        DeclineReason: { editable: false, nullable: false },
+                        PhoneNumberDetail: {
+                            editable: true, nullable: true, validation: {
+                                phoneNumberDetailvalidation: function (input) {
+                                    if (input.is("[name='PhoneNumberDetail']") && input.val() != "") {
+                                        input.attr("data-phoneNumberDetailvalidation-msg", "請填寫正確電話格式\"(____)____#____\"或\"(____)____\"或手機\"10碼\"");
+                                        return (phoneRule.test(input.val()) || mobileRule.test(input.val()));
+                                    }
+                                    return true;
+                                }
+                            }
+                        },
+                        SupportEmail: {
+                            editable: true, nullable: false, validation: {
+                                supportemailvalidation: function (input) {
+                                    if (input.is("[name='SupportEmail']") && input.val() != "") {
+                                        input.attr("data-supportemailvalidation-msg", "請填寫正確的電子信箱格式");
+                                        return emailRule.test(input.val());
+                                    }
+                                    return true;
+                                }
+                            }
+                        },
+                        supportURL: {
+                            editable: true, nullable: false, validation: {
+                                supporturlvalidation: function (input) {
+                                    if (input.is("[name='supportURL']") && input.val() != "") {
+                                        input.attr("data-supporturlvalidation-msg", "請填寫正確的網址格式(是否遺漏http:// 或者是 https://)");
+                                        return urlRule.test(input.val());
+                                    }
+                                    return true;
+                                }
+                            }
+                        },
+                        PhoneRegion: { type: "string" }
+                    }
+                }
+            },
+           
+            pageSize: 10,
+            serverPaging: true,
+            serverSorting: true
+        });
+        var manRequestGrid = $("#dvGrid").kendoGrid({
+            autoBind: true,
+            dataSource: dataSrc,
+            //groupable: false,
+            columns: [
+                { field: "Choose", title: "選擇", width: "50px", template: '<input type="checkbox" class=\'checkbox\'/>'},
+                { field: "SellerID", title: "商家", width: "50px", attributes: { style: "text-align: center" } },
+                { field: "ManufactureStatus", title: "狀態", width: "70px", attributes: { style: "text-align: center" }, template: '#=StatusString(ManufactureStatus)#' },
+                { field: "UpdateDate", title: "請求日期", width: "100px", attributes: { style: "text-align: center" }, template: '#= kendo.toString(toDate(UpdateDate), "yyyy/MM/dd")#' },
+                { field: "ManufactureName", title: "製造商名稱", width: "200px", attributes: { class: '#= uid #' } },
+                { field: "ManufactureURL", title: "製造商網址", width: "200px", template: '#= UrlLink(ManufactureURL) #' },
+                { field: "SupportEmail", title: "製造商支援信箱", width: "200px", template: '#= mailCheck(SupportEmail) #' },
+                { field: "PhoneNumberDetail", title: "製造商支援電話", width: "150px" },
+                { field: "supportURL", title: "製造商支援網址", width: "200px", template: '#= UrlLink(supportURL) #' },
+                { field: "DeclineReason", title: "拒絕原因", width: "100px" },
+                { field: "PhoneRegion", hidden: true },
+                { field: "Phone", hidden: true },
+                { field: "PhoneExt", hidden: true, type: "string" },
+                { field: "", title: "" },
+            ],
+            height: 500,
+            sortable: true,
+            editable: true,
+            selectable: "row",
+            scrollable: true,
+            //navigatable: true,
+            pageable: {
+                Refresh: true,
+                pageSizes: true,
+                pageSizes: [10, 25, 50]
+            },
+            toolbar: [{ name: "save", text: "儲存所有變更" },
+                      {name:"cancel",text:"取消"}],
+        }).
+        data("kendoGrid")
+        .table.on("click", ".checkbox", selectKendoGridRow);
+
+        function selectKendoGridRow(e) {
+            var checked = this.checked,
+                row = $(this).closest("tr"),
+                grid = $('#dvGrid').data("kendoGrid"),
+                dataItem = grid.dataItem(row);
+
+            var uid = dataItem.uid;
+            if (checked) {
+                //-select the row
+                    
+                kendoCheckedIds[dataItem.uid] = checked;
+                grid.select(row); // select the item  
+                //row.addClass("k-state-selected");
+                    
+            } else {
+                //-remove selection
+                delete kendoCheckedIds[dataItem.uid];
+                //row.removeClass("k-state-selected");
+                grid.clearSelection(row);
+            }
+        }
+
+        var dateRegExp = /^\/Date\((.*?)\)\/$/;
+        window.toDate = function (value) {
+            var date = dateRegExp.exec(value);
+            // 創新資料時會造成錯誤發生，需要特別處理
+            if (date == null) {
+                return new Date();
+            } else {
+                return new Date(parseInt(date[1]));
+            }
+        }
+        var i = -1;
+        window.RequestId = function (value) {
+            i++
+            return i;
+        }
+        window.StatusString = function (value) {
+            if (value == "Pending") {
+                return "待審核";
+            }
+            else if (value == "Decline") {
+                return "拒絕";
+            }
+            else if (value == "Approve") {
+                return "核准";
+            }
+            else if (value == "Delete") {
+                return "作廢";
+            }
+        }
+        window.mailCheck = function (value) {
+            var result;
+            if (value == null) {
+                return "";
+            }
+            else {
+                result = "<a href=\"mailto:" + value + "\">" + value + "</a>";
+                return result
+            }
+        }
+        window.UrlLink = function (value) {
+            var result;
+            if (value == null) {
+                return "";
+            }
+            else {
+                if (value.search(/^[0-9]+$/) < 0) {
+                    if (value.indexOf("http") >= 0 || value.indexOf("https") >= 0) {
+                        result = "<a href=\"#\" onClick=\"window.open('" + value + "', '', '')\" >" + value + "</a>";
+
+                    }
+                    else {
+                        result = "<a href=\"#\" onClick=\"window.open('http://" + value + "', '', '')\" >" + "http://" + value + "</a>";
+                    }
+                }
+                else {
+                    result = value;
+                }
+
+                return result;
+            }
+        }
+        
+        $("#_searchButton").click(function () {
+            dataSrc.read({ page: 1, skip: 0 });
+            $(document).ajaxSend($.blockUI());
+            $(document).ajaxStop($.unblockUI);
+            $("#dvGrid").data("kendoGrid").refresh();
+            $("#dvGrid").data("kendoGrid").dataSource.page(1);
+        });
+    });
+
+    @*建立製造商*@
+    //var createManufacturerWindow = null;
+
+    @*function CreateManufacturer() {
+        createManufacturerWindow = window.open('/Manufacturer/CreateManufacturer', 'CreateManufacturer', config = 'height=310, width=510, location=no, modal=yes');
+        createManufacturerWindow.focus();
+        document.onmousedown = ParentDisable;
+        document.onkeyup = ParentDisable;
+        document.onmousemove = ParentDisable;
+    }
+
+    function ParentDisable() {
+        if (createManufacturerWindow && !createManufacturerWindow.closed) {
+            createManufacturerWindow.focus();
+        }
+    }*@
+    @*建立製造商*@
+</script>

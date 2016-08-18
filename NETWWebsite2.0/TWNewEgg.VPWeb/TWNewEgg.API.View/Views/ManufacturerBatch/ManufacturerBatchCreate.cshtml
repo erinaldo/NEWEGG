@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "ManufacturerBatchCreate";
+}
+
+<style>
+    .Download-section {
+        margin:20px 50px;
+    }
+
+    .Upload-section {
+        margin:20px 50px;
+        width:1000px;
+    }
+
+    .ResultMsg {
+        padding-top:20px;
+        
+    }
+</style>
+
+<script type="text/javascript">
+    /* Download-Section */
+    function downloadtemplete(e) {
+        window.open("../Download/Manufacturer/ManufacturerTemplate.xls");
+    }
+
+    onSelect = function (e) {
+        var ext = e.files[0].extension.toLowerCase();
+        if ($.inArray(ext, ['.xls']) == -1)
+        {
+            $("#ManMade_Alert_Message").html("請選擇 .xls 檔案");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            e.preventDefault();
+            return false;
+        }
+    }
+
+    Upload_Result = function (result) {
+        var FResult = result.response.IsSuccess;
+        var FMessage = result.response.batchResult;
+        if (FResult == "true") {
+            $("#MsgShow ").html("</br>【上傳成功】</br></br>" + "製造商資訊建立成功！");
+            $("#MsgShow").css("color","green");
+        }
+        else if (FResult == "false") {
+            $("#MsgShow").html("</br>【上傳失敗】</br></br>" + FMessage);
+            $("#MsgShow").css("color", "red");
+        }
+    }
+
+</script>
+
+<div class="Download-section">
+    <label>製造商批次建立檔案下載: </label>
+    @(Html.Kendo().Button()
+        .Name("downloadTemplete")
+        .Events(e => e.Click("downloadtemplete"))
+        .SpriteCssClass("k-icon k-i-arrow-s")
+        .Content("DownloadTemplete")
+        .HtmlAttributes(new { type="button"})
+    )
+</div>
+
+<div class="Upload-section">
+    @(Html.Kendo().Upload()
+            .Name("files")
+            .Async(a => a
+                .Save("Upload", "ManufacturerBatch")
+                .AutoUpload(false)
+            )
+            .Events(e => 
+            {   
+                e.Success("Upload_Result");
+                e.Select("onSelect");
+            })
+            .Multiple(false)
+        )
+
+    <div class="ResultMsg">
+        <label id="title">檔案上傳結果:</label> <br />
+        <div id="MsgShow"></div>
+        <br />
+    </div>
+</div>

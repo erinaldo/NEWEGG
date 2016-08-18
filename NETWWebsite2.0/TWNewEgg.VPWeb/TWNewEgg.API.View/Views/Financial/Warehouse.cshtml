@@ -1,0 +1,57 @@
+﻿@{
+    var WarehouseSubFooter = ViewBag.WarehouseSubFooter as TWNewEgg.API.View.SubFooter;
+}
+
+<div id="WarehouseGrid" class="GridTextCenter">
+    @(Html.Kendo().Grid<TWNewEgg.API.Models.basicDomain>()
+    .Name("WarehouseName")
+    .HtmlAttributes(new { style = "height:350px; max-height:350px;" })
+    .Columns(col => 
+    {
+        col.Bound(p => p.CartDate).Title("訂單日期").Width(120).Format("{0:yyyy/MM/dd HH:mm:ss}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.TrackDate).Title("出貨日期").Width(120).Format("{0:yyyy/MM/dd HH:mm:ss}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.OrderID).Title("訂單編號").Width(120).HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.ProductID).Title("新蛋商品編號").Width(110).HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.SellerProductID).Title("商家商品編號").Width(110).HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.ProductName).Title("商品名稱").Width(300).HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.Size).Title("材積").Width(90).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        //col.Bound(p => p.ShipFee).Title("運費金額(未稅)").Width(100).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        //col.Bound(p => p.ShipTax).Title("運費稅額").Width(100).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.ShipFee_Total).Title("運費金額").Width(90).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        //col.Bound(p => p.LogisticAmount).Title("處理費(未稅)").Width(100).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        //col.Bound(p => p.LogisticTax).Title("處理費稅額").Width(100).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.LogisticAmount_Total).Title("出貨處理費").Width(90).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        //col.Bound(p => p.逆物流運費金額).Title("逆物流運費金額").Width(120).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        //col.Bound(p => p.逆物流處理費).Title("逆物流處理費").Width(110).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.WhereHouse_Total).Title("總額").Width(90).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+    })
+    .BindTo((IEnumerable<TWNewEgg.API.Models.basicDomain>)ViewBag.WarehouseModel)
+    .Scrollable(scro => scro.Height("auto"))
+    )
+</div>
+<br />
+<div>
+    <table style="width:100%;">
+        <tr>
+            <td style="text-align:left; width:40%; min-width:100px;">
+                <span>筆數：</span>
+                @WarehouseSubFooter.Count
+            </td>
+
+            <td style="text-align:right; width:20%; min-width:200px;">
+                <span>寄倉合計(未稅)：$</span>
+                @WarehouseSubFooter.POPrice.ToString("N0")
+            </td>
+
+            <td style="text-align:right; width:20%; min-width:200px;">
+                <span>稅額：$</span>
+                @WarehouseSubFooter.Potax.ToString("N0")
+            </td>
+
+            <td style="text-align:right; width:20%; min-width:200px;">
+                <span>總計金額：$</span>
+                @WarehouseSubFooter.Subtotal.ToString("N0")
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,56 @@
+﻿@{
+    var OrderSubFooter = ViewBag.OrderSubFooter as TWNewEgg.API.View.SubFooter;
+}
+<div id="OrderGrid" class="GridTextCenter">
+    @(Html.Kendo().Grid<TWNewEgg.API.Models.basicDomain>()
+    .Name("OrderName")
+    .HtmlAttributes(new { style = "height:350px; max-height:350px;" })
+    .Columns(col => 
+    {
+        col.Bound(p => p.CartDate).Title("訂單日期").Width(120).Format("{0:yyyy/MM/dd HH:mm:ss}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.TrackDate).Title("出貨日期").Width(120).Format("{0:yyyy/MM/dd HH:mm:ss}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.OrderID).Title("訂單編號").Width(120).HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.POID).Title("採購編號").Width(120).HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.ProductID).Title("新蛋商品編號").Width(110).HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.SellerProductID).Title("商家商品編號").Width(110).HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.ProductName).Title("商品名稱").Width(300).HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.Qty).Title("數量").Width(90).HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.UnitPrice_Total).Title("單價").Width(90).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        //col.Bound(p => p.SumPrice).Title("金額小計(未稅)").Width(100).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        //col.Bound(p => p.SumTax).Title("稅額").Width(100).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+        col.Bound(p => p.SumPrice_Total).Title("總額").Width(90).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+    })
+    .BindTo((IEnumerable<TWNewEgg.API.Models.basicDomain>)ViewBag.Order)
+    .Scrollable(scro => scro.Height("auto"))
+    )
+</div>
+<br />
+<div>
+    <table style="width:100%;">
+        <tr>
+            <td style="text-align:left; width:40%; min-width:100px;">
+                <span>筆數：</span>
+                @OrderSubFooter.Count
+            </td>
+
+            <td style="text-align:right; width:20%; min-width:200px;">
+                <span>採購合計(未稅)：$</span>
+                @OrderSubFooter.POPrice.ToString("N0")
+            </td>
+
+            <td style="text-align:right; width:20%; min-width:200px;">
+                <span>稅額：$</span>
+                @OrderSubFooter.Potax.ToString("N0")
+            </td>
+
+            <td style="text-align:right; width:20%; min-width:200px;">
+                <span>總計金額：$</span>
+                @OrderSubFooter.Subtotal.ToString("N0")
+            </td>
+        </tr>
+    </table>
+   @* <label style="position:absolute;">筆數: @OrderSubFooter.Count</label>
+    <label style="position:absolute; left:440px">採購合計(未稅):&nbsp;@OrderSubFooter.POPrice.ToString("N0")</label>
+    <label style="position:absolute; right:500px">稅額:&nbsp;@OrderSubFooter.Potax.ToString("N0")</label>
+    <label style="position:absolute; right:250px">總計金額:&nbsp; @OrderSubFooter.Subtotal.ToString("N0")</label>*@
+</div>

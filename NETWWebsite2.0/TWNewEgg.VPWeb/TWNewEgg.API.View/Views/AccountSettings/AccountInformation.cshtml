@@ -1,0 +1,48 @@
+﻿@{
+    @Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        showAccountInformationView("BusinessInformation");
+
+    });
+    function showAccountInformationView(actionName) {
+        $("div[Category='AccountInformation']").each(function () {
+            $(this).attr("class", "nav SecondNav");
+        });
+        //var firstSubView = "";
+        //if (actionName == "NotificationOptions") {
+        //    firstSubView = "NotificationOptions";
+        //}
+        $("#" + actionName).attr("class", "nav SecondNav active");
+        $(document).ajaxSend($.blockUI());
+        $(document).ajaxStop($.unblockUI);
+        $.ajax({
+            type: "POST",
+            url: "/AccountSettings/AccountInformation",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "viewName": actionName
+            }),
+            success: function (res) {
+                if (res.IsSuccess == true) {
+                    $("#AccountInformationDetail").html(res.ViewHtml);
+                }
+                else {
+                    $("#AccountInformationDetail").html("");
+                }
+            }
+        });
+    }
+</script>
+<div class="rightBox">
+    <div class="content">
+        <div class="tabBox">
+            <div class="nav SecondNav" id="BusinessInformation" Category="AccountInformation" onclick="showAccountInformationView('BusinessInformation')">商業資訊</div>
+            <div class="nav SecondNav" id="FinancialInformation" Category="AccountInformation" onclick="showAccountInformationView('FinancialInformation')">財務資訊</div>
+            <div class="nav SecondNav" id="NotificationOptions" Category="AccountInformation" onclick="showAccountInformationView('NotificationOptions')">通知選項</div>
+            <div class="clear"></div>
+        </div>
+        <div id="AccountInformationDetail"></div>
+    </div>
+</div>

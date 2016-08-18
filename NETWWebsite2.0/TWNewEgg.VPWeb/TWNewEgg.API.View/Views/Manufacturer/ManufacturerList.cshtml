@@ -1,0 +1,245 @@
+﻿@{
+    @Styles.Render("~/Themes/2013/stylesheets/GridStyle.css")
+}
+<style>
+
+    #mfListGrid .k-grid-content {
+        height:370px;
+    }
+    /*body { font-size: 9pt; }
+    #mfListGrid { width: auto; }
+    span.hi-lite { color: red; }
+    #mfListGrid th.k-header { text-align: center; background-color: #355389;color:white;}
+    #mfListGrid .k-link { text-align: center; background-color: #355389;color:white;}*/
+</style>
+<script type="text/javascript">
+    
+    $(function () {
+        $("#bQuery").kendoButton({
+        });
+        //var CurrentPage = 1;
+        var result = {};
+        //建立資料來源物件
+        var dataListSrc = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    // 以下其實就是$.ajax的參數
+                    type: "POST",
+                    url: "/Manufacturer/ManufacturerList",
+                    dataType: "json",
+                    data: {
+                        // 額外傳至後方的參數
+                        keywd: function () {
+                            return $("#tKeyword").val();
+                        }
+                    },
+                    complete: function (response) {
+                        result = JSON.parse(response.responseText);
+                        if (result.total == 0) {
+                            //開啟window 
+                            $("#ManMade_Alert_Message").html("沒有符合查詢條件的數據");
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        }
+                        //console.log("result.page : " + result.page);
+                        //CurrentPage = result.page;
+                    }
+                },
+                update: {
+                    url: "/Manufacturer/ManufacturerEdit",
+                    datatype: "json",
+                    type: "POST",
+                    complete: function (response) {
+                        var result = JSON.parse(response.responseText);
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(result.Msg);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        $("#mfListGrid").data("kendoGrid").dataSource.read();
+                    },
+                    error: function (err) {
+                    }
+                },
+                // Model 序列化
+                parameterMap: function (data, operation) {
+                    // 新增或修改時
+                    //console.log(operation);
+                    if ((operation === "update" || operation === "create") && data) {
+                        return { jsonManufacturerList: kendo.stringify(data.models) };
+                    } else
+                        // 刪除
+                        if (operation === "destroy" && data.UserNo) {
+                            return JSON.stringify({ ID: data.UserNo });
+                        }
+                    return data;
+                }
+            },
+            batch: true,
+            schema: {
+                //取出資料陣列
+                data: function (result) {
+                    return result.data;
+                },
+                //取出資料總筆數(計算頁數用)
+                total: function (result) {
+                    return result.total;
+                },
+                model: {
+                    id: "SN",
+                    fields: {
+                        SN: { editable: false, nullable: false },
+                        ManufactureName: { editable: false, nullable: false },
+                        ManufactureURL: { editable: false, nullable: false },
+                        SupportEmail: {
+                            editable: true, nullable: false, validation: {
+                                supportemailvalidation: function (input) {
+                                    if (input.is("[name='SupportEmail']") && input.val() != "") {
+                                        input.attr("data-supportemailvalidation-msg", "請填寫正確的電子信箱格式");
+                                        return emailRule.test(input.val());
+                                    }
+                                    return true;
+                                }
+                            }
+                        },
+                        PhoneNumberDetail: {
+                            editable: true, nullable: true, validation: {
+                                phoneNumberDetailvalidation: function (input) {
+                                    if (input.is("[name='PhoneNumberDetail']") && input.val() != "") {
+                                        input.attr("data-phoneNumberDetailvalidation-msg", "請填寫正確電話格式\"(____)____#____\"或\"(____)____\"或手機\"10碼\"");
+                                        return (phoneRule.test(input.val()) || mobileRule.test(input.val()));
+                                    }
+                                    return true;
+                                }
+                            }
+                        },
+                        Phone: { editable: true, nullable: true },
+                        supportURL: {
+                            editable: true, nullable: true,
+                            validation: {
+                                supporturlvalidation: function (input) {
+                                    if (input.is("[name='supportURL']") && input.val() != "") {
+                                        input.attr("data-supporturlvalidation-msg", "請填寫正確的網址格式");
+                                        return urlRule.test(input.val());
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            pageSize: 10,
+            serverPaging: true,
+            serverSorting: true
+        });
+        
+        $("#mfListGrid").kendoGrid({
+            autoBind: true,
+            height: 500,
+            dataSource: dataListSrc,
+            editable: true,
+            scrollable: true,
+            sortable: true,
+            pageable: {
+                Refresh: true,
+                pageSizes: true,
+                pageSizes: [10, 25, 50]
+            },
+            columns: [
+                { field: "SN", title: "SN", width: "100px", attributes: { "SN": "#=SN#" }/*, hidden: true*/ },
+                { field: "ManufactureName", title: "製造商", width: "200px" },
+                { field: "ManufactureURL", title: "製造商網址", width: "200px", attributes: { "SN": "#=SN#" }, template: '#= UrlLink(ManufactureURL) #' },
+                { field: "SupportEmail", title: "製造商支援信箱", width: "200px", template: '#= mailCheck(SupportEmail) #' },
+                { field: "PhoneNumberDetail", title: "製造商支援電話", width: "200px", },
+                { field: "PhoneRegion", title: "PhoneRegion", hidden: true, },
+                { field: "Phone", title: "Phone", hidden: true, },
+                { field: "PhoneExt", title: "PhoneExt", hidden: true, },
+                { field: "supportURL", title: "製造商支援網址", width: "200px" },
+                { field: "", title: "" },
+                
+            ],
+            toolbar: [{ name: "save", text: "儲存所有變更" },
+                      { name: "cancel", text: "取消" }],
+        });
+
+        window.mailCheck = function (value) {
+            var result;
+            if (value == null) {
+                return "";
+            }
+            else {
+                result = "<a href=\"mailto:" + value + "\">" + value + "</a>";
+                return result
+            }
+        }
+
+        window.UrlLink = function (value) {
+            var result;
+            if (value == null) {
+                return "";
+            }
+            else {
+                if (value.search(/^[0-9]+$/) < 0) {
+                    if (value.indexOf("http") >= 0 || value.indexOf("https") >= 0) {
+                        result = "<a href=\"#\" onClick=\"window.open('" + value + "', '', '')\" >" + value + "</a>";
+                    }
+                    else {
+                        result = "<a href=\"#\" onClick=\"window.open('http://" + value + "', '', '')\" >" + "http://" + value + "</a>";
+                    }
+                }
+                else {
+                    result = value;
+                }
+
+                return result;
+            }
+        }
+
+        //按下查詢鈕
+        $("#bQuery").click(function () {
+            //dataListSrc.read({ page: 1, skip: 0 });
+            $(document).ajaxSend($.blockUI());
+            $(document).ajaxStop($.unblockUI);
+            $("#mfListGrid").data("kendoGrid").refresh();
+            $("#mfListGrid").data("kendoGrid").dataSource.page(1);
+        });
+
+        $("#tKeyword").keypress(function (event) {
+            if (event.keyCode == 13) {
+                dataListSrc.read({ page: 1, skip: 0 });
+            }
+        });
+    });
+</script>
+<script id="detail-template" type="text/x-kendo-template">
+    <div>
+        <span>#=ManufactureName# 製造商支援電話:</span>
+        <!--<span data-bind="text: PhoneNumberDetail" />-->
+        (<input data-bind="value:PhoneRegion" />)
+        <input data-bind="value:Phone"/>
+        \#<input data-bind="value:PhoneExt"/>
+    </div>
+</script>
+<div>
+    <div class="searchStatus" style="padding-top: 10px;">
+        @*<img src="/Themes/2013/img/searchTxt_bg.gif"/>*@
+        @*<input type="text" class="k-textbox" id="tKeyword" style="width:500px;" placeholder="製造商名稱, 製造商地址, 製造商支援信箱, 製造商支援電話, 製造商支援網址" />*@
+        @(Html.Kendo().TextBox()
+            .Name("tKeyword")
+            .HtmlAttributes(new { 
+                style = "width:500px;",
+                @class = "k-textbox",
+                placeholder="製造商名稱, 製造商地址, 製造商支援信箱, 製造商支援電話, 製造商支援網址"
+            })
+        )
+        @*<div style="width:500px"><input type="text" placeholder="製造商名稱, 製造商網址, 製造商支援信箱, 製造商支援網址, 製造商支援電話" id="tKeyword" class="searchTxt" style=" width:auto%;"></div>*@
+        @*<img src="/Themes/2013/img/search_bg.gif" id="bQuery">*@
+        @*<input type="button" id ="bQuery" value="送出查詢" />*@
+        @(Html.Kendo().Button()
+            .Name("bQuery")
+            .SpriteCssClass("k-icon k-i-search")
+            .Content("送出查詢")
+        )
+    </div>
+</div>
+
+<hr style="border:0; border-top:1px solid gray;"/>
+<div id="mfListGrid" class="GridTextCenter"></div>

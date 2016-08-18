@@ -1,0 +1,164 @@
+﻿@{
+    ViewBag.Title = "新增電子信箱位址";
+    //Layout = "~/Views/Shared/_LayoutNON.cshtml";
+    List<TWNewEgg.API.Models.ManufacturerEmailToListResultModel> emailToList = new List<TWNewEgg.API.Models.ManufacturerEmailToListResultModel>();
+    if(ViewBag.emailToList != null)
+    {
+        emailToList = ViewBag.emailToList as List<TWNewEgg.API.Models.ManufacturerEmailToListResultModel>;
+    }
+}
+
+<style>
+    .emailTitle { text-align:center; border:ridge; padding:5px; background-color:#355389; color:white; }
+    .selectitem { text-align:center; border:ridge; padding:5px; }
+    .email { border:ridge; padding:5px; }
+</style>
+
+<script>
+
+    function CreateUserEmail() {
+        $(".eamilButton").attr("disabled", "disabled");
+
+        var emailAddress = $("#emailAddress").val();
+
+        $.ajax({
+            type: "Post",
+            url: "/Manufacturer/CreateUserEmail",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "emailAddress": emailAddress
+            }),
+            beforeSend: function () {
+                $('#newEmailLoadingIMG').show();
+            },
+            success: function (res) {
+                $('#newEmailLoadingIMG').hide();
+                if (res.message != "") {
+                    $(".eamilButton").removeAttr("disabled");
+                    //開啟window 
+                    $("#ManMade_Alert_Message").html(res.message);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    return;
+                }
+                else {
+                    $("#ManMade_Alert_Message").html("增加成功");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    $(".eamilButton").removeAttr("disabled");
+
+                    $("#radioTitle").after(
+                        "<tr>" +
+                            "<td class=\"selectItem\">" +
+                                "<input type=\"radio\" id=\"radio_" + res.newUserID + "\" name=\"userEmail\" value=\"" + res.newUserID + "\"checked=\"checked\" userEmailAddr=\"" + emailAddress + "\" />" +
+                            "</td>" +
+                            "<td class=\"email\">" +
+                                "<label for=\"radio_" + res.newUserID + "\">" + emailAddress + "</label>" +
+                            "</td>" +
+                        "</tr>");
+                }
+            }
+        });
+    }
+
+    function SelectAddedUserEmail() {
+        $("#radio_" + res.newUserID).attr("checked", "checked");
+    }
+
+    function SelectUserEmail() {
+        $(".eamilButton").attr("disabled", "disabled");
+        if ($('input[name=userEmail]:checked').val() >= 0) {
+            var newEmailInput = $("#userEmailTable input[name=userEmail]:checked");
+            $("#mailTo").val(newEmailInput.val());
+            if ($("#mailTo").val() != newEmailInput.val()) {
+                $("#mailTo").append("<option value=\"" + newEmailInput.val() + "\" selected=\"selected\">" + newEmailInput.attr("userEmailAddr") + "</option>");
+            }
+        }
+        CreateEmailClose();
+    }
+
+    function CreateEmailClose(obj) {
+        if (obj == "cancel") {
+            $("#mailTo").val(0);
+        }
+        $("#CreateUserEmailWindow").data("kendoWindow").close();
+        //$("#CreateUserEmailWindow").html("");
+    }
+</script>
+
+<div style="padding:10px;">
+    <table>
+        <tr>
+            <td colspan="2">
+                <input type="text" id="emailAddress" style="width:250px; margin-right:5px;" />
+                @*<input type="button" class="button" value="增加" onclick="CreateUserEmail()"/>*@
+                @(Html.Kendo().Button()
+                    .Name("AddUserEmail")
+                    .HtmlAttributes(new { @class="eamilButton", onClick="CreateUserEmail()" })
+                    //.SpriteCssClass("k-iocn k-i-plus")
+                    .Content("增加")
+                )
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding-top:10px;">
+                <div style="height:230px; overflow: scroll; overflow-x: hidden;">
+                    <table id="userEmailTable">
+                        <tr id="radioTitle">
+                            <td class="emailTitle">
+                                @*<input type="radio" name="userEmail" value="0" checked="checked" style="display:none"/>*@
+                                @(Html.Kendo().RadioButton()
+                                    .Name("defaultSelection")
+                                    .HtmlAttributes(new { @name="userEmail" })
+                                    .Value(0)
+                                    .Checked(true)
+                                )
+                            </td>
+                            <td class="emailTitle" style="width:250px;">
+                                電子信箱位址
+                            </td>
+                        </tr>
+                        @{
+                            foreach(var emailTo in emailToList)
+                            {
+                                string radioEmailStr = "radio_" + emailTo.UserID;
+                                <tr>
+                                    <td class="selectitem">
+                                        @*<input type="radio" id="@emailToStr" name="userEmail" value="@emailTo.UserID" />*@
+                                        @(Html.Kendo().RadioButton()
+                                            .Name("radio")
+                                            .HtmlAttributes(new { @name="userEmail" })
+                                            .Value(emailTo.UserID)
+                                        )
+                                    </td>
+                                    <td class="email">
+                                        <label for="@radioEmailStr">@emailTo.UserEmail</label>
+                                    </td>
+                                </tr>
+                            }    
+                        }
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="newEmailLoadingIMG" style="display:none;">
+                    <img src="~/Content/Img/loading.gif" height='30'/>資料處理中，請稍後。
+                </div>
+            </td>
+            <td style="text-align:right; padding-top:15px;">
+                @*<input type="button" class="button" value="確定" style="margin-right:10px;" onclick="SelectUserEmail()" />*@
+                @(Html.Kendo().Button()
+                    .Name("SelectUserEmail")
+                    .HtmlAttributes(new { @class="eamilButton", style="margin-right:10px;", onClick="SelectUserEmail()" })
+                    .Content("確定")
+                )
+                @*<input type="button" class="button" value="取消" onclick="Close()" />*@
+                @(Html.Kendo().Button()
+                    .Name("CloseCreateEmail")
+                    .HtmlAttributes(new { @class="eamilButton", onClick="CreateEmailClose('cancel')" })
+                    .Content("取消")
+                )
+            </td>
+        </tr>
+    </table>
+</div>

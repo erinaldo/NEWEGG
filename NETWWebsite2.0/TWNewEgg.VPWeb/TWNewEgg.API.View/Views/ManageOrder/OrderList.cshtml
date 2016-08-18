@@ -1,0 +1,178 @@
+﻿@*<img src="/Themes/sellerportal_Pic/3.1OrderList(NoData).png"></img>*@
+<link href="~/Scripts/jquery-ui-1.8.24.min.js" rel="stylesheet" />
+<p style="font-size:15px">訂單清單</p>
+<hr />
+<p style="font-size:15px">商家商店名稱: <input type="text" id="StoreName" placeholder="輸入商家編號或名稱" style="width:200px" /></p>
+<br />
+<p style="font-size:15px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;選擇:
+    <select id="Choose"><option value="0" selected>訂單編號</option>
+        <option value="1">收據編號</option>
+        <option value="2">客戶名稱</option>
+        <option value="3">商家銷售編號</option>
+        <option value="4">新蛋商品編號</option>
+        <option value="5">客戶電話</option>
+        <option value="6">標題描述</option>
+        <option value="7">生產廠商</option>
+
+    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+    <input type="text" id="InputKeyWord" style="width:300px" placeholder="輸入關鍵字" />&nbsp;&nbsp;&nbsp;
+    <input type="button" id="SearchDataBtn" value="搜索" style="width:100px;" />
+
+</p>
+<br />
+<div style="font-size:15px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;訂單狀況: 
+    <select id="OrderStatus">
+        <option value="0" selected>全部</option>
+        <option value="1">待出貨</option>
+        <option value="2">已出貨</option>
+        <option value="3">已成立</option>
+        <option value="4">取消</option>
+        <option value="5">退貨</option>
+        <option value="6">配達</option>
+    </select >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;訂單日期:
+    <select id="SelectDate">
+        <option selected value="0">全部</option>
+        <option value="1">今天</option>
+        <option value="2">最近3天</option>
+        <option value="3">最近7天</option>
+        <option value="4">最近30天</option>
+        <option value="5">指定日期</option>
+        <option value="6">定制日期範圍</option>
+    </select><div id="_divStartData" style="display:none;"><input type="text" id="StartDate" style="width:200px;"/></div>&nbsp;&nbsp;&nbsp;
+    <div id="_divEndtData" style="display:none"><input type="text" id="EndDate" style="width:200px;" /></div>
+</div>
+<form id="WindowOPen" method="post" action="/ManageOrder/Test" target="TheWindow" style="display:none">
+    <input type="text" id="_DelvStatusStr" name="DelvStatusStr" />
+    <input type="text" id="_CreateDate" name="CreateDate" />
+</form>
+
+
+<br />
+
+<div id="dvGrid"></div>
+<style>
+    #dvGrid .k-link { text-align: center; background-color: #355389;color:white;}
+    #dvGrid th.k-header { text-align: center; background-color: #355389;color:white;}
+</style>
+
+<script>
+    $("#StartDate").kendoDateTimePicker();
+    $("#EndDate").kendoDateTimePicker();
+    $(document).ready(function () {
+        $(function () {
+            var result = {};
+            var dataSrc = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        type: "POST",
+                        url: "/ManageOrder/SearchData",
+                        dataType: "json",
+                        data:
+                            function () {
+                                return {
+                                    OrderSearchMode: $("#OrderStatus").val(),
+                                    Choose: $("#Choose").val(),
+                                    _BeginDate: $("#StartDate").val(),
+                                    _EndDate: $("#EndDate").val(),
+                                    keywd: $("#InputKeyWord").val(),
+                                    SelectDate: $("#SelectDate").val()
+                                };
+                            },
+                        complete: function (response) {
+                            
+                            result = Json.parse(response.responseText);
+                        }
+                    },
+                    Deliver: {
+
+                    }
+                    
+
+                },
+                schema: {
+                    data: function (result)
+                    {
+                        return result.returnModel;
+                    },
+                    total: function (result)
+                    {
+                        return result.total;
+                    },
+                    //model: {
+                    //    id: "",
+                    //    fields: {
+                    //        DelvStatusStr: {}
+                    //    }
+                    //}
+                },
+                pageSize: 10,
+                serverPaging: true,
+                serverSorting: true
+            });
+            $("#dvGrid").kendoGrid({
+                autoBind: false,
+                dataSource: dataSrc,
+                columns: [
+                    { field: "DelvStatusStr", title: "訂單狀態", width: "50px", id:1},
+                    //{ command: ["Deliver"], title: "動作", width: "50px", url:"http//www.google.com" },
+                    { command: { text: "Test", click: OpenFunction },title: "", width: "50px" },
+                    { field: "CreateDate", title: "訂單日期", width: "50px" },
+                    { field: "UpdateDate", title: "更新時間", width: "50px" },
+                    { field: "SellerName", title: "商家", width: "50px" },
+                    { field: "FulfillChannel", title: "供貨通路", width: "50px" },
+                    { field: "PayType", title: "PayType", width: "50px" },
+                    { field: "Des", title: "品項名稱", width: "150px", encoded: false },
+                    { field: "CustomerName", title: "顧客", width: "50px" },
+                ],
+                sortable: true,
+                
+                pageable: {
+                    Refresh: true,
+                    pageSizes: true,
+                    //buttonCount: 20,
+                    pageSizes: [10, 25, 50]
+                },
+            });
+            $("#SearchDataBtn").click(function () {
+                dataSrc.read({ page: 1, skip: 0 });
+                $("#dvGrid").data("kendoGrid").refresh();
+            });
+        });
+
+        
+    });
+    function OpenFunction(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        
+        $("#_DelvStatusStr").val(dataItem.DelvStatusStr);
+        window.open('', 'TheWindow', config='height=500, width=500');
+        document.getElementById('WindowOPen').submit();
+        console.log(dataItem);
+    }
+    $("#SelectDate").change(function () {
+        if ($("#SelectDate").val() == 5) {
+            $("#_divStartData").css('display', '');
+        }
+        else if ($("#SelectDate").val() == 6) {
+            $("#_divStartData").css('display', '');
+            $("#_divEndtData").css('display', '');
+        }
+        else {
+            $("#StartDate").val("");
+            $("#EndDate").val("");
+            $("#_divStartData").css('display', 'none');
+            $("#_divEndtData").css('display', 'none');
+        }
+    });
+
+
+
+
+    
+
+    
+    
+        
+</script>

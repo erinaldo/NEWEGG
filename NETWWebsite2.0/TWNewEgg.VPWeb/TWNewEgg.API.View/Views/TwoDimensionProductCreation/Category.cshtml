@@ -1,0 +1,270 @@
+﻿@model TWNewEgg.API.Models.ItemSketch_ItemCategory
+
+<style>
+   .ItemCreateTableTitle {width: 90px; min-width: 90px; text-align: right;vertical-align: top;padding-right: 10px;}
+</style>
+
+<tr>
+    <td class="ItemCreateTableTitle">
+        <span style="color:red">* </span>
+        商品主分類：
+    </td>
+    <td style="width:170px;">
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("MainCategoryID_Layer0")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "TwoDimensionProductCreation")
+                        .Data("MasterLayer");
+                });
+            })
+            .HtmlAttributes(new { onchange = "QueryProperty('Category', '0')" })
+            .Value(Model.MainCategoryID_Layer0.ToString())
+        )
+    </td>
+    <td style="width:170px;">
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("MainCategoryID_Layer1")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "TwoDimensionProductCreation")
+                        .Data("filterSecondLayer");
+                })
+                .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { onchange = "QueryProperty('Category', '1')" })
+            .AutoBind(false)
+            .CascadeFrom("MainCategoryID_Layer0")
+            .Value(Model.MainCategoryID_Layer1.ToString())
+        )
+    </td>
+    <td style="width:170px;">
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("MainCategoryID_Layer2")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "TwoDimensionProductCreation")
+                        .Data("thridLayer");
+                })
+                .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { onchange = "QueryProperty('Category','2')" })
+            .AutoBind(false)
+            .CascadeFrom("MainCategoryID_Layer1")
+            .Value(Model.MainCategoryID_Layer2.ToString())
+        )
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr>
+<tr>
+    <td class="ItemCreateTableTitle">商品跨分類：</td>
+    <td>&nbsp;</td>
+    <td>
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("SubCategoryID_1_Layer1")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "TwoDimensionProductCreation")
+                        .Data("filterSecondLayer");
+                })
+                .ServerFiltering(true);
+            })
+            .AutoBind(false)
+            .CascadeFrom("MainCategoryID_Layer0")
+            .Value(Model.SubCategoryID_1_Layer1.ToString())
+        )
+    </td>
+    <td>
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("SubCategoryID_1_Layer2")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "TwoDimensionProductCreation")
+                        .Data("SubCategoryID_1_Layer2ThridSelect");
+                })
+
+                .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { onchange = "DataCheck('Category')" })
+            .AutoBind(false)
+            .CascadeFrom("SubCategoryID_1_Layer1")
+            .Value(Model.SubCategoryID_1_Layer2.ToString())
+        )
+        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="SubCategoryID_1_Layer2" role="alert" id="errSubCategoryID_1_Layer2Msg" style="display:none;"><span class="k-icon k-warning"> </span> 不可選擇同分類</span>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr>
+<tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("SubCategoryID_2_Layer1")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "TwoDimensionProductCreation")
+                        .Data("filterSecondLayer");
+                })
+                .ServerFiltering(true);
+            })
+            .AutoBind(false)
+            .CascadeFrom("MainCategoryID_Layer0")
+            .Value(Model.SubCategoryID_2_Layer1.ToString())
+        )
+    </td>
+    <td>
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("SubCategoryID_2_Layer2")
+            .OptionLabel("請選擇")
+            .DataTextField("Description")
+            .DataValueField("CategoryID")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("QueryCategory", "TwoDimensionProductCreation")
+                        .Data("SubCategoryID_2_Layer2ThridSelect");
+                })
+                .ServerFiltering(true);
+            })
+            .HtmlAttributes(new { onchange = "DataCheck('Category')" })
+            .AutoBind(false)
+            .CascadeFrom("SubCategoryID_2_Layer1")
+            .Value(Model.SubCategoryID_2_Layer2.ToString())
+        )
+        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="SubCategoryID_2_Layer2" role="alert" id="errSubCategoryID_2_Layer2Msg" style="display:none;"><span class="k-icon k-warning"> </span> 不可選擇同分類</span>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr>
+
+<div id="loadingIMG" style="display:none;">
+    <img src="~/Content/Img/loading.gif" height='30'/>資料處理中，請稍後。
+</div>
+
+@*輸入項目檢查*@
+<script src="~/Scripts/ItemSketchFieldInspection.js"></script>
+
+<script type="text/javascript">
+
+    IsShowPropertySeletionUI();
+    function IsShowPropertySeletionUI() {
+        if (parseInt(@Model.MainCategoryID_Layer2) > 0) {
+            QueryProperty('Category', '2');
+        }
+    }
+
+    function MasterLayer() {
+        return {
+            parentID: 0,
+            Layer: 0
+        };
+    }
+
+    function filterSecondLayer() {
+        return {
+            parentID: $("#MainCategoryID_Layer0").val(),
+            Layer: 1
+        };
+    }
+
+    function thridLayer() {
+        return {
+            parentID: $("#MainCategoryID_Layer1").val(),
+            Layer: 2
+        };
+    }
+
+    function QueryProperty(action, layer) {
+        if (action == "Category") {
+            DataCheck("Category");
+        }
+
+        if (layer == "0" || layer == "1")
+        {
+            $("#MainCategoryID_Layer2").val("null");
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/TwoDimensionProductCreation/QueryProductProperty",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "categoryID": $("#MainCategoryID_Layer2").val(),
+                "aesItemProperty": $("#itemPropertyCell").val()
+            }),
+            beforeSend: function () {
+                var loadingIMG = $("#loadingIMG").html();
+                loadingIMG = loadingIMG.replace(" style=\"display:none;\"", "");
+                $("#propertySeletionUI").html(loadingIMG);
+                $("#propertySeletionUI").show();
+            },
+            success: function (res) {
+                if (res.IsSuccess == true) {
+                    $("#propertySeletionUI").html(res.ViewHtml);
+                    $("#propertySeletionUI").show();
+
+                    if (res.ViewHtml == "")
+                    {
+                        $("#previewPicture").html("");
+                        $("#previewPicture").hide();
+                    }
+                }
+            }
+        });
+    }
+
+    function SubCategoryID_1_Layer2ThridSelect() {
+        return {
+            parentID: $("#SubCategoryID_1_Layer1").val(),
+            Layer: 2
+        };
+    }
+
+    function SubCategoryID_2_Layer2ThridSelect() {
+        return {
+            parentID: $("#SubCategoryID_2_Layer1").val(),
+            Layer: 2
+        };
+    }
+    
+</script>

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Themes/2013/stylesheets/base.css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+
+    <!--Kendo ui 引用 --> 
+    <link rel="stylesheet" href="~/Content/kendo/kendo.bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.common-bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/Content/kendo/kendo.common.min.css" />*@
+    <link rel="stylesheet" href="~/Content/kendo/kendo.dataviz.default.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.dataviz.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.default.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.mobile.all.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.rtl.min.css" />
+    <script src="~/Scripts/kendo/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/kendo/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo/kendo.web.min.js"></script>
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

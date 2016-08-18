@@ -1,0 +1,1356 @@
+﻿@{
+    List<TWNewEgg.API.Models.GetRegionListResult> countrySelectItemList = ViewBag.countrySelectItemList;
+    TWNewEgg.DB.TWSELLERPORTALDB.Models.Seller_BasicInfo sellerBasicInfo = ViewBag.sellerBasicInfo;
+
+    string districtName = string.Empty;
+    string addressTW = string.Empty;
+    string zipcode = string.Empty;
+    if (ViewBag.addrInfo != null)
+    {
+        if(!string.IsNullOrEmpty(ViewBag.addrInfo[1]))
+        {
+            districtName = ViewBag.addrInfo[1];
+        }
+        if (!string.IsNullOrEmpty(ViewBag.addrInfo[2]))
+        {
+            addressTW = ViewBag.addrInfo[2];
+        }
+        if (!string.IsNullOrEmpty(ViewBag.addrInfo[3]))
+        {
+            zipcode = ViewBag.addrInfo[3];
+        }
+    }
+
+    string districtName_bis = string.Empty;
+    string addressTW_bis = string.Empty;
+    string zipcode_bis = string.Empty;
+    if (ViewBag.addrInfo_bis != null)
+    {
+        if(!string.IsNullOrEmpty(ViewBag.addrInfo_bis[1]))
+        {
+            districtName_bis = ViewBag.addrInfo_bis[1];
+        }
+        if (!string.IsNullOrEmpty(ViewBag.addrInfo_bis[2]))
+        {
+            addressTW_bis = ViewBag.addrInfo_bis[2];
+        }
+        if (!string.IsNullOrEmpty(ViewBag.addrInfo_bis[3]))
+        {
+            zipcode_bis = ViewBag.addrInfo_bis[3];
+        }
+    }
+}
+<style type="text/css">
+    .errMsgShow {
+        border: 1px solid red; 
+    }
+
+    input[type="text"].errMsgShow {
+        border: 1px solid red; 
+    }
+
+    .warningStnce {
+        color:red;
+        font-weight:bold;
+    }
+    
+    .firstCol {
+        text-align:right;
+        width:29%;
+        min-width: 110px;
+        white-space: nowrap;
+        vertical-align: text-top;
+    }
+
+    /*.thirdCol {
+        width:15%;
+        text-align:left;
+    }*/
+
+    /* need modified */
+    .tableWidth {
+        width:100%;
+    }
+
+    .lbRedStar {
+        color:red;
+        font-weight:bold;
+    }
+
+    #main {
+        padding-left:5px;
+    }
+    
+    .selectCity, .selectDistrict {
+        width:100px;
+    }
+    
+    #inChargeManInfo, #registeredAddress, #businessAddress, #sellerNameAndEmail {
+        border-radius: 10px 10px 10px 10px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: auto;
+        width: 380px;
+        padding:0 0px 10px 15px;
+        height: 335px;
+        min-height:335px;
+        line-height:35px;
+        min-width:20%;
+        background-color: #FFF;
+    }
+    legend {
+        font-weight: bolder;
+    }
+    .k-popupNotification-error.k-group {
+        background: rgba(100%,0%,0%,.7);
+        color: #ffffff;
+    }
+    .wrong-pass {
+        width: 600px;
+        height: 100px;
+    }
+    .wrong-pass h3 {
+        font-size: 1em;
+        padding: 32px 10px 5px;
+    }
+    .wrong-pass img {
+        float: left;
+        margin: 30px 15px 30px 30px;
+    }
+    /* Success template */
+    .k-popupNotification-saveChange-success.k-group {
+        background: rgba(0%,60%,0%,.7);
+        color: #fff;
+    }
+    .saveChange-success {
+        width: 240px;
+        height: 100px;
+        padding: 0 30px;
+        line-height: 100px;
+    }
+    .saveChange-success h3 {
+        font-size: 1.7em;
+        font-weight: normal;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .saveChange-success img {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+</style>
+<script type="text/javascript">
+
+    function ReSetting() {
+        $("#BusinessInformation_SaveChange").attr("disabled", "disabled");
+        $("#BusinessInformation_Cancel").attr("disabled", "disabled");
+        showAccountInformationView("BusinessInformation");
+    }
+
+    // 驗證所要傳出的input內容
+    var errorMsg = "";
+    function IsValidate_InputData(checkName) {
+        var boolFlag = true;
+        var notification = $("#popupNotification").data("kendoNotification");
+        notification.hide();
+        @*店家資訊 & 負責人*@
+        if (checkName == "all" || checkName == "sellerEmail") {
+            $("#sellerEmail").removeClass("errMsgShow");
+            var sellerEmail = $("#sellerEmail").text();
+            if (sellerEmail.length == 0) {
+                $("#sellerEmail").addClass("errMsgShow");
+                boolFlag = false;
+            }
+        }
+        if (checkName == "all" || checkName == "sellerName") {
+            $("#sellerName").removeClass("errMsgShow");
+            var sellerName = $("#sellerName").val();
+            if (sellerName.length == 0) {
+                $("#sellerName").addClass("errMsgShow");
+                boolFlag = false;
+                $("#errsellerName").text("必填欄位");
+                $("#errsellerName").css("display", "");
+            }
+            else {
+                $("#errsellerName").css("display", "none");
+            }
+        }
+        if (checkName == "all" || checkName == "sellerBriefName") {
+            $("#sellerBriefName").removeClass("errMsgShow");
+            var sellerBriefName = $("#sellerBriefName").val();
+            if (sellerBriefName.length == 0) {
+                $("#sellerBriefName").addClass("errMsgShow");
+                $("#errsellerBriefName").text("必填欄位");
+                $("#errsellerBriefName").css("display", "");
+                boolFlag = false;
+            }
+            else {
+                $("#errsellerBriefName").css("display", "none");
+            }
+        }
+        if (checkName == "all" || checkName == "firstName") {
+            $("#firstName").removeClass("errMsgShow");
+            var firstName = $("#firstName").val().trim();
+            if (firstName.length == 0) {
+                $("#firstName").addClass("errMsgShow");
+                $("#errfirstName").text("必填欄位");
+                $("#errfirstName").css("display", "");
+                boolFlag = false;
+            }
+            else {
+                $("#errfirstName").css("display", "none");
+            }
+        }
+        if (checkName == "all" || checkName == "lastName") {
+            $("#lastName").removeClass("errMsgShow");
+            var lastName = $("#lastName").val().trim();
+            if (lastName.length == 0) {
+                $("#lastName").addClass("errMsgShow");
+                $("#errlastName").text("必填欄位");
+                $("#errlastName").css("display", "");
+                boolFlag = false;
+            }
+            else {
+                $("#errlastName").css("display", "none");
+            }
+        }
+        //var phoneRegion = $("#phoneRegion").val().trim();
+        //if (phoneRegion.length == 0) {
+        //    console.log("[phoneRegion]");
+        //    boolFlag = false;
+        //}
+        //var phone = $("#phone").val().trim();
+        //if (phone.length == 0) {
+        //    console.log("[phone]");
+        //    boolFlag = false;
+        //}
+        //var phoneExt = $("#phoneExt").val().trim();
+        //if (phoneExt.length == 0) {
+        //    console.log("[phoneExt]");
+        //    boolFlag = false;
+        //}
+        @*統一編號驗證*@
+        if (checkName == "all" || checkName == "companyCode") {
+            //errcompanyCode
+            var companyCode = $("#companyCode").val();
+            if (companyCode == "" || companyCode == null) {
+                $("#companyCode").addClass("errMsgShow");
+                $("#errcompanyCode").text("必填欄位");
+                $("#errcompanyCode").css("display", "");
+                boolFlag = false;
+            }
+            else {
+                var identy = $("#Identy").text();
+                if (identy == "國內廠商") {
+                    $("#companyCode").removeClass("errMsgShow");
+                    if (companyCode.length != 8) {
+                        $("#companyCode").addClass("errMsgShow");
+                        $("#errcompanyCode").text("統編長度必須為 8 碼");
+                        $("#errcompanyCode").css("display", "");
+                        boolFlag = false;
+                    }
+                    else {
+                        if (companyCode.match(/\d{8}$/) == false || companyCode.match(/^\d{8}$/) == null) {
+                            $("#companyCode").addClass("errMsgShow");
+                            $("#errcompanyCode").text("統編格式有誤");
+                            $("#errcompanyCode").css("display", "");
+                            boolFlag = false;
+                        }
+                        else {
+                            var tbNum = new Array(1, 2, 1, 2, 1, 2, 4, 1);
+                            var temp = 0;
+                            var total = 0;
+                            for (var i = 0; i < tbNum.length ; i++) {
+                                temp = $("#companyCode").val().charAt(i) * tbNum[i];
+                                total += Math.floor(temp / 10) + temp % 10;
+                            }
+                            if (parseInt($("#companyCode").val()) == 0) {
+                                $("#companyCode").addClass("errMsgShow");
+                                $("#errcompanyCode").text("統編格式有誤");
+                                $("#errcompanyCode").css("display", "");
+                                boolFlag = false;
+                            }
+                            else {
+                                if (total % 10 == 0 || (total % 10 == 9 && $("#companyCode").val().charAt(6) == 7)) {
+                                    $("#errcompanyCode").css("display", "none");
+                                }
+                                else {
+                                    $("#companyCode").addClass("errMsgShow");
+                                    $("#errcompanyCode").text("統編格式有誤");
+                                    $("#errcompanyCode").css("display", "");
+                                    boolFlag = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    if (identy == "個人戶") {
+                        $("#companyCode").removeClass("errMsgShow");
+
+                        var tbNum = new Array(1, 2, 1, 2, 1, 2, 4, 1);
+                        var idNum = new Array(1, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+                        var IdRep = new Array(10, 11, 12, 13, 14, 15, 16, 17, 34, 18, 19, 20, 21, 22, 35, 23, 24, 25, 26, 27, 28, 29, 32, 30, 31, 33);
+                        var temp = 0;
+                        var total = 0;
+                        var Id = new Array;
+                        if (companyCode.match(/^[A-Za-z]\d{9}$/) == null || companyCode.match(/^[A-Za-z]\d{9}$/) == false) {
+
+                            $("#companyCode").addClass("errMsgShow");
+                            $("#errcompanyCode").text("身分證字號格式有誤");
+                            $("#errcompanyCode").css("display", "");
+                            boolFlag = false;
+                        }
+                        else {
+                            companyCode = companyCode.toUpperCase();
+                            if ((companyCode.charAt(1) != 1) && (companyCode.charAt(1) != 2)) {
+                                $("#companyCode").addClass("errMsgShow");
+                                $("#errcompanyCode").text("身分證字號格式有誤");
+                                $("#errcompanyCode").css("display", "");
+                                boolFlag = false;
+                            }
+                            else {
+                                Id[1] = IdRep[companyCode.charCodeAt(0) - 65] % 10;
+                                Id[0] = (IdRep[companyCode.charCodeAt(0) - 65] - Id[1]) / 10;
+                                for (var i = 2; i <= idNum.length; i++) {
+                                    Id[i] = companyCode.charAt(i - 1);
+                                }
+                                for (var i = 0; i < idNum.length; i++) {
+                                    temp = Id[i] * idNum[i];
+                                    total += temp;
+                                }
+                                if ((10 - (total % 10)) % 10 == Id[10]) {
+                                    $("#errcompanyCode").css("display", "none");
+                                }
+                                else {
+                                    $("#companyCode").addClass("errMsgShow");
+                                    $("#errcompanyCode").text("身分證字號格式有誤");
+                                    $("#errcompanyCode").css("display", "");
+                                    boolFlag = false;
+                                }
+
+                            }
+                        }
+                    }
+                    else {
+                        if (identy == "國外廠商") {
+                        }
+                        else {
+                            if (identy == "" || identy == null) {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //if (checkName == "all" || checkName == "companyCode") {
+        //    $("#companyCode").removeClass("errMsgShow");
+        //    var tbNum = new Array(1, 2, 1, 2, 1, 2, 4, 1);
+        //    var temp = 0;
+        //    var total = 0;
+        //    if (!$("#companyCode").val().match(/^\d{8}$/) || $("#companyCode").val() == "請輸入統一編號") {
+        //        //notification.show({
+        //        //    title: "錯誤訊息",
+        //        //    message: "營利事業統一編號長度不夠或格式有誤!請注意營利事業統一編號格式為八碼數字!"
+        //        //}, "error");
+        //        //alert("營利事業統一編號長度不夠或格式有誤!請注意營利事業統一編號格式為八碼數字!");
+        //        $("#companyCode").addClass("errMsgShow");
+        //        boolFlag = false;
+        //    }
+        //    else {
+        //        for (var i = 0; i < tbNum.length ; i++) {
+        //            temp = $("#companyCode").val().charAt(i) * tbNum[i];
+        //            total += Math.floor(temp / 10) + temp % 10;
+        //        }
+        //        if (parseInt($("#companyCode").val()) == 0) {
+        //            //notification.show({
+        //            //    title: "訊息",
+        //            //    message: "營利事業統一編號錯誤!"
+        //            //}, "error");
+        //            //notification.show("營利事業統一編號錯誤!");
+        //            //alert("營利事業統一編號錯誤!");
+        //            $("#companyCode").addClass("errMsgShow");
+        //            boolFlag = false;
+        //        }
+        //        if (total % 10 == 0 || (total % 10 == 9 && $("#companyCode").val().charAt(6) == 7)) { }
+        //        else {
+        //            //notification.show({
+        //            //    title: "訊息",
+        //            //    message: "營利事業統一編號錯誤!"
+        //            //}, "error");
+        //            //alert("營利事業統一編號錯誤!");
+        //            $("#companyCode").addClass("errMsgShow");
+        //            boolFlag = false;
+        //        }
+        //    }
+        //}
+        @*登記地址驗證*@
+        var countryRegion = $("#countryRegion").val().trim();
+        if (checkName == "all" || checkName == "countryRegion") {
+            $("#countryRegion").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+            if (countryRegion.length == 0) {
+                $("#countryRegion").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+                $("#errcountryRegion").text("請選擇國家/地區");
+                $("#errcountryRegion").css("display", "");
+                boolFlag = false;
+            }
+            else {
+                $("#errcountryRegion").css("display", "none");
+            }
+        }
+        if (checkName == "all" || checkName == "state") {
+            $("#state").removeClass("errMsgShow");
+            var state = $("#state").val().trim();
+            if (state.length == 0) {
+                $("#state").addClass("errMsgShow");
+                $("#errstate").text("必填欄位");
+                $("#errstate").css("display", "");
+                boolFlag = false;
+            }
+            else {
+                $("#errstate").css("display", "none");
+            }
+        }
+        if (checkName == "all" || checkName == "address_selectCity") {
+            $("#address_selectCity").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+            $("#address_selectDistrict").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+            $("#addressTW").removeClass("errMsgShow");
+            $("#address").removeClass("errMsgShow");
+            if (countryRegion == "TW") {
+                var address_selectCity = $("#address_selectCity").val();
+                if (address_selectCity.length == 0) {
+                    $("#address_selectCity").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+                    $("#erraddress_selectCity").text("必填欄位");
+                    $("#erraddress_selectCity").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#erraddress_selectCity").css("display", "none");
+                }
+                var address_selectDistrict = $("#address_selectDistrict").val();
+                if (address_selectDistrict.length == 0) {
+                    $("#address_selectDistrict").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+                    $("#erraddress_selectDistrict").text("必填欄位");
+                    $("#erraddress_selectDistrict").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#erraddress_selectDistrict").css("display", "none");
+                }
+                var addressTW = $("#addressTW").val().trim();
+                $("#erraddress").css("display", "none");
+                if (addressTW.length == 0) {
+                    $("#addressTW").val("");
+                    $("#addressTW").addClass("errMsgShow");
+                    $("#erraddressTW").text("必填欄位");
+                    $("#erraddressTW").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#erraddressTW").css("display", "none");
+                }
+            }
+            else {
+                var address = $("#address").val().trim();
+                $("#erraddress_selectCity").css("display", "none");
+                if (address.length == 0) {
+                    $("#address").val("");
+                    $("#address").addClass("errMsgShow");
+                    $("#erraddress").text("必填欄位");
+                    $("#erraddress").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#erraddress").css("display", "none");
+                }
+            }
+        }
+        if (checkName == "all" || checkName == "city") {
+            $("#city").removeClass("errMsgShow");
+            var city = $("#city").val();
+            if (city.length == 0) {
+                $("#city").addClass("errMsgShow");
+                $("#errcity").text("必填欄位");
+                $("#errcity").css("display", "");
+                boolFlag = false;
+            }
+            else {
+                $("#errcity").css("display", "none");
+            }
+        }
+        if (checkName == "all" || checkName == "zipcode") {
+            $("#zipcode").removeClass("errMsgShow");
+            var zipcode = $("#zipcode").val();
+            if (zipcode.length != 0) {
+                if (countryRegion != "TW" && zipcode.length > 10) {
+                    $("#zipcode").addClass("errMsgShow");
+                    $("#errzipcode").text("資料錯誤");
+                    $("#errzipcode").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#errzipcode").css("display", "none");
+                }
+                if (countryRegion == "TW" && zipcode.length > 3) {
+                    $("#zipcode").addClass("errMsgShow");
+                    $("#errzipcode").text("資料錯誤");
+                    $("#errzipcode").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#errzipcode").css("display", "none");
+                }
+            }
+            else {
+                $("#zipcode").addClass("errMsgShow");
+                $("#errzipcode").text("必填欄位");
+                $("#errzipcode").css("display", "");
+                boolFlag = false;
+            }
+        }
+        @*營業地址驗證*@
+        var countryRegion_bis = $("#countryRegion_bis").val().trim();
+        if (checkName == "all" || checkName == "countryRegion_bis") {
+            $("#countryRegion_bis").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+            if (countryRegion_bis.length == 0) {
+                $("#countryRegion_bis").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+                $("#errcountryRegion_bis").text("必填欄位");
+                $("#errcountryRegion_bis").css("display", "");
+                boolFlag = false;
+            }
+            else {
+                $("#errcountryRegion_bis").css("display", "none");
+            }
+        }
+        if (checkName == "all" || checkName == "state_bis") {
+            $("#state_bis").removeClass("errMsgShow");
+            var state_bis = $("#state_bis").val().trim();
+            if (state_bis.length == 0) {
+                $("#state_bis").addClass("errMsgShow");
+                $("#errstate_bis").text("必填欄位");
+                $("#errstate_bis").css("display", "");
+                boolFlag = false;
+            }
+            else {
+                $("#errstate_bis").css("display", "none");
+            }
+        }
+        if (checkName == "all" || checkName == "address_selectCity_bis") {
+            $("#address_selectCity_bis").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+            $("#address_selectDistrict_bis").parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+            $("#addressTW_bis").removeClass("errMsgShow");
+            $("#address_bis").removeClass("errMsgShow");
+            if (countryRegion_bis == "TW") {
+                var address_selectCity_bis = $("#address_selectCity_bis").val();
+                if (address_selectCity_bis.length == 0) {
+                    $("#address_selectCity_bis").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+                    $("#erraddress_selectCity_bis").text("必填欄位");
+                    $("#erraddress_selectCity_bis").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#erraddress_selectCity_bis").css("display", "none");
+                }
+                var address_selectDistrict_bis = $("#address_selectDistrict_bis").val();
+                if (address_selectDistrict_bis.length == 0) {
+                    $("#address_selectDistrict_bis").parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+                    $("#erraddress_selectDistrict_bis").text("必填欄位");
+                    $("#erraddress_selectDistrict_bis").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#erraddress_selectDistrict_bis").css("display", "none");
+                }
+                var addressTW_bis = $("#addressTW_bis").val().trim();
+                if (addressTW_bis.length == 0) {
+                    $("#addressTW_bis").val("");
+                    $("#addressTW_bis").addClass("errMsgShow");
+                    $("#erraddressTW_bis").text("必填欄位");
+                    $("#addressTW_bis").addClass("errMsgShow");
+                    boolFlag = false;
+                }
+                else {
+                    $("#erraddressTW_bis").css("display", "none");
+                }
+            }
+            else {
+                var address_bis = $("#address_bis").val().trim();
+                if (address_bis.length == 0) {
+                    $("#address_bis").val("");
+                    $("#address_bis").addClass("errMsgShow");
+                    $("#erraddress_bis").text("必填欄位");
+                    $("#erraddress_bis").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#erraddress_bis").css("display", "none");
+                }
+            }
+        }
+        if (checkName == "all" || checkName == "city_bis") {
+            $("#city_bis").removeClass("errMsgShow");
+            var city_bis = $("#city_bis").val();
+            if (city_bis.length == 0) {
+                $("#city_bis").addClass("errMsgShow");
+                $("#errcity_bis").text("必填欄位");
+                $("#errcity_bis").css("display", "");
+                boolFlag = false;
+            }
+            else {
+                $("#errcity_bis").css("display", "none");
+            }
+        }
+        if (checkName == "all" || checkName == "zipcode_bis") {
+            $("#zipcode_bis").removeClass("errMsgShow");
+            var zipcode_bis = $("#zipcode_bis").val();
+            $("#errzipcode_bis").css("display", "none");
+            if (zipcode_bis.length != 0) {
+                if (countryRegion_bis != "TW" && zipcode_bis.length > 10) {
+                    $("#zipcode_bis").addClass("errMsgShow");
+                    $("#errzipcode_bis").text("必填欄位");
+                    $("#errzipcode_bis").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#errzipcode_bis").css("display", "none");
+                }
+                if (countryRegion_bis == "TW" && zipcode_bis.length > 3) {
+                    $("#zipcode_bis").addClass("errMsgShow");
+                    $("#errzipcode_bis").text("必填欄位");
+                    $("#errzipcode_bis").css("display", "");
+                    boolFlag = false;
+                }
+                else {
+                    $("#errzipcode_bis").css("display", "none");
+                }
+            }
+            else {
+                $("#zipcode_bis").addClass("errMsgShow");
+                $("#errzipcode_bis").text("必填欄位");
+                $("#errzipcode_bis").css("display", "");
+                boolFlag = false;
+            }
+        }
+        
+        return boolFlag;
+    }
+
+    function btnSave() {
+        $("#BusinessInformation_SaveChange").attr("disabled", "disabled");
+        $("#BusinessInformation_Cancel").attr("disabled", "disabled");
+        var notification = $("#popupNotification").data("kendoNotification");
+        // 登記地址
+        var registeredAddress = "";
+        // 營業地址
+        var comRegisteredAddress = "";
+        if ($("#countryRegion").val() == "TW") {
+            var rule = /^([0-9]{1,})(.{1,})$/;
+            if ($("#address_selectDistrict").val()){
+                registeredAddress = $("#address_selectDistrict").val().match(rule)[2];
+            }
+            registeredAddress += $("#addressTW").val();
+        }
+        else {
+            registeredAddress = $("#address").val().trim();
+        }
+
+        if ($("#countryRegion_bis").val() == "TW") {
+            var rule = /^([0-9]{1,})(.{1,})$/;
+            if ($("#address_selectDistrict_bis").val()) {
+                comRegisteredAddress = $("#address_selectDistrict_bis").val().match(rule)[2];
+            }
+            comRegisteredAddress += $("#addressTW_bis").val();
+        }
+        else {
+            comRegisteredAddress = $("#address_bis").val().trim();
+        }
+
+        var dataToSend = {
+            "EmailAddress": $("#sellerEmail").text(),
+            "SellerName": $("#sellerName").val().trim(),
+            "SellerShortName": $("#sellerBriefName").val().trim(),
+
+            "FirstName": $("#firstName").val().trim(),
+            "LastName": $("#lastName").val().trim(),
+            "PhoneRegion": $("#phoneRegion").val().trim(),
+            "Phone": $("#phone").val().trim(),
+            "PhoneExt": $("#phoneExt").val().trim(),
+            "Identy": $("#IdentyAES").val(),
+            "CompanyCode": $("#companyCode").val().trim(),
+            "CountryCode": $("#countryRegion").val().trim(),
+            "SellerState": $("#state").val().trim(),
+            "SellerAddress": registeredAddress.trim(), //$("#address_selectCity").val() + $("#address_selectDistrict").val() + $("#address").val().trim(),
+            "City": $("#city").val().trim(),
+            "zipcode": $("#zipcode").val().trim(),
+
+            "ComCountryCode": $("#countryRegion_bis").val().trim(),
+            "ComSellerState": $("#state_bis").val().trim(),
+            "ComSellerAdd": comRegisteredAddress.trim(),
+            "ComCity": $("#city_bis").val().trim(),
+            "ComZipcode": $("#zipcode_bis").val().trim()
+        };
+        $(document).ajaxSend($.blockUI());
+        $(document).ajaxStop($.unblockUI);
+        $.ajax({
+            url: "/AccountSettings/SaveBusinessInformation",
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({ "sellerInfoToSave": dataToSend, "str_Identy": $("#IdentyAES").text() }),
+            beforeSend: function () {
+                // 客戶端驗證資料
+                if (!IsValidate_InputData("all")) {
+                    //notification.show({
+                    //    title: "錯誤訊息",
+                    //    message: "請檢查必填欄位是否有缺漏"
+                    //}, "error");
+                    //alert("請檢查必填欄位是否有缺漏");
+                    $("#BusinessInformation_SaveChange").removeAttr("disabled");
+                    $("#BusinessInformation_Cancel").removeAttr("disabled");
+                    return false;
+                }
+                // 資料基本驗證成功>>才送出資料
+                $.blockUI();
+            },
+            success: function (res) {
+                if (res.isSuccess) {
+                    // 儲存成功
+                    //notification.show({
+                    //    message: "儲存成功!"
+                    //}, "success");
+                    //開啟window
+                    $("#ManMade_Alert_Message").html("儲存成功");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    //location.reload();
+                }
+                else {
+                    // 儲存失敗
+                    //notification.show({
+                    //    title: "錯誤訊息",
+                    //    message: "儲存失敗!" + res.msg
+                    //}, "error");
+                    $("#ManMade_Alert_Message").html("儲存失敗!" + res.msg);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+                $("#BusinessInformation_SaveChange").removeAttr("disabled");
+                $("#BusinessInformation_Cancel").removeAttr("disabled");
+            },
+            //error: function () {
+            //    // 儲存失敗
+            //    alert('執行失敗!');
+            //},
+            complete: function () {
+                $.unblockUI();
+            }
+        });
+    }
+    
+    var countryRegionList = [
+        { "NameTW": "Canada", "CountryCode": "CA" }
+        , { "NameTW": "China", "CountryCode": "CN" }
+        , { "NameTW": "Hong Kong", "CountryCode": "HK" }
+        , { "NameTW": "Taiwan", "CountryCode": "TW" }
+        , { "NameTW": "United States", "CountryCode": "US" }
+    ];
+
+    var cityList = [
+        { "text": "基隆市", "value": "基隆市" },
+        { "text": "台北市", "value": "台北市" },
+        { "text": "新北市", "value": "新北市" },
+        { "text": "桃園縣", "value": "桃園縣" },
+        { "text": "新竹市", "value": "新竹市" },
+        { "text": "新竹縣", "value": "新竹縣" },
+        { "text": "苗栗縣", "value": "苗栗縣" },
+        { "text": "台中市", "value": "台中市" },
+        { "text": "彰化縣", "value": "彰化縣" },
+        { "text": "南投縣", "value": "南投縣" },
+        { "text": "雲林縣", "value": "雲林縣" },
+        { "text": "嘉義市", "value": "嘉義市" },
+        { "text": "嘉義縣", "value": "嘉義縣" },
+        { "text": "台南市", "value": "台南市" },
+        { "text": "高雄市", "value": "高雄市" },
+        { "text": "屏東縣", "value": "屏東縣" },
+        { "text": "台東縣", "value": "台東縣" },
+        { "text": "花蓮縣", "value": "花蓮縣" },
+        { "text": "宜蘭縣", "value": "宜蘭縣" },
+        { "text": "澎湖縣", "value": "澎湖縣" },
+        { "text": "金門縣", "value": "金門縣" },
+        { "text": "連江縣", "value": "連江縣" }
+    ];
+
+    var specificDistrictList = [];
+    function AllDistrictList(specificDistrict) {
+        var Address = new Array(22);
+        Address = [
+            , ["基隆市", "200 仁愛區", "201 信義區", "202 中正區", "203 中山區", "204 安樂區", "205 暖暖區", "206 七堵區"]
+            , ["台北市", "100 中正區", "103 大同區", "104 中山區", "105 松山區", "106 大安區", "108 萬華區", "110 信義區", "111 士林區", "112 北投區", "114 內湖區", "115 南港區", "116 文山區"]
+            , ["新北市", "207 萬里區", "208 金山區", "220 板橋區", "221 汐止區", "222 深坑區", "223 石碇區", "224 瑞芳區", "226 平溪區", "227 雙溪區", "228 貢寮區", "231 新店區", "232 坪林區", "233 烏來區", "234 永和區", "235 中和區", "236 土城區", "237 三峽區", "238 樹林區", "239 鶯歌區", "241 三重區", "242 新莊區", "243 泰山區", "244 林口區", "247 蘆洲區", "248 五股區", "249 八里區", "251 淡水區", "252 三芝區", "253 石門區"]
+            , ["桃園縣", "320 中壢市", "324 平鎮市", "325 龍潭鄉", "326 楊梅市", "327 新屋鄉", "328 觀音鄉", "330 桃園市", "333 龜山鄉", "334 八德市", "335 大溪鎮", "336 復興鄉", "337 大園鄉", "338 蘆竹鄉"]
+            , ["新竹市", "300 東區", "300 北區", "300 香山區"]
+            , ["新竹縣", "302 竹北市", "303 湖口鄉", "304 新豐鄉", "305 新埔鎮", "306 關西鎮", "307 芎林鄉", "308 寶山鄉", "310 竹東鎮", "311 五峰鄉", "312 橫山鄉", "313 尖石鄉", "314 北埔鄉", "315 峨眉鄉"]
+            , ["苗栗縣", "350 竹南鎮", "351 頭份鎮", "352 三灣鄉", "353 南庄鄉", "354 獅潭鄉", "356 後龍鎮", "357 通霄鎮", "358 苑裡鎮", "360 苗栗市", "361 造橋鄉", "362 頭屋鄉", "363 公館鄉", "364 大湖鄉", "365 泰安鄉", "366 銅鑼鄉", "367 三義鄉", "368 西湖鄉", "369 卓蘭鎮"]
+            , ["台中市", "400 中區", "401 東區", "402 南區", "403 西區", "404 北區", "406 北屯區", "407 西屯區", "408 南屯區", "411 太平區", "412 大里區", "413 霧峰區", "414 烏日區", "420 豐原區", "421 后里區", "422 石岡區", "423 東勢區", "424 和平區", "426 新社區", "427 潭子區", "428 大雅區", "429 神岡區", "432 大肚區", "433 沙鹿區", "434 龍井區", "435 梧棲區", "436 清水區", "437 大甲區", "438 外埔區", "439 大安區"]
+            , ["彰化縣", "500 彰化市", "502 芬園鄉", "503 花壇鄉", "504 秀水鄉", "505 鹿港鎮", "506 福興鄉", "507 線西鄉", "508 和美鎮", "509 伸港鄉", "510 員林鎮", "511 社頭鄉", "512 永靖鄉", "513 埔心鄉", "514 溪湖鎮", "515 大村鄉", "516 埔鹽鄉", "520 田中鎮", "521 北斗鎮", "522 田尾鄉", "523 埤頭鄉", "524 溪州鄉", "525 竹塘鄉", "526 二林鎮", "527 大城鄉", "528 芳苑鄉", "530 二水鄉"]
+            , ["南投縣", "540 南投市", "541 中寮鄉", "542 草屯鎮", "544 國姓鄉", "545 埔里鎮", "546 仁愛鄉", "551 名間鄉", "552 集集鎮", "553 水里鄉", "555 魚池鄉", "556 信義鄉", "557 竹山鎮", "558 鹿谷鄉"]
+            , ["雲林縣", "630 斗南鎮", "631 大埤鄉", "632 虎尾鎮", "633 土庫鎮", "635 東勢鄉", "634 褒忠鄉", "636 台西鄉", "637 崙背鄉", "638 麥寮鄉", "640 斗六市", "643 林內鄉", "646 古坑鄉", "647 莿桐鄉", "648 西螺鎮", "649 二崙鄉", "651 北港鎮", "652 水林鄉", "653 口湖鄉", "654 四湖鄉", "655 元長鄉"]
+            , ["嘉義市", "600 東區", "600 西區"]
+            , ["嘉義縣", "602 番路鄉", "603 梅山鄉", "604 竹崎鄉", "605 阿里山鄉", "606 中埔鄉", "607 大埔鄉", "608 水上鄉", "611 鹿草鄉", "612 太保市", "613 朴子市", "614 東石鄉", "615 六腳鄉", "616 新港鄉", "621 民雄鄉", "622 大林鎮", "623 溪口鄉", "624 義竹鄉", "625 布袋鎮"]
+            , ["台南市", "700 中西區", "701 東區", "702 南區", "704 北區", "708 安平區", "709 安南區", "710 永康區", "711 歸仁區", "712 新化區", "713 左鎮區", "714 玉井區", "715 楠西區", "717 仁德區", "718 關廟區", "716 南化區", "719 龍崎區", "720 官田區", "721 麻豆區", "722 佳里區", "723 西港區", "724 七股區", "725 將軍區", "726 學甲區", "727 北門區", "730 新營區", "731 後壁區", "732 白河區", "733 東山區", "734 六甲區", "735 下營區", "736 柳營區", "737 鹽水區", "741 善化區", "742 大內區", "744 新市區", "745 安定區", "743 山上區"]
+            , ["高雄市", "800 新興區", "801 前金區", "802 苓雅區", "803 鹽埕區", "804 鼓山區", "805 旗津區", "806 前鎮區", "807 三民區", "811 楠梓區", "812 小港區", "813 左營區", "814 仁武區", "815 大社區", "817 東沙群島", "820 岡山區", "821 路竹區", "819 南沙群島", "822 阿蓮區", "823 田寮區", "824 燕巢區", "825 橋頭區", "826 梓官區", "827 彌陀區", "829 湖內區", "828 永安區", "830 鳳山區", "831 大寮區", "832 林園區", "833 鳥松區", "840 大樹區", "842 旗山區", "843 美濃區", "844 六龜區", "845 內門區", "847 甲仙區", "846 杉林區", "848 桃源區", "852 茄萣區", "851 茂林區", "849 那瑪夏區"]
+            , ["屏東縣", "900 屏東市", "901 三地門鄉", "902 霧台鄉", "903 瑪家鄉", "904 九如鄉", "905 里港鄉", "906 高樹鄉", "907 鹽埔鄉", "908 長治鄉", "909 麟洛鄉", "911 竹田鄉", "912 內埔鄉", "913 萬丹鄉", "920 潮州鎮", "921 泰武鄉", "923 萬巒鄉", "922 來義鄉", "924 崁頂鄉", "925 新埤鄉", "926 南州鄉", "927 林邊鄉", "928 東港鎮", "929 琉球鄉", "931 佳冬鄉", "932 新園鄉", "940 枋寮鄉", "941 枋山鄉", "943 獅子鄉", "944 車城鄉", "945 牡丹鄉", "946 恆春鎮", "947 滿州鄉", "942 春日鄉"]
+            , ["台東縣", "950 台東市", "951 綠島鄉", "952 蘭嶼鄉", "954 卑南鄉", "955 鹿野鄉", "956 關山鎮", "957 海端鄉", "958 池上鄉", "953 延平鄉", "959 東河鄉", "961 成功鎮", "962 長濱鄉", "963 太麻里鄉", "965 大武鄉", "966 達仁鄉", "964 金峰鄉"]
+            , ["花蓮縣", "970 花蓮市", "971 新城鄉", "972 秀林鄉", "973 吉安鄉", "974 壽豐鄉", "975 鳳林鎮", "976 光復鄉", "977 豐濱鄉", "978 瑞穗鄉", "981 玉里鎮", "979 萬榮鄉", "983 富里鄉", "982 卓溪鄉"]
+            , ["宜蘭縣", "260 宜蘭市", "261 頭城鎮", "262 礁溪鄉", "263 壯圍鄉", "264 員山鄉", "265 羅東鎮", "266 三星鄉", "267 大同鄉", "268 五結鄉", "269 冬山鄉", "270 蘇澳鎮", "272 南澳鄉", "290 釣魚台"]
+            , ["澎湖縣", "880 馬公市", "881 西嶼鄉", "882 望安鄉", "885 湖西鄉", "883 七美鄉", "884 白沙鄉"]
+            , ["金門縣", "890 金沙鎮", "891 金湖鎮", "892 金寧鄉", "893 金城鎮", "894 烈嶼鄉", "896 烏坵鄉"]
+            , ["連江縣", "209 南竿鄉", "210 北竿鄉", "211 莒光鄉", "212 東引鄉"]
+        ]
+        
+
+        Address.forEach(function (element) {
+            if (element[0] == specificDistrict) {
+                specificDistrictList = element;
+            }
+        });
+
+        var specificDistrictList_temp = [];
+        for (i = 1; i < specificDistrictList.length; i++) {
+            specificDistrictList_temp.push({ "text": specificDistrictList[i], "value": specificDistrictList[i] });
+        }
+        specificDistrictList = specificDistrictList_temp;
+    };
+
+    function onCountryRegionChanged(countryRegionCode) {
+        if (countryRegionCode == "TW") {
+            $("#selectCityDDL").show();
+        }
+        else {
+            $("#address").hide();
+        }
+    };
+
+    $(document).ready(function () {
+        //var popupNotification = $("#popupNotification").data("kendoNotification");
+        var countrySelectItemList_forkendo = [];
+        $("#companyCode").val("@(sellerBasicInfo.CompanyCode != null ? sellerBasicInfo.CompanyCode.Trim() : "")");
+
+        $("#countryRegion").val("@(sellerBasicInfo.CountryCode != null ? sellerBasicInfo.CountryCode.Trim() : "")");
+        $("#state").val("@(sellerBasicInfo.SellerState != null ? sellerBasicInfo.SellerState.Trim() : "")");
+        $("#address").val("@(sellerBasicInfo.SellerAddress != null ? sellerBasicInfo.SellerAddress.Trim() : "")");
+        $("#city").val("@(sellerBasicInfo.City != null ? sellerBasicInfo.City.Trim() : "")");
+        $("#zipcode").val("@(sellerBasicInfo.Zipcode != null ? sellerBasicInfo.Zipcode.Trim() : "")");
+
+        $("#countryRegion_bis").val("@(sellerBasicInfo.ComCountryCode != null ? sellerBasicInfo.ComCountryCode.Trim() : "")");
+        $("#state_bis").val("@(sellerBasicInfo.ComSellerState != null ? sellerBasicInfo.ComSellerState.Trim() : "")");
+        $("#address_bis").val("@(sellerBasicInfo.ComSellerAdd != null ? sellerBasicInfo.ComSellerAdd.Trim() : "")");
+        $("#city_bis").val("@(sellerBasicInfo.ComCity != null ? sellerBasicInfo.ComCity.Trim() : "")");
+        $("#zipcode_bis").val("@(sellerBasicInfo.ComZipcode != null ? sellerBasicInfo.ComZipcode.Trim() : "")");
+
+        //countryRegion
+        $("#countryRegion").kendoDropDownList({
+            optionLabel: {
+                NameTW: "請選擇",
+                CountryCode: ""
+            },
+            dataTextField: "NameTW",
+            dataValueField: "CountryCode",
+            dataSource: countryRegionList,
+        }).data("kendoDropDownList");
+
+        $("#countryRegion_bis").kendoDropDownList({
+            optionLabel: {
+                NameTW: "請選擇",
+                CountryCode: ""
+            },
+            dataTextField: "NameTW",
+            dataValueField: "CountryCode",
+            dataSource: countryRegionList,
+        }).data("kendoDropDownList");
+
+        var selectCity_dropdownList = $("#address_selectCity").kendoDropDownList({
+            optionLabel: {
+                text: "請選擇",
+                value: ""
+            },
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: cityList,
+        }).data("kendoDropDownList");
+
+        var selectCity_dropdownList_bis = $("#address_selectCity_bis").kendoDropDownList({
+            optionLabel: {
+                text: "請選擇",
+                value: ""
+            },
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: cityList,
+        }).data("kendoDropDownList");
+
+        if ($("#countryRegion").val() == "TW") {
+            $("#address_selectPanel").show();
+            $("#address").hide();
+            $("#city").attr("readonly", true);
+            $("#zipcode").attr("readonly", true);
+            $("#address_selectCity").val("@sellerBasicInfo.City");
+            $("#address_selectCity").data("kendoDropDownList").text("@sellerBasicInfo.City");
+       @*     $("#address_selectCity").data("kendoDropDownList").value("@(sellerBasicInfo.City ?? "")");*@
+            AllDistrictList("@(sellerBasicInfo.City ?? "")");
+            $("#addressTW").val("@addressTW");
+            var setSelectDistrict = "";
+            if ("@sellerBasicInfo.Zipcode".trim().length > 0) {
+                setSelectDistrict = "@sellerBasicInfo.Zipcode".trim() + " " + "@districtName";
+            }
+            if ("@districtName" == "") {
+                setSelectDistrict = "";
+            }
+            $("#address_selectDistrict").kendoDropDownList({
+                optionLabel: {
+                    text: "請選擇",
+                    value: ""
+                },
+                dataTextField: "text",
+                dataValueField: "value",
+                dataSource: specificDistrictList,
+                value: setSelectDistrict
+            }).data("kendoDropDownList");
+        }
+        else {
+            $("#address_selectPanel").hide();
+            $("#city").removeAttr("readonly");
+            $("#zipcode").removeAttr("readonly");
+            $("#address").show();
+            $("#address").val("@(sellerBasicInfo.SellerAddress ?? "")");
+        }
+        //營業地址 如果國別選擇了台灣 要控制是否顯示input與下拉選單
+        if ($("#countryRegion_bis").val() == "TW") {
+            $("#address_selectPanel_bis").show();
+            $("#address_bis").hide();
+            $("#city_bis").attr("readonly", true);
+            $("#zipcode_bis").attr("readonly", true);
+            $("#address_selectCity_bis").val("@sellerBasicInfo.ComCity");
+            $("#address_selectCity_bis").data("kendoDropDownList").text("@sellerBasicInfo.ComCity");
+    @*        $("#address_selectCity_bis").data("kendoDropDownList").value("@(sellerBasicInfo.ComCity ?? "")");*@
+            AllDistrictList("@(sellerBasicInfo.ComCity ?? "")");
+            $("#addressTW_bis").val("@addressTW_bis");
+            var setSelectDistrict_bis = "";
+            if ("@sellerBasicInfo.ComZipcode".trim().length > 0) {
+                setSelectDistrict_bis = "@sellerBasicInfo.ComZipcode".trim() + " " + "@districtName_bis";
+            }
+            if ("@districtName_bis"=="") {
+                setSelectDistrict_bis = "";
+            }
+            $("#address_selectDistrict_bis").kendoDropDownList({
+                optionLabel: {
+                    text: "請選擇",
+                    value: ""
+                },
+                dataTextField: "text",
+                dataValueField: "value",
+                dataSource: specificDistrictList,
+                value: setSelectDistrict_bis
+            }).data("kendoDropDownList");
+        }
+        else {
+            $("#address_selectPanel_bis").hide();
+            $("#city_bis").removeAttr("readonly");
+            $("#zipcode_bis").removeAttr("readonly");
+            $("#address_bis").show();
+            $("#address_bis").val("@(sellerBasicInfo.ComSellerAdd ?? "")");
+        }
+    });
+
+    function onCountryRegionSelectedChanged(selectedCountryRegion, bis) {
+        $("#address_selectCity" + bis).kendoDropDownList({
+            optionLabel: {
+                text: "請選擇",
+                value: ""
+            },
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: cityList,
+        }).data("kendoDropDownList");
+        $("#address_selectCity" + bis).val("");
+        $("#address_selectDistrict" + bis).kendoDropDownList({
+            optionLabel: {
+                text: "請選擇",
+                value: ""
+            },
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: null,
+        }).data("kendoDropDownList");
+
+        $("#erraddress_selectCity").css("display", "none");
+        $("#erraddress_selectDistrict").css("display", "none");
+        $("#erraddressTW").css("display", "none");
+        $("#errcity").css("display", "none");
+        $("#errstate").css("display", "none");
+        $("#erraddress").css("display", "none");
+        $("#errzipcode").css("display", "none");
+        $("#city").removeClass("errMsgShow");
+        $("#zipcode").removeClass("errMsgShow");
+        $("#state").removeClass("errMsgShow");
+        $("#address").removeClass("errMsgShow");
+
+
+
+        $("#state_bis").removeClass("errMsgShow");
+        $("#city_bis").removeClass("errMsgShow");
+        $("#zipcode_bis").removeClass("errMsgShow");
+        $("#address_bis").removeClass("errMsgShow");
+
+        $("#errstate_bis").css("display", "none");
+        $("#erraddress_bis").css("display", "none");
+        $("#errcity_bis").css("display", "none");
+        $("#errzipcode_bis").css("display", "none");
+        $("#erraddress_selectCity_bis").css("display", "none");
+        $("#erraddress_selectDistrict_bis").css("display", "none");
+        $("#erraddressTW_bis").css("display", "none");
+
+
+
+
+
+
+        if (selectedCountryRegion == "TW") {
+            $("#address_selectPanel" + bis).show();
+            $("#address" + bis).hide();
+            $("#state" + bis).val("台灣");
+            $("#state" + bis).attr("readonly", true);
+            $("#city" + bis).val("");
+            $("#city" + bis).attr("readonly", true);
+            $("#addressTW" + bis).val("");
+            $("#zipcode" + bis).val("");
+            $("#zipcode" + bis).attr("readonly", true);
+        }
+        else {
+            $("#address" + bis).val("");
+            $("#city" + bis).val("");
+            $("#zipcode" + bis).val("");
+            $("#address_selectPanel" + bis).hide();
+            $("#address" + bis).show();
+            $("#state" + bis).val("");
+            $("#state" + bis).removeAttr("readonly");
+            $("#city" + bis).removeAttr("readonly");
+            $("#zipcode" + bis).removeAttr("readonly");
+        }
+    }
+
+    function selectCityChanged(cityName, bis) {
+        // 清除下拉選單
+        $("#address_selectDistrict" + bis).kendoDropDownList({
+            optionLabel: {
+                text: "請選擇",
+                value: ""
+            },
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: null,
+        }).data("kendoDropDownList");
+
+        AllDistrictList(cityName);
+
+        if (cityName != "") {
+            $("#address_selectDistrict" + bis).kendoDropDownList({
+                optionLabel: {
+                    text: "請選擇",
+                    value: ""
+                },
+                dataTextField: "text",
+                dataValueField: "value",
+                dataSource: specificDistrictList,
+            }).data("kendoDropDownList");
+
+            $("#address_selectDistrict" + bis).enabled;
+
+            if ($("#countryRegion" + bis).val() == "TW") {
+                if (cityName != "請選擇") {
+                    $("#city" + bis).val(cityName);
+                } else {
+                    $("#city" + bis).val("");
+                }
+            }
+        }
+        else {
+            $("#address_selectDistrict" + bis).kendoDropDownList({
+                optionLabel: {
+                    text: "請選擇",
+                    value: ""
+                },
+                dataTextField: "text",
+                dataValueField: "value",
+                dataSource: null,
+            }).data("kendoDropDownList");
+            $("#city" + bis).val("");
+            $("#zipcode" + bis).val("");
+            $("#address_selectDistrict" + bis).disabled;
+        }
+    };
+
+    function selectDistrictChanged(selectedDistrict, bis) {
+        if ($("#countryRegion" + bis).val() == "TW") {
+            var zipcodeRule = /^([0-9]{1,})/;
+            var disDropDownListValueStr = $("#address_selectDistrict" + bis).val();
+            if (disDropDownListValueStr.length > 0) {
+                $("#zipcode" + bis).val(disDropDownListValueStr.trim().match(zipcodeRule)[0]);
+            }
+        }
+    }
+</script>
+<div id="main" >
+    <fieldset id="sellerNameAndEmail" class="k-header" style="display:inline-block">
+        <legend>店家資訊 & 負責人</legend>
+        <div id="">
+            <table class="tableWidth">
+                <tbody>
+                     <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;店家Email&nbsp;&nbsp;</td>
+                        <td style="padding: 0px 10px 0px 10px ">
+                            &nbsp;<span id="sellerEmail">@sellerBasicInfo.SellerEmail</span>
+                        </td>
+                        <td class=""></td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;店家名稱&nbsp;&nbsp;
+                        </td>
+                        <td>
+                            <input type="text" style="width:180px" maxlength="50" class="k-textbox k-valid" name="" id="sellerName" value="@(sellerBasicInfo.SellerName != null ? sellerBasicInfo.SellerName.Trim() : "")">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="sellerName" role="alert" id="errsellerName" style="display:none"></span>
+                        </td>
+                        <td class="">
+                            @*<span id="warningStnce_sellerName" class="warningStnce" style="display:none">
+                                &nbsp;&nbsp;商家名稱必填!
+                            </span>*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;店家簡稱&nbsp;&nbsp;</td>
+                        <td>
+                            <input type="text" style="width:180px" class="k-textbox k-valid" maxlength="25" name="" id="sellerBriefName" value="@(sellerBasicInfo.SellerShortName != null ? sellerBasicInfo.SellerShortName.Trim() : "")">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="sellerBriefName" role="alert" id="errsellerBriefName" style="display:none"></span>
+                        </td>
+                        <td class="">
+                            @*<span id="warningStnce_sellerBriefName" class="warningStnce" style="display:none">
+                                &nbsp;&nbsp;店家簡稱必填!
+                            </span>*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;名字&nbsp;&nbsp;</td>
+                        <td><input type="text" style="width:180px" class="k-textbox k-valid" maxlength="30" name="" id="firstName" value="@(sellerBasicInfo.FirstName != null ? sellerBasicInfo.FirstName.Trim() : "")">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="firstName" role="alert" id="errfirstName" style="display:none"></span>
+                        </td>
+
+                        <td class=""></td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;姓氏&nbsp;&nbsp;</td>
+                        <td><input type="text" style="width:180px" class="k-textbox k-valid" maxlength="30" name="" id="lastName" value="@(sellerBasicInfo.LastName != null ? sellerBasicInfo.LastName.Trim() : "")">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="lastName" role="alert" id="errlastName" style="display:none"></span>
+                        </td>
+                        <td class=""></td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol">電話&nbsp;&nbsp;</td>
+                        <td>
+                            (<input type="text" class="k-textbox k-valid" style="width:50px;" maxlength="3" name="" id="phoneRegion" value="@(sellerBasicInfo.PhoneRegion != null ? sellerBasicInfo.PhoneRegion.Trim() : "")">)
+                            <input type="text" class="k-textbox k-valid" style="width:118px;" maxlength="14" name="" id="phone" value="@(sellerBasicInfo.Phone != null ? sellerBasicInfo.Phone.Trim() : "")">
+                        </td>
+                        <td class=""></td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol">Ext:&nbsp;&nbsp;</td>
+                        <td>
+                            <input type="text" class="k-textbox k-valid" style="width:180px" name="" id="phoneExt" value="@(sellerBasicInfo.PhoneExt != null ? sellerBasicInfo.PhoneExt.Trim() : "")" maxlength="10">
+                        </td>
+                    </tr>
+                    @*<tr>
+                        <td class="firstCol">Email&nbsp;&nbsp;</td>
+                        <td><input type="text" style="width:180px" class="k-textbox k-valid" name="" id="email" value="@sellerBasicInfo.EmailAddress"></td>
+                        <td class=""></td>
+                    </tr>*@
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    <fieldset id="registeredAddress" class="k-header" style="display:inline-block">
+        <legend>登記地址</legend>
+        <div id="">
+            <table class="tableWidth">
+                <tbody>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;廠商身份別&nbsp;&nbsp;</td>
+                        <td><label id="Identy">@ViewBag.IdentyViewBag</label></td>
+                        <td style="display:none"><label id="IdentyAES">@ViewBag.IdentyAES</label></td>
+                        <td class=""></td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;統編/身分證字號&nbsp;&nbsp;</td>
+                        <td><input type="text" style="width:200px" class="k-textbox k-valid" name="" id="companyCode" maxlength="15">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="companyCode" role="alert" id="errcompanyCode" style="display:none"></span>
+                        </td>
+                        <td class=""></td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;國家/地區&nbsp;&nbsp;</td>
+                        <td>
+                            <input type="text" style="width:200px" class="" name="" id="countryRegion" onchange="onCountryRegionSelectedChanged(this.value, '')">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="countryRegion" role="alert" id="errcountryRegion" style="display:none"></span>
+                        </td>
+                        <td class=""></td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;州&nbsp;&nbsp;</td>
+                        <td>
+                            <input type="text" style="width:200px" class="k-textbox k-valid" maxlength="20" name="" id="state">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="state" role="alert" id="errstate" style="display:none"></span>
+                        </td>
+                        <td class=""></td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;地址&nbsp;&nbsp;</td>
+                        <td>
+                            <span id="address_selectPanel">
+                                <input type="text" id="address_selectCity" class="selectCity" onchange="selectCityChanged(this.value, '')"/>
+                                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="address_selectCity" role="alert" id="erraddress_selectCity" style="display:none"></span>
+
+                                <input type="text" id="address_selectDistrict" class="selectDistrict" onchange="selectDistrictChanged(this.value, '')"/>
+                                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="address_selectDistrict" role="alert" id="erraddress_selectDistrict" style="display:none"></span>
+
+                                <input type="text" style="width:200px" class="k-textbox k-valid" maxlength="110" name="" id="addressTW">
+                                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="addressTW" role="alert" id="erraddressTW" style="display:none"></span>
+                            </span>
+                            <input type="text" style="width:200px" class="k-textbox k-valid" name="" id="address" maxlength="120">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="address" role="alert" id="erraddress" style="display:none"></span>
+                        </td>
+                        <td class=""></td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;城市&nbsp;&nbsp;</td>
+                        <td><input type="text" style="width:200px" class="k-textbox k-valid" maxlength="20" name="" id="city">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="city" role="alert" id="errcity" style="display:none"></span>
+                        </td>
+
+                        <td class=""></td>
+                    </tr>
+                    <tr>
+                        <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;郵遞區號&nbsp;&nbsp;</td>
+                        <td><input type="text" style="width:200px" class="k-textbox k-valid" name="" id="zipcode" maxlength="10">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="zipcode" role="alert" id="errzipcode" style="display:none"></span>
+                        </td>
+                        <td class=""></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    @*營業地址*@
+    <fieldset id="businessAddress" class="k-header" style="display:inline-block">
+        <legend>營業地址</legend>
+        <div id="">
+        <table class="tableWidth">
+            <tbody>
+                <tr>
+                    <td class="firstCol"><label class="lbRedStar">*</label>國家/地區&nbsp;&nbsp;</td>
+                    <td>
+                        <input type="text" style="width:200px" class="" name="" id="countryRegion_bis" onchange="onCountryRegionSelectedChanged(this.value, '_bis')">
+                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="countryRegion_bis" role="alert" id="errcountryRegion_bis" style="display:none"></span>
+                    </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;州&nbsp;&nbsp;</td>
+                    <td><input type="text" class="k-textbox k-valid" maxlength="20" style="width:200px" name="" id="state_bis">
+                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="state_bis" role="alert" id="errstate_bis" style="display:none"></span>
+                    </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;地址&nbsp;&nbsp;</td>
+                    <td>
+                        <span id="address_selectPanel_bis">
+                            <input type="text" id="address_selectCity_bis" class="selectCity" onchange="selectCityChanged(this.value, '_bis')"/>
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="address_selectCity_bis" role="alert" id="erraddress_selectCity_bis" style="display:none"></span>
+
+                            <input type="text" id="address_selectDistrict_bis" class="selectDistrict" onchange="selectDistrictChanged(this.value, '_bis')"/>
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="address_selectDistrict_bis" role="alert" id="erraddress_selectDistrict_bis" style="display:none"></span>
+
+                            <input type="text" style="width:200px" class="k-textbox k-valid" maxlength="110" name="" id="addressTW_bis">
+                            <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="addressTW_bis" role="alert" id="erraddressTW_bis" style="display:none"></span>
+                        </span>
+                        <input type="text" style="width:200px" class="k-textbox k-valid" maxlength="120" name="" id="address_bis">
+                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="address_bis" role="alert" id="erraddress_bis" style="display:none"></span>
+                    </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;城市&nbsp;&nbsp;</td>
+                    <td><input type="text" style="width:200px" class="k-textbox k-valid" maxlength="20" name="" id="city_bis">
+                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="city_bis" role="alert" id="errcity_bis" style="display:none"></span>
+                    </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;郵遞區號&nbsp;&nbsp;</td>
+                    <td><input type="text" style="width:200px" class="k-textbox k-valid" name="" id="zipcode_bis" maxlength="10">
+                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="zipcode_bis" role="alert" id="errzipcode_bis" style="display:none"></span>
+                    </td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class="firstCol"><label class="lbRedStar">*</label>&nbsp;付款方式&nbsp;&nbsp;</td>
+                    <td><label id="BillingCycle">@ViewBag.BillingViewBag</label></td>
+                    <td class=""></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </fieldset>
+    <br />
+    <br />
+    <div id="footerPanel">
+        @(Html.Kendo().Button()
+            .Name("BusinessInformation_SaveChange")
+            .HtmlAttributes(new{@name = "BusinessInformation_SaveChange"})
+            .SpriteCssClass("k-icon k-i-tick")
+            .Events(ev => ev.Click("btnSave"))
+            .Content("儲存")
+        )
+        @(Html.Kendo().Button()
+            .Name("BusinessInformation_Cancel")
+            .HtmlAttributes(new{@name = "BusinessInformation_Cancel"})
+            .SpriteCssClass("k-icon k-i-cancel")
+            .Events(ev => ev.Click("ReSetting"))
+            .Content("取消")
+        )
+    </div>
+    @(Html.Kendo().Notification()
+        .Name("popupNotification")
+        //.Position(p => p.Pinned(true))
+        .Position(p => p.Pinned(true).Top(30).Right(30))
+        .Stacking(NotificationStackingSettings.Down)
+        .AutoHideAfter(0)
+        .Templates(t => {
+            t.Add().Type("success").ClientTemplateID("successTemplate");
+            t.Add().Type("error").ClientTemplateID("errorTemplate"); 
+        })
+        //.Width(700)
+    )
+    <script id="successTemplate" type="text/x-kendo-template">
+        <div class="saveChange-success">
+            <img src="../Content/kendo/notification/success-icon.png" />
+            <h3>#= message #</h3>
+        </div>
+    </script>
+    <script id="errorTemplate" type="text/x-kendo-template">
+        <div class="wrong-pass">
+            <img src="../Content/kendo/notification/error-icon.png" />
+            <h3>#= title #</h3>
+            <p>#= message #</p>
+        </div>
+    </script>
+    <span id="loadingIMG" style="display:none">
+        <img src="~/Content/Img/loading.gif" height='30'/>資料處理中，請稍後。
+    </span>
+</div>

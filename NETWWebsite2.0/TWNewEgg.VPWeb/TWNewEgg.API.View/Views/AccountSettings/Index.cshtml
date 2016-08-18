@@ -1,0 +1,70 @@
+﻿@{
+    @Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+}
+<style>
+    .noticeFieldset{  
+        -webkit-margin-start: 2px;
+        -webkit-margin-end: 2px;
+        -webkit-padding-before: 0.35em;
+        -webkit-padding-start: 0.75em;
+        -webkit-padding-end: 0.75em;
+        -webkit-padding-after: 0.625em;
+        border: 1px groove threedface;
+        border-radius:5px;
+    }
+    .noticeLegend {
+        font-weight:bolder;
+        margin-left:3px;
+        margin-right:3px;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        showAccountSettingsView("AccountInformation");
+
+    });
+
+    function showAccountSettingsView(actionName) {
+        $(document).ajaxSend($.blockUI());
+        $(document).ajaxStop($.unblockUI);
+        $("div[Category='AccountSettings']").each(function () {
+            $(this).attr("class", "nav");
+        });
+        //var firstSubView = "";
+        //if (actionName == "AccountInformation")
+        //{
+        //    firstSubView = "AccountInformation";
+        //}
+        $("#" + actionName).attr("class", "nav active");
+        $(document).ajaxSend($.blockUI());
+        $(document).ajaxStop($.unblockUI);
+        $.ajax({
+            type: "POST",
+            url: "/AccountSettings/index",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "viewName": actionName
+            }),
+            success: function (res) {
+                if (res.IsSuccess == true) {
+                    $("#AccountSettingDetail").html(res.ViewHtml);
+                }
+                else {
+                    $("#AccountSettingDetail").html("");
+                }
+            }
+        });
+    }
+</script>
+<div class="rightBox" style="min-width: 800px;">
+    <div class="content">
+        <div class="tabBox">
+            <div class="nav" id="AccountInformation" Category="AccountSettings" onclick="showAccountSettingsView('AccountInformation')">帳戶資訊</div>
+            <div class="nav" id="UserAccountSettings" Category="AccountSettings" onclick="showAccountSettingsView('UserAccountSettings')">帳戶設定</div>
+            <div class="nav" id="SellerInformation" Category="AccountSettings" onclick="showAccountSettingsView('SellerInformation')">商家資訊</div>
+            @*<div class="nav" id="ReturnPolicyAndInfo" Category="AccountSettings" onclick="showAccountSettingsView('ReturnPolicyAndInfo')">退換貨條款及資訊</div>*@
+            <div class="clear"></div>
+        </div>
+        <div id="AccountSettingDetail"></div>
+    </div>
+</div>

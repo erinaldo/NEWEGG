@@ -1,0 +1,17 @@
+﻿@model TWNewEgg.API.View.ItemCreationVM
+@{
+    Html.RenderPartial("~/Views/TwoDimensionProductCreation/Index.cshtml", Model);
+}
+
+<script type="text/javascript">
+    IsGetSketchDataSuccess();
+    function IsGetSketchDataSuccess()
+    {
+        if('@(ViewBag.IsGetSketchDataSuccess)'.toLocaleLowerCase() == "false")
+        {
+            $("#ManMade_Alert_Message").html("讀取資料失敗。");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            window.close();
+        }
+    }
+</script>

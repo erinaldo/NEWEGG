@@ -1,0 +1,963 @@
+﻿ @model  List<TWNewEgg.Website.IPP.Models.ItemMaintain.ItemMaintainMaster>
+@{
+    ViewBag.Title = "ItemMaintainDetail";
+}
+
+
+<script src="../Scripts/angular.min.js"></script>
+
+<div id="InquiryDetail">
+    
+    <div class="k-header">
+            
+        <h2 style="margin:10px 10px 10px 10px">商品資訊</h2>
+        <div id="SearchCondition">
+            <ul>
+                <li>
+
+                </li>
+            </ul>
+        <table style="width: 100%; background-color: #FFFFFF;">
+            <tr class="auto-style1">
+                <td width="100px"><label for="time">商品類別:</label></td>
+                <td>  
+                            
+                    @(
+                  
+                    Html.Kendo()
+                              .DropDownList()
+                              .Name("ProductCategory")
+                              .OptionLabel("請選擇")
+                               .DataValueField("ID") 
+                              .BindTo(Model.Select(x=>x)
+                              //new[] {
+                              //    new SelectListItem { Text="新品" },
+                              //    new SelectListItem { Text="OpenBox" }
+                              //}
+                              )
+                        )
+                </td>
+                <td>交易模式: 
+                    @(Html.Kendo()
+                              .DropDownList()
+                              .Name("TradingMode")
+                              .HtmlAttributes(new {style = "width: 100px" })
+                              .OptionLabel("請選擇交易模式")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="0.切貨" , Value="0"},
+                                  new SelectListItem { Text="1.間配" , Value="1"},
+                                  new SelectListItem { Text="2.直配" , Value="2"},
+                                  new SelectListItem { Text="3.三角" , Value="3"},
+                                  new SelectListItem { Text="4.國外直配" , Value="4"},
+                                  new SelectListItem { Text="5.自貿區" , Value="5"},
+                                  new SelectListItem { Text="6.海外切貨" , Value="6"},
+                                  new SelectListItem { Text="7.B2C 直配" , Value="7"},
+                                  new SelectListItem { Text="8.MKPL 寄倉" , Value="8"},
+                                  new SelectListItem { Text="9.B2C 寄倉" , Value="9"}
+                             })
+                        )                    
+                </td>
+                <td>商品狀態: 
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("ProductStatus")
+                              .HtmlAttributes(new {style = "width: 100px" })
+                              .OptionLabel("請選擇商品狀態")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="上架" , Value="0"},
+                                  new SelectListItem { Text="下架" , Value="1"},
+                                  new SelectListItem { Text="強制下架" , Value="2"},
+                                  new SelectListItem { Text="系統下架" , Value="3"},
+                                  new SelectListItem { Text="刪除" , Value="99"}
+                             })
+                        )
+                </td>
+                <td>供應商: 
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Suppliers")
+                              .HtmlAttributes(new {style = "width: 100px" })
+                              .OptionLabel("請選擇供應商")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="美蛋" , Value="0"},
+                                  new SelectListItem { Text="台蛋" , Value="1"},
+                                  new SelectListItem { Text="中蛋" , Value="2"}
+                             })
+                        )                    
+                </td>
+                <td>製造商: 
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Manufacture")
+                              .HtmlAttributes(new { style = "width: 100px" })
+                              .OptionLabel("請選擇製造商")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="美蛋" , Value="0"},
+                                  new SelectListItem { Text="台蛋" , Value="1"},
+                                  new SelectListItem { Text="中蛋" , Value="2"}
+                             })
+                        )      
+                </td>
+            </tr>
+            <tr>
+                <td>商品主分類:</td>
+                <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("ItemCategory1")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("ItemCategory2")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="硬碟" , Value="0"},
+                                  new SelectListItem { Text="主機板" , Value="1"},
+                                  new SelectListItem { Text="主機板" , Value="2"}
+                             })
+                        )      
+                </td>
+                <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("ItemCategory3")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="SSD" , Value="0"},
+                                  new SelectListItem { Text="SSD" , Value="1"},
+                                  new SelectListItem { Text="SSD" , Value="2"}
+                             })
+                        )      
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>商品跨分類(一):</td>
+                <td>&nbsp;</td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category1_2")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category1_3")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>商品跨分類(二):</td>
+                <td>&nbsp;</td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category2_2")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category2_3")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>商品跨分類(三):</td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category3_1")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category3_2")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category3_3")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>商品跨分類(四):</td>
+                  <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category4_1")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category4_2")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category4_3")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>商品跨分類(五):</td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category5_1")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category5_2")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                 <td>
+                     @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Category5_3")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="電腦" , Value="0"},
+                                  new SelectListItem { Text="家電" , Value="1"},
+                                  new SelectListItem { Text="服飾" , Value="2"}
+                             })
+                        )      
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="7">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>賣場編號:</td>
+                <td>@(Html.Kendo().TextBox().Name("ItemNumber").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>商品編號: @(Html.Kendo().TextBox().Name("ItemID").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>商品名稱: @(Html.Kendo().TextBox().Name("ItemName"))</td>
+                <td>商品型號: @(Html.Kendo().TextBox().Name("ItemModel"))</td>
+                <td>商品保固期(月)@(Html.Kendo().TextBox().Name("ItemWarranty"))</td>
+            </tr>
+            <tr>
+                <td>商家商品編號:</td><td>@(Html.Kendo().TextBox().Name("SellerProductID") )</td>
+                <td>條碼:@(Html.Kendo().TextBox().Name("BarCode").HtmlAttributes(new {style = "width:155px" }))</td>
+                <td>材積(公分):長@(Html.Kendo().TextBox().Name("Length").HtmlAttributes(new {style = "width:35px" }) )寬@(Html.Kendo().TextBox().Name("Width").HtmlAttributes(new {style = "width:35px" }))高@(Html.Kendo().TextBox().Name("Height").HtmlAttributes(new {style = "width:35px" }) )</td>
+                <td>重量(公斤)@(Html.Kendo().TextBox().Name("Weight").HtmlAttributes(new {style = "width:120px" }) )</td>
+                <td>到貨天數:@(Html.Kendo().TextBox().Name("DelvDate").HtmlAttributes(new {style = "width:100px" }) )</td>
+            </tr>
+           <tr>
+                <td>目錄:</td><td>
+                    @(Html.Kendo()
+                              .DropDownList()
+                              .Name("Catalog")
+                              .OptionLabel("")
+                              .BindTo(new[] {
+                                  new SelectListItem { Text="Text" , Value="0"},
+                                  new SelectListItem { Text="Value" , Value="1"}
+                             })
+                        )    
+                </td>
+                <td>@(Html.Kendo().TextBox().Name("CatalogText"))</td>
+                <td>黑名單貨運業者:@(Html.Kendo().TextBox().Name("ItemDeliverBlack").HtmlAttributes(new {style = "width:120px" }) )</td>
+                <td>白名單貨運業者:@(Html.Kendo().TextBox().Name("ItemDeliverWhite").HtmlAttributes(new {style = "width:120px" }) )</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="6">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>*商品包裝:</td>
+                <td>
+                    @(Html.Kendo().RadioButton().Name("Retail").Checked(true).HtmlAttributes(new{@name = "Package"}).Label("零售"))
+                    @(Html.Kendo().RadioButton().Name("OEM").HtmlAttributes(new{@name = "Package"}).Label("OEM"))
+                </td>
+                <td>窒息危險性:
+                     @(Html.Kendo().RadioButton().Name("ChokingDanger").Checked(true).HtmlAttributes(new{@name = "ChokingDanger"}).Label("是"))
+                     @(Html.Kendo().RadioButton().Name("n_ChokingDanger").HtmlAttributes(new{@name = "ChokingDanger"}).Label("否"))
+                </td>
+                <td>18歲以上驗證:
+                    @(Html.Kendo().RadioButton().Name("UnderAge").Checked(true).HtmlAttributes(new{@name = "UnderAge"}).Label("是"))
+                    @(Html.Kendo().RadioButton().Name("n_UnderAge").HtmlAttributes(new{@name = "UnderAge"}).Label("否"))
+                </td>
+                <td>*遞送危險物料:
+                    @(Html.Kendo().RadioButton().Name("Danger").Checked(true).HtmlAttributes(new{@name = "ShipDanger"}).Label("是"))
+                    @(Html.Kendo().RadioButton().Name("n_Danger").HtmlAttributes(new{@name = "ShipDanger"}).Label("否"))
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+  
+          <tr>
+               <td colspan="6"><h3>金額</h3></td>
+            </tr>                    
+
+            <tr>
+                <td>&nbsp;</td>
+                <td>建議價:@(Html.Kendo().TextBox().Name("MarketPrice"))</td>
+                <td>*售價:@(Html.Kendo().TextBox().Name("Price").HtmlAttributes(new { placeholder = "售價", required = "required", validationmessage = "Enter {0}", style = "width:200px" }))</td>
+                <td>*成本:@(Html.Kendo().TextBox().Name("Cost").HtmlAttributes(new { placeholder = "成本", required = "required", validationmessage = "Enter {0}", style = "width:200px" }))</td>
+                <td>毛利額:@(Html.Kendo().TextBox().Name("GrossProfit"))</td>
+                <td>&nbsp;</td>
+           </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>毛利率%:@(Html.Kendo().TextBox().Name("ItemProfitPercent").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>服務費:@(Html.Kendo().TextBox().Name("ServicePrice"))</td>
+                <td>國際運費:@(Html.Kendo().TextBox().Name("PriceGlobalship"))</td>
+                <td>關稅:@(Html.Kendo().TextBox().Name("TradeTax"))</td>
+                <td>&nbsp;</td>
+            </tr>            
+            <tr>
+               <td colspan="6"><h3>數量</h3></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>倉庫代碼:@(Html.Kendo().TextBox().Name("MarketPrice").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>倉庫新品數量:@(Html.Kendo().TextBox().Name("Price").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>倉庫二手品數量:@(Html.Kendo().TextBox().Name("Cost").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>倉庫壞品數量:@(Html.Kendo().TextBox().Name("GrossProfit").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>&nbsp;</td>
+           </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>*可賣數量:@(Html.Kendo().TextBox().Name("QtyReg").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>限購數量:@(Html.Kendo().TextBox().Name("QtyLimit").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>促銷價數量:@(Html.Kendo().TextBox().Name("Qty").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>*安全庫存:@(Html.Kendo().TextBox().Name("SafeQty").HtmlAttributes(new { @readonly="readonly" }))</td>
+                <td>賣場庫存數:@(Html.Kendo().TextBox().Name("ItemstockQty").HtmlAttributes(new { @readonly="readonly" }))</td>
+            </tr>
+            <tr>
+               <td colspan="6"><h3>前台賣場資訊</h3></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>開始銷售日期:@(Html.Kendo().DatePicker()
+                          .Name("StartDate")
+                          .Value("10/10/2011")
+                          .Max("10/10/2012")
+                          .Events(e => e.Change("startChange"))
+                    )
+                </td>
+                <td>結束銷售日期:@(Html.Kendo().DatePicker()
+                          .Name("EndDate")
+                          .Value("10/10/2012")
+                          .Min("10/10/2011")
+                          .Events(e => e.Change("endChange"))
+                    ) 
+                </td>
+                <td></td>
+                <td></td>
+                <td>&nbsp;</td>
+           </tr>
+            <tr>
+                <td>商品名稱:</td>
+                <td colspan="5">@(Html.Kendo().TextBox().Name("Name"))</td>
+            </tr>
+            <tr>
+             <td>商品特色標題:</td>
+             <td colspan="5">@(Html.Kendo().TextBox().Name("Spechead"))</td>
+            </tr>
+            <tr>
+             <td>商品簡要描述:</td>
+             <td colspan="5">@(Html.Kendo().TextBox().Name("Sdesc"))
+                 <textarea  id="Sdesc"  cols="50" rows="3"></textarea>
+             </td>
+            </tr>
+            <tr>
+             <td>商品說明:</td>
+             <td colspan="5">
+
+                 @(Html.Kendo().Editor()
+                      .Name("DescriptionTW")
+                      .HtmlAttributes(new { style = "width: 600px;height:380px" })
+                      .Resizable()
+                      .ImageBrowser(imageBrowser => imageBrowser
+                          .Image("~/Content/UserFiles/Images/{0}")
+                          .Read("Read", "ImageBrowser")
+                          .Create("Create", "ImageBrowser")
+                          .Destroy("Destroy", "ImageBrowser")
+                          .Upload("Upload", "ImageBrowser")
+                          .Thumbnail("Thumbnail", "ImageBrowser")
+                      )
+                      .Value(@<text>
+                      </text>)
+                )
+
+             </td>
+            </tr>
+            <tr>
+             <td>注意事項:</td>
+             <td colspan="5"><textarea  id="ItemNote"  cols="50" rows="3"></textarea></td>
+            </tr>
+            <tr>
+                <td>商品屬性:</td>
+                <td><input id="ProductProperty" type="text" /></td>
+                <td><input id="ProductPropertyText" type="text" /></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>上傳圖片:                    
+                </td>
+                <td>                    
+                    <form method="post" action='@Url.Action("Submit")' >
+                            @(Html.Kendo().Upload()
+                                .Name("files")
+                            )
+                            
+                                <input type="submit" value="Submit" class="k-button" />
+                            
+                    </form>
+</td>
+                <td colspan="3"><input id="ItemPicture" type="text" /><button id="browse">瀏覽</button><button id="upload">上傳</button></td>
+
+                <td>
+                    @if (TempData.ContainsKey("UploadedFiles")) {
+                        <div class="t-widget t-upload">
+                            <ul class="t-upload-files t-reset">
+                        @foreach (var attachment in (IEnumerable<string>)TempData["UploadedFiles"])
+                           {
+                                <li class="t-file"><span class="t-icon t-success"></span>@attachment</li>
+                         }
+                            </ul>
+                        </div>
+                     } else {
+                        <text>-- None --</text>
+                     }
+                </td>
+            </tr>
+            <tr>
+               <td colspan="6">圖片</td>
+            </tr>
+            <tr>
+               <td colspan="6"> </td>
+            </tr>
+            <tr>
+               <td colspan="6"></td>
+            </tr>
+            <tr>
+              <td><button id="save">存檔</button></td>
+              <td><button id="cancel">取消</button></td>
+               <td colspan="4"></td>
+            </tr>
+
+        </table>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            //商品類別
+            //var productCategoryData = [
+            //    { text: "新品", value: "1" },
+            //    { text: "OpenBox", value: "2" }
+            //];
+            //$("#ProductCategory").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: productCategoryData,
+            //    index: 0,
+     
+            //});
+            ////交易模式
+            //var tradingModedata = [
+            //    { text: "", value: "Null" },
+            //    { text: "0.切貨", value: "0" },
+            //    { text: "1.間配", value: "1" },
+            //    { text: "2.直配", value: "2" },
+            //    { text: "3.三角", value: "3" },
+            //    { text: "4.國外直配", value: "4" },
+            //    { text: "5.自貿區", value: "5" },
+            //    { text: "6.海外切貨", value: "6" },
+            //    { text: "7.B2C 直配", value: "7" },
+            //    { text: "8.MKPL 寄倉", value: "8" },
+            //    { text: "9.B2C 寄倉", value: "9" }
+            //];
+
+            //$("#TradingMode").width(100).kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: tradingModedata,
+            //    index: 0,
+            //});
+            ////商品狀態
+            //var productStatusdata = [
+            //    { text: "", value: "Null" },
+            //    { text: "上架", value: "0" },
+            //    { text: "下架", value: "1" },
+            //    { text: "強制下架", value: "2" },
+            //    { text: "系統下架", value: "3" },
+            //    { text: "刪除", value: "99" }
+            //];
+
+            //$("#ProductStatus").width(100).kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: productStatusdata,
+            //    index: 0,
+            //});
+            ////供應商
+            //var suppliersdata = [
+            //    { text: "", value: "Null" },
+            //    { text: "0.切貨", value: "0" },
+            //    { text: "1.間配", value: "1" },
+            //    { text: "2.直配", value: "2" },
+            //    { text: "3.三角", value: "3" },
+            //    { text: "4.國外直配", value: "4" },
+            //    { text: "5.自貿區", value: "5" },
+            //    { text: "6.海外切貨", value: "6" },
+            //    { text: "7.B2C 直配", value: "7" },
+            //    { text: "8.MKPL 寄倉", value: "8" },
+            //    { text: "9.B2C 寄倉", value: "9" }
+            //];
+
+            //$("#Suppliers").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: suppliersdata,
+            //    index: 0,
+            //});
+
+
+            ////製造商
+            //var manufactureData = [
+            //    { text: "", value: "Null" },
+            //    { text: "美國新蛋", value: "1" }
+            //];
+            //$("#Manufacture").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: manufactureData,
+            //    index: 0,
+            //});
+            ////商品主分類
+            //var itemCategoryData1 = [
+            //    { text: "電腦", value: "1" },
+            //    { text: "家電", value: "2" }
+            //];
+            //$("#ItemCategory1").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+
+            //var itemCategoryData2 = [
+            //    { text: "硬碟", value: "1" },
+            //    { text: "主機板", value: "2" }
+            //];
+            //$("#ItemCategory2").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData2,
+            //    index: 0,
+            //});
+
+            //var itemCategoryData3 = [
+            //    { text: "SSD", value: "1" },
+            //    { text: "SSD", value: "2" }
+            //];
+            //$("#ItemCategory3").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData3,
+            //    index: 0,
+            //});
+
+            ////商品跨分類
+            //$("#Category1_2").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category1_3").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category2_2").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category2_3").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category3_1").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+
+            //$("#Category3_2").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category3_3").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category4_1").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category4_2").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category4_3").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category5_1").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category5_2").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#Category5_3").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            
+            ////賣場編號
+            //$("#ItemNumber").kendoMaskedTextBox({
+            //});
+            ////商品編號
+            //$("#ItemID").width(120).kendoMaskedTextBox({
+            //});
+            ////商品名稱
+            //$("#ItemName").width(120).kendoMaskedTextBox({
+            //});
+            ////商品型號
+            //$("#ItemModel").width(120).kendoMaskedTextBox({
+            //});
+            ////商品保固期(月)
+            //$("#ItemWarranty").width(120).kendoMaskedTextBox({
+            //});
+            ////商家商品編號
+            //$("#SellerProductID").kendoMaskedTextBox({
+            //});
+
+            ////條碼
+            ////$("#BarCode").width(120).kendoMaskedTextBox({
+            ////});
+            ////材積(公分)(長.寬.高)
+            //$("#Length").width(35).kendoMaskedTextBox({
+            //});
+            //$("#Width").width(35).kendoMaskedTextBox({
+            //});
+            //$("#Height").width(35).kendoMaskedTextBox({
+            //});
+            ////重量(公斤)
+            //$("#Weight").width(120).kendoMaskedTextBox({
+            //});
+            ////到貨天數
+            //$("#DelvDate").width(100).kendoMaskedTextBox({
+            //});
+            //目錄:
+            //$("#Catalog").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#CatalogText").kendoMaskedTextBox({
+            //});
+            ////黑名單貨運業者
+            //$("#ItemDeliverBlack").width(120).kendoMaskedTextBox({
+            //});
+
+            ////白名單貨運業者
+            //$("#ItemDeliverWhite").width(120).kendoMaskedTextBox({
+            //});
+
+
+
+
+
+            ////建議價
+            //$("#MarketPrice").width(120).kendoMaskedTextBox({
+            //});
+            ////售價
+            //$("#Price").width(120).kendoMaskedTextBox({
+            //});
+            ////成本
+            //$("#Cost").width(120).kendoMaskedTextBox({
+            //});
+
+            ////毛利額
+            //$("#GrossProfit").width(108).kendoMaskedTextBox({
+            //});
+
+            ////毛利率%
+            //$("#ItemProfitPercent").width(108).kendoMaskedTextBox({
+            //});
+
+            ////服務費
+            //$("#ServicePrice").width(113).kendoMaskedTextBox({
+            //});
+
+            ////國際運費
+            //$("#PriceGlobalship").width(100).kendoMaskedTextBox({
+            //});
+
+            ////關稅
+            //$("#TradeTax").width(120).kendoMaskedTextBox({
+            //});
+
+            ////數量
+            ////倉庫代碼
+            //$("#MarketPrice").width(120).kendoMaskedTextBox({
+            //});
+            ////倉庫新品數量
+            //$("#Price").width(120).kendoMaskedTextBox({
+            //});
+            ////倉庫二手品數量
+            //$("#Cost").width(120).kendoMaskedTextBox({
+            //});
+            ////倉庫壞品數量
+            //$("#GrossProfit").width(120).kendoMaskedTextBox({
+            //});
+            ////可賣數量
+            //$("#QtyReg").width(120).kendoMaskedTextBox({
+            //});
+            ////限購數量
+            //$("#QtyLimit").width(120).kendoMaskedTextBox({
+            //});
+            ////促銷價數量
+            //$("#Qty").width(120).kendoMaskedTextBox({
+            //});
+            ////*安全庫存
+            //$("#SafeQty").width(120).kendoMaskedTextBox({
+            //});
+            ////賣場庫存數
+            //$("#ItemstockQty").width(120).kendoMaskedTextBox({
+            //});
+
+            ////商品名稱
+            //$("#Name").width(600).kendoMaskedTextBox({
+            //});
+
+            ////商品特色標題
+            //$("#Spechead").width(600).kendoMaskedTextBox({
+            //});
+
+            ////商品簡要描述
+            //$("#Sdesc").width(600).kendoMaskedTextBox({
+            //});
+
+            ////商品說明
+            //$("#DescriptionTW").kendoMaskedTextBox({
+            //});
+            ////注意事項
+            //$("#ItemNote").width(600).kendoMaskedTextBox({
+            //});
+
+            ////商品屬性
+            //$("#ProductProperty").kendoDropDownList({
+            //    dataTextField: "text",
+            //    dataValueField: "value",
+            //    dataSource: itemCategoryData1,
+            //    index: 0,
+            //});
+            //$("#ProductPropertyText").width(300).kendoMaskedTextBox({
+            //});
+
+            ////上傳圖片
+            //$("#ItemPicture").width(300).kendoMaskedTextBox({
+            //});
+            //$("#browse").kendoButton();
+            //$("#upload").kendoButton();
+            //$("#save").kendoButton();
+            //$("#cancel").kendoButton();
+
+            ////
+
+
+            //var start = $("#StartDate").kendoDatePicker({
+            //    change: startChange
+            //}).data("kendoDatePicker");
+
+            //var end = $("#EndDate").kendoDatePicker({
+            //    change: endChange
+            //}).data("kendoDatePicker");
+
+         
+                function startChange() {
+                    var endPicker = $("#end").data("kendoDatePicker"),
+                        startDate = this.value();
+
+                    if (startDate) {
+                        startDate = new Date(startDate);
+                        startDate.setDate(startDate.getDate() + 1);
+                        endPicker.min(startDate);
+                    }
+                }
+
+            function endChange() {
+                var startPicker = $("#start").data("kendoDatePicker"),
+                    endDate = this.value();
+
+                if (endDate) {
+                    endDate = new Date(endDate);
+                    endDate.setDate(endDate.getDate() - 1);
+                    startPicker.max(endDate);
+                }
+            }
+
+
+            start.max(end.value());
+            end.min(start.value());
+
+        });
+    </script>
+
+    <style>
+        body {
+            font-family:"Microsoft JhengHei";
+        }
+        #SearchCondition
+        {
+            margin:10px 10px 10px 10px;
+            padding:0;
+        }
+
+        #SearchCondition input
+        {
+            display: inline-block;
+            list-style:none;
+            margin-right:5px;
+        }
+
+        #SearchCondition th {
+            /*display: inline-block;*/
+            width: 100px;
+            margin-right: 5px;
+            text-align: right;
+        }
+    </style>
+</div>
+
+

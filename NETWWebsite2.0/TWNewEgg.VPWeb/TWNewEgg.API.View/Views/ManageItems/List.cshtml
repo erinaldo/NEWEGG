@@ -1,0 +1,187 @@
+﻿@{
+    ViewBag.Title = "List";
+}
+
+    <style>
+        body { font-size: 9pt; }
+        #dvGrid { width: auto; }
+        span.hi-lite { color: red; }
+        #dvGrid th.k-header { text-align: center; }
+    </style>
+    <script>
+        $(function () {
+            //建立資料來源物件            
+            var dataSrc = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        //以下其實就是$.ajax的參數
+                        type: "POST",
+                        url: "/home/Grid",
+                        dataType: "json",
+                        data: {
+                            //額外傳至後方的參數
+                            keywd: function () {
+                                return $("#tKeyword").val();
+                            }
+                        }
+                    },
+                    create: {                      
+                        url: "/home/create",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json",                        
+                        //complete: function (response, status) {
+                        //    alert(response);
+                        //}
+                    },
+                    update: {
+                        url: "/home/Update",
+                        datatype: "json",
+                        type: "POST",
+                        complete: function (response) {
+                            console.log(response);                                                     
+                            var result = JSON.parse(response.responseText);
+                            console.log( result.IsSuccess)
+
+                            if (result.IsSuccess == false) {
+                                //alert(result.msg);
+                                //開啟window 
+                                $("#ManMade_Alert_Message").html(result.msg);
+                                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                                // 有錯誤 Refrush
+                                $("#dvGrid").data("kendoGrid").dataSource.read();
+                            }
+                            else {
+                                //alert(result.msg);
+                                $("#ManMade_Alert_Message").html(result.msg);
+                                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                            }                           
+                        },
+                        error: function (err) {
+                        }
+                    },
+                    destroy: {
+                        url: "/home/Delete",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json"
+                    },
+                    // Model 序列化
+                    parameterMap: function (data, operation) {
+                        // 新增或修改時
+                        if ((operation === "update" || operation === "create") && data) {
+                            console.log(data);
+                            return JSON.stringify({ Model: data });
+                        } else
+                        // 刪除
+                        if (operation === "destroy" && data.UserNo) {
+                            console.log(data.UserNo);
+                            return JSON.stringify({ ID: data.UserNo });
+                        }
+                        return data;
+                    }
+                },
+                schema: {
+                    //取出資料陣列
+                    data: function (d) { return d.data; },
+                    //取出資料總筆數(計算頁數用)
+                    total: function (d) { return d.total; },
+                    model: {
+                        id: "UserNo",
+                        fields: {
+                            UserName: { editable: true, nullable: false, validation: { required: true } },
+                            Points: { editable: true, nullable: false, type: "number", min: 1 },
+                            RegDate: { editable: false, nullable: false }
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: true,
+                serverSorting: true
+            });
+
+            //JSON日期轉換           
+            var dateRegExp = /^\/Date\((.*?)\)\/$/;
+            window.toDate = function (value) {
+                var date = dateRegExp.exec(value);
+                // 創新資料時會造成錯誤發生，需要特別處理
+                if (date == null) {
+                    return new Date();
+                } else {
+                    return new Date(parseInt(date[1]));
+                }
+                
+            }
+            $("#dvGrid").kendoGrid({               
+                dataSource: dataSrc,
+                columns: [
+                    { field: "UserNo", title: "會員編號" },
+                    { field: "UserName", title: "會員名稱",
+                        //template: '#= "<span class=\\"u-name\\">" + UserName + "</span>" #'
+                    },
+                    { field: "Points", title: "累積點數" },
+                    {
+                        field: "RegDate", title: "註冊日",
+                        template: '#= kendo.toString(toDate(RegDate), "yyyy/MM/dd")#'
+                    },
+                    { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }
+                ],
+                toolbar: ["create"],
+                edit: function (e) {
+                    //add a title                  
+                    if (e.model.isNew()) {
+                        $(".k-window-title").text("Add");
+                    } else {
+                        $(".k-window-title").text("Edit");
+                    }
+                },              
+                editable: {
+                    mode: "popup",
+                    update: true
+                    
+                },
+                height: 550,
+                scrollable: true,
+                sortable: true,
+                pageable: {
+                    Refresh: true,
+                    pageSizes: true,
+                    //buttonCount: 20,
+                    pageSizes: [10, 25, 50]
+                },
+                
+                dataBound: function () {
+                    //AJAX資料Bind完成後觸發
+                    var kw = $("#tKeyword").val();
+                    //若有設關鍵字，做Highlight處理
+                    if (kw.length > 0) {
+                        var re = new RegExp(kw, "g");
+                        $(".u-name").each(function () {
+                            var $td = $(this);
+                            $td.html($td.text()
+                           .replace(re, "<span class='hi-lite'>$&</span>"));
+                        });
+                    }
+                }
+            });
+
+            //按下查詢鈕
+            $("#bQuery").click(function () {
+                //要求資料來源重新讀取(並指定切至第一頁)
+                dataSrc.read({ page: 1, skip: 0 });
+                //Grid重新顯示資料
+                $("#dvGrid").data("kendoGrid").refresh();
+            });           
+        })
+       
+    </script>
+
+
+<div style="padding: 10px;">
+    關鍵字:
+    <input id="tKeyword" /><input type="button" value="查詢" id="bQuery" />
+    <button id="btnExport">Export to Excel</button>
+</div>
+<div id="dvGrid">
+</div>

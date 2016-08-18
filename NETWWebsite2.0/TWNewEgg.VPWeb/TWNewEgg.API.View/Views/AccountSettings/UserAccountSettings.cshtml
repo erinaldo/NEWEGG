@@ -1,0 +1,382 @@
+﻿<script src="~/Scripts/reloadParView.js"></script>
+@{
+    //var modelTest = ViewBag.basicInfo as List<TWNewEgg.API.View.Models.AdminModel>;
+    var FunctionCategoty = ViewBag.FunctionCategoty as List<string>;
+    var UserList = ViewBag.UserList as List<TWNewEgg.API.Models.GetUserListResult>;
+    var FunctionListResult = ViewBag.FunctionListResult as List<TWNewEgg.API.Models.GetFunctionListResult>;
+    var listGetPurResult = ViewBag.listGetPurResult as List<TWNewEgg.API.Models.GetPurviewResult>;
+    var FunctionNameList = ViewBag.FunctionNameList;
+    int FunctionListLength = ViewBag.FunctionListLength;
+    }
+<span id="openwindow" class="k-button" style="float:right; margin:10px 0">新增一個用戶</span>
+<br clear="all" />
+<style>
+    .k-widget.k-panelbar.k-reset.k-header a.k-state-focused.k-state-hover , .k-widget.k-panelbar.k-reset.k-header a.k-state-hover , .k-widget.k-panelbar.k-reset.k-header a.k-state-focused {
+        background-color:#e3e3e3;
+        color:#000;
+        box-shadow:none;
+    }
+</style>
+<div id="ViewAll">
+<div>
+    @(Html.Kendo().Window()
+    .Name("windowNewAccount")
+    .Width(600)
+    .Height(200)
+    .Resizable()
+    .Visible(false)
+    .Modal(true)
+    .Title("新增用戶")
+    .Actions(actions => actions.Close())
+    .LoadContentFrom("NewAccountOpen", "AccountSettings")
+    )
+</div>
+<hr style="border:0; border-top:1px solid red;"/>
+
+<div class="demo-section">
+@foreach (var user in UserList)
+{
+
+    if (user.GroupID == 1 || user.GroupID == 8 || user.GroupID == 7)
+    {
+        @(Html.Kendo().PanelBar().Name("panelbar_" + user.UserID)
+                .Items(userEmail =>
+                {
+
+                    userEmail.Add().Text(user.UserEmail)
+                        .Content(@<div>
+                        @foreach (var Functionitem in FunctionCategoty)
+                        {
+                        
+                            <div style="font-weight:bold">@Functionitem</div>
+                            var FuncCate = (from p in FunctionListResult where p.CategotyName == Functionitem select p).ToList();
+                            foreach (var FuncCateitem in FuncCate)
+                            {
+                                var JoinTemp1 = (from p in listGetPurResult where p.UserEmail == user.UserEmail select p).ToList();
+                                var JoinTemp2 = (from p in JoinTemp1 where p.FunctionID == FuncCateitem.FunctionID select p).ToList();
+                                if(JoinTemp2 == null || JoinTemp2.Count == 0)
+                                {
+                                }
+                                else{
+                                <div>
+                                    <span style="display:inline-block;width:200px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@FuncCateitem.FunctionName.Split(';')[0]</span>
+                                    <span >
+                                    @if (JoinTemp2[0].Enable == "Y")
+                                    {
+                                        <label>Enable</label><input type="radio" checked="checked" fid="@FuncCateitem.FunctionID" value="Y" name="@FuncCateitem.FunctionName.Split(';')[1]@user.UserID" disabled="disabled"/>
+                                        <label>Disable</label><input type="radio"  fid="@FuncCateitem.FunctionID" value="N" name="@FuncCateitem.FunctionName.Split(';')[1]@user.UserID" disabled="disabled"/>
+                                    }
+                                    else
+                                    {
+                                        <label>Enable</label><input type="radio" value="Y" fid="@FuncCateitem.FunctionID" name="@FuncCateitem.FunctionName.Split(';')[1]@user.UserID" disabled="disabled"/>
+                                        <label>Disable</label><input type="radio"  value="N" fid="@FuncCateitem.FunctionID" checked="checked" name="@FuncCateitem.FunctionName.Split(';')[1]@user.UserID" disabled="disabled"/>
+                                    }
+                                
+                                    </span>
+                                </div>
+                            }
+                        }
+                        }
+                        </div>);
+                })
+                );
+    }
+    else
+    {
+        <div style="position:relative">
+        @(Html.Kendo().PanelBar().Name("panelbar_" + user.UserID)
+                .Items(userEmail =>
+                {
+
+                    userEmail.Add().Text(user.UserEmail)
+                        .Content(
+                        @<div>
+                        @foreach (var Functionitem in FunctionCategoty)
+                        {
+                            <div style="font-weight:bold">@Functionitem</div>
+                            var FuncCate = (from p in FunctionListResult where p.CategotyName == Functionitem select p).ToList();
+                            foreach (var FuncCateitem in FuncCate)
+                            {
+                                var JoinTemp1 = (from p in listGetPurResult where p.UserEmail == user.UserEmail select p).ToList();
+                                var JoinTemp2 = (from p in JoinTemp1 where p.FunctionID == FuncCateitem.FunctionID select p).ToList();
+                                if(JoinTemp2 == null || JoinTemp2.Count == 0)
+                                {
+                                }
+                                else{
+                                <div>
+                                    <span style="display:inline-block;width:200px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@FuncCateitem.FunctionName.Split(';')[0]</span>
+                                    <span >
+                                    @if (JoinTemp2.Count == 0 || JoinTemp2 == null)
+                                    {
+                                    }
+                                    else
+                                    {
+                                        if (JoinTemp2[0].Enable == "Y")
+                                    {
+                                        <label>Enable</label><input type="radio" checked="checked" fid="@FuncCateitem.FunctionID" cal="Y" value="Y" name="@FuncCateitem.FunctionName.Split(';')[1]@user.UserID" disabled="disabled"/>
+                                        <label>Disable</label><input type="radio"  fid="@FuncCateitem.FunctionID" value="N" cal="N" name="@FuncCateitem.FunctionName.Split(';')[1]@user.UserID" disabled="disabled"/>
+                                    }
+                                    else
+                                    {
+                                        <label>Enable</label><input type="radio" value="Y" fid="@FuncCateitem.FunctionID" cal="N" name="@FuncCateitem.FunctionName.Split(';')[1]@user.UserID" disabled="disabled"/>
+                                        <label>Disable</label><input type="radio"  value="N" fid="@FuncCateitem.FunctionID" cal="Y" checked="checked" name="@FuncCateitem.FunctionName.Split(';')[1]@user.UserID" disabled="disabled"/>
+                                    }
+                                    }
+                                
+                                
+                                    </span>
+                                </div>
+                            }
+                        }
+                        }
+                            @if (user.Status == "E")
+                            {
+                                @(Html.Kendo().Button()
+                                    .Name("CloseOpen" + user.UserID)
+                                    .HtmlAttributes(new { type = "button", name = "CloseOpen", style = "width:150px; position: absolute; right: 0px; bottom:150px", @class = "k-button", onclick = "CloseOpenOper(\"" + user.UserEmail + ";" + user.Status + "\")" })
+                                    .Content("標記為關閉")
+                                ) 
+                            }
+                            else if (user.Status == "I")
+                            {
+                                @(Html.Kendo().Button()
+                                    .Name("CloseOpen" + user.UserID)
+                                    .HtmlAttributes(new { type = "button", name = "CloseOpen", style = "width:150px; position: absolute; right: 0px; bottom:150px", @class = "k-button", onclick = "CloseOpenOper(\"" + user.UserEmail + ";" + user.Status + "\")" })
+                                    .Content("再次邀請")
+                                )
+                            }
+                            else
+                            {
+                                @(Html.Kendo().Button()
+                                    .Name("CloseOpen" + user.UserID)
+                                    .HtmlAttributes(new { type = "button", name = "CloseOpen", style = "width:150px; position: absolute; right: 0px; bottom:150px", @class = "k-button", onclick = "CloseOpenOper(\"" + user.UserEmail + ";" + user.Status + "\")" })
+                                    .Content("標記為開啟")
+                                )
+                                
+                            }
+                            @(Html.Kendo().Button()
+                                .Name("Edit_" + user.UserID)
+                                .HtmlAttributes(new { type = "button", name = "edit", style = "width:100px; position: absolute; right: 0px; bottom:0px", onclick = "Edit(" + user.UserID + ")" })
+                                .Content("編輯")
+                            )
+                            @(Html.Kendo().Button()
+                                .Name("Save_" + user.UserID)
+                                .HtmlAttributes(new { type = "button", name = "save", style = "width:100px; position: absolute; right: 0px; bottom:0px; display:none", onclick = "Save(" + user.UserID + ")" })
+                                .Content("儲存")
+                            )
+                            @(Html.Kendo().Button()
+                                .Name("Cancel_" + user.UserID)
+                                .HtmlAttributes(new { type = "button", name = "cancel", style = "width:100px; position: absolute; right: 110px; bottom:0px; display: none", onclick = "cancel(" + user.UserID + ")" })
+                                .Content("取消")
+                            )
+                         </div>);
+                })
+            )
+                            <div id="BtnEven">
+                                @if (user.Status == "E")
+                                {
+                                    <div style="position:absolute; top:10px; right:50%"><label>狀態: 開啟</label></div>
+                                }
+                                else if (user.Status == "I")
+                                {         
+                                    <div style="position:absolute; top:10px; right:50%"><label>狀態: 已邀請</label></div>
+                                }
+                                else
+                                {
+                                    <div style="position:absolute; top:10px; right:50%"><label>狀態: 已停用</label></div>
+                                }
+                            </div>
+            </div>
+    }
+}
+</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var window = $("#windowNewAccount");
+        $("#openwindow").bind("click", function () {
+            $("#newEmail").val("");
+            window.data("kendoWindow").center().open();
+        });
+    });
+    var functionList = ["Account Settings", "Item Creation", "Item List", "Batch Item Creation", "Shipment List", "Inventory Alert", "Manufacturer", "Batch Manufaturer Creation", "Order List"];
+
+    var FunctionNameList = '@FunctionNameList';
+    var functionList = [];
+
+    for (var i = 1 ; i < '@FunctionListLength' + 1 ; i++) {
+        functionList.push((FunctionNameList.split(';')[i]));
+    }
+
+    function Edit(e) {
+        for (var i = 0; i < functionList.length; i++) {
+            $("input[name *='" + functionList[i] + "']").prop("disabled", true);
+            $("button[name *= 'save']").css('display', 'none');
+            $("button[name *= 'cancel']").css('display', 'none');
+            $("button[name *= 'edit']").css('display', '');
+
+            if ($("input[name='" + functionList[i] + e + "']").length > 0) {
+                $("input[name='" + functionList[i] + e + "']").prop("disabled", false);
+            }
+            else {
+            }
+            
+            $("input[name*='" + functionList[i] + "'][cal*='Y']").prop("checked", true);
+            
+        }
+        $("#Cancel_" + e).css('display', '');
+        $("#Edit_" + e).css('display', 'none');
+        $("#Save_" + e).css('display', '');
+        
+    }
+    function cancel(e) {
+        for (var i = 0; i < functionList.length; i++) {
+            $("input[name='" + functionList[i] + e + "'][cal='Y']").prop("checked", true);
+
+
+            if ($("input[name='" + functionList[i] + e + "']").length > 0) {
+                $("input[name='" + functionList[i] + e + "']").prop("disabled", true);
+            }
+            else {
+            }
+
+        }
+        $("#Cancel_" + e).css('display', 'none');
+        $("#Save_" + e).css('display', 'none');
+        $("#Edit_" + e).css('display', '');
+    }
+    function Save_Alert_Confirm(answer, e) {
+        if (answer) {
+            var sentData = [];
+            for (var i = 0; i < functionList.length; i++) {
+                if ($("input[name='" + functionList[i] + e + "']").length > 0) {
+                    var checkItem = $("input[name='" + functionList[i] + e + "']:checked");
+                    var checkValue = checkItem.val();
+                    var Fid = checkItem.attr("fid");
+                    sentData.push(checkValue + ";" + Fid);
+                }
+                else { }
+            }
+            $(document).ajaxSend($.blockUI());
+            $(document).ajaxStop($.unblockUI);
+            $.ajax({
+                type: "POST",
+                url: "../AccountSettings/StorePurView",
+                dataType: "json",
+                data: {
+                    sentData: function () {
+                        return sentData;
+                    },
+                    UserId: function () {
+                        return e;
+                    }
+                },
+                success: function (res) {
+                    if (res.indexOf("[Success]: ") >= 0) {
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(res.replace("[Success]:", ""));
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                        location.reload();
+                        //$("#windowNewAccount").remove();
+                        //$("#windowNewAccount_wnd_title").remove();
+                        //$("#AccountSettingDetail").empty();
+                        //showAccountSettingsViewJS("AccountSettings", "index", "UserAccountSettings", "AccountSettingDetail");
+
+                    }
+                    else if (res.indexOf("[Error]: ") >= 0) {
+                        res = res.replace("[Error]: ", "");
+                        $("#ManMade_Alert_Message").html(res);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    }
+                }
+            });
+        }
+        else {
+        }
+    }
+    function Save(e) {
+        @*防止使用者誤按確認*@
+        $("#ManMade_Another_Alert_Message").html("是否確定存檔?");
+        ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+        $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+            //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+            if ($(this).hasClass("confirm")) {
+                console.log("confirm");
+                var confirmReault = true;
+                //需要做的事件 
+                Save_Alert_Confirm(confirmReault,e)
+            }
+                //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+            else {
+                console.log("chancel");
+                var confirmReault = false;
+                //需要做的事件 
+                Save_Alert_Confirm(confirmReault,e)
+            }
+            console.log(confirmReault);
+        });
+
+        
+    }
+    function CloseOpenOper_Click(answer, e) {
+        if (answer) {
+            $(document).ajaxSend($.blockUI());
+            $(document).ajaxStop($.unblockUI);
+            $.ajax({
+                type: "POST",
+                url: "../AccountSettings/StatusChange",
+                dataType: "json",
+                data: {
+                    Status: function () {
+                        return e;
+                    },
+                }, success: function (res) {
+                    if (res.indexOf("[Success]: ") >= 0) {
+                        if (res.indexOf(";I") >= 0) {
+                            res = res.replace("[Success]: ", "").replace(";I", "");
+                            $("#ManMade_Alert_Message").html(res);
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        }
+                        else {
+                            res = res.replace("[Success]: ", "");
+                            $("#ManMade_Alert_Message").html(res);
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                            window.location.reload();
+                        }
+                    }
+                    else if (res.indexOf("[Error]: ") >= 0) {
+                        res = res.replace("[Error]: ", "");
+                        $("#ManMade_Alert_Message").html(res);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    }
+                }
+            })
+        }
+        else {
+        }
+    }
+    function CloseOpenOper(e) {
+        @*防止使用者誤按確認*@
+        ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+        $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+            //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+            if ($(this).hasClass("confirm")) {
+                console.log("confirm");
+                var confirmReault = true;
+                //需要做的事件 
+                CloseOpenOper_Click(confirmReault, e)
+            }
+                //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+            else {
+                console.log("chancel");
+                var confirmReault = false;
+                //需要做的事件 
+                CloseOpenOper_Click(confirmReault, e)
+            }
+        });
+
+        
+    }
+</script>

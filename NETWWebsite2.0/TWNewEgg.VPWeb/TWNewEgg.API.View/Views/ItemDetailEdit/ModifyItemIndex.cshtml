@@ -1,0 +1,899 @@
+﻿@model TWNewEgg.API.View.ItemCreationVM
+<style>
+    .noticeFieldset {border-radius:5px;}
+    #frontInformation {width:100%;}
+    #SellerProductID {margin:0 5px;/*width: 50%;*/}
+    #Model {margin:0 5px;/*width: 50%;*/}
+    #Warranty {margin:0 5px;/*width: 45%;*/}
+    #BarCode {margin-left:5px;}
+    #errMarketPriceMsg {position:absolute;width:100px;margin-left: 5px;height: 20px;}
+    #errPriceCashMsg {position:absolute;width:100px;margin-left: 5px;height: 20px;}
+    #errCostMsg {position:absolute;width:100px;margin-left: 5px;height: 20px;}
+    #errConfirmPriceMsg {position:absolute;width:100px;margin-left: 5px;height: 20px;}
+    #errConfirmCostMsg {position:absolute;width:100px;margin-left: 5px;height: 20px;}
+    .InputErrMsg {position:relative;width:150px;line-height:0; /*margin-right: 50px;display: block;*/ }
+    #ItemCreateTable {width: 100%; background-color: #FFFFFF; line-height: 3; white-space: nowrap;}
+    .ItemCreateTableTitle {width: 90px; min-width: 90px; text-align: right;vertical-align: top;padding-right: 10px;}
+    .PriceTitle {width:2%; text-align:right;padding-right:10px;}
+    .StoreInfoTitle {width: 85px; min-width: 85px; text-align: right;padding-right:10px;  vertical-align: top;}
+    #errSellerProductIDMsg , #errModelMsg , #errWarrantyMsg , #errBarCodeMsg {position:absolute;line-height:2.2;}
+    #errLengthMsg , #errWidthMsg , #errHeightMsg , #errWeightMsg , #errUPCMsg , #errDelvDateMsg {position:absolute;line-height:2.2;}
+    .PackingOptions {display:inline;margin:0 10px;}
+    .ManufacturersInput {display:inline;}
+    .NumberSaleInput {padding-right:10px; position: relative;}
+    .CanSaleQty {margin-left:15px;}
+    #errCanSaleQtyMsg , #errInventorySafeQtyMsg , #errQtyLimitMsg , #errCanSaleLimitQtyMsg {position:absolute;line-height:2.2;}
+    #AseItemQtyReg {position:absolute;line-height:2.2;}
+</style>
+<script type="text/javascript">
+    $(function () {
+        dropDownListDisabled();
+        GrossProfitCalculate();
+        $("#PriceCash").change(function () {
+            GrossProfitCalculate();
+        });
+
+        $("#Cost").change(function () {
+            GrossProfitCalculate();
+        });
+    });
+    
+    function setRadioChoose(id, value) {
+        $("#" + id).val(value);
+    }
+  
+    function startChange() {
+        var endPicker = $("#DateEnd").data("kendoDatePicker");
+        var DateStart = this.value();
+        if (DateStart) {
+            var newDateEnd = new Date(DateStart);
+            newDateEnd.setDate(newDateEnd.getDate() + 1);
+            endPicker.min(newDateEnd);
+        }
+    }
+
+    function endChange() {
+        var startPicker = $("#DateStart").data("kendoDatePicker");
+        var DateEnd = this.value();
+
+        if (DateEnd) {
+            var newDateStart = new Date(DateEnd);
+            newDateStart.setDate(newDateStart.getDate() - 1);
+            startPicker.max(newDateStart);
+        }
+    }
+
+    function Upload_Result(result) {
+        var htmlres = "";
+        htmlres = $(".imgDivdisabled").html();
+        var len = $(".imgDiv").length;
+        htmlres = htmlres.replace("src=\"\"", "src=\"" + result.response.img + "?" + getDateNow() + "\"");
+        htmlres = htmlres.replace(/_spec_/g, len + 1);
+        $("#ItemImgTable").append("<div class=\"imgDiv\" style=\"min-width:150px; width:13.5%;\">" + htmlres + "</div>");
+    }
+
+    function getDateNow() {
+        var dt = new Date();
+        return dt.getTime();
+    }
+    </script> 
+<table id="ItemCreateTable">
+    <tbody>
+        @{
+            // 判斷是否為 PM or 管理者 才顯示
+            string additionHiden = string.Empty;
+            if (!ViewBag.userType)
+            {
+                additionHiden = "display:none;";
+            }
+        }
+
+        <tr style="@additionHiden">
+                <td></td>
+                <td>
+                    @(Html.Kendo().CheckBox()
+                        .Name("Purchase")
+                        .Checked(Model.Item.ShowOrder == (int)TWNewEgg.API.Models.AdditionalPurchase.ShowOrderType.加價購 ? true : false))
+                    <span style="color:red">商品加價購</span>
+                    <input type="hidden" id="OrignShowOrder" value="@Model.Item.ShowOrder" />
+                </td>
+           
+        </tr>
+        <tr>
+
+
+                <td colspan="5">
+                    @(Html.Kendo().CheckBox()
+                        .Name("Discard4")
+                        .Checked(Model.Item.Discard4 == "Y" ? true : false))
+                    <span style="color:red">廢四機商品</span>
+                    <input type="hidden" id="OrignDiscard4" value="@Model.Item.Discard4" />
+                </td>
+        </tr>
+
+        <tr>
+            <td class="ItemCreateTableTitle">商品類別:</td>
+            <td colspan="5">
+                @(Html.Kendo().TextBox()
+                    .Name("ActionType")
+                    .HtmlAttributes(new { style="display:none" })
+                    .Value(Model.ActionType.ToString())
+                )
+                @(Html.Kendo().TextBox()
+                    .Name("ItemSketchID")
+                    .HtmlAttributes(new { style="display:none" })
+                    .Value(Model.ID.ToString())
+                )
+                @(Html.Kendo().TextBox()
+                    .Name("ItemTempID")
+                    .HtmlAttributes(new { style="display:none" })
+                    .Value(Model.Item.ID.ToString())
+                )
+                @(Html.Kendo().TextBox()
+                    .Name("ItemID")
+                    .HtmlAttributes(new { style="display:none" })
+                    .Value(Model.Item.ItemID.ToString())
+                )
+                @(Html.Kendo().TextBox()
+                    .Name("ProductTempID")
+                    .HtmlAttributes(new { style="display:none" })
+                    .Value(Model.Product.ID.ToString())
+                )
+                @(Html.Kendo().TextBox()
+                    .Name("ProductID")
+                    .HtmlAttributes(new { style="display:none" })
+                    .Value(Model.Product.ProductID.ToString())
+                )
+                @(Html.Kendo().TextBox()
+                    .Name("CurrencyAverageExchange")
+                    .HtmlAttributes(new { style="display:none" })
+                    .Value(Model.CurrencyAverageExchange.ToString())
+                )
+                @(Html.Kendo()
+                    .DropDownList()
+                    .Name("IsNew")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .BindTo(new List<SelectListItem>() {
+                        new SelectListItem() {
+                            Text = "新品",
+                            Value = "Y"
+                        },
+                        new SelectListItem() {
+                            Text = "福利品",
+                            Value = "N"
+                        }
+                    })
+                    .HtmlAttributes(new { onchange="DataCheck('IsNew')"})
+                    .Value(Model.Item.IsNew.ToString())
+                )
+            </td>
+        </tr>
+       @Html.Action("ModifyCategory", new { modifyCategory = Model.ItemCategory, actionType = Model.ActionType })
+        <tr>
+            <td class="ItemCreateTableTitle"><span style="color:red">* </span>製造商:</td>
+            <td colspan="5">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <div>
+                                    @(Html.Kendo().DropDownList()
+                                    .Name("ManufactureID")
+                                    .DataTextField("ManufactureName")
+                                    .DataValueField("SN")
+                                    .OptionLabel("請選擇")
+                                    .Filter(FilterType.Contains)
+                                    .HtmlAttributes(new { 
+                                        onchange = "DataCheck('ManufactureID')",
+                                        style = "width:220px;" 
+                                    })
+                                    .DataSource(source => {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("ManufactureNameSearch", "ItemList")
+                                            .Data("onAdditionlData");
+                                        })
+                                        .ServerFiltering(true);
+                                    })
+                                    .Value((Model.Product.ManufactureID ?? 0).ToString() == "0" ? "": Model.Product.ManufactureID.ToString())
+                                )
+                                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="ManufactureID" role="alert" id="errManufactureIDMsg" style="display:none;"></span>
+                                &nbsp;&nbsp;
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ManufacturersInput">
+                                    商家商品編號: 
+                                    @(Html.Kendo().TextBox()
+                                        .Name("SellerProductID")
+                                        .HtmlAttributes(new { 
+                                            maxlength = "150",
+                                            onblur="DataCheck('SellerProductID')"
+                                        })
+                                        .Value(Model.Product.SellerProductID)
+                                    )
+                                    <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="SellerProductID" role="alert" id="errSellerProductIDMsg" style="display:none;"></span>
+                                </div>
+                                <div class="ManufacturersInput">
+                                    商品型號:
+                                    @(Html.Kendo().TextBox()
+                                        .Name("Model")
+                                        .HtmlAttributes(new {
+                                            maxlength = "30",
+                                            onblur="DataCheck('Model')"
+                                        })
+                                        .Value(Model.Product.Model)
+                                    )
+                                    <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Model" role="alert" id="errModelMsg" style="display:none;"></span>
+                                </div>
+                                </br>
+                                <div class="ManufacturersInput">
+                                    商品保固期(月):
+                                    @(Html.Kendo().TextBox()
+                                        .Name("Warranty")
+                                        .HtmlAttributes(new {
+                                            maxlength = "10",
+                                            onblur="DataCheck('Warranty')"
+                                        })
+                                        .Value(Model.Product.Warranty.ToString())
+                                    )
+                                    <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Warranty" role="alert" id="errWarrantyMsg" style="display:none;"></span>
+                                </div>
+                                <div class="ManufacturersInput">
+                                    條碼: 
+                                    @(Html.Kendo().TextBox()
+                                        .Name("BarCode")
+                                        .HtmlAttributes(new { 
+                                            maxlength = "50",
+                                            onblur="DataCheck('BarCode')"
+                                        })
+                                        .Value(Model.Product.BarCode)
+                                    )
+                                    <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="BarCode" role="alert" id="errBarCodeMsg" style="display:none;"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="ItemCreateTableTitle">
+                <span style="color:red">* </span>材積(公分):
+            </td>
+            <td colspan="5" style="position:relative;">
+                長&nbsp;
+                @(Html.Kendo().NumericTextBox()
+                    .Name("Length")
+                    .HtmlAttributes(new {
+                        onblur="DataCheck('Length')",
+                        style = "width:8%" 
+                    })
+                    .Min(0)
+                    .Max(99999999.99)
+                    .Value(Convert.ToDouble(Model.Product.Length ?? 1m))
+                )
+                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Length" role="alert" id="errLengthMsg" style="display:none;"></span>
+                &nbsp;&nbsp;
+                寬&nbsp;
+                @(Html.Kendo().NumericTextBox()
+                    .Name("Width")
+                    .HtmlAttributes(new {
+                        onblur="DataCheck('Width')",
+                        style = "width:8%" 
+                    })
+                    .Min(0)
+                    .Max(99999999.99)
+                    .Value(Convert.ToDouble(Model.Product.Width ?? 1m))
+                )
+                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Width" role="alert" id="errWidthMsg" style="display:none;"></span>
+                &nbsp;&nbsp;
+                高&nbsp;
+                @(Html.Kendo().NumericTextBox()
+                    .Name("Height")
+                    .HtmlAttributes(new {
+                        onblur="DataCheck('Height')",
+                        style = "width:8%" 
+                    })
+                    .Min(0)
+                    .Max(99999999.99)
+                    .Value(Convert.ToDouble(Model.Product.Height ?? 1m))
+                )
+                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Height" role="alert" id="errHeightMsg" style="display:none;"></span>
+                &nbsp;&nbsp;
+                重量&nbsp;
+                @(Html.Kendo().NumericTextBox()
+                    .Name("Weight")
+                    .HtmlAttributes(new {
+                        onblur="DataCheck('Weight')",
+                        style = "width:11%" 
+                    })
+                    .Min(0)
+                    .Max(99999999.9999)
+                    .Decimals(4)
+                    .Format("#.0000 kg")
+                    .Value(Convert.ToDouble(Model.Product.Weight ?? 1m))
+                )
+                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Weight" role="alert" id="errWeightMsg" style="display:none;"></span>
+                &nbsp;&nbsp;
+                UPC:&nbsp;
+                @(Html.Kendo().TextBox()
+                    .Name("UPC")
+                    .HtmlAttributes(new {
+                        maxlength = "15",
+                        onblur="DataCheck('UPC')",
+                        style = "width:8%"
+                    })
+                    .Value(Model.Product.UPC)
+                )
+                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="UPC" role="alert" id="errUPCMsg" style="display:none;"></span>
+                &nbsp;&nbsp;
+                到貨天數:&nbsp;
+                @(Html.Kendo().TextBox()
+                    .Name("DelvDate")
+                    .HtmlAttributes(new {
+                        maxlength = "50",
+                        onblur="DataCheck('DelvDate')",
+                        style = "width:8%" 
+                    })
+                    .Value(Model.Item.DelvDate)
+                )
+                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="DelvDate" role="alert" id="errDelvDateMsg" style="display:none;"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <div style="display:inline;text-align: right;margin-left: 25px;"><span style="color:red">* </span>商品包裝:</div>
+                <div class="PackingOptions">
+                    @(Html.Kendo().RadioButton().Name("Retail").Label("零售").HtmlAttributes(new { @name="ItemPackage_Radio", onClick="setRadioChoose('ItemPackage','0')" }).Checked(Model.BoolItemPackage))
+                    @(Html.Kendo().RadioButton().Name("OEM").Label("OEM").HtmlAttributes(new { @name="ItemPackage_Radio", onClick="setRadioChoose('ItemPackage','1')" }).Checked(!Model.BoolItemPackage))
+                    @(Html.Kendo().TextBox().Name("ItemPackage").HtmlAttributes(new{ style = "display:none;"}).Value(Model.Item.ItemPackage))
+                </div>
+                <div class="PackingOptions">
+                    窒息危險性:
+                    @(Html.Kendo().RadioButton().Name("ChokingDanger").Label("是").HtmlAttributes(new { @name="IsChokingDanger_Radio", onClick="setRadioChoose('IsChokingDanger','Y')" }).Checked(Model.BoolIsChokingDanger))
+                    @(Html.Kendo().RadioButton().Name("n_ChokingDanger").Label("否").HtmlAttributes(new { @name="IsChokingDanger_Radio", onClick="setRadioChoose('IsChokingDanger','N')" }).Checked(!Model.BoolIsChokingDanger))
+                    @(Html.Kendo().TextBox().Name("IsChokingDanger").HtmlAttributes(new{ style = "display:none;"}).Value(Model.Product.IsChokingDanger))
+                </div>
+                <div class="PackingOptions">
+                    18歲以上驗證:
+                    @(Html.Kendo().RadioButton().Name("UnderAge").Label("是").HtmlAttributes(new { @name="Is18_Radio", onClick="setRadioChoose('Is18','Y')" }).Checked(Model.BoolIs18))
+                    @(Html.Kendo().RadioButton().Name("n_UnderAge").Label("否").HtmlAttributes(new { @name="Is18_Radio", onClick="setRadioChoose('Is18','N')" }).Checked(!Model.BoolIs18))
+                    @(Html.Kendo().TextBox().Name("Is18").HtmlAttributes(new{ style = "display:none;"}).Value(Model.Product.Is18))
+                </div>
+                <div class="PackingOptions">
+                    <span style="color:red">* </span>遞送危險物料:
+                    @(Html.Kendo().RadioButton().Name("Danger").Label("是").HtmlAttributes(new { @name="IsShipDanger_Radio", onClick="setRadioChoose('IsShipDanger','Y')" }).Checked(Model.BoolIsShipDanger))
+                    @(Html.Kendo().RadioButton().Name("n_Danger").Label("否").HtmlAttributes(new { @name="IsShipDanger_Radio", onClick="setRadioChoose('IsShipDanger','N')" }).Checked(!Model.BoolIsShipDanger))
+                    @(Html.Kendo().TextBox().Name("IsShipDanger").HtmlAttributes(new{ style = "display:none;"}).Value(Model.Product.IsShipDanger))
+                </div>
+                <div class="PackingOptions">
+                    <span style="color:red">* </span>出貨方:
+                    @(Html.Kendo().RadioButton().Name("ShipWay_Vendor").HtmlAttributes(new { @name="ShipType_Radio", onClick="setRadioChoose('ShipType','S')" }).Label("供應商").Checked(Model.BoolShipType))
+                    @(Html.Kendo().RadioButton().Name("ShipWay_Newegg").HtmlAttributes(new { @name="ShipType_Radio", onClick="setRadioChoose('ShipType','N')" }).Label("新蛋").Checked(!Model.BoolShipType))
+                    @(Html.Kendo().TextBox().Name("ShipType").HtmlAttributes(new{ style = "display:none;"}).Value(Model.Item.ShipType))
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <fieldset class="noticeFieldset" style="border-color:#9143a8;">
+                    <legend class="noticeLegend">&nbsp;&nbsp;金額&nbsp;&nbsp;</legend>
+                    <div style="margin-bottom:5px;">
+                        <table style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td class="PriceTitle">建議價:</td>
+                                    <td class="InputErrMsg">
+                                        @(Html.Kendo().NumericTextBox()
+                                            .Name("MarketPrice")
+                                            .HtmlAttributes(new {
+                                                maxlength = "8",
+                                                onblur="DataCheck('MarketPrice')",
+                                                style = "width:110px;"
+                                            })
+                                            .Min(0)
+                                            .Format("#")
+                                            .Decimals(0)
+                                            .Max(99999999999)
+                                            .Value(Convert.ToDouble(Model.Item.MarketPrice ?? 0m))
+                                        )
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="MarketPrice" role="alert" id="errMarketPriceMsg" style="display:none;"></span>
+                                    </td>
+                                    <td class="PriceTitle"><span style="color:red">* </span>售價:</td>
+                                    <td class="InputErrMsg">
+                                        @(Html.Kendo().TextBox()
+                                            .Name("PriceCashHide")
+                                            .HtmlAttributes(new { 
+                                                @type="password",
+                                                onfocus = "TextChange('PriceCash', 'true')",
+                                                onpaste="return false;",
+                                                oncopy="return false;",
+                                                style = "display:none" 
+                                            })
+                                            .Value(Convert.ToInt32(Math.Floor(0.5m + Model.Item.PriceCash ?? 0m)).ToString())
+                                        )
+                                        @(Html.Kendo().IntegerTextBox()
+                                            .Name("PriceCash")
+                                            .HtmlAttributes(new { 
+                                                onchange="TextCopy('PriceCash')",
+                                                onpaste="return false;",
+                                                oncopy="return false;",
+                                                onblur="DataCheck('PriceCash')",
+                                                style = "width:110px;" 
+                                            })
+                                            .Min(0)
+                                            .Max(99999999)
+                                            .Value(Convert.ToInt32(Math.Floor(0.5m + Model.Item.PriceCash ?? 0m)))
+                                        )
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="PriceCash" role="alert" id="errPriceCashMsg" style="display:none;"></span>
+                                    </td>
+                                    <td class="PriceTitle"><span style="color:red">* </span>成本:</td>
+                                    <td class="InputErrMsg">
+                                        @(Html.Kendo().TextBox()
+                                            .Name("CostHide")
+                                            .HtmlAttributes(new { 
+                                                @type="password",
+                                                onfocus = "TextChange('Cost', 'true')",
+                                                onpaste="return false;",
+                                                oncopy="return false;",
+                                                style = "display:none" 
+                                            })
+                                            .Value(Convert.ToDouble(Model.Product.Cost ?? 0m).ToString())
+                                        )
+                                        @(Html.Kendo().IntegerTextBox()
+                                            .Name("Cost")
+                                            .HtmlAttributes(new { 
+                                                //maxlength = "10",
+                                                //onfocus = "TextChange('Cost',true)", 
+                                                //onkeyup="TextCopy('Cost')",
+                                                onchange="TextCopy('Cost')",
+                                                onpaste="return false;", 
+                                                oncopy="return false;", 
+                                                onblur="DataCheck('Cost')",
+                                                style = "width:110px;" 
+                                            })
+                                            .Min(0)
+                                            .Max(99999999)
+                                            .Value(Convert.ToInt32(Math.Floor(Model.Product.Cost ?? 0m)))
+                                        )
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Cost" role="alert" id="errCostMsg" style="display:none;"></span>
+                                    </td>
+                                    <td class="PriceTitle">毛利率 %:</td>
+                                    <td>
+                                        @{
+                                            decimal denominator = Model.Item.PriceCash ?? 1m;
+                                            if (Model.Item.PriceCash == 0m)
+                                            {
+                                                denominator = 1m;
+                                            }
+                                            @(Html.Kendo().TextBox()
+                                                .Name("GrossProfit")
+                                                .HtmlAttributes(new { 
+                                                    @readonly = "readonly",
+                                                    style = "width:100px;" 
+                                                })
+                                                .Value((Math.Round((((decimal)(Model.Item.PriceCash ?? 0) - (decimal)(Model.Product.Cost ?? 0)) / denominator)*100m, 2 )).ToString() + " %")
+                                            )
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="PriceTitle"><span style="color:red">* </span>確認售價:</td>
+                                    <td class="InputErrMsg">
+                                        @(Html.Kendo().IntegerTextBox()
+                                            .Name("ConfirmPrice")
+                                            .HtmlAttributes(new {
+                                                onfocus = "TextChange('PriceCash',false)",
+                                                onpaste="return false;",
+                                                oncopy="return false;",
+                                                onblur="DataCheck('ConfirmPrice')",
+                                                style = "width:110px;"
+                                            })
+                                            .Min(0)
+                                            .Max(99999999)
+                                            .Value(Convert.ToInt32(Math.Floor(0.5m + Model.Item.PriceCash ?? 0m)))
+                                        )
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="ConfirmPrice" role="alert" id="errConfirmPriceMsg" style="display:none;"></span>
+                                    </td>
+                                    <td class="PriceTitle"><span style="color:red">* </span>確認成本:</td>
+                                    <td class="InputErrMsg">
+                                        @(Html.Kendo().IntegerTextBox()
+                                            .Name("ConfirmCost")
+                                            .HtmlAttributes(new { 
+                                                onfocus = "TextChange('Cost',false)",
+                                                onpaste="return false;",
+                                                oncopy="return false;",
+                                                onblur="DataCheck('ConfirmCost')",
+                                                style = "width:110px;"
+                                            })
+                                            .Min(0)
+                                            .Max(99999999)
+                                            .Value(Convert.ToInt32(Math.Floor(Model.Product.Cost ?? 0m)))
+                                        )
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="ConfirmCost" role="alert" id="errConfirmCostMsg" style="display:none;"></span>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <fieldset class="noticeFieldset" style="border-color:#ffa516;">
+                    <legend class="noticeLegend">&nbsp;&nbsp;數量&nbsp;&nbsp;</legend>
+                    <div style="margin-bottom:5px;">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="NumberSaleInput" style="width:250px;">
+                                        <span style="color:red">* </span>可售數量:&nbsp;&nbsp;
+                                        @(Html.Kendo().IntegerTextBox()
+                                            .Name("CanSaleQty")
+                                            .HtmlAttributes(new {
+                                                maxlength = "8",
+                                                onblur="QtyCheck('CanSaleQty')",
+                                            })
+                                            .Min(0)
+                                            .Value(Model.ItemStock.CanSaleQty ?? 0)
+                                        )
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="CanSaleQty" role="alert" id="errCanSaleQtyMsg" style="display:none;"></span>
+                                        @(Html.Kendo().TextBox()
+                                            .Name("AseInventoryQtyReg").HtmlAttributes(new { style="display:none" })
+                                            .Value(Model.AesInventoryQtyReg)
+                                        )
+                                    </td>
+                                    <td class="NumberSaleInput" style="width:250px;">
+                                        <span style="color:red">* </span>安全庫存:&nbsp;&nbsp;
+                                        @(Html.Kendo().IntegerTextBox()
+                                            .Name("InventorySafeQty")
+                                            .HtmlAttributes(new {
+                                                maxlength = "8",
+                                                onblur="QtyCheck('InventorySafeQty')",
+                                            })
+                                            .Min(0)
+                                            .Value(Model.ItemStock.InventorySafeQty ?? 0)
+                                        )
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="InventorySafeQty" role="alert" id="errInventorySafeQtyMsg" style="display:none;"></span>
+                                    </td>
+                                    <td class="NumberSaleInput" style="width:250px;">
+                                        限購數量:&nbsp;&nbsp;
+                                        @(Html.Kendo().IntegerTextBox()
+                                            .Name("QtyLimit")
+                                            .HtmlAttributes(new {
+                                                maxlength = "8",
+                                                onblur="DataCheck('QtyLimit')",
+                                            })
+                                            .Min(0)
+                                            .Value((Model.Item.QtyLimit ?? 0))
+                                        )
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="QtyLimit" role="alert" id="errQtyLimitMsg" style="display:none;"></span>
+                                    </td>
+                                    <td class="NumberSaleInput" style="width:250px;display:none;">
+                                        @*限量可售量:&nbsp;&nbsp;*@
+                                        @(Html.Kendo().IntegerTextBox()
+                                            .Name("CanSaleLimitQty")
+                                            .HtmlAttributes(new { 
+                                                maxlength = "8",
+                                                onblur="DataCheck('CanSaleLimitQty')",
+                                                style = "display:none;"
+                                            })
+                                            .Min(0)
+                                            .Value(Model.Item.CanSaleLimitQty)
+                                        )
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="CanSaleLimitQty" role="alert" id="errCanSaleLimitQtyMsg" style="display:none;"></span>
+                                        @(Html.Kendo().TextBox()
+                                            .Name("AseItemQtyReg").HtmlAttributes(new { style="display:none" })
+                                            .Value(Model.AesItemQtyReg)
+                                        )
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <fieldset class="noticeFieldset" style="border-color:#eee;">
+                    <legend class="noticeLegend">&nbsp;&nbsp;前台賣場資訊&nbsp;&nbsp;</legend>
+                    <div>
+                        <table id="frontInformation">
+                            <tbody>
+                                <tr>
+                                    <td class="StoreInfoTitle">
+                                        開始銷售日期:
+                                    </td>
+                                    <td>
+                                        @(Html.Kendo().DatePicker()
+                                            .Name("DateStart")
+                                            .HtmlAttributes(new { 
+                                                onblur="DataCheck('DateStart')",
+                                            })
+                                            .Events(e => e.Change("startChange"))
+                                            .Value(Model.Item.DateStart.ToString())
+                                        )
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="DateStart" role="alert" id="errDateStartMsg" style="display:none;"></span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        @*結束銷售日期:*@
+                                        &nbsp;
+                                        @(Html.Kendo().DatePicker()
+                                            .Name("DateEnd")
+                                            .HtmlAttributes(new { disabled = "disabled" })
+                                            .Events(e => e.Change("endChange"))
+                                            .Value(Model.Item.DateEnd.ToString()
+                                            ).HtmlAttributes(new { style="display:none;" })
+                                        )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="StoreInfoTitle">
+                                        <span style="color:red">* </span>商品名稱:
+                                    </td>
+                                    <td>
+                                        @(Html.Kendo().TextBox()
+                                            .Name("Name")
+                                            .HtmlAttributes(new { 
+                                                maxlength = "200",
+                                                onblur="DataCheck('Name')",
+                                                onkeyup ="wordCount('Name','200')",
+                                                style = "width:550px;"
+                                            })
+                                            .Value(Model.Product.Name)
+                                        )
+                                        <span id="CountName" style="color:red;"></span>
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Name" role="alert" id="errNameMsg" style="display:none;"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="StoreInfoTitle">
+                                        <span style="color:red">* </span>商品簡要描述:
+                                    </td>
+                                    <td>
+                                        @(Html.Kendo().TextBox()
+                                            .Name("Spechead")
+                                            .HtmlAttributes(new { 
+                                                maxlength = "30",
+                                                onblur="DataCheck('Spechead')",
+                                                onkeyup ="wordCount('Spechead','30')",
+                                                style = "width:550px;"
+                                            })
+                                            .Value(Model.Item.Spechead)
+                                        )
+                                        <span id="CountSpechead" style="color:red;"></span>
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Spechead" role="alert" id="errSpecheadMsg" style="display:none;"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="StoreInfoTitle">
+                                        <span style="color:red">* </span>商品特色標題:
+                                    </td>
+                                    <td>
+                                        @(Html.Kendo().TextBox()
+                                            .Name("Sdesc1")
+                                            .HtmlAttributes(new { 
+                                                maxlength = "157",
+                                                onblur="DataCheck('Sdesc')",
+                                                onkeyup ="wordCount('Sdesc1','157')",
+                                                style = "width:500px;"
+                                            })
+                                            .Value(Model.Sdesc1)
+                                        )
+                                        <span id="CountSdesc1" style="color:red;"></span>
+                                        <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Sdesc" role="alert" id="errSdescMsg" style="display:none;"></span>
+                                        <br />
+                                        @(Html.Kendo().TextBox()
+                                            .Name("Sdesc2")
+                                            .HtmlAttributes(new { 
+                                                maxlength = "157",
+                                                onblur="DataCheck('Sdesc')",
+                                                onkeyup ="wordCount('Sdesc2','157')",
+                                                style = "width:500px;"
+                                            })
+                                            .Value(Model.Sdesc2)
+                                        )
+                                        <span id="CountSdesc2" style="color:red;"></span>
+                                        <br />
+                                        @(Html.Kendo().TextBox()
+                                            .Name("Sdesc3")
+                                            .HtmlAttributes(new { 
+                                                maxlength = "157",
+                                                onblur="DataCheck('Sdesc')",
+                                                onkeyup ="wordCount('Sdesc3','157')",
+                                                style = "width:500px;"
+                                            })
+                                            .Value(Model.Sdesc3)
+                                        )
+                                        <span id="CountSdesc3" style="color:red;"></span>
+                                        @(Html.Kendo().TextBox()
+                                            .Name("Sdesc")
+                                            .HtmlAttributes(new { style = "display:none;" })
+                                            .Value(Model.Item.Sdesc)
+                                        )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="StoreInfoTitle">
+                                        <span style="color:red">* </span>商品中文說明:<br /><span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="Description" role="alert" id="errDescriptionMsg" style="display:none;"></span>
+                                    </td>
+                                    <td style="line-height: 0;">
+                                        <div class="editor" style="margin: 10px 0;">
+                                            <textarea name="htmlEditor" id="Description" class="ckeditor" onblur="DataCheck('Description')">@Html.Raw(Model.Product.Description)</textarea>
+                                        </div>
+                                        <br />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="StoreInfoTitle">
+                                        @*注意事項:*@
+                                    </td>
+                                    <td>
+                                        <textarea id="Note" cols="50" rows="3" maxlength = "500" style="display:none;"></textarea>
+                                        <span style="color:red;">(賣場圖片尺寸最大為640px*640px，若超過將會等比例縮圖。圖片檔案最大建議為2MB)</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="StoreInfoTitle">
+                                        上傳圖片:
+                                    </td>
+                                    <td id="uploadFiles" style="line-height: 0;">
+                                        @(Html.Kendo().Upload()
+                                            .Name("files")
+                                            .Async(a => a
+                                                .Save("ImageUpload", "ItemDetailEdit")
+                                                .AutoUpload(false)
+                                            )
+                                            .Events(e =>
+                                            {
+                                                e.Success("Upload_Result");
+                                                e.Select("onSelect");
+                                                e.Upload("onUpload");
+                                            })
+                                            .Multiple(true)
+                                        )
+                                        <br />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        @Html.Action("ModifySortUploadImg", new { imgSrcList = Model.Product.PicPatch_Edit })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<input type="hidden" id="imgNumber" value ="0" />
+<script type="text/javascript">
+    $(function () {
+        dropDownListDisabled();
+        GrossProfitCalculate();
+        $("#PriceCash").change(function () {
+            GrossProfitCalculate();
+        });
+
+        $("#Cost").change(function () {
+            GrossProfitCalculate();
+        });
+    });
+    
+    function setRadioChoose(id, value) {
+        $("#" + id).val(value);
+    }
+  
+    function startChange() {
+        var endPicker = $("#DateEnd").data("kendoDatePicker");
+        var DateStart = this.value();
+        if (DateStart) {
+            var newDateEnd = new Date(DateStart);
+            newDateEnd.setDate(newDateEnd.getDate() + 1);
+            endPicker.min(newDateEnd);
+        }
+    }
+
+    function endChange() {
+        var startPicker = $("#DateStart").data("kendoDatePicker");
+        var DateEnd = this.value();
+
+        if (DateEnd) {
+            var newDateStart = new Date(DateEnd);
+            newDateStart.setDate(newDateStart.getDate() - 1);
+            startPicker.max(newDateStart);
+        }
+    }
+
+    function onUpload(e) {
+        $("#Save").attr("disabled", true);
+        $("#Pending").attr("disabled", true);
+    }
+
+    function Upload_Result(result) {
+        var htmlres = "";
+        htmlres = $(".imgDivdisabled").html();
+        var len = $(".imgDiv").length;
+        htmlres = htmlres.replace("src=\"\"", "src=\"" + result.response.img + "?" + getDateNow() + "\"");
+        htmlres = htmlres.replace(/_spec_/g, len + 1);
+        $("#ItemImgTable").append("<div class=\"imgDiv\" style=\"min-width:150px; width:13.5%;\">" + htmlres + "</div>");
+
+        var imgCount = 0;
+        $("#ItemImgTable img").each(function (e) {
+            getSrc = $(this).attr("src");
+            if (getSrc.length > 0) {
+                imgCount++;
+            }
+
+            if ($("#imgNumber").val() == imgCount) {
+                $("#Save").attr("disabled", false);
+                $("#Pending").attr("disabled", false);
+            }
+        });
+    }
+
+    function getDateNow() {
+        var dt = new Date();
+        return dt.getTime();
+    }
+
+    function onSelect(e) {
+        if (e.files.length > 7) {
+            //alert('上傳圖片數量上限為7張!');
+            //開啟window 
+            $("#ManMade_Alert_Message").html("上傳圖片數量上限為7張!");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+            e.preventDefault();
+            return false;
+        }
+        else {
+            var imgCount = 0;
+            $("#ItemImgTable img").each(function (e) {
+                getSrc = $(this).attr("src");
+                if (getSrc.length > 0) {
+                    imgCount++;
+                }
+            });
+            if (imgCount + e.files.length > 7) {
+                //alert('上傳圖片數量上限為7張!');
+                //開啟window 
+                $("#ManMade_Alert_Message").html("上傳圖片數量上限為7張!");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                e.preventDefault();
+                return false;
+            }
+
+            $("#imgNumber").val(imgCount + e.files.length);
+        }
+
+        $("strong[class='k-upload-status k-upload-status-total']").remove();
+        $("ul[class='k-upload-files k-reset']").remove();
+        var ext = e.files[0].extension.toLowerCase();
+        if ($.inArray(ext, ['.png', '.jpg']) == -1) {
+            //alert('請選擇 .png .jpg 圖檔');
+            //開啟window 
+            $("#ManMade_Alert_Message").html("請選擇 .png .jpg 圖檔!");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            e.preventDefault();
+            return false;
+        }
+        return true;
+    }
+
+    function onAdditionlData(e) {
+        return {
+            text: $("#ManufactureID").data("kendoDropDownList").filterInput.val()
+        };
+    }
+</script>

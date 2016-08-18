@@ -1,0 +1,58 @@
+﻿<table>
+    <tr>
+        <td class="title">
+            物流公司：
+        </td>
+        <td class="value">
+            <select id="shipBy">
+                <option value="-1">---請選擇---</option>
+                @foreach (string subShipCarrier in ViewBag.shipCarrier)
+                {
+                    <option value="@subShipCarrier.Split('.')[0]">@subShipCarrier</option>
+                }
+            </select>          
+        </td>
+
+        <td class="title">
+            物流單號：
+        </td>
+        <td>
+            <input type="text" id="text_TrackingNumber" style="width:250px"/>
+    </tr>
+    <tr>
+        <td class="title">
+            出貨日期：
+        </td>
+        <td class="value">
+            @{
+                string strDateTimer = DateTime.Now.ToString();
+            }
+            @strDateTimer
+            <input type="hidden" id="text_ShipDateString" value="@strDateTimer" />
+        </td>
+
+        <td class="title">
+            出貨地址：
+        </td>
+        <td>
+            <input type="text" id="text_BusinessAddress"style="width:250px" value="@ViewBag.shippingAddress"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="padding-top:10px; text-align:right">
+            <table align="right">
+                <tr>
+                    <td>
+                        <div id="shipPackageLoadingIMG" style="display:none">
+                            <img src="~/Content/Img/loading.gif" height='30'/>資料處理中，請稍後。
+                        </div>
+                    </td>
+                    <td>
+                        <input type="button" id="shipPackage" value="確認" style="padding:5px;" onclick="ShipPackage()"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+                    
+</table>

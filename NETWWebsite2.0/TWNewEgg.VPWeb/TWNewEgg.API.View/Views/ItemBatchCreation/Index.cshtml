@@ -1,0 +1,197 @@
+﻿@model IEnumerable<TWNewEgg.DB.TWSQLDB.Models.Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<TWNewEgg.DB.TWSQLDB.Models.Category> categoryList = new List<TWNewEgg.DB.TWSQLDB.Models.Category>();
+    if (ViewBag.categoryList != null)
+    {
+        categoryList = ViewBag.categoryList;
+    }
+
+}
+
+<script src="~/Scripts/angular.min.js"></script>
+<script type="text/javascript">
+    angular.module('myApp', [])
+     .controller('TodoCrtl', function ($scope) {
+         $scope.categoryList = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))
+         $scope.myFilter = function (item) {
+             return item.Layer === 0;
+         };
+     });
+
+    $(document).ready(function () {
+        
+        $("#mainCategoryID").kendoDropDownList();
+    });
+</script>
+<div ng-app="myApp">
+    <div ng-controller="TodoCrtl">
+        <input type="text" ng-model="data.message" />
+        <div>{{data.message}} world</div>
+        <select id="mainCategoryID">
+            <option ng-repeat="index in categoryList|filter:myFilter" class="k-item" value="{{ index.ID }}"> {{ index.ID }} - {{index.Description}}</option>
+        </select>
+        </div>
+
+    </div>
+    
+</div>
+
+@*<tr>        
+	<td>商品主分類:</td>
+	<td style="width:170px;">
+		@(Html.Kendo()
+			.DropDownList()
+			.Name("MainCategoryID_Layer0")
+			.OptionLabel("請選擇")
+			.DataTextField("Description")
+			.DataValueField("CategoryID")
+			.DataSource(source => {
+				source.Read(read =>
+				{
+					read.Action("QueryCategory", "ItemCreation")
+						.Data("MasterLayer");
+				});
+				
+			})
+            .Value("")
+		)      
+	</td>
+	<td style="width:170px;">
+		@(Html.Kendo()
+			.DropDownList()
+			.Name("MainCategoryID_Layer1")
+			.OptionLabel("請選擇")
+			.DataTextField("Description")
+			.DataValueField("CategoryID")
+			.DataSource(source => {
+				source.Read(read =>
+				{
+					read.Action("QueryCategory", "ItemCreation")
+						.Data("filterSecondLayer");
+				})
+				.ServerFiltering(true);				 
+			})           
+			//.Enable(false)
+			.AutoBind(false)   
+			.CascadeFrom("MainCategoryID_Layer0")
+			
+		)      
+	</td>
+	<td style="width:170px;">
+		@(Html.Kendo()
+			.DropDownList()
+			.Name("MainCategoryID_Layer2")
+			.OptionLabel("請選擇")
+			.DataTextField("Description")
+			.DataValueField("CategoryID")
+			.DataSource(source => {
+				source.Read(read =>
+				{
+					read.Action("QueryCategory", "ItemCreation")
+						.Data("thridLayer");
+				})
+				.ServerFiltering(true);
+				
+			})
+			.Events(e=>e.Change("QueryProperty"))
+			.AutoBind(false)   
+			.CascadeFrom("MainCategoryID_Layer1")
+		)      
+	</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>商品跨分類:</td>
+	<td>&nbsp;</td>
+	<td>
+		@(Html.Kendo()
+			.DropDownList()
+			.Name("SubCategoryID_1_Layer1")
+			.OptionLabel("請選擇")
+			.DataTextField("Description")
+			.DataValueField("CategoryID")
+			.DataSource(source => {
+				source.Read(read =>
+				{
+					read.Action("QueryCategory", "ItemCreation")
+						.Data("filterSecondLayer");
+				})
+				.ServerFiltering(true);
+			})
+			.AutoBind(false)   
+			.CascadeFrom("MainCategoryID_Layer0")
+		)      
+	</td>
+	<td>
+		@(Html.Kendo()
+			.DropDownList()
+			.Name("SubCategoryID_1_Layer2")
+			.OptionLabel("請選擇")
+			.DataTextField("Description")
+			.DataValueField("CategoryID")
+			.DataSource(source => {
+				source.Read(read =>
+				{
+					read.Action("QueryCategory", "ItemCreation")
+						.Data("SubCategoryID_1_Layer2ThridSelect");
+				})
+				
+				.ServerFiltering(true);
+			})
+			.AutoBind(false)   
+			.CascadeFrom("SubCategoryID_1_Layer1")
+		)              
+	</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>
+		@(Html.Kendo()
+			.DropDownList()
+			.Name("SubCategoryID_2_Layer1")
+			.OptionLabel("請選擇")
+			.DataTextField("Description")
+			.DataValueField("CategoryID")
+			.DataSource(source => {
+				source.Read(read =>
+				{
+					read.Action("QueryCategory", "ItemCreation")
+						.Data("filterSecondLayer");
+				})
+				
+				.ServerFiltering(true);
+			})
+			.AutoBind(false)   
+			.CascadeFrom("MainCategoryID_Layer0")
+		)      
+	</td>
+	<td>
+		@(Html.Kendo()
+			.DropDownList()
+			.Name("SubCategoryID_2_Layer2")
+			.OptionLabel("請選擇")
+			.DataTextField("Description")
+			.DataValueField("CategoryID")
+			.DataSource(source => {
+				source.Read(read =>
+				{
+					read.Action("QueryCategory", "ItemCreation")
+						.Data("SubCategoryID_2_Layer2ThridSelect");
+				})
+				
+				.ServerFiltering(true);
+			})
+			.AutoBind(false)   
+			.CascadeFrom("SubCategoryID_2_Layer1")
+		)      
+	</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>*@

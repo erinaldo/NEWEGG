@@ -1,0 +1,115 @@
+﻿@{
+    @Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+    @Styles.Render("~/Themes/2013/stylesheets/GridStyle.css")
+}
+<script src="~/Scripts/kendo.web.min.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        showView("ItemRequestListProperty");
+
+        var dateRegExp = /^\/Date\((.*?)\)\/$/;
+        window.toDate = function (value) {
+
+            var _strValue = String(value);
+            var dateResult;
+            if (_strValue.indexOf("/Date(") >= 0) {
+
+                var date = dateRegExp.exec(value);
+                // 創新資料時會造成錯誤發生，需要特別處理
+                if (date == null) {
+                    return new Date();
+                }
+                else {
+                    var tempDate = new Date(parseInt(date[1]));
+                    tempDate.setHours(tempDate.getHours() - 8);
+                    dateResult = tempDate.getFullYear() + " - " + (tempDate.getMonth() + 1) + " - " + tempDate.getDate();
+                    return dateResult
+                }
+            }
+            else {
+                dateResult = value.getFullYear() + " - " + (value.getMonth() + 1) + " - " + value.getDate();
+                return value;
+            }
+        }
+        window.ComputeQM = function (PriceCash, Cost) {
+            if (PriceCash == "0" || PriceCash == 0) {
+                return "資料有誤";
+            }
+            else {
+                if ((PriceCash == 0 || PriceCash == null) && (Cost == 0 || Cost == null)) {
+                    return 0 + "%";
+                }
+                else {
+                    var answer = (PriceCash - Cost) / PriceCash;
+                    answer = answer * 100;
+                    answer = answer.toFixed(2);
+                    return answer + "%";
+                }
+            }
+        }
+        window.setImgUrl = function (imgUrl) {
+            if (imgUrl != null && typeof (imgUrl) !== "undefined" && imgUrl.length > 0) {
+                var dt = new Date();
+                return imgUrl + "?" + dt.getTime();
+            }
+        }
+        window.UrlLink = function (id, name, url) {
+            if (id == 0 || id == null) {
+                return name;
+            }
+            else {
+                return "<a href=\"javascript:void(0)\" onclick=\"window.open('" + url + "', '', '');\">" + name + "</a>";
+            }
+        }
+    });
+    function showView(actionName) {
+        if (actionName == "ItemSketchListProperty") {
+            $("#ItemRequestListDetailProperty").attr("style", "display:none;");
+            $("#ItemSketchListDetailProperty").attr("style", "display:block;");
+            $("#ItemRequestListActiveProperty").attr("class", "nav");
+            $("#ItemSketchListActiveProperty").attr("class", "nav active");
+
+            //$("#ItemRequestListDetailProperty").attr("style", "display:block;");
+            //$("#ItemSketchListDetailProperty").attr("style", "display:none;");
+            //$("#ItemRequestListActiveProperty").attr("class", "nav active");
+            //$("#ItemSketchListActiveProperty").attr("class", "nav");
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/TwoDimensionProductList/" + actionName,
+            //    contentType: "application/json;charset=utf-8",
+            //    data: JSON.stringify({
+            //    }),
+            //    success: function (res) {
+            //        if (res.IsSuccess == true) {
+            //            $("#ItemRequestListDetail").html(res.ViewHtml);
+            //        }
+            //        else {
+            //        }
+            //    }
+            //});
+        }
+        else {
+            $("#ItemRequestListDetailProperty").attr("style", "display:block;");
+            $("#ItemSketchListDetailProperty").attr("style", "display:none;");
+            $("#ItemRequestListActiveProperty").attr("class", "nav active");
+            $("#ItemSketchListActiveProperty").attr("class", "nav");
+            //$("#ItemRequestListDetailProperty").attr("style", "display:none;");
+            //$("#ItemSketchListDetailProperty").attr("style", "display:block;");
+            //$("#ItemRequestListActiveProperty").attr("class", "nav");
+            //$("#ItemSketchListActiveProperty").attr("class", "nav active");
+        }
+    }
+    
+</script>
+<div class="rightBox">
+    <div class="content">
+        <div class="tabBox">
+            <div class="nav active" id="ItemRequestListActiveProperty" onclick="showView('ItemRequestListProperty')">規格商品清單</div>
+            <div class="nav" id="ItemSketchListActiveProperty" onclick="showView('ItemSketchListProperty')">規格商品草稿清單</div>
+            <div class="clear"></div>
+        </div>
+        <div id="ItemRequestListDetailProperty">@Html.Partial("ItemRequestListProperty")</div>
+        <div id="ItemSketchListDetailProperty" style="display:none;">@Html.Partial("ItemSketchListProperty")</div>
+    </div>
+</div>

@@ -1,0 +1,223 @@
+﻿@{
+    ViewBag.Title = "商家關係維護與管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+}
+
+<div class="rightBox">
+    <div class="titleBar">
+        <div class="title">Seller Invitation</div>
+        <div class="path">
+            <a href="/">首頁</a>><a href="#">商家維護與管理</a>><span>Seller Relationship Managment</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="content">
+        <div class="searchBar">
+            <div class="tit">商家商店名稱：<span class="tip" title="選擇一個商家管理功能"></span></div>
+            <input type="text" />
+            <a href="#">取消選擇</a>
+            <a href="#">查詢商家</a>
+            <label><input type="checkbox" />記住選擇的商家</label>
+            <div class="clear"></div>            
+        </div>        
+        <div class="nav_content">
+            <div class="stateSearch">                
+                <div class="tit">種類</div>
+                <select>
+                    <option>全部</option>
+                    <option>國內商家</option>
+                    <option>國際商家</option>
+                </select>
+                <div class="tit">狀態</div>
+                <select>
+                    <option>全部</option>
+                    <option>建立中</option>
+                    <option>上線</option>
+                    <option>已凍結</option>
+                    <option>下線</option>
+                    <option>終止</option>
+                    <option>關閉</option>
+                </select>
+                <div class="tit">FTP</div>
+                <select>
+                    <option>全部</option>
+                    <option>待處理</option>
+                    <option>啟用</option>
+                    <option>禁用</option>
+                </select>
+                <div class="tit">Inv.Snapshot</div>
+                <select>
+                    <option>全部</option>
+                    <option>啟用</option>
+                    <option>禁用</option>
+                </select>
+                <div class="tit">建立日期</div>
+                <select>
+                    <option>全部</option>
+                    <option>今天</option>
+                    <option>最近3天</option>
+                    <option>最近7天</option>
+                    <option>最近30天</option>
+                    <option>指定日期</option>
+                </select>
+                @*<input type="text" value="輸入關鍵字" class="searchTxt" />*@                
+                <input type="button" value="搜尋" class="search" />                
+                <p class="clear"></p><br />
+                <div class="tit">最後編輯日期</div>
+                <select>
+                    <option>全部</option>
+                    <option>今天</option>
+                    <option>最近3天</option>
+                    <option>最近7天</option>
+                    <option>最近30天</option>
+                    <option>指定日期</option>
+                </select>
+                <div class="tit">地區</div>
+                <select>
+                    <option>Astralia</option>
+                    <option>British England</option>
+                    <option>Canada</option>
+                    <option>china</option>
+                    <option>Hong Kong</option>
+                    <option>Israel</option>
+                    <option>Japan</option>
+                    <option>Korea</option>
+                    <option>Netherlands</option>
+                    <option>Taiwan</option>
+                    <option>United States</option>
+                    <option>全部</option>
+                </select>
+                <div class="tit">CM</div>
+                <select>
+                    <option>All</option>
+                    <option>Unknow</option>
+                    <option>Tina.H.Chiu</option>
+                </select>
+                <p class="clear"></p>
+            </div>
+                        
+            <table style="width:100%;">
+                <tr>
+                    <th>商家收費種類：</th>
+                    <td>
+                        <select>
+                            <option>請選擇</option>
+                            <option>規格</option>
+                            <option>Aanchor</option>
+                            <option>Taitra</option>
+                        </select>
+                    </td>
+                    <th>商家月費：</th>
+                    <td>Waived</td>
+                    <th></th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <div class="sellerTypeTable">
+                            <table style="width:100%;" class="tr2c trhc">
+                                <tr>
+                                    <th style="width:5%;">編號</th>
+                                    <th style="width:10%;">名稱</th>
+                                    <th style="width:5%;">建立日期</th>
+                                    <th style="width:5%;">最後編輯日期</th>
+                                    <th style="width:5%;">精選商家</th>
+                                    <th style="width:9%;">種類</th>
+                                    <th style="width:9%;">地區</th>
+                                    <th style="width:7%;">狀態</th>
+                                    <th style="width:7%;">FTP</th>
+                                    <th style="width:7%;">Inv.Snapshot</th>
+                                    <th style="width:7%;">店鋪選單</th>
+                                    <th style="width:7%;">店鋪網站</th>
+                                    <th style="width:7%;">CM</th>
+                                    <th style="width:10%;">操作</th>
+                                </tr>                                
+                                <tr>
+                                    <td>A006</td>
+                                    <td>Test_Coral_Shop</td>
+                                    <td>6/29/2010<br />3:02:59PM</td>
+                                    <td>6/29/2010<br />3:02:59PM</td>
+                                    <td><input type="checkbox" disabled checked /><a href="#">Detial</a></td>
+                                    <td>Dometic Seller</td>
+                                    <td>United States</td>
+                                    <td>
+                                        <select>
+                                            <option>Active</option>
+                                            <option>Suspended</option>
+                                            <option>InActive</option>
+                                            <option>Terminated</option>
+                                            <option>Closed</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select>
+                                            <option>Enable</option>
+                                            <option>Disable</option>
+                                        </select>
+                                        <input type="button" class="pen" />
+                                    </td>
+                                    <td>
+                                        <select>
+                                            <option>Enable</option>
+                                            <option>Disable</option>
+                                        </select>
+                                        <input type="button" class="pen" />
+                                    </td>
+                                    <td>
+                                        <select>
+                                            <option>Enable</option>
+                                            <option>Disable</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select>
+                                            <option>Enable</option>
+                                            <option>Disable</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select>
+                                            <option>Unknow</option>
+                                            <option>Tina.H.Chiu</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <a href="#">查看商家檔案</a>
+                                        <a href="#">商家訊息</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>                
+            <div class="btnExport">
+                <div class="tit">導出全部</div>
+                <div class="page">
+                    總計錄:1
+                    <a href="#" class="arr01"><img src="/Themes/2013/img/icon/parr01.gif" /></a>
+                    <a href="#" class="arr01"><img src="/Themes/2013/img/icon/parr02.gif" /></a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#" class="arr01"><img src="/Themes/2013/img/icon/parr03.gif" /></a>
+                    <a href="#" class="arr01"><img src="/Themes/2013/img/icon/parr04.gif" /></a>
+                    每頁
+                    <select>
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                    </select>
+                </div>
+                <p class="clear"></p>
+            </div>
+            <div class="deleteBox">
+                <input type="button" value="作廢" class="btn01" />
+                <input type="button" value="作廢" class="btn02" />
+                <input type="button" value="作廢" class="btn03" />
+            </div>
+        </div>        
+    </div>
+</div>

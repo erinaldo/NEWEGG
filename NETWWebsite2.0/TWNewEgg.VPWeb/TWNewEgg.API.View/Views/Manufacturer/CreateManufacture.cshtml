@@ -1,0 +1,341 @@
+﻿@{
+    ViewBag.Title = "建立製造商";
+    //Layout = "~/Views/Shared/_LayoutNON.cshtml";
+    List<TWNewEgg.API.Models.ManufacturerEmailToListResultModel> emailToList = new List<TWNewEgg.API.Models.ManufacturerEmailToListResultModel>();
+    if(ViewBag.emailToList != null)
+    {
+        emailToList = ViewBag.emailToList as List<TWNewEgg.API.Models.ManufacturerEmailToListResultModel>;
+    }
+}
+
+<style>
+    .title {
+        text-align: right;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .value {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .manufactureButton {
+        padding: 3px;
+        width: 80px;
+    }
+    .buttonSpan {
+        padding-right: 20px;
+    }
+    .requiredMark {
+        color: red;
+    }
+</style>
+
+<script>
+    var createUserEmailWindow = null;
+    function createManfacture_Alert_Confirm(confirmReault,action) {
+        if (confirmReault) {
+            $(document).ajaxSend($.blockUI());
+            $(document).ajaxStop($.unblockUI);
+            $(".manufactureButton").attr("disabled", "disabled");
+
+            $.ajax({
+                type: "Post",
+                url: "/Manufacturer/CreateManufactureInfo",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    "UserID": $("#mailTo").val(),
+                    "ManufactureName": $("#manufactureName").val().trim(),
+                    "ManufactureURL": $("#manufactureURL").val().trim(),
+                    "SupportEmail": $("#supportEmail").val().trim(),
+                    "PhoneRegion": $("#phoneRegion").val().trim(),
+                    "Phone": $("#phone").val().trim(),
+                    "PhoneExt": $("#phoneExt").val().trim(),
+                    "supportURL": $("#supportURL").val().trim(),
+                    "autoApprove": autoApprove
+                }),
+                beforeSend: function () {
+                    $('#loadingIMG').show();
+                },
+                success: function (res) {
+                    $('#loadingIMG').hide();
+                    if (res != "") {
+                        $(".manufactureButton").removeAttr("disabled", "disabled");
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html(res);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        return;
+                    }
+                    else {
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html("操作成功。");
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        switch (action) {
+                            default:
+                            case "c":
+                                {
+                                    CloseManufactureWindow();
+                                    break;
+                                }
+                            case "n":
+                                {
+                                    ClearTable();
+                                    break;
+                                }
+                        }
+                    }
+                }
+            });
+        }
+        else {
+            $(".manufactureButton").removeAttr("disabled", "disabled");
+        }
+    }
+    function Create(action) {
+        @*防止使用者誤按確認*@
+        $("#ManMade_Another_Alert_Message").html("是否確定提交請求?");
+        ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+        $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+            //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+            if ($(this).hasClass("confirm")) {
+                var confirmReault = true;
+                //需要做的事件 
+                createManfacture_Alert_Confirm(confirmReault, action)
+            }
+                //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+            else {
+
+                var confirmReault = false;
+                //需要做的事件 
+                createManfacture_Alert_Confirm(confirmReault, action)
+            }
+        });
+
+        autoApprove = false;
+
+        if ("@ViewBag.isAdmin".toLocaleLowerCase() == "true") {
+            if ($("#autoApprove").is(':checked')) {
+                autoApprove = true;
+            }
+        }       
+    }
+
+    function OpenCreateUserEmail() {
+        //if ($("#mailTo").val() == -1) {
+        //    createUserEmailWindow = window.open('/Manufacturer/CreateUserEmail', 'CreateUserEmail', 'height=300, width=360');
+        //    createUserEmailWindow.focus();
+        //    document.onmousedown = ParentDisable;
+        //    document.onkeyup = ParentDisable;
+        //    document.onmousemove = ParentDisable;
+        //}
+        if ($("#mailTo").val() == -1) {
+            $("#CreateUserEmailWindow").html("<div id=\"CreateEmailLoadingIMG\" style=\"display:none;\">資料處理中，請稍後。</div");
+            
+            var createUserEmailWindow = $("#CreateUserEmailWindow").kendoWindow({
+                width: "400",
+                height: "360",
+                title: "新增電子信箱位址",
+                //actions: [],
+                actions: ["Close"], // "Close", "Refresh","Minimize", "Maximize"
+                modal: true,
+                resizable: false,
+                Close: onClose()
+            });
+            createUserEmailWindow.data("kendoWindow").center().open();
+            $.ajax({
+                type: "POST",
+                url: "/Manufacturer/ShowUserEmail",
+                contentType: "application/json;charset=utf-8",
+                beforeSend: function () {
+                    $('#CreateEmailLoadingIMG').show();
+                },
+                success: function (res) {
+                    $('#CreateEmailLoadingIMG').hide();
+                    if (res.IsSuccess == true) {
+                        $("#CreateUserEmailWindow").html(res.ViewHtml);
+                    }
+                    else {
+                        //開啟window 
+                        $("#ManMade_Alert_Message").html("資料錯誤請重新進入");
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    }
+                }
+            });
+
+           
+        }
+    }
+
+    function onClose() {
+        $("#mailTo").val(0);
+    }
+
+    //function ParentDisable() {
+    //    if(createUserEmailWindow && !createUserEmailWindow.closed)
+    //    {
+    //        createUserEmailWindow.focus();
+    //    }
+    //}
+
+    function ClearTable() {
+        $("#mailTo").val(0);
+        $("#CreateNewManutureTable input[type='text']").each(function () {
+            $(this).val("");
+        });
+        $(".manufactureButton").removeAttr("disabled");
+    }
+
+    function CloseManufactureWindow() {
+        $("#CreateManufactureWindow").data("kendoWindow").close();
+        //$("#CreateManufactureWindow").html("");
+    }
+</script>
+
+<div 
+    @{
+        if (ViewBag.isAdmin)
+        {
+            @("style=padding:10px;")
+        }
+        else
+        {
+            @("style=padding:10px;padding-top:30px;")
+        }
+    }>
+    <table align="center" id="CreateNewManutureTable">
+        @{
+            if (ViewBag.isAdmin)
+            {
+                <tr>
+                    <td class="title">
+                        商家：
+                    </td>
+                    <td class="value">
+                        @ViewBag.sellerNsme
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">
+                        <span class="requiredMark">*</span>
+                        審核結果通知對象：
+                    </td>
+                    <td class="value">
+                        <select id="mailTo" onchange="OpenCreateUserEmail()">
+                            <option value="0">---請選擇---</option>
+                            <option value="-1">新增電子信箱位址...</option>
+                            @foreach (var subEmailToList in emailToList)
+                            {
+                                <option value="@subEmailToList.UserID">@subEmailToList.UserEmail</option>
+                            }
+                        </select> 
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <input type="hidden" id="mailTo" value="@ViewBag.userID" />
+            }
+        }
+        <tr>
+            <td class="title">
+                <span class="requiredMark">*</span>
+                製造商名稱：
+            </td>
+            <td class="value">
+                <input type="text" id="manufactureName" style="width:315px;" />
+            </td>
+        </tr>
+        <tr>
+            <td class="title">
+                <span class="requiredMark">*</span>
+                製造商網址或統一編號：
+            </td>
+            <td class="value">
+                <input type="text" id="manufactureURL" style="width:315px;" />
+            </td>
+        </tr>
+        <tr>
+            <td class="title">
+                製造商支援信箱：
+            </td>
+            <td class="value">
+                <input type="text" id="supportEmail" style="width:315px;" />
+            </td>
+        </tr>
+        <tr>
+            <td class="title">
+                製造商支援電話：
+            </td>
+            <td class="value">
+                (<input type="text" id="phoneRegion" style="width:50px;" />)
+                <input type="text" id="phone" style="width:150px;" />
+                Ext:<input type="text" id="phoneExt" style="width:50px;" />
+            </td>
+        </tr>
+        <tr>
+            <td class="title">
+                製造商支援網址：
+            </td>
+            <td class="value">
+                <input type="text" id="supportURL" style="width:315px;" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding-top: 10px; height:30px; vertical-align:top;">
+                <table style="width:100%;">
+                    <tr>
+                        @{
+                            if (ViewBag.isAdmin)
+                            {
+                                <td style="width:120px;">
+                                    <input type="checkbox" id="autoApprove" />
+                                    <text>自動核准此要求</text>
+                                </td>
+                            }
+                        }
+                        <td>
+                            <div id="loadingIMG" style="display:none;">
+                                <img src="~/Content/Img/loading.gif" height='30'/>資料處理中，請稍後。
+                            </div>
+                        </td>
+                        <td style="text-align:right;">
+                            <span class="requiredMark" style="padding-right:3px;">*</span>符號為必填位
+                        </td>
+                    </tr>
+                </table>
+            </td>
+       </tr>
+        <tr>
+            <td colspan="2" style="text-align:center; padding-top:10px;">
+                <span class="buttonSpan">
+                    @(Html.Kendo().Button()
+                        .Name("Clear")
+                        .HtmlAttributes(new { @class="manufactureButton" })
+                        .Events( e => e.Click("ClearTable") )
+                        .Content("清除")
+                    )
+                    @*<input type="button" class="manufactureButton" value="清除" onclick="New()"/>*@
+                </span>
+                <span class="buttonSpan">
+                    @(Html.Kendo().Button()
+                        .Name("SubmitAndCreate")
+                        .HtmlAttributes(new { @class="manufactureButton", onClick="Create('n')" })
+                        .Content("提交並新建")
+                    )
+                    @*<input type="button" class="manufactureButton" value="提交並新建" onclick="Create('n')"/>*@
+                </span>
+                <span class="buttonSpan">
+                    @(Html.Kendo().Button()
+                        .Name("SubmitAndClose")
+                        .HtmlAttributes(new { @class="manufactureButton", onClick="Create('c')" })
+                        .Content("提交並關閉")
+                    )
+                    @*<input type="button" class="manufactureButton" value="提交並關閉" onclick="Create('c')"/>*@
+                </span>
+                @*<span>
+                    <input type="button" class="manufactureButton" value="取消" onclick="CloseManufactureWindow()" />
+                </span>*@
+                
+            </td>
+        </tr>
+    </table>
+</div>

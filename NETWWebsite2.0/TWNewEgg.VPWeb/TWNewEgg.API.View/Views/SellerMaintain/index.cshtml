@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "商家維護與管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+}
+
+<div class="rightBox">
+    <div class="titleBar">
+        <div class="title">Seller Invitation</div>
+        <div class="path">
+            <a href="/">首頁</a>><a href="#">商家維護與管理</a>><span>Seller Invitation</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="content">
+        <div class="nav_content">
+            <div class="box">
+                <div class="tit">Seller Account Info</div>
+                <table>
+                    <tr>
+                        <th>商家電子郵件(Email)：</th>
+                        <td><input type="text" /></td>
+                        <th>Account Initial：</th>
+                        <td>
+                            <select>
+                                <option>Inactive</option>
+                                <option>Active</option>
+                            </select>
+                        </td>
+                        <th>Seller Regerred By：</th>
+                        <td>
+                            <select>
+                                <option>None</option>
+                                <option>4PX</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>商家區域：</th>
+                        <td>
+                            <select>
+                                <option>Inactive</option>
+                                <option>Active</option>
+                            </select>
+                        </td>
+                        <th>Display FFA Logo：</th>
+                        <td>
+                            <select disabled>
+                                <option>Not support yet</option>
+                            </select>
+                        </td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>電子郵件(Email)語系：</th>
+                        <td>
+                            <select>
+                                <option>English</option>
+                            </select>
+                        </td>
+                        <th>Registration Language：</th>
+                        <td>
+                            <select>
+                                <option>English</option>
+                            </select>
+                        </td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Invite Seller for：</th>
+                        <td>
+                            <label>
+                                <input type="radio" name="InviteSellerType" />
+                                Newegg Marketplace Seller
+                            </label>
+                        </td>
+                        <th></th>
+                        <td>
+                            <label>
+                                <input type="radio" name="InviteSellerType" />
+                                Newegg UIH Seller
+                            </label>
+                        </td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                </table>                
+            </div>
+
+            <div class="box">
+                <div class="tit">Seller Type Info</div>
+                <table style="width:100%;">
+                    <tr>
+                        <th>商家收費種類：</th>
+                        <td>
+                            <select>
+                                <option>請選擇</option>
+                                <option>規格</option>
+                                <option>Aanchor</option>
+                                <option>Taitra</option>
+                            </select>
+                        </td>
+                        <th>商家月費：</th>
+                        <td>Waived</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <div class="sellerTypeTable">
+                                <div class="tabBox">
+                                    <div class="titTab">Commission Rate</div>
+                                    <div class="clear"></div>
+                                </div><br />
+                                <table style="width:100%;" class="tr2c trhc">
+                                    <tr>
+                                        <th>主類別代碼</th>
+                                        <th>主類別名稱</th>
+                                        <th>佣金</th>
+                                    </tr>
+                                    <tr>
+                                        <td>AC</td>
+                                        <td>Accessories</td>
+                                        <td>14.00%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AC</td>
+                                        <td>Accessories</td>
+                                        <td>14.00%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AC</td>
+                                        <td>Accessories</td>
+                                        <td>14.00%</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>                
+            </div>
+        </div>        
+    </div>
+</div>

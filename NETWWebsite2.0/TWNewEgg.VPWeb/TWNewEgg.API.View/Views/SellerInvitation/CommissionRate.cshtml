@@ -1,0 +1,148 @@
+﻿@{
+    List<TWNewEgg.API.Models.GetSellerChargeResult> CommissionRateDataList = ViewBag.sellerCharge_itemCollec;
+}
+<style>
+    #pvCommissionRate td{
+          text-align: center;
+          padding: 10px;
+    }
+    .commRate {
+        width:60px;
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+
+    var IsValid_AllCommRate = false;
+
+
+    // 基本數字驗證
+    function IsNumber(NUM) {
+
+        var i, j, strTemp;
+        strTemp = "0123456789.";
+        if (NUM.length == 0) {
+            // 無填入數字
+            return false;
+        }
+        for (i = 0; i < NUM.length; i++) {
+            j = strTemp.indexOf(NUM.charAt(i));
+            if (j == -1) {
+                // 有字元不是數位
+                return false;
+            }
+        }
+
+
+        //function ValidateFloat(e, pnumber) {
+        //    if (!/^\d+[.]?\d*$/.test(pnumber)) {
+        //        $(e).val(/^\d+[.]?\d*/.exec($(e).val()));
+        //    }
+        //    return false;
+        //}
+
+        return true;
+    }
+
+    function Validate_CommRate(categoryId, commission ) {
+
+        var CommRateCollec = $("input.commRate");
+        CommRateCollec.each(function (index, element) {
+            if ($(this).val()) {
+                var _num = $(this).val();
+
+                if (!IsNumber(_num)) {
+                    $("#ManMade_Alert_Message").html("請輸入數字!");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    $("#" + element.id).val("0");
+
+                    IsValid_AllCommRate = false;
+                    return false;
+                }
+
+                // 0.01~100
+                if (_num > 100) {
+                    $("#ManMade_Alert_Message").html("數字不得大於100 !");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    $(this).val("0");
+
+                    IsValid_AllCommRate = false;
+                    return false;
+                }
+
+                if (_num < 0) {
+                    $("#ManMade_Alert_Message").html("數字不得小於0 !");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    $(this).val("0");
+
+                    IsValid_AllCommRate = false;
+                    return false;
+                }
+
+                //若有小數，四捨五入至小數點兩位數
+                $.ajax({
+                    type: "Post",
+                    url: "/SellerInvitation/ValidateCommRate",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        "CategoryID": element.id,
+                        "Commission": _num,
+                        "rightDigit": "2"
+                    }),
+                    success: function (res) {
+                        if (res != null) {
+                            $("#" + res.CategoryID.toString()).val(res.Commission);
+                        }
+                        else {
+                            $("#ManMade_Alert_Message").html("API ValidateCommRate response value error");
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        }
+                    },
+                    error: function () {
+                        $("#ManMade_Alert_Message").html("error call API ValidateCommRate");
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    }
+                });
+
+                IsValid_AllCommRate = true;
+                return true;
+            }
+            else {
+                $("#ManMade_Alert_Message").html("請輸入數字!");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                IsValid_AllCommRate = false;
+                return false;
+            }
+        });
+
+
+        
+    }
+</script>
+<table id="pvCommissionRate" class="borderStyle2">
+    <thead style="border:1px solid gray; background-color:#304F85;color:white;padding:5px 5px 5px 5px">
+      @*  <tr><td colspan="3">佣金率</td></tr>*@
+        <tr><td>主分類名稱</td><td>佣金</td></tr>
+    </thead>
+    <tbody>
+        @{
+            if (CommissionRateDataList != null)
+            {
+                foreach (var cr in CommissionRateDataList)
+                {
+                <tr>
+                    <td style="width:200px;border:1px solid black">@cr.CategoryDescription</td> <td style="border:1px solid black"><input type="text" id="@cr.CategoryID" class="commRate" value="@(string.Format("{0:#.00}",cr.Commission*100))" onchange="Validate_CommRate(this.id, this.value);" />&nbsp;&nbsp;<span style="font-size:larger">%</span></td>
+                </tr>
+                }
+            }
+            else
+            {
+                <tr style="background-color:#D6D6D6;color:#808080">
+                    <td style="width:200px;"></td> <td>(查無佣金設定資料)</td> <td></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<input type="hidden" id="IsValid_CommRate" value="false" />

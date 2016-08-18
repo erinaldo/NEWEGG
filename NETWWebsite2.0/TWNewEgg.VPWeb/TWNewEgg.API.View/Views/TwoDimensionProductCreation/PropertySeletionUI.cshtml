@@ -1,0 +1,157 @@
+﻿@{
+    TWNewEgg.API.View.PropertySelection viewModel = new TWNewEgg.API.View.PropertySelection();
+
+    if ((ViewBag.viewModel as TWNewEgg.API.View.PropertySelection) != null)
+    {
+        viewModel = ViewBag.viewModel as TWNewEgg.API.View.PropertySelection;
+    }
+}
+
+@{
+    if (viewModel.MainSetectionCell.Count > 0)
+    {
+        <fieldset class="noticeFieldset" style="border-color: #a41818;">
+            <legend class="noticeLegend">&nbsp;&nbsp;規格商品&nbsp;&nbsp;</legend>
+            <div>
+                <table>
+                    <tr>
+                        <td style="padding: 5px;">
+                            @(Html.Kendo().DropDownList()
+                                  .Name("mainPropertySelection")
+                                  .DataTextField("Text")
+                                  .DataValueField("Value")
+                                  .OptionLabel("請選擇主項目")
+                                  .BindTo(viewModel.MainSetectionCell)
+                                  .HtmlAttributes( new { 
+                                      style="width:200px;",
+                                      onchange="setProperty()"
+                                  })
+                                  .Value(viewModel.MainSelectedID)
+                            )
+                        </td>
+                        <td style="padding: 5px;">
+                            @(Html.Kendo().DropDownList()
+                                  .Name("secondPropertySelection")
+                                  .DataTextField("Text")
+                                  .DataValueField("Value")
+                                  .OptionLabel("請選擇次項目")
+                                  .BindTo(viewModel.SecondSetectionCell)
+                                  .HtmlAttributes(new
+                                  {
+                                      style = "width:200px;",
+                                      onchange = "setProperty()"
+                                  })
+                                  .Value(string.IsNullOrEmpty(viewModel.MainSelectedID) ? "" : viewModel.SecondSelectedID)
+                            )
+                        </td>
+                        <td style="padding: 5px;">
+                            <input type="button" class="k-button" value="重置" onclick='ReSet()' />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="propertyValueSeletionUI"></div>
+        </fieldset>
+    }
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        @*編輯時，自動選擇已存項目*@
+        @{
+            if (viewModel.MainSetectionCell.Count > 0) {
+                <text>
+        if ($("#mainPropertySelection").val().length > 0 && $("#mainPropertySelection").val() > 0) {
+            setProperty();
+        }
+                </text>
+            }
+        }
+    });
+
+    function setProperty() {
+
+        @*清除屬性勾選項目區塊*@
+        $("#propertyValueSeletionUI").html("");
+        $("#propertyValueSeletionUI").hide();
+
+        @*清除圖片預覽區塊*@
+        ClearPreviewPicture();
+        $("#previewPicture").hide();
+
+        @*清除送審必填提示紅框*@
+        if ($("#mainPropertySelection").val().length > 0) {
+            ClearErrorMark_Kendodropdownlist("mainPropertySelection");
+        }
+        if ($("#secondPropertySelection").val().length > 0) {
+            ClearErrorMark_Kendodropdownlist("secondPropertySelection");
+        }
+
+        if ($("#mainPropertySelection").val().length > 0 && $("#mainPropertySelection").val() > 0) {
+
+            if ($("#mainPropertySelection").val() == $("#secondPropertySelection").val()) {
+                ShowErrorMark_Kendodropdownlist("mainPropertySelection");
+                ShowErrorMark_Kendodropdownlist("secondPropertySelection");
+                $("#ManMade_Alert_Message").html("請選擇不同的商品屬性項目。");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/TwoDimensionProductCreation/SetProperty",
+                data: {
+                    "aesPropertyCell": '@viewModel.AesPropertyCell',
+                    "mainPropertyID": parseInt($("#mainPropertySelection").val()),
+                    "secondPropertyID": parseInt($("#secondPropertySelection").val()),
+                    "aesItemProperty": $("#itemPropertyCell").val(),
+                    "pictureUrlCell": $("#pictureUrlCell").val()
+                },
+                beforeSend: function () {
+                    var loadingIMG = $("#loadingIMG").html();
+                    loadingIMG = loadingIMG.replace(" style=\"display:none;\"", "");
+                    $("#propertyValueSeletionUI").html(loadingIMG);
+                    $("#propertyValueSeletionUI").show();
+                },
+                success: function (result) {
+                    if (result.IsSuccess) {
+                        $("#propertyValueSeletionUI").html(result.ViewHtml);
+                    }
+                    else {
+                        $("#propertyValueSeletionUI").html(SetPropertyError());
+                    }
+                },
+                error: function () {
+                    $("#propertyValueSeletionUI").html(SetPropertyError());
+                }
+            });
+        }
+    }
+
+    function ClearErrorMark_Kendodropdownlist(id) {
+        if ($("#" + id).parents("span.k-widget.k-dropdown.k-header").hasClass("errMsgShow")) {
+            $("#" + id).parents("span.k-widget.k-dropdown.k-header").removeClass("errMsgShow");
+        }
+    }
+
+    function ShowErrorMark_Kendodropdownlist(id) {
+        if ($("#" + id).parents("span.k-widget.k-dropdown.k-header").hasClass("errMsgShow") == false) {
+            $("#" + id).parents("span.k-widget.k-dropdown.k-header").addClass("errMsgShow");
+        }
+    }
+
+    function SetPropertyError() {
+        return "<span style='color:red;'>資料讀取失敗，請重新整理畫面後，再進行操作；若仍再發生此問題，請聯繫客服人員。</span>";
+    }
+
+    function ClearPreviewPicture() {
+        $("#previewPicture").html("");
+        $("#previewPicture").append("<span id=\"previewPictureSpan_FirstAddPoint\" style=\"display:none;\"></span>");
+    }
+
+    function ReSet() {
+        $("#mainPropertySelection").data("kendoDropDownList").value("");
+        $("#secondPropertySelection").data("kendoDropDownList").value("");
+        setProperty();
+    }
+</script>

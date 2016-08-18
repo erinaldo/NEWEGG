@@ -1,0 +1,5 @@
+﻿ERROR 2016/07/21 11:30:48 FinancialController            DetailsInvoice                           [Msg]: The underlying connection was closed: An unexpected error occurred on a receive. ;[StackTrace]:    at System.Net.HttpWebRequest.GetResponse()
+   at TWNewEgg.API.Models.Connector.Post[T](String url, String auth, String token, Object body, Int32 timeout) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.API.Models\Connector.cs:line 83
+   at TWNewEgg.API.Models.Connector.pushInvoNumAndInvoDate(String InvoDate, String InvoNum, String SettlementID, Int32 sellerID) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPAPI\TWNewEgg.API.Models\Connector.cs:line 1706
+   at TWNewEgg.API.View.Controllers.FinancialController.DetailsInvoice(String taxedNumber, String taxedDate, String SettlementID, Int32 sellerID) in d:\Tfs-Source\NETWWebsite2.0\01_Branch\Branch_Project16070\TWNewEgg.VPWeb\TWNewEgg.API.View\Controllers\FinancialController.cs:line 504 ;[InnerExceptionMsg]: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host.
+

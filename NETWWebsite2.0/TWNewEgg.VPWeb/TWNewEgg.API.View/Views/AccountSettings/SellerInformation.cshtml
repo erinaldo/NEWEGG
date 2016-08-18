@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "SellerPersonalInfo";
+
+    TWNewEgg.DB.TWSELLERPORTALDB.Models.Seller_BasicInfo sellerInfo = new TWNewEgg.DB.TWSELLERPORTALDB.Models.Seller_BasicInfo();
+    if (ViewBag.basicInfo != null)
+    {
+        sellerInfo = ViewBag.basicInfo;
+    }
+}
+
+<style>
+    #showImg {
+        margin:15px 0 15px 0;
+    }
+</style>
+
+<script type="text/javascript">
+
+    function WordCount(oInputWord) {
+        var areaMaxLen = parseInt(oInputWord.getAttribute('maxlength'));
+        var iCurLen = oInputWord.value.length;
+        var n = areaMaxLen - iCurLen;
+        $("#textCount").html('<b>' + n + ' character(s) left.</b>');
+
+    }
+    $(document).ready(function () {
+
+        $("#SaveSellerInfo").kendoButton({
+            click: Save
+        });
+
+        function Save() {
+            $(document).ajaxSend($.blockUI());
+            $(document).ajaxStop($.unblockUI);
+            $.ajax({
+                type: "Post",
+                url: "/AccountSettings/SaveSellerBasicInfo",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    "SellerAboutInfo": $("#aboutInfo").val(),
+                    "SellerLogoUrl": $("#showImg").attr("src")
+                }),
+                beforeSend: function () {
+                    $('#loadingIMG').show();
+                },
+                success: function (res) {
+                    //開啟window 
+                    $("#ManMade_Alert_Message").html(res.Msg);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                }
+            });
+        }
+    });
+
+    Upload_Result = function (result) {     
+        if (result.response.img == "") {
+            //開啟window 
+            $("#ManMade_Alert_Message").html(result.response.Msg);
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+        } else {
+            //開啟window 
+            $("#ManMade_Alert_Message").html("上傳成功");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            $("#showImg").attr("src", result.response.img);
+            $("#LogoImg").removeAttr("style");
+        }
+    }
+
+    onSelect = function (e) {
+        //if (e.files[0].size > 10000) {
+        //    alert('圖片超過 1MB!');
+        //    e.preventDefault();
+        //    return false;
+        //}
+
+        var ext = e.files[0].extension.toLowerCase();
+        if ($.inArray(ext, ['.png', '.jpg']) == -1) {
+            //開啟window 
+            $("#ManMade_Alert_Message").html("請選擇 .png .jpg 圖檔");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            e.preventDefault();
+            return false;
+        }
+        return true;
+    }
+
+</script>
+<body>
+
+    <br /><p>商家Logo:</p>
+    <div id="LogoImg"><img src="@sellerInfo.SellerLogoURL" id="showImg" /></div>
+
+
+    <div style="width:20%;">
+        <div class="demo-section">
+            @(Html.Kendo().Upload()
+                .Name("files")
+                .Async(a => a
+                    .Save("ImageUpload", "AccountSettings")
+                    .Remove("Remove", "AccountSettings")
+                    .AutoUpload(false)
+                )
+                .Events(e => 
+                { 
+                    e.Success("Upload_Result");
+                    e.Select("onSelect");
+                })
+                .Multiple(false)
+            )
+        </div>
+        
+    </div>
+    <span style="color:red;">P.S 圖片尺寸為 127px * 33px</span>
+    <div id="SellerAboutInfo" style="margin-top:20px;">
+        <hr />
+        <p>About the Seller</p>
+        <textarea id="aboutInfo" onkeyup="WordCount(this);"
+             rows="10" cols="100" style="margin-top: 20px; "maxlength="4000">@sellerInfo.AboutInfo</textarea>
+        <span id="textCount"></span>
+    </div>
+    <hr />
+    @(Html.Kendo().Button()
+        .Name("SaveSellerInfo")
+        .SpriteCssClass("k-icon k-i-tick")
+        .HtmlAttributes(new { type = "button" })
+        .Content("儲存變更")
+    )
+    @*<input style="float:left" type="button" class="k-icon k-i-tick" id="SaveSellerInfo" value="儲存變更" />*@
+    </br>
+</body>
+
+

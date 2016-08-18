@@ -1,0 +1,512 @@
+﻿@using TWNewEgg.API.View;
+@{
+    List<ManufactureUpdateStatusDataAdd> updateStatusDataList = new List<ManufactureUpdateStatusDataAdd>();
+    if(ViewBag.updateStatusDataList != null)
+    {
+        updateStatusDataList = ViewBag.updateStatusDataList;
+    }
+
+    int mdDataCount = updateStatusDataList.Count;
+}
+<style>
+    #mutable th , #mutable td {border:1px solid #000}
+    .mdCheckbox {
+         width:35px; text-align:center;
+    }
+</style>
+<script type="text/javascript">
+    var mdCount = parseInt("@mdDataCount");
+    
+    $(function () {
+        $('#updatewindow').parent().find('.k-window-titlebar,.k-window-actions').css('backgroundColor', '#355389').css('color', 'white');
+        $("#rejectStatusUpdate").bind("click", function () {
+            $("#rejectStatusUpdate").attr("disabled", "disabled");
+            $("#rejectStatusCancel").attr("disabled", "disabled");
+            validityStatus = true;
+            $("#mutable input[name=DeclineReason]").each(function () {
+                if ($(this).val().length <= 0) {
+                    validityStatus = false;
+                    $("#rejectStatusUpdate").removeAttr("disabled");
+                    $("#rejectStatusCancel").removeAttr("disabled");
+                }
+            });
+
+            if (validityStatus)
+            {
+                var mdModels = [];
+                for (var i = 0; i < mdCount; i++) {
+                    var mdManufactureName = $("#mdtr_" + i + " input[name=ManufactureName]").val();
+                    var mdManufactureURL = $("#mdtr_" + i + " input[name=ManufactureURL]").val();
+                    var mdDeclineReason = $("#mdtr_" + i + " input[name=DeclineReason]").val();
+
+                    mdModels.push({ "ManufactureName": mdManufactureName, "ManufactureURL": mdManufactureURL, "DeclineReason": mdDeclineReason });
+                }
+                
+                if (mdModels.length == mdCount) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Manufacturer/UpdateManufactureUpdateStatus",
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({
+                            "Command": $("#mdtr_0 input[name=Command]").val(),
+                            "updateModel": mdModels
+                        }),
+                        beforeSend: function () {
+                            $('#loadingIMG').show();
+                        },
+                        complete: function (res) {
+                            $('#loadingIMG').hide();
+                        },
+                        success: function (res) {
+                            $("#rejectStatusUpdate").removeAttr("disabled");
+                            $("#rejectStatusCancel").removeAttr("disabled");
+                            //開啟window 
+                            $("#ManMade_Alert_Message").html(res);
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                            $("#updatewindow").data("kendoWindow").close();
+                            $("#dvGrid").data("kendoGrid").dataSource.read();
+                        }
+                    });
+                }
+                else {
+                    $("#rejectStatusUpdate").removeAttr("disabled");
+                    $("#rejectStatusCancel").removeAttr("disabled");
+                    //開啟window 
+                    $("#ManMade_Alert_Message").html("資料筆數錯誤");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+            }
+
+        });
+
+        $("#rejectStatusCancel").bind("click", function () {
+            $("#updatewindow").data("kendoWindow").close();
+            $("#dvGrid").data("kendoGrid").dataSource.read();
+        });
+    });
+    function SelectColumnBox(number)
+    {
+        if ($("#rejectAllDefault" + number + ":checked").length == 1) {
+            $("input[name=rejectDefault" + number + "]").attr("checked", "checked");
+            $("input[name=rejectDefault" + number + "]").prop("checked", true);
+            EditDeclineReason();
+        }
+        else {
+            $("input[name=rejectDefault" + number + "]").removeAttr("checked");
+            EditDeclineReason();
+        }
+    }
+
+    function EditDeclineReason() {
+        //for (var i = 0; i < mdCount; i++) {
+        //    localCount = 0;
+        //    mdSN = "";
+        //    $("#mutable input[ids=rejectDefault_" + i + "]").each(function () {
+        //        desc = "";
+        //        localCount++;
+        //        mdSN = $(this).attr("SN");
+        //        if ($(this).is(":checked")) {
+        //            if (localCount == 1) {
+        //                desc = "重複。";
+        //            }
+        //            else if (localCount == 2) {
+        //                desc = $("#DeclineReason_" + mdSN).val().replace("無效網址。", "") + "無效網址。";
+        //            }
+        //            else if (localCount == 3) {
+        //                desc = $("#DeclineReason_" + mdSN).val().replace("連結至其他平台。", "") + "連結至其他平台。";
+        //            }
+        //        }
+        //        else {
+        //            if (localCount == 1) {
+        //                desc = $("#DeclineReason_" + mdSN).val().replace("重複。", "");
+        //            }
+        //            else if (localCount == 2) {
+        //                desc = $("#DeclineReason_" + mdSN).val().replace("無效網址。", "");
+        //            }
+        //            else if (localCount == 3) {
+        //                desc = $("#DeclineReason_" + mdSN).val().replace("連結至其他平台。", "");
+        //            }
+        //        }
+        //        $("#DeclineReason_" + mdSN).val(desc);
+        //    });
+        //}
+
+        for (var i = 1; i <= 3; i++) {
+            var desc = "";
+            // 是否勾選"全選"的預設欄位
+            var isRejectAllDefault = true;
+            $("#mutable input[name='rejectDefault" + i + "']").each(function () {
+                mdSN = $(this).attr("SN");
+                if ($("#rejectDefault" + i + "_" + mdSN + ":checked").length == 1) {
+                    if (i == 1) {
+                        desc = "重複。";
+                    }
+                    else if (i == 2) {
+                        desc = $("#DeclineReason_" + mdSN).val().replace("無效網址。", "") + "無效網址。";
+                    }
+                    else if(i == 3){
+                        desc = $("#DeclineReason_" + mdSN).val().replace("連結至其他平台。", "") + "連結至其他平台。";
+                    }
+                }
+                else {
+                    isRejectAllDefault = false;
+                    if (i == 1) {
+                        desc = $("#DeclineReason_" + mdSN).val().replace("重複。", "");
+                    }
+                    else if (i == 2) {
+                        desc = $("#DeclineReason_" + mdSN).val().replace("無效網址。", "");
+                    }
+                    else if(i == 3) {
+                        desc = $("#DeclineReason_" + mdSN).val().replace("連結至其他平台。", "");
+                    }
+                }
+                $("#DeclineReason_" + mdSN).val(desc);
+                if (isRejectAllDefault) {
+                    $("#rejectAllDefault" + i).attr("checked", "checked");
+                    $("#rejectAllDefault" + i).prop("checked", true);
+                }
+                else {
+                    $("#rejectAllDefault" + i).removeAttr("checked");
+                    $("#rejectAllDefault" + i).prop("checked", false);
+                }
+            });
+        }
+    }
+
+</script>
+<br />
+預設拒絕原因:<br />
+1.重複。<br />
+2.無效網址。<br />
+3.連結至其他平台。<br /><br />
+<div id="updateModel">
+    <table id="mutable">
+        <tr>
+            <th class="k-header" style="width:150px;">製造商名稱</th>
+            <th class="k-header" style="width:150px;">製造商網址</th>
+            <th class="k-header">預設1<br /><input type="checkbox" id="rejectAllDefault1" onclick="SelectColumnBox('1')" checked="@updateStatusDataList[0].rejectAllDefault1" /></th>
+            <th class="k-header">預設2<br /><input type="checkbox" id="rejectAllDefault2" onclick="SelectColumnBox('2')" checked="@updateStatusDataList[0].rejectAllDefault2" /></th>
+            <th class="k-header">預設3<br /><input type="checkbox" id="rejectAllDefault3" onclick="SelectColumnBox('3')" checked="@updateStatusDataList[0].rejectAllDefault3" /></th>
+            <th class="k-header" style="width:295px;">拒絕原因</th>
+        </tr>
+        @foreach (ManufactureUpdateStatusDataAdd updateStatusData in updateStatusDataList)
+        {
+            
+            <tr id="mdtr_@updateStatusDataList.IndexOf(updateStatusData)">
+                <td>
+                    @updateStatusData.ManufactureName
+                    <input type="hidden" id="ManufactureName_@updateStatusData.SN" name="ManufactureName" value="@updateStatusData.ManufactureName" />
+                    <input type="hidden" id="Command_@updateStatusDataList.IndexOf(updateStatusData)" name="Command" value="@updateStatusData.UpdateCommand" />
+                </td>
+                <td>
+                    @updateStatusData.ManufactureURL
+                    <input type="hidden" id="ManufactureURL_@updateStatusData.SN" name="ManufactureURL" value="@updateStatusData.ManufactureURL" />
+                </td>
+                <td><input type="checkbox" id="rejectDefault1_@updateStatusData.SN" ids="rejectDefault_@updateStatusDataList.IndexOf(updateStatusData)" SN="@updateStatusData.SN" name="rejectDefault1" class="mdCheckbox" onclick="EditDeclineReason()" checked="@updateStatusData.rejectDefault1" /></td>
+                <td><input type="checkbox" id="rejectDefault2_@updateStatusData.SN" ids="rejectDefault_@updateStatusDataList.IndexOf(updateStatusData)" SN="@updateStatusData.SN" name="rejectDefault2" class="mdCheckbox" onclick="EditDeclineReason()" checked="@updateStatusData.rejectDefault2" /></td>
+                <td><input type="checkbox" id="rejectDefault3_@updateStatusData.SN" ids="rejectDefault_@updateStatusDataList.IndexOf(updateStatusData)" SN="@updateStatusData.SN" name="rejectDefault3" class="mdCheckbox" onclick="EditDeclineReason()" checked="@updateStatusData.rejectDefault3" /></td>
+                <td>
+                    <input type="text" id="DeclineReason_@updateStatusData.SN" name="DeclineReason" style="width:295px;" value="@updateStatusData.DeclineReason" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div style="text-align:right;">
+    <br />
+    <input type="button" id="rejectStatusUpdate" data-role="button" class="k-button" role="button" aria-disabled="false" value="確認" />
+    <input type="button" id="rejectStatusCancel" data-role="button" class="k-button" role="button" aria-disabled="false" value="取消" />
+</div>
+
+@*
+<link href="~/Scripts/kendoui/styles/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Scripts/kendoui/styles/kendo.default.min.css" rel="stylesheet" />
+<link href="~/Scripts/kendoui/styles/kendo.dataviz.min.css" rel="stylesheet" />
+<link href="~/Scripts/kendoui/styles/kendo.dataviz.default.min.css" rel="stylesheet" />
+<script src="~/Scripts/kendoui/kendo.all.min.js"></script>
+<script src="~/Scripts/kendoui/kendo.aspnetmvc.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        var mdResult = {};
+        //建立資料來源物件
+        var mdDataSrc = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    // 以下其實就是$.ajax的參數
+                    type: "POST",
+                    url: "/Manufacturer/ManufacturerUpdateStatus",
+                    dataType: "json",
+                    data: {
+                        // 額外傳至後方的參數
+                        //keywd: function () {
+                        //    return $("#tKeyword").val();
+                        //}
+                    },
+                    complete: function (response) {
+                        mdResult = JSON.parse(response.responseText);
+                    }
+                },
+                //update: {
+                //    url: "/Manufacturer/ManufacturerEdit",
+                //    datatype: "json",
+                //    type: "POST",
+                //    complete: function (response) {
+                //        var mdResult = JSON.parse(response.responseText);
+                //        alert(mdResult.Msg);
+                //        $("#mdStatusGrid").data("kendoGrid").dataSource.read();
+                //    },
+                //    error: function (err) {
+                //    }
+                //},
+                // Model 序列化
+                parameterMap: function (data, operation) {
+                    // 新增或修改時
+                    //console.log(operation);
+                    if ((operation === "update" || operation === "create") && data) {
+                        return { jsonManufacturerList: kendo.stringify(data.models) };
+                    } else
+                        // 刪除
+                        if (operation === "destroy" && data.UserNo) {
+                            return JSON.stringify({ ID: data.UserNo });
+                        }
+                    return data;
+                }
+            },
+            batch: true,
+            schema: {
+                //取出資料陣列
+                data: function (mdResult) {
+                    return mdResult.data;
+                },
+                model: {
+                    id: "SN",
+                    fields: {
+                        ManufactureName: { editable: false, nullable: false },
+                        ManufactureURL: { editable: false, nullable: false },
+                        DeclineReason: {
+                            editable: true, nullable: false,
+                            //editable: true, nullable: false, validation: {
+                            //    supportemailvalidation: function (input) {
+                            //        if (input.is("[name='SupportEmail']") && input.val() != "") {
+                            //            input.attr("data-supportemailvalidation-msg", "請填寫正確的電子信箱格式");
+                            //            return emailRule.test(input.val());
+                            //        }
+                            //        return true;
+                            //    }
+                            //}
+                        },
+                    }
+                }
+            },
+            //pageSize: 10,
+            serverPaging: true,
+            serverSorting: true
+        });
+        
+        $("#mdStatusGrid").kendoGrid({
+            autoBind: true,
+            height: 550,
+            dataSource: mdDataSrc,
+            //detailTemplate: kendo.template($("#detail-template").html()),
+            //detailInit: function (e) {
+            //    // without this line, detail template bindings will not work
+            //    kendo.bind(e.detailRow, e.data);
+            //},
+            editable: true,
+            scrollable: true,
+            sortable: true,
+            //pageable: {
+            //    Refresh: true,
+            //    pageSizes: true,
+            //    //buttonCount: 20,
+            //    pageSizes: [10, 25, 50]
+            //},
+            columns: [
+                { field: "SN", title: "SN", width: "200px", attributes: { "SN": "#=SN#" }, hidden: true },
+                { field: "UpdateCommand", title: "UpdateCommand", width: "200px", attributes: { "SN": "#=SN#" }, hidden: true },
+                { field: "ManufactureName", title: "製造商名稱", width: "200px" },
+                {
+                    field: "ManufactureURL", title: "製造商網址", width: "200px", attributes: { "SN": "#=SN#" }, template: '#= UrlLink(ManufactureURL) #'
+                },
+                {
+                    field: "預設1<br /><input type='checkbox' id='rejectAllDefault1' />", title: "預設1<br /><input type='checkbox' id='rejectAllDefault1' />", width: "200px", template: '#= mailCheck(SupportEmail) #'
+                },
+                {
+                    field: "預設2<br /><input type='checkbox' id='rejectAllDefault2' />", title: "預設2<br /><input type='checkbox' id='rejectAllDefault2' />", width: "200px",
+                },
+                {
+                    field: "預設3<br /><input type='checkbox' id='rejectAllDefault3' />", title: "預設3<br /><input type='checkbox' id='rejectAllDefault2' />", width: "200px",
+                },
+                {
+                    field: "DeclineReason", title: "DeclineReason", width: "350px",
+                },
+                
+            ],
+            toolbar: ["save", "cancel"],
+            //edit: function (e) {
+            //    //add a title
+            //    if (e.model.isNew()) {
+            //        $(".k-window-title").text("Add");
+            //    } else {
+            //        $(".k-window-title").text("Edit");
+            //    }
+            //},
+            //editable: {
+            //    mode: "inline",
+            //    update: true
+            //},
+            //dataBound: function () {
+            //    //AJAX資料Bind完成後觸發
+            //    var kw = $("#tKeyword").val();
+            //    //若有設關鍵字，做Highlight處理
+            //    if (kw.length > 0) {
+            //        var re = new RegExp(kw, "g");
+            //        $(".u-name").each(function () {
+            //            var $td = $(this);
+            //            $td.html($td.text()
+            //           .replace(re, "<span class='hi-lite'>$&</span>"));
+            //        });
+            //    }
+            //}
+        });
+
+        //$(".PhoneNumberDetail").kendoMaskedTextBox({
+        //    mask: "(999)000-0000"
+        //});
+
+        //function testABC() {
+        //    $("#detail-template").data("kendoWindow").open();
+        //    //$(this).kendoMaskedTextBox({
+        //    //    mask: "(999)999-9999"
+        //    //});
+        //    //$('<input required data-text-field="CategoryName" data-value-field="CategoryID" data-bind="value:' + options.field + '"/>')
+        //        //.appendTo(container)
+        //        //.kendoDropDownList({
+        //        //    autoBind: false,
+        //        //    dataSource: {
+        //        //        type: "odata",
+        //        //        transport: {
+        //        //            read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Categories"
+        //        //        }
+        //        //    }
+        //        //});
+        //}
+
+        //window.Trim = function (number) {
+        //    return $.trim(number);
+        //}
+
+        //window.toPhone = function (region, phone, ext) {
+        //    getRegion = $.trim(region);
+        //    getPhone = $.trim(phone);
+        //    getExt = $.trim(ext);
+        //    var mdResult = "";
+        //    if(getRegion.length > 0)
+        //    {
+        //        mdResult += "(" + getRegion + ")";
+        //    }
+        //    else
+        //    {
+        //        mdResult += "(  )";
+        //    }
+
+        //    if(getPhone.length > 0)
+        //    {
+        //        mdResult += getPhone;
+        //    }
+        //    else {
+        //        mdResult += "   ";
+        //    }
+
+        //    if(getExt.length > 0)
+        //    {
+        //        mdResult += "#" + getExt;
+        //    }
+        //    else
+        //    {
+        //        mdResult += "#";
+        //    }
+
+        //    return mdResult;
+        //}
+
+        window.mailCheck = function (value) {
+            var mdResult;
+            if (value == null) {
+                return "";
+            }
+            else {
+                mdResult = "<a href=\"mailto:" + value + "\">" + value + "</a>";
+                return mdResult
+            }
+        }
+
+        window.UrlLink = function (value) {
+            var mdResult;
+            if (value == null) {
+                return "";
+            }
+            else {
+                mdResult = "<a target='_blank' href='" + value + "'>" + value + "</a>";
+                return mdResult;
+            }
+        }
+
+        //按下查詢鈕
+        $("#bQuery").click(function () {
+            //要求資料來源重新讀取(並指定切至第一頁)
+            mdDataSrc.read({ page: 1, skip: 0 });
+            //Grid重新顯示資料
+            $("#mdStatusGrid").data("kendoGrid").refresh();
+        });
+
+        $("#tKeyword").keypress(function (event) {
+            if (event.keyCode == 13) {
+                mdDataSrc.read({ page: 1, skip: 0 });
+            }
+        });
+    });
+
+    //function Text()
+    //{
+    //    alert(123);
+    //    e.preventDefault();
+    //    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+    //    alert(dataItem.Phone);
+    //}
+
+    //function editItem(sn) {
+    //    //if ($("input[checkboxSN=" + sn + "]:checked").length == 1) {
+    //    //    //alert(999);
+    //    //}
+    //    //else
+    //    //{
+    //    //    alert(123);
+    //    //}
+    //    document.getElementById("Phone" + sn).innerHTML = "(<input type='text' id='_PhoneRegion#=SN#' onblur='insertNumber(" + sn + ", _PhoneRegion, PhoneRegion)' style='width:20px;'/>)<input type='text' id='_Phone#=SN#' onblur='insertNumber(" + sn + ", _Phone, Phone)' style='width:40px;' />#<input type='text' id='_PhoneExt#=SN#' onblur='insertNumber(" + sn + ", _PhoneExt, PhoneExt)' style='width:20px;' />";
+    //}
+
+    //function insertNumber(sn, name, insertName)
+    //{
+    //    alert($("#" + name + sn).val());
+    //    $("#" + insertName + sn).val($("#" + name + sn).val());
+    //}
+
+    //function showDetails(sn) {
+    //    alert(sn);
+    //    //e.preventDefault();
+
+    //    //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+    //    //alert(dataItem.Phone);
+    //    //detailsTemplate(dataItem);
+    //    //wnd.content(detailsTemplate(dataItem));
+    //    //wnd.center().open();
+    //}
+
+</script>
+預設拒絕原因:<br />
+1.重複<br />
+2.無效網址<br />
+3.連結至其他平台<br />
+<div id="mdStatusGrid" style="width:auto;"></div>*@

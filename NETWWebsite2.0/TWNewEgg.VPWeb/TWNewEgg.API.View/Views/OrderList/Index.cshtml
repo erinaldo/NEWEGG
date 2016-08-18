@@ -1,0 +1,493 @@
+﻿@Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    TWNewEgg.API.View.OrderMainPage viewModel = new TWNewEgg.API.View.OrderMainPage();
+    if (ViewBag.viewModel as TWNewEgg.API.View.OrderMainPage != null)
+    {
+        viewModel = ViewBag.viewModel;
+    }
+}
+
+<div class="rightBox">
+    <div class="content">
+        <div>
+            <table>
+                <tr>
+                    <td style="text-align:right; width:100px; min-width:100px;">選擇：</td>
+                    <td style="text-align:left; width:120px; min-width:120px;">
+                        @(Html.Kendo().DropDownList()
+                            .Name("orderKeyWordSearchType")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                            {
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderKeyWordSearchType.訂單編號.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderKeyWordSearchType.訂單編號).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderKeyWordSearchType.訂購人姓名.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderKeyWordSearchType.訂購人姓名).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderKeyWordSearchType.新蛋商品編號.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderKeyWordSearchType.新蛋商品編號).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderKeyWordSearchType.商家商品編號.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderKeyWordSearchType.商家商品編號).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderKeyWordSearchType.商品名稱.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderKeyWordSearchType.商品名稱).ToString()
+                                }
+                            })
+                            .SelectedIndex(0)
+                            .HtmlAttributes(new { style = "width:120px;" })
+                        )
+                    </td>
+                    <td style="text-align:center; width:320px; min-width:320px;">
+                        <input type="text" id="keyWord" class="k-textbox" style="width:300px;" />
+                    </td>
+
+                    <td style="text-align:center; width:100px; min-width:100px;">
+                        @(Html.Kendo().Button()
+                            .Name("search")
+                            .Content("查詢")
+                            .HtmlAttributes(new {
+                                style="min-width:56px;"
+                            })
+                            .Events(e => { e.Click("Search"); })
+                        )
+                    </td>
+                    <td style="text-align:center; width:100px; min-width:100px;">
+                        @(Html.Kendo().Button()
+                            .Name("Export")
+                            .Content("匯出Excel")
+                            .HtmlAttributes(new {
+                                style="min-width:70px;"
+                            })
+                            .Events(e => { e.Click("Export"); })
+                        )
+                    </td>
+                </tr>
+            </table>
+            <table style="margin-top:10px;">
+                <tr>
+                    <td style="text-align:right; width:100px; min-width:100px;">訂單狀態：</td>
+                    <td style="text-align:left; width:120px; min-width:120px;">
+                        @(Html.Kendo().DropDownList()
+                            .Name("orderStatus")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                            {
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.MainOrderStatus.全部.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.MainOrderStatus.全部).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.MainOrderStatus.已成立.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.MainOrderStatus.已成立).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.MainOrderStatus.待出貨.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.MainOrderStatus.待出貨).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.MainOrderStatus.已出貨.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.MainOrderStatus.已出貨).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.MainOrderStatus.配達.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.MainOrderStatus.配達).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.MainOrderStatus.取消.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.MainOrderStatus.取消).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.MainOrderStatus.退貨.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.MainOrderStatus.退貨).ToString()
+                                }
+                            })
+                            .SelectedIndex(0)
+                            .HtmlAttributes(new { style = "width:120px;" })
+                        )
+                    </td>
+                    <td style="text-align:right; width:100px; min-width:100px;">訂單日期：</td>
+                    <td style="text-align:left; width:120px; min-width:120px;">
+                        @(Html.Kendo().DropDownList()
+                            .Name("createDateSearchType")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                            {
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderCreateDateSearchType.全部.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderCreateDateSearchType.全部).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderCreateDateSearchType.今天.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderCreateDateSearchType.今天).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderCreateDateSearchType.最近3天.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderCreateDateSearchType.最近3天).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderCreateDateSearchType.最近7天.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderCreateDateSearchType.最近7天).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderCreateDateSearchType.最近30天.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderCreateDateSearchType.最近30天).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderCreateDateSearchType.指定日期.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderCreateDateSearchType.指定日期).ToString()
+                                },
+                                new SelectListItem() {
+                                    Text = TWNewEgg.API.Models.OrderCreateDateSearchType.定制日期範圍.ToString(),
+                                    Value = ((int)TWNewEgg.API.Models.OrderCreateDateSearchType.定制日期範圍).ToString()
+                                }
+                            })
+                            .SelectedIndex(0)
+                            .HtmlAttributes(new { style = "width:120px;" })
+                            .Events(events =>
+                            {
+                                events.Change("ChangeCreateDateSearchType")
+                                    .Select("ChangeCreateDateSearchType");
+                            })
+                        )
+                    </td>
+                    <td class="startDate" style="text-align:center; width:130px; min-width:130px; display:none;">
+                        @(Html.Kendo().DatePicker()
+                            .Name("startDate")
+                            .Format("yyyy/MM/dd")
+                            .Value(DateTime.Now.Date)
+                            .HtmlAttributes(new { style = "width:110px;" })
+                            .Footer(false)
+                        )
+                    </td>
+                    <td class="endDate" style="text-align:center; width:5px; min-width:5px; display:none;">~</td>
+                    <td class="endDate" style="text-align:center; width:130px; min-width:130px; display:none;">
+                        @(Html.Kendo().DatePicker()
+                            .Name("endDate")
+                            .Format("yyyy/MM/dd")
+                            .Value(DateTime.Now.Date)
+                            .HtmlAttributes(new { style = "width:110px;" })
+                            .Footer(false)
+                        )
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <hr style="margin-top:10px;" />
+        <div>
+            @(Html.Kendo().Grid<TWNewEgg.API.Models.MainOrder>()
+                .Name("grid")
+                .HtmlAttributes(new { style = "height: 500px;" })
+                .AutoBind(true)
+                .Columns(columns =>
+                {
+                    columns.Bound(model => model.StatusName)
+                        .Title("訂單狀態")
+                        .Width(80)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Template(x => { })
+                        .ClientTemplate(
+                            "<div style=\"text-align:center\">" +
+                                "<input type=\"button\" id=\"shipment_#=CartID#\" value=\"出貨\" onclick=\"Shipment('#=CartID#', '#=ShipType#')\" class=\"k-button\" disabled />" +
+                            "</div>"
+                        )
+                        .Title("動作")
+                        .Width(80)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.CreateDate)
+                        .Title("訂單日期")
+                        .Width(140)
+                        .Format("{0:yyyy/MM/dd  HH:mm:ss}")
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.ShipTypeName)
+                         .Title("出貨方")
+                         .Width(90)
+                         .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                         .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.SalesOrderGroupID)
+                         .Title("購物車編號")
+                         .Width(90)
+                         .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                         .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.CartID)
+                        .Title("訂單編號")
+                        .Width(140)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.POCode)
+                        .Title("採購單編號")
+                        .Width(140)
+                        .Hidden(viewModel.AccountTypeCode == "S" && !viewModel.IsAdmin)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.Seller)
+                        .Title("商家")
+                        .Width(200)
+                        .Hidden(!viewModel.IsAdmin)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:left;" });
+
+                    columns.Bound(c => c.ProductID)
+                         .Title("新蛋商品編號")
+                         .Width(100)
+                         .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                         .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.SellerProductID)
+                         .Title("商家商品編號")
+                         .Width(120)
+                         .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                         .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Template(x => { })
+                        .ClientTemplate(
+                            "<a href=\"javascript:void(0)\" onclick=\"OpenItemPage('#=ItemUrl#')\">#=ProcessTitle#</a>"
+                        )
+                        .Title("商品名稱")
+                        .Width(300)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.UserName)
+                         .Title("訂購人姓名")
+                         .Width(100)
+                         .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                         .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.PayTypeName)
+                        .Title("付款方式")
+                        .Width(110)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.UpdateDate)
+                        .Title("訂單更新日期")
+                        .Width(140)
+                        .Format("{0:yyyy/MM/dd  HH:mm:ss}")
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+                })
+                .Events(events => events.DataBound("ButtonControl"))
+                .Scrollable()
+                .Pageable(page => page.Refresh(true)
+                    .PageSizes(true)
+                    .ButtonCount(10)
+                )
+                .Resizable(resizable => resizable.Columns(true))
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Read(read => read.Action("GetMainOrder", "OrderList")
+                        .Data("MakeSearchCondition")
+                    )
+                    .Events(events => events.RequestStart("MainSearchRequestStart")
+                        .RequestEnd("MainSearchRequestEnd")
+                    )
+                )
+                .HtmlAttributes(new { style = "margin-top:10px; height:400px;" })
+            )
+        </div>
+    </div>
+</div>
+
+<div id ="shipmentWindow"></div>
+<div id="lodingMessage" style="display:none;">
+    <div id="shipmentWindowLoadingMessage">
+        <img src="~/Content/Img/loading.gif" height="30"/>
+        資料讀取中，請稍後...
+    </div>
+</div>
+
+@*kendo 日期選擇中文化*@
+<script>kendo.culture("zh-TW");</script>
+<script type="text/javascript">
+   
+    @*查詢按鈕事件*@
+    function Search() {
+        $("#grid").data("kendoGrid").refresh();
+        $("#grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    function MakeSearchCondition() {
+        return {
+            KeyWord: $("#keyWord").val(),
+            KeyWordSearchType: $("#orderKeyWordSearchType").data("kendoDropDownList").value(),
+            OrderStatus: $("#orderStatus").data("kendoDropDownList").value(),
+            CreateDateSearchType: $("#createDateSearchType").data("kendoDropDownList").value(),
+            StartDate: $("#startDate").data("kendoDatePicker").value(),
+            EndDate: $("#endDate").data("kendoDatePicker").value()
+        }
+    }
+
+    @*切換搜尋條件的訂單日期*@
+    function ChangeCreateDateSearchType() {
+        switch ($("#createDateSearchType").val()) {
+            default:
+                {
+                    $(".startDate").css("display", "none");
+                    $(".endDate").css("display", "none");
+                    break;
+                }
+            case '@((int)TWNewEgg.API.Models.OrderCreateDateSearchType.指定日期)':
+                {
+                    $(".startDate").css("display", "");
+                    $(".endDate").css("display", "none");
+                    break;
+                }
+            case '@((int)TWNewEgg.API.Models.OrderCreateDateSearchType.定制日期範圍)':
+                {
+                    $(".startDate").css("display", "");
+                    $(".endDate").css("display", "");
+                    break;
+                }
+        }
+    }
+
+    function ButtonControl(e) {
+        for (var i = 0; i < e.sender._data.length; i++) {
+            @*非寄倉的訂單，才開放 vendor 操作退貨*@
+            if (e.sender._data[i].ShipType == parseInt("@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.直配)") || e.sender._data[i].ShipType == parseInt("@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.B2C直配)")) {
+                $("#shipment_" + e.sender._data[i].CartID).prop("disabled", false);
+            }
+        }
+    }
+
+    @*出貨*@
+    function Shipment(id, shipType) {
+        if (shipType == "@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.直配)" || shipType == "@((int)TWNewEgg.DB.TWSQLDB.Models.Item.tradestatus.B2C直配)") {
+            $("#shipmentWindow").kendoWindow({
+                title: "訂單明細",
+                actions: ["Close"],
+                width: (parseInt(Math.round($(document).width() * 0.9)) > 1095) ? "1050px" : Math.round($(document).width() * 0.9) + "px",
+
+                @*於開啟派車畫面時，計算出來的子視窗寬度太高，則給定一個固定的大小*@
+                height: (parseInt(Math.round($(document).height() * 0.9)) > 580) ? "580px" : Math.round($(document).height() * 0.9) + "px",
+                content: {
+                    url: "/OrderList/ShipPage",
+                    data: {
+                        cartID: id
+                    }
+                },
+                modal: true,
+                visible: true,
+                open: shipmentWindowOpen,
+                close: shipmentWindowClose
+
+            }).data("kendoWindow").center().open();
+        }
+        else {
+            $("#ManMade_Alert_Message").html(SBNMessage());
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+        }
+    }
+
+    function OpenItemPage(itemUrl) {
+        window.open(itemUrl, '商品賣場頁面', 'width=800,height=500,directories=no,location=no,menubar=no,scrollbars=yes,status=no,toolbar=no,resizable=yes,left=20,top=350');
+    }
+
+    function SBNMessage() {
+        return "此訂單為寄倉商品，將由台蛋網進行出貨事宜。";
+    }
+
+    function shipmentWindowClose(e) {
+        $("#shipmentWindow").remove();
+        $(".rightBox").after('<div id="shipmentWindow"></div>');
+        $("#grid").data("kendoGrid").dataSource.read();
+    }
+
+    function shipmentWindowOpen(e) {
+        var shipmentWindow = $(e.sender.element[0]);
+        shipmentWindow.html($("#lodingMessage").html());
+        $("#shipmentWindowLoadingMessage").css("width", "100%");
+        $("#shipmentWindowLoadingMessage").css("text-align", "center");
+        $("#shipmentWindowLoadingMessage").css("margin-top", Math.floor(($(shipmentWindow).height() / 2) - 15) + "px");
+    }
+
+    @*等待查詢，畫面鎖定*@
+    function MainSearchRequestStart() {
+        $.blockUI();
+    }
+
+    @*查詢完成，解除畫面鎖定，若有錯誤則彈出提示訊息*@
+    function MainSearchRequestEnd(e) {
+
+        @*清除錯誤提示訊息*@
+        if ($("#mainStatementGridErrorMessage") != undefined) {
+            $("#mainStatementGridErrorMessage").remove();
+        }
+
+        if (e.response != null && e.response != "" && typeof (e.response) === 'string') {
+
+            var girdWrapper = $("#grid").data("kendoGrid").wrapper;
+
+            @*錯誤提示訊息*@
+            girdWrapper.find('tbody').after('<div id="mainStatementGridErrorMessage">' + e.response + '</div>');
+
+            $("#mainStatementGridErrorMessage").css("text-align", "center");
+
+            @*width 的 -17 為右方 scorebar 的寬度*@
+            $("#mainStatementGridErrorMessage").css("width", parseInt(girdWrapper.find(".k-grid-content").width()) - 17);
+
+            @*margin-top 的 -8 為文字的高度的一半*@
+            $("#mainStatementGridErrorMessage").css("margin-top", parseInt(girdWrapper.find(".k-grid-content").height()) / 2 - 8);
+        }
+
+        $.unblockUI();
+    }
+
+    @*匯出 Excel*@
+    function Export() {
+        $(document).ajaxSend($.blockUI());
+        $(document).ajaxStop($.unblockUI);
+        $.ajax({
+            type: "POST",
+            url: "/OrderList/ToExcel",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                OrderSearchMode: $("#orderStatus").data("kendoDropDownList").value(),
+                Choose: $("#orderKeyWordSearchType").data("kendoDropDownList").value(),
+                _BeginDate: $("#startDate").data("kendoDatePicker").value(),
+                _EndDate: $("#endDate").data("kendoDatePicker").value(),
+                keywd: $("#keyWord").val(),
+                SelectDate: $("#createDateSearchType").data("kendoDropDownList").value()
+            }),
+            beforeSend: function () {
+                $("#ExportExcel").attr('disabled', 'disabled');
+                $('#loadingIMG').show();
+            },
+            success: function (res) {
+                if (res.Msg.indexOf('[Success]:') >= 0) {
+                    $("#ExportExcel").removeAttr('disabled');
+
+                    $('#loadingIMG').hide();
+
+                    window.location.href = res.Url;
+                }
+                else if (res.indexOf('[Error]:') >= 0) {
+                    $("#ManMade_Alert_Message").html(res.replace('[Error]: ', ''));
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+            }
+        });
+    }
+</script>

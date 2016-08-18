@@ -1,0 +1,636 @@
+﻿@model TWNewEgg.API.View.SellerRelationshipManagement
+@{
+    ViewBag.Title = "Index";
+
+    List<TWNewEgg.API.Models.GetCurrencyListResult> currencyList_ = ViewBag.currencyList;
+    
+    @Styles.Render("~/Themes/2013/stylesheets/GridStyle.css")
+}
+
+<h2></h2>
+
+<style type="text/css">
+    .slrRship_userInput{
+        width:170px;
+        height:21.5px;
+    }
+
+    .dateInput {
+        width:85px;
+    }
+
+    .fieldName {
+        padding-left:50px;
+        text-align: right;
+        padding-right: 10px;
+    }
+    #searchPanel {
+        line-height: 3;
+    }
+    #grid_sellerRelation_sellerDetails {
+        height: 500px;
+    }
+</style>
+<script>
+    $(function(){
+        var currencyList = [];
+        var sellerStatusList = [];
+        var gridDataSrc = [];
+
+        var countryRegion = [];
+        $.ajax({
+            contentType: "application/json;charset=utf-8",
+            type: "get",
+            url: "/AccountSettings/GetCountryRegionList",
+            datatype: "json",
+            data: null,
+            success: function (res) {
+                
+                countryRegion = res;
+            },
+            error: function () {
+                $("#ManMade_Alert_Message").html('error, countryRegion');
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            }
+            ,
+            complete: function () {
+                return false;
+            }
+        });
+
+
+
+        //取得國家/區域下拉選單資料
+        var countryRegionList = [];
+        $.ajax({
+            type: "GET",
+            url: "/SellerRelationshipManagement/GetCountryRegionList",
+            dataType: "JSON",
+            contentType: "application/json;charset=utf-8",
+            beforeSend: function () {
+            },
+            success: function (res) {
+                countryRegionList = res;
+
+                $("#region").kendoDropDownList({
+                    optionLabel: "請選擇...",
+                    dataTextField: "NameTW",
+                    dataValueField: "CountryCode",
+                    dataSource: countryRegionList
+                }).data("kendoDropDownList");
+            },
+            error: function () {
+                $("#ManMade_Alert_Message").html('error. countryRegionList');
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            },
+            complete: function () {
+
+            }
+        });
+
+        //狀態 SellerStatus
+        sellerStatusList = [
+            { text: "請選擇...", value: "" },
+            { text: "Active", value: "A" },
+            { text: "Inactive", value: "I" },
+            { text: "Closed", value: "C" }
+        ];
+        sellerStatusList_grid = [
+            { text: "Active", value: "A" },
+            { text: "Inactive", value: "I" },
+            { text: "Closed", value: "C" }
+        ];
+
+        sellerIdenty_grid = [
+            { text: "請選擇", value: 0 },
+            { text: "國內廠商", value: 1 },
+            { text: "國外廠商", value: 2 },
+            { text: "個人戶", value: 3 },
+        ];
+
+        sellerBillingCycle_grid = [
+            { text: "請選擇", value: 0 },
+            { text: "半月結", value: 1 },
+            { text: "月結", value: 2 },
+        ];
+
+        $("#sellerStatus").kendoDropDownList({
+            //optionLabel: "請選擇...",
+            dataTextField: "text",
+            dataValueField: "value",
+            dataSource: sellerStatusList,
+            index: 0
+        }).data("kendoDropDownList");
+
+
+        $.ajax({
+            type: "GET",
+            url: "/SellerRelationshipManagement/GetCurrencyList",
+            dataType: "JSON",
+            contentType: "application/json;charset=utf-8",
+            beforeSend: function () {
+            },
+            success: function (res) {
+                currencyList = res;
+            },
+            error: function () {
+                $("#ManMade_Alert_Message").html('error : currencyList ');
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            },
+            complete: function () {
+
+            }
+        });
+
+        function CurrencyCodeAndName(currencyCodeValue) {
+
+            for (var i = 0; i < currencyList.length; i++) {
+                if (currencyList[i].value == currencyCodeValue) {
+                    return currencyList[i].text;
+                }
+            }
+        }
+
+        function createDateChanged(value) {
+            if (value == "指定日期") {
+                $('#createDateRange').show();
+            }
+            else {
+                $('#createDateRange').hide();
+            }
+        }
+
+        var createDateList = [];
+        createDateList = [
+            { text: "全部...", value: "" },
+            { text: "今天", value: "" },
+            { text: "最近3天", value: "" },
+            { text: "最近7天", value: "" },
+            { text: "最近30天", value: "" },
+            { text: "指定日期", value: "" },
+        ];
+
+        //形成grid的資料
+        var result = {};
+        gridDataSrc = new kendo.data.DataSource({
+            //autoSync : true,
+            transport: {
+                read: {
+                    type: "POST",
+                    url: "/SellerRelationshipManagement/Search",
+                    dataType: "json",
+                    data: function () {
+                        return {
+
+                            sellerStatus: $("#sellerStatus").val(),
+
+                            createDateStart: $("#createDateS").val(),
+                            createDateEnd: $("#createDateE").val(),
+
+                            updateDateStart: $("#updateDateS").val(),
+                            updateDateEnd: $("#updateDateE").val(),
+
+                            sellerCountryCode: $("#region").val()
+                        }
+                    },
+                    beforeSend: function () {
+                        $('#loadingIMG').show();
+                    },
+                    complete: function (response) {
+                        $('#loadingIMG').hide();
+                        //result = JSON.parse(response.responseText);
+                        if (result.total == 0) {
+
+                        }
+                        else {
+
+                        }
+                    }
+                },
+                //update: {
+                //    url: "/Manufacturer/ManufacturerEdit",
+                //    datatype: "json",
+                //    type: "POST",
+                //    complete: function (response) {
+                //        var result = JSON.parse(response.responseText);
+                //        alert(result.Msg);
+                //        $("#mfListGrid").data("kendoGrid").dataSource.read();
+                //    },
+                //    error: function (err) {
+                //    }
+                //},
+                update: {
+                    url: "/SellerRelationshipManagement/UpdateSellerInfo",
+                    datatype: "json",
+                    type: "post",
+                    beforeSend: function () {
+                        $.blockUI();
+                    },
+                    complete: function (response) {
+
+                        $.unblockUI();
+
+                        @*轉換回傳資料*@
+                        var result = JSON.parse(response.responseText);
+                        $("#ManMade_Alert_Message").html(result.msg);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        //if (result.isSuccess) {
+                        //    alert("修改成功。");
+                        //}
+                        //else {
+                        //    alert("修改失敗。");
+                        //}
+
+                        @*重新讀取畫面資料，防止按下取消時，剛剛修正且儲的資料又顯示回來*@
+                        //$("#grid_sellerRelation_sellerDetails").data("kendoGrid").dataSource.read();
+
+                        @*將結果畫面跳回第一頁*@
+                        $("#grid_sellerRelation_sellerDetails").data("kendoGrid").refresh();
+                        $("#grid_sellerRelation_sellerDetails").data("kendoGrid").dataSource.page(1);
+
+                    }
+                },
+                parameterMap: function (data, operation) {
+
+                    // 新增或修改時
+                    if ((operation === "update" || operation === "create") && data) {
+                        return { sellerInfosToUpdateStr: kendo.stringify(data.models) };
+                    }
+                    else if (operation === "destroy" && data.UserNo) {
+                        // 刪除
+                        return JSON.stringify({ ID: data.UserNo });
+                    }
+                    return data;
+                }
+
+            },
+            batch: true,
+            schema: {
+                //取出資料陣列
+                data: function (result) {
+                    return result.data;
+                },
+
+                //取出資料總筆數(計算頁數用)
+                total: function (result) {
+                    return result.total;
+                },
+
+                model: {
+                    //id: "SN",
+                    id: "SellerID",
+                    fields: {
+                        SellerID: { editable: false },
+                        SellerName: { editable: false },
+                        InDate: { editable: false },
+                        UpdateDate: { editable: false },
+                        SellerCountryCodeName: { editable: false },
+                        CountryCode: { editable: false },
+                        SellerStatus: { editable: true },
+                        AccountTypeCode: { editable: false },
+                        Currency: { editable: true },
+                        Currency: { editable: true },
+                        Identy: { editable: true },
+                        SellerEmail: { editable: false },
+
+                        SN: { editable: false, nullable: false },
+                        ManufactureName: {
+                            editable: true, nullable: false, validation: {
+                                required: { message: "" }
+                            }
+                        },
+                        SellerUserStatus: { editable: false }
+                    }
+                }
+            },
+            pageSize: 10,
+            serverPaging: true,
+            serverSorting: true
+        });
+        //gridDataSrc.read();
+
+
+        //grid 中 JSON日期轉換使用的函數
+        var dateRegExp = /^\/Date\((.*?)\)\/$/;
+        window.toDate = function (value) {
+            var date = dateRegExp.exec(value);
+            // 創新資料時會造成錯誤發生，需要特別處理
+            if (date == null) {
+                //return new Date();
+                return "";
+            } else {
+                return new Date(parseInt(date[1]));
+            }
+        }
+
+
+        $("#grid_sellerRelation_sellerDetails").kendoGrid({
+            autoBind: false,
+            dataSource: gridDataSrc,
+            columns: [
+                { field: "SellerID", title: "編號", width: "55px" },
+                { field: "SellerName", title: "名稱", width: "200px" },
+                { field: "InDate", template: '#= kendo.toString(toDate(InDate), "yyyy/MM/dd")#', title: "創建日期", width: "75px" },
+
+                { field: "UpdateDate", title: "最後編輯日期", template: '#= kendo.toString(toDate(UpdateDate), "yyyy/MM/dd")#', width: "100px" },
+                {
+                    field: "Identy", title: "廠商身分別", width: "200px",
+                    template: "#= SellerIdenty(Identy) #",
+                    editor: function (container) {
+                        var input = $('<input name="Identy" data-bind="value:Identy">');
+                        input.appendTo(container);
+                        input.kendoDropDownList({
+                            dataTextField: "text",
+                            dataValueField: "value",
+                            dataSource: sellerIdenty_grid,
+                        }).appendTo(container);
+                    },
+                },
+                { field: "CompanyCode", title: "統編/身分證字號", width: "200px" },
+                { field: "SellerCountryCodeName", title: "地區", width: "80px" },
+                //{ field: "CountryCode", title: "地區", width: "80px" },
+                {
+                    field: "SellerStatus", title: "狀態", width: "80px",
+                    template: "#= SellerStatusFullName(SellerStatus) #",
+                    editor: function (container) {
+                        var input = $('<input name="SellerStatus" value="#=SellerStatus#">');
+                        input.appendTo(container);
+                        input.kendoDropDownList({
+                            dataTextField: "text",
+                            dataValueField: "value",
+                            dataSource: sellerStatusList_grid,
+                        }).appendTo(container);
+                    }
+                },
+                { field: "AccountTypeCode", title: "帳戶類別", width: "80px" },
+                {
+                    field: "Currency",
+                    template: "#=Currency#",
+                    editor: function (container) {
+                        var input = $('<input name="Currency" value="#=Currency#">');
+                        input.appendTo(container);
+                        input.kendoDropDownList({
+                            dataTextField: "text",
+                            dataValueField: "value",
+                            dataSource: currencyList,
+                        }).appendTo(container);
+                    }
+                    , title: "幣別"
+                    , width: "220px"
+                },
+                {
+                    field: "BillingCycle", title: "付款方式", width: "150px",
+                    template: "#=SellerBillingCycle(BillingCycle)#",
+                    editor: function (container, options) {
+                        var input = $('<input id="brandId"  data-bind="value:BillingCycle">');
+                        input.appendTo(container);
+                        input.kendoDropDownList({
+                            dataTextField: "text",
+                            dataValueField: "value",
+                            dataSource: sellerBillingCycle_grid,
+                        }).appendTo(container);
+                    }
+                },
+                //{ field: "Detail", title: "Detail", width: "50px", encoded: false, hidden: true },
+                { field: "", title: "", width: "110px", template: "#= InviteButtonTemplate(SellerUserStatus, SellerID, SellerName, SellerEmail) #" },
+                //{ command: { text: "再次邀請", click: sendInvitationEmail }, title: "", width: "90px",  },
+
+                { command: { text: "編輯", click: Edit }, title: "", width: "90px" },
+                { field: "", title: "", width: "auto" }
+            ],
+            sortable: true,
+            editable: true,
+            scrollable: true,
+            //resizable: true,
+            pageable: {
+                Refresh: true,
+                pageSizes: false,
+                pageSizes: [10, 25, 50]
+            },
+            toolbar: [{
+                name: "save",
+                text: "儲存所有變更"
+            },
+            {
+                name: "cancel",
+                text: "取消"
+            }]
+            //toolbar: ["save", "cancel"],
+        });//.data("kendoGrid").dataSource.read();//.table.on("click", ".checkbox", null);
+
+         //按下查詢鈕
+        $("#btn_search").click(function () {
+
+            //檢查填入的資訊
+            if ( $("#createDateS").val() && $("#createDateE").val() ) {
+                if ( Date.parse($("#createDateS").val()) > Date.parse($("#createDateE").val())) {
+                    $("#ManMade_Alert_Message").html("創建日期: 起始日期不能大於結束日期!");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    return false;
+                }
+            }
+            if ($("#updateDateS").val() && $("#updateDateE").val()) {
+                if (Date.parse($("#updateDateS").val()) > Date.parse($("#updateDateE").val())) {
+                    $("#ManMade_Alert_Message").html("最後編輯日期: 起始日期不能大於結束日期!");
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    return false;
+                }
+            }
+
+
+            //要求資料來源重新讀取(並指定切至第一頁)
+            //gridDataSrc.read({ page: 1, skip: 0 });
+
+            //Grid重新顯示資料
+            $("#grid_sellerRelation_sellerDetails").data("kendoGrid").refresh();
+            $("#grid_sellerRelation_sellerDetails").data("kendoGrid").dataSource.page(1);
+        });
+
+        //按下 再次邀請 按鈕 //目前暫時無使用 經測試後 為了修改disable再次邀請按鈕功能，改使用sendInvitationEmail2
+        function sendInvitationEmail(e) {
+
+            $("#ManMade_Alert_Message").html('clicked');
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+            $.ajax({
+                type: 'get',
+                url: '/SellerRelationshipManagement/SendMail',
+                dataType: 'json',
+                data: { sellerID: dataItem.SellerID, SellerName: dataItem.SellerName, SellerEmail: dataItem.SellerEmail },
+                beforeSend: function () {
+                    $('#loadingIMG').show();
+                },
+                success: function (res) {
+                    $("#ManMade_Alert_Message").html(res.msg);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                },
+                error: function (res) {
+                    $("#ManMade_Alert_Message").html('寄送信件錯誤!');
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                },
+                complete: function (res) {
+                    $('#loadingIMG').hide();
+                }
+            });
+        }
+        window.SellerIdenty = function (Identy) {
+            switch (Identy) {
+                case 1:
+                    return "國內廠商";
+                    break;
+                case 2:
+                    return "國外廠商";
+                    break;
+                case 3:
+                    return "個人戶";
+                    break;
+                default:
+                    return "請選擇";
+                    break;
+            }
+        }
+        window.SellerBillingCycle = function (BillingCycle) {
+            if (BillingCycle == 1) {
+                return "半月結";
+            }
+            else if (BillingCycle == 2) {
+                return "月結";
+            }
+            else if (BillingCycle == 0) {
+                return "請選擇";
+            }
+            else {
+                return "Error";
+            }
+        }
+    });
+    function Edit(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.open('/SellerRelationshipManagement/LinkToAccountSettings?SellerID=' + dataItem.SellerID);
+    }
+    
+    function InviteButtonTemplate(SellerUserStatus, SellerID, SellerName, SellerEmail) {
+        if (SellerUserStatus.toLocaleLowerCase() == "true") {
+            return '<input type="button" value="再次邀請" class="k-button k-button-icontext" onclick="sendInvitationEmail2(\'' + SellerID + '\',\'' + SellerName + '\',\'' + SellerEmail + '\')">';
+        }
+        else {
+            return '<div style="text-align:center"><input type="button" value="再次邀請" class="k-button k-button-icontext" disabled="disabled"></div>';
+        }
+    }
+
+    //按下 再次邀請 按鈕
+    var sendInvitationEmail2 = function (SellerID, SellerName, SellerEmail) {
+
+        $.ajax({
+            type: 'get',
+            url: '/SellerRelationshipManagement/SendMail',
+            dataType: 'json',
+            //data: { sellerID: dataItem.SellerID, SellerName: dataItem.SellerName, SellerEmail: dataItem.SellerEmail },
+            data: { sellerID: SellerID, SellerName: SellerName, SellerEmail: SellerEmail },
+            beforeSend: function () {
+                $.blockUI();
+            },
+            success: function (res) {
+                $("#ManMade_Alert_Message").html(res.msg);
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            },
+            error: function (res) {
+                $("#ManMade_Alert_Message").html('寄送信件錯誤!');
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            },
+            complete: function (res) {
+                $.unblockUI();
+            }
+        });
+    }
+
+    function SellerStatusFullName(SellerStatus) {
+        if (SellerStatus == "A") {
+            return "<span>Active</span>";
+        }
+        if (SellerStatus == "C") {
+            return "<span>Closed</span>";
+        }
+        if (SellerStatus == "I") {
+            return "<span>Inactive</span>";
+        }
+    }
+
+</script>
+
+<div>
+    <div id="searchPanel">
+    <table>
+        <tbody>
+            <tr>
+                <td class="fieldName">狀態:</td>
+                <td style="padding-right:20px"><input id="sellerStatus" type="text" class="textInput"/></td>
+
+                <td class="fieldName">創建日期:</td>
+                <td style="padding-right:20px">
+                    <input id="createDate" type="text" class="slrRship_userInput" style="display:none"/>
+                    <span id="createDateRange">
+                        @*<input id="createDateS" class="dateInput" type="text"/> *@
+                        @(Html.Kendo().DatePicker()
+                                            .Name("createDateS")
+                                            )
+                        ~ 
+                        @*<input id="createDateE" class="dateInput" type="text"/>*@
+                                                @(Html.Kendo().DatePicker()
+                                            .Name("createDateE")
+                                            .Value(DateTime.UtcNow.AddHours(8)))
+                    </span>
+                </td>
+                <td>
+                    <input id="btn_search" type="button" value="搜尋" class="k-button"/>
+                    @*<div id="loadingIMG" style="display:none"><img src="~/Content/Img/loading.gif" height='30'/>資料處理中，請稍後。</div>*@
+                </td>
+            </tr>
+            <tr>
+                <td class="fieldName">最後編輯日期:</td>
+                <td >
+                    <input id="finalUpdateDate" type="text" class="slrRship_userInput" style="display:none"/>
+                    <span id="updateDateRange">
+                        @*<input id="" class="dateInput" type="text"/>*@  
+                        @(Html.Kendo().DatePicker()
+                                            .Name("updateDateS")
+                                            )
+                        ~ 
+                        @*<input id="updateDateE" class="dateInput" type="text"/>*@
+                                                @(Html.Kendo().DatePicker()
+                                            .Name("updateDateE")
+                                            .Value(DateTime.UtcNow.AddHours(8)))
+                    </span>
+                </td>
+
+                <td class="fieldName">地區:</td>
+                <td><input id="region" type="text" class="textInput"/></td>
+                
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    
+    <hr />
+    
+    <div id="grid_sellerRelation_sellerDetails"  class="GridTextCenter"></div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        //$("#createDateS").val("1923/01/01");
+        //$("#createDateE").val("2023/01/01");
+        //$("#updateDateS").val("1923/01/01");
+        //$("#updateDateE").val("2999/01/01");
+
+
+        //end of document.ready//
+    });    
+</script>

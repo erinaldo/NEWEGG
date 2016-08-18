@@ -1,0 +1,458 @@
+﻿@Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .buttonContainer {
+        margin: 10px 0px 10px 0px;
+    }
+
+    fieldset {
+        border: 1px solid #cccccc;
+        padding: 0px 15px 15px 15px;
+    }
+
+    legend {
+        margin: 15px;
+        padding: 0px;
+    }
+</style>
+<div class="rightBox">
+    <div class="content">
+        <div class="buttonContainer">
+            <button type="button" data-role="button" data-sprite-css-class="k-icon k-edit" class="k-button k-button-icontext" role="button" aria-disabled="false" tabindex="2"><span class="k-sprite k-icon k-edit"></span>Edit Button 1</button>
+            <button type="button" data-role="button" data-icon="close" class="k-button k-button-icontext" role="button" aria-disabled="false" tabindex="1"><span class="k-icon k-i-close"></span>Close Button</button>
+            <input type="button" id="btn_init_discard4item" value="初始化廢四機回收四聯單" class="k-button" tabindex="0" />
+            <button type="button" class="k-button" id="printGrid">Print Grid</button>
+            <button type="button" data-role="button" data-icon="close" class="k-button k-button-icontext" role="button" aria-disabled="false" tabindex="1">
+                <span class="k-icon k-i-tick"></span>
+                Tick Button
+            </button>
+        </div>
+        <fieldset>
+            <legend>廢四機回收四聯單</legend>
+            <div class="dvLayoutSet">
+                <div class="dvGrid"></div>
+            </div>
+            <div class="buttonContainer">
+                <input type="button" id="btn_save_discard4item" class="k-primary k-button" />
+            </div>
+        </fieldset>
+
+
+        <div id="tabstrip">
+            <ul>
+                <li>訂單概要資訊</li>
+                <li class="k-state-active">訂單商品資訊</li>
+            </ul>
+            <div>First tab content</div>
+            <div>Second tab content</div>
+        </div>
+
+
+        <div class="dvGrid k-grid k-widget" data-role="grid">
+            <table role="grid">
+                <colgroup>
+                    <col style="width: 30px">
+                    <col style="width: 150px">
+                    <col style="width: 250px">
+                    <col style="width: 200px">
+                </colgroup>
+                <thead class="k-grid-header" role="rowgroup">
+                    <tr role="row">
+                        <th role="columnheader" data-field="ID" rowspan="1" data-title="ID" data-index="0" class="k-header">ID</th>
+                        <th role="columnheader" data-field="InstalledDate" rowspan="1" data-title="安裝日期" data-index="1" class="k-header">安裝日期</th>
+                        <th role="columnheader" data-field="NumberCode" rowspan="1" data-title="回收四聯單" data-index="2" class="k-header">回收四聯單</th>
+                        <th role="columnheader" data-field="Discard4Flag" rowspan="1" data-title="回收狀態" data-index="3" class="k-header">回收狀態</th>
+                    </tr>
+                </thead>
+                <tbody role="rowgroup">
+                    <tr data-uid="da5b72b6-a7c0-4b6a-8fb5-064309b222b8" role="row">
+                        <td style="text-align: center;" role="gridcell">1028</td>
+                        <td style="text-align: center" role="gridcell">2016/04/29</td>
+                        <td style="text-align: left" role="gridcell">123到台灣 台灣有個阿里山</td>
+                        <td style="text-align: left" role="gridcell">
+                            <input onclick="set_discard4Flags(this, 1028);" type="radio" id="1028_01" name="Discard4Flag_1028" value="">未處理<input onclick="    set_discard4Flags(this, 1028);" type="radio" id="1028_02" name="Discard4Flag_1028" value="Y" checked="">回收<input onclick="    set_discard4Flags(this, 1028);" type="radio" id="1028_03" name="Discard4Flag_1028" value="N">不回收</td>
+                    </tr>
+                    <tr class="k-alt" data-uid="7e7d6e6b-8226-4137-a932-e95bb4b9529d" role="row">
+                        <td style="text-align: center;" role="gridcell">1029</td>
+                        <td style="text-align: center" role="gridcell"></td>
+                        <td style="text-align: left" role="gridcell">123</td>
+                        <td style="text-align: left" role="gridcell">
+                            <input onclick="    set_discard4Flags(this, 1029);" type="radio" id="1029_01" name="Discard4Flag_1029" value="">未處理<input onclick="    set_discard4Flags(this, 1029);" type="radio" id="1029_02" name="Discard4Flag_1029" value="Y">回收<input onclick="    set_discard4Flags(this, 1029);" type="radio" id="1029_03" name="Discard4Flag_1029" value="N" checked="">不回收</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+
+
+
+@*kendo 日期選擇中文化*@
+<script>kendo.culture("zh-TW");</script>
+<script type="text/javascript">
+
+    var salesorderCode = 'LBO160422000028';
+    var user_name = '';
+
+    $(function () {
+
+        /*頁簽*/
+        $("#tabstrip").kendoTabStrip();
+
+        $("#tabstrip").kendoTabStrip({
+            navigatable: false
+        });
+
+
+        display_ui();
+
+        var btn_save = $('#btn_save_discard4item'); /*回收四聯單填寫完成*/
+        btn_save.val('回收四聯單填寫完成').click(function () {
+            if (verify_data()) save_data();
+        });
+
+        //初始化廢四機回收四聯單
+        $('#btn_init_discard4item').click(function () {
+            mydata.init_data();
+        });
+
+    });
+
+    /*顯示回收四聯單*/
+    function display_ui() {
+
+        user_name = '';
+        var dvGrid = $(".dvLayoutSet .dvGrid");
+        var json = mydata.get_data(); /*取資料*/
+
+        /*console.log(json.Body);*/
+        console.log(JSON.stringify(json.Body));
+
+        if (json.Body.length == 0) return; /*沒有資料*/
+        bind_ui(dvGrid, json.Body); /*處理畫面*/
+
+    }
+
+    /*檢查資料*/
+    function verify_data() {
+
+        var dvGrid = $(".dvLayoutSet .dvGrid");
+        var list = dvGrid.data("kendoGrid").dataSource.data();
+
+        /*填入已更改的值*/
+        for (var i = 0; i < list.length; i++) {
+            for (var j in _dscard4Flags) {
+                if (list[i].ID == j.toString()) {
+                    list[i].Discard4Flag = _dscard4Flags[j].toString();
+                }
+            }
+        }
+
+        /*進行檢查*/
+        var vg = new VerifyGrid(list);
+        var is_ok = vg.is_ok();
+        var msg = vg.get_msg();
+
+        if (is_ok == false) {
+            var qq = '<h6>' + msg + '</h6>';
+            $("#ManMade_Alert_Message").html(msg);
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            return false;
+        }
+        else
+            return true;
+
+
+    }
+
+    /*儲存*/
+    function save_data() {
+
+        var formData = new FormData();
+        var dvGrid = $(".dvLayoutSet .dvGrid");
+        var list = dvGrid.data("kendoGrid").dataSource.data();
+        //console.log(list[0].NumberCode);
+        //console.log(list);
+
+        //ui list to json
+        //formData.append("List_Data", JSON.stringify(list));
+
+        var json_str = JSON.stringify(list);
+        //console.log('json_str: ' + json_str);        
+        //return true; //中斷
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Content("~/Discard4/Save")',
+            //data: formData,
+            data: JSON.stringify({
+                "json_str": json_str,
+                "list_info": list
+            }),
+            contentType: "application/json;charset=utf-8",
+            //contentType: false,
+            //processData: false,
+            success: function (res) {
+
+                console.log('res.Body: ' + res.Body);
+                console.log('res.Body.length: ' + res.Body.length);
+                console.log('res.Body[0]: ' + res.Body[0]);
+
+                if (res.IsSuccess) {
+                    $("#ManMade_Alert_Message").html('資料已儲存');
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                } else {
+                    $("#ManMade_Alert_Message").html(res.errorMessage);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+
+                //var salesorderCode = 'LBO160422000028';
+                //var user_name = '';                
+                display_ui();
+
+            },
+            beforeSend: function () {
+                //$.blockUI({ css: { 'z-index': '11000', border: '0px', backgroundColor: '' }, message: '<h1><img src="../Content/ProcessWindow.gif" /></h1>' });                
+            },
+            complete: function () {
+                //$.unblockUI();
+            },
+            error: function (error) {
+                $("#ManMade_Alert_Message").html(error);
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+            }
+        });
+
+
+    }
+    //end save_data
+
+    //檢查資料物件
+    function VerifyGrid(list) {
+
+        var info;
+        this.verify_msg = '';
+        var r = /^[0-9]*[1-9][0-9]*$/;
+
+        try {
+
+            for (var i = 0; i < list.length; i++) {
+                info = list[i];
+                var item_num = i + 1;
+
+                console.log('info.NumberCode:' + info.NumberCode);
+
+                console.log('info.Discard4Flag:' + info.Discard4Flag);
+
+                if (info.Discard4Flag == 'Y') {
+                    if (info.NumberCode == null || info.NumberCode == '') {
+                        if ($.trim(this.verify_msg) != "") this.verify_msg += "<br>";
+                        this.verify_msg = this.verify_msg.concat('第' + item_num + '筆，回收四聯單必填');
+                    }
+                    if (info.InstalledDate == null || info.InstalledDate == '') {
+                        if ($.trim(this.verify_msg) != "") this.verify_msg += "<br>";
+                        this.verify_msg = this.verify_msg.concat('第' + item_num + '筆，安裝日期必填');
+                    }
+                }
+
+            }
+
+            console.log('verify_msg:' + this.verify_msg);
+
+        }
+        catch (ex) {
+            console.log(ex);
+        }
+    }
+    //正常傳回true
+    VerifyGrid.prototype.is_ok = function () {
+        var is_ok = false;
+        (this.verify_msg == '') ? is_ok = true : is_ok = false;
+        return is_ok;
+        //return this.verify_msg;
+    }
+    //取得檢查的信息
+    VerifyGrid.prototype.get_msg = function () {
+        return this.verify_msg;
+    }
+
+    //資料物件
+    function MyData(salesorderCode, user_name) {
+        this.salesorderCode = salesorderCode;
+        this.user_name = user_name;
+    }
+
+    //初始化廢四機回收四聯單
+    MyData.prototype.init_data = function () {
+
+        var salesorderCode = 'LBO160422000028';
+        var user_name = 'bh96';
+        salesorderCode = this.salesorderCode;
+        user_name = this.user_name;
+
+        var json;
+        var json_str;
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Content("~/Discard4/InitData")',
+            data: JSON.stringify({
+                'salesorderCode': salesorderCode,
+                'user_name': user_name,
+            }),
+            async: false,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (jsonData) {
+                json = jsonData;
+            },
+            error: function (jqXHR, ajaxOptions, thrownError) {
+                if (jqXHR.status === 0) {
+                    alert('Not connect.\n Verify Network.');
+                } else if (jqXHR.status == 404) {
+                    alert('Requested page not found. [404]');
+                } else if (jqXHR.status == 500) {
+                    alert('Internal Server Error [500].');
+                } else {
+                    alert('Uncaught Error.\n' + thrownError);
+                }
+            }
+        });
+
+        json_str = JSON.stringify(json);
+        console.log('json_str: ' + json_str);
+
+        //$("#ManMade_Alert_Message").html("儲存成功");
+        //ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+    }
+
+
+
+    //取得資料傳回JSON
+    MyData.prototype.get_data = function () {
+
+        var salesorderCode = 'LBO160422000028';
+        var user_name = 'bh96';
+        salesorderCode = this.salesorderCode;
+        user_name = this.user_name;
+
+        //console.log(this.salesorderCode);
+        //console.log(this.user_name);
+
+        var json;
+        var json_str;
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Content("~/Discard4/GetData")',
+            data: JSON.stringify({
+                'salesorderCode': salesorderCode
+            }),
+            async: false,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (jsonData) {
+                json = jsonData;
+            },
+            error: function (jqXHR, ajaxOptions, thrownError) {
+                if (jqXHR.status === 0) {
+                    alert('Not connect.\n Verify Network.');
+                } else if (jqXHR.status == 404) {
+                    alert('Requested page not found. [404]');
+                } else if (jqXHR.status == 500) {
+                    alert('Internal Server Error [500].');
+                } else {
+                    alert('Uncaught Error.\n' + thrownError);
+                }
+            }
+        });
+
+        json_str = JSON.stringify(json);
+        //console.log('json_str: ' + json_str);
+
+        return json;
+    }
+
+
+    function bind_ui(dvGrid, jsonData) {
+
+        //資料來源
+        var dataSourceZone = new kendo.data.DataSource({
+            data: jsonData,
+            schema: {
+                model: {
+                    id: "ID",
+                    fields: {
+                        ID: { defaultValue: function () { return 0; } }, //資料流水號
+                        InstalledDate: { type: "date", editable: true, nullable: true }, //安裝日期
+                        NumberCode: { type: "string", editable: true, nullable: true }, //回收四聯單
+                        Discard4Flag: { type: "string", editable: true, nullable: false }, //回收狀態 ''=未處理, Y=回收, N=不回收
+                        SalesorderCode: { type: "string", editable: false }, //購車商品LBO
+                        SalesorderitemCode: { type: "string", editable: false }, //購車數量LBS
+                        ItemID: { type: "string", editable: false }, //賣場品編號
+                        CreateUser: { type: "string", editable: false, defaultValue: function () { return ''; } },
+                        CreateDate: { type: "date", editable: false },
+                    }
+                }
+            },
+            batch: true //,
+            //pageSize: 10
+        });
+
+
+        /*佈置UI*/
+        dvGrid.kendoGrid({
+
+            dataSource: dataSourceZone,
+            //height: 100,
+            scrollable: false,
+            //sortable: true,
+            filterable: false,
+            //toolbar: kendo.template($("#tbarTemplate").html()), //使用template
+            //edit: onGridEditing,
+            columns: [
+                { field: "ID", title: "ID", width: "30px", attributes: { style: "text-align: center;" } },
+                { field: "InstalledDate", title: "安裝日期", width: "150px", format: "{0:yyyy/MM/dd}", attributes: { style: "text-align: center" } },
+                {
+                    field: "NumberCode", title: "回收四聯單", width: "250px", attributes: { style: "text-align: left" },
+                },
+                {
+                    field: "Discard4Flag", title: "回收狀態", width: "200px", attributes: { style: "text-align: left" },
+                    template: '<input onclick="set_discard4Flags(this, #:ID#);" type="radio" id="#:ID#_01" name="Discard4Flag_#:ID#" value="" #:Discard4Flag=="" ? checked="checked" : "" # />未處理'
+                    + '<input onclick="set_discard4Flags(this, #:ID#);" type="radio" id="#:ID#_02" name="Discard4Flag_#:ID#" value="Y" #:Discard4Flag=="Y" ? checked="checked" : "" # />回收'
+                    + '<input onclick="set_discard4Flags(this, #:ID#);" type="radio" id="#:ID#_03" name="Discard4Flag_#:ID#" value="N" #:Discard4Flag=="N" ? checked="checked" : "" # />不回收'
+                },
+            ],
+            //rowTemplate: kendo.template($("#rowTemplate").html()),
+            //altRowTemplate: kendo.template($("#altRowTemplate").html()),
+            editable: true
+
+        });
+
+    }
+
+    //已更改的回收狀態
+    var _dscard4Flags = [];
+    //顯示已改變的字數
+    function set_discard4Flags(obj, id) {
+        //alert(id);
+        var val = $(obj).val();
+        //已更改的回收狀態
+        _dscard4Flags[id.toString()] = val; // This creates the object    
+        console.log(_dscard4Flags[id.toString()]);
+    }
+
+    //資料物件
+    var mydata = new MyData(salesorderCode, user_name);
+
+</script>

@@ -1,0 +1,590 @@
+﻿@Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    TWNewEgg.API.View.MainStatementViewModel viewModel = new TWNewEgg.API.View.MainStatementViewModel();
+    if(ViewBag.viewModel as TWNewEgg.API.View.MainStatementViewModel != null)
+    {
+        viewModel = ViewBag.viewModel;
+    }
+}
+<style>
+    #ShowBlockUI {
+        position: fixed;
+        padding: 0px;
+        margin: 0px;
+        width: 30%;
+        top: 40%;
+        left: 35.2%;
+        text-align: center;
+        z-index:1500;
+    }
+</style>
+<div class="rightBox">
+    <div class="content">
+        <table>
+            <tr>
+                <td style="text-align:right; width:100px; min-width:100px;">帳單年月份：</td>
+                <td style="text-align:center; width:90px; min-width:90px;">
+                    @(Html.Kendo().DatePicker()
+                        .Name("dateStart")
+                        .Start(CalendarView.Year)
+                        .Depth(CalendarView.Year)
+                        .Format("yyyy/MM")
+                        .Value(DateTime.Now.Date)
+                        .HtmlAttributes(new { style = "width:90px;" })
+                        .Footer(false)
+                    )
+                </td>
+                <td style="text-align:center; width:20px; min-width:20px;">~</td>
+                <td style="text-align:center; width:90px; min-width:90px;">
+                    @(Html.Kendo().DatePicker()
+                        .Name("dateEnd")
+                        .Start(CalendarView.Year)
+                        .Depth(CalendarView.Year)
+                        .Format("yyyy/MM")
+                        .Value(DateTime.Now.Date)
+                        .HtmlAttributes(new { style = "width:90px;" })
+                        .Footer(false)
+                    )
+                </td>
+
+                <td style="text-align:right; width:100px; min-width:100px;">對帳單號：</td>
+                <td style="text-align:left; width:160px; min-width:160px;">
+                    @(Html.Kendo().TextBox()
+                        .Name("settlementID")
+                        .HtmlAttributes(new { maxlength = "20" })
+                    )
+                </td>
+
+                 @{
+                    if(viewModel.IsAdmin)
+                    {
+                        <td style="text-align:right; width:100px; min-width:100px;">發票狀態：</td>
+                        <td style="text-align:center; width:90px; min-width:90px;">
+                            @(Html.Kendo().DropDownList()
+                                .Name("isInvoiced")
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .BindTo(new List<SelectListItem>()
+                                {
+                                    new SelectListItem() {
+                                        Text = "全部",
+                                        Value = "all"
+                                    },
+                                    new SelectListItem() {
+                                        Text = "未開立",
+                                        Value = "false"
+                                    },
+                                    new SelectListItem() {
+                                        Text = "已開立",
+                                        Value = "true"
+                                    }
+                                })
+                                .SelectedIndex(0)
+                                .HtmlAttributes(new { style = "width:90px;" })
+                            )
+                        </td>
+                    }
+                }
+
+                <td style="text-align:center; width:100px; min-width:100px;">
+                    @(Html.Kendo().Button()
+                        .Name("search")
+                        .Content("查詢")
+                        .HtmlAttributes(new {
+                            style="min-width:56px;"
+                        })
+                        .Events(e => { e.Click("Search"); })
+                    )
+                </td>
+            </tr>
+        </table>
+    
+        <div>
+            @(Html.Kendo().Grid<TWNewEgg.API.Models.MainStatement>()
+                .Name("grid")
+                .HtmlAttributes(new { style = "height: 500px" })
+                .AutoBind(true)
+                .Columns(columns =>
+                {
+                    columns.Command(command => command.Custom("明細").Click("ShowDetail"))
+                        .Width(80)
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.Seller)
+                        .Title("商家")
+                        .Width(200)
+                        .Hidden(!viewModel.IsAdmin)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+                    
+                    columns.Bound(c => c.SettleMonth)
+                        .Title("帳單年月份")
+                        .Width(90)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.SettlementID)
+                        .Title("帳單編號")
+                        .Width(200)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.SettleDate)
+                        .Title("結算日期")
+                        .Format("{0:yyyy/MM/dd}")
+                        .Width(100)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    //columns.Bound(c => c.POPrice)
+                    //    .Title("採購總額(未稅)")
+                    //    .Format("{0:n0}")
+                    //    .Width(110)
+                    //    .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                    //    .HtmlAttributes(new { style = "text-align:right;" });
+
+                    //columns.Bound(c => c.POTax)
+                    //    .Title("採購稅額")
+                    //    .Format("{0:n0}")
+                    //    .Width(110)
+                    //    .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                    //    .HtmlAttributes(new { style = "text-align:right;" });
+
+                    columns.Bound(c => c.POTotal)
+                        .Title("採購總額")
+                        .Format("{0:n0}")
+                        .Width(110)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:right;" });
+
+                    //columns.Bound(c => c.RMAPrice)
+                    //    .Title("退款總額(未稅)")
+                    //    .Format("{0:n0}")
+                    //    .Width(110)
+                    //    .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                    //    .HtmlAttributes(new { style = "text-align:right;" });
+
+                    //columns.Bound(c => c.RMATax)
+                    //    .Title("退款稅額")
+                    //    .Format("{0:n0}")
+                    //    .Width(110)
+                    //    .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                    //    .HtmlAttributes(new { style = "text-align:right;" });
+
+                    columns.Bound(c => c.RMATotal)
+                       .Title("退貨總額(減項)")
+                       .Format("{0:n0}")
+                       .Width(110)
+                       .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                       .HtmlAttributes(new { style = "text-align:right;" });
+
+                    //columns.Bound(c => c.WarehousePrice)
+                    //    .Title("寄倉總額(未稅)")
+                    //    .Format("{0:n0}")
+                    //    .Width(130)
+                    //    .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                    //    .HtmlAttributes(new { style = "text-align:right;" });
+
+                    //columns.Bound(c => c.WarehouseTax)
+                    //    .Title("寄倉稅額")
+                    //    .Format("{0:n0}")
+                    //    .Width(130)
+                    //    .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                    //    .HtmlAttributes(new { style = "text-align:right;" });
+
+                    columns.Bound(c => c.WarehouseTotal)
+                        .Title("寄倉總額(減項)")
+                        .Format("{0:n0}")
+                        .Width(130)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:right;" });
+
+                    columns.Bound(c => c.TotalAmount2)
+                       .Title("調整項總額(加項)")
+                       .Format("{0:n0}")
+                       .Width(110)
+                       .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                       .HtmlAttributes(new { style = "text-align:right;" })
+                       .ClientTemplate(
+                                        "# if( TotalAmount2 < 0 ) { #" +
+                                            "<font color=red>#:thousandComma(TotalAmount2)#</font>" +
+                                        "# } else { #" +
+                                            "#:thousandComma(TotalAmount2)#" +
+                                        "# } #");
+
+
+
+
+                    //columns.Bound(c => c.TotalAmount)
+                    //    .Title("合計總額(未稅)")
+                    //    .Format("{0:n0}")
+                    //    .Width(110)
+                    //    .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                    //    .HtmlAttributes(new { style = "text-align:right;" });
+
+                    //columns.Bound(c => c.TotalTax)
+                    //    .Title("合計稅額")
+                    //    .Format("{0:n0}")
+                    //    .Width(100)
+                    //    .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                    //    .HtmlAttributes(new { style = "text-align:right;" });
+
+                    columns.Bound(c => c.PaymentAmount)
+                        .Title("本期應付(應收)總額")
+                        .Format("{0:n0}")
+                        .Width(170)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:right;" })
+                        .ClientTemplate(
+                                        "# if( PaymentAmount < 0 ) { #" +
+                                            "<font color=red>#:thousandComma(PaymentAmount)#</font>" +
+                                        "# } else { #" +
+                                            "#:thousandComma(PaymentAmount)#" +
+                                        "# } #");
+                    
+
+                    columns.Bound(c => c.InvoDate)
+                        .Title("發票日期")
+                        .Format("{0:yyyy/MM/dd}")
+                        .Width(100)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.InvoNumber)
+                        .Title("發票號碼")
+                        .Width(100)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.RemitDate)
+                        .Title("匯款日期")
+                        .Format("{0:yyyy/MM/dd}")
+                        .Width(100)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.DateStart)
+                        .Title("結算日期(起)")
+                        .Format("{0:yyyy/MM/dd}")
+                        .Width(100)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(c => c.DateEnd)
+                        .Title("結算日期(迄)")
+                        .Format("{0:yyyy/MM/dd}")
+                        .Width(100)
+                        .HeaderHtmlAttributes(new { style = "text-align:center;" })
+                        .HtmlAttributes(new { style = "text-align:center;" });
+                })
+                           .Scrollable()
+                           .Pageable(page => page.Refresh(true)
+                               .PageSizes(true)
+                               .ButtonCount(10)
+                           )
+                           .Resizable(resizable => resizable.Columns(true))
+                           .DataSource(dataSource => dataSource
+                               .Ajax()
+                               .Read(read => read.Action("MainStatement_Search", "financial")
+                                   .Data("MakeSearchCondition")
+                               )
+                               .Events(events => events.RequestStart("MainSearchRequestStart")
+                                   .RequestEnd("MainSearchRequestEnd")
+                               )
+                           )
+                           .HtmlAttributes(new { style = "margin-top:10px; height:400px;" })
+                       )
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id ="detailWindow"></div>
+<div id="lodingMessage" style="display:none;">
+    <div id="detailWindowLoadingMessage">
+        <img src="~/Content/Img/loading.gif" height="30"/>
+        資料讀取中，請稍後...
+    </div>
+</div>
+
+<script>kendo.culture("zh-TW");</script>
+<script type="text/javascript">
+
+    @*仟分位*@
+    var thousandComma = function (number) {
+        var num = number.toString();
+        var pattern = /(-?\d+)(\d{3})/;
+
+        while (pattern.test(num)) {
+            num = num.replace(pattern, "$1,$2");
+        }
+        return num;
+    }
+
+    @*明細按鈕事件*@
+    function ShowDetail(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+        $("#detailWindow").kendoWindow({
+            title: "貨款明細",
+            actions: ["Close"],
+            width: Math.round($(document).width() * 0.9) + "px",
+            height: Math.round($(document).height() * 0.8) + "px",
+            content: {
+                url: "/financial/StatementDetail",
+                data: {
+                    settlementID: dataItem.SettlementID,
+                    finanStatus: dataItem.FinanStatus,
+                    sellerID: dataItem.SellerID
+                }
+            },
+            modal: true,
+            visible: true,
+            open: detailWindowOpen,
+            close: detailwindowClose
+        }).data("kendoWindow").center().open();
+    }
+
+    function detailwindowClose(e) {
+        $("#detailWindow").remove();
+        $(".rightBox").after('<div id="detailWindow"></div>');
+    }
+
+    function detailWindowOpen(e) {
+
+        var detailWindow = $(e.sender.element[0]);
+        detailWindow.html($("#lodingMessage").html());
+        $("#detailWindowLoadingMessage").css("width", "100%");
+        $("#detailWindowLoadingMessage").css("text-align", "center");
+        $("#detailWindowLoadingMessage").css("margin-top", Math.floor(($(detailWindow).height() / 2) - 15) + "px");
+    }
+
+    @*查詢按鈕事件*@
+    function Search() {
+        $("#grid").data("kendoGrid").refresh();
+        $("#grid").data("kendoGrid").dataSource.page(1);
+    }
+
+    @*查詢時鎖定按鈕*@
+    function ButtonControl(isEnable) {
+        $("#search").prop("disabled", !isEnable);
+    }
+
+    @*取得搜尋條件*@
+    function MakeSearchCondition() {
+        return {
+            DateStart: $("#dateStart").data("kendoDatePicker").value(),
+            DateEnd: $("#dateEnd").data("kendoDatePicker").value(),
+            SettlementID: $("#settlementID").val(),
+            IsInvoiced: GetIsInvoicedValue()
+        }
+    }
+
+    @*取得發票狀態的值*@
+    function GetIsInvoicedValue() {
+        var isInvoiced = null;
+        @{
+            if (viewModel.IsAdmin)
+            {
+                <text>isInvoiced = $("#isInvoiced").data("kendoDropDownList").value();</text>
+            }
+        }
+
+        switch (isInvoiced) {
+            default:
+            case "all": {
+                return null;
+            }
+            case "true": {
+                return true;
+            }
+            case "false": {
+                return false;
+            }
+        }
+    }
+
+    @*等待查詢，畫面鎖定*@
+    function MainSearchRequestStart() {
+        $.blockUI();
+    }
+
+    @*查詢完成，解除畫面鎖定，若有錯誤則彈出提示訊息*@
+    function MainSearchRequestEnd(e) {
+
+        @*清除錯誤提示訊息*@
+        if ($("#mainStatementGridErrorMessage") != undefined) {
+            $("#mainStatementGridErrorMessage").remove();
+        }
+
+        if (e.response != null && e.response != "" && typeof (e.response) === 'string') {
+
+            var girdWrapper = $("#grid").data("kendoGrid").wrapper;
+
+            @*錯誤提示訊息*@
+            girdWrapper.find('tbody').after('<div id="mainStatementGridErrorMessage">' + e.response + '</div>');
+
+            $("#mainStatementGridErrorMessage").css("text-align", "center");
+
+            @*width 的 -17 為右方 scorebar 的寬度*@
+            $("#mainStatementGridErrorMessage").css("width", parseInt(girdWrapper.find(".k-grid-content").width()) - 17);
+
+            @*margin-top 的 -8 為文字的高度的一半*@
+            $("#mainStatementGridErrorMessage").css("margin-top", parseInt(girdWrapper.find(".k-grid-content").height()) / 2 - 8);
+        }
+
+        $.unblockUI();
+    }
+
+    function SaveDetailClick(e) {
+        var taxedNumber = $("#InvoiceNumber").val().toUpperCase();
+        var taxedDate = $("#InvoiceDateSelect").val();
+        var SettlementID = $("#SettlementIDNumber").text();
+        if ((IsInvoiceNumberHasValue() && !IsInvoiceDateHasValue()) || (!IsInvoiceNumberHasValue() && IsInvoiceDateHasValue())) {
+            if (!IsInvoiceNumberHasValue()) {
+                //開啟window 
+                $("#ManMade_Alert_Message").html("請輸入發票號碼");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+            }
+            if (!IsInvoiceDateHasValue()) {
+                //開啟window 
+                $("#ManMade_Alert_Message").html("請輸入發票日期");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+            }
+        }
+        else {
+            var isHaveChineseWord = false;
+            for (var i = 0; i < taxedNumber.length; i++) {
+                if (taxedNumber.charCodeAt(i) >= 0x4E00 && taxedNumber.charCodeAt(i) <= 0x9FA5) {
+                    isHaveChineseWord = true;
+                    break;
+                }
+            }
+            if (isHaveChineseWord == true) {
+                //開啟window 
+                $("#ManMade_Alert_Message").html("發票號碼不可輸入中文字");
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+            }
+            else {
+                $.ajax({
+                    url: "/financial/DetailsInvoice",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        "taxedNumber": taxedNumber,
+                        "taxedDate": taxedDate,
+                        "SettlementID": SettlementID,
+                        "sellerID": $("#sellerID").val() // BSATW-232 供應商對帳單新增調整項目---------------add by bruce 20160721
+                    }),
+                    beforeSend: function () {
+                        $("#ShowBlockUI").css("display", "");
+                        $("#SaveDetail").prop("disabled", true);
+                    },
+                    success: function (res) {
+                        if (res.isSuccess == "F") {
+                            //開啟window 
+                            $("#ManMade_Alert_Message").html(res.Msg);
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                        }
+                        else if (res.isSuccess == "T") {
+                            //開啟window 
+                            $("#ManMade_Alert_Message").html(res.Msg);
+                            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                        }
+                    },
+                    complete: function () {
+                        $("#ShowBlockUI").css("display", "none");
+                        $("#SaveDetail").prop("disabled", false);
+                    }
+                });
+            }
+        }
+    }
+
+    function IsInvoiceNumberHasValue() {
+        var invoiceNumber = $("#InvoiceNumber").val();
+        if (invoiceNumber == undefined || invoiceNumber == null || invoiceNumber == "") {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function IsInvoiceDateHasValue() {
+        var invoiceDate = $("#InvoiceDateSelect").val();
+        if (invoiceDate == undefined || invoiceDate == null || invoiceDate == "") {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function ExportExcelClick() {
+        var SettlementIDNumber = $("#SettlementIDNumber").text();
+        $.ajax({
+            url: "/financial/ExportExcelDetail",
+            type: "POST",
+            //contentType: "application/json;charset=utf-8",
+            data: {
+                "SettlementIDNumber": SettlementIDNumber,
+                "sellerID": $("#sellerID").val()
+            },
+            success: function (res) {
+                if (res.isSuccess == "F") {
+                    //開啟window 
+                    $("#ManMade_Alert_Message").html(res.Msg);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                }
+                else if (res.isSuccess == "T") {
+                    window.location.href = res.Msg;
+                }
+            },
+            beforeSend: function () {
+                $("#ShowBlockUI").css("display", "");
+                $("#ExportExcel").prop("disabled", true);
+            },
+            complete: function () {
+                $("#ShowBlockUI").css("display", "none");
+                $("#ExportExcel").prop("disabled", false);
+            }
+
+
+        });
+    }
+    function ShowTypeDetailOnSelect(e) {
+        var dataItem = this.dataItem(e.item);
+        var selectValue = dataItem.Value;
+        if (selectValue == "list") {
+            $("#ListShowTypeView").css("display", "");
+            $("#TabShowTypeView").css("display", "none");
+        }
+        else {
+            $("#ListShowTypeView").css("display", "none");
+            $("#TabShowTypeView").css("display", "");
+        }
+    }
+    function ApplChange() {
+        var showType = $("#ShowTypeDetail").val();
+        if (showType == "list") {
+            $("#ListShowTypeView").css("display", "");
+            $("#TabShowTypeView").css("display", "none");
+        }
+        else {
+            $("#ListShowTypeView").css("display", "none");
+            $("#TabShowTypeView").css("display", "");
+        }
+    }
+</script>

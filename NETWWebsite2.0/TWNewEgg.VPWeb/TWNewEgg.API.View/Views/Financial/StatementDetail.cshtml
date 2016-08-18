@@ -1,0 +1,383 @@
+﻿@model TWNewEgg.API.View.Detail
+@{
+    var MainFooter = ViewBag.MainFooter as TWNewEgg.API.View.MainFooter;
+
+    string strTotalAmount2 = string.Empty;
+    string strPaymentAmount = string.Empty;
+    string strInvoicePrice = string.Empty;
+}
+<style>
+    .GridTextCenter table td {
+        text-align: center;
+    }
+    .SlideAreaInline label {
+        margin-right: 60px;
+        display: block;
+        width: 250px;
+        float: left;
+    }
+    .SlideAreaInline label span {
+        float: left;
+        display: block;
+    }
+    #TopData {
+        line-height:2.5;
+    }
+
+    .errorMsgLocation {
+        line-height:2.5;
+    }
+</style>
+
+<div id="ShowBlockUI" style="display:none">
+    <img src="~/Content/Img/block_loading.gif" />
+</div>
+
+@if (Model != null)
+{
+    <div id="TopData">
+        <div class="SlideAreaInline" >
+            <table>
+                <tr>
+                    <td style="text-align:right; width:100px; min-width:100px;">帳單年月份：</td>
+                    <td style="text-align:left; width:50px; min-width:50px;">@Model.SettleMonth</td>
+
+                    <td style="text-align:right; width:100px; min-width:100px;">帳單編號：</td>
+                    <td style="text-align:left; width:120px; min-width:120px;"><span id="SettlementIDNumber">@Model.SettlementID</span></td>
+
+                    <td style="text-align:right; width:100px; min-width:100px;">結算日期：</td>
+                    <td style="text-align:left; width:100px; min-width:100px;">@Model.SettleDate</td>
+
+                    <td style="text-align:right; width:120px; min-width:120px;">結算日期區間：</td>
+                    <td style="text-align:left; width:150px; min-width:150px;">@Model.DateStart ~ @Model.DateEnd</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;">付款方式：</td>
+                    <td style="text-align:left;">@Model.PayType</td>
+
+                    <td style="text-align:right;">匯款日期：</td>
+                    <td style="text-align:left;"><span id="RemitDate">@Model.RemitDate</span></td>
+
+                    @{
+    if (Model.IsOpenInvoice)
+    {
+                            <td style="text-align:right;">發票日期：</td>
+                            <td style="text-align:left;">
+                                @(Html.Kendo().DatePicker()
+                                    .Name("InvoiceDateSelect")
+                                    .Format("yyyy/MM/dd")
+                                    .HtmlAttributes(new { style = "width:120px" })
+                                    .Value(Model.InvoDate)
+                                )
+                            </td>
+                    
+                            <td style="text-align:right;">發票號碼：</td>
+                            <td style="text-align:left;">
+                                @(Html.Kendo().TextBox()
+                                    .Name("InvoiceNumber")
+                                    .HtmlAttributes(new { style = "width:120px;text-transform: uppercase;", maxlength = "20" })
+                                    .Value(Model.InvoNumber)
+                                )
+                            </td>
+                    
+                            <td style="text-align:center; width:70px; min-width:70px;">
+                                @(Html.Kendo().Button()
+                                    .Name("SaveDetail")
+                                    .Content("存檔")
+                                    .HtmlAttributes(new { style = "width:60px" })
+                                    .Events(ev => ev.Click("SaveDetailClick"))
+                                )
+                            </td>
+    }
+    else
+    { 
+                            <td style="text-align:right;">發票日期：</td>
+                            <td style="text-align:left">@Model.InvoDate</td>
+
+                            <td style="text-align:right;">發票號碼：</td>
+                            <td style="text-align:left;">@Model.InvoNumber</td>
+    }
+                    }
+
+                    <td style="text-align:center; width:120px; min-width:120px;">
+                        @(Html.Kendo().Button()
+                            .Name("ExportExcel")
+                            .Content("匯出明細")
+                            .HtmlAttributes(new { style = "width:90px" })
+                            .Events(ev => ev.Click("ExportExcelClick"))
+                        )
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8">
+                        <div style="line-height:30px;">
+                            <div><a id="InvoiceOpen" href="#" style="color:blue;">新蛋發票開立及寄送地址資訊</a></div>
+                            <div id="InvoiceInfo" style="display:none;">
+                                <div>
+                                    <p>公司: 台灣新蛋網股份有限公司 </p>
+                                </div>
+                                <div>
+                                    <p>公司統編: 24721751</p>
+                                </div>             
+                                <div>
+                                    <p>地址: 10596 台北市松山區民生東路三段133號14F</p>
+                                </div>    
+                                <div>
+                                    <p>收件人: 供應商管理部</p>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div style="display:none;">
+        <input type="hidden" id="sellerID" value="@Model.SellerID" />
+    </div>
+    
+    <br /><br />
+    
+    <div>
+    @*<div id="showTypeDiv">
+    @(Html.Kendo().DropDownList()
+    .Name("ShowTypeDetail")
+    .DataTextField("Text")
+    .DataValueField("Value")
+    .BindTo(new List<SelectListItem>()
+    {
+        new SelectListItem() {
+                Text = "Tab 清單",
+                Value = "tab"
+            },
+            new SelectListItem() {
+                Text = "List 清單",
+                Value = "list"
+            }
+    }).Events(ev => ev.Select("ShowTypeDetailOnSelect")))
+    @(Html.Kendo().Button().Name("ApplyType").HtmlAttributes(new { style = "width:120px; display:none" }).Content("Apply").Events(ev => ev.Click("ApplChange")))
+    </div>*@
+    @*<div class="rightBox" id="TabShowTypeView" >
+        <div class="content">
+            <div class="tabBox">
+                <div class="nav active" id="OrderTabOpenView" onclick="showView('OrderTab')">訂單-貨款明細</div>
+                <div class="nav" id="ReturnedTabOpenView" onclick="showView('ReturnedTab')">退貨-貨款明細</div>
+                <div class="nav" id="WarehouseTabOpenView" onclick="showView('WarehouseTab')">寄倉-貨款明細</div>
+                <div class="clear"></div>
+            </div>
+            <div id="OrderTabOpenViewChange">@Html.Partial("Order")</div>
+            <div id="ReturnedTabOpenViewChange" style="display:none;">@Html.Partial("Returned")</div>
+            <div id="WarehouseTabOpenViewChange" style="display:none;">@Html.Partial("Warehouse")</div>
+        </div>
+    </div>*@
+    </div>
+    
+    <div class="rightBox" id="ListShowTypeView">
+        <div class="content">
+            <p style="color:red; font-size:25px; text-decoration:underline">訂單-貨款明細</p>
+            <div id="OrderListOpenViewChange">@Html.Partial("Order")</div>
+
+            <br /><br /><br /><br /><hr style="color:gray"/>
+
+            <p style="color:red; font-size:25px; text-decoration:underline">退貨-貨款明細</p>
+            <div id="ReturnedListOpenViewChange">@Html.Partial("Returned")</div>
+
+            <br /><br /><br /><br /><hr style="color:gray"/>
+
+            <p style="color:red; font-size:25px; text-decoration:underline">寄倉-貨款明細</p>
+            <div id="WarehouseListOpenViewChange">@Html.Partial("Warehouse")</div>
+        </div>
+    </div>
+    
+    <br /><br />
+    
+    <div style="position: absolute; text-align: right; right: 100px">
+        <table>
+
+            @*<tr style="height:28px;">
+                    <td style="text-align:right; width:140px; min-width:140px;">合計金額(未稅)：</td>
+                    <td style="text-align:right; width:90px; min-width:90px;">
+                        <span>$</span>
+                        @MainFooter.TotalAmount.ToString("N0")
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;">營業稅：</td>
+                    <td style="text-align:right;">
+                        <span>$</span>
+                        @MainFooter.TotalTax.ToString("N0")
+                    </td>
+                </tr>*@
+
+            <!-- BSATW-232 供應商對帳單新增調整項目 add by bruce 20160720-->
+            <tr style="height: 28px;">
+                <td style="text-align: right; width: 140px; min-width: 140px;">合計金額(含稅)：</td>
+                <td style="text-align: right; width: 90px; min-width: 90px;">
+                    <span>$</span>
+                    @MainFooter.TotalAmount.ToString("N0")
+                </td>
+            </tr>
+            @*如沒有調整項，則不顯示此欄位 ------add by bruce 20160726*@
+            @if (MainFooter.TotalAmount2_Data_Records > 0)
+            {                                                     
+                <tr>
+                    <td style="text-align: right;">調整項金額(含稅)：</td>
+                    <td style="text-align: right;">
+                        <span>$</span>
+
+                        @*調整項金額(含稅)：如是負值，則顯示(X,XXX)；*@
+                        @if (MainFooter.TotalAmount2 < 0)
+                        {
+                            int len = MainFooter.TotalAmount2.ToString("N0").Length;
+                            strTotalAmount2 = "(" + MainFooter.TotalAmount2.ToString("N0").Substring(1, len - 1) + ")";
+                        }
+                        else
+                        {
+                            strTotalAmount2 = MainFooter.TotalAmount2.ToString("N0");
+                        }
+
+                        @strTotalAmount2
+                    </td>
+                </tr>                           
+                            
+            }
+
+
+            <tr>
+                <td></td>
+                <td style="text-align: right;">------------------</td>
+            </tr>
+
+            <tr>
+                <td style="text-align: right;">發票開立金額(含稅):</td>
+                <td style="text-align: right;">
+                    <span>$</span>
+                    @if (MainFooter.InvoicePrice < 0)
+                    {
+                        @*<span style="color:red">@MainFooter.PaymentAmount.ToString("N0") </span>*@  
+                        int len = MainFooter.InvoicePrice.ToString("N0").Length;
+                        strInvoicePrice = "(" + MainFooter.InvoicePrice.ToString("N0").Substring(1, len - 1) + ")";
+                        @strInvoicePrice
+                    }
+                    else
+                    {
+                        @MainFooter.InvoicePrice.ToString("N0")
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right;">------------------</td>
+            </tr>
+            <tr>
+                <td style="text-align: right;">倉儲物流費用(含稅):</td>
+                <td style="text-align: right;">
+                    <span>(</span>
+                    @MainFooter.SubWarehoursetotal.ToString("N0")
+                    <span>)</span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right;">------------------</td>
+            </tr>
+            <tr>
+                <td style="text-align: right;">本期應付總金額</td>
+                <td style="text-align: right;">
+                    <span>$</span>
+                    @if (MainFooter.PaymentAmount < 0)
+                    {
+                        @*<span style="color:red">@MainFooter.PaymentAmount.ToString("N0") </span>*@  
+                        int len = MainFooter.PaymentAmount.ToString("N0").Length;
+                        strPaymentAmount = "(" + MainFooter.PaymentAmount.ToString("N0").Substring(1, len - 1) + ")";
+                        @strPaymentAmount
+                    }
+                    else
+                    {
+                        @MainFooter.PaymentAmount.ToString("N0")
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right;">============</td>
+            </tr>
+        </table>
+
+    </div>
+    
+    
+}
+else
+{
+    if (string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    { 
+        <div id="errorMessage">資料錯誤或無資料。</div>
+    }
+    else
+    {
+        <div id="errorMessage">@ViewBag.ErrorMessage。</div>
+    }
+}
+
+<script>
+    $(document).ready(function () {
+        showView("OrderTab");
+         
+        @{
+            if (Model == null)
+            {
+                @*錯誤訊息位置調整*@
+                <text>$("#errorMessage").css("width", "100%");
+                $("#errorMessage").css("text-align", "center");
+                $("#errorMessage").css("margin-top", Math.floor(($(detailWindow).height() / 2) - 15) + "px");</text>
+            }
+        }
+    });
+
+    $("#InvoiceOpen").click(function () {
+        var attr = $("#InvoiceInfo").css('display');
+        if (attr == "none") {
+            $("#InvoiceInfo").slideDown();
+        }
+        else if (attr == "block") {
+            $("#InvoiceInfo").slideUp();
+        }
+        else {
+            $("#InvoiceInfo").slideUp();
+        }
+    });
+
+    function showView(actionName) {
+        if (actionName == "OrderTab") {
+            $("#OrderTabOpenView").attr("class", "nav active");
+            $("#ReturnedTabOpenView").attr("class", "nav");
+            $("#WarehouseTabOpenView").attr("class", "nav");
+
+            $("#OrderTabOpenViewChange").attr("style", "display:block;");
+            $("#ReturnedTabOpenViewChange").attr("style", "display:none");
+            $("#WarehouseTabOpenViewChange").attr("style", "display:none");
+        }
+        else if (actionName == "ReturnedTab") {
+            $("#OrderTabOpenView").attr("class", "nav");
+            $("#ReturnedTabOpenView").attr("class", "nav active");
+            $("#WarehouseTabOpenView").attr("class", "nav");
+
+            $("#OrderTabOpenViewChange").attr("style", "display:none;");
+            $("#ReturnedTabOpenViewChange").attr("style", "display:block;");
+            $("#WarehouseTabOpenViewChange").attr("style", "display:none;");
+        }
+        else {
+            $("#OrderTabOpenView").attr("class", "nav");
+            $("#ReturnedTabOpenView").attr("class", "nav");
+            $("#WarehouseTabOpenView").attr("class", "nav active");
+
+            $("#OrderTabOpenViewChange").attr("style", "display:none;");
+            $("#ReturnedTabOpenViewChange").attr("style", "display:none;");
+            $("#WarehouseTabOpenViewChange").attr("style", "display:block;");
+
+        }
+    }
+
+</script>

@@ -1,0 +1,216 @@
+﻿@{
+    ViewBag.Title = "訂單清單";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Themes/2013/stylesheets/allModel.css")
+}
+
+<div class="rightBox">
+    <div class="titleBar">
+        <div class="title">訂單清單<span> - 在"操作"欄位中選校對訂單執行的動作 <a href="#">了解更多</a></span></div>
+        <div class="path">
+            <a href="/">首頁</a>><a href="#">訂單管理</a>><span>訂單清單</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="content">   
+        <div class="searchBar">
+            <div class="tit">商家商店名稱：<span class="tip" title="選擇一個商家管理功能"></span></div>
+            <input type="text" />
+            <a href="#">取消選擇</a>
+            <a href="#">查詢商家</a>
+            <label><input type="checkbox" />記住選擇的商家</label>
+            <div class="clear"></div>            
+        </div>
+        <div id="">            
+            <div class="nav_content">
+                <div class="stateSearch">                
+                    <div class="tit">選擇</div>
+                    <select>
+                        <option>訂單編號</option>
+                        <option>收據編號</option>
+                        <option>客戶名稱</option>
+                        <option>商家銷售編號</option>
+                        <option>新蛋商品編號</option>
+                        <option>客戶電話</option>
+                        <option>標題描述</option>
+                        <option>生產廠商</option>
+                    </select>
+                    <input type="text" value="輸入關鍵字" class="searchTxt" />
+                    <a href="#" class="advancedSearch">進階搜索</a>
+                    <input type="button" value="搜尋" class="search" />
+                    <select>
+                        <option>量化遞送</option>
+                        <option>列印發票</option>
+                        <option>列印訂單包裹清單</option>
+                    </select>
+                    <input type="button" value="Go" class="btn go" />
+                    <p class="clear"></p>
+                </div>
+            <div class="stateSearch">
+                <input type="text" value="name,URL,Support Email,Support Phone,Support URL" class="searchTxt" />
+                <input type="button" value="搜尋" class="search" />
+                <p class="clear"></p>
+            </div>
+<p style="color:#f00">(註解)上方input內的預設文字應該是灰色class="gray"，游標點擊後要清除，且其寬度應隨螢幕自動縮放</p>
+            <div class="manufacturerTableBox manufacturerList tr2c trhc">
+                <div class="manufacturerTable">
+                    <table style="width:100%">
+                        <tr>
+                            <th style="width:2%"><input type="checkbox" /></th>
+                            <th style="width:3%">狀態</th>
+                            <th style="width:8%">動作</th>
+                            <th style="width:5%">訂單日期</th>
+                            <th style="width:5%">自動作廢日期</th>
+                            <th style="width:10%">商家</th>
+                            <th style="width:6%">銷售通路</th>
+                            <th style="width:6%">供貨通路</th>
+                            <th style="width:35%">訂單內容</th>
+                            <th style="width:10%">顧客</th>
+                            <th style="width:10%">遞送服務類別</th>
+                        </tr>                    
+                        <tr>
+                            <td><input type="checkbox" /></td>
+                            <td><div class="forbid">作廢</div></td>
+                            <td><input type="button" value="查看" title="查看已刪除商品" class="btn" /></td>
+                            <td>01/01/2019<br />00:00:00</td>
+                            <td>N/A</td>
+                            <td>Test_FLY(A09E)</td>
+                            <td>非新蛋</td>
+                            <td>新蛋</td>
+                            <td>
+                                <a href="#" class="gray">227104598</a><br />
+                                <span class="gray">A01687054032</span><br />
+                                商品成色：全新<br />
+                                數量：<span class="gray">1</span>｜廠商產品編號：<span class="gray">A01201309176870</span>｜狀態：<span class="gray">已取消</span>
+                            </td>
+                            <td><a href="#">WY SD test item</a></td>
+                            <td><span class="deepBlue">Standard Shipping (5-7 business days)</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" /></td>
+                            <td><div class="success">發票</div></td>
+                            <td>
+                                <input type="button" value="創建退換貨單據" title="點擊此處創建退換貨單據。此操作僅會創建一個退換貨單據號碼並啟動退換貨流程，具體的退款和換貨並不會在此刻執行。通常的流程為商家先創建退換貨單據，然後等待顧客將退換貨商品寄送到商家指定的接收地址，商家收到商品後，通過退換貨單據號碼找到此會或單據，然後點擊＂執行退款＂或＂執行換貨＂按鈕以完成退換貨處理流程。" class="btn orange" />
+                                <input type="button" value="創建並執行退款" title="點擊此處立即向顧客執行退款。此時不論您是否已經收到顧客退回的商品，退款金額都將立即退還到顧客帳戶。" class="btn orange" />
+                                <input type="button" value="創建禮貌退款" title="點擊此處向顧客創建一筆即時退款。即時退款用於向顧客支付指定金額的退款並且不要求客戶退回任何商品。請注意：創建即時退款後，新蛋並不會向商家退還即時退款部分的佣金。" class="btn orange" />
+                            </td>
+                            <td>01/01/2019<br />00:00:00</td>
+                            <td>N/A</td>
+                            <td>Test_FLY(A09E)</td>
+                            <td>非新蛋</td>
+                            <td>新蛋</td>
+                            <td>
+                                <a href="#">227104598</a><br />
+                                <span>A01687054032</span><br />
+                                商品成色：全新<br />
+                                數量：<span>1</span>｜廠商產品編號：<span>A01201309176870</span>｜狀態：<span class="green">已遞送</span>
+                            </td>
+                            <td><a href="#">WY SD test item</a></td>
+                            <td><span class="deepBlue">Standard Shipping (5-7 business days)</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" /></td>
+                            <td><div class="forbid">作廢</div></td>
+                            <td><input type="button" value="查看" title="查看已刪除商品" class="btn" /></td>
+                            <td>01/01/2019<br />00:00:00</td>
+                            <td>N/A</td>
+                            <td>Test_FLY(A09E)</td>
+                            <td>非新蛋</td>
+                            <td>新蛋</td>
+                            <td>
+                                <a href="#" class="gray">227104598</a><br />
+                                <span class="gray">A01687054032</span><br />
+                                商品成色：全新<br />
+                                數量：<span class="gray">1</span>｜廠商產品編號：<span class="gray">A01201309176870</span>｜狀態：<span class="gray">已取消</span>
+                            </td>
+                            <td><a href="#">WY SD test item</a></td>
+                            <td><span class="deepBlue">Standard Shipping (5-7 business days)</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" /></td>
+                            <td><div class="forbid">作廢</div></td>
+                            <td><input type="button" value="查看" title="查看已刪除商品" class="btn" /></td>
+                            <td>01/01/2019<br />00:00:00</td>
+                            <td>N/A</td>
+                            <td>Test_FLY(A09E)</td>
+                            <td>非新蛋</td>
+                            <td>新蛋</td>
+                            <td>
+                                <a href="#" class="gray">227104598</a><br />
+                                <span class="gray">A01687054032</span><br />
+                                商品成色：全新<br />
+                                數量：<span class="gray">1</span>｜廠商產品編號：<span class="gray">A01201309176870</span>｜狀態：<span class="gray">已取消</span>
+                            </td>
+                            <td><a href="#">WY SD test item</a></td>
+                            <td><span class="deepBlue">Standard Shipping (5-7 business days)</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" /></td>
+                            <td><div class="forbid">作廢</div></td>
+                            <td><input type="button" value="查看" title="查看已刪除商品" class="btn" /></td>
+                            <td>01/01/2019<br />00:00:00</td>
+                            <td>N/A</td>
+                            <td>Test_FLY(A09E)</td>
+                            <td>非新蛋</td>
+                            <td>新蛋</td>
+                            <td>
+                                <a href="#" class="gray">227104598</a><br />
+                                <span class="gray">A01687054032</span><br />
+                                商品成色：全新<br />
+                                數量：<span class="gray">1</span>｜廠商產品編號：<span class="gray">A01201309176870</span>｜狀態：<span class="gray">已取消</span>
+                            </td>
+                            <td><a href="#">WY SD test item</a></td>
+                            <td><span class="deepBlue">Standard Shipping (5-7 business days)</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" /></td>
+                            <td><div class="forbid">作廢</div></td>
+                            <td><input type="button" value="查看" title="查看已刪除商品" class="btn" /></td>
+                            <td>01/01/2019<br />00:00:00</td>
+                            <td>N/A</td>
+                            <td>Test_FLY(A09E)</td>
+                            <td>非新蛋</td>
+                            <td>新蛋</td>
+                            <td>
+                                <a href="#" class="gray">227104598</a><br />
+                                <span class="gray">A01687054032</span><br />
+                                商品成色：全新<br />
+                                數量：<span class="gray">1</span>｜廠商產品編號：<span class="gray">A01201309176870</span>｜狀態：<span class="gray">已取消</span>
+                            </td>
+                            <td><a href="#">WY SD test item</a></td>
+                            <td><span class="deepBlue">Standard Shipping (5-7 business days)</span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="btnExport">
+                    <div class="tit">導出全部</div>
+                    <div class="page">
+                        總計錄:1
+                        <a href="#" class="arr01"><img src="/Themes/2013/img/icon/parr01.gif" /></a>
+                        <a href="#" class="arr01"><img src="/Themes/2013/img/icon/parr02.gif" /></a>
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#" class="arr01"><img src="/Themes/2013/img/icon/parr03.gif" /></a>
+                        <a href="#" class="arr01"><img src="/Themes/2013/img/icon/parr04.gif" /></a>
+                        每頁
+                        <select>
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                    <p class="clear"></p>
+                </div>
+                <div class="deleteBox">
+                    <input type="button" value="作廢" class="btn01" />
+                    <input type="button" value="作廢" class="btn02" />
+                    <input type="button" value="作廢" class="btn03" />
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+</div>

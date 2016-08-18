@@ -1,0 +1,611 @@
+﻿<style>
+    #input[type="text"] {
+        height: 25px;
+    }
+    .SlideAreaInline {
+        display:inline;
+    }
+    #CheckByAdmin {
+        margin-top:10px;
+    }
+    .GridTextCenter table td{
+        text-align:center;
+    }
+    /*.k-grid-toolbar a.k-button {float:right;}*/
+</style>
+<div id="popertySketcch" style="margin-top:10px;">
+    @(Html.Kendo().DropDownList()
+    .Name("searchSketchProperty")
+    .DataTextField("Text")
+    .DataValueField("Value")
+    .BindTo(new List<SelectListItem>()
+    {
+        new SelectListItem() {
+            Text = "商家商品編號",
+            Value = "0"
+        },
+        new SelectListItem() {
+            Text = "廠商產品編號",
+            Value = "1"
+        },
+        new SelectListItem() {
+            Text = "草稿 ID",
+            Value = "2"
+        },
+        new SelectListItem() {
+            Text = "商品名稱",
+            Value = "3"
+        }
+    })
+    .SelectedIndex(0)
+    )
+    @(Html.Kendo().TextBox().Name("searchTextSketchProperty").HtmlAttributes(new { style="width:300px"}))
+    <a href="#" style="color:blue;" id="SliderSketchProperty">進階搜索</a>
+    @(Html.Kendo().Button().Name("SearchSketchProperty").HtmlAttributes(new { style="width:150px"}).Content("搜尋").Events(ev=>ev.Click("onSearchSketchProperty")))
+    @(Html.Kendo().Button().Name("NewBuildSketchProperty").HtmlAttributes(new { style="width:150px"}).Content("建立").Events(ev=>ev.Click("onNewSketchProperty")))
+    <br /><br />
+    <div id="SlideAreaSketchProperty" style="display:none">
+        <div class="SlideAreaInline">
+            <label>製造商: </label>
+            @(Html.Kendo().DropDownList()
+            .Name("MarkerNameSketchProperty")
+            .OptionLabel("Please Select...")
+            .HtmlAttributes(new { style = "width:200px" })
+            .DataTextField("ManufactureName")
+            .DataValueField("SN")
+            .DataSource(source =>
+            {
+                source.Read(read=>{
+                    //read.Action("ManufactureNameSearch", "ItemList");
+                    read.Action("GetManufacturerList", "TwoDimensionProductList");
+                });
+            })
+            )
+        </div>
+        <div class="SlideAreaInline" style="display:none">
+            <label>可售數量: </label>
+            @(Html.Kendo().DropDownList()
+            .Name("StockSketchProperty")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .BindTo(new List<SelectListItem>()
+            {
+            new SelectListItem() {
+                Text = "全部",
+                Value = "0"
+            },
+            new SelectListItem() {
+                Text = "<10",
+                Value = "10"
+            },
+            new SelectListItem() {
+                Text = "<50",
+                Value = "50"
+            },
+            new SelectListItem() {
+                Text = "<100",
+                Value = "100"
+            },
+            new SelectListItem() {
+                Text = ">=100",
+                Value = "1000"
+            },
+            })
+            .SelectedIndex(0)
+            )
+        </div>
+        <div class="SlideAreaInline">
+            <label>創建日期</label>
+            @(Html.Kendo().DropDownList()
+            .Name("DateSketchProperty")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .BindTo(new List<SelectListItem>()
+            {
+                new SelectListItem() {
+                    Text = "全部",
+                    Value = "0"
+                },
+                new SelectListItem() {
+                    Text = "今天",
+                    Value = "1"
+                },
+                new SelectListItem() {
+                    Text = "最近3天",
+                    Value = "3"
+                },
+                new SelectListItem() {
+                    Text = "最近7天",
+                    Value = "7"
+                },
+                new SelectListItem() {
+                    Text = "最近30天",
+                    Value = "30"
+                },
+                new SelectListItem() {
+                    Text = "指定日期",
+                    Value = "2"
+                },
+                new SelectListItem() {
+                    Text = "日期範圍",
+                    Value = "4"
+                },
+            })
+            .SelectedIndex(0)
+            )
+            <span id="SDateSketchProperty" style="display:none">
+                @(Html.Kendo().DatePicker().Name("StartDataSketchProperty").HtmlAttributes(new { style = "width:130px;" }))
+            </span>
+            <span id="EDateSketchProperty" style="display:none">
+                @(Html.Kendo().DatePicker().Name("EndDataSketchProperty").HtmlAttributes(new { style = "width:130px;"}))
+            </span>
+        </div>
+        <div style="margin-top:10px;">
+            <label>主分類: </label>
+                @(Html.Kendo()
+                    .DropDownList()
+                    .Name("ItemCategorySketchProperty1")
+                    .OptionLabel("Please Select...")
+                    .DataTextField("Description")
+                    .DataValueField("CategoryID")
+                    .DataSource(source => {
+                        source.Read(read =>
+                        {
+                            read.Action("QueryCategory", "ItemCreation")
+                                .Data("MasterLayer");
+                        });
+                        
+                    })    
+                )
+                @(Html.Kendo()
+                    .DropDownList()
+                    .Name("ItemCategorySketchProperty2")
+                    .OptionLabel("Please Select...")
+                    .DataTextField("Description")
+                    .DataValueField("CategoryID")
+                    .DataSource(source => {
+                        source.Read(read =>
+                        {
+                            read.Action("QueryCategory", "ItemCreation")
+                                .Data("filterSecondLayer");
+                        })
+                        .ServerFiltering(true);
+                         
+                    })
+                    .Events(e=>e.Change("QueryProperty"))
+                    //.Enable(false)
+                    .AutoBind(true)   
+                    .CascadeFrom("ItemCategorySketchProperty1")
+                )
+                @(Html.Kendo()
+                    .DropDownList()
+                    .Name("ItemCategorySketchProperty3")
+                    .OptionLabel("Please Select...")
+                    .DataTextField("Description")
+                    .DataValueField("CategoryID")
+                    .DataSource(source => {
+                        source.Read(read =>
+                        {
+                            read.Action("QueryCategory", "ItemCreation")
+                                .Data("thridLayer");
+                        })
+                        .ServerFiltering(true);
+                        
+                    })
+                    .AutoBind(false)   
+                    .CascadeFrom("ItemCategorySketchProperty2")
+                )
+        </div>
+</div>
+    <hr style="border:0; border-top:1px solid gray;" />
+    <div id="DatagridSketchProperty" class="GridTextCenter">
+        @(Html.Kendo().Grid<TWNewEgg.API.View.ItemSketchSelect>()
+        .Name("GridSketchProperty")
+        .TableHtmlAttributes(new { /*style = "min-height: 500px;"*/ })
+        .Scrollable(scro => scro.Height(380))
+        .Columns(col =>
+        {
+            col.Template(e => { }).ClientTemplate("<input type='checkbox' id='#=ID#' /> 送審").Title("審核").HeaderTemplate("審核 <input type=\"checkbox\" id=\"checkAll\" onclick=\"checkAllCheckbox()\" />全選").Width(100);
+            col.Command(com => com.Custom("修改").Click("EditSketchProperty")).Title("修改").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Command(com => com.Custom("刪除").Click("DeleteSketchProperty")).Title("刪除").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Command(com => com.Custom("複製").Click("CopySketchProperty")).Title("複製").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.ID).Title("產品編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" }).HtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.Product.PicPath_Sketch).Title("圖片").Width(100).HeaderHtmlAttributes(new { style = "text-align:center;" }).ClientTemplate("<div style=\"text-align:center\"><img src=\"#=setImgUrl(Product.PicPath_Sketch)#\" alt=\"沒圖\"></div>");
+            col.Bound(p => p.Product.Name).Title("商品名稱").Width(150).HeaderHtmlAttributes(new { style = "text-align:center" }).ClientTemplate("#=UrlLink(ID, Product.Name, Item.ItemURL)#");
+            col.Bound(p => p.Item.MarketPrice).Title("建議售價(元)").Format("{0:n0}").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" }).HtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.Item.PriceCash).Title("售價(元)").Format("{0:n0}").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.Product.Cost).Title("成本價(元)").Format("{0:n0}").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Template(e => { }).ClientTemplate("<span id=GM_#=ID#>#=ComputeQM(Item.PriceCash, Product.Cost)#</span>").Title("毛利率").Width(100).HtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.ItemStock.CanSaleQty).Title("可售數量").Width(100).Hidden(true);
+            col.Bound(p => p.ItemStock.InventorySafeQty).Title("安全庫存量").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.ItemCategory.MainCategoryName_Layer0).Title("第一層分類").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.ItemCategory.MainCategoryName_Layer1).Title("第二層分類").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.ItemCategory.MainCategoryName_Layer2).Title("第三層分類").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.Item.SellerName).Title("商家").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.Product.SellerProductID).Title("商家商品編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.Product.UPC).Title("UPC編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.Product.ManufacturerName).Title("製造商").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.Product.MenufacturePartNum).Title("廠商產品編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.Item.IsNew).Title("商品類別").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" }).ClientTemplate("# if(Item.IsNew == \"Y\"){#" + "<center><span align=\"center\">" + "新品</span></center>" + "#}else{#" + "<center><span>" + "福利品</span></center>" + "#}   #");
+            col.Bound(p => p.Category).Title("出貨方").Width(100).ClientTemplate("#=showNameProperty(Category.shiptype)#").HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.Item.CanSaleLimitQty).Title("限量可售").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" }).Hidden(true);
+            //col.Bound(p => p.Item.DateStart).Title("開始銷售日期(起)").Width(150).HeaderHtmlAttributes(new { style = "text-align:center" })
+            //    .Format("{0: yyyy-MM-dd}")
+            //    .EditorTemplateName("Date").ClientTemplate("#= kendo.toString( toDate(Item.DateStart), \"yyyy/MM/dd\" ) #");
+            col.Bound(p => p.startDateSketch).Title("開始銷售日期(起)").Width(150).HeaderHtmlAttributes(new { style = "text-align:center" })
+                 .Format("{0: yyyy-MM-dd}")
+                 .ClientTemplate("#= kendo.toString(toDate(startDateSketch), \"yyyy/MM/dd\")#");
+            col.Bound(p => p.Item.DateEnd).Title("開始銷售日期(迄)").Width(150).HeaderHtmlAttributes(new { style = "text-align:center" }).ClientTemplate("#=toDate(Item.DateEnd)#").Hidden();
+            //col.Bound(p => p.Item.DateEnd).Title("開始銷售日期(迄)").Width(150).EditorTemplateName("saleDatePicker").ClientTemplate("#= kendo.toString( toDate(Item.DateStart), \"yyyy/MM/dd\" ) #");
+            col.Bound(p => p.CreateAndUpdate.CreateDate).Title("創建日期").Width(150).HeaderHtmlAttributes(new { style = "text-align:center" }).ClientTemplate("#=toDate(CreateAndUpdate.CreateDate)#");
+        })
+        .Reorderable(reorderable => reorderable.Columns(true))
+        .AutoBind(true)
+        .Scrollable()
+        .Pageable(page => page
+            .Refresh(true)
+            .PageSizes(true)
+            .ButtonCount(10)
+        )
+        .Editable(edit => edit.Mode(GridEditMode.InCell))
+        .DataSource(ds => ds
+            .Ajax()
+            .PageSize(10)
+            .Batch(true)
+            .Events(ev => ev.Change("onChangeSketchProperty").RequestStart("requestStartSketch").RequestEnd("requestEndSketch"))
+            .Model(model =>
+            {
+                model.Id(p => p.ID);
+                model.Field(p => p.ID).Editable(false);
+                model.Field(p => p.ItemStock.CanSaleQty).Editable(false);
+                model.Field(p => p.Product.PicPath_Sketch).Editable(false);
+                model.Field(p => p.Product.Name).Editable(false);
+                model.Field(p => p.CreateAndUpdate.CreateDate).Editable(false);
+                model.Field(p => p.ItemCategory.MainCategoryName_Layer0).Editable(false);
+                model.Field(p => p.ItemCategory.MainCategoryName_Layer1).Editable(false);
+                model.Field(p => p.ItemCategory.MainCategoryName_Layer2).Editable(false);
+                model.Field(p => p.Item.SellerName).Editable(false);
+                model.Field(p => p.Product.SellerProductID).Editable(false);
+                model.Field(p => p.Product.UPC).Editable(false);
+                model.Field(p => p.Product.ManufacturerName).Editable(false);
+                model.Field(p => p.Product.MenufacturePartNum).Editable(false);
+                model.Field(p => p.Item.IsNew).Editable(false);
+                model.Field(p => p.Item.DateEnd).Editable(false);
+                model.Field(p => p.Category).DefaultValue(ViewData["selectItem"] as TWNewEgg.API.View.CategoryViewModel);
+            })
+            .Events(ev => ev.Change("onChangeSketchProperty"))
+            .Read(read => read.Action("readSketchProperty", "TwoDimensionProductList").Data("JsonSketchPropertyData"))
+            .Update(update => update.Action("updateSketchProperty", "TwoDimensionProductList").Data("JqyeryUpdateSketchProperty"))
+        )
+        .ToolBar(toolBar =>
+        { 
+            toolBar.Save().SaveText("儲存所有變更").CancelText("取消");
+        })
+        )
+    </div>
+    <br />
+    @(Html.Kendo().Button().Name("CheckByAdminSketchProperty").Content("送審").HtmlAttributes(new { style = "width:100px" }).Events(ev => ev.Click("onCheckSketchProperty")))
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#DateSketchProperty").change(function () {
+            if ($("#DateSketchProperty").val() == 2) {
+                $("#SDateSketchProperty").css('display', '');
+                $("#EDateSketchProperty").css('display', 'none');
+            }
+            else if ($("#DateSketchProperty").val() == 4) {
+                $("#SDateSketchProperty").css('display', '');
+                $("#EDateSketchProperty").css('display', '');
+            }
+            else {
+                $("#SDateSketchProperty").css('display', 'none');
+                $("#EDateSketchProperty").css('display', 'none');
+                $("#StartDataSketchProperty").val("");
+                $("#EndDataSketchProperty").val("");
+            }
+        });
+        $("#SliderSketchProperty").click(function () {
+            var attr = $("#SlideAreaSketchProperty").css('display');
+            if (attr == "none") {
+                $("#SlideAreaSketchProperty").slideDown();
+            }
+            else if (attr == "block") {
+                $("#SlideAreaSketchProperty").slideUp();
+            }
+            else {
+                $("#SlideAreaSketchProperty").slideUp();
+            }
+        });
+        $("#SearchSketchProperty").click(function () {
+
+
+        });
+        window.showNameProperty = function (value) {
+            if (value == "Newegg") {
+                return "Newegg"
+            }
+            else if (value = "Seller") {
+                return "供應商"
+            }
+            else {
+                return "";
+            }
+        }
+    });
+    function requestStartSketch(e) {
+        if (e.type == "update") {
+            $.blockUI();
+        }
+        else if (e.type == "read") {
+            
+        }
+    }
+    var firstEnter = -1;
+    firstEnter = parseInt(firstEnter);
+    function requestEndSketch(e) {
+        firstEnter++;
+        if (e.type == "read" && !e.response.Errors) {
+            if (firstEnter != 0) {
+                if (typeof (e.response) == "object") {
+                }
+                else {
+                    if (e.response == "" || e.response == null) {
+                        $("#ManMade_Alert_Message").html("查無資料");
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    }
+                    else {
+                        $("#ManMade_Alert_Message").html(e.response);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    }
+                }
+            }
+        }
+        if (e.type == "update" && !e.response.Errors) {
+            $.unblockUI();
+            if (e.response[0] == "F") {
+                $("#ManMade_Alert_Message").html(e.response[1]);
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                this.cancelChanges();
+            }
+            else if (e.response[0] == "T") {
+                $("#ManMade_Alert_Message").html(e.response[1]);
+                ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                var dataSrcSketchProperty = $("#GridSketchProperty").data("kendoGrid").dataSource.read();
+            }
+        }
+    }
+    function JsonSketchPropertyData() {
+        return {
+            searchSketchProperty: $("#searchSketchProperty").val(),
+            searchTextSketchProperty: $("#searchTextSketchProperty").val(),
+            MarkerNameSketchProperty: $("#MarkerNameSketchProperty").val(),
+            StockSketchProperty: $("#StockSketchProperty").val(),
+            DateSketchProperty: $("#DateSketchProperty").val(),
+            StartDataSketchProperty: $("#StartDataSketchProperty").val(),
+            EndDataSketchProperty: $("#EndDataSketchProperty").val(),
+            ItemCategorySketchProperty1: $("#ItemCategorySketchProperty1").val(),
+            ItemCategorySketchProperty2: $("#ItemCategorySketchProperty2").val(),
+            ItemCategorySketchProperty3: $("#ItemCategorySketchProperty3").val()
+        };
+    }
+    var editNewOpen = null;
+    function EditSketchProperty(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var itemSketchID = dataItem.ID;
+        if (editNewOpen != null && editNewOpen.open) {
+            editNewOpen.close();
+            editNewOpen = window.open("/TwoDimensionProductDetailEdit/TwoDimensionProductDetailEdit?itemSketchID=" + itemSketchID + "&dataSendType=DetailEdit&from=sketch", 'MyWindow', '');
+        }
+        else {
+            editNewOpen = window.open("/TwoDimensionProductDetailEdit/TwoDimensionProductDetailEdit?itemSketchID=" + itemSketchID + "&dataSendType=DetailEdit&from=sketch", 'MyWindow', '');
+        }
+        return false;
+    }
+    function DeleteSketchPropertyConfirm(checkMsg, toController) {
+        if (checkMsg) {
+            $.ajax({
+                type: "POST",
+                url: "../TwoDimensionProductList/DeleteSketchProperty",
+                dataType: "json",
+                data: { "DeleteId": toController },
+                success: function (res) {
+                    if (res[0] == "T") {
+                        $("#ManMade_Alert_Message").html(res[1]);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        var dataSrcSketchProperty = $("#GridSketchProperty").data("kendoGrid").dataSource.read();
+                        //$("a[href='/TwoDimensionProductList/readSketchProperty']").trigger('click');
+                    }
+                    else if (res[0] == "F") {
+                        $("#ManMade_Alert_Message").html(res[1]);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    }
+                },
+                beforeSend: function () {
+                    $.blockUI();
+                    //$.blockUI({ message: '<h1><img src="/Content/Img/ajax-loader.gif" /></h1>' });
+                },
+                complete: function () {
+                    $.unblockUI();
+                }
+            });
+        }
+    }
+    function DeleteSketchProperty(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var toController = dataItem.ID;
+        var checkMsg;
+        $("#ManMade_Another_Alert_Message").html("確定刪除?");
+        ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+        $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+            //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+            if ($(this).hasClass("confirm")) {
+                console.log("confirm");
+                checkMsg = true;
+                //需要做的事件 
+                DeleteSketchPropertyConfirm(checkMsg, toController);
+            }
+                //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+            else {
+                console.log("chancel");
+                checkMsg = false;
+                //需要做的事件 
+                DeleteSketchPropertyConfirm(checkMsg, toController);
+            }
+        });
+    }
+
+    var CopyNewOpen = null;
+    function CopySketchProperty(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var itemSketchID = dataItem.ID;
+        if (CopyNewOpen != null && CopyNewOpen.open) {
+            CopyNewOpen.close();
+            CopyNewOpen = window.open("/TwoDimensionProductDetailEdit/TwoDimensionProductDetailEdit?itemSketchID=" + itemSketchID + "&dataSendType=Copy&from=sketch", 'MyWindow', '');
+        }
+        else {
+            CopyNewOpen = window.open("/TwoDimensionProductDetailEdit/TwoDimensionProductDetailEdit?itemSketchID=" + itemSketchID + "&dataSendType=Copy&from=sketch", 'MyWindow', '');
+        }
+        return false;
+    }
+    function onSearchSketchProperty() {
+        var dataSrcSketchProperty = $("#GridSketchProperty").data("kendoGrid").dataSource.read();
+        //$("#GridSketchProperty").data("kendoGrid").refresh();
+        //$("#GridSketchProperty").data("kendoGrid").dataSource.page(1);
+    }
+    var newWindow = null;
+    function onNewSketchProperty() {
+        if (newWindow != null && newWindow.open) {
+            newWindow.close();
+            newWindow = window.open('/twodimensionproductcreation/Index', 'MyWindow', '');
+        }
+        else {
+            newWindow = window.open('/twodimensionproductcreation/Index', 'MyWindow', '');
+        }
+        return false;
+    }
+    function checkAllCheckbox() {
+        var ischeck = $("#checkAll");
+        if (ischeck.prop("checked") == true) {
+            $("input[type='checkbox']").each(function () {
+                $(this).prop("checked", true);
+            });
+        }
+        else {
+            $("input[type='checkbox']").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+    }
+    function onCheckSketchProperty() {
+        var items = [];
+        var grid = $("#GridSketchProperty").data("kendoGrid");/*.on("click", ".checkbox", testcheck);*/
+        var sel = $("input:checked", grid.tbody).closest("tr");
+        $.each(sel, function (idx, row) {
+            var item = grid.dataItem(row).ID;
+            items.push(item);
+        });
+        if (items.length == 0) {
+            $("#ManMade_Alert_Message").html("請勾選要送審的資料");
+            ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "../TwoDimensionProductList/tosketchCheckProperty",
+                dataType: "json",
+                data: JSON.stringify({ "_intCheck": items }),
+                contentType: 'application/json',
+                beforeSend: function () {
+                    //$.blockUI({ message: '<h1><img src="/Content/Img/ajax-loader.gif" /></h1>' });
+                    $.blockUI();
+                },
+                complete: function () {
+                    $.unblockUI();
+                },
+                success: function (res) {
+                    $("#ManMade_Alert_Message").html(res);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                    var dataSrcSketchProperty = $("#GridSketchProperty").data("kendoGrid").dataSource.read();
+                }
+            });
+        }
+    }
+    function onChangeSketchProperty(arg) {
+        if (arg.field == "Item.PriceCash" || arg.field == "Product.Cost") {
+            var Item_PriceCash = arg.items[0].Item.PriceCash;/*.Item.PriceCash;*/
+            var ProductCost = arg.items[0].Product.Cost;
+            if (Item_PriceCash == 0) {
+                $("#GM_" + arg.items[0].ID).text("資料錯誤");
+            }
+            else {
+                var gm = ((Item_PriceCash - ProductCost) / Item_PriceCash);
+                if (gm < 0) {
+                    $("#GM_" + arg.items[0].ID).text("0%");
+                }
+                else {
+                    gm = gm * 100;
+                    gm = gm.toFixed(2)
+                    $("#GM_" + arg.items[0].ID).text(gm + "%");
+                }
+            }
+        }
+    }
+    function JqyeryUpdateSketchProperty(data) {
+        for (var i = 0; i < data.models.length; i++) {
+            if (data.models[i].Item.MarketPrice == "" || data.models[i].Item.MarketPrice == null) {
+                data.models[i].Item.MarketPrice = 0;
+            }
+            if (data.models[i].Item.PriceCash == "" || data.models[i].Item.PriceCash == null) {
+                data.models[i].Item.PriceCash = 0;
+            }
+            if (data.models[i].Product.Cost == "" || data.models[i].Product.Cost == null) {
+                data.models[i].Product.Cost = 0;
+            }
+
+            data.models[i].Product.Name = encodeURIComponent(data.models[i].Product.Name);
+            data.models[i]["Product.Name"] = encodeURIComponent(data.models[i]["Product.Name"]);
+        }
+        return { _jsonupdateData: kendo.stringify(data.models) };
+    }
+    /*--------------------------*/
+    function MasterLayer() {
+        return {
+            parentID: 0,
+            Layer: 0
+        };
+    }
+    function filterSecondLayer() {
+        return {
+            parentID: $("#ItemCategorySketchProperty1").val(),
+            Layer: 1
+        };
+    }
+    function thridLayer() {
+        return {
+            parentID: $("#ItemCategorySketchProperty2").val(),
+            Layer: 2
+        };
+    }
+    function QueryProperty() {
+        $.ajax({
+            type: "POST",
+            url: "/ItemCreation/QueryProductProperty",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                "CategoryID": $("#ItemCategorySketchProperty2").val()
+            }),
+            success: function (res) {
+                if (res.IsSuccess == true) {
+                    $("#ProductProperty").html(res.ViewHtml);
+                }
+                else {
+                    $("#ProductProperty").html("");
+                }
+            }
+        });
+    }
+</script>

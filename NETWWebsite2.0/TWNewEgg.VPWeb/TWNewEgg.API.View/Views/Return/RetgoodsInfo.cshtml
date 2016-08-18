@@ -1,0 +1,237 @@
+﻿@{
+    var retgoodUpperInfo = ViewBag.retgoodUpperInfo as TWNewEgg.API.Models.RetgoodUpper;
+    string addr = string.Empty;
+    if(retgoodUpperInfo != null)
+    {
+        addr = retgoodUpperInfo.Retgood_FrmZipcode + " " + retgoodUpperInfo.Retgood_FrmLocation + " " + retgoodUpperInfo.Retgood_FrmADDR;
+    }
+}
+
+<style>
+    .GridTextCenter table td {
+        text-align: center;
+    }
+</style>
+
+@if (retgoodUpperInfo != null && ViewBag.retgoodGridInfo != null)
+{
+    <table style="margin-top:10px;">
+        <tr>
+            <td style="text-align:right; min-width:80px;">訂單編號：</td>
+            <td style="text-align:left; min-width:100px;">
+                @retgoodUpperInfo.Cart_ID
+            <input type="hidden" id="Retgood_CartID" value="@retgoodUpperInfo.Cart_ID" />
+            </td>
+
+            <td style="text-align:right; min-width:100px;">訂單日期：</td>
+            <td style="text-align:left; min-width:120px;">@retgoodUpperInfo.Cart_CreateDate.ToString("yyyy/MM/dd  HH:mm:ss")</td>
+
+            <td style="text-align:right; min-width:100px;">訂購人姓名：</td>
+            <td style="text-align:left; min-width:70px;">@retgoodUpperInfo.Cart_Username</td>
+
+            <td style="text-align:right; min-width:100px;">訂購人手機：</td>
+            <td style="text-align:left; min-width:80px;">@retgoodUpperInfo.Cart_Mobile</td>
+        </tr>
+    </table>
+    <table style="margin-top:30px;">
+        <tr>
+            <td style="text-align:right; min-width:80px;">取貨地址：</td>
+            <td style="text-align:left; min-width:310px;">@addr</td>
+
+            <td style="text-align:right; min-width:110px;">取件聯絡人姓名：</td>
+            <td style="text-align:left; min-width:70px;">@retgoodUpperInfo.Retgood_FrmName</td>
+
+            <td style="text-align:right; min-width:100px;">取件人手機：</td>
+            <td style="text-align:left; min-width:80px;">@retgoodUpperInfo.Retgood_FrmMobile</td>
+
+            <td style="text-align:right; min-width:100px;">取件人市話：</td>
+            <td style="text-align:left; min-width:80px;">@retgoodUpperInfo.Retgood_FrmPhone</td>
+
+            <td style="text-align:right; min-width:100px;">退貨狀態：</td>
+            <td style="text-align:left; min-width:100px;">@retgoodUpperInfo.Retgood_Status_str</td>
+        </tr>
+    </table>
+    
+    <hr style="margin-top:10px; margin-bottom:10px;"/>
+    
+<div class="GridTextCenter">
+    @(Html.Kendo().Grid<TWNewEgg.API.Models.RetgoodGrid>()
+        .Name("RetGoodInfo")
+        .Columns(col =>
+        {
+            col.Bound(p => p.card_id).Title("退貨編號").Width(150).HeaderHtmlAttributes(new { style = "text-align:center" }).Visible(false);
+            col.Bound(p => p.product_sellerproductid).Title("商家銷售編號").Width(150).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.product_productid).Title("新蛋商品編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.product_MenufacturePartNum).Title("廠商產品編號").Width(120).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.product_UPC).Title("UPC").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.process_Title).Title("商品說明").Width(300).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.process_Qty).Title("訂購數量").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.retgood_Qty).Title("退貨數量").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.process_unitPrice).Title("單價($)").Width(100).Format("{0:n0}").HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.retgood_CauseNote).Title("退貨原因").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            col.Bound(p => p.retgood_ShpCode).Title("貨運編號").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+            //col.Template(e => { }).ClientTemplate("<span>#=SpliSomeText(retgood_CauseNote)#</span>").Title("退貨原因").Width(100).HeaderHtmlAttributes(new { style = "text-align:center" });
+        })
+        .Scrollable(scro => scro.Height("auto"))
+        .BindTo((IEnumerable<TWNewEgg.API.Models.RetgoodGrid>)ViewBag.retgoodGridInfo)
+    )
+</div>
+    <div style="margin-top:10px;min-width:150px;float:right;">
+        <table>
+        <tr style="text-align:right; margin-right:10px; min-width:150px;">
+            <td>
+                <span>折扣總額：</span>
+            </td>
+            <td>
+                <span>@ViewBag.coupon_Total.ToString("N0")</span>
+            </td>
+        </tr>
+        <tr style="text-align:right; margin-right:10px; min-width:150px;">
+            <td>
+                <span>退貨總額：</span>
+            </td>
+            <td>
+                <span>@ViewBag.Total.ToString("N0")</span>
+            </td>
+        </tr>        
+    </table>
+    </div>
+    
+    <div style="margin-top:50px;">
+    <table>
+        <tr>
+            <td style="text-align:right; min-width:80px;">貨運公司：</td>
+            <td style="text-align:left; min-width:150px; max-width:150px;">
+                @(Html.Kendo().DropDownList()
+                    .Name("FreightCompany")
+                    .DataTextField("FreightCompanyName")
+                    .DataValueField("FreightCompanyID")
+                    .OptionLabel("請選擇貨運公司")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("GetFreightCompanyInfo", "Return");
+                        });
+                    })
+                    .Events(ev => ev.Change("FreightCompanyCheck"))
+                )
+                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="FreightCompany" role="alert" id="errFreightCompanyMsg" style="display:none;"></span>
+            </td>
+
+            <td style="text-align:right; min-width:100px;">貨運編號：</td>
+            <td style="text-align:left; min-width:200px; max-width:200px;">
+                @(Html.Kendo().TextBox()
+                    .Name("FreightNumber")
+                    .HtmlAttributes(new { maxlength = "50", style = "width:200px;" })
+                )
+                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="FreightNumber" role="alert" id="errFreightNumberMsg" style="display:none;"></span>
+            </td>
+
+            <td style="text-align:right; min-width:100px;">取件日期：</td>
+            <td style="text-align:left; min-width:200px; max-width:200px;">
+                @(Html.Kendo().DateTimePicker()
+                    .Name("PickupDate")
+                        .Format("yyyy/MM/dd  HH:mm:ss")
+                        .HtmlAttributes( new { style="width:180px; font-size:12px;" })
+                    .Value(DateTime.Now)
+                )
+                <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="PickupDate" role="alert" id="errPickupDateMsg" style="display:none;"></span>
+            </td>
+
+            <td style="text-align:center; min-width:150px;">
+                @(Html.Kendo().Button()
+                    .Name("SaveCartBtn")
+                    .Content("存檔")
+                    .HtmlAttributes(new {style="width:80px"})
+                    .Events(ev=>ev.Click("SaveCartInfo"))
+                )
+                <span id="RetInfoDataProcessing" style="display:none;">
+                    <img src="~/Content/Img/loading.gif" height="30"/>
+                    資料處理中，請稍後...
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="otherFreightCompanyName" style="text-align:right; min-width:140px; display:none;">
+                <div style ="margin-top:10px;">
+                    其它貨運業者名稱：
+                </div>
+            </td>
+            <td class="otherFreightCompanyName" style="text-align:left; min-width:200px; max-width:200px; display:none;">
+                <div style ="margin-top:10px;">
+                    @(Html.Kendo().TextBox()
+                        .Name("otherFreightCompanyName")
+                        .HtmlAttributes(new { maxlength = "30", style = "width:200px; display:none;" })
+                    )
+                    <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="otherFreightCompanyName" role="alert" id="errOtherFreightCompanyNameMsg" style="display:none;"></span>
+                </div>
+            </td>
+        </tr>
+    </table> 
+</div>
+}
+else
+{
+    <div id="errorMessage">資料讀取失敗。</div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        @{
+            if (retgoodUpperInfo == null || ViewBag.retgoodGridInfo == null)
+            {
+                @*錯誤訊息位置調整*@
+                <text>$("#errorMessage").css("width", "100%");
+                $("#errorMessage").css("text-align", "center");
+                $("#errorMessage").css("margin-top", Math.floor(($(sendCartOrReportWindow).height() / 2) - 8) + "px");</text>
+            }
+        }
+
+        $("#FreightNumber").keyup(function () {
+            var length = $("#FreightNumber").val().length;
+            if (length > 0) {
+                $("#FreightNumber").removeClass("errMsgShow");
+                ErrMsgHide("FreightNumber", "請輸入貨運編號");
+            }
+            else {
+                $("#FreightNumber").addClass("errMsgShow");
+                ErrMsgShow("FreightNumber", "請輸入貨運編號");
+            }
+        });
+
+        $("#otherFreightCompanyName").blur(function () {
+            var length = $("#otherFreightCompanyName").val().length;
+            if (length > 0) {
+                $("#otherFreightCompanyName").removeClass("errMsgShow");
+                ErrMsgHide("OtherFreightCompanyName", "請輸入其它貨運業者名稱");
+            }
+            else {
+                $("#otherFreightCompanyName").addClass("errMsgShow");
+                ErrMsgShow("OtherFreightCompanyName", "請輸入其它貨運業者名稱");
+            }
+        });
+
+        $("#PickupDate").change(function () {
+            var PickupDate = $("#PickupDate").val();
+            var length = PickupDate.length;
+            if (length > 0) {
+                $("#PickupDate").parents("span.k-widget.k-datetimepicker.k-header").removeClass("errMsgShow");
+                ErrMsgHide("PickupDate", "請輸入取件日期");
+                var result = PickupDate.search(/^\d{4}\/(0[1-9]|1[0-2])\/((0[1-9])|((1|2)[0-9])|3[0-1])[ ]{1,2}(((0|1)[0-9])|2[0-3])\:[0-5][0-9]\:[0-5][0-9]$/);
+                if (result < 0) {
+                    $("#PickupDate").parents("span.k-widget.k-datetimepicker.k-header").addClass("errMsgShow");
+                    ErrMsgShow("PickupDate", "請輸入正確取件日期");
+                }
+                else {
+                    $("#PickupDate").parents("span.k-widget.k-datetimepicker.k-header").removeClass("errMsgShow");
+                    ErrMsgHide("PickupDate", "請輸入正確取件日期");
+                }
+            }
+            else {
+                $("#PickupDate").parents("span.k-widget.k-datetimepicker.k-header").addClass("errMsgShow");
+                ErrMsgShow("PickupDate", "請輸入取件日期");
+            }
+        });
+    });
+</script>

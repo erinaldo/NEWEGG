@@ -1,0 +1,115 @@
+/* line 3, ../sass/layout.scss */
+body {
+  position: relative;
+}
+
+/* line 7, ../sass/layout.scss */
+#Header {
+  height: 46px;
+  background: #f5f5f5;
+  border-top: 4px solid #e5e5e5;
+}
+/* line 11, ../sass/layout.scss */
+#Header h1.logo {
+  float: left;
+  width: 250px;
+  height: 46px;
+  /*background: url("../img/logo.gif") no-repeat 8px 0;*/
+  background: url("/Themes/Logo/VendorPortal_Login.gif") no-repeat 8px;
+}
+/* line 17, ../sass/layout.scss */
+#Header .login {
+  float: right;
+  margin-top: 22px;
+  line-height: 1.1em;
+}
+/* line 21, ../sass/layout.scss */
+#Header .login p {
+  float: left;
+  padding: 0 12px;
+  cursor: pointer;
+}
+/* line 25, ../sass/layout.scss */
+#Header .login p + p {
+  background: url("../img/login_line.gif") no-repeat left;
+}
+/* line 28, ../sass/layout.scss */
+#Header .login p a {
+  margin: 0 1px;
+}
+/* line 31, ../sass/layout.scss */
+#Header .login p.option {
+  margin-right: 7px;
+  padding-right: 15px;
+  background: url("../img/login_line.gif") no-repeat left, url("../img/arr05.gif") no-repeat right;
+}
+/* line 35, ../sass/layout.scss */
+#Header .login p.option .sub {
+  display: none;
+}
+/* line 39, ../sass/layout.scss */
+#Header .login p.option:hover .sub {
+  position: absolute;
+  top: 38px;
+  z-index: 9;
+  display: block;
+  padding: 8px 7px 3px 7px;
+  background: #e5e5e5;
+  border: 1px solid #848484;
+}
+/* line 47, ../sass/layout.scss */
+#Header .login p.option:hover .sub a {
+  display: block;
+  margin-bottom: 6px;
+  padding-left: 10px;
+  color: #2886dc;
+  text-decoration: none;
+}
+/* line 53, ../sass/layout.scss */
+#Header .login p.option:hover .sub a:hover {
+  background: url("../img/login_dot.gif") no-repeat left;
+}
+
+/* line 64, ../sass/layout.scss */
+#outLineBox {
+  padding-bottom: 40px;
+  min-width: 920px;
+  /*height:936px;*/
+}
+
+/* line 70, ../sass/layout.scss */
+#LeftMenu {
+  float: left;
+}
+
+/* line 73, ../sass/layout.scss */
+#RightContent {
+  float: left;
+  margin: 0  6px;
+  min-width: 700px;
+  border: 1px solid #ccc;
+  border-top: 1px solid #26497f;
+  overflow: auto;
+}
+
+/* line 82, ../sass/layout.scss */
+#Footer {
+  /*position:absolute;*/
+  bottom: 0;
+  padding: 10px 0;
+  width: 100%;
+  background: #f5f5f5;
+  text-align: center;
+}
+/* line 89, ../sass/layout.scss */
+#Footer a {
+  padding: 0 12px 0 10px;
+}
+/* line 91, ../sass/layout.scss */
+#Footer a + a {
+  background: url("../img/login_line.gif") no-repeat left;
+}
+
+#cke_89_uiElement {
+    display:none;
+}

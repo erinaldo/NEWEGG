@@ -1,0 +1,41 @@
+﻿
+<br />
+<h2>分類編號表</h2>
+@(Html.Kendo().TreeView()
+    .Name("treeview")
+    .HtmlAttributes(new { @class = "demo-section" })  
+    .DataTextField("Name")
+   
+    .DataSource(dataSource => dataSource
+        .Read(read => read
+            .Action("Category", "CategoryTreeView")
+        )
+    )
+)
+
+
+<style>
+    #example {
+        text-align: center;
+    }
+    .demo-section {
+        display: inline-block;
+        vertical-align: top;
+        width: 320px;
+        height: 300px;
+        text-align: left;
+        margin: 0 2em;
+        
+    }
+     #treeview .k-sprite {
+        background-image: url("@Url.Content("~/Content/web/treeview/coloricons-sprite.png")");
+    }
+
+    .rootfolder { background-position: 0 0; }
+    .folder { background-position: 0 -16px; }
+    .pdf { background-position: 0 -32px; }
+    .html { background-position: 0 -48px; }
+    .image { background-position: 0 -64px; }
+    .line { border: 1px solid #333;}
+   
+</style>

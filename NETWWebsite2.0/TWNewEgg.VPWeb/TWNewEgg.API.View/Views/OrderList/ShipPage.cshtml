@@ -1,0 +1,780 @@
+﻿@{
+    TWNewEgg.API.Models.OrderDetail orderDetail = null;
+    string errorMessage = string.Empty;
+
+    if (ViewBag.OrderDetail != null)
+    {
+        orderDetail = ViewBag.OrderDetail as TWNewEgg.API.Models.OrderDetail;
+    }
+
+    if (string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        errorMessage = ViewBag.ErrorMessage;
+    }
+}
+<style>
+    .titleName {
+        text-align: right;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        vertical-align: top;
+    }
+
+    .value {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        vertical-align: top;
+    }
+
+    .detial_Title {
+        text-align: center;
+        border: ridge;
+        padding: 5px;
+        background-color: #355389;
+        color: white;
+    }
+
+    .detial_Value {
+        text-align: center;
+        border: ridge;
+        padding: 5px;
+    }
+
+    .buttonContainer {
+        padding: 0px 6px 6px 0px;
+        border: 0px solid #ff0000;
+        float: left;
+    }
+</style>
+
+
+@if (orderDetail != null)
+{
+    /*舊的排版*/
+    <!--
+    <div style="padding: 10px">
+
+        <h2>訂單概要資訊</h2>
+        
+    </div><br />
+    <div style="padding: 10px">
+        <h2>訂單商品資訊</h2>
+        <br />
+        
+    </div>
+        -->
+    
+    /*新排版----------add by bruce 20160512*/
+    
+    <div id="tabstrip">
+        <ul>
+            <li>訂單概要資訊</li>
+            <li class="k-state-active">訂單商品資訊</li>
+        </ul>
+        <div>
+            <table>
+                <tr>
+                    <td class="titleName" style="min-width: 100px;">訂單編號：
+                    </td>
+                    <td class="value" style="min-width: 240px;">
+                        @{
+    if (orderDetail.AccountTypeCode == "S")
+    {
+                            @orderDetail.CartID
+    }
+    else if (orderDetail.AccountTypeCode == "V")
+    {
+                            @(orderDetail.CartID + " / " + orderDetail.POCode)
+    }
+                        }
+                    </td>
+                    <td class="titleName" style="min-width: 110px;">訂單日期：
+                    </td>
+                    <td class="value" style="min-width: 100px;">
+                        @orderDetail.OrderCreateDate
+                    </td>
+                    <td class="titleName" style="min-width: 120px;">訂單狀態：
+                    </td>
+                    <td class="value" style="min-width: 100px;">
+                        @{
+    string str_DelvStatus = ((TWNewEgg.DB.TWBACKENDDB.Models.Cart.cartstatus)orderDetail.DelvStatus).ToString();
+    if (((TWNewEgg.DB.TWBACKENDDB.Models.Cart.status)orderDetail.Status) == TWNewEgg.DB.TWBACKENDDB.Models.Cart.status.取消
+        || ((TWNewEgg.DB.TWBACKENDDB.Models.Cart.status)orderDetail.Status) == TWNewEgg.DB.TWBACKENDDB.Models.Cart.status.退貨)
+    {
+        str_DelvStatus = ((TWNewEgg.DB.TWBACKENDDB.Models.Cart.status)orderDetail.Status).ToString();
+    }
+                        }
+                        @str_DelvStatus
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titleName">訂購人名稱：
+                    </td>
+                    <td class="value">
+                        @orderDetail.CustomerName
+                    </td>
+                    <td class="titleName">訂購人手機：
+                    </td>
+                    <td class="value">
+                        @orderDetail.CustomerMobile
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titleName">遞送服務類別：
+                    </td>
+                    <td class="value">
+                        @orderDetail.FulfillChannel
+                    </td>
+                    <td class="titleName">收件人姓名：
+                    </td>
+                    <td class="value">
+                        @orderDetail.ReceiverName
+                    </td>
+                    <td class="titleName">收件人市話：
+                    </td>
+                    <td class="value">
+                        @orderDetail.ReceiverPhone
+                    </td>
+                </tr>
+                <tr>
+                    <td class="titleName">收件人地址：
+                    </td>
+                    <td class="value">
+                        @orderDetail.ReceiverAddress
+                    </td>
+                    <td class="titleName">收件人手機：
+                    </td>
+                    <td class="value">
+                        @orderDetail.ReceiverCellphone
+                    </td>
+                    <td class="titleName">備註：
+                    </td>
+                    <td class="value">
+                        @orderDetail.Note
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table style="width: 100%">
+                @*訂單商品資訊表格抬頭*@
+                <tr>
+                    <td class="detial_Title">商家商品編號
+                    </td>
+                    <td class="detial_Title">新蛋商品編號
+                    </td>
+                    <td class="detial_Title">廠商產品編號
+                    </td>
+                    <td class="detial_Title">UPC
+                    </td>
+                    <td class="detial_Title" style="width: 200px">商品說明
+                    </td>
+                    <td class="detial_Title">訂購數量
+                    </td>
+                    <td class="detial_Title">已遞送數量
+                    </td>
+
+                    @{
+    if (orderDetail.AccountTypeCode == "S")
+    {
+                        <td class="detial_Title">單價($)
+                        </td>
+    }
+                    }
+
+                    @{
+    if (orderDetail.AccountTypeCode == "V")
+    {
+                        <td class="detial_Title">單位成本
+                        </td>
+                        <td class="detial_Title">總成本
+                        </td>
+    }
+                    }
+
+                    <td class="detial_Title">希望到貨時間
+                    </td>
+
+                    <td class="detial_Title">貨運公司
+                    </td>
+                    <td class="detial_Title">貨運編號
+                    </td>
+
+                </tr>
+
+                @*訂單商品資訊表格內容*@
+                @{
+                    <tr>
+                        @*商家商品編號*@
+                        <td class="detial_Value">
+                            @orderDetail.SellerProductID
+                        </td>
+
+                        @*新蛋商品編號*@
+                        <td class="detial_Value">
+                            @orderDetail.NeweggPartNum
+                        </td>
+
+                        @*廠商產品編號*@
+                        <td class="detial_Value">
+                            @orderDetail.MenufacturePartNum
+                        </td>
+
+                        @*UPC*@
+                        <td class="detial_Value">
+                            @orderDetail.UPC
+                        </td>
+
+                        @*商品說明*@
+                        <td class="detial_Value">
+                            <a href="javascript:void(0)" onclick="OpenItemPage('@orderDetail.ItemUrl')">@orderDetail.ItemTitle</a>
+                        </td>
+
+                        @*訂購數量*@
+                        <td class="detial_Value">
+                            @orderDetail.Qty
+                        </td>
+
+                        @*已遞送數量*@
+                        <td class="detial_Value">
+                            @orderDetail.ShippedCount
+                        </td>
+
+                        @{
+    if (orderDetail.AccountTypeCode == "S")
+    {
+@*單價($)*@
+                            <td class="detial_Value">
+                                @orderDetail.Price.ToString("N0")
+                            </td>
+    }
+                        }
+
+                        @{
+    if (orderDetail.AccountTypeCode == "V")
+    {
+@*單位成本*@
+                            <td class="detial_Value">
+                                @orderDetail.UnitCost.ToString("N0")
+                            </td>
+                        
+@*總成本*@
+                            <td class="detial_Value">
+                                @orderDetail.TotalCost.ToString("N0")
+                            </td>
+    }
+                        }
+
+                        @*希望到貨時間*@
+                        <td class="detial_Value">
+                            @orderDetail.DelvDate
+                        </td>
+
+                        @*貨運公司*@
+                        <td class="detial_Value">
+                            @orderDetail.DelvCompanyName
+                        </td>
+
+                        @*貨運編號*@
+                        <td class="detial_Value">
+                            @orderDetail.TrackingNumber
+                        </td>
+                    </tr>
+                }
+
+                <tr>
+                    @*回押單號按鈕*@
+                    <td colspan="8" style="vertical-align: top; padding-top: 10px">
+                        @{
+    if (orderDetail.DelvStatus == (int)TWNewEgg.DB.TWBACKENDDB.Models.Cart.cartstatus.待出貨
+        && orderDetail.Status != (int)TWNewEgg.DB.TWBACKENDDB.Models.Cart.status.退貨
+        && orderDetail.Status != (int)TWNewEgg.DB.TWBACKENDDB.Models.Cart.status.取消)
+    {
+@*<input type="button" id="createPackage" value="回押單號" style="padding: 5px" onclick="CreatePackage()" class="k-button" />*@
+                            <div class="buttonContainer">
+                                <button id="createPackage" onclick="CreatePackage()" value="回押單號" type="button" data-role="button" data-sprite-css-class="k-icon k-edit" class="k-button k-button-icontext" role="button" aria-disabled="false" tabindex="0">
+                                    <span class="k-sprite k-icon k-edit"></span>
+                                    回押單號
+                                </button>
+                            </div>
+@*暫存的訂單商品資訊 model 內容，為了於確認出貨時，再送回 controller 使用*@
+                            <input type="hidden" id="jsonOrderDetails" value="@ViewBag.AesOrderDetail" />                        
+                           
+    }
+
+                        }
+                        <div class="buttonContainer">
+                            <button id="show_Discard4Item" value="填寫廢四機回收四聯單" type="button" data-role="button" data-sprite-css-class="k-icon k-edit" class="k-button k-button-icontext" role="button" aria-disabled="false" tabindex="0">
+                                <span class="k-sprite k-icon k-edit"></span>
+                                填寫廢四機回收四聯單
+                            </button>
+                        </div>
+                    </td>
+
+                    @*小計項目*@
+                    <td colspan="3" style="padding-top: 10px">
+                        <table align="right">
+                            <tr>
+                                <td class="titleName">子項目總計：
+                                </td>
+                                <td>
+                                    @orderDetail.SubTotalPrice.ToString("N0")
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="titleName">運費：
+                                </td>
+                                <td>
+                                    @orderDetail.ShippingFee.ToString("N0")
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="titleName">服務費：
+                                </td>
+                                <td>
+                                    @orderDetail.ServiceFee.ToString("N0")
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="titleName">訂購總額：
+                                </td>
+                                <td>
+                                    @orderDetail.TotalPrice.ToString("N0")
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+
+                @*回押單號的輸入界面*@
+                <tr>
+                    <td colspan="11">
+                        <div id="shipPackageUI"></div>
+                    </td>
+                </tr>
+
+                @*填寫廢四機回收四聯單*@
+                <tr>
+                    <td colspan="11">
+                        <div id="discard4item_subpage"></div>
+                    </td>
+                </tr>
+
+                @*配達按鈕*@
+                @{
+    if (orderDetail.DelvStatus == (int)TWNewEgg.DB.TWBACKENDDB.Models.Cart.cartstatus.已出貨)
+    {
+                    <tr>
+                        <td colspan="11" style="padding-top: 50px; text-align: right;">
+                            <table align="right">
+                                <tr>
+                                    <td>
+                                        <div id="arrivalLoadingIMG" style="display: none">
+                                            <img src="~/Content/Img/loading.gif" height='30' />資料處理中，請稍後。
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="button" id="arrival" value="配達" style="padding: 5px" onclick="Arrival()" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+    }
+                }
+
+
+            </table>
+        </div>
+    </div>
+    
+@*列印出貨明細連結*@
+    <form id="printPackingList" method="post" action="/OrderList/PrintPackingList" target="printPage" style="display: none">
+        <input type="hidden" name="salseOrderCode"  value="
+                            @{
+    if (orderDetail.AccountTypeCode == "S")
+    {
+                                    @orderDetail.CartID
+    }
+    else if (orderDetail.AccountTypeCode == "V")
+    {
+                                    @(orderDetail.CartID + " / " + orderDetail.POCode)
+    }
+                            }"/>
+        <input type="hidden" name="receiver" value="@orderDetail.ReceiverName"/>
+        <input type="hidden" name="receiverCellphone" value="@orderDetail.ReceiverCellphone"/>
+        <input type="hidden" name="address" value="@orderDetail.ReceiverAddress"/>
+        <input type="hidden" name="orderDetails" value="@ViewBag.AesOrderDetail"/>
+        <input type="hidden" name="note" value="@orderDetail.Note"/>
+    </form>
+@*<a onclick="PrintPackageList()">
+        <h2>列印出貨明細</h2>
+    </a>*@
+    <div class="buttonContainer">        
+        <button onclick="PrintPackageList()" type="button" data-role="button" data-icon="close" class="k-button k-button-icontext" role="button" aria-disabled="false" tabindex="1">
+            <span class="k-icon k-i-tick"></span>
+            列印出貨明細
+        </button>
+    </div>
+}
+else
+{
+    <div id="errorMessage">@ViewBag.ErrorMessage</div>
+}
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        /*新排版----------add by bruce 20160512*/
+        $("#tabstrip").kendoTabStrip(); /*頁簽*/
+
+         @{
+             if (orderDetail == null)
+             {
+                @*錯誤訊息位置調整*@
+                <text>$("#errorMessage").css("width", "100%");
+        $("#errorMessage").css("text-align", "center");
+        $("#errorMessage").css("margin-top", Math.floor(($(shipmentWindow).height() / 2) - 8) + "px");</text>
+             }
+        }
+
+        var delvStatus = parseInt('@(orderDetail != null ? orderDetail.DelvStatus : null)');
+        if (delvStatus == parseInt('@TWNewEgg.DB.TWBACKENDDB.Models.Cart.cartstatus.已成立')) {
+            $("#SearchDataBtn").click();
+        }
+
+        //初始化癈四機回收四聯單
+        //init_discard4item();
+
+        //顯示填寫廢四機回收四聯單+初始化癈四機回收四聯單
+        bind_discard4item_subpage();
+
+        // 依據 BSATW-173 廢四機需求增加
+        // 癈四機回收四聯單-----------add by bruce 20160505
+        //檢查有沒有廢四機商品
+        var salesorderCode = 'LBO160422000028';
+        salesorderCode = '@ViewBag.salesorderCode';
+        var user_name = 'bh96';
+        user_name = '';
+        var json = get_data_discard4(salesorderCode, user_name);
+        console.log('json.Body.length: ' + json.Body.length);
+        //沒有資料
+        if (json.Body.length == 0) {
+            var but_text = '不用填寫廢四機回收四聯單';
+            $("#show_Discard4Item").attr("disabled", "disabled");
+            //$("#show_Discard4Item").val(but_text);
+            btn_text = '<span class="k-sprite k-icon k-edit"></span>' + but_text;
+            $("#show_Discard4Item")[0].innerHTML = but_text;
+            //return;
+        }
+        else {
+            //$("#shipmentWindow").css('height', '650px'); //重新指定子窗高
+            //$("#shipmentWindow").css('top', '10px'); //重新指定子窗高
+            //var sub_top = $("#shipmentWindow").css('top'); //子窗
+            //var sub_hie = $("#shipmentWindow").css('height'); //子窗
+            //alert(sub_top);
+        }
+
+        
+
+        var subpage = $("#discard4item_subpage");
+        subpage.hide();
+
+        var state = true;
+        $("#show_Discard4Item").click(function () {
+            //console.log('state:' + state);
+            if (state) {
+                subpage.slideDown('show');
+                state = false;
+            } else {
+                subpage.fadeOut();
+                state = true;
+            }
+            //state = !state;
+        });
+
+    });
+
+    @*點擊 回押單號 按鈕*@
+    function CreatePackage() {
+        $("#createPackage").attr("disabled", "disabled");
+        var address = "@(orderDetail != null ? orderDetail.SellerShippingAddress : "")";
+
+        $.ajax({
+            type: "Post",
+            url: "/OrderList/CreatePackage",
+            data: JSON.stringify({
+                "sellerShippingAddress": address,
+            }),
+            contentType: "application/json;charset=utf-8",
+            success: function (res) {
+                if (res.isSuccess) {
+                    $("#shipPackageUI").html(res.shipPackageUI);
+                }
+                else {
+                    $("#ManMade_Alert_Message").html(res.errorMessage);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+            }
+        });
+    }
+
+    // 依據 BSATW-173 廢四機需求增加
+    // 癈四機回收四聯單-----------add by bruce 20160505
+    //取得廢四機的填寫資料
+    function get_data_discard4(salesorderCode, user_name) {
+
+        var json;
+        var json_str;
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content("~/Discard4/GetData")',
+            data: JSON.stringify({
+                salesorderCode: salesorderCode,
+                user_name: user_name
+            }),
+            async: false,
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            success: function (jsonData) {
+                json = jsonData;
+            },
+            error: function (jqXHR, ajaxOptions, thrownError) {
+                if (jqXHR.status === 0) {
+                    alert('Not connect.\n Verify Network.');
+                } else if (jqXHR.status == 404) {
+                    alert('Requested page not found. [404]');
+                } else if (jqXHR.status == 500) {
+                    alert('Internal Server Error [500].');
+                } else {
+                    alert('Uncaught Error.\n' + thrownError);
+                }
+            }
+        });
+
+        json_str = JSON.stringify(json);
+        //console.log('json_str: ' + json_str);
+
+        return json;
+    }
+
+    // 依據 BSATW-173 廢四機需求增加
+    // 癈四機回收四聯單-----------add by bruce 20160505
+    @*顯示填寫廢四機回收四聯單*@
+    function bind_discard4item_subpage() {
+
+        //$("#show_Discard4Item").attr("disabled", "disabled");
+
+        var salesorderCode = 'LBO160422000028';
+        salesorderCode = '@ViewBag.salesorderCode';
+
+        $.ajax({
+            type: "POST",
+            url: "/OrderList/GetDiscard4ItemPage",
+            data: JSON.stringify({
+                "salesorderCode": salesorderCode,
+            }),
+            async: false,
+            contentType: "application/json;charset=utf-8",
+            success: function (res) {
+                if (res.isSuccess) {
+                    //console.log('subpageHTML: ' + res.subpageHTML);
+                    $("#discard4item_subpage").html(res.subpageHTML);
+                }
+                else {
+                    $("#ManMade_Alert_Message").html(res.errorMessage);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+            }
+        });
+
+
+    }
+
+    //初始化癈四機回收四聯單
+    function init_discard4item() {
+
+        var salesorderCode = 'LBO160422000028';
+        salesorderCode = '@ViewBag.salesorderCode';
+
+        $.ajax({
+            type: "POST",
+            url: "/Discard4/InitData",
+            data: JSON.stringify({
+                "salesorderCode": salesorderCode,
+                "user_name": '',
+            }),
+            async: false,
+            contentType: "application/json;charset=utf-8",
+            success: function (res) {
+                if (res.isSuccess) {
+                    //console.log('subpageHTML: ' + res.subpageHTML);
+                    $("#discard4item_subpage").html(res.subpageHTML);
+                }
+                else {
+                    $("#ManMade_Alert_Message").html(res.errorMessage);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                }
+            }
+        });
+
+
+    }
+
+    @*點擊 確認 按鈕*@
+    function ShipPackage() {
+
+        $("#shipPackage").attr("disabled", "disabled");
+
+        @*訂單編號*@
+        salseOrderCode = "@(orderDetail != null ? orderDetail.CartID : "")";
+
+        @*訂單商品資訊*@
+        orderDetails = $("#jsonOrderDetails").val();
+
+        @*物流編號*@
+        trackingNumber = $("#text_TrackingNumber").val();
+
+        @*出貨地址*@
+        businessAddress = $("#text_BusinessAddress").val();
+
+        @*出貨日期*@
+        shipDateString = $("#text_ShipDateString").val();
+
+        @*物流公司編號*@
+        deliverID = $("#shipBy").val();
+
+        @*防止使用者誤按確認*@
+        $("#ManMade_Another_Alert_Message").html("是否確定出貨?");
+        ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+        $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+            //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件
+            if ($(this).hasClass("confirm")) {
+                console.log("confirm");
+                var confirmReault = true;
+                //需要做的事件
+                checkship(confirmReault)
+            }
+                //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件
+            else {
+                console.log("chancel");
+                var confirmReault = false;
+                //需要做的事件
+                checkship(confirmReault)
+            }
+            console.log(confirmReault);
+        });
+    }
+
+    @*出貨確認*@
+    function checkship(confirmReault) {
+        if (confirmReault) {
+            $.ajax({
+                type: "Post",
+                url: "/OrderList/ShipPackage",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    "salseOrderCode": salseOrderCode,
+                    "orderDetails": orderDetails,
+                    "trackingNumber": trackingNumber,
+                    "businessAddress": businessAddress,
+                    "shipDateString": shipDateString,
+                    "deliverID": deliverID
+                }),
+                beforeSend: function () {
+                    $('#shipPackageLoadingIMG').show();
+                },
+                success: function (res) {
+                    $('#shipPackageLoadingIMG').hide();
+                    if (res != "") {
+                        $("#shipPackage").removeAttr("disabled", "disabled");
+                        $("#ManMade_Alert_Message").html(res);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        return;
+                    }
+                    else {
+                        $("#ManMade_Alert_Message").html("操作成功。");
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        $("#shipmentWindow").data("kendoWindow").close();
+                    }
+
+                }
+            });
+        }
+        else {
+            $("#shipPackage").removeAttr("disabled", "disabled");
+        }
+    }
+    @*配達點擊確認*@
+    function ArrivalClickConfirm(confirmReault) {
+        if (confirmReault) {
+            console.log(confirmReault + "123");
+            @*訂單編號*@
+            salseOrderCode = "@(orderDetail != null ? orderDetail.CartID : "")";
+
+            $.ajax({
+                type: "Post",
+                url: "/OrderList/Arrival",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    "salseOrderCode": salseOrderCode
+                }),
+                beforeSend: function () {
+                    $('#arrivalLoadingIMG').show();
+                },
+                success: function (res) {
+                    $('#arrivalLoadingIMG').hide();
+                    if (res != "") {
+                        $("#arrival").removeAttr("disabled", "disabled");
+                        $("#ManMade_Alert_Message").html(res);
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        return;
+                    }
+                    else {
+                        $("#ManMade_Alert_Message").html("操作成功。");
+                        ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+                        $("#shipmentWindow").data("kendoWindow").close();
+                    }
+                }
+            });
+        }
+        else {
+            $("#arrival").removeAttr("disabled", "disabled");
+        }
+    }
+    @*點擊 配達 按鈕 *@
+    function Arrival() {
+        $("#arrival").attr("disabled", "disabled");
+        @*防止使用者誤按配達*@
+        $("#ManMade_Another_Alert_Message").html("是否確定配達?");
+        ManMade_confirm_chancel_window.data("kendoWindow").center().open();
+        $('#ManMade_confirm_chancel_window').find(".confirm,.cancel").click(function () {
+            //若本身包含.confirm，也就是確認紐，則做按下確認要做的事件 
+            if ($(this).hasClass("confirm")) {
+                console.log("confirm");
+                var confirmReault = true;
+                //需要做的事件 
+                ArrivalClickConfirm(confirmReault);
+            }
+                //若本身不包含.confirm，也就是取消紐，則做按下取消要做的事件 
+            else {
+                console.log("chancel");
+                var confirmReault = false;
+                //需要做的事件 
+                ArrivalClickConfirm(confirmReault);
+            }
+            console.log(confirmReault);
+        });
+    }
+
+    @*點擊 列印出貨明細 連結*@
+    function PrintPackageList() {
+        document.getElementById('printPackingList').submit();
+        setTimeout("Back()", 100);
+    }
+
+</script>

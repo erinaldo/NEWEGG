@@ -1,0 +1,300 @@
+﻿@{
+    TWNewEgg.DB.TWSELLERPORTALDB.Models.Seller_Financial GetFInfo = new TWNewEgg.DB.TWSELLERPORTALDB.Models.Seller_Financial();
+    if (ViewBag.SellerInfo != null)
+    {
+        GetFInfo = ViewBag.SellerInfo as TWNewEgg.DB.TWSELLERPORTALDB.Models.Seller_Financial;
+    }
+    List<TWNewEgg.API.Models.GetRegionListResult> Model = new List<TWNewEgg.API.Models.GetRegionListResult>();
+    if (ViewBag.GetRegionListResult != null)
+    {
+        Model = ViewBag.GetRegionListResult;
+    }
+}
+
+@*@model List<TWNewEgg.API.Models.GetRegionListResult>*@
+
+<style>
+    #dataForm ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #dataForm li {
+        margin-top: 10px;
+    }
+
+    td {
+        padding: 5px;
+        width: 500px;
+    }
+
+    .LegendID {
+        display: inline-block;
+        padding-right: 5px;
+        width: 110px;
+        text-align: right;
+        margin-left: -30px;
+    }
+
+    span.k-tooltip {
+        margin-left: 6px;
+    }
+
+    .k-textbox {
+        width: 175px;
+    }
+
+    .Info-section {
+        padding-top: 15px;
+        /*width: 1100px;*/
+        /*margin: 30px auto 50px;*/
+        background-color: white;
+    }
+
+    .actions {
+        padding-top: 10px;
+        margin-left: 15px;
+    }
+
+    #Title {
+        text-align: left;
+        font-weight: bold;
+    }
+    table.Content {
+          border: 1px solid rgb(216, 216, 216);
+          margin: 15px;
+          padding: 15px;
+          display: block;
+    }
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        var container = $("#dataForm");
+        kendo.init(container);
+    });
+
+    function ValidateNumber(e, pnumber) {
+        if (!/^\d+$/.test(pnumber)) {
+            e.value = /^\d+/.exec(e.value);
+        }
+        return false;
+    }
+
+    function ValidateSymbol(e, psymbol) {
+        if (!/^[a-zA-Z0-9]+$/.test(psymbol)) {
+            e.value = /^[a-zA-Z0-9]+/.exec(e.value);
+        }
+        return false;
+    }
+
+    function save(e) {
+        var validator = $("#dataForm").data("kendoValidator");
+
+        var SWIFTCode = $("#swift_code").val();
+        var BankName = $("#bankname").val();
+        var BankCode = $("#bankcode").val();
+        var BankBranchName = $("#bankbranchname").val();
+        var BankBranchCode = $("#bankbranchcode").val();
+        var BankAccountNumber = $("#bankaccountnumber").val();
+        var BankCountryCode = $("#BankCountryCode").val();
+        var BankState = $("#bankstate").val();
+        var BankAddress = $("#bankaddress").val();
+        var BankCity = $("#bankcity").val();
+        var BankZipCode = $("#bankzipcode").val();
+        var BeneficiaryName = $("#beneficiaryname").val();
+        var BeneficiaryCountryCode = $("#BeneficiaryCountryCode").val();
+        var BeneficiaryState = $("#beneficiarystate").val();
+        var BeneficiaryAddress = $("#beneficiaryaddress").val();
+        var BeneficiaryCity = $("#beneficiarycity").val();
+        var BeneficiaryZipcode = $("#beneficiaryzipcode").val();
+
+        if (!validator.validate())
+            return false;
+
+        if (validator.validate()) {
+            var UpdateInfo = {
+                "SWIFTCode": SWIFTCode,
+                "BankName": BankName,
+                "BankCode": BankCode,
+                "BankBranchName": BankBranchName,
+                "BankBranchCode": BankBranchCode,
+                "BankAccountNumber": BankAccountNumber,
+                "BankCountryCode": BankCountryCode,
+                "BankState": BankState,
+                "BankAddress": BankAddress,
+                "BankCity": BankCity,
+                "BankZipCode": BankZipCode,
+                "BeneficiaryName": BeneficiaryName,
+                "BeneficiaryCountryCode": BeneficiaryCountryCode,
+                "BeneficiaryState": BeneficiaryState,
+                "BeneficiaryAddress": BeneficiaryAddress,
+                "BeneficiaryCity": BeneficiaryCity,
+                "BeneficiaryZipcode": BeneficiaryZipcode
+            };
+        }
+        $(document).ajaxSend($.blockUI());
+        $(document).ajaxStop($.unblockUI);
+        $.ajax({
+            type: "POST",
+            url: "/AccountSettings/SaveFinancialInformation",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(UpdateInfo),
+            beforeSend: function () {
+                $('#loadingIMG').show();
+            },
+            success: function (res) {
+                $('#loadingIMG').hide();
+                if (res.SaveMessage != "") {
+                    //開啟window 
+                    $("#ManMade_Alert_Message").html(res.SaveMessage);
+                    ManMade_Alert_Message_Window.data("kendoWindow").center().open();
+
+                }
+            }
+
+        })
+    }
+
+</script>
+
+<div class="Info-section">
+    <fieldset class="noticeFieldset">
+        <legend class="noticeLegend">銀行與付款資訊</legend>
+        <form id="dataForm" data-role="validator" novalidate="novalidate">
+            <table class="Content">
+                <tr>
+                    <td>
+                        <label class="LegendID" for="swift_code">SWIFT碼:</label>
+                        <input type="text" class="k-textbox" name="SWIFT碼" id="swift_code" onkeyup="return ValidateSymbol(this,value)" maxLength="50" value="@GetFInfo.SWIFTCode" />
+                    </td>
+                    <td>
+                        <label class="LegendID" for="BankCountryCode">銀行所在國家/地區:</label>
+                        
+                                @(Html.Kendo().DropDownList()
+                        .Name("BankCountryCode")
+                        .DataTextField("Name")
+                        .DataValueField("CountryCode")
+                        .HtmlAttributes(new { style = "width:175px" })
+                        .BindTo(Model)
+                        .Value("TW")
+                        
+                        )
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="LegendID" for="bankname"><font style="color: red">* </font>銀行名稱:</label>
+                        <input type="text" class="k-textbox" name="銀行名稱" id="bankname" maxLength="60" value="@GetFInfo.BankName" required="required" />
+                    </td>
+                    <td>
+                        <label class="LegendID" for="bankstate">銀行所在州/省:</label>
+                        <input type="text" class="k-textbox" name="銀行所在州/省" id="bankstate" maxLength="20" value="@GetFInfo.BankState" />
+                    </td>                    
+                </tr>
+                <tr>
+                    <td>
+                        <label class="LegendID" for="bankcode"><font style="color: red">* </font>銀行代碼:</label>
+                        <input type="text" class="k-textbox" name="銀行代碼" id="bankcode" maxLength="15" value="@GetFInfo.BankCode" onkeyup="return ValidateNumber(this,value)" required="required" />
+                    </td>
+                     <td>
+                        <label class="LegendID" for="bankaddress">銀行地址:</label>
+                        <input type="text" class="k-textbox" name="銀行地址" id="bankaddress" maxLength="150" value="@GetFInfo.BankAddress" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="LegendID" for="bankbranchname"><font style="color: red">* </font>分行名稱:</label>
+                        <input type="text" class="k-textbox" name="分行名稱" id="bankbranchname" maxLength="60" value="@GetFInfo.BankBranchName" required="required" />
+                    </td>
+                    <td>
+                        <label class="LegendID" for="bankcity">銀行所在城市:</label>
+                        <input type="text" class="k-textbox" name="銀行所在城市" id="bankcity" maxLength="20" value="@GetFInfo.BankCity" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="LegendID" for="bankbranchcode"><font style="color: red">* </font>分行代碼:</label>
+                        <input type="text" class="k-textbox" name="分行代碼" id="bankbranchcode" maxLength="15" value="@GetFInfo.BankBranchCode" onkeyup="return ValidateNumber(this,value)" required="required" />
+                    </td>
+                    <td>
+                        <label class="LegendID" for="bankzipcode">銀行郵遞區號:</label>
+                        <input type="text" class="k-textbox" name="銀行郵遞區號" id="bankzipcode" onkeyup="return ValidateSymbol(this,value)" maxLength="10" value="@GetFInfo.BankZipCode" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="LegendID" for="bankaccountnumber"><font style="color: red">* </font>銀行帳號:</label>
+                        <input type="text" class="k-textbox" name="銀行帳號" id="bankaccountnumber" onkeyup="return ValidateNumber(this,value)" maxLength="50" value="@GetFInfo.BankAccountNumber" required="required" />
+                    </td>
+                    
+                </tr>                
+            </table>
+            <table class="Content">
+                <tr>
+                    <td>
+                        <label class="LegendID" for="beneficiaryname"><font style="color: red">* </font>帳戶名稱:</label>
+                        <input type="text" class="k-textbox" name="帳戶名稱" id="beneficiaryname" maxLength="60" value="@GetFInfo.BeneficiaryName" required="required" />
+                    </td>
+                    <td>
+                        <label class="LegendID" for="beneficiaryaddress"><font style="color: red">* </font>發票地址:</label>
+                        <input type="text" class="k-textbox" name="發票地址" id="beneficiaryaddress" maxLength="150" value="@GetFInfo.BeneficiaryAddress" required="required" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="LegendID" for="BeneficiaryCountryCode"><font style="color: red">* </font>發票國家/區域:</label>
+                        @*@(Html.Kendo().DropDownList()
+                        .Name("BeneficiaryCountryCode")
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .BindTo(new List<SelectListItem>() { 
+                            new SelectListItem(){
+                            Text="Taiwan",
+                            Value="TW"
+                            }
+                        }))*@
+                        @(Html.Kendo().DropDownList()
+                .Name("BeneficiaryCountryCode")
+                .DataTextField("Name")
+                .DataValueField("CountryCode")
+                .HtmlAttributes(new { style = "width:175px", required = "required" })
+                .BindTo(Model)
+                .Value("TW")
+                
+                )
+                    </td>
+                    <td>
+                        <label class="LegendID" for="beneficiarycity"><font style="color: red">* </font>發票城市:</label>
+                        <input type="text" class="k-textbox" name="發票城市" id="beneficiarycity" maxLength="20" value="@GetFInfo.BeneficiaryCity" required="required" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="LegendID" for="beneficiarystate"><font style="color: red">* </font>發票州/省:</label>
+                        <input type="text" class="k-textbox" name="發票州/省" id="beneficiarystate" maxLength="20" value="@GetFInfo.BeneficiaryState" required="required" />
+                    </td>
+                    <td>
+                        <label class="LegendID" for="beneficiaryzipcode"><font style="color: red">* </font>發票郵遞區號:</label>
+                        <input type="text" class="k-textbox" name="發票郵遞區號" id="beneficiaryzipcode" onkeyup="return ValidateSymbol(this,value)" maxLength="10" value="@GetFInfo.BeneficiaryZipcode" required="required" />
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td  class="actions">
+                        <button type="button" data-role="button" data-sprite-css-class="k-icon k-i-tick" data-click='save' id="save">儲存</button>
+                    @*</td>
+                    <td class="actions"> *@
+                        <button type="reset" data-role="button" data-sprite-css-class="k-icon k-i-close">取消</button>
+                 @*   </td>
+                    <td  class="actions">*@
+                        <div id="loadingIMG" style="display:none;">資料處理中，請稍後。</div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+</div>
+

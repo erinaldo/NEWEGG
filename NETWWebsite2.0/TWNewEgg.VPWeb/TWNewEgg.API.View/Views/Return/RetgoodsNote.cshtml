@@ -1,0 +1,106 @@
+﻿@model TWNewEgg.API.Models.RetgoodNote
+
+@if(Model != null)
+{
+    <div>
+        <table>
+            <tr>
+                <td style="text-align:right; min-width:80px;">退貨狀態：</td>
+                <td style="text-align:left;">
+                    @(Html.Kendo().DropDownList()
+                        .Name("reportRetgoodStatus")
+                        .DataTextField("StatusDes")
+                        .DataValueField("StatusId")
+                        .OptionLabel("請選擇")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("GetRetgoodStatus", "Return");
+                            });
+                        })
+                        .Events(ev=> ev.Change("RetgoodStatusCheck"))
+                        .Value(ViewBag.Note_Status)
+                    )
+                    <span class="k-widget k-tooltip k-tooltip-validation k-invalid-msg" data-for="reportRetgoodStatus" role="alert" id="errreportRetgoodStatusMsg" style="display:none;"></span>
+                </td>
+
+                <td style="text-align:right; width:80px; min-width:80px;">備註說明：</td>
+                <td style="text-align:left; width:95%; min-width:200px;">
+                    <input type="text" maxlength="50" id="NoteDes" class="k-textbox" style="width:95%; min-width:200px;" />
+                    <input type="hidden" id="RetgoodsNote_CartID" value="@ViewBag.RetgoodsNote_CartID" />
+                </td>
+            </tr>
+        </table>
+    
+        
+
+        <table style="margin-top:10px;">
+            <tr>
+                <td style="text-align:right; vertical-align:top; min-width:80px;">更新紀錄：</td>
+                <td style="text-align:left;" >
+                    <div id="noteContex" style="overflow:auto; border-radius:5px; border:1px solid #C4C4C4; padding:5px; white-space:nowrap;">
+                        @Html.Raw(Model.Note_Des)
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="margin-top:20px; text-align:center;">
+            <table style="width:100%; min-width:310px;">
+                <tr>
+                     <td style="width:170px; min-width:100px; text-align:right;">
+                        @(Html.Kendo().Button()
+                            .Name("SaveNote")
+                            .Content("存檔")
+                            .HtmlAttributes(new { style="width:150px; min-width:80px;"})
+                            .Events(ev => ev.Click("SaveNoteClick"))
+                        )
+                    </td>
+                    <td style="width:10px; min-width:10px;"></td>
+                    <td style="width:170px; min-width:100px; text-align:left;">
+                        @(Html.Kendo().Button()
+                            .Name("CancelNote")
+                            .Content("取消")
+                            .HtmlAttributes(new { style="width:150px; min-width:80px;"})
+                            .Events(ev => ev.Click("CancelNoteClick"))
+                        )
+                        <span id="RetNoteDataProcessing" style="display:none;">
+                            <img src="~/Content/Img/loading.gif" height="30"/>
+                            資料處理中，請稍後...
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div id="errorMessage">資料讀取失敗。</div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        @{
+            if (Model == null)
+            {
+                @*錯誤訊息位置調整*@
+                <text>$("#errorMessage").css("width", "100%");
+                $("#errorMessage").css("text-align", "center");
+                $("#errorMessage").css("margin-top", Math.floor(($(sendCartOrReportWindow).height() / 2) - 8) + "px");</text>
+            }
+        }
+
+        @*計算備註說明欄位寬度，若太小，則給定一個固定的大小*@
+        if (parseInt(Math.floor($("#sendCartOrReportWindow").width()) - 110) > 430) {
+            $("#noteContex").css("width", (Math.floor($("#sendCartOrReportWindow").width()) - 110) + "px");
+        }
+        else {
+            $("#noteContex").css("width", "430px");
+        }
+
+        @*計算備註說明欄位高度*@
+        $("#noteContex").css("height", (Math.floor($("#sendCartOrReportWindow").height()) - 125) + "px");
+    });
+</script>
